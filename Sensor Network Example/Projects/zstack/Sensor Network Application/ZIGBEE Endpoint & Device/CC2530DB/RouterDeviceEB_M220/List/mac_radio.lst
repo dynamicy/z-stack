@@ -1,0 +1,1502 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                30/Nov/2010  15:55:53 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fina #
+#                          l Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Components\mac\low_level\s #
+#                          rf04\mac_radio.c                                   #
+#    Command line       =  -f "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wRouter. #
+#                          cfg" (-DCPU32MHZ -DROOT=__near_func                #
+#                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE -DRTR_NWK         #
+#                          -DBLINK_LEDS) -f "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³ #
+#                          f¥úºÐ(CC2530)_Final Version\ZIGBEE                 #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig. #
+#                          cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0             #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg #
+#                          " (-DZCL_READ -DZCL_WRITE -DZCL_BASIC              #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE                       #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Components\mac\low_level\ #
+#                          srf04\mac_radio.c" -D LCD_SUPPORTED=DEBUG -D       #
+#                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_APP_FUNC -D        #
+#                          MT_SYS_FUNC -D MT_ZDO_FUNC -D MT_TASK -D           #
+#                          xPOWER_SAVING -D xNV_RESTORE -D End_Device -D      #
+#                          M220 -D xHAL_KEYPAD -D xPA2591 -lC                 #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M220\List\" -lA     #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M220\List\"         #
+#                          --diag_suppress Pe001,Pa010 -o                     #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M220\Obj\" -e       #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\ #
+#                          ¤½¥q¥X³f¥úºÐ(CC2530)_Final Version\ZIGBEE          #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint & Device\CC2530DB\"    #
+#                          -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\SOURCE\" -I                     #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\SOURCE\" -I                  #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I       #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\" -I  #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INCL #
+#                          UDE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC #
+#                          2530)_Final Version\ZIGBEE                         #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MODU #
+#                          LE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2 #
+#                          530)_Final Version\ZIGBEE                          #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TARG #
+#                          ET\CC2530EB\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³ #
+#                          f¥úºÐ(CC2530)_Final Version\ZIGBEE                 #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MCU #
+#                          \CCSOC\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\INC #
+#                          LUDE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(C #
+#                          C2530)_Final Version\ZIGBEE                        #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\AF #
+#                          \" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC253 #
+#                          0)_Final Version\ZIGBEE Example\CC2530_ZStack-2.3. #
+#                          0-1.4.0\Sensor Network Example\Projects\zstack\Sen #
+#                          sor Network Application\ZIGBEE Endpoint &          #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\NW #
+#                          K\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SE #
+#                          C\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SA #
+#                          PI\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2 #
+#                          530)_Final Version\ZIGBEE                          #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SY #
+#                          S\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZC #
+#                          L\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZD #
+#                          O\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8W #
+#                          \" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC253 #
+#                          0)_Final Version\ZIGBEE Example\CC2530_ZStack-2.3. #
+#                          0-1.4.0\Sensor Network Example\Projects\zstack\Sen #
+#                          sor Network Application\ZIGBEE Endpoint &          #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"   #
+#                          -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SADDR\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SDATA\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INCL #
+#                          UDE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC #
+#                          2530)_Final Version\ZIGBEE                         #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIGH #
+#                          _LEVEL\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³ #
+#                          f¥úºÐ(CC2530)_Final Version\ZIGBEE                 #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR               #
+#                          Systems\Embedded Workbench for MCS-51              #
+#                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded       #
+#                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz    #
+#    List file          =  D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fina #
+#                          l Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Projects\zstack\Sensor     #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M220\List\mac_radio #
+#                          .lst                                               #
+#    Object file        =  D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fina #
+#                          l Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Projects\zstack\Sensor     #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M220\Obj\mac_radio. #
+#                          r51                                                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network Example\Components\mac\low_level\srf04\mac_radio.c
+      1          /**************************************************************************************************
+      2            Filename:       mac_radio.c
+      3            Revised:        $Date: 2007-09-11 10:58:41 -0700 (Tue, 11 Sep 2007) $
+      4            Revision:       $Revision: 15371 $
+      5          
+      6            Description:    Describe the purpose and contents of the file.
+      7          
+      8            Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
+      9          
+     10            Should you have any questions regarding your right to use this Software,
+     11            contact Texas Instruments Incorporated at www.TI.com.
+     12          **************************************************************************************************/
+     13          
+     14          /* ------------------------------------------------------------------------------------------------
+     15           *                                          Includes
+     16           * ------------------------------------------------------------------------------------------------
+     17           */
+     18          
+     19          /* hal */
+     20          #include "hal_types.h"
+     21          
+     22          /* high-level */
+     23          #include "mac_pib.h"
+     24          
+     25          /* exported low-level */
+     26          #include "mac_low_level.h"
+     27          
+     28          /* low-level specific */
+     29          #include "mac_radio.h"
+     30          #include "mac_tx.h"
+     31          #include "mac_rx.h"
+     32          #include "mac_rx_onoff.h"
+     33          #include "mac_sleep.h"
+     34          #include "mac_backoff_timer.h"
+     35          
+     36          /* target specific */
+     37          #include "mac_radio_defs.h"
+
+   \                                 In  segment SFR_AN, at 0xa8
+   \   union <unnamed> volatile __sfr _A_IEN0
+   \                     _A_IEN0:
+   \   000000                DS 1
+     38          
+     39          /* debug */
+     40          #include "mac_assert.h"
+     41          
+     42          
+     43          /* ------------------------------------------------------------------------------------------------
+     44           *                                          Includes
+     45           * ------------------------------------------------------------------------------------------------
+     46           */
+     47          #define ED_RF_POWER_MIN_DBM   (MAC_RADIO_RECEIVER_SENSITIVITY_DBM + MAC_SPEC_ED_MIN_DBM_ABOVE_RECEIVER_SENSITIVITY)
+     48          #define ED_RF_POWER_MAX_DBM   MAC_RADIO_RECEIVER_SATURATION_DBM
+     49          
+     50          
+     51          /* ------------------------------------------------------------------------------------------------
+     52           *                                        Global Variables
+     53           * ------------------------------------------------------------------------------------------------
+     54           */
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     55          uint8 macPhyTxPower;
+   \                     macPhyTxPower:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     56          uint8 macPhyChannel;
+   \                     macPhyChannel:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     57          
+     58          
+     59          /* ------------------------------------------------------------------------------------------------
+     60           *                                        Local Variables
+     61           * ------------------------------------------------------------------------------------------------
+     62           */
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     63          static uint8 reqChannel;
+   \                     reqChannel:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     64          static uint8 reqTxPower;
+   \                     reqTxPower:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     65          
+     66          
+     67          /* ------------------------------------------------------------------------------------------------
+     68           *                                        Local Functions
+     69           * ------------------------------------------------------------------------------------------------
+     70           */
+     71          static uint8 radioComputeED(int8 rssiDbm);
+     72          
+     73          
+     74          /**************************************************************************************************
+     75           * @fn          macRadioInit
+     76           *
+     77           * @brief       Initialize radio software.
+     78           *
+     79           * @param       none
+     80           *
+     81           * @return      none
+     82           **************************************************************************************************
+     83           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     84          MAC_INTERNAL_API void macRadioInit(void)
+   \                     macRadioInit:
+     85          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     86            /* variable initialization for this module */
+     87            reqChannel    = MAC_RADIO_CHANNEL_DEFAULT;
+   \   000004   740B         MOV     A,#0xb
+   \   000006   90....       MOV     DPTR,#reqChannel
+   \   000009   F0           MOVX    @DPTR,A
+     88            macPhyChannel = MAC_RADIO_CHANNEL_DEFAULT;
+   \   00000A   90....       MOV     DPTR,#macPhyChannel
+   \   00000D   F0           MOVX    @DPTR,A
+     89            reqTxPower    = MAC_RADIO_TX_POWER_DEFAULT;
+   \   00000E   74F5         MOV     A,#-0xb
+   \   000010   90....       MOV     DPTR,#reqTxPower
+   \   000013   F0           MOVX    @DPTR,A
+     90            macPhyTxPower = MAC_RADIO_TX_POWER_DEFAULT;
+   \   000014   90....       MOV     DPTR,#macPhyTxPower
+   \   000017   80..         SJMP    ??Subroutine3_0
+     91          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine3_0:
+   \   000000   F0           MOVX    @DPTR,A
+   \   000001                REQUIRE ??Subroutine4_0
+   \   000001                ; // Fall through to label ??Subroutine4_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine4_0:
+   \   000000   D083         POP     DPH
+   \   000002   D082         POP     DPL
+   \   000004   02....       LJMP    ?BRET
+     92          
+     93          
+     94          /**************************************************************************************************
+     95           * @fn          macRadioReset
+     96           *
+     97           * @brief       Resets the radio module.
+     98           *
+     99           * @param       none
+    100           *
+    101           * @return      none
+    102           **************************************************************************************************
+    103           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    104          MAC_INTERNAL_API void macRadioReset(void)
+   \                     macRadioReset:
+    105          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    106            macRadioStopScan();
+   \   000004                ; Setup parameters for call to function macRadioStopScan
+   \   000004   12....       LCALL   ??macRadioStopScan?relay
+    107            macRadioEnergyDetectStop();
+   \   000007                ; Setup parameters for call to function macRadioEnergyDetectStop
+   \   000007   12....       LCALL   ??macRadioEnergyDetectStop?relay
+    108          }
+   \   00000A   80..         SJMP    ??Subroutine4_0
+    109          
+    110          
+    111          /**************************************************************************************************
+    112           * @fn          macRadioRandomByte
+    113           *
+    114           * @brief       Return a random byte derived from previously set random seed.
+    115           *
+    116           * @param       none
+    117           *
+    118           * @return      a random byte
+    119           **************************************************************************************************
+    120           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    121          MAC_INTERNAL_API uint8 macRadioRandomByte(void)
+   \                     macRadioRandomByte:
+    122          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    123            return(MAC_RADIO_RANDOM_BYTE());
+   \   000004                ; Setup parameters for call to function macMcuRandomByte
+   \   000004   12....       LCALL   ??macMcuRandomByte?relay
+   \   000007   80..         SJMP    ??Subroutine4_0
+    124          }
+    125          
+    126          
+    127          /**************************************************************************************************
+    128           * @fn          macRadioSetPanCoordinator
+    129           *
+    130           * @brief       Configure the pan coordinator status of the radio
+    131           *
+    132           * @param       panCoordFlag - non-zero to configure radio to be pan coordinator
+    133           *                             zero to configure radio as NON pan coordinator
+    134           *
+    135           * @return      none
+    136           **************************************************************************************************
+    137           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    138          MAC_INTERNAL_API void macRadioSetPanCoordinator(uint8 panCoordFlag)
+   \                     macRadioSetPanCoordinator:
+    139          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    140            /* abstracted radio configuration */
+    141            MAC_RADIO_SET_PAN_COORDINATOR(panCoordFlag);
+   \   000004   906180       MOV     DPTR,#0x6180
+   \   000007   E0           MOVX    A,@DPTR
+   \   000008   FA           MOV     R2,A
+   \   000009   E9           MOV     A,R1
+   \   00000A   6004         JZ      ??macRadioSetPanCoordinator_0
+   \   00000C   D2F0         SETB    B.0
+   \   00000E   8002         SJMP    ??macRadioSetPanCoordinator_1
+   \                     ??macRadioSetPanCoordinator_0:
+   \   000010   C2F0         CLR     B.0
+   \                     ??macRadioSetPanCoordinator_1:
+   \   000012   A2F0         MOV     C,B.0
+   \   000014   E4           CLR     A
+   \   000015   92E0         MOV     0xE0 /* A   */.0,C
+   \   000017   C3           CLR     C
+   \   000018   33           RLC     A
+   \   000019   C0E0         PUSH    A
+   \   00001B   74FD         MOV     A,#-0x3
+   \   00001D   5A           ANL     A,R2
+   \   00001E   FA           MOV     R2,A
+   \   00001F   D0E0         POP     A
+   \   000021   4A           ORL     A,R2
+   \   000022   80..         SJMP    ??Subroutine3_0
+    142          }
+    143          
+    144          
+    145          /**************************************************************************************************
+    146           * @fn          macRadioSetPanID
+    147           *
+    148           * @brief       Set the pan ID on the radio.
+    149           *
+    150           * @param       panID - 16 bit PAN identifier
+    151           *
+    152           * @return      none
+    153           **************************************************************************************************
+    154           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    155          void macRadioSetPanID(uint16 panID)
+   \                     macRadioSetPanID:
+    156          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    157            /* abstracted radio configuration */
+    158            MAC_RADIO_SET_PAN_ID(panID);
+   \   000004   EA           MOV     A,R2
+   \   000005   906172       MOV     DPTR,#0x6172
+   \   000008   F0           MOVX    @DPTR,A
+   \   000009   EB           MOV     A,R3
+   \   00000A   80..         SJMP    ?Subroutine0
+    159          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   906173       MOV     DPTR,#0x6173
+   \   000003                REQUIRE ??Subroutine3_0
+   \   000003                ; // Fall through to label ??Subroutine3_0
+    160          
+    161          
+    162          /**************************************************************************************************
+    163           * @fn          macRadioSetShortAddr
+    164           *
+    165           * @brief       Set the short addrss on the radio.
+    166           *
+    167           * @param       shortAddr - 16 bit short address
+    168           *
+    169           * @return      none
+    170           **************************************************************************************************
+    171           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    172          MAC_INTERNAL_API void macRadioSetShortAddr(uint16 shortAddr)
+   \                     macRadioSetShortAddr:
+    173          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    174            /* abstracted radio configuration */
+    175            MAC_RADIO_SET_SHORT_ADDR(shortAddr);
+   \   000004   EA           MOV     A,R2
+   \   000005   906174       MOV     DPTR,#0x6174
+   \   000008   F0           MOVX    @DPTR,A
+   \   000009   EB           MOV     A,R3
+   \   00000A   906175       MOV     DPTR,#0x6175
+   \   00000D   80..         SJMP    ??Subroutine3_0
+    176          }
+    177          
+    178          
+    179          /**************************************************************************************************
+    180           * @fn          macRadioSetIEEEAddr
+    181           *
+    182           * @brief       Set the IEEE address on the radio.
+    183           *
+    184           * @param       pIEEEAddr - pointer to array holding 64 bit IEEE address; array must be little
+    185           *                          endian format (starts with lowest signficant byte)
+    186           *
+    187           * @return      none
+    188           **************************************************************************************************
+    189           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    190          MAC_INTERNAL_API void macRadioSetIEEEAddr(uint8 * pIEEEAddr)
+   \                     macRadioSetIEEEAddr:
+    191          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+   \   000004   EA           MOV     A,R2
+   \   000005   FC           MOV     R4,A
+   \   000006   EB           MOV     A,R3
+   \   000007   FD           MOV     R5,A
+    192            /* abstracted radio configuration */
+    193            MAC_RADIO_SET_IEEE_ADDR(pIEEEAddr);
+   \   000008                ; Setup parameters for call to function macMemWriteRam
+   \   000008   7908         MOV     R1,#0x8
+   \   00000A   7A6A         MOV     R2,#0x6a
+   \   00000C   7B61         MOV     R3,#0x61
+   \   00000E   12....       LCALL   ??macMemWriteRam?relay
+    194          }
+   \   000011   80..         SJMP    ??Subroutine4_0
+    195          
+    196          
+    197          /**************************************************************************************************
+    198           * @fn          macRadioSetTxPower
+    199           *
+    200           * @brief       Set transmitter power of the radio.
+    201           *
+    202           * @param       txPower - the minus dBm for power but as a postive integer (or if configured
+    203           *                        for it, txPower is the raw register value). If PA/LNA is installed
+    204           *                        then txPower becomes positive dBm.
+    205           *
+    206           * @return      none
+    207           **************************************************************************************************
+    208           */
+    209          #ifndef HAL_MAC_USE_REGISTER_POWER_VALUES
+    210          /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    211          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    212          MAC_INTERNAL_API void macRadioSetTxPower(uint8 txPower)
+   \                     macRadioSetTxPower:
+    213          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    214            halIntState_t  s;
+    215          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590
+    216            const uint8 CODE *pTable = macRadioDefsTxPwrTables[macRadioDefsRefTableId >> 4];
+    217          #elif defined HAL_PA_LNA || defined HAL_PA_LNA_CC2590
+    218            const uint8 CODE *pTable = macRadioDefsTxPwrTables[0];
+    219          #else
+    220            const uint8 CODE *pTable = macRadioDefsTxPwrBare;
+    221          #endif
+    222          
+    223            /* if the selected dBm is out of range, use the closest available */
+    224            if ((int8)txPower > (int8)pTable[MAC_RADIO_DEFS_TBL_TXPWR_FIRST_ENTRY])
+   \   000004   90....       MOV     DPTR,#macRadioDefsTxPwrBare
+   \   000007   E4           CLR     A
+   \   000008   93           MOVC    A,@A+DPTR
+   \   000009   C3           CLR     C
+   \   00000A   99           SUBB    A,R1
+   \   00000B   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   00000D   65D0         XRL     A,PSW
+   \   00000F   33           RLC     A
+   \   000010   5004         JNC     ??macRadioSetTxPower_0
+    225            {
+    226              /* greater than base value -- out of table range */
+    227              txPower = pTable[MAC_RADIO_DEFS_TBL_TXPWR_FIRST_ENTRY];
+   \   000012   E4           CLR     A
+   \   000013   93           MOVC    A,@A+DPTR
+   \   000014   8011         SJMP    ??macRadioSetTxPower_1
+    228            }
+    229            else if ((int8)txPower < (int8)pTable[MAC_RADIO_DEFS_TBL_TXPWR_LAST_ENTRY])
+   \                     ??macRadioSetTxPower_0:
+   \   000016   90....       MOV     DPTR,#(macRadioDefsTxPwrBare + 1)
+   \   000019   E4           CLR     A
+   \   00001A   93           MOVC    A,@A+DPTR
+   \   00001B   FA           MOV     R2,A
+   \   00001C   E9           MOV     A,R1
+   \   00001D   C3           CLR     C
+   \   00001E   9A           SUBB    A,R2
+   \   00001F   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   000021   65D0         XRL     A,PSW
+   \   000023   33           RLC     A
+   \   000024   5002         JNC     ??macRadioSetTxPower_2
+    230            {
+    231              /* smaller than the lowest power level -- out of table range */
+    232              txPower = pTable[MAC_RADIO_DEFS_TBL_TXPWR_LAST_ENTRY];
+   \   000026   EA           MOV     A,R2
+   \                     ??macRadioSetTxPower_1:
+   \   000027   F9           MOV     R1,A
+    233            }
+    234          
+    235            /*
+    236             *  Set the global variable reqTxPower.  This variable is referenced
+    237             *  by the function macRadioUpdateTxPower() to write the radio register.
+    238             *
+    239             *  A lookup table is used to translate the power level to the register
+    240             *  value.
+    241             */
+    242            HAL_ENTER_CRITICAL_SECTION(s);
+   \                     ??macRadioSetTxPower_2:
+   \   000028   A2AF         MOV     C,0xa8.7
+   \   00002A   E4           CLR     A
+   \   00002B   92E0         MOV     0xE0 /* A   */.0,C
+   \   00002D   FA           MOV     R2,A
+   \   00002E   C2AF         CLR     0xa8.7
+    243            /* When calculating index to the power register value table,
+    244             * either txPower (of uint8 type) has to be explicitly type-casted to int8
+    245             * or the subtraction expression has to be type-casted to uint8 to work
+    246             * with the integral promotions.
+    247             * The latter is more code size efficient and hence the latter is used.
+    248             */
+    249            {
+    250              uint8 index = pTable[MAC_RADIO_DEFS_TBL_TXPWR_FIRST_ENTRY] - txPower
+    251                + MAC_RADIO_DEFS_TBL_TXPWR_ENTRIES;
+    252              reqTxPower = pTable[index];
+   \   000030   90....       MOV     DPTR,#macRadioDefsTxPwrBare
+   \   000033   E4           CLR     A
+   \   000034   93           MOVC    A,@A+DPTR
+   \   000035   C3           CLR     C
+   \   000036   99           SUBB    A,R1
+   \   000037   2402         ADD     A,#0x2
+   \   000039   24..         ADD     A,#(macRadioDefsTxPwrBare & 0xff)
+   \   00003B   F582         MOV     DPL,A
+   \   00003D   E4           CLR     A
+   \   00003E   34..         ADDC    A,#((macRadioDefsTxPwrBare >> 8) & 0xff)
+   \   000040   F583         MOV     DPH,A
+   \   000042   E4           CLR     A
+   \   000043   93           MOVC    A,@A+DPTR
+   \   000044   90....       MOV     DPTR,#reqTxPower
+   \   000047   F0           MOVX    @DPTR,A
+    253            }
+    254            HAL_EXIT_CRITICAL_SECTION(s);
+   \   000048   EA           MOV     A,R2
+   \   000049   A2E0         MOV     C,0xE0 /* A   */.0
+   \   00004B   92AF         MOV     0xa8.7,C
+    255          
+    256            /* update the radio power setting */
+    257            macRadioUpdateTxPower();
+   \   00004D                ; Setup parameters for call to function macRadioUpdateTxPower
+   \   00004D   12....       LCALL   ??macRadioUpdateTxPower?relay
+    258          }
+   \   000050   80..         SJMP    ??Subroutine4_0
+   \   000052                REQUIRE _A_IEN0
+    259          
+    260          #else
+    261          /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    262          
+    263          MAC_INTERNAL_API void macRadioSetTxPower(uint8 txPower)
+    264          {
+    265            halIntState_t  s;
+    266          
+    267            /* same as above but with no lookup table, use raw register value */
+    268            HAL_ENTER_CRITICAL_SECTION(s);
+    269            reqTxPower = txPower;
+    270            HAL_EXIT_CRITICAL_SECTION(s);
+    271          
+    272            /* update the radio power setting */
+    273            macRadioUpdateTxPower();
+    274          }
+    275          
+    276          #endif
+    277          
+    278          
+    279          /**************************************************************************************************
+    280           * @fn          macRadioUpdateTxPower
+    281           *
+    282           * @brief       Update the radio's transmit power if a new power level has been requested
+    283           *
+    284           * @param       reqTxPower - file scope variable that holds the last request power level
+    285           *              macPhyTxPower - global variable that holds radio's set power level
+    286           *
+    287           * @return      none
+    288           **************************************************************************************************
+    289           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    290          MAC_INTERNAL_API void macRadioUpdateTxPower(void)
+   \                     macRadioUpdateTxPower:
+    291          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    292            halIntState_t  s;
+    293          
+    294            /*
+    295             *  If the requested power setting is different from the actual radio setting,
+    296             *  attempt to udpate to the new power setting.
+    297             */
+    298            HAL_ENTER_CRITICAL_SECTION(s);
+   \   000004   A2AF         MOV     C,0xa8.7
+   \   000006   E4           CLR     A
+   \   000007   92E0         MOV     0xE0 /* A   */.0,C
+   \   000009   FB           MOV     R3,A
+   \   00000A   C2AF         CLR     0xa8.7
+    299            if (reqTxPower != macPhyTxPower)
+   \   00000C   90....       MOV     DPTR,#reqTxPower
+   \   00000F   E0           MOVX    A,@DPTR
+   \   000010   FA           MOV     R2,A
+   \   000011   90....       MOV     DPTR,#macPhyTxPower
+   \   000014   E0           MOVX    A,@DPTR
+   \   000015   6A           XRL     A,R2
+   \   000016   601A         JZ      ??macRadioUpdateTxPower_0
+    300            {
+    301              /*
+    302               *  Radio power cannot be updated when the radio is physically transmitting.
+    303               *  If there is a possibility radio is transmitting, do not change the power
+    304               *  setting.  This function will be called again after the current transmit
+    305               *  completes.
+    306               */
+    307              if (!macRxOutgoingAckFlag && !MAC_TX_IS_PHYSICALLY_ACTIVE())
+   \   000018   90....       MOV     DPTR,#macRxOutgoingAckFlag
+   \   00001B   E0           MOVX    A,@DPTR
+   \   00001C   7014         JNZ     ??macRadioUpdateTxPower_0
+   \   00001E   90....       MOV     DPTR,#macTxActive
+   \   000021   E0           MOVX    A,@DPTR
+   \   000022   A2E7         MOV     C,0xE0 /* A   */.7
+   \   000024   400C         JC      ??macRadioUpdateTxPower_0
+    308              {
+    309                /*
+    310                 *  Set new power level;  update the shadow value and write
+    311                 *  the new value to the radio hardware.
+    312                 */
+    313                macPhyTxPower = reqTxPower;
+   \   000026   90....       MOV     DPTR,#reqTxPower
+   \   000029   E0           MOVX    A,@DPTR
+   \   00002A   90....       MOV     DPTR,#macPhyTxPower
+   \   00002D   F0           MOVX    @DPTR,A
+    314                MAC_RADIO_SET_TX_POWER(macPhyTxPower);
+   \   00002E   906190       MOV     DPTR,#0x6190
+   \   000031   F0           MOVX    @DPTR,A
+    315              }
+    316            }
+    317            HAL_EXIT_CRITICAL_SECTION(s);
+   \                     ??macRadioUpdateTxPower_0:
+   \   000032   EB           MOV     A,R3
+   \   000033   A2E0         MOV     C,0xE0 /* A   */.0
+   \   000035   92AF         MOV     0xa8.7,C
+    318          }
+   \   000037   02....       LJMP    ??Subroutine4_0 & 0xFFFF
+   \   00003A                REQUIRE _A_IEN0
+    319          
+    320          
+    321          /**************************************************************************************************
+    322           * @fn          macRadioSetChannel
+    323           *
+    324           * @brief       Set radio channel.
+    325           *
+    326           * @param       channel - channel number, valid range is 11 through 26
+    327           *
+    328           * @return      none
+    329           **************************************************************************************************
+    330           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    331          MAC_INTERNAL_API void macRadioSetChannel(uint8 channel)
+   \                     macRadioSetChannel:
+    332          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
+   \   000006   FE           MOV     R6,A
+    333            halIntState_t  s;
+    334          
+    335            MAC_ASSERT((channel >= 11) && (channel <= 28));  /* illegal channel */
+   \   000007   C3           CLR     C
+   \   000008   940B         SUBB    A,#0xb
+   \   00000A   4006         JC      ??macRadioSetChannel_0
+   \   00000C   EE           MOV     A,R6
+   \   00000D   C3           CLR     C
+   \   00000E   941D         SUBB    A,#0x1d
+   \   000010   4003         JC      ??macRadioSetChannel_1
+   \                     ??macRadioSetChannel_0:
+   \   000012                ; Setup parameters for call to function halAssertHandler
+   \   000012   12....       LCALL   ??halAssertHandler?relay
+    336          
+    337            /* critical section to make sure transmit does not start while updating channel */
+    338            HAL_ENTER_CRITICAL_SECTION(s);
+   \                     ??macRadioSetChannel_1:
+   \   000015   A2AF         MOV     C,0xa8.7
+   \   000017   E4           CLR     A
+   \   000018   92E0         MOV     0xE0 /* A   */.0,C
+   \   00001A   FF           MOV     R7,A
+   \   00001B   C2AF         CLR     0xa8.7
+    339          
+    340            /* set requested channel */
+    341            reqChannel = channel;
+   \   00001D   EE           MOV     A,R6
+   \   00001E   90....       MOV     DPTR,#reqChannel
+   \   000021   F0           MOVX    @DPTR,A
+    342          
+    343            /*
+    344             *  If transmit is not active, update the radio hardware immediately.  If transmit is active,
+    345             *  the channel will be updated at the end of the current transmit.
+    346             */
+    347            if (!macTxActive)
+   \   000022   90....       MOV     DPTR,#macTxActive
+   \   000025   E0           MOVX    A,@DPTR
+   \   000026   7003         JNZ     ??macRadioSetChannel_2
+    348            {
+    349              macRadioUpdateChannel();
+   \   000028                ; Setup parameters for call to function macRadioUpdateChannel
+   \   000028   12....       LCALL   ??macRadioUpdateChannel?relay
+    350            }
+    351          
+    352            HAL_EXIT_CRITICAL_SECTION(s);
+   \                     ??macRadioSetChannel_2:
+   \   00002B   EF           MOV     A,R7
+   \   00002C   A2E0         MOV     C,0xE0 /* A   */.0
+   \   00002E   92AF         MOV     0xa8.7,C
+    353          }
+   \   000030                REQUIRE ?Subroutine1
+   \   000030                REQUIRE _A_IEN0
+   \   000030                ; // Fall through to label ?Subroutine1
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   7F01         MOV     R7,#0x1
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+    354          
+    355          
+    356          /**************************************************************************************************
+    357           * @fn          macRadioUpdateChannel
+    358           *
+    359           * @brief       Update the radio channel if a new channel has been requested.
+    360           *
+    361           * @param       none
+    362           *
+    363           * @return      none
+    364           **************************************************************************************************
+    365           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    366          MAC_INTERNAL_API void macRadioUpdateChannel(void)
+   \                     macRadioUpdateChannel:
+    367          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    368            halIntState_t  s;
+    369          
+    370            MAC_ASSERT(!macTxActive); /* cannot change channel during a transmit */
+   \   000004   90....       MOV     DPTR,#macTxActive
+   \   000007   E0           MOVX    A,@DPTR
+   \   000008   6003         JZ      ??macRadioUpdateChannel_0
+   \   00000A                ; Setup parameters for call to function halAssertHandler
+   \   00000A   12....       LCALL   ??halAssertHandler?relay
+    371          
+    372            /* if the channel has changed, set the radio to the new channel */
+    373            HAL_ENTER_CRITICAL_SECTION(s);
+   \                     ??macRadioUpdateChannel_0:
+   \   00000D   A2AF         MOV     C,0xa8.7
+   \   00000F   E4           CLR     A
+   \   000010   92E0         MOV     0xE0 /* A   */.0,C
+   \   000012   FB           MOV     R3,A
+   \   000013   C2AF         CLR     0xa8.7
+    374            if (reqChannel != macPhyChannel)
+   \   000015   90....       MOV     DPTR,#reqChannel
+   \   000018   E0           MOVX    A,@DPTR
+   \   000019   FA           MOV     R2,A
+   \   00001A   90....       MOV     DPTR,#macPhyChannel
+   \   00001D   E0           MOVX    A,@DPTR
+   \   00001E   6A           XRL     A,R2
+   \   00001F   6026         JZ      ??macRadioUpdateChannel_1
+    375            {
+    376              macPhyChannel = reqChannel;
+   \   000021   90....       MOV     DPTR,#reqChannel
+   \   000024   E0           MOVX    A,@DPTR
+   \   000025   90....       MOV     DPTR,#macPhyChannel
+   \   000028   F0           MOVX    @DPTR,A
+    377              HAL_EXIT_CRITICAL_SECTION(s);
+   \   000029   EB           MOV     A,R3
+   \   00002A   A2E0         MOV     C,0xE0 /* A   */.0
+   \   00002C   92AF         MOV     0xa8.7,C
+    378          
+    379              /* changing the channel stops any receive in progress */
+    380              macRxOff();
+   \   00002E                ; Setup parameters for call to function macRxOff
+   \   00002E   12....       LCALL   ??macRxOff?relay
+    381              MAC_RADIO_SET_CHANNEL(macPhyChannel);
+   \   000031   75F005       MOV     B,#0x5
+   \   000034   90....       MOV     DPTR,#macPhyChannel
+   \   000037   E0           MOVX    A,@DPTR
+   \   000038   A4           MUL     AB
+   \   000039   24D4         ADD     A,#-0x2c
+   \   00003B   90618F       MOV     DPTR,#0x618f
+   \   00003E   F0           MOVX    @DPTR,A
+    382          
+    383              /* If the channel is updated in the middle of receiving a frame, we must
+    384               * clean up the Rx logic.
+    385               */
+    386              macRxHaltCleanup();
+   \   00003F                ; Setup parameters for call to function macRxHaltCleanup
+   \   00003F   12....       LCALL   ??macRxHaltCleanup?relay
+    387          
+    388              macRxOnRequest();
+   \   000042                ; Setup parameters for call to function macRxOnRequest
+   \   000042   12....       LCALL   ??macRxOnRequest?relay
+   \   000045   8005         SJMP    ??macRadioUpdateChannel_2
+    389            }
+    390            else
+    391            {
+    392              HAL_EXIT_CRITICAL_SECTION(s);
+   \                     ??macRadioUpdateChannel_1:
+   \   000047   EB           MOV     A,R3
+   \   000048   A2E0         MOV     C,0xE0 /* A   */.0
+   \   00004A   92AF         MOV     0xa8.7,C
+    393            }
+    394          }
+   \                     ??macRadioUpdateChannel_2:
+   \   00004C   02....       LJMP    ??Subroutine4_0 & 0xFFFF
+   \   00004F                REQUIRE _A_IEN0
+    395          
+    396          
+    397          /**************************************************************************************************
+    398           * @fn          macRadioStartScan
+    399           *
+    400           * @brief       Puts radio into selected scan mode.
+    401           *
+    402           * @param       scanMode - scan mode, see #defines in .h file
+    403           *
+    404           * @return      none
+    405           **************************************************************************************************
+    406           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    407          MAC_INTERNAL_API void macRadioStartScan(uint8 scanMode)
+   \                     macRadioStartScan:
+    408          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
+   \   000006   FE           MOV     R6,A
+    409            MAC_ASSERT(macSleepState == MAC_SLEEP_STATE_AWAKE); /* radio must be awake */
+   \   000007   90....       MOV     DPTR,#macSleepState
+   \   00000A   E0           MOVX    A,@DPTR
+   \   00000B   6003         JZ      ??macRadioStartScan_0
+   \   00000D                ; Setup parameters for call to function halAssertHandler
+   \   00000D   12....       LCALL   ??halAssertHandler?relay
+    410            MAC_ASSERT(macRxFilter == RX_FILTER_OFF); /* all filtering must be off to start scan */
+   \                     ??macRadioStartScan_0:
+   \   000010   90....       MOV     DPTR,#macRxFilter
+   \   000013   E0           MOVX    A,@DPTR
+   \   000014   6003         JZ      ??macRadioStartScan_1
+   \   000016                ; Setup parameters for call to function halAssertHandler
+   \   000016   12....       LCALL   ??halAssertHandler?relay
+    411          
+    412            /* set the receive filter based on the selected scan mode */
+    413            if (scanMode == MAC_SCAN_ED)
+   \                     ??macRadioStartScan_1:
+   \   000019   EE           MOV     A,R6
+   \   00001A   7007         JNZ     ??macRadioStartScan_2
+    414            {
+    415              macRxFilter = RX_FILTER_ALL;
+   \   00001C   7401         MOV     A,#0x1
+   \                     ??macRadioStartScan_3:
+   \   00001E   90....       MOV     DPTR,#macRxFilter
+   \   000021   8025         SJMP    ??macRadioStartScan_4
+    416            }
+    417            else if (scanMode == MAC_SCAN_ORPHAN)
+   \                     ??macRadioStartScan_2:
+   \   000023   7403         MOV     A,#0x3
+   \   000025   6E           XRL     A,R6
+   \   000026   7004         JNZ     ??macRadioStartScan_5
+    418            {
+    419              macRxFilter = RX_FILTER_NON_COMMAND_FRAMES;
+   \   000028   7403         MOV     A,#0x3
+   \   00002A   80F2         SJMP    ??macRadioStartScan_3
+    420            }
+    421            else
+    422            {
+    423              MAC_ASSERT((scanMode == MAC_SCAN_ACTIVE) || (scanMode == MAC_SCAN_PASSIVE)); /* invalid scan type */
+   \                     ??macRadioStartScan_5:
+   \   00002C   7401         MOV     A,#0x1
+   \   00002E   6E           XRL     A,R6
+   \   00002F   6008         JZ      ??macRadioStartScan_6
+   \   000031   7402         MOV     A,#0x2
+   \   000033   6E           XRL     A,R6
+   \   000034   6003         JZ      ??macRadioStartScan_6
+   \   000036                ; Setup parameters for call to function halAssertHandler
+   \   000036   12....       LCALL   ??halAssertHandler?relay
+    424              macRxFilter = RX_FILTER_NON_BEACON_FRAMES;
+   \                     ??macRadioStartScan_6:
+   \   000039   7402         MOV     A,#0x2
+   \   00003B   90....       MOV     DPTR,#macRxFilter
+   \   00003E   F0           MOVX    @DPTR,A
+    425          
+    426              /* for active and passive scans, per spec the pan ID must be 0xFFFF */
+    427              MAC_RADIO_SET_PAN_ID(0xFFFF);
+   \   00003F   74FF         MOV     A,#-0x1
+   \   000041   906172       MOV     DPTR,#0x6172
+   \   000044   F0           MOVX    @DPTR,A
+   \   000045   906173       MOV     DPTR,#0x6173
+   \                     ??macRadioStartScan_4:
+   \   000048   F0           MOVX    @DPTR,A
+    428            }
+    429          }
+   \   000049   02....       LJMP    ?Subroutine1 & 0xFFFF
+    430          
+    431          
+    432          /**************************************************************************************************
+    433           * @fn          macRadioStopScan
+    434           *
+    435           * @brief       Takes radio out of scan mode.  Note can be called if
+    436           *
+    437           * @param       none
+    438           *
+    439           * @return      none
+    440           **************************************************************************************************
+    441           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    442          MAC_INTERNAL_API void macRadioStopScan(void)
+   \                     macRadioStopScan:
+    443          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    444            macRxFilter = RX_FILTER_OFF;
+   \   000004   E4           CLR     A
+   \   000005   90....       MOV     DPTR,#macRxFilter
+   \   000008   F0           MOVX    @DPTR,A
+    445          
+    446            /* restore the pan ID (passive and active scans set pan ID to 0xFFFF) */
+    447            MAC_RADIO_SET_PAN_ID(macPib.panId);
+   \   000009   90....       MOV     DPTR,#(macPib + 29)
+   \   00000C   E0           MOVX    A,@DPTR
+   \   00000D   906172       MOV     DPTR,#0x6172
+   \   000010   F0           MOVX    @DPTR,A
+   \   000011   90....       MOV     DPTR,#(macPib + 30)
+   \   000014   E0           MOVX    A,@DPTR
+   \   000015   02....       LJMP    ?Subroutine0 & 0xFFFF
+    448          }
+    449          
+    450          
+    451          /**************************************************************************************************
+    452           * @fn          macRadioEnergyDetectStart
+    453           *
+    454           * @brief       Initiates energy detect.  The highest energy detected is recorded from the time
+    455           *              when this function is called until the energy detect is stopped.
+    456           *
+    457           * @param       none
+    458           *
+    459           * @return      none
+    460           **************************************************************************************************
+    461           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    462          void macRadioEnergyDetectStart(void)
+   \                     macRadioEnergyDetectStart:
+    463          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    464            MAC_RADIO_RECORD_MAX_RSSI_START();
+   \   000004                ; Setup parameters for call to function macMcuRecordMaxRssiStart
+   \   000004   12....       LCALL   ??macMcuRecordMaxRssiStart?relay
+    465          }
+   \   000007   02....       LJMP    ??Subroutine4_0 & 0xFFFF
+    466          
+    467          
+    468          /**************************************************************************************************
+    469           * @fn          macRadioEnergyDetectStop
+    470           *
+    471           * @brief       Called at completion of an energy detect.  Note: can be called even if energy
+    472           *              detect is already stopped (needed by reset).
+    473           *
+    474           * @param       none
+    475           *
+    476           * @return      highest energy detect measurement
+    477           **************************************************************************************************
+    478           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    479          uint8 macRadioEnergyDetectStop(void)
+   \                     macRadioEnergyDetectStop:
+    480          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    481            uint8 rssiDbm;
+    482            uint8 energyDetectMeasurement;
+    483          
+    484            rssiDbm = MAC_RADIO_RECORD_MAX_RSSI_STOP() + MAC_RADIO_RSSI_OFFSET;
+   \   000004                ; Setup parameters for call to function macMcuRecordMaxRssiStop
+   \   000004   12....       LCALL   ??macMcuRecordMaxRssiStop?relay
+   \   000007   E9           MOV     A,R1
+   \   000008   24B7         ADD     A,#-0x49
+   \   00000A   F9           MOV     R1,A
+    485            MAC_RADIO_RSSI_LNA_OFFSET(rssiDbm);
+    486            energyDetectMeasurement = radioComputeED(rssiDbm);
+    487          
+    488            return(energyDetectMeasurement);
+   \   00000B                ; Setup parameters for call to function radioComputeED
+   \   00000B                REQUIRE ?Subroutine2
+   \   00000B                ; // Fall through to label ?Subroutine2
+    489          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   12....       LCALL   ??radioComputeED?relay
+   \   000003   02....       LJMP    ??Subroutine4_0 & 0xFFFF
+    490          
+    491          /*=================================================================================================
+    492           * @fn          radioComputeED
+    493           *
+    494           * @brief       Compute energy detect measurement.
+    495           *
+    496           * @param       rssi - raw RSSI value from radio hardware
+    497           *
+    498           * @return      energy detect measurement in the range of 0x00-0xFF
+    499           *=================================================================================================
+    500           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    501          static uint8 radioComputeED(int8 rssiDbm)
+   \                     radioComputeED:
+    502          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+    503            uint8 ed;
+    504          
+    505            /*
+    506             *  Keep RF power between minimum and maximum values.
+    507             *  This min/max range is derived from datasheet and specification.
+    508             */
+    509            if (rssiDbm < ED_RF_POWER_MIN_DBM)
+   \   000000   E9           MOV     A,R1
+   \   000001   C3           CLR     C
+   \   000002   94AF         SUBB    A,#-0x51
+   \   000004   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   000006   65D0         XRL     A,PSW
+   \   000008   33           RLC     A
+   \   000009   5004         JNC     ??radioComputeED_0
+    510            {
+    511              rssiDbm = ED_RF_POWER_MIN_DBM;
+   \   00000B   79AF         MOV     R1,#-0x51
+   \   00000D   800D         SJMP    ??radioComputeED_1
+    512            }
+    513            else if (rssiDbm > ED_RF_POWER_MAX_DBM)
+   \                     ??radioComputeED_0:
+   \   00000F   E9           MOV     A,R1
+   \   000010   C3           CLR     C
+   \   000011   940B         SUBB    A,#0xb
+   \   000013   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   000015   65D0         XRL     A,PSW
+   \   000017   33           RLC     A
+   \   000018   4002         JC      ??radioComputeED_1
+    514            {
+    515              rssiDbm = ED_RF_POWER_MAX_DBM;
+   \   00001A   790A         MOV     R1,#0xa
+    516            }
+    517          
+    518            /*
+    519             *  Create energy detect measurement by normalizing and scaling RF power level.
+    520             *
+    521             *  Note : The division operation below is designed for maximum accuracy and
+    522             *         best granularity.  This is done by grouping the math operations to
+    523             *         compute the entire numerator before doing any division.
+    524             */
+    525            ed = (MAC_SPEC_ED_MAX * (rssiDbm - ED_RF_POWER_MIN_DBM)) / (ED_RF_POWER_MAX_DBM - ED_RF_POWER_MIN_DBM);
+    526          
+    527            return(ed);
+   \                     ??radioComputeED_1:
+   \   00001C   E9           MOV     A,R1
+   \   00001D   F8           MOV     R0,A
+   \   00001E   33           RLC     A
+   \   00001F   95E0         SUBB    A,0xE0 /* A   */
+   \   000021   F9           MOV     R1,A
+   \   000022   7451         MOV     A,#0x51
+   \   000024   28           ADD     A,R0
+   \   000025   F8           MOV     R0,A
+   \   000026   E4           CLR     A
+   \   000027   39           ADDC    A,R1
+   \   000028   F9           MOV     R1,A
+   \   000029   E8           MOV     A,R0
+   \   00002A   75F0FF       MOV     B,#-0x1
+   \   00002D   A4           MUL     AB
+   \   00002E   F8           MOV     R0,A
+   \   00002F   AAF0         MOV     R2,B
+   \   000031   75F0FF       MOV     B,#-0x1
+   \   000034   E9           MOV     A,R1
+   \   000035   A4           MUL     AB
+   \   000036   2A           ADD     A,R2
+   \   000037   F9           MOV     R1,A
+   \   000038   7A5B         MOV     R2,#0x5b
+   \   00003A   7B00         MOV     R3,#0x0
+   \   00003C   12....       LCALL   ?S_DIV_MOD
+   \   00003F   E8           MOV     A,R0
+   \   000040   F9           MOV     R1,A
+   \   000041   02....       LJMP    ?BRET
+    528          }
+    529          
+    530          
+    531          /**************************************************************************************************
+    532           * @fn          macRadioComputeLQI
+    533           *
+    534           * @brief       Compute link quality indication.
+    535           *
+    536           * @param       rssi - raw RSSI value from radio hardware
+    537           *              corr - correlation value from radio hardware
+    538           *
+    539           * @return      link quality indicator value
+    540           **************************************************************************************************
+    541           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    542          MAC_INTERNAL_API uint8 macRadioComputeLQI(int8 rssiDbm, uint8 corr)
+   \                     macRadioComputeLQI:
+    543          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    544            (void) corr; /* suppress compiler warning of unused parameter */
+    545          
+    546            /*
+    547             *  Note : Currently the LQI value is simply the energy detect measurement.
+    548             *         A more accurate value could be derived by using the correlation
+    549             *         value along with the RSSI value.
+    550             */
+    551            return(radioComputeED(rssiDbm));
+   \   000004                ; Setup parameters for call to function radioComputeED
+   \   000004   80..         SJMP    ?Subroutine2
+    552          }
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioInit?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioInit
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioReset?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioReset
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioRandomByte?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioRandomByte
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioSetPanCoordinator?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioSetPanCoordinator
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioSetPanID?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioSetPanID
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioSetShortAddr?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioSetShortAddr
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioSetIEEEAddr?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioSetIEEEAddr
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioSetTxPower?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioSetTxPower
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioUpdateTxPower?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioUpdateTxPower
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioSetChannel?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioSetChannel
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioUpdateChannel?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioUpdateChannel
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioStartScan?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioStartScan
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioStopScan?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioStopScan
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioEnergyDetectStart?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioEnergyDetectStart
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioEnergyDetectStop?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioEnergyDetectStop
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??radioComputeED?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    radioComputeED
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioComputeLQI?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioComputeLQI
+    553          
+    554          
+    555          /**************************************************************************************************
+    556          */
+
+   Maximum stack usage in bytes:
+
+     Function                      ISTACK PSTACK XSTACK
+     --------                      ------ ------ ------
+     macRadioComputeLQI                2      0      0
+       -> radioComputeED               4      0      0
+     macRadioEnergyDetectStart         2      0      0
+       -> macMcuRecordMaxRssiStart     4      0      0
+     macRadioEnergyDetectStop          2      0      0
+       -> macMcuRecordMaxRssiStop      4      0      0
+       -> radioComputeED               4      0      0
+     macRadioInit                      2      0      0
+     macRadioRandomByte                2      0      0
+       -> macMcuRandomByte             4      0      0
+     macRadioReset                     2      0      0
+       -> macRadioStopScan             4      0      0
+       -> macRadioEnergyDetectStop     4      0      0
+     macRadioSetChannel                0      0      9
+       -> halAssertHandler             0      0     18
+       -> macRadioUpdateChannel        0      0     18
+     macRadioSetIEEEAddr               2      0      0
+       -> macMemWriteRam               4      0      0
+     macRadioSetPanCoordinator         3      0      0
+     macRadioSetPanID                  2      0      0
+     macRadioSetShortAddr              2      0      0
+     macRadioSetTxPower                2      0      0
+       -> macRadioUpdateTxPower        4      0      0
+     macRadioStartScan                 0      0      9
+       -> halAssertHandler             0      0     18
+       -> halAssertHandler             0      0     18
+       -> halAssertHandler             0      0     18
+     macRadioStopScan                  2      0      0
+     macRadioUpdateChannel             2      0      9
+       -> halAssertHandler             4      0      0
+       -> macRxOff                     4      0      0
+       -> macRxHaltCleanup             4      0      0
+       -> macRxOnRequest               4      0      0
+     macRadioUpdateTxPower             2      0      0
+     radioComputeED                    0      0      0
+
+
+   Segment part sizes:
+
+     Function/Label                    Bytes
+     --------------                    -----
+     _A_IEN0                              1
+     macPhyTxPower                        1
+     macPhyChannel                        1
+     reqChannel                           1
+     reqTxPower                           1
+     macRadioInit                        25
+     ??Subroutine3_0                      1
+     ??Subroutine4_0                      7
+     macRadioReset                       12
+     macRadioRandomByte                   9
+     macRadioSetPanCoordinator           36
+     macRadioSetPanID                    12
+     ?Subroutine0                         3
+     macRadioSetShortAddr                15
+     macRadioSetIEEEAddr                 19
+     macRadioSetTxPower                  82
+     macRadioUpdateTxPower               58
+     macRadioSetChannel                  48
+     ?Subroutine1                         5
+     macRadioUpdateChannel               79
+     macRadioStartScan                   76
+     macRadioStopScan                    24
+     macRadioEnergyDetectStart           10
+     macRadioEnergyDetectStop            11
+     ?Subroutine2                         6
+     radioComputeED                      68
+     macRadioComputeLQI                   6
+     ??macRadioInit?relay                 6
+     ??macRadioReset?relay                6
+     ??macRadioRandomByte?relay           6
+     ??macRadioSetPanCoordinator?relay    6
+     ??macRadioSetPanID?relay             6
+     ??macRadioSetShortAddr?relay         6
+     ??macRadioSetIEEEAddr?relay          6
+     ??macRadioSetTxPower?relay           6
+     ??macRadioUpdateTxPower?relay        6
+     ??macRadioSetChannel?relay           6
+     ??macRadioUpdateChannel?relay        6
+     ??macRadioStartScan?relay            6
+     ??macRadioStopScan?relay             6
+     ??macRadioEnergyDetectStart?relay    6
+     ??macRadioEnergyDetectStop?relay     6
+     ??radioComputeED?relay               6
+     ??macRadioComputeLQI?relay           6
+
+ 
+ 612 bytes in segment BANKED_CODE
+ 102 bytes in segment BANK_RELAYS
+   1 byte  in segment SFR_AN
+   4 bytes in segment XDATA_Z
+ 
+ 714 bytes of CODE  memory
+   0 bytes of DATA  memory (+ 1 byte shared)
+   4 bytes of XDATA memory
+
+Errors: none
+Warnings: none

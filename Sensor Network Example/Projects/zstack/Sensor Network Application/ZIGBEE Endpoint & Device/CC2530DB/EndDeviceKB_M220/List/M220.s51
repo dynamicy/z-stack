@@ -1,0 +1,1334 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               30/Nov/2010  10:23:15 /
+// Copyright 2004-2009 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  banked                                            /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data_rom                                          /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE     /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Components\hal\module\M220.c              /
+//    Command line       =  -f "D:\R.D Dept\程式開發\TI CC2530                /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev. /
+//                          cfg" (-DCPU32MHZ -DROOT=__near_func               /
+//                          -DBLINK_LEDS) -f "D:\R.D Dept\程式開發\TI CC2530  /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig /
+//                          .cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0           /
+//                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800         /
+//                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
+//                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
+//                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
+//                          -DBEACON_REQ_DELAY_MASK=0x00FF                    /
+//                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_P /
+//                          OLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7           /
+//                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3   /
+//                          -DNWK_MAX_DATA_RETRIES=2                          /
+//                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9        /
+//                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40          /
+//                          -DNWK_MAX_BINDING_ENTRIES=4                       /
+//                          -DMAX_BINDING_CLUSTER_IDS=4                       /
+//                          "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07, 0x09,     /
+//                          0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08,   /
+//                          0x0A, 0x0C, 0x0D}" -DMAC_MAX_FRAME_SIZE=116       /
+//                          "-DCONST=const __code" -DGENERIC=__generic        /
+//                          -DRFD_RCVC_ALWAYS_ON=TRUE -DPOLL_RATE=1000        /
+//                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100   /
+//                          -DREJOIN_POLL_RATE=440) -f "D:\R.D                /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cf /
+//                          g" (-DZCL_READ -DZCL_WRITE -DZCL_BASIC            /
+//                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH   /
+//                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
+//                          -DZCL_PRICING) -DZCL_MESSAGE "D:\R.D              /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Components\hal\module\M220.c" -D          /
+//                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D           /
+//                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
+//                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
+//                          End_Device -D M220 -D xPA2591 -lC "D:\R.D         /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceKB_M220\List\" -lA       /
+//                          "D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE    /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceKB_M220\List\"           /
+//                          --diag_suppress Pe001,Pa010 -o "D:\R.D            /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceKB_M220\Obj\" -e         /
+//                          --require_prototypes --debug --core=plain         /
+//                          --dptr=16,1 --data_model=large                    /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I "D:\R.D Dept\程式開發\TI  /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Endpoint &         /
+//                          Device\CC2530DB\" -I "D:\R.D Dept\程式開發\TI     /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Endpoint &         /
+//                          Device\CC2530DB\..\SOURCE\" -I "D:\R.D            /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\SOURCE\" -I "D:\R.D         /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I      /
+//                          "D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE    /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\"    /
+//                          -I "D:\R.D Dept\程式開發\TI CC2530                /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INC /
+//                          LUDE\" -I "D:\R.D Dept\程式開發\TI CC2530         /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MOD /
+//                          ULE\" -I "D:\R.D Dept\程式開發\TI CC2530          /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TAR /
+//                          GET\CC2530KB\" -I "D:\R.D Dept\程式開發\TI        /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Endpoint &         /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MC /
+//                          U\CCSOC\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\IN /
+//                          CLUDE\" -I "D:\R.D Dept\程式開發\TI CC2530        /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\A /
+//                          F\" -I "D:\R.D Dept\程式開發\TI CC2530            /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\N /
+//                          WK\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          EC\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          API\" -I "D:\R.D Dept\程式開發\TI CC2530          /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          YS\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          CL\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          DO\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8 /
+//                          W\" -I "D:\R.D Dept\程式開發\TI CC2530            /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"  /
+//                          -I "D:\R.D Dept\程式開發\TI CC2530                /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SADDR\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SDATA\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INC /
+//                          LUDE\" -I "D:\R.D Dept\程式開發\TI CC2530         /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIG /
+//                          H_LEVEL\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\" -I "D:\R.D Dept\程式開發\TI        /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Endpoint &         /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR             /
+//                          Systems\Embedded Workbench for MCS-51             /
+//                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded      /
+//                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz   /
+//    List file          =  D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE     /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceKB_M220\List\M220.s51    /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME M220
+
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ??M220_ReadRegister?relay
+        EXTERN ??M220_SpiRW?relay
+        EXTERN ??M220_WriteRegister?relay
+        EXTERN ?BANKED_ENTER_XDATA
+        EXTERN ?BANKED_LEAVE_XDATA
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+        EXTERN __INIT_XDATA_Z
+
+        PUBLIC ??M220_Init?relay
+        FUNCTION ??M220_Init?relay,0203H
+        PUBLIC ??M220_Pooling?relay
+        FUNCTION ??M220_Pooling?relay,0203H
+        PUBLIC ??M220_ReadRegister?relay
+        FUNCTION ??M220_ReadRegister?relay,0203H
+        PUBLIC ??M220_SpiRW?relay
+        FUNCTION ??M220_SpiRW?relay,0203H
+        PUBLIC ??M220_WriteRegister?relay
+        FUNCTION ??M220_WriteRegister?relay,0203H
+        PUBLIC M220_Init
+        FUNCTION M220_Init,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC M220_Pooling
+        FUNCTION M220_Pooling,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC M220_ReadRegister
+        FUNCTION M220_ReadRegister,021203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC M220_SpiRW
+        FUNCTION M220_SpiRW,0203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUBLIC M220_WriteRegister
+        FUNCTION M220_WriteRegister,021203H
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC M220_X_AXIS_Value
+        PUBLIC M220_Y_AXIS_Value
+        PUBLIC M220_Z_AXIS_Value
+        PUBWEAK P0DIR
+        PUBWEAK P0SEL
+        PUBWEAK _A_P0
+        
+        CFI Names cfiNames0
+        CFI StackFrame CFA_SP SP IDATA
+        CFI StackFrame CFA_PSP16 PSP16 XDATA
+        CFI StackFrame CFA_XSP16 XSP16 XDATA
+        CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+        CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+        CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+        CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+        CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+        CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+        CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+        CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+        CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+        CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+        CFI VirtualResource ?RET:24
+        CFI Resource ?BRET_EXT:8
+        CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+        CFI ResourceParts PSP16 PSPH, PSPL
+        CFI ResourceParts XSP16 XSPH, XSPL
+        CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+        CFI EndNames cfiNames0
+        
+        CFI Common cfiCommon0 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-3
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B Undefined
+        CFI A Undefined
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 Undefined
+        CFI R1 Undefined
+        CFI R2 Undefined
+        CFI R3 Undefined
+        CFI R4 Undefined
+        CFI R5 Undefined
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT Frame(CFA_SP, 3)
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon0
+        
+        
+        CFI Common cfiCommon1 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-2
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B SameValue
+        CFI A SameValue
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 SameValue
+        CFI R1 SameValue
+        CFI R2 SameValue
+        CFI R3 SameValue
+        CFI R4 SameValue
+        CFI R5 SameValue
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT SameValue
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon1
+        
+M220_Init           SYMBOL "M220_Init"
+??M220_Init?relay   SYMBOL "?relay", M220_Init
+M220_Pooling        SYMBOL "M220_Pooling"
+??M220_Pooling?relay SYMBOL "?relay", M220_Pooling
+M220_ReadRegister   SYMBOL "M220_ReadRegister"
+??M220_ReadRegister?relay SYMBOL "?relay", M220_ReadRegister
+M220_SpiRW          SYMBOL "M220_SpiRW"
+??M220_SpiRW?relay  SYMBOL "?relay", M220_SpiRW
+M220_WriteRegister  SYMBOL "M220_WriteRegister"
+??M220_WriteRegister?relay SYMBOL "?relay", M220_WriteRegister
+
+// D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network Example\Components\hal\module\M220.c
+//    1 //-------------------------------------------------------------------
+//    2 // Filename: M220.c
+//    3 // Description: hal M220 module library	三軸位移加速度(SPI)
+//    4 //-------------------------------------------------------------------
+//    5 //-------------------------------------------------------------------
+//    6 // INCLUDES
+//    7 //-------------------------------------------------------------------
+//    8 #include "hal_mcu.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,080H
+// union <unnamed> volatile __sfr _A_P0
+_A_P0:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f3H
+// unsigned char volatile __sfr P0SEL
+P0SEL:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0fdH
+// unsigned char volatile __sfr P0DIR
+P0DIR:
+        DS 1
+//    9 #include "hal_board.h"
+//   10 #include "hal_digio.h"
+//   11 #include "hal_keypad.h"
+//   12 #include "M220.h"
+//   13 
+//   14 //-------------------------------------------------------------------
+//   15 // LOCAL VARIABLES
+//   16 //-------------------------------------------------------------------
+//   17 uint8 M220_SpiRW(uint8 ch);
+//   18 uint8 M220_ReadRegister(uint8 addr);
+//   19 void M220_WriteRegister(uint8 addr, uint8 ch);
+//   20 void M220_Pooling(void);
+//   21 void M220_Init(void);
+//   22 
+//   23 //Register names
+//   24 #define XL345_DEVID           0x00 
+//   25 #define XL345_RESERVED1       0x01 
+//   26 #define XL345_THRESH_TAP      0x1d 
+//   27 #define XL345_OFSX            0x1e 
+//   28 #define XL345_OFSY            0x1f 
+//   29 #define XL345_OFSZ            0x20 
+//   30 #define XL345_DUR             0x21 
+//   31 #define XL345_LATENT          0x22 
+//   32 #define XL345_WINDOW          0x23 
+//   33 #define XL345_THRESH_ACT      0x24 
+//   34 #define XL345_THRESH_INACT    0x25 
+//   35 #define XL345_TIME_INACT      0x26 
+//   36 #define XL345_ACT_INACT_CTL   0x27 
+//   37 #define XL345_THRESH_FF       0x28 
+//   38 #define XL345_TIME_FF         0x29 
+//   39 #define XL345_TAP_AXES        0x2a 
+//   40 #define XL345_ACT_TAP_STATUS  0x2b 
+//   41 #define XL345_BW_RATE         0x2c 
+//   42 #define XL345_POWER_CTL       0x2d 
+//   43 #define XL345_INT_ENABLE      0x2e
+//   44 #define XL345_INT_MAP         0x2f 
+//   45 #define XL345_INT_SOURCE      0x30 
+//   46 #define XL345_DATA_FORMAT     0x31 
+//   47 #define XL345_DATAX0          0x32 
+//   48 #define XL345_DATAX1          0x33 
+//   49 #define XL345_DATAY0          0x34 
+//   50 #define XL345_DATAY1          0x35 
+//   51 #define XL345_DATAZ0          0x36 
+//   52 #define XL345_DATAZ1          0x37 
+//   53 #define XL345_FIFO_CTL        0x38 
+//   54 #define XL345_FIFO_STATUS     0x39 
+//   55 
+//   56 
+//   57 // Definitions used for Fall Detection Algorithm 
+//   58 #define STRIKE_THRESHOLD                     0x20    //62.5mg/LSB, 0x20=2g 
+//   59 #define STRIKE_WINDOW                        0x0A    //20ms/LSB, 0x0A=10=200ms 
+//   60 #define STABLE_THRESHOLD                     0x08    //62.5mg/LSB, 0x10=0.5g 
+//   61 #define STABLE_TIME                          0x02    //1s/LSB, 0x02=2s 
+//   62 #define STABLE_WINDOW                        0xAF    //20ms/LSB, 0xAF=175=3.5s 
+//   63 #define NOMOVEMENT_THRESHOLD                 0x03    //62.5mg/LSB, 0x03=0.1875g 
+//   64 #define NOMOVEMENT_TIME                      0x0A    //1s/LSB, 0x0A=10s 
+//   65 #define FREE_FALL_THRESHOLD                  0x0C    //62.5mg/LSB, 0x0C=0.75g 
+//   66 #define FREE_FALL_TIME                       0x06    //5ms/LSB, 0x06=30ms 
+//   67 #define FREE_FALL_OVERTIME                   0x0F    //20ms/LSB, 0x0F=15=300ms 
+//   68 #define FREE_FALL_INTERVAL                   0x05    //20ms/LSB, 0x05=100ms 
+//   69 #define DELTA_VECTOR_SUM_THRESHOLD           0x7D70  //1g=0xFF, 0x7D70=0.7g^2 
+//   70 
+//   71 
+//   72 #define XL345_ID              0xe5 
+//   73 
+//   74 // Reserved soft reset value                                             
+//   75 #define XL345_SOFT_RESET      0x52 
+//   76 
+//   77 // Registers THRESH_TAP through TIME_INACT take only 8-bit values 
+//   78 // There are no specific bit fields in these registers                   
+//   79 
+//   80 // Bit values in ACT_INACT_CTL                                           
+//   81 #define XL345_INACT_Z_ENABLE  0x01 
+//   82 #define XL345_INACT_Z_DISABLE 0x00 
+//   83 #define XL345_INACT_Y_ENABLE  0x02 
+//   84 #define XL345_INACT_Y_DISABLE 0x00 
+//   85 #define XL345_INACT_X_ENABLE  0x04 
+//   86 #define XL345_INACT_X_DISABLE 0x00 
+//   87 #define XL345_INACT_AC        0x08 
+//   88 #define XL345_INACT_DC        0x00 
+//   89 #define XL345_ACT_Z_ENABLE    0x10 
+//   90 #define XL345_ACT_Z_DISABLE   0x00 
+//   91 #define XL345_ACT_Y_ENABLE    0x20 
+//   92 #define XL345_ACT_Y_DISABLE   0x00 
+//   93 #define XL345_ACT_X_ENABLE    0x40 
+//   94 #define XL345_ACT_X_DISABLE   0x00 
+//   95 #define XL345_ACT_AC          0x80 
+//   96 #define XL345_ACT_DC          0x00
+//   97 
+//   98 
+//   99 #define XL345_TAP_Z_ENABLE    0x01 
+//  100 #define XL345_TAP_Z_DISABLE   0x00 
+//  101 #define XL345_TAP_Y_ENABLE    0x02 
+//  102 #define XL345_TAP_Y_DISABLE   0x00 
+//  103 #define XL345_TAP_X_ENABLE    0x04 
+//  104 #define XL345_TAP_X_DISABLE   0x00 
+//  105 #define XL345_TAP_SUPPRESS    0x08 
+//  106 
+//  107 // Bit values in ACT_TAP_STATUS                                        
+//  108 #define XL345_TAP_Z_SOURCE    0x01 
+//  109 #define XL345_TAP_Y_SOURCE    0x02 
+//  110 #define XL345_TAP_X_SOURCE    0x04 
+//  111 #define XL345_STAT_ASLEEP     0x08 
+//  112 #define XL345_ACT_Z_SOURCE    0x10 
+//  113 #define XL345_ACT_Y_SOURCE    0x20 
+//  114 #define XL345_ACT_X_SOURCE    0x40 
+//  115 
+//  116 // Bit values in BW_RATE        
+//  117 // Expresed as output data rate 
+//  118 #define XL345_RATE_3200       0x0f 
+//  119 #define XL345_RATE_1600       0x0e 
+//  120 #define XL345_RATE_800        0x0d 
+//  121 #define XL345_RATE_400        0x0c 
+//  122 #define XL345_RATE_200        0x0b 
+//  123 #define XL345_RATE_100        0x0a 
+//  124 #define XL345_RATE_50         0x09 
+//  125 #define XL345_RATE_25         0x08 
+//  126 #define XL345_RATE_12_5       0x07 
+//  127 #define XL345_RATE_6_25       0x06 
+//  128 #define XL345_RATE_3_125      0x05 
+//  129 #define XL345_RATE_1_563      0x04 
+//  130 #define XL345_RATE__782       0x03 
+//  131 #define XL345_RATE__39        0x02 
+//  132 #define XL345_RATE__195       0x01 
+//  133 #define XL345_RATE__098       0x00 
+//  134 
+//  135 // Expressed as output bandwidth 
+//  136 // Use either the bandwidth or rate code, 
+//  137 // whichever is more appropriate for your application
+//  138 #define XL345_BW_1600         0x0f 
+//  139 #define XL345_BW_800          0x0e 
+//  140 #define XL345_BW_400          0x0d 
+//  141 #define XL345_BW_200          0x0c 
+//  142 #define XL345_BW_100          0x0b 
+//  143 #define XL345_BW_50           0x0a 
+//  144 #define XL345_BW_25           0x09 
+//  145 #define XL345_BW_12_5         0x08 
+//  146 #define XL345_BW_6_25         0x07 
+//  147 #define XL345_BW_3_125        0x06 
+//  148 #define XL345_BW_1_563        0x05 
+//  149 #define XL345_BW__782         0x04
+//  150 
+//  151 #define XL345_BW__39          0x03 
+//  152 #define XL345_BW__195         0x02 
+//  153 #define XL345_BW__098         0x01 
+//  154 #define XL345_BW__048         0x00 
+//  155 
+//  156 #define XL345_LOW_POWER       0x08 
+//  157 #define XL345_LOW_NOISE       0x00 
+//  158 // Bit values in POWER_CTL                                            
+//  159 #define XL345_WAKEUP_8HZ           0x00 
+//  160 #define XL345_WAKEUP_4HZ           0x01 
+//  161 #define XL345_WAKEUP_2HZ           0x02 
+//  162 #define XL345_WAKEUP_1HZ           0x03 
+//  163 #define XL345_SLEEP                0x04 
+//  164 #define XL345_MEASURE              0x08 
+//  165 #define XL345_STANDBY              0x00 
+//  166 #define XL345_AUTO_SLEEP           0x10 
+//  167 #define XL345_ACT_INACT_SERIAL     0x20 
+//  168 #define XL345_ACT_INACT_CONCURRENT 0x00 
+//  169 
+//  170 // Bit values in INT_ENABLE, INT_MAP, and INT_SOURCE are identical. 
+//  171 // Use these bit values to read or write any of these registers.        
+//  172 #define XL345_OVERRUN              0x01 
+//  173 #define XL345_WATERMARK            0x02 
+//  174 #define XL345_FREEFALL             0x04 
+//  175 #define XL345_INACTIVITY           0x08 
+//  176 #define XL345_ACTIVITY             0x10 
+//  177 #define XL345_DOUBLETAP            0x20 
+//  178 #define XL345_SINGLETAP            0x40 
+//  179 #define XL345_DATAREADY            0x80 
+//  180 
+//  181 // Bit values in DATA_FORMAT                                            
+//  182 
+//  183 // Register values read in DATAX0 through DATAZ1 are dependent on the  
+//  184 // value specified in data format.  Customer code will need to interpret 
+//  185 // the data as desired.                                                 
+//  186 #define XL345_RANGE_2G             0x00 
+//  187 #define XL345_RANGE_4G             0x01 
+//  188 #define XL345_RANGE_8G             0x02 
+//  189 #define XL345_RANGE_16G            0x03 
+//  190 #define XL345_DATA_JUST_RIGHT      0x00 
+//  191 #define XL345_DATA_JUST_LEFT       0x04 
+//  192 #define XL345_10BIT                0x00 
+//  193 #define XL345_FULL_RESOLUTION      0x08 
+//  194 #define XL345_INT_LOW              0x20 
+//  195 #define XL345_INT_HIGH             0x00 
+//  196 #define XL345_SPI3WIRE             0x40 
+//  197 #define XL345_SPI4WIRE             0x00 
+//  198 #define XL345_SELFTEST             0x80
+//  199 
+//  200 #define XL345_TRIGGER_INT1         0x00 
+//  201 #define XL345_TRIGGER_INT2         0x20 
+//  202 #define XL345_FIFO_MODE_BYPASS     0x00 
+//  203 #define XL345_FIFO_RESET           0x00 
+//  204 #define XL345_FIFO_MODE_FIFO       0x40 
+//  205 #define XL345_FIFO_MODE_STREAM     0x80 
+//  206 #define XL345_FIFO_MODE_TRIGGER    0xc0 
+//  207 
+//  208 // Bit values in FIFO_STATUS                                      
+//  209 // The low bits are a value 0 to 32 showing the number of entries 
+//  210 // currently available in the FIFO buffer                               
+//  211 
+//  212 #define XL345_FIFO_TRIGGERED       0x80
+//  213 
+//  214 
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//  215 uint16 M220_X_AXIS_Value;
+M220_X_AXIS_Value:
+        DS 2
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//  216 uint16 M220_Y_AXIS_Value;
+M220_Y_AXIS_Value:
+        DS 2
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//  217 uint16 M220_Z_AXIS_Value;
+M220_Z_AXIS_Value:
+        DS 2
+        REQUIRE __INIT_XDATA_Z
+//  218 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  219 uint8 M220_SpiRW(uint8 ch)
+M220_SpiRW:
+        CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function M220_SpiRW
+//  220 {
+        ; Saved register size: 0
+        ; Auto size: 0
+        MOV     A,R1
+//  221     uint8 i, cmd, ret;
+//  222 
+//  223     cmd = ch;
+        MOV     R3,A
+//  224     for (i = 0; i < 8; i++)
+        MOV     R2,#0x8
+//  225     {
+//  226         HAL_SPI_CLK_CLR();
+??M220_SpiRW_0:
+        CLR     0x80.5
+//  227         if (cmd &0x80)
+        MOV     A,R3
+        MOV     C,0xE0 /* A   */.7
+        JNC     ??M220_SpiRW_1
+//  228         {
+//  229             HAL_SPI_MOSI_SET();
+        SETB    0x80.4
+        SJMP    ??M220_SpiRW_2
+//  230         }
+//  231         else
+//  232         {
+//  233             HAL_SPI_MOSI_CLR();
+??M220_SpiRW_1:
+        CLR     0x80.4
+//  234         }
+//  235         cmd <<= 1;
+??M220_SpiRW_2:
+        CLR     C
+        RLC     A
+        MOV     R3,A
+//  236         ret <<= 1;
+        MOV     A,R1
+        CLR     C
+        RLC     A
+        MOV     R1,A
+//  237         HAL_SPI_CLK_SET();
+        SETB    0x80.5
+//  238         if (HAL_SPI_MISO_VAL())
+        MOV     C,0x80.6
+        JNC     ??M220_SpiRW_3
+//  239         {
+//  240             ret |= 0x01;
+        SETB    0xE0 /* A   */.0
+        MOV     R1,A
+//  241         }
+//  242     }
+??M220_SpiRW_3:
+        DEC     R2
+        MOV     A,R2
+        JNZ     ??M220_SpiRW_0
+//  243     HAL_SPI_MOSI_SET();
+        SETB    0x80.4
+//  244     return ret;
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock0
+        REQUIRE _A_P0
+//  245 }
+//  246 
+//  247 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  248 uint8 M220_ReadRegister(uint8 addr)
+M220_ReadRegister:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI Function M220_ReadRegister
+//  249 {
+        FUNCALL M220_ReadRegister, M220_SpiRW
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M220_ReadRegister, M220_SpiRW
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+        MOV     A,R1
+        MOV     R6,A
+//  250     uint8 ch;
+//  251     HAL_SPI_CS_EN();
+        CLR     0x80.7
+//  252     M220_SpiRW(0x80 + addr);
+        ; Setup parameters for call to function M220_SpiRW
+        MOV     A,#-0x80
+        ADD     A,R6
+        MOV     R1,A
+        CFI EndBlock cfiBlock1
+        REQUIRE ?Subroutine2
+        REQUIRE _A_P0
+        ; // Fall through to label ?Subroutine2
+//  253     ch = M220_SpiRW(addr);
+//  254     HAL_SPI_CS_DIS();
+//  255     return ch;
+//  256 }
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine2:
+        CFI Block cfiBlock2 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        LCALL   ?Subroutine1 & 0xFFFF
+??CrossCallReturnLabel_3:
+        LJMP    ?BANKED_LEAVE_XDATA
+        CFI EndBlock cfiBlock2
+//  257 
+//  258 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  259 void M220_WriteRegister(uint8 addr, uint8 ch)
+M220_WriteRegister:
+        CFI Block cfiBlock3 Using cfiCommon0
+        CFI Function M220_WriteRegister
+//  260 {
+        FUNCALL M220_WriteRegister, M220_SpiRW
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M220_WriteRegister, M220_SpiRW
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+        MOV     A,R2
+        MOV     R6,A
+//  261     HAL_SPI_CS_EN();
+        CLR     0x80.7
+//  262     M220_SpiRW(addr);
+        ; Setup parameters for call to function M220_SpiRW
+        SJMP    ?Subroutine2
+        CFI EndBlock cfiBlock3
+        REQUIRE _A_P0
+//  263     M220_SpiRW(ch);
+//  264     HAL_SPI_CS_DIS();
+//  265 }
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine1:
+        CFI Block cfiCond4 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_3
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond5 Using cfiCommon0
+        CFI (cfiCond5) NoFunction
+        CFI (cfiCond5) Conditional ??CrossCallReturnLabel_3
+        CFI (cfiCond5) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond5) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond5) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond5) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond5) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond5) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond5) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond5) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond5) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond5) CFA_SP SP+0
+        CFI (cfiCond5) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiPicker6 Using cfiCommon1
+        CFI (cfiPicker6) NoFunction
+        CFI (cfiPicker6) Picker
+        LCALL   ??M220_SpiRW?relay
+        ; Setup parameters for call to function M220_SpiRW
+        ; Setup parameters for call to function M220_SpiRW
+        MOV     A,R6
+        MOV     R1,A
+        LCALL   ??M220_SpiRW?relay
+        SETB    0x80.7
+        MOV     R7,#0x1
+        RET
+        CFI EndBlock cfiCond4
+        CFI EndBlock cfiCond5
+        CFI EndBlock cfiPicker6
+//  266 
+//  267 //-------------------------------------------------------------------
+//  268 // @fn      M220_Init
+//  269 // @brief   Set up ADXL345
+//  270 // @return  none
+//  271 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  272 void M220_Init(void)
+M220_Init:
+        CFI Block cfiBlock7 Using cfiCommon0
+        CFI Function M220_Init
+//  273 {
+        FUNCALL M220_Init, M220_WriteRegister
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M220_Init, M220_WriteRegister
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  274     HAL_SPI_MISO_INPUT();
+        ANL     0xf3,#0xbf
+        ANL     0xfd,#0xbf
+//  275     HAL_SPI_MOSI_OUTPUT();
+        ANL     0xf3,#0xef
+        ORL     0xfd,#0x10
+//  276     HAL_SPI_CLK_OUTPUT();
+        ANL     0xf3,#0xdf
+        ORL     0xfd,#0x20
+//  277     HAL_SPI_CS_OUTPUT();
+        ANL     0xf3,#0x7f
+        ORL     0xfd,#0x80
+//  278     
+//  279     HAL_SPI_CS_DIS();
+        SETB    0x80.7
+//  280     HAL_SPI_MOSI_SET();
+        SETB    0x80.4
+//  281     HAL_SPI_CLK_SET();
+        SETB    0x80.5
+//  282 
+//  283     //M220_WriteRegister(XL345_OFSX,0xFF);
+//  284     //M220_WriteRegister(XL345_OFSY,0x05);
+//  285     //M220_WriteRegister(XL345_OFSZ,0xFF);
+//  286 
+//  287     //M220_WriteRegister(XL345_THRESH_ACT,STRIKE_THRESHOLD);
+//  288     //M220_WriteRegister(XL345_THRESH_INACT,NOMOVEMENT_THRESHOLD);
+//  289     //M220_WriteRegister(XL345_TIME_INACT,STABLE_TIME);
+//  290     //M220_WriteRegister(XL345_ACT_INACT_CTL,XL345_INACT_Z_ENABLE|XL345_INACT_Y_ENABLE | XL345_INACT_X_ENABLE| XL345_INACT_AC | XL345_ACT_Z_ENABLE|XL345_ACT_Y_ENABLE | XL345_ACT_X_ENABLE | XL345_ACT_DC);
+//  291     //M220_WriteRegister(XL345_THRESH_FF,FREE_FALL_THRESHOLD);
+//  292 
+//  293     //M220_WriteRegister(XL345_TIME_FF,FREE_FALL_TIME);
+//  294     //M220_WriteRegister(XL345_BW_RATE,XL345_RATE_100);
+//  295     //M220_WriteRegister(XL345_POWER_CTL,XL345_STANDBY);
+//  296     //M220_WriteRegister(XL345_INT_ENABLE,XL345_ACTIVITY | XL345_INACTIVITY | XL345_FREEFALL);
+//  297     //M220_WriteRegister(XL345_INT_MAP,0x00);
+//  298 
+//  299     M220_WriteRegister(XL345_DATA_FORMAT, XL345_FULL_RESOLUTION | XL345_DATA_JUST_RIGHT | XL345_RANGE_16G);
+        ; Setup parameters for call to function M220_WriteRegister
+        MOV     R2,#0xb
+        MOV     R1,#0x31
+        LCALL   ??M220_WriteRegister?relay
+//  300     M220_WriteRegister(XL345_POWER_CTL, XL345_MEASURE);
+        ; Setup parameters for call to function M220_WriteRegister
+        MOV     R2,#0x8
+        MOV     R1,#0x2d
+        LCALL   ??M220_WriteRegister?relay
+//  301 }
+        POP     DPH
+        CFI DPH0 SameValue
+        CFI CFA_SP SP+-4
+        POP     DPL
+        CFI DPL0 SameValue
+        CFI CFA_SP SP+-3
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock7
+        REQUIRE _A_P0
+        REQUIRE P0SEL
+        REQUIRE P0DIR
+//  302 
+//  303 //-------------------------------------------------------------------
+//  304 // @fn      M260_Pooling
+//  305 // @brief   Get Digital/Analog
+//  306 // @param   none
+//  307 // @return  none
+//  308 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  309 void M220_Pooling(void)
+M220_Pooling:
+        CFI Block cfiBlock8 Using cfiCommon0
+        CFI Function M220_Pooling
+//  310 {
+        FUNCALL M220_Pooling, M220_ReadRegister
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M220_Pooling, M220_ReadRegister
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M220_Pooling, M220_ReadRegister
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M220_Pooling, M220_ReadRegister
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M220_Pooling, M220_ReadRegister
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M220_Pooling, M220_ReadRegister
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+//  311     M220_X_AXIS_Value = M220_ReadRegister(XL345_DATAX1);
+        ; Setup parameters for call to function M220_ReadRegister
+        MOV     R1,#0x33
+        LCALL   ??M220_ReadRegister?relay
+        MOV     A,R1
+        MOV     DPTR,#M220_X_AXIS_Value
+        MOVX    @DPTR,A
+        INC     DPTR
+        CLR     A
+        MOVX    @DPTR,A
+//  312     M220_X_AXIS_Value = (M220_X_AXIS_Value << 8) + M220_ReadRegister(XL345_DATAX0);
+        MOV     DPTR,#M220_X_AXIS_Value
+        MOVX    A,@DPTR
+        MOV     R7,A
+        ; Setup parameters for call to function M220_ReadRegister
+        MOV     R1,#0x32
+        LCALL   ?Subroutine0 & 0xFFFF
+??CrossCallReturnLabel_0:
+        MOV     DPTR,#M220_X_AXIS_Value
+        MOV     A,R0
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOV     A,R1
+        MOVX    @DPTR,A
+//  313     M220_Y_AXIS_Value = M220_ReadRegister(XL345_DATAY1);
+        ; Setup parameters for call to function M220_ReadRegister
+        MOV     R1,#0x35
+        LCALL   ??M220_ReadRegister?relay
+        MOV     A,R1
+        MOV     DPTR,#M220_Y_AXIS_Value
+        MOVX    @DPTR,A
+        INC     DPTR
+        CLR     A
+        MOVX    @DPTR,A
+//  314     M220_Y_AXIS_Value = (M220_Y_AXIS_Value << 8) + M220_ReadRegister(XL345_DATAY0);
+        MOV     DPTR,#M220_Y_AXIS_Value
+        MOVX    A,@DPTR
+        MOV     R7,A
+        ; Setup parameters for call to function M220_ReadRegister
+        MOV     R1,#0x34
+        LCALL   ?Subroutine0 & 0xFFFF
+??CrossCallReturnLabel_1:
+        MOV     DPTR,#M220_Y_AXIS_Value
+        MOV     A,R0
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOV     A,R1
+        MOVX    @DPTR,A
+//  315     M220_Z_AXIS_Value = M220_ReadRegister(XL345_DATAZ1);
+        ; Setup parameters for call to function M220_ReadRegister
+        MOV     R1,#0x37
+        LCALL   ??M220_ReadRegister?relay
+        MOV     A,R1
+        MOV     DPTR,#M220_Z_AXIS_Value
+        MOVX    @DPTR,A
+        INC     DPTR
+        CLR     A
+        MOVX    @DPTR,A
+//  316     M220_Z_AXIS_Value = (M220_Z_AXIS_Value << 8) + M220_ReadRegister(XL345_DATAZ0);
+        MOV     DPTR,#M220_Z_AXIS_Value
+        MOVX    A,@DPTR
+        MOV     R7,A
+        ; Setup parameters for call to function M220_ReadRegister
+        MOV     R1,#0x36
+        LCALL   ?Subroutine0 & 0xFFFF
+??CrossCallReturnLabel_2:
+        MOV     DPTR,#M220_Z_AXIS_Value
+        MOV     A,R0
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOV     A,R1
+        MOVX    @DPTR,A
+//  317 }
+        MOV     R7,#0x1
+        LJMP    ?BANKED_LEAVE_XDATA
+        CFI EndBlock cfiBlock8
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine0:
+        CFI Block cfiCond9 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_0
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond10 Using cfiCommon0
+        CFI (cfiCond10) NoFunction
+        CFI (cfiCond10) Conditional ??CrossCallReturnLabel_1
+        CFI (cfiCond10) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond10) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond10) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond10) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond10) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond10) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond10) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond10) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond10) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond10) CFA_SP SP+0
+        CFI (cfiCond10) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond11 Using cfiCommon0
+        CFI (cfiCond11) NoFunction
+        CFI (cfiCond11) Conditional ??CrossCallReturnLabel_2
+        CFI (cfiCond11) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond11) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond11) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond11) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond11) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond11) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond11) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond11) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond11) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond11) CFA_SP SP+0
+        CFI (cfiCond11) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiPicker12 Using cfiCommon1
+        CFI (cfiPicker12) NoFunction
+        CFI (cfiPicker12) Picker
+        LCALL   ??M220_ReadRegister?relay
+        MOV     A,R1
+        ADD     A,#0x0
+        MOV     R0,A
+        CLR     A
+        ADDC    A,R7
+        MOV     R1,A
+        RET
+        CFI EndBlock cfiCond9
+        CFI EndBlock cfiCond10
+        CFI EndBlock cfiCond11
+        CFI EndBlock cfiPicker12
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M220_SpiRW?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M220_SpiRW
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M220_ReadRegister?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M220_ReadRegister
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M220_WriteRegister?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M220_WriteRegister
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M220_Init?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M220_Init
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M220_Pooling?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M220_Pooling
+
+        END
+// 
+// 254 bytes in segment BANKED_CODE
+//  30 bytes in segment BANK_RELAYS
+//   3 bytes in segment SFR_AN
+//   6 bytes in segment XDATA_Z
+// 
+// 284 bytes of CODE  memory
+//   0 bytes of DATA  memory (+ 3 bytes shared)
+//   6 bytes of XDATA memory
+//
+//Errors: none
+//Warnings: none

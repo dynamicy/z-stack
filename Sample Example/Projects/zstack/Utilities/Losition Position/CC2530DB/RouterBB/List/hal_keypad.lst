@@ -1,0 +1,583 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                07/Jun/2010  09:30:24 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0- #
+#                          1.4.0\ZStack-CC2530-2.3.0-1.4.0\Components\hal\tar #
+#                          get\CC2530BB\hal_keypad.c                          #
+#    Command line       =  -f "D:\程式開發\TI Zigbee                          #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\Tools\CC2530DB\f8wRouter.cfg"      #
+#                          (-DCPU32MHZ -DROOT=__near_func                     #
+#                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE -DRTR_NWK         #
+#                          -DBLINK_LEDS) -f "D:\程式開發\TI Zigbee            #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg"      #
+#                          (-DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR      #
+#                          -DDEFAULT_CHANLIST=0x00000800                      #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100) -DREJOIN_POLL_RATE=440   #
+#                          "D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0 #
+#                          -1.4.0\ZStack-CC2530-2.3.0-1.4.0\Components\hal\ta #
+#                          rget\CC2530BB\hal_keypad.c" -D ZTOOL_P1 -D         #
+#                          MT_TASK -D MT_SYS_FUNC -D MT_ZDO_FUNC -D           #
+#                          LCD_SUPPORTED=DEBUG -lC "D:\程式開發\TI Zigbee     #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\RouterBB\List\" -lA "D:\程式開發\TI Zigbee  #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\RouterBB\List\" --diag_suppress             #
+#                          Pe001,Pa010 -o "D:\程式開發\TI Zigbee              #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\RouterBB\Obj\" -e --require_prototypes      #
+#                          --debug --core=plain --dptr=16,1                   #
+#                          --data_model=large --code_model=banked             #
+#                          --calling_convention=xdata_reentrant               #
+#                          --place_constants=data_rom --nr_virtual_regs 16    #
+#                          -I "D:\程式開發\TI Zigbee                          #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\" -I "D:\程式開發\TI Zigbee                 #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\SOURCE\" -I "D:\程式開發\TI Zigbee       #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\ZMAIN\TI2530DB\" -I                #
+#                          "D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0 #
+#                          -1.4.0\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\U #
+#                          tilities\LocationApp\CC2530DB\..\..\..\..\..\COMPO #
+#                          NENTS\MT\" -I "D:\程式開發\TI Zigbee               #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\HAL\INCLUDE\" -I  #
+#                          "D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0 #
+#                          -1.4.0\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\U #
+#                          tilities\LocationApp\CC2530DB\..\..\..\..\..\COMPO #
+#                          NENTS\HAL\TARGET\CC2530EB\" -I "D:\程式開發\TI     #
+#                          Zigbee Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC #
+#                          2530-2.3.0-1.4.0\Projects\zstack\Utilities\Locatio #
+#                          nApp\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MCU\C #
+#                          CSOC\" -I "D:\程式開發\TI Zigbee                   #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\OSAL\INCLUDE\"    #
+#                          -I "D:\程式開發\TI Zigbee                          #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\STACK\AF\" -I     #
+#                          "D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0 #
+#                          -1.4.0\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\U #
+#                          tilities\LocationApp\CC2530DB\..\..\..\..\..\COMPO #
+#                          NENTS\STACK\NWK\" -I "D:\程式開發\TI Zigbee        #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\STACK\SEC\" -I    #
+#                          "D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0 #
+#                          -1.4.0\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\U #
+#                          tilities\LocationApp\CC2530DB\..\..\..\..\..\COMPO #
+#                          NENTS\STACK\SAPI\" -I "D:\程式開發\TI Zigbee       #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\STACK\SYS\" -I    #
+#                          "D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0 #
+#                          -1.4.0\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\U #
+#                          tilities\LocationApp\CC2530DB\..\..\..\..\..\COMPO #
+#                          NENTS\STACK\ZDO\" -I "D:\程式開發\TI Zigbee        #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8W\" -I     #
+#                          "D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0 #
+#                          -1.4.0\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\U #
+#                          tilities\LocationApp\CC2530DB\..\..\..\..\..\COMPO #
+#                          NENTS\ZMAC\" -I "D:\程式開發\TI Zigbee             #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\SERVICES\SADDR\"  #
+#                          -I "D:\程式開發\TI Zigbee                          #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\SERVICES\SDATA\"  #
+#                          -I "D:\程式開發\TI Zigbee                          #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\MAC\INCLUDE\" -I  #
+#                          "D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0 #
+#                          -1.4.0\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\U #
+#                          tilities\LocationApp\CC2530DB\..\..\..\..\..\COMPO #
+#                          NENTS\MAC\HIGH_LEVEL\" -I "D:\程式開發\TI Zigbee   #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_LEVEL\srf #
+#                          04\" -I "D:\程式開發\TI Zigbee                     #
+#                          Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2. #
+#                          3.0-1.4.0\Projects\zstack\Utilities\LocationApp\CC #
+#                          2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_LEVEL\srf #
+#                          04\SINGLE_CHIP\" -I "C:\IAR Systems\Embedded       #
+#                          Workbench 5.3\8051\INC\" -I "C:\IAR                #
+#                          Systems\Embedded Workbench 5.3\8051\INC\CLIB\"     #
+#                          -Ohz                                               #
+#    List file          =  D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0- #
+#                          1.4.0\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\Ut #
+#                          ilities\LocationApp\CC2530DB\RouterBB\List\hal_key #
+#                          pad.lst                                            #
+#    Object file        =  D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0- #
+#                          1.4.0\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\Ut #
+#                          ilities\LocationApp\CC2530DB\RouterBB\Obj\hal_keyp #
+#                          ad.r51                                             #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\程式開發\TI Zigbee Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ZStack-CC2530-2.3.0-1.4.0\Components\hal\target\CC2530BB\hal_keypad.c
+      1          //-------------------------------------------------------------------
+      2          // Filename: hal_keypad.c
+      3          // Description: HAL keypad control implementation file
+      4          //-------------------------------------------------------------------
+      5          //-------------------------------------------------------------------
+      6          // INCLUDES
+      7          //-------------------------------------------------------------------
+      8          #include "hal_defs.h"
+      9          #include "hal_mcu.h"
+     10          #include "hal_board.h"
+     11          #include "hal_lcd.h"
+     12          #include "hal_key.h"
+     13          #include "hal_keypad.h"
+     14          
+     15          //-------------------------------------------------------------------
+     16          // LOCAL VARIABLES
+     17          //-------------------------------------------------------------------
+     18          uint8 halKeypadResetCount;
+     19          //-------------------------------------------------------------------
+     20          void halKeypadI2cStart(void)
+     21          {
+     22              HAL_KEY_SCL_SET();
+                     ^
+Error[Pe223]: function "HAL_KEY_SCL_SET" declared implicitly
+     23              HAL_KEY_SDA_SET();
+                     ^
+Error[Pe223]: function "HAL_KEY_SDA_SET" declared implicitly
+     24              halMcuWaitUs(2);
+     25              HAL_KEY_SDA_CLR();
+                     ^
+Error[Pe223]: function "HAL_KEY_SDA_CLR" declared implicitly
+     26              halMcuWaitUs(2);
+     27              HAL_KEY_SCL_CLR();
+                     ^
+Error[Pe223]: function "HAL_KEY_SCL_CLR" declared implicitly
+     28              halMcuWaitUs(2);
+     29          }
+     30          
+     31          //-------------------------------------------------------------------
+     32          void halKeypadI2cStop(void)
+     33          {
+     34              HAL_KEY_SDA_CLR();
+                     ^
+Error[Pe223]: function "HAL_KEY_SDA_CLR" declared implicitly
+     35              halMcuWaitUs(2);
+     36              HAL_KEY_SCL_SET();
+                     ^
+Error[Pe223]: function "HAL_KEY_SCL_SET" declared implicitly
+     37              halMcuWaitUs(2);
+     38              HAL_KEY_SDA_SET();
+                     ^
+Error[Pe223]: function "HAL_KEY_SDA_SET" declared implicitly
+     39              halMcuWaitUs(2);
+     40          }
+     41          
+     42          //-------------------------------------------------------------------
+     43          void halKeypadI2cAck(void)
+     44          {
+     45              HAL_KEY_SDA_CLR();
+                     ^
+Error[Pe223]: function "HAL_KEY_SDA_CLR" declared implicitly
+     46              HAL_KEY_SCL_SET();
+                     ^
+Error[Pe223]: function "HAL_KEY_SCL_SET" declared implicitly
+     47              halMcuWaitUs(2);
+     48              HAL_KEY_SCL_CLR();
+                     ^
+Error[Pe223]: function "HAL_KEY_SCL_CLR" declared implicitly
+     49              halMcuWaitUs(2);
+     50          }
+     51          
+     52          //-------------------------------------------------------------------
+     53          void halKeypadI2cNack(void)
+     54          {
+     55              HAL_KEY_SDA_SET();
+                     ^
+Error[Pe223]: function "HAL_KEY_SDA_SET" declared implicitly
+     56              HAL_KEY_SCL_SET();
+                     ^
+Error[Pe223]: function "HAL_KEY_SCL_SET" declared implicitly
+     57              halMcuWaitUs(2);
+     58              HAL_KEY_SCL_CLR();
+                     ^
+Error[Pe223]: function "HAL_KEY_SCL_CLR" declared implicitly
+     59              halMcuWaitUs(2);
+     60          }
+     61          
+     62          //-------------------------------------------------------------------
+     63          void halKeypadI2cWrite(uint8 d)
+     64          {
+     65              uint8 i;
+     66          
+     67              for (i = 0; i < 8; i++)
+     68              {
+     69                  if (d &0x80)
+     70                  {
+     71                      HAL_KEY_SDA_SET();
+                             ^
+Error[Pe223]: function "HAL_KEY_SDA_SET" declared implicitly
+     72                  }
+     73                  else
+     74                  {
+     75                      HAL_KEY_SDA_CLR();
+                             ^
+Error[Pe223]: function "HAL_KEY_SDA_CLR" declared implicitly
+     76                  }
+     77                  HAL_KEY_SCL_SET();
+                         ^
+Error[Pe223]: function "HAL_KEY_SCL_SET" declared implicitly
+     78                  d = d << 1;
+     79                  halMcuWaitUs(2);
+     80                  HAL_KEY_SCL_CLR();
+                         ^
+Error[Pe223]: function "HAL_KEY_SCL_CLR" declared implicitly
+     81                  halMcuWaitUs(2);
+     82              }
+     83          }
+     84          
+     85          //-------------------------------------------------------------------
+     86          uint8 halKeypadI2cRead(void)
+     87          {
+     88              uint8 res = 0;
+     89              uint8 cnt;
+     90          
+     91              HAL_KEY_SDA_SET();
+                     ^
+Error[Pe223]: function "HAL_KEY_SDA_SET" declared implicitly
+     92              HAL_KEY_SDA_DIR_IN();
+     93              halMcuWaitUs(2);
+     94              for (cnt = 0; cnt < 8; cnt++)
+     95              {
+     96                  HAL_KEY_SCL_SET();
+                         ^
+Error[Pe223]: function "HAL_KEY_SCL_SET" declared implicitly
+     97                  res <<= 1;
+     98                  if (HAL_KEY_SDA_VAL())
+                             ^
+Error[Pe223]: function "HAL_KEY_SDA_VAL" declared implicitly
+     99                  {
+    100                      res |= 0x01;
+    101                  }
+    102                  halMcuWaitUs(2);
+    103                  HAL_KEY_SDA_CLR();
+                         ^
+Error[Pe223]: function "HAL_KEY_SDA_CLR" declared implicitly
+    104                  halMcuWaitUs(2);
+    105              }
+    106              HAL_KEY_SDA_DIR_OUT();
+                     ^
+Error[Pe223]: function "HAL_KEY_SDA_DIR_OUT" declared implicitly
+    107              return res;
+    108          }
+    109          
+    110          //-------------------------------------------------------------------
+    111          void halKeypadWriteRegister(uint8 addr, uint8 ch)
+    112          {
+    113              halKeypadI2cStart();
+    114              halKeypadI2cWrite(0xE0);
+    115              halKeypadI2cAck();
+    116              halKeypadI2cWrite(0x00);
+    117              halKeypadI2cAck();
+    118              halKeypadI2cWrite(addr); //addr
+    119              halKeypadI2cAck();
+    120              halKeypadI2cWrite(ch); //data
+    121              halKeypadI2cAck();
+    122              halKeypadI2cStop();
+    123          }
+    124          
+    125          //-------------------------------------------------------------------
+    126          uint8 halKeypadReadRegister(uint8 addr)
+    127          {
+    128              uint8 ch;
+    129          
+    130              halKeypadI2cStart();
+    131              halKeypadI2cWrite(0xE0);
+    132              halKeypadI2cAck();
+    133              halKeypadI2cWrite(0x00);
+    134              halKeypadI2cAck();
+    135              halKeypadI2cWrite(addr);
+    136              halKeypadI2cAck();
+    137              halKeypadI2cStop();
+    138          
+    139              halKeypadI2cStart();
+    140              halKeypadI2cWrite(0xE1);
+    141              halKeypadI2cAck();
+    142              ch = halKeypadI2cRead();
+    143              halKeypadI2cNack();
+    144              halKeypadI2cStop();
+    145          
+    146              return ch;
+    147          }
+    148          
+    149          //-------------------------------------------------------------------
+    150          uint16 halKeypadSensorData(void)
+    151          {
+    152              uint16 val;
+    153              halKeypadI2cStart();
+    154              halKeypadI2cWrite(0xE0);
+    155              halKeypadI2cAck();
+    156              halKeypadI2cWrite(0x00);
+    157              halKeypadI2cAck();
+    158              halKeypadI2cWrite(0x08);
+    159              halKeypadI2cAck();
+    160              halKeypadI2cStop();
+    161          
+    162              halKeypadI2cStart();
+    163              halKeypadI2cWrite(0xE1);
+    164              halKeypadI2cAck();
+    165              val = halKeypadI2cRead();
+    166              halKeypadI2cAck();
+    167              val = (val << 8) | halKeypadI2cRead();
+    168              halKeypadI2cNack();
+    169              halKeypadI2cStop();
+    170          
+    171              return val;
+    172          }
+    173          
+    174          //-------------------------------------------------------------------
+    175          // @fn      halKeypadInit
+    176          // @brief   Initializes the keypad functionality
+    177          // @param  void
+    178          // @return void
+    179          //-------------------------------------------------------------------
+    180          void halKeypadInit(void)
+    181          {
+    182              HAL_KEY_SCL_DIR_OUT();
+                     ^
+Error[Pe223]: function "HAL_KEY_SCL_DIR_OUT" declared implicitly
+    183              HAL_KEY_SDA_DIR_OUT();
+                     ^
+Error[Pe223]: function "HAL_KEY_SDA_DIR_OUT" declared implicitly
+    184              HAL_KEY_SDA_DIR_IN();
+    185            
+    186              halKeypadWriteRegister(0x00, 0x62);
+    187              halKeypadWriteRegister(0x02, 0xF7); // Sense1 bit0-3
+    188              halKeypadWriteRegister(0x03, 0x07); // Sense2 bit0-3
+    189              halKeypadWriteRegister(0x04, 0x00);
+    190              halKeypadWriteRegister(0x05, 0x00);
+    191              halKeypadWriteRegister(0x0E, 0x30);
+    192              halKeypadWriteRegister(0x00, 0x6A); //Reset
+    193              
+    194              HAL_KEY_SCL_DIR_IN();
+                     ^
+Error[Pe223]: function "HAL_KEY_SCL_DIR_IN" declared implicitly
+    195              HAL_KEY_SDA_DIR_IN();
+    196          }
+    197          
+    198          //-------------------------------------------------------------------
+    199          // @fn  halKeypadPushed
+    200          // @brief
+    201          //      This function detects if the keypad is being pushed. 
+    202          // Parameters:
+    203          // @param  void
+    204          // @return uint8
+    205          //         '0'~'9' 'A' 'B' 'C' 'D' 'E' 'F' 'U' 'N' '#' '*' : keypad is being pushed
+    206          //          0: Button is not being pushed
+    207          //-------------------------------------------------------------------
+    208          uint8 halKeypadPushed(void)
+    209          {
+    210              uint16 val;
+    211              uint8 ch;
+    212              uint8 key=0;
+    213              
+    214              val = halKeypadSensorData();
+    215              //halLcdDisplayUint16(HAL_LCD_LINE_4,0,HAL_LCD_RADIX_HEX,val);
+    216              switch (val)
+    217              {
+    218                  case 0x0404:
+    219                      //0
+    220                      ch = '0';
+    221                      break;
+    222                  case 0x0082:
+    223                      //1
+    224                      ch = '1';
+    225                      break;
+    226                  case 0x0084:
+    227                      //2
+    228                      ch = '2';
+    229                      key |= HAL_KEY_SW_1; // Keypad button2(Joystick up)
+    230                      break;
+    231                  case 0x0088:
+    232                      //3
+    233                      ch = '3';
+    234                      break;
+    235                  case 0x0102:
+    236                      //4
+    237                      ch = '4';
+    238                      key |= HAL_KEY_SW_4; // Keypad button4(Joystick left)
+    239                      break;
+    240                  case 0x0104:
+    241                      //5
+    242                      ch = '5';
+    243                      key |= HAL_KEY_SW_5; // Keypad button5(Joystick center)
+    244                      break;
+    245                  case 0x0108:
+    246                      //6
+    247                      ch = '6';
+    248                      key |= HAL_KEY_SW_2; // Keypad button6(Joystick right)
+    249                      break;
+    250                  case 0x0202:
+    251                      //7
+    252                      ch = '7';
+    253                      break;
+    254                  case 0x0204:
+    255                      //8
+    256                      ch = '8';
+    257                      key |= HAL_KEY_SW_3; // Keypad button8(Joystick down)
+    258                      break;
+    259                  case 0x0208:
+    260                      //9
+    261                      ch = '9';
+    262                      break;
+    263                  case 0x0402:
+    264                      //*
+    265                      ch = '*';
+    266                      break;
+    267                  case 0x0408:
+    268                      //#
+    269                      ch = '#';
+    270                      break;
+    271                  case 0x0090:
+    272                      //A
+    273                      ch = 'A';
+    274                      break;
+    275                  case 0x0110:
+    276                      //B
+    277                      ch = 'B';
+    278                      break;
+    279                  case 0x0210:
+    280                      //C
+    281                      ch = 'C';
+    282                      break;
+    283                  case 0x00A0:
+    284                      //D
+    285                      ch = 'D';
+    286                      break;
+    287                  case 0x0120:
+    288                      //E
+    289                      ch = 'E';
+    290                      break;
+    291                  case 0x0220:
+    292                      //F
+    293                      ch = 'F';
+    294                      break;
+    295                  case 0x0410:
+    296                      //U
+    297                      ch = 'U';
+    298                      break;
+    299                  case 0x0420:
+    300                      //N
+    301                      ch = 'N';
+    302                      break;
+    303                  default:
+    304                      ch = 0;
+    305                      break;
+    306              }
+    307              halKeypadResetCount++;
+    308              if (halKeypadResetCount > 200)
+    309              {
+    310                  halKeypadResetCount = 0;
+    311                  halKeypadWriteRegister(0x00, 0x6A); //Reset
+    312              }
+    313              if (ch > 0)
+    314              {
+    315          		//halBuzzerOn(BUZZER_FREQ);
+    316          		halMcuWaitMs(20);
+    317          		//halBuzzerOff();
+    318              }
+    319              return key;
+    320          }
+    321          
+    322          
+    323          /*******************************************************************************
+    324          // @fn          halMcuWaitUs
+    325          // @brief       Busy wait function. Waits the specified number of microseconds. Use
+    326          //              assumptions about number of clock cycles needed for the various
+    327          //              instructions. This function assumes a 32 MHz clock.
+    328          //              NB! This function is highly dependent on architecture and compiler!
+    329          // @param       uint16 usec - number of microseconds delays
+    330          // @return      none
+    331           ******************************************************************************/
+    332          void halMcuWaitUs(uint16 usec)
+    333          {
+    334              usec >>= 1;
+    335              while (usec--)
+    336              {
+    337                  asm("NOP");
+    338                  asm("NOP");
+    339                  asm("NOP");
+    340                  asm("NOP");
+    341                  asm("NOP");
+    342                  asm("NOP");
+    343                  asm("NOP");
+    344                  asm("NOP");
+    345                  asm("NOP");
+    346                  asm("NOP");
+    347                  asm("NOP");
+    348                  asm("NOP");
+    349                  asm("NOP");
+    350                  asm("NOP");
+    351                  asm("NOP");
+    352                  asm("NOP");
+    353              }
+    354          }
+    355          
+    356          /*******************************************************************************
+    357          // @fn          halMcuWaitMs
+    358          // @brief       Busy wait function. Waits the specified number of milliseconds. Use
+    359          //              assumptions about number of clock cycles needed for the various
+    360          //              instructions.
+    361          //              NB! This function is highly dependent on architecture and compiler!
+    362          // @param       uint16 millisec - number of milliseconds delay
+    363          // @return      none
+    364           ******************************************************************************/
+    365          void halMcuWaitMs(uint16 msec)
+    366          {
+    367              while (msec--)
+    368              {
+    369                  halMcuWaitUs(1000);
+    370              }
+    371          }
+
+Errors: 25
+Warnings: none

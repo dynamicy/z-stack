@@ -1,0 +1,621 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               30/Nov/2010  09:48:37 /
+// Copyright 2004-2009 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  banked                                            /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data_rom                                          /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE     /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\Source\zcl_zigbee receiver_data.c          /
+//    Command line       =  -f "D:\R.D Dept\程式開發\TI CC2530                /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\Tools\CC2530DB\f8wRouter /
+//                          .cfg" (-DCPU32MHZ -DROOT=__near_func              /
+//                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE -DRTR_NWK        /
+//                          -DBLINK_LEDS) -f "D:\R.D Dept\程式開發\TI CC2530  /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig /
+//                          .cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0           /
+//                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800         /
+//                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
+//                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
+//                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
+//                          -DBEACON_REQ_DELAY_MASK=0x00FF                    /
+//                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_P /
+//                          OLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7           /
+//                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3   /
+//                          -DNWK_MAX_DATA_RETRIES=2                          /
+//                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9        /
+//                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40          /
+//                          -DNWK_MAX_BINDING_ENTRIES=4                       /
+//                          -DMAX_BINDING_CLUSTER_IDS=4                       /
+//                          "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07, 0x09,     /
+//                          0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08,   /
+//                          0x0A, 0x0C, 0x0D}" -DMAC_MAX_FRAME_SIZE=116       /
+//                          "-DCONST=const __code" -DGENERIC=__generic        /
+//                          -DRFD_RCVC_ALWAYS_ON=TRUE -DPOLL_RATE=1000        /
+//                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100   /
+//                          -DREJOIN_POLL_RATE=440) -f "D:\R.D                /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cf /
+//                          g" (-DZCL_READ -DZCL_WRITE -DZCL_BASIC            /
+//                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH   /
+//                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
+//                          -DZCL_PRICING) -DZCL_MESSAGE "D:\R.D              /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\Source\zcl_zigbee receiver_data.c" -D      /
+//                          ZTOOL_P1 -D MT_TASK -D MT_APP_FUNC -D             /
+//                          MT_SYS_FUNC -D MT_ZDO_FUNC -D                     /
+//                          LCD_SUPPORTED=DEBUG -D Router_receiver -D         /
+//                          xHAL_KEYPAD -D xPA2591 -lC "D:\R.D                /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\Router_EB_PA\List\" -lA "D:\R.D   /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\Router_EB_PA\List\"               /
+//                          --diag_suppress Pe001,Pa010 -o "D:\R.D            /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\Router_EB_PA\Obj\" -e             /
+//                          --require_prototypes --debug --core=plain         /
+//                          --dptr=16,1 --data_model=large                    /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I "D:\R.D Dept\程式開發\TI  /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Coordinator &      /
+//                          Router\CC2530DB\" -I "D:\R.D Dept\程式開發\TI     /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Coordinator &      /
+//                          Router\CC2530DB\..\SOURCE\" -I "D:\R.D            /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\SOURCE\" -I "D:\R.D         /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I      /
+//                          "D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE    /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\MT\"    /
+//                          -I "D:\R.D Dept\程式開發\TI CC2530                /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INC /
+//                          LUDE\" -I "D:\R.D Dept\程式開發\TI CC2530         /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TAR /
+//                          GET\CC2530EB\" -I "D:\R.D Dept\程式開發\TI        /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Coordinator &      /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MC /
+//                          U\CCSOC\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\IN /
+//                          CLUDE\" -I "D:\R.D Dept\程式開發\TI CC2530        /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\A /
+//                          F\" -I "D:\R.D Dept\程式開發\TI CC2530            /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\N /
+//                          WK\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          EC\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          API\" -I "D:\R.D Dept\程式開發\TI CC2530          /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          YS\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          CL\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          DO\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8 /
+//                          W\" -I "D:\R.D Dept\程式開發\TI CC2530            /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"  /
+//                          -I "D:\R.D Dept\程式開發\TI CC2530                /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SADDR\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SDATA\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INC /
+//                          LUDE\" -I "D:\R.D Dept\程式開發\TI CC2530         /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIG /
+//                          H_LEVEL\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Coordinator &          /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\" -I "D:\R.D Dept\程式開發\TI        /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Coordinator &      /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR             /
+//                          Systems\Embedded Workbench for MCS-51             /
+//                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded      /
+//                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz   /
+//    List file          =  D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE     /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\Router_EB_PA\List\zcl_zigbee      /
+//                          receiver_data.s51                                 /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME `zcl_zigbee receiver_data`
+
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN __INIT_XDATA_I
+        EXTERN __INIT_XDATA_Z
+
+        PUBLIC zclSampleLight_DateCode
+        PUBLIC zclSampleLight_DeviceEnable
+        PUBLIC zclSampleLight_HWRevision
+        PUBLIC zclSampleLight_InClusterList
+        PUBLIC zclSampleLight_LocationDescription
+        PUBLIC zclSampleLight_ManufacturerName
+        PUBLIC zclSampleLight_ModelId
+        PUBLIC zclSampleLight_OutClusterList
+        PUBLIC zclSampleLight_PhysicalEnvironment
+        PUBLIC zclSampleLight_PowerSource
+        PUBLIC zclSampleLight_ZCLVersion
+        PUBLIC zclZigbeeRecv_Attrs
+        PUBLIC zclZigbeeRecv_IdentifyTime
+        PUBLIC zclZigbeeRecv_OnOff
+        PUBLIC zclZigbeeRecv_SimpleDesc
+// D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network Example\Projects\zstack\Sensor Network Application\ZIGBEE Coordinator & Router\Source\zcl_zigbee receiver_data.c
+//    1 /**************************************************************************************************
+//    2   Filename:       zcl_zigbee receiver_data.c
+//    3   Revised:        $Date: 2008-03-11 11:01:35 -0700 (Tue, 11 Mar 2008) $
+//    4   Revision:       $Revision: 16570 $
+//    5 
+//    6   Description:    Zigbee Cluster Library - sample device application.
+//    7 
+//    8   Copyright 2006-2007 Texas Instruments Incorporated. All rights reserved.
+//    9 
+//   10   Should you have any questions regarding your right to use this Software,
+//   11   contact Texas Instruments Incorporated at www.TI.com. 
+//   12 **************************************************************************************************/
+//   13 
+//   14 /*********************************************************************
+//   15  * INCLUDES
+//   16  */
+//   17 #include "ZComDef.h"
+//   18 #include "OSAL.h"
+//   19 #include "AF.h"
+//   20 #include "ZDConfig.h"
+//   21 
+//   22 #include "zcl.h"
+//   23 #include "zcl_general.h"
+//   24 #include "zcl_ha.h"
+//   25 
+//   26 #include "zcl_zigbee receiver.h"
+//   27 
+//   28 /*********************************************************************
+//   29  * CONSTANTS
+//   30  */
+//   31 
+//   32 #define SAMPLELIGHT_DEVICE_VERSION     0
+//   33 #define SAMPLELIGHT_FLAGS              0
+//   34 
+//   35 #define SAMPLELIGHT_HWVERSION          1
+//   36 #define SAMPLELIGHT_ZCLVERSION         1
+//   37 
+//   38 /*********************************************************************
+//   39  * TYPEDEFS
+//   40  */
+//   41 
+//   42 /*********************************************************************
+//   43  * MACROS
+//   44  */
+//   45 
+//   46 /*********************************************************************
+//   47  * GLOBAL VARIABLES
+//   48  */
+//   49 
+//   50 // Basic Cluster
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+//   51 const uint8 zclSampleLight_HWRevision = SAMPLELIGHT_HWVERSION;
+zclSampleLight_HWRevision:
+        DB 1
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+//   52 const uint8 zclSampleLight_ZCLVersion = SAMPLELIGHT_ZCLVERSION;
+zclSampleLight_ZCLVersion:
+        DB 1
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+//   53 const uint8 zclSampleLight_ManufacturerName[] = { 16, 'T','e','x','a','s','I','n','s','t','r','u','m','e','n','t','s' };
+zclSampleLight_ManufacturerName:
+        DB 16, 84, 101, 120, 97, 115, 73, 110, 115, 116, 114, 117, 109, 101
+        DB 110, 116, 115
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+//   54 const uint8 zclSampleLight_ModelId[] = { 16, 'T','I','0','0','0','1',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ' };
+zclSampleLight_ModelId:
+        DB 16, 84, 73, 48, 48, 48, 49, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+//   55 const uint8 zclSampleLight_DateCode[] = { 16, '2','0','0','6','0','8','3','1',' ',' ',' ',' ',' ',' ',' ',' ' };
+zclSampleLight_DateCode:
+        DB 16, 50, 48, 48, 54, 48, 56, 51, 49, 32, 32, 32, 32, 32, 32, 32, 32
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+//   56 const uint8 zclSampleLight_PowerSource = POWER_SOURCE_MAINS_1_PHASE;
+zclSampleLight_PowerSource:
+        DB 1
+//   57 
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA
+//   58 uint8 zclSampleLight_LocationDescription[17] = { 16, ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ' };
+zclSampleLight_LocationDescription:
+        DS 17
+        REQUIRE `?<Initializer for zclSampleLight_LocationDescr`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   59 uint8 zclSampleLight_PhysicalEnvironment = 0;
+zclSampleLight_PhysicalEnvironment:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA
+//   60 uint8 zclSampleLight_DeviceEnable = DEVICE_ENABLED;
+zclSampleLight_DeviceEnable:
+        DS 1
+        REQUIRE `?<Initializer for zclSampleLight_DeviceEnable>`
+        REQUIRE __INIT_XDATA_I
+//   61 
+//   62 // Identify Cluster
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   63 uint16 zclZigbeeRecv_IdentifyTime = 0;
+zclZigbeeRecv_IdentifyTime:
+        DS 2
+        REQUIRE __INIT_XDATA_Z
+//   64 
+//   65 // On/Off Cluster
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   66 uint8  zclZigbeeRecv_OnOff = LIGHT_OFF;
+zclZigbeeRecv_OnOff:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+//   67 
+//   68 /*********************************************************************
+//   69  * ATTRIBUTE DEFINITIONS - Uses REAL cluster IDs
+//   70  */
+
+        RSEG CODE_C:CODE:REORDER:NOROOT(0)
+        DATA
+//   71 CONST zclAttrRec_t zclZigbeeRecv_Attrs[ZIGBEERECV_MAX_ATTRIBUTES] =
+zclZigbeeRecv_Attrs:
+        DW 0, 3
+        DB 32, 1
+        DW zclSampleLight_HWRevision, 0, 0
+        DB 32, 1
+        DW zclSampleLight_ZCLVersion, 0, 4
+        DB 66, 1
+        DW zclSampleLight_ManufacturerName, 0, 5
+        DB 66, 1
+        DW zclSampleLight_ModelId, 0, 6
+        DB 66, 1
+        DW zclSampleLight_DateCode, 0, 7
+        DB 32, 1
+        DW zclSampleLight_PowerSource, 0, 16
+        DB 66, 3
+        DW zclSampleLight_LocationDescription, 0, 17
+        DB 32, 3
+        DW zclSampleLight_PhysicalEnvironment, 0, 18
+        DB 16, 3
+        DW zclSampleLight_DeviceEnable, 3, 0
+        DB 33, 3
+        DW zclZigbeeRecv_IdentifyTime, 6, 0
+        DB 32, 1
+        DW zclZigbeeRecv_OnOff
+        DB 0, 0, 0, 0, 0, 0, 0, 0
+//   72 {
+//   73   // *** General Basic Cluster Attributes ***
+//   74   {
+//   75     ZCL_CLUSTER_ID_GEN_BASIC,             // Cluster IDs - defined in the foundation (ie. zcl.h)
+//   76     {  // Attribute record
+//   77       ATTRID_BASIC_HW_VERSION,            // Attribute ID - Found in Cluster Library header (ie. zcl_general.h)
+//   78       ZCL_DATATYPE_UINT8,                 // Data Type - found in zcl.h
+//   79       ACCESS_CONTROL_READ,                // Variable access control - found in zcl.h
+//   80       (void *)&zclSampleLight_HWRevision  // Pointer to attribute variable
+//   81     }
+//   82   },
+//   83   {
+//   84     ZCL_CLUSTER_ID_GEN_BASIC,
+//   85     { // Attribute record
+//   86       ATTRID_BASIC_ZCL_VERSION,
+//   87       ZCL_DATATYPE_UINT8,
+//   88       ACCESS_CONTROL_READ,
+//   89       (void *)&zclSampleLight_ZCLVersion
+//   90     }
+//   91   },
+//   92   {
+//   93     ZCL_CLUSTER_ID_GEN_BASIC,
+//   94     { // Attribute record
+//   95       ATTRID_BASIC_MANUFACTURER_NAME,
+//   96       ZCL_DATATYPE_CHAR_STR,
+//   97       ACCESS_CONTROL_READ,
+//   98       (void *)zclSampleLight_ManufacturerName
+//   99     }
+//  100   },
+//  101   {
+//  102     ZCL_CLUSTER_ID_GEN_BASIC,
+//  103     { // Attribute record
+//  104       ATTRID_BASIC_MODEL_ID,
+//  105       ZCL_DATATYPE_CHAR_STR,
+//  106       ACCESS_CONTROL_READ,
+//  107       (void *)zclSampleLight_ModelId
+//  108     }
+//  109   },
+//  110   {
+//  111     ZCL_CLUSTER_ID_GEN_BASIC,
+//  112     { // Attribute record
+//  113       ATTRID_BASIC_DATE_CODE,
+//  114       ZCL_DATATYPE_CHAR_STR,
+//  115       ACCESS_CONTROL_READ,
+//  116       (void *)zclSampleLight_DateCode
+//  117     }
+//  118   },
+//  119   {
+//  120     ZCL_CLUSTER_ID_GEN_BASIC,
+//  121     { // Attribute record
+//  122       ATTRID_BASIC_POWER_SOURCE,
+//  123       ZCL_DATATYPE_UINT8,
+//  124       ACCESS_CONTROL_READ,
+//  125       (void *)&zclSampleLight_PowerSource
+//  126     }
+//  127   },
+//  128   {
+//  129     ZCL_CLUSTER_ID_GEN_BASIC,
+//  130     { // Attribute record
+//  131       ATTRID_BASIC_LOCATION_DESC,
+//  132       ZCL_DATATYPE_CHAR_STR,
+//  133       (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+//  134       (void *)zclSampleLight_LocationDescription
+//  135     }
+//  136   },
+//  137   {
+//  138     ZCL_CLUSTER_ID_GEN_BASIC,
+//  139     { // Attribute record
+//  140       ATTRID_BASIC_PHYSICAL_ENV,
+//  141       ZCL_DATATYPE_UINT8,
+//  142       (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+//  143       (void *)&zclSampleLight_PhysicalEnvironment
+//  144     }
+//  145   },
+//  146   {
+//  147     ZCL_CLUSTER_ID_GEN_BASIC,
+//  148     { // Attribute record
+//  149       ATTRID_BASIC_DEVICE_ENABLED,
+//  150       ZCL_DATATYPE_BOOLEAN,
+//  151       (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+//  152       (void *)&zclSampleLight_DeviceEnable
+//  153     }
+//  154   },
+//  155 
+//  156   // *** Identify Cluster Attribute ***
+//  157   {
+//  158     ZCL_CLUSTER_ID_GEN_IDENTIFY,
+//  159     { // Attribute record
+//  160       ATTRID_IDENTIFY_TIME,
+//  161       ZCL_DATATYPE_UINT16,
+//  162       (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+//  163       (void *)&zclZigbeeRecv_IdentifyTime
+//  164     }
+//  165   },
+//  166 
+//  167   // *** On/Off Cluster Attributes ***
+//  168   {
+//  169     ZCL_CLUSTER_ID_GEN_ON_OFF,
+//  170     { // Attribute record
+//  171       ATTRID_ON_OFF,
+//  172       ZCL_DATATYPE_UINT8,
+//  173       ACCESS_CONTROL_READ,
+//  174       (void *)&zclZigbeeRecv_OnOff
+//  175     }
+//  176   },
+//  177 };
+//  178 
+//  179 /*********************************************************************
+//  180  * SIMPLE DESCRIPTOR
+//  181  */
+//  182 // This is the Cluster ID List and should be filled with Application
+//  183 // specific cluster IDs.
+//  184 #define ZCLSAMPLELIGHT_MAX_INCLUSTERS       5
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+//  185 const cId_t zclSampleLight_InClusterList[ZCLSAMPLELIGHT_MAX_INCLUSTERS] =
+zclSampleLight_InClusterList:
+        DW 0, 5, 4, 6, 8
+//  186 {
+//  187   ZCL_CLUSTER_ID_GEN_BASIC,
+//  188   ZCL_CLUSTER_ID_GEN_SCENES,
+//  189   ZCL_CLUSTER_ID_GEN_GROUPS,
+//  190   ZCL_CLUSTER_ID_GEN_ON_OFF,
+//  191   ZCL_CLUSTER_ID_GEN_LEVEL_CONTROL
+//  192 };
+//  193 
+//  194 #define ZCLSAMPLELIGHT_MAX_OUTCLUSTERS       1
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+//  195 const cId_t zclSampleLight_OutClusterList[ZCLSAMPLELIGHT_MAX_OUTCLUSTERS] =
+zclSampleLight_OutClusterList:
+        DW 0
+//  196 {
+//  197   ZCL_CLUSTER_ID_GEN_BASIC
+//  198 };
+//  199 
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA
+//  200 SimpleDescriptionFormat_t zclZigbeeRecv_SimpleDesc =
+zclZigbeeRecv_SimpleDesc:
+        DS 12
+        REQUIRE `?<Initializer for zclZigbeeRecv_SimpleDesc>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+        DATA
+`?<Initializer for zclSampleLight_LocationDescr`:
+        DB 16, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+        DATA
+`?<Initializer for zclSampleLight_DeviceEnable>`:
+        DB 1
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+        DATA
+`?<Initializer for zclZigbeeRecv_SimpleDesc>`:
+        DB 13
+        DW 260, 257
+        DB 0, 5
+        DW zclSampleLight_InClusterList
+        DB 1
+        DW zclSampleLight_OutClusterList
+
+        END
+//  201 {
+//  202   ZIGBEERECV_ENDPOINT,                   //  int Endpoint;
+//  203   ZCL_HA_PROFILE_ID,                     //  uint16 AppProfId[2];
+//  204   ZCL_HA_DEVICEID_DIMMABLE_LIGHT,        //  uint16 AppDeviceId[2];
+//  205   SAMPLELIGHT_DEVICE_VERSION,            //  int   AppDevVer:4;
+//  206   SAMPLELIGHT_FLAGS,                     //  int   AppFlags:4;
+//  207   ZCLSAMPLELIGHT_MAX_INCLUSTERS,         //  byte  AppNumInClusters;
+//  208   (cId_t *)zclSampleLight_InClusterList, //  byte *pAppInClusterList;
+//  209   ZCLSAMPLELIGHT_MAX_OUTCLUSTERS,        //  byte  AppNumInClusters;
+//  210   (cId_t *)zclSampleLight_OutClusterList //  byte *pAppInClusterList;
+//  211 };
+//  212 
+//  213 /*********************************************************************
+//  214  * GLOBAL FUNCTIONS
+//  215  */
+//  216 
+//  217 /*********************************************************************
+//  218  * LOCAL FUNCTIONS
+//  219  */
+//  220 
+//  221 /****************************************************************************
+//  222 ****************************************************************************/
+//  223 
+//  224 
+// 
+// 96 bytes in segment CODE_C
+// 30 bytes in segment XDATA_I
+// 30 bytes in segment XDATA_ID
+// 66 bytes in segment XDATA_ROM_C
+//  4 bytes in segment XDATA_Z
+// 
+// 126 bytes of CODE  memory
+//  66 bytes of CONST memory
+//  34 bytes of XDATA memory
+//
+//Errors: none
+//Warnings: none

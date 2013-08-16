@@ -1,0 +1,3126 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               16/Jul/2010  08:48:08 /
+// Copyright 2004-2009 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  banked                                            /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data_rom                                          /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  C:\Documents and Settings\WinXP\桌面\ZIGBEE       /
+//                          CC2530\ZIGBEE CC2530\ZIGBEE                       /
+//                          Z-STACK\ZStack-CC2530-2.3.0-1.4.0\Components\hal\ /
+//                          target\CC2530EB\hal_keypad.c                      /
+//    Command line       =  -f "C:\Documents and Settings\WinXP\桌面\ZIGBEE   /
+//                          CC2530\ZIGBEE CC2530\ZIGBEE                       /
+//                          Z-STACK\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack /
+//                          \Sensor Network Application\ZIGBEE Endpoint &     /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev. /
+//                          cfg" (-DCPU32MHZ -DROOT=__near_func               /
+//                          -DBLINK_LEDS) -f "C:\Documents and                /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\Tools\CC2530D /
+//                          B\f8wConfig.cfg" (-DSECURE=0                      /
+//                          -DZG_SECURE_DYNAMIC=0 -DREFLECTOR                 /
+//                          -DDEFAULT_CHANLIST=0x00000800                     /
+//                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
+//                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
+//                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
+//                          -DBEACON_REQ_DELAY_MASK=0x00FF                    /
+//                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_P /
+//                          OLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7           /
+//                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3   /
+//                          -DNWK_MAX_DATA_RETRIES=2                          /
+//                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9        /
+//                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40          /
+//                          -DNWK_MAX_BINDING_ENTRIES=4                       /
+//                          -DMAX_BINDING_CLUSTER_IDS=4                       /
+//                          "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07, 0x09,     /
+//                          0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08,   /
+//                          0x0A, 0x0C, 0x0D}" -DMAC_MAX_FRAME_SIZE=116       /
+//                          "-DCONST=const __code" -DGENERIC=__generic        /
+//                          -DRFD_RCVC_ALWAYS_ON=TRUE -DPOLL_RATE=1000        /
+//                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100   /
+//                          -DREJOIN_POLL_RATE=440) -f "C:\Documents and      /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\Tools\CC2530D /
+//                          B\f8wZCL.cfg" (-DZCL_READ -DZCL_WRITE             /
+//                          -DZCL_BASIC -DZCL_IDENTIFY -DZCL_ON_OFF           /
+//                          -DZCL_KEY_ESTABLISH -DZCL_LOAD_CONTROL            /
+//                          -DZCL_SIMPLE_METERING -DZCL_PRICING)              /
+//                          -DZCL_MESSAGE "C:\Documents and                   /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\C /
+//                          omponents\hal\target\CC2530EB\hal_keypad.c" -D    /
+//                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D           /
+//                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
+//                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D M170 -lC  /
+//                          "C:\Documents and Settings\WinXP\桌面\ZIGBEE      /
+//                          CC2530\ZIGBEE CC2530\ZIGBEE                       /
+//                          Z-STACK\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack /
+//                          \Sensor Network Application\ZIGBEE Endpoint &     /
+//                          Device\CC2530DB\EndDeviceEB_M170\List\" -lA       /
+//                          "C:\Documents and Settings\WinXP\桌面\ZIGBEE      /
+//                          CC2530\ZIGBEE CC2530\ZIGBEE                       /
+//                          Z-STACK\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack /
+//                          \Sensor Network Application\ZIGBEE Endpoint &     /
+//                          Device\CC2530DB\EndDeviceEB_M170\List\"           /
+//                          --diag_suppress Pe001,Pa010 -o "C:\Documents and  /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\EndDeviceEB_M170\Obj\" /
+//                           -e --require_prototypes --debug --core=plain     /
+//                          --dptr=16,1 --data_model=large                    /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I "C:\Documents and         /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\" -I "C:\Documents     /
+//                          and Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE      /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\SOURCE\" -I         /
+//                          "C:\Documents and Settings\WinXP\桌面\ZIGBEE      /
+//                          CC2530\ZIGBEE CC2530\ZIGBEE                       /
+//                          Z-STACK\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack /
+//                          \Sensor Network Application\ZIGBEE Endpoint &     /
+//                          Device\CC2530DB\..\..\SOURCE\" -I "C:\Documents   /
+//                          and Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE      /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\ZMAIN\TI2530D /
+//                          B\" -I "C:\Documents and                          /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\MT\" -I "C:\Documents and                     /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\HAL\INCLUDE\" -I "C:\Documents and            /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\HAL\MODULE\" -I "C:\Documents and             /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\HAL\TARGET\CC2530EB\" -I "C:\Documents and    /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\OSAL\MCU\CCSOC\" -I "C:\Documents and         /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\OSAL\INCLUDE\" -I "C:\Documents and           /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\STACK\AF\" -I "C:\Documents and               /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\STACK\NWK\" -I "C:\Documents and              /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\STACK\SEC\" -I "C:\Documents and              /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\STACK\SAPI\" -I "C:\Documents and             /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\STACK\SYS\" -I "C:\Documents and              /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\STACK\ZCL\" -I "C:\Documents and              /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\STACK\ZDO\" -I "C:\Documents and              /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\ZMAC\F8W\" -I "C:\Documents and               /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\ZMAC\" -I "C:\Documents and                   /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\SERVICES\SADDR\" -I "C:\Documents and         /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\SERVICES\SDATA\" -I "C:\Documents and         /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\MAC\INCLUDE\" -I "C:\Documents and            /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\MAC\HIGH_LEVEL\" -I "C:\Documents and         /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\MAC\LOW_LEVEL\srf04\" -I "C:\Documents and    /
+//                          Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE          /
+//                          CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\P /
+//                          rojects\zstack\Sensor Network Application\ZIGBEE  /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\MAC\LOW_LEVEL\srf04\SINGLE_CHIP\" -I          /
+//                          "C:\Program Files\IAR Systems\Embedded Workbench  /
+//                          5.3\8051\INC\" -I "C:\Program Files\IAR           /
+//                          Systems\Embedded Workbench 5.3\8051\INC\CLIB\"    /
+//                          -Ohz                                              /
+//    List file          =  C:\Documents and Settings\WinXP\桌面\ZIGBEE       /
+//                          CC2530\ZIGBEE CC2530\ZIGBEE                       /
+//                          Z-STACK\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack /
+//                          \Sensor Network Application\ZIGBEE Endpoint &     /
+//                          Device\CC2530DB\EndDeviceEB_M170\List\hal_keypad. /
+//                          s51                                               /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME hal_keypad
+
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ??halKeypadI2cAck?relay
+        EXTERN ??halKeypadI2cNack?relay
+        EXTERN ??halKeypadI2cRead?relay
+        EXTERN ??halKeypadI2cStart?relay
+        EXTERN ??halKeypadI2cStop?relay
+        EXTERN ??halKeypadI2cWrite?relay
+        EXTERN ??halKeypadSensorData?relay
+        EXTERN ??halKeypadWriteRegister?relay
+        EXTERN ??halMcuWaitMs?relay
+        EXTERN ??halMcuWaitUs?relay
+        EXTERN ?BANKED_ENTER_XDATA
+        EXTERN ?BANKED_LEAVE_XDATA
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+        EXTERN ?US_SWITCH_SPARSE
+        EXTERN ?V0
+        EXTERN __INIT_XDATA_Z
+
+        PUBLIC ??halKeypadI2cAck?relay
+        FUNCTION ??halKeypadI2cAck?relay,0203H
+        PUBLIC ??halKeypadI2cNack?relay
+        FUNCTION ??halKeypadI2cNack?relay,0203H
+        PUBLIC ??halKeypadI2cRead?relay
+        FUNCTION ??halKeypadI2cRead?relay,0203H
+        PUBLIC ??halKeypadI2cStart?relay
+        FUNCTION ??halKeypadI2cStart?relay,0203H
+        PUBLIC ??halKeypadI2cStop?relay
+        FUNCTION ??halKeypadI2cStop?relay,0203H
+        PUBLIC ??halKeypadI2cWrite?relay
+        FUNCTION ??halKeypadI2cWrite?relay,0203H
+        PUBLIC ??halKeypadInit?relay
+        FUNCTION ??halKeypadInit?relay,0203H
+        PUBLIC ??halKeypadPushed?relay
+        FUNCTION ??halKeypadPushed?relay,0203H
+        PUBLIC ??halKeypadReadRegister?relay
+        FUNCTION ??halKeypadReadRegister?relay,0203H
+        PUBLIC ??halKeypadSensorData?relay
+        FUNCTION ??halKeypadSensorData?relay,0203H
+        PUBLIC ??halKeypadWriteRegister?relay
+        FUNCTION ??halKeypadWriteRegister?relay,0203H
+        PUBLIC ??halMcuWaitMs?relay
+        FUNCTION ??halMcuWaitMs?relay,0203H
+        PUBLIC ??halMcuWaitUs?relay
+        FUNCTION ??halMcuWaitUs?relay,0203H
+        PUBWEAK P2DIR
+        PUBWEAK P2INP
+        PUBWEAK P2SEL
+        PUBWEAK _A_P2
+        PUBLIC halKeypadI2cAck
+        FUNCTION halKeypadI2cAck,021203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC halKeypadI2cNack
+        FUNCTION halKeypadI2cNack,021203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC halKeypadI2cRead
+        FUNCTION halKeypadI2cRead,021203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC halKeypadI2cStart
+        FUNCTION halKeypadI2cStart,021203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC halKeypadI2cStop
+        FUNCTION halKeypadI2cStop,021203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC halKeypadI2cWrite
+        FUNCTION halKeypadI2cWrite,021203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC halKeypadInit
+        FUNCTION halKeypadInit,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC halKeypadPushed
+        FUNCTION halKeypadPushed,0a1203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        PUBLIC halKeypadReadRegister
+        FUNCTION halKeypadReadRegister,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC halKeypadResetCount
+        PUBLIC halKeypadSensorData
+        FUNCTION halKeypadSensorData,021203H
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC halKeypadWriteRegister
+        FUNCTION halKeypadWriteRegister,021203H
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC halMcuWaitMs
+        FUNCTION halMcuWaitMs,021203H
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC halMcuWaitUs
+        FUNCTION halMcuWaitUs,080203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        
+        CFI Names cfiNames0
+        CFI StackFrame CFA_SP SP IDATA
+        CFI StackFrame CFA_PSP16 PSP16 XDATA
+        CFI StackFrame CFA_XSP16 XSP16 XDATA
+        CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+        CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+        CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+        CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+        CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+        CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+        CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+        CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+        CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+        CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+        CFI VirtualResource ?RET:24
+        CFI Resource ?BRET_EXT:8
+        CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+        CFI ResourceParts PSP16 PSPH, PSPL
+        CFI ResourceParts XSP16 XSPH, XSPL
+        CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+        CFI EndNames cfiNames0
+        
+        CFI Common cfiCommon0 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-3
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B Undefined
+        CFI A Undefined
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 Undefined
+        CFI R1 Undefined
+        CFI R2 Undefined
+        CFI R3 Undefined
+        CFI R4 Undefined
+        CFI R5 Undefined
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT Frame(CFA_SP, 3)
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon0
+        
+        
+        CFI Common cfiCommon1 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-2
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B SameValue
+        CFI A SameValue
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 SameValue
+        CFI R1 SameValue
+        CFI R2 SameValue
+        CFI R3 SameValue
+        CFI R4 SameValue
+        CFI R5 SameValue
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT SameValue
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon1
+        
+halBuzzerOn         SYMBOL "halBuzzerOn"
+halBuzzerOff        SYMBOL "halBuzzerOff"
+??halBuzzerOff?relay SYMBOL "?relay", halBuzzerOff
+??halBuzzerOn?relay SYMBOL "?relay", halBuzzerOn
+halKeypadI2cAck     SYMBOL "halKeypadI2cAck"
+??halKeypadI2cAck?relay SYMBOL "?relay", halKeypadI2cAck
+halKeypadI2cNack    SYMBOL "halKeypadI2cNack"
+??halKeypadI2cNack?relay SYMBOL "?relay", halKeypadI2cNack
+halKeypadI2cRead    SYMBOL "halKeypadI2cRead"
+??halKeypadI2cRead?relay SYMBOL "?relay", halKeypadI2cRead
+halKeypadI2cStart   SYMBOL "halKeypadI2cStart"
+??halKeypadI2cStart?relay SYMBOL "?relay", halKeypadI2cStart
+halKeypadI2cStop    SYMBOL "halKeypadI2cStop"
+??halKeypadI2cStop?relay SYMBOL "?relay", halKeypadI2cStop
+halKeypadI2cWrite   SYMBOL "halKeypadI2cWrite"
+??halKeypadI2cWrite?relay SYMBOL "?relay", halKeypadI2cWrite
+halKeypadInit       SYMBOL "halKeypadInit"
+??halKeypadInit?relay SYMBOL "?relay", halKeypadInit
+halKeypadPushed     SYMBOL "halKeypadPushed"
+??halKeypadPushed?relay SYMBOL "?relay", halKeypadPushed
+halKeypadReadRegister SYMBOL "halKeypadReadRegister"
+??halKeypadReadRegister?relay SYMBOL "?relay", halKeypadReadRegister
+halKeypadSensorData SYMBOL "halKeypadSensorData"
+??halKeypadSensorData?relay SYMBOL "?relay", halKeypadSensorData
+halKeypadWriteRegister SYMBOL "halKeypadWriteRegister"
+??halKeypadWriteRegister?relay SYMBOL "?relay", halKeypadWriteRegister
+halMcuWaitMs        SYMBOL "halMcuWaitMs"
+??halMcuWaitMs?relay SYMBOL "?relay", halMcuWaitMs
+halMcuWaitUs        SYMBOL "halMcuWaitUs"
+??halMcuWaitUs?relay SYMBOL "?relay", halMcuWaitUs
+
+        EXTERN halBuzzerOn
+        FUNCTION halBuzzerOn,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN halBuzzerOff
+        FUNCTION halBuzzerOff,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN ??halBuzzerOff?relay
+        FUNCTION ??halBuzzerOff?relay,00H
+        EXTERN ??halBuzzerOn?relay
+        FUNCTION ??halBuzzerOn?relay,00H
+
+// C:\Documents and Settings\WinXP\桌面\ZIGBEE CC2530\ZIGBEE CC2530\ZIGBEE Z-STACK\ZStack-CC2530-2.3.0-1.4.0\Components\hal\target\CC2530EB\hal_keypad.c
+//    1 //-------------------------------------------------------------------
+//    2 // Filename: hal_keypad.c
+//    3 // Description: HAL keypad control implementation file
+//    4 //-------------------------------------------------------------------
+//    5 //-------------------------------------------------------------------
+//    6 // INCLUDES
+//    7 //-------------------------------------------------------------------
+//    8 #include "hal_defs.h"
+//    9 #include "hal_mcu.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,0a0H
+// union <unnamed> volatile __sfr _A_P2
+_A_P2:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f5H
+// unsigned char volatile __sfr P2SEL
+P2SEL:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f7H
+// unsigned char volatile __sfr P2INP
+P2INP:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0ffH
+// unsigned char volatile __sfr P2DIR
+P2DIR:
+        DS 1
+//   10 #include "hal_board.h"
+//   11 #include "hal_lcd.h"
+//   12 #include "hal_key.h"
+//   13 #include "hal_timer.h"
+//   14 #include "hal_keypad.h"
+//   15 #include "hal_buzzer.h"
+//   16 
+//   17 //-------------------------------------------------------------------
+//   18 // LOCAL VARIABLES
+//   19 //-------------------------------------------------------------------
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   20 uint8 halKeypadResetCount;
+halKeypadResetCount:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+//   21 
+//   22 /**************************************************
+//   23  * @fn      halKeypadI2cStart
+//   24  * @brief   Initilize the keypad I2C
+//   25  *************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   26 void halKeypadI2cStart(void)
+halKeypadI2cStart:
+        CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function halKeypadI2cStart
+//   27 {
+        FUNCALL halKeypadI2cStart, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cStart, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cStart, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   28 //    HAL_KEYPAD_SCL_SET();
+//   29 //    halMcuWaitUs(300);
+//   30 //    HAL_KEYPAD_SCL_CLR();
+//   31 //    halMcuWaitUs(300);
+//   32 //    HAL_KEYPAD_SCL_SET();
+//   33 //    halMcuWaitUs(300);  ........test ok
+//   34   
+//   35 //    HAL_KEYPAD_SDA_SET();
+//   36 //    halMcuWaitUs(300);
+//   37 //    HAL_KEYPAD_SDA_CLR();
+//   38 //    halMcuWaitUs(300);
+//   39 //    HAL_KEYPAD_SDA_SET();
+//   40 //    halMcuWaitUs(300);  ........test ok
+//   41 
+//   42     HAL_KEYPAD_SCL_SET();
+        SETB    0xa0.4
+//   43     HAL_KEYPAD_SDA_SET();
+        SETB    0xa0.3
+//   44     halMcuWaitUs(5);
+        ; Setup parameters for call to function halMcuWaitUs
+        MOV     R2,#0x5
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitUs?relay
+//   45     HAL_KEYPAD_SDA_CLR();
+        CLR     0xa0.3
+//   46     halMcuWaitUs(5);
+        ; Setup parameters for call to function halMcuWaitUs
+        LCALL   ??Subroutine11_0 & 0xFFFF
+//   47     HAL_KEYPAD_SCL_CLR();
+//   48     halMcuWaitUs(5);
+//   49 }
+??CrossCallReturnLabel_18:
+        SJMP    ??Subroutine10_0
+        CFI EndBlock cfiBlock0
+        REQUIRE _A_P2
+//   50 
+//   51 /*************************************************
+//   52  * @fn      halKeypadI2cStop
+//   53  * @brief   Stop the keypad I2C
+//   54  ************************************************/
+//   55 void halKeypadI2cStop(void)
+//   56 {
+//   57     HAL_KEYPAD_SDA_CLR();
+//   58     halMcuWaitUs(5);
+//   59     HAL_KEYPAD_SCL_SET();
+//   60     halMcuWaitUs(5);
+//   61     HAL_KEYPAD_SDA_SET();
+//   62     halMcuWaitUs(5);
+//   63 }
+//   64 
+//   65 /*************************************************
+//   66  * @fn      halKeypadI2cAck
+//   67  * @brief   The keypad I2C Ack
+//   68  ************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine8:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+-5
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        LCALL   ?Subroutine3 & 0xFFFF
+        CFI EndBlock cfiBlock1
+??CrossCallReturnLabel_17:
+        REQUIRE ??Subroutine10_0
+        ; // Fall through to label ??Subroutine10_0
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+??Subroutine10_0:
+        CFI Block cfiBlock2 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+-5
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        POP     DPH
+        CFI CFA_SP SP+-4
+        CFI DPH0 SameValue
+        POP     DPL
+        CFI CFA_SP SP+-3
+        CFI DPL0 SameValue
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock2
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+halKeypadI2cStop:
+        CFI Block cfiBlock3 Using cfiCommon0
+        CFI Function halKeypadI2cStop
+        FUNCALL halKeypadI2cStop, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cStop, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cStop, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+        CLR     0xa0.3
+        ; Setup parameters for call to function halMcuWaitUs
+        MOV     R2,#0x5
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitUs?relay
+        SETB    0xa0.4
+        ; Setup parameters for call to function halMcuWaitUs
+        MOV     R2,#0x5
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitUs?relay
+        SETB    0xa0.3
+        ; Setup parameters for call to function halMcuWaitUs
+        MOV     R2,#0x5
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitUs?relay
+        SJMP    ??Subroutine10_0
+        CFI EndBlock cfiBlock3
+        REQUIRE _A_P2
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   69 void halKeypadI2cAck(void)
+halKeypadI2cAck:
+        CFI Block cfiBlock4 Using cfiCommon0
+        CFI Function halKeypadI2cAck
+//   70 {
+        FUNCALL halKeypadI2cAck, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cAck, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   71     HAL_KEYPAD_SDA_CLR();
+        CLR     0xa0.3
+//   72     HAL_KEYPAD_SCL_SET();
+        SJMP    ?Subroutine8
+        CFI EndBlock cfiBlock4
+        REQUIRE _A_P2
+//   73     halMcuWaitUs(5);
+//   74     HAL_KEYPAD_SCL_CLR();
+//   75     halMcuWaitUs(5);
+//   76 }
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine3:
+        CFI Block cfiCond5 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_17
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        CFI Block cfiCond6 Using cfiCommon0
+        CFI (cfiCond6) NoFunction
+        CFI (cfiCond6) Conditional ??CrossCallReturnLabel_17
+        CFI (cfiCond6) DPL0 Frame(CFA_SP, 4)
+        CFI (cfiCond6) DPH0 Frame(CFA_SP, 5)
+        CFI (cfiCond6) CFA_SP SP+-5
+        CFI Block cfiPicker7 Using cfiCommon1
+        CFI (cfiPicker7) NoFunction
+        CFI (cfiPicker7) Picker
+        SETB    0xa0.4
+        CFI EndBlock cfiCond5
+        CFI EndBlock cfiCond6
+        CFI EndBlock cfiPicker7
+        ; Setup parameters for call to function halMcuWaitUs
+        ; Setup parameters for call to function halMcuWaitUs
+        REQUIRE ??Subroutine11_0
+        ; // Fall through to label ??Subroutine11_0
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+??Subroutine11_0:
+        CFI Block cfiCond8 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_18
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        CFI Block cfiCond9 Using cfiCommon0
+        CFI (cfiCond9) NoFunction
+        CFI (cfiCond9) Conditional ??CrossCallReturnLabel_17
+        CFI (cfiCond9) DPL0 Frame(CFA_SP, 4)
+        CFI (cfiCond9) DPH0 Frame(CFA_SP, 5)
+        CFI (cfiCond9) CFA_SP SP+-5
+        CFI Block cfiCond10 Using cfiCommon0
+        CFI (cfiCond10) NoFunction
+        CFI (cfiCond10) Conditional ??CrossCallReturnLabel_17
+        CFI (cfiCond10) DPL0 Frame(CFA_SP, 4)
+        CFI (cfiCond10) DPH0 Frame(CFA_SP, 5)
+        CFI (cfiCond10) CFA_SP SP+-5
+        CFI Block cfiPicker11 Using cfiCommon1
+        CFI (cfiPicker11) NoFunction
+        CFI (cfiPicker11) Picker
+        LCALL   ?Subroutine7 & 0xFFFF
+??CrossCallReturnLabel_19:
+        RET
+        CFI EndBlock cfiCond8
+        CFI EndBlock cfiCond9
+        CFI EndBlock cfiCond10
+        CFI EndBlock cfiPicker11
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine7:
+        CFI Block cfiCond12 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_19, ??CrossCallReturnLabel_17
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        CFI Block cfiCond13 Using cfiCommon0
+        CFI (cfiCond13) NoFunction
+        CFI (cfiCond13) Conditional ??CrossCallReturnLabel_19, ??CrossCallReturnLabel_17
+        CFI (cfiCond13) DPL0 Frame(CFA_SP, 4)
+        CFI (cfiCond13) DPH0 Frame(CFA_SP, 5)
+        CFI (cfiCond13) CFA_SP SP+-5
+        CFI Block cfiCond14 Using cfiCommon0
+        CFI (cfiCond14) NoFunction
+        CFI (cfiCond14) Conditional ??CrossCallReturnLabel_19, ??CrossCallReturnLabel_18
+        CFI (cfiCond14) DPL0 Frame(CFA_SP, 4)
+        CFI (cfiCond14) DPH0 Frame(CFA_SP, 5)
+        CFI (cfiCond14) CFA_SP SP+-5
+        CFI Block cfiCond15 Using cfiCommon0
+        CFI (cfiCond15) NoFunction
+        CFI (cfiCond15) Conditional ??CrossCallReturnLabel_20, ??CrossCallReturnLabel_4
+        CFI (cfiCond15) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond15) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond15) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond15) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond15) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond15) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond15) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond15) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond15) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond15) CFA_SP SP+0
+        CFI (cfiCond15) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond16 Using cfiCommon0
+        CFI (cfiCond16) NoFunction
+        CFI (cfiCond16) Conditional ??CrossCallReturnLabel_20, ??CrossCallReturnLabel_5
+        CFI (cfiCond16) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond16) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond16) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond16) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond16) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond16) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond16) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond16) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond16) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond16) CFA_SP SP+0
+        CFI (cfiCond16) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiPicker17 Using cfiCommon1
+        CFI (cfiPicker17) NoFunction
+        CFI (cfiPicker17) Picker
+        MOV     R2,#0x5
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitUs?relay
+        CLR     0xa0.4
+        ; Setup parameters for call to function halMcuWaitUs
+        ; Setup parameters for call to function halMcuWaitUs
+        ; Setup parameters for call to function halMcuWaitUs
+        ; Setup parameters for call to function halMcuWaitUs
+        ; Setup parameters for call to function halMcuWaitUs
+        MOV     R2,#0x5
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitUs?relay
+        RET
+        CFI EndBlock cfiCond12
+        CFI EndBlock cfiCond13
+        CFI EndBlock cfiCond14
+        CFI EndBlock cfiCond15
+        CFI EndBlock cfiCond16
+        CFI EndBlock cfiPicker17
+//   77 
+//   78 /************************************************
+//   79  * @fn      halKeypadI2cNack
+//   80  * @brief   The keypad I2C NoAck
+//   81  ***********************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   82 void halKeypadI2cNack(void)
+halKeypadI2cNack:
+        CFI Block cfiBlock18 Using cfiCommon0
+        CFI Function halKeypadI2cNack
+//   83 {
+        FUNCALL halKeypadI2cNack, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cNack, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   84     HAL_KEYPAD_SDA_SET();
+        SETB    0xa0.3
+//   85     HAL_KEYPAD_SCL_SET();
+        SJMP    ?Subroutine8
+        CFI EndBlock cfiBlock18
+        REQUIRE _A_P2
+//   86     halMcuWaitUs(5);
+//   87     HAL_KEYPAD_SCL_CLR();
+//   88     halMcuWaitUs(5);
+//   89 }
+//   90 
+//   91 /**********************************************
+//   92  * @fn      halKeypadI2cWrite
+//   93  * @brief   The keypad I2C Write Command
+//   94  *********************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   95 void halKeypadI2cWrite(uint8 d)
+halKeypadI2cWrite:
+        CFI Block cfiBlock19 Using cfiCommon0
+        CFI Function halKeypadI2cWrite
+//   96 {
+        FUNCALL halKeypadI2cWrite, halMcuWaitUs
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cWrite, halMcuWaitUs
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+        MOV     A,R1
+        MOV     R7,A
+//   97     uint8 i;
+//   98 
+//   99     for (i = 0; i < 8; i++)
+        MOV     R6,#0x8
+//  100     {
+//  101         if (d &0x80)
+??halKeypadI2cWrite_0:
+        MOV     A,R7
+        MOV     C,0xE0 /* A   */.7
+        JNC     ??halKeypadI2cWrite_1
+//  102         {
+//  103             HAL_KEYPAD_SDA_SET();
+        SETB    0xa0.3
+        SJMP    ??halKeypadI2cWrite_2
+//  104         }
+//  105         else
+//  106         {
+//  107             HAL_KEYPAD_SDA_CLR();
+??halKeypadI2cWrite_1:
+        CLR     0xa0.3
+//  108         }
+//  109         HAL_KEYPAD_SCL_SET();
+??halKeypadI2cWrite_2:
+        SETB    0xa0.4
+//  110         d = d << 1;
+        CLR     C
+        RLC     A
+        MOV     R7,A
+//  111         halMcuWaitUs(5);
+        ; Setup parameters for call to function halMcuWaitUs
+        LCALL   ?Subroutine2 & 0xFFFF
+//  112         HAL_KEYPAD_SCL_CLR();
+//  113         halMcuWaitUs(5);
+//  114     }
+??CrossCallReturnLabel_4:
+        JNZ     ??halKeypadI2cWrite_0
+//  115 }
+        SJMP    ??Subroutine12_0
+        CFI EndBlock cfiBlock19
+        REQUIRE _A_P2
+//  116 
+//  117 /*******************************************
+//  118  * @fn      halKeypadI2cRead
+//  119  * @brief   The keypad I2C Read Command
+//  120  ******************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  121 uint8 halKeypadI2cRead(void)
+halKeypadI2cRead:
+        CFI Block cfiBlock20 Using cfiCommon0
+        CFI Function halKeypadI2cRead
+//  122 {
+        FUNCALL halKeypadI2cRead, halMcuWaitUs
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cRead, halMcuWaitUs
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cRead, halMcuWaitUs
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadI2cRead, halMcuWaitUs
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+//  123     uint8 res = 0;
+        MOV     R7,#0x0
+//  124     uint8 cnt;
+//  125 
+//  126     HAL_KEYPAD_SDA_SET();
+        SETB    0xa0.3
+//  127     HAL_KEY_SDA_DIR_IN();
+        LCALL   ?Subroutine5 & 0xFFFF
+//  128     halMcuWaitUs(5);
+??CrossCallReturnLabel_10:
+        ; Setup parameters for call to function halMcuWaitUs
+        MOV     R2,#0x5
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitUs?relay
+//  129     for (cnt = 0; cnt < 8; cnt++)
+        MOV     R6,#0x8
+//  130     {
+//  131         HAL_KEYPAD_SCL_SET();
+??halKeypadI2cRead_0:
+        SETB    0xa0.4
+//  132         halMcuWaitUs(5);
+        ; Setup parameters for call to function halMcuWaitUs
+        MOV     R2,#0x5
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitUs?relay
+//  133         res <<= 1;
+        MOV     A,R7
+        CLR     C
+        RLC     A
+        MOV     R7,A
+//  134         if (HAL_KEYPAD_SDA_VAL())
+        MOV     C,0xa0.3
+        JNC     ??halKeypadI2cRead_1
+//  135         {
+//  136             res |= 0x01;
+        SETB    0xE0 /* A   */.0
+        MOV     R7,A
+//  137         }
+//  138         halMcuWaitUs(5);
+??halKeypadI2cRead_1:
+        ; Setup parameters for call to function halMcuWaitUs
+        LCALL   ?Subroutine2 & 0xFFFF
+//  139         HAL_KEYPAD_SCL_CLR();
+//  140         halMcuWaitUs(5);
+//  141     }
+??CrossCallReturnLabel_5:
+        JNZ     ??halKeypadI2cRead_0
+//  142     HAL_KEYPAD_SDA_OUT();
+        ANL     0xf5,#0xf7
+        ORL     0xff,#0x8
+//  143     
+//  144     return res;
+        MOV     A,R7
+        SJMP    ?Subroutine9
+        CFI EndBlock cfiBlock20
+        REQUIRE _A_P2
+        REQUIRE P2SEL
+        REQUIRE P2INP
+        REQUIRE P2DIR
+//  145 }
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine2:
+        CFI Block cfiCond21 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_4
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond22 Using cfiCommon0
+        CFI (cfiCond22) NoFunction
+        CFI (cfiCond22) Conditional ??CrossCallReturnLabel_5
+        CFI (cfiCond22) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond22) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond22) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond22) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond22) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond22) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond22) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond22) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond22) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond22) CFA_SP SP+0
+        CFI (cfiCond22) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiPicker23 Using cfiCommon1
+        CFI (cfiPicker23) NoFunction
+        CFI (cfiPicker23) Picker
+        LCALL   ?Subroutine7 & 0xFFFF
+??CrossCallReturnLabel_20:
+        DEC     R6
+        MOV     A,R6
+        RET
+        CFI EndBlock cfiCond21
+        CFI EndBlock cfiCond22
+        CFI EndBlock cfiPicker23
+//  146 
+//  147 /**********************************************************
+//  148  * @fn      halKeypadWriteRegister
+//  149  * @brief   Write the keypad I2C register
+//  150  *********************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  151 void halKeypadWriteRegister(uint8 addr, uint8 ch)
+halKeypadWriteRegister:
+        CFI Block cfiBlock24 Using cfiCommon0
+        CFI Function halKeypadWriteRegister
+//  152 {
+        FUNCALL halKeypadWriteRegister, halKeypadI2cStart
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadWriteRegister, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadWriteRegister, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadWriteRegister, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadWriteRegister, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadWriteRegister, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadWriteRegister, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadWriteRegister, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadWriteRegister, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadWriteRegister, halKeypadI2cStop
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+        MOV     A,R1
+        MOV     R6,A
+        MOV     A,R2
+        MOV     R7,A
+//  153     halKeypadI2cStart();
+        ; Setup parameters for call to function halKeypadI2cStart
+        LCALL   ?Subroutine0 & 0xFFFF
+//  154     halKeypadI2cWrite(0xE0);
+//  155     halKeypadI2cAck();
+//  156     halKeypadI2cWrite(0x00);
+//  157     halKeypadI2cAck();
+//  158     halKeypadI2cWrite(addr); //addr
+//  159     halKeypadI2cAck();
+//  160     halKeypadI2cWrite(ch); //data
+??CrossCallReturnLabel_0:
+        ; Setup parameters for call to function halKeypadI2cWrite
+        MOV     A,R7
+        MOV     R1,A
+        LCALL   ?Subroutine4 & 0xFFFF
+//  161     halKeypadI2cAck();
+//  162     halKeypadI2cStop();
+??CrossCallReturnLabel_6:
+        ; Setup parameters for call to function halKeypadI2cStop
+        LCALL   ??halKeypadI2cStop?relay
+//  163 }
+        SJMP    ??Subroutine12_0
+        CFI EndBlock cfiBlock24
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine9:
+        CFI Block cfiBlock25 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        MOV     R1,A
+        CFI EndBlock cfiBlock25
+        REQUIRE ??Subroutine12_0
+        ; // Fall through to label ??Subroutine12_0
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+??Subroutine12_0:
+        CFI Block cfiBlock26 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        MOV     R7,#0x1
+        LJMP    ?BANKED_LEAVE_XDATA
+        CFI EndBlock cfiBlock26
+//  164 
+//  165 /********************************************************
+//  166  * @fn      halKeypadReadRegister
+//  167  * @brief   Read the keypad I2C Register
+//  168  *******************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  169 uint8 halKeypadReadRegister(uint8 addr)
+halKeypadReadRegister:
+        CFI Block cfiBlock27 Using cfiCommon0
+        CFI Function halKeypadReadRegister
+//  170 {
+        FUNCALL halKeypadReadRegister, halKeypadI2cStart
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cStop
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cStart
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cRead
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cNack
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadReadRegister, halKeypadI2cStop
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+        MOV     A,R1
+        MOV     R6,A
+//  171     uint8 ch;
+//  172 
+//  173     halKeypadI2cStart();
+        ; Setup parameters for call to function halKeypadI2cStart
+        LCALL   ?Subroutine0 & 0xFFFF
+//  174     halKeypadI2cWrite(0xE0);
+//  175     halKeypadI2cAck();
+//  176     halKeypadI2cWrite(0x00);
+//  177     halKeypadI2cAck();
+//  178     halKeypadI2cWrite(addr);
+//  179     halKeypadI2cAck();
+//  180     halKeypadI2cStop();
+??CrossCallReturnLabel_1:
+        ; Setup parameters for call to function halKeypadI2cStop
+        LCALL   ?Subroutine1 & 0xFFFF
+//  181 
+//  182     halKeypadI2cStart();
+//  183     halKeypadI2cWrite(0xE1);
+//  184     halKeypadI2cAck();
+//  185     ch = halKeypadI2cRead();
+//  186     halKeypadI2cNack();
+??CrossCallReturnLabel_2:
+        ; Setup parameters for call to function halKeypadI2cNack
+        LCALL   ??halKeypadI2cNack?relay
+//  187     halKeypadI2cStop();
+        ; Setup parameters for call to function halKeypadI2cStop
+        LCALL   ??halKeypadI2cStop?relay
+//  188 
+//  189     return ch;
+        MOV     A,R6
+        SJMP    ?Subroutine9
+        CFI EndBlock cfiBlock27
+//  190 }
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine0:
+        CFI Block cfiCond28 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_0
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond29 Using cfiCommon0
+        CFI (cfiCond29) NoFunction
+        CFI (cfiCond29) Conditional ??CrossCallReturnLabel_1
+        CFI (cfiCond29) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond29) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond29) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond29) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond29) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond29) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond29) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond29) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond29) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond29) CFA_SP SP+0
+        CFI (cfiCond29) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiPicker30 Using cfiCommon1
+        CFI (cfiPicker30) NoFunction
+        CFI (cfiPicker30) Picker
+        LCALL   ??halKeypadI2cStart?relay
+        ; Setup parameters for call to function halKeypadI2cWrite
+        ; Setup parameters for call to function halKeypadI2cWrite
+        MOV     R1,#-0x20
+        LCALL   ?Subroutine6 & 0xFFFF
+??CrossCallReturnLabel_12:
+        ; Setup parameters for call to function halKeypadI2cWrite
+        ; Setup parameters for call to function halKeypadI2cWrite
+        MOV     R1,#0x0
+        LCALL   ?Subroutine6 & 0xFFFF
+??CrossCallReturnLabel_13:
+        ; Setup parameters for call to function halKeypadI2cWrite
+        ; Setup parameters for call to function halKeypadI2cWrite
+        MOV     A,R6
+        MOV     R1,A
+        LCALL   ?Subroutine6 & 0xFFFF
+??CrossCallReturnLabel_14:
+        RET
+        CFI EndBlock cfiCond28
+        CFI EndBlock cfiCond29
+        CFI EndBlock cfiPicker30
+//  191 
+//  192 /*****************************************************
+//  193  * @fn      halKeypadSensorData
+//  194  * @brief   
+//  195  ****************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  196 uint16 halKeypadSensorData(void)
+halKeypadSensorData:
+        CFI Block cfiBlock31 Using cfiCommon0
+        CFI Function halKeypadSensorData
+//  197 {
+        FUNCALL halKeypadSensorData, halKeypadI2cStart
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cStop
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cStart
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cRead
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cAck
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cRead
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cNack
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadSensorData, halKeypadI2cStop
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+//  198     uint16 val;
+//  199     halKeypadI2cStart();
+        ; Setup parameters for call to function halKeypadI2cStart
+        LCALL   ??halKeypadI2cStart?relay
+//  200     halKeypadI2cWrite(0xE0);
+        ; Setup parameters for call to function halKeypadI2cWrite
+        MOV     R1,#-0x20
+        LCALL   ?Subroutine4 & 0xFFFF
+//  201     halKeypadI2cAck();
+//  202     halKeypadI2cWrite(0x00);
+??CrossCallReturnLabel_7:
+        ; Setup parameters for call to function halKeypadI2cWrite
+        MOV     R1,#0x0
+        LCALL   ?Subroutine4 & 0xFFFF
+//  203     halKeypadI2cAck();
+//  204     halKeypadI2cWrite(0x08); // 0x08 and 0x09 is read sensor data
+??CrossCallReturnLabel_8:
+        ; Setup parameters for call to function halKeypadI2cWrite
+        MOV     R1,#0x8
+        LCALL   ?Subroutine4 & 0xFFFF
+//  205     halKeypadI2cAck();
+//  206     halKeypadI2cStop();
+??CrossCallReturnLabel_9:
+        ; Setup parameters for call to function halKeypadI2cStop
+        LCALL   ?Subroutine1 & 0xFFFF
+//  207 
+//  208     halKeypadI2cStart();
+//  209     halKeypadI2cWrite(0xE1);
+//  210     halKeypadI2cAck();
+//  211     val = halKeypadI2cRead();
+//  212     halKeypadI2cAck();
+??CrossCallReturnLabel_3:
+        ; Setup parameters for call to function halKeypadI2cAck
+        LCALL   ??halKeypadI2cAck?relay
+//  213     val = (val << 8) | halKeypadI2cRead();
+        MOV     A,R6
+        MOV     R7,A
+        ; Setup parameters for call to function halKeypadI2cRead
+        LCALL   ??halKeypadI2cRead?relay
+        MOV     A,R1
+        MOV     R6,A
+//  214     halKeypadI2cNack();
+        ; Setup parameters for call to function halKeypadI2cNack
+        LCALL   ??halKeypadI2cNack?relay
+//  215     halKeypadI2cStop();
+        ; Setup parameters for call to function halKeypadI2cStop
+        LCALL   ??halKeypadI2cStop?relay
+//  216     
+//  217     return val;
+        MOV     A,R6
+        MOV     R2,A
+        MOV     A,R7
+        MOV     R3,A
+        SJMP    ??Subroutine12_0
+        CFI EndBlock cfiBlock31
+//  218 }
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine4:
+        CFI Block cfiCond32 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_6
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond33 Using cfiCommon0
+        CFI (cfiCond33) NoFunction
+        CFI (cfiCond33) Conditional ??CrossCallReturnLabel_7
+        CFI (cfiCond33) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond33) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond33) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond33) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond33) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond33) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond33) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond33) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond33) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond33) CFA_SP SP+0
+        CFI (cfiCond33) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond34 Using cfiCommon0
+        CFI (cfiCond34) NoFunction
+        CFI (cfiCond34) Conditional ??CrossCallReturnLabel_8
+        CFI (cfiCond34) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond34) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond34) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond34) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond34) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond34) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond34) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond34) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond34) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond34) CFA_SP SP+0
+        CFI (cfiCond34) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond35 Using cfiCommon0
+        CFI (cfiCond35) NoFunction
+        CFI (cfiCond35) Conditional ??CrossCallReturnLabel_9
+        CFI (cfiCond35) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond35) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond35) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond35) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond35) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond35) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond35) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond35) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond35) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond35) CFA_SP SP+0
+        CFI (cfiCond35) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiPicker36 Using cfiCommon1
+        CFI (cfiPicker36) NoFunction
+        CFI (cfiPicker36) Picker
+        LCALL   ?Subroutine6 & 0xFFFF
+??CrossCallReturnLabel_15:
+        RET
+        CFI EndBlock cfiCond32
+        CFI EndBlock cfiCond33
+        CFI EndBlock cfiCond34
+        CFI EndBlock cfiCond35
+        CFI EndBlock cfiPicker36
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine6:
+        CFI Block cfiCond37 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_12, ??CrossCallReturnLabel_0
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond38 Using cfiCommon0
+        CFI (cfiCond38) NoFunction
+        CFI (cfiCond38) Conditional ??CrossCallReturnLabel_12, ??CrossCallReturnLabel_1
+        CFI (cfiCond38) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond38) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond38) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond38) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond38) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond38) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond38) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond38) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond38) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond38) CFA_SP SP+0
+        CFI (cfiCond38) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond39 Using cfiCommon0
+        CFI (cfiCond39) NoFunction
+        CFI (cfiCond39) Conditional ??CrossCallReturnLabel_13, ??CrossCallReturnLabel_0
+        CFI (cfiCond39) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond39) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond39) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond39) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond39) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond39) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond39) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond39) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond39) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond39) CFA_SP SP+0
+        CFI (cfiCond39) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond40 Using cfiCommon0
+        CFI (cfiCond40) NoFunction
+        CFI (cfiCond40) Conditional ??CrossCallReturnLabel_13, ??CrossCallReturnLabel_1
+        CFI (cfiCond40) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond40) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond40) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond40) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond40) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond40) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond40) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond40) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond40) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond40) CFA_SP SP+0
+        CFI (cfiCond40) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond41 Using cfiCommon0
+        CFI (cfiCond41) NoFunction
+        CFI (cfiCond41) Conditional ??CrossCallReturnLabel_14, ??CrossCallReturnLabel_0
+        CFI (cfiCond41) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond41) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond41) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond41) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond41) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond41) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond41) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond41) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond41) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond41) CFA_SP SP+0
+        CFI (cfiCond41) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond42 Using cfiCommon0
+        CFI (cfiCond42) NoFunction
+        CFI (cfiCond42) Conditional ??CrossCallReturnLabel_14, ??CrossCallReturnLabel_1
+        CFI (cfiCond42) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond42) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond42) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond42) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond42) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond42) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond42) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond42) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond42) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond42) CFA_SP SP+0
+        CFI (cfiCond42) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond43 Using cfiCommon0
+        CFI (cfiCond43) NoFunction
+        CFI (cfiCond43) Conditional ??CrossCallReturnLabel_15, ??CrossCallReturnLabel_6
+        CFI (cfiCond43) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond43) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond43) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond43) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond43) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond43) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond43) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond43) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond43) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond43) CFA_SP SP+0
+        CFI (cfiCond43) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond44 Using cfiCommon0
+        CFI (cfiCond44) NoFunction
+        CFI (cfiCond44) Conditional ??CrossCallReturnLabel_15, ??CrossCallReturnLabel_7
+        CFI (cfiCond44) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond44) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond44) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond44) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond44) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond44) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond44) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond44) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond44) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond44) CFA_SP SP+0
+        CFI (cfiCond44) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond45 Using cfiCommon0
+        CFI (cfiCond45) NoFunction
+        CFI (cfiCond45) Conditional ??CrossCallReturnLabel_15, ??CrossCallReturnLabel_8
+        CFI (cfiCond45) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond45) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond45) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond45) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond45) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond45) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond45) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond45) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond45) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond45) CFA_SP SP+0
+        CFI (cfiCond45) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond46 Using cfiCommon0
+        CFI (cfiCond46) NoFunction
+        CFI (cfiCond46) Conditional ??CrossCallReturnLabel_15, ??CrossCallReturnLabel_9
+        CFI (cfiCond46) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond46) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond46) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond46) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond46) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond46) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond46) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond46) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond46) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond46) CFA_SP SP+0
+        CFI (cfiCond46) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond47 Using cfiCommon0
+        CFI (cfiCond47) NoFunction
+        CFI (cfiCond47) Conditional ??CrossCallReturnLabel_16, ??CrossCallReturnLabel_2
+        CFI (cfiCond47) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond47) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond47) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond47) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond47) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond47) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond47) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond47) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond47) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond47) CFA_SP SP+0
+        CFI (cfiCond47) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond48 Using cfiCommon0
+        CFI (cfiCond48) NoFunction
+        CFI (cfiCond48) Conditional ??CrossCallReturnLabel_16, ??CrossCallReturnLabel_3
+        CFI (cfiCond48) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond48) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond48) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond48) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond48) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond48) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond48) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond48) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond48) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond48) CFA_SP SP+0
+        CFI (cfiCond48) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiPicker49 Using cfiCommon1
+        CFI (cfiPicker49) NoFunction
+        CFI (cfiPicker49) Picker
+        LCALL   ??halKeypadI2cWrite?relay
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        ; Setup parameters for call to function halKeypadI2cAck
+        LCALL   ??halKeypadI2cAck?relay
+        RET
+        CFI EndBlock cfiCond37
+        CFI EndBlock cfiCond38
+        CFI EndBlock cfiCond39
+        CFI EndBlock cfiCond40
+        CFI EndBlock cfiCond41
+        CFI EndBlock cfiCond42
+        CFI EndBlock cfiCond43
+        CFI EndBlock cfiCond44
+        CFI EndBlock cfiCond45
+        CFI EndBlock cfiCond46
+        CFI EndBlock cfiCond47
+        CFI EndBlock cfiCond48
+        CFI EndBlock cfiPicker49
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine1:
+        CFI Block cfiCond50 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_2
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond51 Using cfiCommon0
+        CFI (cfiCond51) NoFunction
+        CFI (cfiCond51) Conditional ??CrossCallReturnLabel_3
+        CFI (cfiCond51) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond51) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond51) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond51) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond51) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond51) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond51) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond51) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond51) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond51) CFA_SP SP+0
+        CFI (cfiCond51) CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiPicker52 Using cfiCommon1
+        CFI (cfiPicker52) NoFunction
+        CFI (cfiPicker52) Picker
+        LCALL   ??halKeypadI2cStop?relay
+        ; Setup parameters for call to function halKeypadI2cStart
+        ; Setup parameters for call to function halKeypadI2cStart
+        LCALL   ??halKeypadI2cStart?relay
+        ; Setup parameters for call to function halKeypadI2cWrite
+        ; Setup parameters for call to function halKeypadI2cWrite
+        MOV     R1,#-0x1f
+        LCALL   ?Subroutine6 & 0xFFFF
+??CrossCallReturnLabel_16:
+        ; Setup parameters for call to function halKeypadI2cRead
+        ; Setup parameters for call to function halKeypadI2cRead
+        LCALL   ??halKeypadI2cRead?relay
+        MOV     A,R1
+        MOV     R6,A
+        RET
+        CFI EndBlock cfiCond50
+        CFI EndBlock cfiCond51
+        CFI EndBlock cfiPicker52
+//  219 
+//  220 /********************************************************
+//  221  * @fn      halKeypadInit
+//  222  * @brief   Initializes the keypad functionality
+//  223  *******************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  224 void halKeypadInit(void)
+halKeypadInit:
+        CFI Block cfiBlock53 Using cfiCommon0
+        CFI Function halKeypadInit
+//  225 {   
+        FUNCALL halKeypadInit, halKeypadWriteRegister
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadInit, halKeypadWriteRegister
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadInit, halKeypadWriteRegister
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadInit, halKeypadWriteRegister
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadInit, halKeypadWriteRegister
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadInit, halKeypadWriteRegister
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadInit, halKeypadWriteRegister
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  226     HAL_KEYPAD_SCL_OUT();
+        ANL     0xf5,#0xef
+        ORL     0xff,#0x10
+//  227     HAL_KEYPAD_SDA_OUT();
+        ANL     0xf5,#0xf7
+        ORL     0xff,#0x8
+//  228     HAL_KEY_SDA_DIR_IN();
+        LCALL   ?Subroutine5 & 0xFFFF
+//  229    
+//  230     halKeypadWriteRegister(0x00, 0x62);
+??CrossCallReturnLabel_11:
+        ; Setup parameters for call to function halKeypadWriteRegister
+        MOV     R2,#0x62
+        MOV     R1,#0x0
+        LCALL   ??halKeypadWriteRegister?relay
+//  231     halKeypadWriteRegister(0x02, 0xF7); // Sense1 bit0-3
+        ; Setup parameters for call to function halKeypadWriteRegister
+        MOV     R2,#-0x9
+        MOV     R1,#0x2
+        LCALL   ??halKeypadWriteRegister?relay
+//  232     halKeypadWriteRegister(0x03, 0x07); // Sense2 bit0-3
+        ; Setup parameters for call to function halKeypadWriteRegister
+        MOV     R2,#0x7
+        MOV     R1,#0x3
+        LCALL   ??halKeypadWriteRegister?relay
+//  233     halKeypadWriteRegister(0x04, 0x00);
+        ; Setup parameters for call to function halKeypadWriteRegister
+        MOV     R2,#0x0
+        MOV     R1,#0x4
+        LCALL   ??halKeypadWriteRegister?relay
+//  234     halKeypadWriteRegister(0x05, 0x00);
+        ; Setup parameters for call to function halKeypadWriteRegister
+        MOV     R2,#0x0
+        MOV     R1,#0x5
+        LCALL   ??halKeypadWriteRegister?relay
+//  235     halKeypadWriteRegister(0x0E, 0x30);
+        ; Setup parameters for call to function halKeypadWriteRegister
+        MOV     R2,#0x30
+        MOV     R1,#0xe
+        LCALL   ??halKeypadWriteRegister?relay
+//  236     halKeypadWriteRegister(0x00, 0x6A); //Reset
+        ; Setup parameters for call to function halKeypadWriteRegister
+        MOV     R2,#0x6a
+        MOV     R1,#0x0
+        LCALL   ??halKeypadWriteRegister?relay
+//  237 }
+        LJMP    ??Subroutine10_0 & 0xFFFF
+        CFI EndBlock cfiBlock53
+        REQUIRE P2SEL
+        REQUIRE P2INP
+        REQUIRE P2DIR
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine5:
+        CFI Block cfiCond54 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_10
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        CFI Block cfiCond55 Using cfiCommon0
+        CFI (cfiCond55) NoFunction
+        CFI (cfiCond55) Conditional ??CrossCallReturnLabel_11
+        CFI (cfiCond55) DPL0 Frame(CFA_SP, 4)
+        CFI (cfiCond55) DPH0 Frame(CFA_SP, 5)
+        CFI (cfiCond55) CFA_SP SP+-5
+        CFI Block cfiPicker56 Using cfiCommon1
+        CFI (cfiPicker56) NoFunction
+        CFI (cfiPicker56) Picker
+        ANL     0xf5,#0xf7
+        ANL     0xff,#0xf7
+        ORL     0xf7,#0x8
+        RET
+        CFI EndBlock cfiCond54
+        CFI EndBlock cfiCond55
+        CFI EndBlock cfiPicker56
+//  238 
+//  239 /*******************************************************************************
+//  240  * @fn      halKeypadPushed
+//  241  * @brief   This function detects if the keypad is being pushed. 
+//  242  * @param   void
+//  243  * @return  uint8
+//  244  *          '0'~'9' 'A' 'B' 'C' 'D' 'E' 'F' 'U' 'N' '#' '*' : keypad is being pushed
+//  245  *          0: Button is not being pushed
+//  246  ******************************************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  247 uint8 halKeypadPushed(void)
+halKeypadPushed:
+        CFI Block cfiBlock57 Using cfiCommon0
+        CFI Function halKeypadPushed
+//  248 {
+        FUNCALL halKeypadPushed, halKeypadSensorData
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadPushed, halKeypadWriteRegister
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadPushed, halBuzzerOn
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadPushed, halMcuWaitMs
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadPushed, halBuzzerOff
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0xa
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 0
+//  249     uint16 val;
+//  250     uint8 ch;
+//  251     uint8 key=0;
+//  252     
+//  253     val = halKeypadSensorData();
+//  254 //    halLcdDisplayUint16(HAL_LCD_LINE_2,0,HAL_LCD_RADIX_HEX,val);
+//  255     switch (val)
+        ; Setup parameters for call to function halKeypadSensorData
+        LCALL   ??halKeypadSensorData?relay
+        MOV     ?V0 + 0,R2
+        MOV     ?V0 + 1,R3
+        MOV     R0,#?V0 + 0
+        LCALL   ?US_SWITCH_SPARSE
+`?<Jumptable for halKeypadPushed>_0`:
+        DATA
+        DW        0
+        DW        20
+        DW        130
+        DW        ??halKeypadPushed_0
+        DW        132
+        DW        ??halKeypadPushed_1
+        DW        136
+        DW        ??halKeypadPushed_2
+        DW        144
+        DW        ??halKeypadPushed_3
+        DW        160
+        DW        ??halKeypadPushed_4
+        DW        258
+        DW        ??halKeypadPushed_5
+        DW        260
+        DW        ??halKeypadPushed_6
+        DW        264
+        DW        ??halKeypadPushed_7
+        DW        272
+        DW        ??halKeypadPushed_8
+        DW        288
+        DW        ??halKeypadPushed_9
+        DW        514
+        DW        ??halKeypadPushed_10
+        DW        516
+        DW        ??halKeypadPushed_11
+        DW        520
+        DW        ??halKeypadPushed_12
+        DW        528
+        DW        ??halKeypadPushed_13
+        DW        544
+        DW        ??halKeypadPushed_14
+        DW        1026
+        DW        ??halKeypadPushed_15
+        DW        1028
+        DW        ??halKeypadPushed_16
+        DW        1032
+        DW        ??halKeypadPushed_17
+        DW        1040
+        DW        ??halKeypadPushed_18
+        DW        1056
+        DW        ??halKeypadPushed_19
+        DW        ??halKeypadPushed_20
+        CODE
+//  256     {
+//  257         case 0x0404:
+//  258             //0
+//  259             ch = '0';
+??halKeypadPushed_16:
+        MOV     R6,#0x30
+        SJMP    ??halKeypadPushed_21
+//  260             break;
+//  261         case 0x0082:
+//  262             //1
+//  263             ch = '1';
+??halKeypadPushed_0:
+        MOV     R6,#0x31
+        SJMP    ??halKeypadPushed_21
+//  264             break;
+//  265         case 0x0084:
+//  266             //2
+//  267             ch = '2';
+??halKeypadPushed_1:
+        MOV     R6,#0x32
+//  268             key |= HAL_KEY_SW_1; // Keypad button2(Joystick up)
+        SJMP    ??halKeypadPushed_21
+//  269             break;
+//  270         case 0x0088:
+//  271             //3
+//  272             ch = '3';
+??halKeypadPushed_2:
+        MOV     R6,#0x33
+        SJMP    ??halKeypadPushed_21
+//  273             break;
+//  274         case 0x0102:
+//  275             //4
+//  276             ch = '4';
+??halKeypadPushed_5:
+        MOV     R6,#0x34
+//  277             key |= HAL_KEY_SW_4; // Keypad button4(Joystick left)
+        SJMP    ??halKeypadPushed_21
+//  278             break;
+//  279         case 0x0104:
+//  280             //5
+//  281             ch = '5';
+??halKeypadPushed_6:
+        MOV     R6,#0x35
+//  282             key |= HAL_KEY_SW_5; // Keypad button5(Joystick center)
+        SJMP    ??halKeypadPushed_21
+//  283             break;
+//  284         case 0x0108:
+//  285             //6
+//  286             ch = '6';
+??halKeypadPushed_7:
+        MOV     R6,#0x36
+//  287             key |= HAL_KEY_SW_2; // Keypad button6(Joystick right)
+        SJMP    ??halKeypadPushed_21
+//  288             break;
+//  289         case 0x0202:
+//  290             //7
+//  291             ch = '7';
+??halKeypadPushed_10:
+        MOV     R6,#0x37
+        SJMP    ??halKeypadPushed_21
+//  292             break;
+//  293         case 0x0204:
+//  294             //8
+//  295             ch = '8';
+??halKeypadPushed_11:
+        MOV     R6,#0x38
+//  296             key |= HAL_KEY_SW_3; // Keypad button8(Joystick down)
+        SJMP    ??halKeypadPushed_21
+//  297             break;
+//  298         case 0x0208:
+//  299             //9
+//  300             ch = '9';
+??halKeypadPushed_12:
+        MOV     R6,#0x39
+        SJMP    ??halKeypadPushed_21
+//  301             break;
+//  302         case 0x0402:
+//  303             //*
+//  304             ch = '*';
+??halKeypadPushed_15:
+        MOV     R6,#0x2a
+        SJMP    ??halKeypadPushed_21
+//  305             break;
+//  306         case 0x0408:
+//  307             //#
+//  308             ch = '#';
+??halKeypadPushed_17:
+        MOV     R6,#0x23
+        SJMP    ??halKeypadPushed_21
+//  309             break;
+//  310         case 0x0090:
+//  311             //A
+//  312             ch = 'A';
+??halKeypadPushed_3:
+        MOV     R6,#0x41
+        SJMP    ??halKeypadPushed_21
+//  313             break;
+//  314         case 0x0110:
+//  315             //B
+//  316             ch = 'B';
+??halKeypadPushed_8:
+        MOV     R6,#0x42
+        SJMP    ??halKeypadPushed_21
+//  317             break;
+//  318         case 0x0210:
+//  319             //C
+//  320             ch = 'C';
+??halKeypadPushed_13:
+        MOV     R6,#0x43
+        SJMP    ??halKeypadPushed_21
+//  321             break;
+//  322         case 0x00A0:
+//  323             //D
+//  324             ch = 'D';
+??halKeypadPushed_4:
+        MOV     R6,#0x44
+        SJMP    ??halKeypadPushed_21
+//  325             break;
+//  326         case 0x0120:
+//  327             //E
+//  328             ch = 'E';
+??halKeypadPushed_9:
+        MOV     R6,#0x45
+        SJMP    ??halKeypadPushed_21
+//  329             break;
+//  330         case 0x0220:
+//  331             //F
+//  332             ch = 'F';
+??halKeypadPushed_14:
+        MOV     R6,#0x46
+        SJMP    ??halKeypadPushed_21
+//  333             break;
+//  334         case 0x0410:
+//  335             //U
+//  336             ch = 'U';
+??halKeypadPushed_18:
+        MOV     R6,#0x55
+        SJMP    ??halKeypadPushed_21
+//  337             break;
+//  338         case 0x0420:
+//  339             //N
+//  340             ch = 'N';
+??halKeypadPushed_19:
+        MOV     R6,#0x4e
+        SJMP    ??halKeypadPushed_21
+//  341             break;
+//  342         default:
+//  343             ch = 0;
+??halKeypadPushed_20:
+        MOV     R6,#0x0
+//  344             break;
+//  345     }
+//  346     halKeypadResetCount++;
+??halKeypadPushed_21:
+        MOV     DPTR,#halKeypadResetCount
+        MOVX    A,@DPTR
+        INC     A
+        MOVX    @DPTR,A
+//  347     if (halKeypadResetCount > 200)
+        CLR     C
+        SUBB    A,#-0x37
+        JC      ??halKeypadPushed_22
+//  348     {
+//  349         halKeypadResetCount = 0;
+        CLR     A
+        MOVX    @DPTR,A
+//  350         halKeypadWriteRegister(0x00, 0x6A); //Reset
+        ; Setup parameters for call to function halKeypadWriteRegister
+        MOV     R2,#0x6a
+        MOV     R1,A
+        LCALL   ??halKeypadWriteRegister?relay
+//  351     }
+//  352     if (ch > 0)
+??halKeypadPushed_22:
+        MOV     A,R6
+        JZ      ??halKeypadPushed_23
+//  353     {
+//  354 		halBuzzerOn(BUZZER_FREQ);
+        ; Setup parameters for call to function halBuzzerOn
+        MOV     R2,#-0x56
+        MOV     R3,#0xa
+        LCALL   ??halBuzzerOn?relay
+//  355 		halMcuWaitMs(20);
+        ; Setup parameters for call to function halMcuWaitMs
+        MOV     R2,#0x14
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitMs?relay
+//  356 		halBuzzerOff();
+        ; Setup parameters for call to function halBuzzerOff
+        LCALL   ??halBuzzerOff?relay
+//  357     }
+//  358     return ch;
+??halKeypadPushed_23:
+        MOV     A,R6
+        MOV     R1,A
+        MOV     R7,#0x2
+        LJMP    ?BANKED_LEAVE_XDATA
+        CFI EndBlock cfiBlock57
+//  359 
+//  360 
+//  361 }
+//  362 
+//  363 /*******************************************************************************
+//  364  * @fn          halMcuWaitUs
+//  365  * @brief       Busy wait function. Waits the specified number of microseconds. Use
+//  366  *              assumptions about number of clock cycles needed for the various
+//  367  *              instructions. This function assumes a 32 MHz clock.
+//  368  *              NB! This function is highly dependent on architecture and compiler!
+//  369  * @param       uint16 usec - number of microseconds delays
+//  370  * @return      none
+//  371  ******************************************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  372 void halMcuWaitUs(uint16 usec)
+halMcuWaitUs:
+        CFI Block cfiBlock58 Using cfiCommon0
+        CFI Function halMcuWaitUs
+//  373 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//  374     usec >>= 1;
+        MOV     A,R3
+        CLR     C
+        RRC     A
+        MOV     R3,A
+        MOV     A,R2
+        RRC     A
+        MOV     R2,A
+        SJMP    ??halMcuWaitUs_0
+//  375     while (usec--)
+//  376     {
+//  377         asm("NOP"); asm("NOP"); asm("NOP");
+??halMcuWaitUs_1:
+        NOP
+        NOP
+        NOP
+//  378         asm("NOP"); asm("NOP"); asm("NOP");
+        NOP
+        NOP
+        NOP
+//  379         asm("NOP"); asm("NOP"); asm("NOP");
+        NOP
+        NOP
+        NOP
+//  380         asm("NOP"); asm("NOP"); asm("NOP");
+        NOP
+        NOP
+        NOP
+//  381         asm("NOP"); asm("NOP"); asm("NOP");
+        NOP
+        NOP
+        NOP
+//  382         asm("NOP");
+        NOP
+//  383     }
+??halMcuWaitUs_0:
+        MOV     A,R2
+        MOV     R0,A
+        MOV     A,R3
+        MOV     R1,A
+        MOV     A,#-0x1
+        ADD     A,R0
+        DEC     R2
+        MOV     A,#-0x1
+        ADDC    A,R1
+        MOV     R3,A
+        MOV     A,R0
+        JNZ     ??halMcuWaitUs_2
+        MOV     A,R1
+??halMcuWaitUs_2:
+        JNZ     ??halMcuWaitUs_1
+//  384 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock58
+//  385 
+//  386 /*******************************************************************************
+//  387  * @fn          halMcuWaitMs
+//  388  * @brief       Busy wait function. Waits the specified number of milliseconds. Use
+//  389  *              assumptions about number of clock cycles needed for the various
+//  390  *              instructions.
+//  391  *              NB! This function is highly dependent on architecture and compiler!
+//  392  * @param       uint16 millisec - number of milliseconds delay
+//  393  ******************************************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  394 void halMcuWaitMs(uint16 msec)
+halMcuWaitMs:
+        CFI Block cfiBlock59 Using cfiCommon0
+        CFI Function halMcuWaitMs
+//  395 {
+        FUNCALL halMcuWaitMs, halMcuWaitUs
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+        MOV     A,R2
+        MOV     R6,A
+        MOV     A,R3
+        MOV     R7,A
+        SJMP    ??halMcuWaitMs_0
+//  396     while (msec--)
+//  397     {
+//  398         halMcuWaitUs(1000);
+??halMcuWaitMs_1:
+        ; Setup parameters for call to function halMcuWaitUs
+        MOV     R2,#-0x18
+        MOV     R3,#0x3
+        LCALL   ??halMcuWaitUs?relay
+//  399     }
+??halMcuWaitMs_0:
+        MOV     A,R6
+        MOV     R0,A
+        MOV     A,R7
+        MOV     R1,A
+        MOV     A,#-0x1
+        ADD     A,R0
+        DEC     R6
+        MOV     A,#-0x1
+        ADDC    A,R1
+        MOV     R7,A
+        MOV     A,R0
+        JNZ     ??halMcuWaitMs_2
+        MOV     A,R1
+??halMcuWaitMs_2:
+        JNZ     ??halMcuWaitMs_1
+//  400 }
+        LJMP    ??Subroutine12_0 & 0xFFFF
+        CFI EndBlock cfiBlock59
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadI2cStart?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadI2cStart
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadI2cStop?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadI2cStop
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadI2cAck?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadI2cAck
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadI2cNack?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadI2cNack
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadI2cWrite?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadI2cWrite
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadI2cRead?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadI2cRead
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadWriteRegister?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadWriteRegister
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadReadRegister?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadReadRegister
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadSensorData?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadSensorData
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadInit?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadInit
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halKeypadPushed?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halKeypadPushed
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halMcuWaitUs?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halMcuWaitUs
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??halMcuWaitMs?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    halMcuWaitMs
+
+        END
+// 
+// 739 bytes in segment BANKED_CODE
+//  78 bytes in segment BANK_RELAYS
+//   4 bytes in segment SFR_AN
+//   1 byte  in segment XDATA_Z
+// 
+// 817 bytes of CODE  memory
+//   0 bytes of DATA  memory (+ 4 bytes shared)
+//   1 byte  of XDATA memory
+//
+//Errors: none
+//Warnings: none

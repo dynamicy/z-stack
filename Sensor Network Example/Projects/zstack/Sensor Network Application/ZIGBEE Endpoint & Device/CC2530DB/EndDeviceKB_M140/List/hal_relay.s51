@@ -1,0 +1,513 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               01/Aug/2013  23:47:57 /
+// Copyright 2004-2009 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  banked                                            /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data_rom                                          /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       /
+//                          Example\Components\hal\target\CC2530NB\hal_relay. /
+//                          c                                                 /
+//    Command line       =  -f "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev. /
+//                          cfg" (-DCPU32MHZ -DROOT=__near_func               /
+//                          -DBLINK_LEDS) -f "D:\CC2530_ZStack-2.3.0-1.4.0\Se /
+//                          nsor Network Example\Projects\zstack\Sensor       /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig /
+//                          .cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0           /
+//                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800         /
+//                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
+//                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
+//                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
+//                          -DBEACON_REQ_DELAY_MASK=0x00FF                    /
+//                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_P /
+//                          OLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7           /
+//                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3   /
+//                          -DNWK_MAX_DATA_RETRIES=2                          /
+//                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9        /
+//                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40          /
+//                          -DNWK_MAX_BINDING_ENTRIES=4                       /
+//                          -DMAX_BINDING_CLUSTER_IDS=4                       /
+//                          "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07, 0x09,     /
+//                          0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08,   /
+//                          0x0A, 0x0C, 0x0D}" -DMAC_MAX_FRAME_SIZE=116       /
+//                          "-DCONST=const __code" -DGENERIC=__generic        /
+//                          -DRFD_RCVC_ALWAYS_ON=TRUE -DPOLL_RATE=1000        /
+//                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100   /
+//                          -DREJOIN_POLL_RATE=440) -f                        /
+//                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network      /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cf /
+//                          g" (-DZCL_READ -DZCL_WRITE -DZCL_BASIC            /
+//                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH   /
+//                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
+//                          -DZCL_PRICING) -DZCL_MESSAGE                      /
+//                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network      /
+//                          Example\Components\hal\target\CC2530NB\hal_relay. /
+//                          c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D     /
+//                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
+//                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
+//                          End_Device -D M140 -D xPA2591 -lC                 /
+//                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network      /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceKB_M140\List\" -lA       /
+//                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network      /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceKB_M140\List\"           /
+//                          --diag_suppress Pe001,Pa010 -o                    /
+//                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network      /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceKB_M140\Obj\" -e         /
+//                          --require_prototypes --debug --core=plain         /
+//                          --dptr=16,1 --data_model=large                    /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I                           /
+//                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network      /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint & Device\CC2530DB\"   /
+//                          -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\SOURCE\" -I                    /
+//                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network      /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\SOURCE\" -I                 /
+//                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network      /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I      /
+//                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network      /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\"    /
+//                          -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INC /
+//                          LUDE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor    /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MOD /
+//                          ULE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor     /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TAR /
+//                          GET\CC2530KB\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\S /
+//                          ensor Network Example\Projects\zstack\Sensor      /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MC /
+//                          U\CCSOC\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor /
+//                           Network Example\Projects\zstack\Sensor Network   /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\IN /
+//                          CLUDE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor   /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\A /
+//                          F\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor       /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\N /
+//                          WK\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor      /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          EC\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor      /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          API\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor     /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          YS\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor      /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          CL\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor      /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          DO\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor      /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8 /
+//                          W\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor       /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"  /
+//                          -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SADDR\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor /
+//                           Network Example\Projects\zstack\Sensor Network   /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SDATA\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor /
+//                           Network Example\Projects\zstack\Sensor Network   /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INC /
+//                          LUDE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor    /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIG /
+//                          H_LEVEL\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor /
+//                           Network Example\Projects\zstack\Sensor Network   /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\S /
+//                          ensor Network Example\Projects\zstack\Sensor      /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\SINGLE_CHIP\" -I "C:\Program Files   /
+//                          (x86)\IAR Systems\Embedded Workbench              /
+//                          5.3\8051\INC\" -I "C:\Program Files (x86)\IAR     /
+//                          Systems\Embedded Workbench 5.3\8051\INC\CLIB\"    /
+//                          -Ohz                                              /
+//    List file          =  D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceKB_M140\List\hal_relay.s /
+//                          51                                                /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME hal_relay
+
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+
+        PUBLIC ??RELAY_GetDI?relay
+        FUNCTION ??RELAY_GetDI?relay,0203H
+        PUBLIC ??RELAY_Init?relay
+        FUNCTION ??RELAY_Init?relay,0203H
+        PUBLIC ??RELAY_SetDO?relay
+        FUNCTION ??RELAY_SetDO?relay,0203H
+        PUBWEAK P1DIR
+        PUBWEAK P1SEL
+        PUBWEAK P2DIR
+        PUBWEAK P2SEL
+        PUBLIC RELAY_GetDI
+        FUNCTION RELAY_GetDI,0203H
+        ARGFRAME XSTACK, 0, STACK
+        PUBLIC RELAY_Init
+        FUNCTION RELAY_Init,0203H
+        ARGFRAME XSTACK, 0, STACK
+        PUBLIC RELAY_SetDO
+        FUNCTION RELAY_SetDO,0203H
+        ARGFRAME XSTACK, 0, STACK
+        PUBWEAK _A_P1
+        PUBWEAK _A_P2
+        
+        CFI Names cfiNames0
+        CFI StackFrame CFA_SP SP IDATA
+        CFI StackFrame CFA_PSP16 PSP16 XDATA
+        CFI StackFrame CFA_XSP16 XSP16 XDATA
+        CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+        CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+        CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+        CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+        CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+        CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+        CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+        CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+        CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+        CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+        CFI VirtualResource ?RET:24
+        CFI Resource ?BRET_EXT:8
+        CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+        CFI ResourceParts PSP16 PSPH, PSPL
+        CFI ResourceParts XSP16 XSPH, XSPL
+        CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+        CFI EndNames cfiNames0
+        
+        CFI Common cfiCommon0 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-3
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B Undefined
+        CFI A Undefined
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 Undefined
+        CFI R1 Undefined
+        CFI R2 Undefined
+        CFI R3 Undefined
+        CFI R4 Undefined
+        CFI R5 Undefined
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT Frame(CFA_SP, 3)
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon0
+        
+RELAY_GetDI         SYMBOL "RELAY_GetDI"
+??RELAY_GetDI?relay SYMBOL "?relay", RELAY_GetDI
+RELAY_Init          SYMBOL "RELAY_Init"
+??RELAY_Init?relay  SYMBOL "?relay", RELAY_Init
+RELAY_SetDO         SYMBOL "RELAY_SetDO"
+??RELAY_SetDO?relay SYMBOL "?relay", RELAY_SetDO
+
+// D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network Example\Components\hal\target\CC2530NB\hal_relay.c
+//    1 //-------------------------------------------------------------------
+//    2 // Filename: hal_relay.c
+//    3 //-------------------------------------------------------------------
+//    4 //-------------------------------------------------------------------
+//    5 // INCLUDES
+//    6 //-------------------------------------------------------------------
+//    7 #include "hal_defs.h"
+//    8 #include "hal_mcu.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,090H
+// union <unnamed> volatile __sfr _A_P1
+_A_P1:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0a0H
+// union <unnamed> volatile __sfr _A_P2
+_A_P2:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f4H
+// unsigned char volatile __sfr P1SEL
+P1SEL:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f5H
+// unsigned char volatile __sfr P2SEL
+P2SEL:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0feH
+// unsigned char volatile __sfr P1DIR
+P1DIR:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0ffH
+// unsigned char volatile __sfr P2DIR
+P2DIR:
+        DS 1
+//    9 #include "hal_key.h"
+//   10 #include "hal_board.h"
+//   11 #include "hal_relay.h"
+//   12 
+//   13 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   14 void RELAY_Init(void)
+RELAY_Init:
+        CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function RELAY_Init
+//   15 {   
+        ; Saved register size: 0
+        ; Auto size: 0
+//   16     // switch init
+//   17     SWITCH1_INPUT();
+        ANL     0xf5,#0xf7
+        ANL     0xff,#0xf7
+//   18     SWITCH2_INPUT();
+        ANL     0xf5,#0xef
+        ANL     0xff,#0xef
+//   19     
+//   20     // relay init
+//   21     HAL_RELAY1_OUTPUT();
+        ANL     0xf4,#0xfe
+        SETB    0x90.0
+        ORL     0xfe,#0x1
+//   22     HAL_RELAY2_OUTPUT();
+        ANL     0xf4,#0xfd
+        SETB    0x90.1
+        ORL     0xfe,#0x2
+//   23     HAL_RELAY1_OFF();
+        SETB    0x90.0
+//   24     HAL_RELAY2_OFF();
+        SETB    0x90.1
+//   25 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock0
+        REQUIRE _A_P1
+        REQUIRE P1SEL
+        REQUIRE P2SEL
+        REQUIRE P2DIR
+        REQUIRE P1DIR
+//   26 
+//   27 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   28 void RELAY_SetDO(uint8 udo)
+RELAY_SetDO:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI Function RELAY_SetDO
+//   29 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//   30 	if(udo == 0)
+        MOV     A,R1
+        JNZ     ??RELAY_SetDO_0
+//   31         {
+//   32           HAL_RELAY2_ON();
+        CLR     0x90.1
+//   33           HAL_RELAY1_OFF();
+        SETB    0x90.0
+        SJMP    ??RELAY_SetDO_1
+//   34         }
+//   35 	else
+//   36           {
+//   37             HAL_RELAY1_ON();
+??RELAY_SetDO_0:
+        CLR     0x90.0
+//   38             HAL_RELAY2_OFF();
+        SETB    0x90.1
+//   39           }
+//   40 }
+??RELAY_SetDO_1:
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock1
+        REQUIRE _A_P1
+//   41 
+//   42 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   43 uint8 RELAY_GetDI(void)
+RELAY_GetDI:
+        CFI Block cfiBlock2 Using cfiCommon0
+        CFI Function RELAY_GetDI
+//   44 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//   45 	uint8 udi;
+//   46 
+//   47 	udi=0x03;
+        MOV     R1,#0x3
+//   48         
+//   49 	if (HAL_SW_1_PUSH())
+        MOV     C,0xa0.3
+        JC      ??RELAY_GetDI_0
+//   50         {
+//   51 	  udi&=~(0x01);
+        DEC     R1
+//   52 	}
+//   53         
+//   54         if (HAL_SW_2_PUSH())
+??RELAY_GetDI_0:
+        MOV     C,0xa0.4
+        JC      ??RELAY_GetDI_1
+//   55         {
+//   56 	  udi&=~(0x02);
+        MOV     A,R1
+        CLR     0xE0 /* A   */.1
+        MOV     R1,A
+//   57 	}
+//   58         return udi;
+??RELAY_GetDI_1:
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock2
+        REQUIRE _A_P2
+//   59 }
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??RELAY_Init?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    RELAY_Init
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??RELAY_SetDO?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    RELAY_SetDO
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??RELAY_GetDI?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    RELAY_GetDI
+
+        END
+// 
+// 69 bytes in segment BANKED_CODE
+// 18 bytes in segment BANK_RELAYS
+//  6 bytes in segment SFR_AN
+// 
+// 87 bytes of CODE memory
+//  0 bytes of DATA memory (+ 6 bytes shared)
+//
+//Errors: none
+//Warnings: none

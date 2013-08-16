@@ -1,0 +1,956 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               27/Aug/2010  12:31:13 /
+// Copyright 2004-2009 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  banked                                            /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data_rom                                          /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter\ /
+//                          XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Compon /
+//                          ents\hal\module\M140.c                            /
+//    Command line       =  -f "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRou /
+//                          ter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Pr /
+//                          ojects\zstack\Sensor Network Application\ZIGBEE   /
+//                          Endpoint & Device\CC2530DB\..\..\..\Tools\CC2530D /
+//                          B\f8wEndev.cfg" (-DCPU32MHZ -DROOT=__near_func    /
+//                          -DBLINK_LEDS) -f "D:\Z-Stack整理Code\南開科大_Z-S /
+//                          tack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530- /
+//                          2.3.0-1.4.0\Projects\zstack\Sensor Network        /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig /
+//                          .cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0           /
+//                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800         /
+//                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
+//                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
+//                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
+//                          -DBEACON_REQ_DELAY_MASK=0x00FF                    /
+//                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_P /
+//                          OLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7           /
+//                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3   /
+//                          -DNWK_MAX_DATA_RETRIES=2                          /
+//                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9        /
+//                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40          /
+//                          -DNWK_MAX_BINDING_ENTRIES=4                       /
+//                          -DMAX_BINDING_CLUSTER_IDS=4                       /
+//                          "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07, 0x09,     /
+//                          0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08,   /
+//                          0x0A, 0x0C, 0x0D}" -DMAC_MAX_FRAME_SIZE=116       /
+//                          "-DCONST=const __code" -DGENERIC=__generic        /
+//                          -DRFD_RCVC_ALWAYS_ON=TRUE -DPOLL_RATE=1000        /
+//                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100   /
+//                          -DREJOIN_POLL_RATE=440) -f                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Endpoint & Device\CC2530DB\..\..\..\Tools\CC2530D /
+//                          B\f8wZCL.cfg" (-DZCL_READ -DZCL_WRITE             /
+//                          -DZCL_BASIC -DZCL_IDENTIFY -DZCL_ON_OFF           /
+//                          -DZCL_KEY_ESTABLISH -DZCL_LOAD_CONTROL            /
+//                          -DZCL_SIMPLE_METERING -DZCL_PRICING)              /
+//                          -DZCL_MESSAGE D:\Z-Stack整理Code\南開科大_Z-Stack /
+//                          _ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3. /
+//                          0-1.4.0\Components\hal\module\M140.c -D           /
+//                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D           /
+//                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
+//                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
+//                          End_Device -D xPA2591 -lC                         /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Endpoint & Device\CC2530DB\EndDeviceKB_RS232\List /
+//                          \" -lA "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigbe /
+//                          eRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4. /
+//                          0\Projects\zstack\Sensor Network                  /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceKB_RS232\List\"          /
+//                          --diag_suppress Pe001,Pa010 -o                    /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Endpoint & Device\CC2530DB\EndDeviceKB_RS232\Obj\ /
+//                          " -e --require_prototypes --debug --core=plain    /
+//                          --dptr=16,1 --data_model=large                    /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I                           /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Endpoint & Device\CC2530DB\" -I                   /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Endpoint & Device\CC2530DB\..\SOURCE\" -I         /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Endpoint & Device\CC2530DB\..\..\SOURCE\" -I      /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Endpoint & Device\CC2530DB\..\..\..\ZMAIN\TI2530D /
+//                          B\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigbe /
+//                          eRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4. /
+//                          0\Projects\zstack\Sensor Network                  /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\"    /
+//                          -I "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRou /
+//                          ter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Pr /
+//                          ojects\zstack\Sensor Network Application\ZIGBEE   /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\HAL\INCLUDE\" -I "D:\Z-Stack整理Code\南開科大 /
+//                          _Z-Stack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2 /
+//                          530-2.3.0-1.4.0\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MOD /
+//                          ULE\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zig /
+//                          beeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1. /
+//                          4.0\Projects\zstack\Sensor Network                /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TAR /
+//                          GET\CC2530KB\" -I "D:\Z-Stack整理Code\南開科大_Z- /
+//                          Stack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530 /
+//                          -2.3.0-1.4.0\Projects\zstack\Sensor Network       /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MC /
+//                          U\CCSOC\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack /
+//                          _ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3. /
+//                          0-1.4.0\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\IN /
+//                          CLUDE\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Z /
+//                          igbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0- /
+//                          1.4.0\Projects\zstack\Sensor Network              /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\A /
+//                          F\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigbe /
+//                          eRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4. /
+//                          0\Projects\zstack\Sensor Network                  /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\N /
+//                          WK\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          EC\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          API\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zig /
+//                          beeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1. /
+//                          4.0\Projects\zstack\Sensor Network                /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          YS\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          CL\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          DO\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8 /
+//                          W\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigbe /
+//                          eRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4. /
+//                          0\Projects\zstack\Sensor Network                  /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"  /
+//                          -I "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRou /
+//                          ter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Pr /
+//                          ojects\zstack\Sensor Network Application\ZIGBEE   /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\SERVICES\SADDR\" -I                           /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\SERVICES\SDATA\" -I                           /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Endpoint & Device\CC2530DB\..\..\..\..\..\COMPONE /
+//                          NTS\MAC\INCLUDE\" -I "D:\Z-Stack整理Code\南開科大 /
+//                          _Z-Stack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2 /
+//                          530-2.3.0-1.4.0\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIG /
+//                          H_LEVEL\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack /
+//                          _ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3. /
+//                          0-1.4.0\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\" -I "D:\Z-Stack整理Code\南開科大_Z- /
+//                          Stack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530 /
+//                          -2.3.0-1.4.0\Projects\zstack\Sensor Network       /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR             /
+//                          Systems\Embedded Workbench MCS 51\8051\INC\" -I   /
+//                          "C:\IAR Systems\Embedded Workbench MCS            /
+//                          51\8051\INC\CLIB\" -Ohz                           /
+//    List file          =  D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter\ /
+//                          XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Projec /
+//                          ts\zstack\Sensor Network Application\ZIGBEE       /
+//                          Endpoint & Device\CC2530DB\EndDeviceKB_RS232\List /
+//                          \M140.s51                                         /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME M140
+
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ??ADT7301_Read?relay
+        EXTERN ??ADT7301_Start?relay
+        EXTERN ??M140_SpiRW?relay
+        EXTERN ?BANKED_ENTER_XDATA
+        EXTERN ?BANKED_LEAVE_XDATA
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+        EXTERN __INIT_XDATA_Z
+
+        PUBLIC ??ADT7301_Read?relay
+        FUNCTION ??ADT7301_Read?relay,0203H
+        PUBLIC ??ADT7301_Start?relay
+        FUNCTION ??ADT7301_Start?relay,0203H
+        PUBLIC ??M140_GetValue?relay
+        FUNCTION ??M140_GetValue?relay,0203H
+        PUBLIC ??M140_Init?relay
+        FUNCTION ??M140_Init?relay,0203H
+        PUBLIC ??M140_SpiRW?relay
+        FUNCTION ??M140_SpiRW?relay,0203H
+        PUBLIC ADT7301_Read
+        FUNCTION ADT7301_Read,021203H
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC ADT7301_Start
+        FUNCTION ADT7301_Start,021203H
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC M140_GetValue
+        FUNCTION M140_GetValue,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC M140_Init
+        FUNCTION M140_Init,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC M140_SpiRW
+        FUNCTION M140_SpiRW,0203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUBLIC M140_Value
+        PUBWEAK P0DIR
+        PUBWEAK P0SEL
+        PUBWEAK _A_P0
+        
+        CFI Names cfiNames0
+        CFI StackFrame CFA_SP SP IDATA
+        CFI StackFrame CFA_PSP16 PSP16 XDATA
+        CFI StackFrame CFA_XSP16 XSP16 XDATA
+        CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+        CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+        CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+        CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+        CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+        CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+        CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+        CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+        CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+        CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+        CFI VirtualResource ?RET:24
+        CFI Resource ?BRET_EXT:8
+        CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+        CFI ResourceParts PSP16 PSPH, PSPL
+        CFI ResourceParts XSP16 XSPH, XSPL
+        CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+        CFI EndNames cfiNames0
+        
+        CFI Common cfiCommon0 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-3
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B Undefined
+        CFI A Undefined
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 Undefined
+        CFI R1 Undefined
+        CFI R2 Undefined
+        CFI R3 Undefined
+        CFI R4 Undefined
+        CFI R5 Undefined
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT Frame(CFA_SP, 3)
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon0
+        
+        
+        CFI Common cfiCommon1 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-2
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B SameValue
+        CFI A SameValue
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 SameValue
+        CFI R1 SameValue
+        CFI R2 SameValue
+        CFI R3 SameValue
+        CFI R4 SameValue
+        CFI R5 SameValue
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT SameValue
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon1
+        
+halMcuWaitMs        SYMBOL "halMcuWaitMs"
+??halMcuWaitMs?relay SYMBOL "?relay", halMcuWaitMs
+ADT7301_Read        SYMBOL "ADT7301_Read"
+??ADT7301_Read?relay SYMBOL "?relay", ADT7301_Read
+ADT7301_Start       SYMBOL "ADT7301_Start"
+??ADT7301_Start?relay SYMBOL "?relay", ADT7301_Start
+M140_GetValue       SYMBOL "M140_GetValue"
+??M140_GetValue?relay SYMBOL "?relay", M140_GetValue
+M140_Init           SYMBOL "M140_Init"
+??M140_Init?relay   SYMBOL "?relay", M140_Init
+M140_SpiRW          SYMBOL "M140_SpiRW"
+??M140_SpiRW?relay  SYMBOL "?relay", M140_SpiRW
+
+        EXTERN halMcuWaitMs
+        FUNCTION halMcuWaitMs,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN ??halMcuWaitMs?relay
+        FUNCTION ??halMcuWaitMs?relay,00H
+
+// D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Components\hal\module\M140.c
+//    1 //-------------------------------------------------------------------
+//    2 // Filename: M140.c
+//    3 // Description: hal M140 library
+//    4 //-------------------------------------------------------------------
+//    5 //-------------------------------------------------------------------
+//    6 // INCLUDES
+//    7 //-------------------------------------------------------------------
+//    8 #include "hal_mcu.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,080H
+// union <unnamed> volatile __sfr _A_P0
+_A_P0:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f3H
+// unsigned char volatile __sfr P0SEL
+P0SEL:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0fdH
+// unsigned char volatile __sfr P0DIR
+P0DIR:
+        DS 1
+//    9 #include "hal_board.h"
+//   10 #include "hal_digio.h"
+//   11 #include "hal_keypad.h"
+//   12 #include "hal_timer.h"
+//   13 #include "M140.h"
+//   14 
+//   15 //-------------------------------------------------------------------
+//   16 // LOCAL VARIABLES
+//   17 //-------------------------------------------------------------------
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   18 uint16 M140_Value;
+M140_Value:
+        DS 2
+        REQUIRE __INIT_XDATA_Z
+//   19 
+//   20 uint8 M140_SpiRW(uint8 ch);
+//   21 void ADT7301_Start(void);
+//   22 void ADT7301_Read(void);
+//   23 
+//   24 //-------------------------------------------------------------------
+//   25 // LOCAL FUNCTIONS
+//   26 //-------------------------------------------------------------------
+//   27 //--------------------------------------------
+//   28 // The M140 module SPI read, write
+//   29 //--------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   30 uint8 M140_SpiRW(uint8 ch)
+M140_SpiRW:
+        CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function M140_SpiRW
+//   31 {
+        ; Saved register size: 0
+        ; Auto size: 0
+        MOV     A,R1
+//   32     uint8 i, cmd, ret;
+//   33 
+//   34     cmd = ch;
+        MOV     R3,A
+//   35     for (i = 0; i < 8; i++)
+        MOV     R2,#0x8
+//   36     {
+//   37         HAL_SPI_CLK_CLR();
+??M140_SpiRW_0:
+        CLR     0x80.5
+//   38         if (cmd &0x80)
+        MOV     A,R3
+        MOV     C,0xE0 /* A   */.7
+        JNC     ??M140_SpiRW_1
+//   39         {
+//   40             HAL_SPI_MOSI_SET();
+        SETB    0x80.4
+        SJMP    ??M140_SpiRW_2
+//   41         }
+//   42         else
+//   43         {
+//   44             HAL_SPI_MOSI_CLR();
+??M140_SpiRW_1:
+        CLR     0x80.4
+//   45         }
+//   46         cmd <<= 1;
+??M140_SpiRW_2:
+        CLR     C
+        RLC     A
+        MOV     R3,A
+//   47         ret <<= 1;
+        MOV     A,R1
+        CLR     C
+        RLC     A
+        MOV     R1,A
+//   48         HAL_SPI_CLK_SET();
+        SETB    0x80.5
+//   49         if (HAL_SPI_MISO_VAL())
+        MOV     C,0x80.6
+        JNC     ??M140_SpiRW_3
+//   50         {
+//   51             ret |= 0x01;
+        SETB    0xE0 /* A   */.0
+        MOV     R1,A
+//   52         }
+//   53     }
+??M140_SpiRW_3:
+        DEC     R2
+        MOV     A,R2
+        JNZ     ??M140_SpiRW_0
+//   54     HAL_SPI_MOSI_SET();
+        SETB    0x80.4
+//   55     return ret;
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock0
+        REQUIRE _A_P0
+//   56 }
+//   57 
+//   58 //--------------------------------------------
+//   59 // Start the ADT7301
+//   60 //--------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   61 void ADT7301_Start(void)
+ADT7301_Start:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI Function ADT7301_Start
+//   62 {
+        FUNCALL ADT7301_Start, M140_SpiRW
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL ADT7301_Start, M140_SpiRW
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   63     HAL_SPI_CS_EN();
+        CLR     0x80.7
+//   64     M140_SpiRW(0x00);
+        ; Setup parameters for call to function M140_SpiRW
+        MOV     R1,#0x0
+        LCALL   ??M140_SpiRW?relay
+//   65     M140_SpiRW(0x00);
+        ; Setup parameters for call to function M140_SpiRW
+        MOV     R1,#0x0
+        LCALL   ??M140_SpiRW?relay
+//   66     HAL_SPI_CS_DIS();
+        SETB    0x80.7
+        CFI EndBlock cfiBlock1
+//   67 }
+        REQUIRE ?Subroutine1
+        REQUIRE _A_P0
+        ; // Fall through to label ?Subroutine1
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine1:
+        CFI Block cfiBlock2 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+-5
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        POP     DPH
+        CFI CFA_SP SP+-4
+        CFI DPH0 SameValue
+        POP     DPL
+        CFI CFA_SP SP+-3
+        CFI DPL0 SameValue
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock2
+//   68 
+//   69 //--------------------------------------------
+//   70 // Read the ADT7301 
+//   71 //--------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   72 void ADT7301_Read(void)
+ADT7301_Read:
+        CFI Block cfiBlock3 Using cfiCommon0
+        CFI Function ADT7301_Read
+//   73 {
+        FUNCALL ADT7301_Read, M140_SpiRW
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL ADT7301_Read, M140_SpiRW
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0x9
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+//   74     HAL_SPI_CS_EN();
+        CLR     0x80.7
+//   75     M140_Value = M140_SpiRW(0x20);
+        ; Setup parameters for call to function M140_SpiRW
+        MOV     R1,#0x20
+        LCALL   ??M140_SpiRW?relay
+        MOV     A,R1
+        MOV     DPTR,#M140_Value
+        MOVX    @DPTR,A
+        INC     DPTR
+        CLR     A
+        MOVX    @DPTR,A
+//   76     M140_Value = (M140_Value << 8) + M140_SpiRW(0x00);
+        MOV     DPTR,#M140_Value
+        MOVX    A,@DPTR
+        MOV     R7,A
+        ; Setup parameters for call to function M140_SpiRW
+        MOV     R1,#0x0
+        LCALL   ??M140_SpiRW?relay
+        MOV     A,R1
+        ADD     A,#0x0
+        MOV     R0,A
+        CLR     A
+        ADDC    A,R7
+        MOV     R1,A
+        MOV     DPTR,#M140_Value
+        MOV     A,R0
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOV     A,R1
+        MOVX    @DPTR,A
+//   77     HAL_SPI_CS_DIS();
+        SETB    0x80.7
+//   78 }
+        MOV     R7,#0x1
+        LJMP    ?BANKED_LEAVE_XDATA
+        CFI EndBlock cfiBlock3
+        REQUIRE _A_P0
+//   79 
+//   80 //-------------------------------------------------------------------
+//   81 // GLOBAL FUNCTIONS
+//   82 //-------------------------------------------------------------------
+//   83 //--------------------------------------------
+//   84 // Initilization M140 module
+//   85 //--------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   86 void M140_Init(void)
+M140_Init:
+        CFI Block cfiBlock4 Using cfiCommon0
+        CFI Function M140_Init
+//   87 {   
+        FUNCALL M140_Init, ADT7301_Start
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M140_Init, halMcuWaitMs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M140_Init, ADT7301_Read
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   88     HAL_SPI_MISO_INPUT();
+        ANL     0xf3,#0xbf
+        ANL     0xfd,#0xbf
+//   89     HAL_SPI_MOSI_OUTPUT();
+        ANL     0xf3,#0xef
+        ORL     0xfd,#0x10
+//   90     HAL_SPI_CLK_OUTPUT();
+        ANL     0xf3,#0xdf
+        ORL     0xfd,#0x20
+//   91     HAL_SPI_CS_OUTPUT();
+        ANL     0xf3,#0x7f
+        ORL     0xfd,#0x80
+//   92     
+//   93     ADT7301_Start();
+        ; Setup parameters for call to function ADT7301_Start
+        LCALL   ?Subroutine0 & 0xFFFF
+//   94     halMcuWaitMs(2);
+//   95     ADT7301_Read();
+//   96 }
+??CrossCallReturnLabel_0:
+        SJMP    ?Subroutine1
+        CFI EndBlock cfiBlock4
+        REQUIRE P0SEL
+        REQUIRE P0DIR
+//   97 
+//   98 //--------------------------------------------
+//   99 // Get the M140 sensor module value
+//  100 //--------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  101 uint16 M140_GetValue(void)
+M140_GetValue:
+        CFI Block cfiBlock5 Using cfiCommon0
+        CFI Function M140_GetValue
+//  102 {
+        FUNCALL M140_GetValue, ADT7301_Start
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M140_GetValue, halMcuWaitMs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M140_GetValue, ADT7301_Read
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  103     ADT7301_Start();
+        ; Setup parameters for call to function ADT7301_Start
+        LCALL   ?Subroutine0 & 0xFFFF
+//  104     halMcuWaitMs(2);
+//  105     ADT7301_Read();
+//  106     return M140_Value;
+??CrossCallReturnLabel_1:
+        MOV     DPTR,#M140_Value
+        MOVX    A,@DPTR
+        MOV     R2,A
+        INC     DPTR
+        MOVX    A,@DPTR
+        MOV     R3,A
+        SJMP    ?Subroutine1
+        CFI EndBlock cfiBlock5
+//  107 }
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine0:
+        CFI Block cfiCond6 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_0
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        CFI Block cfiCond7 Using cfiCommon0
+        CFI (cfiCond7) NoFunction
+        CFI (cfiCond7) Conditional ??CrossCallReturnLabel_1
+        CFI (cfiCond7) DPL0 Frame(CFA_SP, 4)
+        CFI (cfiCond7) DPH0 Frame(CFA_SP, 5)
+        CFI (cfiCond7) CFA_SP SP+-5
+        CFI Block cfiPicker8 Using cfiCommon1
+        CFI (cfiPicker8) NoFunction
+        CFI (cfiPicker8) Picker
+        LCALL   ??ADT7301_Start?relay
+        ; Setup parameters for call to function halMcuWaitMs
+        ; Setup parameters for call to function halMcuWaitMs
+        MOV     R2,#0x2
+        MOV     R3,#0x0
+        LCALL   ??halMcuWaitMs?relay
+        ; Setup parameters for call to function ADT7301_Read
+        ; Setup parameters for call to function ADT7301_Read
+        LCALL   ??ADT7301_Read?relay
+        RET
+        CFI EndBlock cfiCond6
+        CFI EndBlock cfiCond7
+        CFI EndBlock cfiPicker8
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M140_SpiRW?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M140_SpiRW
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??ADT7301_Start?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    ADT7301_Start
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??ADT7301_Read?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    ADT7301_Read
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M140_Init?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M140_Init
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M140_GetValue?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M140_GetValue
+
+        END
+//  108 
+// 
+// 183 bytes in segment BANKED_CODE
+//  30 bytes in segment BANK_RELAYS
+//   3 bytes in segment SFR_AN
+//   2 bytes in segment XDATA_Z
+// 
+// 213 bytes of CODE  memory
+//   0 bytes of DATA  memory (+ 3 bytes shared)
+//   2 bytes of XDATA memory
+//
+//Errors: none
+//Warnings: none

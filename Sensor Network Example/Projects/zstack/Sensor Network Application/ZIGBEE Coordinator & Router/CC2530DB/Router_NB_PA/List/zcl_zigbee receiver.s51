@@ -1,0 +1,2387 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               27/Aug/2010  11:02:42 /
+// Copyright 2004-2009 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  banked                                            /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data_rom                                          /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter\ /
+//                          XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Projec /
+//                          ts\zstack\Sensor Network Application\ZIGBEE       /
+//                          Coordinator & Router\Source\zcl_zigbee receiver.c /
+//    Command line       =  -f "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRou /
+//                          ter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Pr /
+//                          ojects\zstack\Sensor Network Application\ZIGBEE   /
+//                          Coordinator & Router\CC2530DB\..\..\..\Tools\CC25 /
+//                          30DB\f8wRouter.cfg" (-DCPU32MHZ                   /
+//                          -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TR /
+//                          UE -DRTR_NWK -DBLINK_LEDS) -f                     /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\Tools\CC25 /
+//                          30DB\f8wConfig.cfg" (-DSECURE=0                   /
+//                          -DZG_SECURE_DYNAMIC=0 -DREFLECTOR                 /
+//                          -DDEFAULT_CHANLIST=0x00000800                     /
+//                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
+//                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
+//                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
+//                          -DBEACON_REQ_DELAY_MASK=0x00FF                    /
+//                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_P /
+//                          OLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7           /
+//                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3   /
+//                          -DNWK_MAX_DATA_RETRIES=2                          /
+//                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9        /
+//                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40          /
+//                          -DNWK_MAX_BINDING_ENTRIES=4                       /
+//                          -DMAX_BINDING_CLUSTER_IDS=4                       /
+//                          "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07, 0x09,     /
+//                          0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08,   /
+//                          0x0A, 0x0C, 0x0D}" -DMAC_MAX_FRAME_SIZE=116       /
+//                          "-DCONST=const __code" -DGENERIC=__generic        /
+//                          -DRFD_RCVC_ALWAYS_ON=TRUE -DPOLL_RATE=1000        /
+//                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100   /
+//                          -DREJOIN_POLL_RATE=440) -f                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\Tools\CC25 /
+//                          30DB\f8wZCL.cfg" (-DZCL_READ -DZCL_WRITE          /
+//                          -DZCL_BASIC -DZCL_IDENTIFY -DZCL_ON_OFF           /
+//                          -DZCL_KEY_ESTABLISH -DZCL_LOAD_CONTROL            /
+//                          -DZCL_SIMPLE_METERING -DZCL_PRICING)              /
+//                          -DZCL_MESSAGE "D:\Z-Stack整理Code\南開科大_Z-Stac /
+//                          k_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3 /
+//                          .0-1.4.0\Projects\zstack\Sensor Network           /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\Source\zcl_zigbee receiver.c" -D ZTOOL_P1  /
+//                          -D MT_TASK -D MT_APP_FUNC -D MT_SYS_FUNC -D       /
+//                          MT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG -D             /
+//                          Router_receiver -D HAL_KEYPAD -D PA2591 -lC       /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\Router_NB_PA\List\" /
+//                           -lA "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeR /
+//                          outer\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\ /
+//                          Projects\zstack\Sensor Network                    /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\Router_NB_PA\List\"               /
+//                          --diag_suppress Pe001,Pa010 -o                    /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\Router_NB_PA\Obj\"  /
+//                          -e --require_prototypes --debug --core=plain      /
+//                          --dptr=16,1 --data_model=large                    /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I                           /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\" -I                /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\SOURCE\" -I      /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\SOURCE\" -I   /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\ZMAIN\TI25 /
+//                          30DB\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zi /
+//                          gbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1 /
+//                          .4.0\Projects\zstack\Sensor Network               /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\MT\"    /
+//                          -I "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRou /
+//                          ter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Pr /
+//                          ojects\zstack\Sensor Network Application\ZIGBEE   /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\HAL\INCLUDE\" -I                           /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\HAL\TARGET\CC2530NB\" -I                   /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\OSAL\MCU\CCSOC\" -I                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\OSAL\INCLUDE\" -I                          /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\STACK\AF\" -I "D:\Z-Stack整理Code\南開科大 /
+//                          _Z-Stack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2 /
+//                          530-2.3.0-1.4.0\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\N /
+//                          WK\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          EC\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          API\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zig /
+//                          beeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1. /
+//                          4.0\Projects\zstack\Sensor Network                /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          YS\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          CL\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          DO\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8 /
+//                          W\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigbe /
+//                          eRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4. /
+//                          0\Projects\zstack\Sensor Network                  /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"  /
+//                          -I "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRou /
+//                          ter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Pr /
+//                          ojects\zstack\Sensor Network Application\ZIGBEE   /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\SERVICES\SADDR\" -I                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\SERVICES\SDATA\" -I                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\MAC\INCLUDE\" -I                           /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\MAC\HIGH_LEVEL\" -I                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\MAC\LOW_LEVEL\srf04\" -I                   /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\MAC\LOW_LEVEL\srf04\SINGLE_CHIP\" -I       /
+//                          "C:\IAR Systems\Embedded Workbench MCS            /
+//                          51\8051\INC\" -I "C:\IAR Systems\Embedded         /
+//                          Workbench MCS 51\8051\INC\CLIB\" -Ohz             /
+//    List file          =  D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter\ /
+//                          XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Projec /
+//                          ts\zstack\Sensor Network Application\ZIGBEE       /
+//                          Coordinator & Router\CC2530DB\Router_NB_PA\List\z /
+//                          cl_zigbee receiver.s51                            /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME `zcl_zigbee receiver`
+
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ??zclUartReceiver?relay
+        EXTERN ??zclZigbeeReceiver_ProcessIdentifyTimeChange?r
+        EXTERN ?ALLOC_XSTACK8
+        EXTERN ?BANKED_ENTER_XDATA
+        EXTERN ?BANKED_LEAVE_XDATA
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+        EXTERN ?DEALLOC_XSTACK8
+        EXTERN ?PUSH_XSTACK_I_ONE
+        EXTERN ?PUSH_XSTACK_I_THREE
+        EXTERN ?PUSH_XSTACK_I_TWO
+        EXTERN ?UC_SWITCH_SPARSE
+        EXTERN ?V0
+        EXTERN ?XSP
+        EXTERN __INIT_XDATA_I
+        EXTERN __INIT_XDATA_Z
+
+        PUBLIC ??zclUARTMsg_CallBack?relay
+        FUNCTION ??zclUARTMsg_CallBack?relay,0203H
+        PUBLIC ??zclUartReceiver?relay
+        FUNCTION ??zclUartReceiver?relay,0203H
+        FUNCTION ??zclZigbeeReceiver_BasicResetCB?relay,0203H
+        FUNCTION ??zclZigbeeReceiver_IdentifyCB?relay,0203H
+        FUNCTION ??zclZigbeeReceiver_IdentifyQueryRspCB?relay,0203H
+        FUNCTION ??zclZigbeeReceiver_OnOffCB?relay,0203H
+        FUNCTION ??zclZigbeeReceiver_ProcessIdentifyTimeChange?r,0203H
+        PUBLIC ??zclZigbeeRecv_Init?relay
+        FUNCTION ??zclZigbeeRecv_Init?relay,0203H
+        PUBLIC ??zclZigbeeRecv_event_loop?relay
+        FUNCTION ??zclZigbeeRecv_event_loop?relay,0203H
+        PUBLIC TransmitApp_Msg
+        PUBLIC UartTransmit_Msg
+        PUBLIC len
+        PUBLIC zclUARTMsg_CallBack
+        FUNCTION zclUARTMsg_CallBack,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        PUBLIC zclUartReceiver
+        FUNCTION zclUartReceiver,021203H
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 1, STACK
+        LOCFRAME XSTACK, 41, STACK
+        FUNCTION zclZigbeeReceiver_BasicResetCB,0603H
+        ARGFRAME XSTACK, 0, STACK
+        FUNCTION zclZigbeeReceiver_IdentifyCB,021603H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        FUNCTION zclZigbeeReceiver_IdentifyQueryRspCB,0603H
+        ARGFRAME XSTACK, 0, STACK
+        FUNCTION zclZigbeeReceiver_OnOffCB,021603H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        FUNCTION zclZigbeeReceiver_ProcessIdentifyTimeChange,021203H
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC zclZigbeeReceiver_TaskID
+        PUBLIC zclZigbeeRecv_DstAddr
+        PUBLIC zclZigbeeRecv_Group
+        PUBLIC zclZigbeeRecv_Init
+        FUNCTION zclZigbeeRecv_Init,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        PUBLIC zclZigbeeRecv_event_loop
+        FUNCTION zclZigbeeRecv_event_loop,0a1203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 1, STACK
+        LOCFRAME XSTACK, 12, STACK
+        
+        CFI Names cfiNames0
+        CFI StackFrame CFA_SP SP IDATA
+        CFI StackFrame CFA_PSP16 PSP16 XDATA
+        CFI StackFrame CFA_XSP16 XSP16 XDATA
+        CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+        CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+        CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+        CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+        CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+        CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+        CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+        CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+        CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+        CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+        CFI VirtualResource ?RET:24
+        CFI Resource ?BRET_EXT:8
+        CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+        CFI ResourceParts PSP16 PSPH, PSPL
+        CFI ResourceParts XSP16 XSPH, XSPL
+        CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+        CFI EndNames cfiNames0
+        
+        CFI Common cfiCommon0 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-3
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B Undefined
+        CFI A Undefined
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 Undefined
+        CFI R1 Undefined
+        CFI R2 Undefined
+        CFI R3 Undefined
+        CFI R4 Undefined
+        CFI R5 Undefined
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT Frame(CFA_SP, 3)
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon0
+        
+        
+        CFI Common cfiCommon1 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-2
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B SameValue
+        CFI A SameValue
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 SameValue
+        CFI R1 SameValue
+        CFI R2 SameValue
+        CFI R3 SameValue
+        CFI R4 SameValue
+        CFI R5 SameValue
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT SameValue
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon1
+        
+zclZD_Init          SYMBOL "zclZD_Init"
+zclGeneral_RegisterCmdCallbacks SYMBOL "zclGeneral_RegisterCmdCallbacks"
+zcl_registerAttrList SYMBOL "zcl_registerAttrList"
+zcl_registerForMsg  SYMBOL "zcl_registerForMsg"
+RegisterForKeys     SYMBOL "RegisterForKeys"
+osal_memcpy         SYMBOL "osal_memcpy"
+aps_AddGroup        SYMBOL "aps_AddGroup"
+afRegister          SYMBOL "afRegister"
+osal_mem_free       SYMBOL "osal_mem_free"
+osal_msg_deallocate SYMBOL "osal_msg_deallocate"
+osal_msg_receive    SYMBOL "osal_msg_receive"
+HalLcdWriteChar     SYMBOL "HalLcdWriteChar"
+osal_start_timerEx  SYMBOL "osal_start_timerEx"
+HalLedBlink         SYMBOL "HalLedBlink"
+HalLedSet           SYMBOL "HalLedSet"
+osal_stop_timerEx   SYMBOL "osal_stop_timerEx"
+Hal_UART_RxBufLen   SYMBOL "Hal_UART_RxBufLen"
+HalUARTRead         SYMBOL "HalUARTRead"
+osal_set_event      SYMBOL "osal_set_event"
+zcl_SendCommand     SYMBOL "zcl_SendCommand"
+??HalLcdWriteChar?relay SYMBOL "?relay", HalLcdWriteChar
+??HalLedBlink?relay SYMBOL "?relay", HalLedBlink
+??HalLedSet?relay   SYMBOL "?relay", HalLedSet
+??HalUARTRead?relay SYMBOL "?relay", HalUARTRead
+??Hal_UART_RxBufLen?relay SYMBOL "?relay", Hal_UART_RxBufLen
+??RegisterForKeys?relay SYMBOL "?relay", RegisterForKeys
+??afRegister?relay  SYMBOL "?relay", afRegister
+??aps_AddGroup?relay SYMBOL "?relay", aps_AddGroup
+??osal_mem_free?relay SYMBOL "?relay", osal_mem_free
+??osal_memcpy?relay SYMBOL "?relay", osal_memcpy
+??osal_msg_deallocate?relay SYMBOL "?relay", osal_msg_deallocate
+??osal_msg_receive?relay SYMBOL "?relay", osal_msg_receive
+??osal_set_event?relay SYMBOL "?relay", osal_set_event
+??osal_start_timerEx?relay SYMBOL "?relay", osal_start_timerEx
+??osal_stop_timerEx?relay SYMBOL "?relay", osal_stop_timerEx
+??zclGeneral_RegisterCmdCallbacks?relay SYMBOL "?relay", zclGeneral_RegisterCmdCallbacks
+??zclZD_Init?relay  SYMBOL "?relay", zclZD_Init
+??zcl_SendCommand?relay SYMBOL "?relay", zcl_SendCommand
+??zcl_registerAttrList?relay SYMBOL "?relay", zcl_registerAttrList
+??zcl_registerForMsg?relay SYMBOL "?relay", zcl_registerForMsg
+zclUARTMsg_CallBack SYMBOL "zclUARTMsg_CallBack"
+??zclUARTMsg_CallBack?relay SYMBOL "?relay", zclUARTMsg_CallBack
+zclUartReceiver     SYMBOL "zclUartReceiver"
+??zclUartReceiver?relay SYMBOL "?relay", zclUartReceiver
+zclZigbeeRecv_Init  SYMBOL "zclZigbeeRecv_Init"
+??zclZigbeeRecv_Init?relay SYMBOL "?relay", zclZigbeeRecv_Init
+zclZigbeeRecv_event_loop SYMBOL "zclZigbeeRecv_event_loop"
+??zclZigbeeRecv_event_loop?relay SYMBOL "?relay", zclZigbeeRecv_event_loop
+
+        EXTERN zclZD_Init
+        FUNCTION zclZD_Init,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN zclGeneral_RegisterCmdCallbacks
+        FUNCTION zclGeneral_RegisterCmdCallbacks,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN zcl_registerAttrList
+        FUNCTION zcl_registerAttrList,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN zcl_registerForMsg
+        FUNCTION zcl_registerForMsg,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN RegisterForKeys
+        FUNCTION RegisterForKeys,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN osal_memcpy
+        FUNCTION osal_memcpy,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN aps_AddGroup
+        FUNCTION aps_AddGroup,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN afRegister
+        FUNCTION afRegister,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN osal_mem_free
+        FUNCTION osal_mem_free,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN osal_msg_deallocate
+        FUNCTION osal_msg_deallocate,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN osal_msg_receive
+        FUNCTION osal_msg_receive,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN HalLcdWriteChar
+        FUNCTION HalLcdWriteChar,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 30, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN osal_start_timerEx
+        FUNCTION osal_start_timerEx,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN HalLedBlink
+        FUNCTION HalLedBlink,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN HalLedSet
+        FUNCTION HalLedSet,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN osal_stop_timerEx
+        FUNCTION osal_stop_timerEx,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN Hal_UART_RxBufLen
+        FUNCTION Hal_UART_RxBufLen,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN HalUARTRead
+        FUNCTION HalUARTRead,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN osal_set_event
+        FUNCTION osal_set_event,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN zcl_SendCommand
+        FUNCTION zcl_SendCommand,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 41, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN ??HalLcdWriteChar?relay
+        FUNCTION ??HalLcdWriteChar?relay,00H
+        EXTERN ??HalLedBlink?relay
+        FUNCTION ??HalLedBlink?relay,00H
+        EXTERN ??HalLedSet?relay
+        FUNCTION ??HalLedSet?relay,00H
+        EXTERN ??HalUARTRead?relay
+        FUNCTION ??HalUARTRead?relay,00H
+        EXTERN ??Hal_UART_RxBufLen?relay
+        FUNCTION ??Hal_UART_RxBufLen?relay,00H
+        EXTERN ??RegisterForKeys?relay
+        FUNCTION ??RegisterForKeys?relay,00H
+        EXTERN ??afRegister?relay
+        FUNCTION ??afRegister?relay,00H
+        EXTERN ??aps_AddGroup?relay
+        FUNCTION ??aps_AddGroup?relay,00H
+        EXTERN ??osal_mem_free?relay
+        FUNCTION ??osal_mem_free?relay,00H
+        EXTERN ??osal_memcpy?relay
+        FUNCTION ??osal_memcpy?relay,00H
+        EXTERN ??osal_msg_deallocate?relay
+        FUNCTION ??osal_msg_deallocate?relay,00H
+        EXTERN ??osal_msg_receive?relay
+        FUNCTION ??osal_msg_receive?relay,00H
+        EXTERN ??osal_set_event?relay
+        FUNCTION ??osal_set_event?relay,00H
+        EXTERN ??osal_start_timerEx?relay
+        FUNCTION ??osal_start_timerEx?relay,00H
+        EXTERN ??osal_stop_timerEx?relay
+        FUNCTION ??osal_stop_timerEx?relay,00H
+        EXTERN ??zclGeneral_RegisterCmdCallbacks?relay
+        FUNCTION ??zclGeneral_RegisterCmdCallbacks?relay,00H
+        EXTERN ??zclZD_Init?relay
+        FUNCTION ??zclZD_Init?relay,00H
+        EXTERN ??zcl_SendCommand?relay
+        FUNCTION ??zcl_SendCommand?relay,00H
+        EXTERN ??zcl_registerAttrList?relay
+        FUNCTION ??zcl_registerAttrList?relay,00H
+        EXTERN ??zcl_registerForMsg?relay
+        FUNCTION ??zcl_registerForMsg?relay,00H
+        EXTERN ch
+        EXTERN zclZigbeeRecv_Attrs
+        EXTERN zclZigbeeRecv_IdentifyTime
+        EXTERN zclZigbeeRecv_OnOff
+        EXTERN zclZigbeeRecv_SimpleDesc
+
+// D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\Sensor Network Application\ZIGBEE Coordinator & Router\Source\zcl_zigbee receiver.c
+//    1 /**************************************************************************************************
+//    2   Filename:       zcl_zigbee receiver.c
+//    3   Revised:        $Date: 2009-03-18 15:56:27 -0700 (Wed, 18 Mar 2009) $
+//    4   Revision:       $Revision: 19453 $
+//    5 
+//    6   Description:    Zigbee Cluster Library - ZIGBEE Receiver device application.
+//    7 
+//    8   Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
+//    9 
+//   10   Should you have any questions regarding your right to use this Software,
+//   11   contact Texas Instruments Incorporated at www.TI.com. 
+//   12 **************************************************************************************************/
+//   13 
+//   14 /*************************************************************************************************
+//   15   This device will be like a Light device.  This application is not intended to be a Light device, 
+//   16   but will use the device description to implement this sample code.
+//   17 *************************************************************************************************/
+//   18 
+//   19 /*********************************************************************
+//   20  * INCLUDES
+//   21  */
+//   22 #include "ZComDef.h"
+//   23 #include "OSAL.h"
+//   24 #include "AF.h"
+//   25 #include "ZDApp.h"
+//   26 
+//   27 /* ZCL */
+//   28 #include "zcl.h"
+//   29 #include "zcl_general.h"
+//   30 #include "zcl_ha.h"
+//   31 #include "zcl_zigbee receiver.h"
+//   32 
+//   33 /* HAL */
+//   34 #include "onboard.h"
+//   35 #include "hal_lcd.h"
+//   36 #include "hal_led.h"
+//   37 #include "hal_timer.h"
+//   38 #include "hal_uart.h"
+//   39 #include "hal_key.h"
+//   40 #include "hal_keypad.h"
+//   41 
+//   42 /* MAC_high-level */
+//   43 #include "mac_high_level.h"
+//   44 
+//   45 /* MT */
+//   46 #include "MT_UART.h"
+//   47 #include "MT.h"
+//   48 
+//   49 /*********************************************************************
+//   50  * MACROS
+//   51  */
+//   52 /*********************************************************************
+//   53  * CONSTANTS
+//   54  */
+//   55  #define TRANSMITAPP_MAX_DATA_LEN    102
+//   56 
+//   57 /*********************************************************************
+//   58  * TYPEDEFS
+//   59  */
+//   60 /*********************************************************************
+//   61  * GLOBAL VARIABLES
+//   62  */
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   63 byte zclZigbeeReceiver_TaskID; // The zigbee task_ID
+zclZigbeeReceiver_TaskID:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+//   64 
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   65 uint8 len; // the transmit data length
+len:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+//   66 
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   67 byte TransmitApp_Msg[ TRANSMITAPP_MAX_DATA_LEN ]; // Transmit message array
+TransmitApp_Msg:
+        DS 102
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   68 byte UartTransmit_Msg[ TRANSMITAPP_MAX_DATA_LEN ]; // The coordinator send to device message array
+UartTransmit_Msg:
+        DS 102
+        REQUIRE __INIT_XDATA_Z
+//   69 
+//   70 /*********************************************************************
+//   71  * GLOBAL FUNCTIONS
+//   72  */
+//   73 
+//   74 /*********************************************************************
+//   75  * LOCAL VARIABLES
+//   76  */
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   77 afAddrType_t zclZigbeeRecv_DstAddr;  // AF address type
+zclZigbeeRecv_DstAddr:
+        DS 12
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   78 aps_Group_t zclZigbeeRecv_Group;
+zclZigbeeRecv_Group:
+        DS 18
+        REQUIRE __INIT_XDATA_Z
+//   79 
+//   80 #define ZCLZIGBEERECV_BINDINGLIST       2
+//   81 
+//   82 static cId_t bindingInClusters[ZCLZIGBEERECV_BINDINGLIST] =
+//   83 {
+//   84   ZCL_CLUSTER_ID_GEN_ON_OFF,
+//   85   ZCL_CLUSTER_ID_GEN_LEVEL_CONTROL
+//   86 };
+//   87 
+//   88 // Test Endpoint to allow SYS_APP_MSGs
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA
+//   89 static endPointDesc_t zigbeeReceiver_TestEp =
+zigbeeReceiver_TestEp:
+        DS 6
+        REQUIRE `?<Initializer for zigbeeReceiver_TestEp>`
+        REQUIRE __INIT_XDATA_I
+//   90 {
+//   91   20,                                 // Test endpoint
+//   92   &zclZigbeeReceiver_TaskID,
+//   93   (SimpleDescriptionFormat_t *)NULL,  // No Simple description for this test endpoint
+//   94   (afNetworkLatencyReq_t)0            // No Network Latency req
+//   95 };
+//   96 
+//   97 /*********************************************************************
+//   98  * LOCAL FUNCTIONS
+//   99  */
+//  100 static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys );
+//  101 static void zclZigbeeReceiver_BasicResetCB( void );
+//  102 static void zclZigbeeReceiver_IdentifyCB( zclIdentify_t *pCmd );
+//  103 static void zclZigbeeReceiver_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp );
+//  104 static void zclZigbeeReceiver_OnOffCB( uint8 cmd );
+//  105 static void zclZigbeeReceiver_ProcessIdentifyTimeChange( void );
+//  106 
+//  107 void zclUARTMsg_CallBack(uint8 port, uint8 event); // The UART Message callback
+//  108 void zclUartReceiver( void ); // The coordinator receive command function
+//  109 
+//  110 // Functions to process ZCL Foundation incoming Command/Response messages 
+//  111 static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *msg );
+//  112 #ifdef ZCL_READ
+//  113   static uint8 zclZigbeeReceiver_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg );
+//  114 #endif
+//  115 #ifdef ZCL_WRITE
+//  116   static uint8 zclZigbeeReceiver_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg );
+//  117 #endif
+//  118   static uint8 zclZigbeeReceiver_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg );
+//  119 #ifdef ZCL_DISCOVER
+//  120   static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg );
+//  121 #endif
+//  122   
+//  123 /*********************************************************************
+//  124  * ZCL General Profile Callback table
+//  125  */
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA
+//  126 static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
+zclZigbeeReceiver_CmdCallbacks:
+        DS 30
+        REQUIRE `?<Initializer for zclZigbeeReceiver_CmdCallbac`
+        REQUIRE __INIT_XDATA_I
+//  127 {
+//  128   zclZigbeeReceiver_BasicResetCB,              // Basic Cluster Reset command
+//  129   zclZigbeeReceiver_IdentifyCB,                // Identify command  
+//  130   zclZigbeeReceiver_IdentifyQueryRspCB,        // Identify Query Response command
+//  131   zclZigbeeReceiver_OnOffCB,                   // On/Off cluster command
+//  132   NULL,                                        // Level Control Move to Level command
+//  133   NULL,                                        // Level Control Move command
+//  134   NULL,                                        // Level Control Step command
+//  135   NULL,                                        // Group Response commands
+//  136   NULL,                                        // Scene Store Request command
+//  137   NULL,                                        // Scene Recall Request command
+//  138   NULL,                                        // Scene Response command
+//  139   NULL,                                        // Alarm (Response) command
+//  140   NULL,                                        // RSSI Location commands
+//  141   NULL,                                        // RSSI Location Response commands
+//  142 };
+//  143 
+//  144 /*********************************************************************
+//  145  * @fn          zclZigbeeRecv_Init
+//  146  * @brief       Initialization function for the zclGeneral layer.
+//  147  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  148 void zclZigbeeRecv_Init( byte task_id )
+zclZigbeeRecv_Init:
+        CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function zclZigbeeRecv_Init
+//  149 {
+        FUNCALL zclZigbeeRecv_Init, zclZD_Init
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 11, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_Init, zclGeneral_RegisterCmdCallbacks
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 11, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_Init, zcl_registerAttrList
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 11, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_Init, zcl_registerForMsg
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 11, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_Init, RegisterForKeys
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 11, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_Init, osal_memcpy
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_Init, aps_AddGroup
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 11, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_Init, afRegister
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 11, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 11, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0xb
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 11)
+        ; Saved register size: 11
+        ; Auto size: 0
+//  150   zclZigbeeReceiver_TaskID = task_id;
+        MOV     A,R1
+        MOV     DPTR,#zclZigbeeReceiver_TaskID
+        MOVX    @DPTR,A
+//  151   
+//  152   // Setup for the flash command's destination address ( Group )
+//  153   zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)afAddrGroup;  // transmit mode - Group address
+        MOV     A,#0x1
+        MOV     DPTR,#(zclZigbeeRecv_DstAddr + 8)
+        MOVX    @DPTR,A
+//  154   zclZigbeeRecv_DstAddr.endPoint = ZIGBEERECV_ENDPOINT;        // end-point number:20
+        MOV     A,#0xd
+        MOV     DPTR,#(zclZigbeeRecv_DstAddr + 9)
+        MOVX    @DPTR,A
+//  155   zclZigbeeRecv_DstAddr.addr.shortAddr = RECV_GROUP;           // Group short address
+        MOV     DPTR,#zclZigbeeRecv_DstAddr
+        MOV     A,#0x10
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOV     A,#0x20
+        MOVX    @DPTR,A
+//  156   
+//  157   // This App is part of the Zigbee Device Profile
+//  158   zclZD_Init( &zclZigbeeRecv_SimpleDesc ); 
+        ; Setup parameters for call to function zclZD_Init
+        MOV     R2,#(zclZigbeeRecv_SimpleDesc & 0xff)
+        MOV     R3,#((zclZigbeeRecv_SimpleDesc >> 8) & 0xff)
+        LCALL   ??zclZD_Init?relay
+//  159   
+//  160   // Register the ZCL General Cluster Library callback functions
+//  161   zclGeneral_RegisterCmdCallbacks( ZIGBEERECV_ENDPOINT, &zclZigbeeReceiver_CmdCallbacks ); 
+        ; Setup parameters for call to function zclGeneral_RegisterCmdCallbacks
+        MOV     R2,#(zclZigbeeReceiver_CmdCallbacks & 0xff)
+        MOV     R3,#((zclZigbeeReceiver_CmdCallbacks >> 8) & 0xff)
+        MOV     R1,#0xd
+        LCALL   ??zclGeneral_RegisterCmdCallbacks?relay
+//  162   
+//  163   // Register the application's attribute list
+//  164   zcl_registerAttrList( ZIGBEERECV_ENDPOINT, ZIGBEERECV_MAX_ATTRIBUTES, zclZigbeeRecv_Attrs ); 
+        ; Setup parameters for call to function zcl_registerAttrList
+        MOV     R4,#(zclZigbeeRecv_Attrs & 0xff)
+        MOV     R5,#((zclZigbeeRecv_Attrs >> 8) & 0xff)
+        MOV     R2,#0xc
+        MOV     R1,#0xd
+        LCALL   ??zcl_registerAttrList?relay
+//  165   
+//  166   // Register the Application to receive the unprocessed Foundation command/response messages
+//  167   zcl_registerForMsg( zclZigbeeReceiver_TaskID ); 
+        ; Setup parameters for call to function zcl_registerForMsg
+        MOV     DPTR,#zclZigbeeReceiver_TaskID
+        MOVX    A,@DPTR
+        MOV     R1,A
+        LCALL   ??zcl_registerForMsg?relay
+//  168   
+//  169   // Register for all key events - This app will handle all key events
+//  170   RegisterForKeys( zclZigbeeReceiver_TaskID ); 
+        ; Setup parameters for call to function RegisterForKeys
+        MOV     DPTR,#zclZigbeeReceiver_TaskID
+        MOVX    A,@DPTR
+        MOV     R1,A
+        LCALL   ??RegisterForKeys?relay
+//  171   
+//  172   // By default, all devices start out in Group 1 ( register grouop )
+//  173   zclZigbeeRecv_Group.ID = RECV_GROUP;
+        MOV     DPTR,#zclZigbeeRecv_Group
+        MOV     A,#0x10
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOV     A,#0x20
+        MOVX    @DPTR,A
+//  174   osal_memcpy( zclZigbeeRecv_Group.name, "RECV_GROUP", 8  );
+        ; Setup parameters for call to function osal_memcpy
+        MOV     ?V0 + 0,#(`?<Constant "RECV_GROUP">` & 0xff)
+        MOV     ?V0 + 1,#((`?<Constant "RECV_GROUP">` >> 8) & 0xff)
+        MOV     ?V0 + 2,#0x0
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_THREE
+        CFI CFA_XSP16 add(XSP16, 14)
+        MOV     R4,#0x8
+        MOV     R5,#0x0
+        MOV     R2,#((zclZigbeeRecv_Group + 2) & 0xff)
+        MOV     R3,#(((zclZigbeeRecv_Group + 2) >> 8) & 0xff)
+        LCALL   ??osal_memcpy?relay
+        MOV     A,#0x3
+        LCALL   ?DEALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 11)
+//  175   aps_AddGroup( ZIGBEERECV_ENDPOINT, &zclZigbeeRecv_Group ); 
+        ; Setup parameters for call to function aps_AddGroup
+        MOV     R2,#(zclZigbeeRecv_Group & 0xff)
+        MOV     R3,#((zclZigbeeRecv_Group >> 8) & 0xff)
+        MOV     R1,#0xd
+        LCALL   ??aps_AddGroup?relay
+//  176   
+//  177   // Register for a test endpoint
+//  178   afRegister( &zigbeeReceiver_TestEp ); 
+        ; Setup parameters for call to function afRegister
+        MOV     R2,#(zigbeeReceiver_TestEp & 0xff)
+        MOV     R3,#((zigbeeReceiver_TestEp >> 8) & 0xff)
+        LCALL   ??afRegister?relay
+//  179 }
+        MOV     R7,#0x3
+        LJMP    ?BANKED_LEAVE_XDATA
+        CFI EndBlock cfiBlock0
+//  180 
+//  181 /*********************************************************************
+//  182  * @fn          zclZigbeeRecv_event_loop
+//  183  * @brief       Event Loop Processor for zclGeneral.
+//  184  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  185 uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
+zclZigbeeRecv_event_loop:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI Function zclZigbeeRecv_event_loop
+//  186 { 
+        FUNCALL zclZigbeeRecv_event_loop, zclZigbeeReceiver_ProcessIdentifyTimeChange
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_event_loop, osal_mem_free
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_event_loop, osal_msg_deallocate
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_event_loop, osal_msg_receive
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_event_loop, zclUartReceiver
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeRecv_event_loop, HalLcdWriteChar
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0xc
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 12)
+        ; Saved register size: 12
+        ; Auto size: 0
+        MOV     A,R2
+        MOV     R6,A
+        MOV     A,R3
+        MOV     R7,A
+//  187   afIncomingMSGPacket_t *MSGpkt;
+//  188   (void)task_id;  // Intentionally unreferenced parameter
+//  189   
+//  190   if ( events & SYS_EVENT_MSG ) // SYSTEM Message event
+        MOV     A,#-0x80
+        ANL     A,R7
+        MOV     R1,A
+        CLR     A
+        JNZ     ??zclZigbeeRecv_event_loop_0
+        MOV     A,R1
+??zclZigbeeRecv_event_loop_0:
+        JNZ     ??zclZigbeeRecv_event_loop_1
+//  191   {
+//  192     while ( (MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( zclZigbeeReceiver_TaskID )) )
+//  193     { 
+//  194       switch ( MSGpkt->hdr.event )
+//  195       {
+//  196       case ZCL_INCOMING_MSG: //0x34 : Incoming ZCL foundation message
+//  197           
+//  198           // Incoming ZCL Foundation command/response messages
+//  199           zclZigbeeReceiver_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); 
+//  200           break;
+//  201           
+//  202       case KEY_CHANGE: //0xC0 : Key Events
+//  203           zclZigbeeReceiver_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );
+//  204           break;
+//  205 
+//  206         default:
+//  207           break;
+//  208       }
+//  209       osal_msg_deallocate( (uint8 *)MSGpkt ); // Release the memory
+//  210     }
+//  211     return (events ^ SYS_EVENT_MSG); // return unprocessed events
+//  212   }
+//  213   
+//  214   if ( events & SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT ) // ZIGBEE Receiver identify timeout event 
+        MOV     A,R6
+        MOV     C,0xE0 /* A   */.0
+        JC      $+5
+        LJMP    ??zclZigbeeRecv_event_loop_2 & 0xFFFF
+//  215   {
+//  216     if ( zclZigbeeRecv_IdentifyTime > 0 )
+        MOV     DPTR,#zclZigbeeRecv_IdentifyTime
+        MOVX    A,@DPTR
+        JNZ     ??zclZigbeeRecv_event_loop_3
+        INC     DPTR
+        MOVX    A,@DPTR
+??zclZigbeeRecv_event_loop_3:
+        JZ      ??zclZigbeeRecv_event_loop_4
+//  217           zclZigbeeRecv_IdentifyTime--;
+        MOV     DPTR,#zclZigbeeRecv_IdentifyTime
+        MOVX    A,@DPTR
+        ADD     A,#-0x1
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOVX    A,@DPTR
+        ADDC    A,#-0x1
+        MOVX    @DPTR,A
+//  218           zclZigbeeReceiver_ProcessIdentifyTimeChange();
+??zclZigbeeRecv_event_loop_4:
+        ; Setup parameters for call to function zclZigbeeReceiver_ProcessIdentifyTimeChange
+        LCALL   ??zclZigbeeReceiver_ProcessIdentifyTimeChange?r
+//  219     
+//  220     return ( events ^ SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT );
+        MOV     A,#0x1
+??zclZigbeeRecv_event_loop_5:
+        XRL     A,R6
+        MOV     R2,A
+        MOV     A,R7
+??zclZigbeeRecv_event_loop_6:
+        MOV     R3,A
+        LJMP    ??zclZigbeeRecv_event_loop_7 & 0xFFFF
+//  221   }
+??zclZigbeeRecv_event_loop_8:
+        INC     R3
+??zclZigbeeRecv_event_loop_9:
+        MOVX    A,@DPTR
+        MOV     R2,A
+        MOV     A,R3
+        CLR     C
+        SUBB    A,R2
+        JC      ??zclZigbeeRecv_event_loop_8
+??zclZigbeeRecv_event_loop_10:
+        MOV     A,?V0 + 0
+        ADD     A,#0x16
+        MOV     DPL,A
+        MOV     A,?V0 + 1
+        ADDC    A,#0x0
+        MOV     DPH,A
+        MOVX    A,@DPTR
+        MOV     R2,A
+        INC     DPTR
+        MOVX    A,@DPTR
+        MOV     R3,A
+        MOV     A,R2
+        JNZ     ??zclZigbeeRecv_event_loop_11
+        MOV     A,R3
+??zclZigbeeRecv_event_loop_11:
+        JZ      ??zclZigbeeRecv_event_loop_12
+        ; Setup parameters for call to function osal_mem_free
+        LCALL   ??osal_mem_free?relay
+??zclZigbeeRecv_event_loop_12:
+        ; Setup parameters for call to function osal_msg_deallocate
+        MOV     R2,?V0 + 0
+        MOV     R3,?V0 + 1
+        LCALL   ??osal_msg_deallocate?relay
+??zclZigbeeRecv_event_loop_1:
+        ; Setup parameters for call to function osal_msg_receive
+        MOV     DPTR,#zclZigbeeReceiver_TaskID
+        MOVX    A,@DPTR
+        MOV     R1,A
+        LCALL   ??osal_msg_receive?relay
+        MOV     ?V0 + 0,R2
+        MOV     ?V0 + 1,R3
+        MOV     A,R2
+        JNZ     ??zclZigbeeRecv_event_loop_13
+        MOV     A,R3
+??zclZigbeeRecv_event_loop_13:
+        JZ      ??zclZigbeeRecv_event_loop_14
+        MOV     DPL,R2
+        MOV     DPH,R3
+        MOVX    A,@DPTR
+        XRL     A,#0x34
+        JNZ     ??zclZigbeeRecv_event_loop_12
+        INC     DPTR
+        INC     DPTR
+        INC     DPTR
+        INC     DPTR
+        INC     DPTR
+        INC     DPTR
+        INC     DPTR
+        MOVX    A,@DPTR
+        LCALL   ?UC_SWITCH_SPARSE
+`?<Jumptable for zclZigbeeRecv_event_loop>_0`:
+        DATA
+        DB        0
+        DB        2
+        DB        1
+        DW        ??zclZigbeeRecv_event_loop_15
+        DB        4
+        DW        ??zclZigbeeRecv_event_loop_16
+        DW        ??zclZigbeeRecv_event_loop_10
+        CODE
+??zclZigbeeRecv_event_loop_15:
+        LCALL   ?Subroutine0 & 0xFFFF
+??CrossCallReturnLabel_0:
+        MOVX    A,@DPTR
+        MOV     R2,A
+        MOV     A,R3
+        CLR     C
+        SUBB    A,R2
+        JNC     ??zclZigbeeRecv_event_loop_10
+        INC     R3
+        SJMP    ??CrossCallReturnLabel_0
+??zclZigbeeRecv_event_loop_16:
+        LCALL   ?Subroutine0 & 0xFFFF
+??CrossCallReturnLabel_1:
+        SJMP    ??zclZigbeeRecv_event_loop_9
+??zclZigbeeRecv_event_loop_14:
+        MOV     A,R6
+        MOV     R2,A
+        MOV     A,#-0x80
+        XRL     A,R7
+        SJMP    ??zclZigbeeRecv_event_loop_6
+//  222   
+//  223   // The UART Message event
+//  224   if ( events & UART_MSG_EVT ) 
+??zclZigbeeRecv_event_loop_2:
+        ANL     A,#0x2
+        JZ      ??zclZigbeeRecv_event_loop_17
+//  225   {
+//  226       zclUartReceiver();
+        ; Setup parameters for call to function zclUartReceiver
+        LCALL   ??zclUartReceiver?relay
+//  227       return ( events ^ UART_MSG_EVT );
+        MOV     A,#0x2
+        LJMP    ??zclZigbeeRecv_event_loop_5 & 0xFFFF
+//  228   }
+//  229   
+//  230   // The KEYPAD keyin event
+//  231   if ( events & KEYPAD_MSG_EVT )
+??zclZigbeeRecv_event_loop_17:
+        MOV     A,R6
+        ANL     A,#0x4
+        JZ      ??zclZigbeeRecv_event_loop_18
+//  232   {
+//  233     HalLcdWriteChar(HAL_LCD_LINE_3, 0, ch);
+        ; Setup parameters for call to function HalLcdWriteChar
+        MOV     DPTR,#ch
+        MOVX    A,@DPTR
+        MOV     R3,A
+        MOV     R2,#0x0
+        MOV     R1,#0x3
+        LCALL   ??HalLcdWriteChar?relay
+//  234     return ( events ^ KEYPAD_MSG_EVT );
+        MOV     A,#0x4
+        LJMP    ??zclZigbeeRecv_event_loop_5 & 0xFFFF
+//  235   }
+//  236   
+//  237   return 0; // Discard unknown events
+??zclZigbeeRecv_event_loop_18:
+        MOV     R2,#0x0
+        MOV     R3,#0x0
+??zclZigbeeRecv_event_loop_7:
+        MOV     R7,#0x4
+        LJMP    ?BANKED_LEAVE_XDATA
+        CFI EndBlock cfiBlock1
+//  238 }
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine0:
+        CFI Block cfiCond2 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_0
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 12)
+        CFI Block cfiCond3 Using cfiCommon0
+        CFI (cfiCond3) NoFunction
+        CFI (cfiCond3) Conditional ??CrossCallReturnLabel_1
+        CFI (cfiCond3) R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI (cfiCond3) VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI (cfiCond3) V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI (cfiCond3) V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond3) V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond3) V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond3) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond3) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond3) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond3) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond3) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond3) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond3) CFA_SP SP+0
+        CFI (cfiCond3) CFA_XSP16 add(XSP16, 12)
+        CFI Block cfiPicker4 Using cfiCommon1
+        CFI (cfiPicker4) NoFunction
+        CFI (cfiPicker4) Picker
+        MOV     A,R2
+        ADD     A,#0x16
+        MOV     DPL,A
+        MOV     A,R3
+        ADDC    A,#0x0
+        MOV     DPH,A
+        MOVX    A,@DPTR
+        MOV     R0,A
+        INC     DPTR
+        MOVX    A,@DPTR
+        MOV     R1,A
+        MOV     DPL,R0
+        MOV     DPH,R1
+        MOV     R3,#0x0
+        RET
+        CFI EndBlock cfiCond2
+        CFI EndBlock cfiCond3
+        CFI EndBlock cfiPicker4
+//  239 
+//  240 /*********************************************************************
+//  241  * @fn      zclZigbeeReceiver_HandleKeys
+//  242  * @brief   Handles all key events for this device.
+//  243  * @param   shift - true if in shift/alt.
+//  244  * @param   keys - bit field for key events.
+//  245  *          Valid entries: HAL_KEY_SW_1(MCU-K1)                        
+//  246  */
+//  247 static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys )
+//  248 {
+//  249   zAddrType_t dstAddr;
+//  250   (void)shift; // Intentionally unreferenced parameter
+//  251   
+//  252 #if defined(Coor_receiver)
+//  253   if ( keys & HAL_KEY_SW1 ) // Init EndDevice bind reequest, and use cluster list important to binding.
+//  254   {
+//  255     dstAddr.addrMode = afAddr16Bit;
+//  256     dstAddr.addr.shortAddr = 0;   // Coordinator makes the match
+//  257     ZDP_EndDeviceBindReq( &dstAddr,
+//  258                           NLME_GetShortAddr(),
+//  259                           ZIGBEERECV_ENDPOINT, // ZIGBEERECV_ENDPOINT = 13 is coordinator
+//  260                           ZCL_HA_PROFILE_ID,
+//  261                           ZCLZIGBEERECV_BINDINGLIST,
+//  262                           bindingInClusters,
+//  263                           0,
+//  264                           NULL, // No Outgoing clusters to bind
+//  265                           TRUE );
+//  266   }
+//  267   
+//  268   if ( keys & HAL_KEY_SW2 ) 
+//  269   {
+//  270     
+//  271   }
+//  272   
+//  273 #endif
+//  274 }
+//  275 
+//  276 /*********************************************************************
+//  277  * @fn      zclZigbeeReceiver_ProcessIdentifyTimeChange
+//  278  * @brief   Called to process any change to the IdentifyTime attribute.
+//  279  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  280 static void zclZigbeeReceiver_ProcessIdentifyTimeChange( void )
+zclZigbeeReceiver_ProcessIdentifyTimeChange:
+        CFI Block cfiBlock5 Using cfiCommon0
+        CFI Function zclZigbeeReceiver_ProcessIdentifyTimeChange
+//  281 {
+        FUNCALL zclZigbeeReceiver_ProcessIdentifyTimeChange, osal_start_timerEx
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeReceiver_ProcessIdentifyTimeChange, HalLedBlink
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeReceiver_ProcessIdentifyTimeChange, HalLedSet
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeReceiver_ProcessIdentifyTimeChange, HalLedSet
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeReceiver_ProcessIdentifyTimeChange, osal_stop_timerEx
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  282   if ( zclZigbeeRecv_IdentifyTime > 0 )
+        MOV     DPTR,#zclZigbeeRecv_IdentifyTime
+        MOVX    A,@DPTR
+        JNZ     ??zclZigbeeReceiver_ProcessIdentifyTimeChange_0
+        INC     DPTR
+        MOVX    A,@DPTR
+??zclZigbeeReceiver_ProcessIdentifyTimeChange_0:
+        JZ      ??zclZigbeeReceiver_ProcessIdentifyTimeChange_1
+//  283   {
+//  284     osal_start_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT, 1000 );
+        ; Setup parameters for call to function osal_start_timerEx
+        MOV     R4,#-0x18
+        MOV     R5,#0x3
+        MOV     R2,#0x1
+        MOV     R3,#0x0
+        MOV     DPTR,#zclZigbeeReceiver_TaskID
+        MOVX    A,@DPTR
+        MOV     R1,A
+        LCALL   ??osal_start_timerEx?relay
+//  285     HalLedBlink ( HAL_LED_2, 0xFF, HAL_LED_DEFAULT_DUTY_CYCLE, HAL_LED_DEFAULT_FLASH_TIME );
+        ; Setup parameters for call to function HalLedBlink
+        MOV     R4,#-0x18
+        MOV     R5,#0x3
+        MOV     R3,#0x5
+        MOV     R2,#-0x1
+        MOV     R1,#0x2
+        LCALL   ??HalLedBlink?relay
+        SJMP    ??zclZigbeeReceiver_ProcessIdentifyTimeChange_2
+//  286   }
+//  287   else
+//  288     {
+//  289       if ( zclZigbeeRecv_OnOff )
+??zclZigbeeReceiver_ProcessIdentifyTimeChange_1:
+        MOV     DPTR,#zclZigbeeRecv_OnOff
+        MOVX    A,@DPTR
+        JZ      ??zclZigbeeReceiver_ProcessIdentifyTimeChange_3
+//  290       {
+//  291         HalLedSet ( HAL_LED_1, HAL_LED_MODE_ON );
+        ; Setup parameters for call to function HalLedSet
+        MOV     R2,#0x1
+        MOV     R1,#0x1
+        LCALL   ??HalLedSet?relay
+        SJMP    ??zclZigbeeReceiver_ProcessIdentifyTimeChange_2
+//  292       }
+//  293       else
+//  294         {
+//  295           HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF );
+??zclZigbeeReceiver_ProcessIdentifyTimeChange_3:
+        ; Setup parameters for call to function HalLedSet
+        MOV     R2,#0x0
+        MOV     R1,#0x1
+        LCALL   ??HalLedSet?relay
+//  296           osal_stop_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT );
+        ; Setup parameters for call to function osal_stop_timerEx
+        MOV     R2,#0x1
+        MOV     R3,#0x0
+        MOV     DPTR,#zclZigbeeReceiver_TaskID
+        MOVX    A,@DPTR
+        MOV     R1,A
+        LCALL   ??osal_stop_timerEx?relay
+        CFI EndBlock cfiBlock5
+//  297         }
+//  298     }
+//  299 }
+??zclZigbeeReceiver_ProcessIdentifyTimeChange_2:
+        REQUIRE ?Subroutine1
+        ; // Fall through to label ?Subroutine1
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine1:
+        CFI Block cfiBlock6 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+-5
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        POP     DPH
+        CFI CFA_SP SP+-4
+        CFI DPH0 SameValue
+        POP     DPL
+        CFI CFA_SP SP+-3
+        CFI DPL0 SameValue
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock6
+//  300 
+//  301 /*********************************************************************
+//  302  * @fn      zclZigbeeReceiver_BasicResetCB
+//  303  * @brief   Callback from the ZCL General Cluster Library
+//  304  *          to set all the Basic Cluster attributes to default values.
+//  305  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  306 static void zclZigbeeReceiver_BasicResetCB( void )
+zclZigbeeReceiver_BasicResetCB:
+        CFI Block cfiBlock7 Using cfiCommon0
+        CFI Function zclZigbeeReceiver_BasicResetCB
+//  307 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//  308   // Reset all attributes to default values
+//  309 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock7
+//  310 
+//  311 /*********************************************************************
+//  312  * @fn      zclZigbeeReceiver_IdentifyCB
+//  313  * @brief   Callback from the ZCL General Cluster Library when
+//  314  *          it received an Identity Command for this application.
+//  315  * @param   srcAddr - source address and endpoint of the response message
+//  316  *          identifyTime - the number of seconds to identify yourself
+//  317  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  318 static void zclZigbeeReceiver_IdentifyCB( zclIdentify_t *pCmd )
+zclZigbeeReceiver_IdentifyCB:
+        CFI Block cfiBlock8 Using cfiCommon0
+        CFI Function zclZigbeeReceiver_IdentifyCB
+//  319 {
+        FUNCALL zclZigbeeReceiver_IdentifyCB, zclZigbeeReceiver_ProcessIdentifyTimeChange
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  320   zclZigbeeRecv_IdentifyTime = pCmd->identifyTime;
+        MOV     DPL,R2
+        MOV     DPH,R3
+        INC     DPTR
+        INC     DPTR
+        MOVX    A,@DPTR
+        MOV     R0,A
+        INC     DPTR
+        MOVX    A,@DPTR
+        MOV     R1,A
+        MOV     DPTR,#zclZigbeeRecv_IdentifyTime
+        MOV     A,R0
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOV     A,R1
+        MOVX    @DPTR,A
+//  321   zclZigbeeReceiver_ProcessIdentifyTimeChange();
+        ; Setup parameters for call to function zclZigbeeReceiver_ProcessIdentifyTimeChange
+        LCALL   ??zclZigbeeReceiver_ProcessIdentifyTimeChange?r
+//  322 }
+        SJMP    ?Subroutine1
+        CFI EndBlock cfiBlock8
+//  323 
+//  324 /*********************************************************************
+//  325  * @fn      zclZigbeeReceiver_IdentifyQueryRspCB
+//  326  * @brief   Callback from the ZCL General Cluster Library when
+//  327  *          it received an Identity Query Response Command for this application.
+//  328  * @param   srcAddr - requestor's address
+//  329  *          timeout - number of seconds to identify yourself (valid for query response)
+//  330  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  331 static void zclZigbeeReceiver_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
+zclZigbeeReceiver_IdentifyQueryRspCB:
+        CFI Block cfiBlock9 Using cfiCommon0
+        CFI Function zclZigbeeReceiver_IdentifyQueryRspCB
+//  332 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//  333   (void)pRsp; // Query Response (with timeout value)
+//  334 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock9
+//  335 
+//  336 /*********************************************************************
+//  337  * @fn      zclZigbeeReceiver_OnOffCB
+//  338  * @brief   Callback from the ZCL General Cluster Library when
+//  339  *          it received an On/Off Command for this application.
+//  340  * @param   cmd - COMMAND_ON, COMMAND_OFF or COMMAND_TOGGLE
+//  341  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  342 static void zclZigbeeReceiver_OnOffCB( uint8 cmd )
+zclZigbeeReceiver_OnOffCB:
+        CFI Block cfiBlock10 Using cfiCommon0
+        CFI Function zclZigbeeReceiver_OnOffCB
+//  343 { 
+        FUNCALL zclZigbeeReceiver_OnOffCB, HalLedSet
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclZigbeeReceiver_OnOffCB, HalLedSet
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  344   if ( cmd == COMMAND_ON ) // Turn on the light
+        MOV     A,#0x1
+        XRL     A,R1
+        JNZ     ??zclZigbeeReceiver_OnOffCB_0
+//  345     zclZigbeeRecv_OnOff = LIGHT_ON;
+??zclZigbeeReceiver_OnOffCB_1:
+        MOV     A,#0x1
+??zclZigbeeReceiver_OnOffCB_2:
+        MOV     DPTR,#zclZigbeeRecv_OnOff
+        MOVX    @DPTR,A
+//  346 
+//  347   else if ( cmd == COMMAND_OFF ) // Turn off the light
+//  348     zclZigbeeRecv_OnOff = LIGHT_OFF;
+//  349 
+//  350   else // Toggle the light
+//  351   {
+//  352     if ( zclZigbeeRecv_OnOff == LIGHT_OFF )
+//  353           zclZigbeeRecv_OnOff = LIGHT_ON;
+//  354     else
+//  355           zclZigbeeRecv_OnOff = LIGHT_OFF;
+//  356   }
+//  357 
+//  358   // In this sample app, we use LED4 to simulate the Light  
+//  359   if ( zclZigbeeRecv_OnOff == LIGHT_ON )
+//  360   {
+//  361     HalLedSet( HAL_LED_2, HAL_LED_MODE_ON ); // setting the LED_1 on
+        ; Setup parameters for call to function HalLedSet
+        MOV     R2,A
+        MOV     R1,#0x2
+        LCALL   ??HalLedSet?relay
+//  362   }
+//  363   else
+//  364     HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF ); // setting the LED_1 off
+//  365 }
+        SJMP    ?Subroutine1
+??zclZigbeeReceiver_OnOffCB_0:
+        MOV     A,R1
+        JNZ     ??zclZigbeeReceiver_OnOffCB_3
+??zclZigbeeReceiver_OnOffCB_4:
+        CLR     A
+        SJMP    ??zclZigbeeReceiver_OnOffCB_2
+??zclZigbeeReceiver_OnOffCB_3:
+        MOV     DPTR,#zclZigbeeRecv_OnOff
+        MOVX    A,@DPTR
+        JNZ     ??zclZigbeeReceiver_OnOffCB_4
+        SJMP    ??zclZigbeeReceiver_OnOffCB_1
+        CFI EndBlock cfiBlock10
+//  366 /****************************************************************************** 
+//  367  * 
+//  368  *  Functions for processing ZCL Foundation incoming Command/Response messages
+//  369  *
+//  370  *****************************************************************************/
+//  371 
+//  372 /*********************************************************************
+//  373  * @fn      zclZigbeeReceiver_ProcessIncomingMsg
+//  374  * @brief   Process ZCL Foundation incoming message
+//  375  * @param   pInMsg - pointer to the received message
+//  376  */
+//  377 static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg)
+//  378 {
+//  379   switch ( pInMsg->zclHdr.commandID )
+//  380   {
+//  381 #ifdef ZCL_READ
+//  382     case ZCL_CMD_READ_RSP:
+//  383       zclZigbeeReceiver_ProcessInReadRspCmd( pInMsg );
+//  384       break;
+//  385 #endif
+//  386       
+//  387 #ifdef ZCL_WRITE    
+//  388     case ZCL_CMD_WRITE_RSP:
+//  389       zclZigbeeReceiver_ProcessInWriteRspCmd( pInMsg );
+//  390       break;
+//  391 #endif
+//  392       
+//  393 #ifdef ZCL_REPORT
+//  394     case ZCL_CMD_CONFIG_REPORT: // See ZCL Test Applicaiton (zcl_testapp.c) for sample code on Attribute Reporting
+//  395       //zclSampleLight_ProcessInConfigReportCmd( pInMsg );
+//  396       break;
+//  397     
+//  398     case ZCL_CMD_CONFIG_REPORT_RSP:
+//  399       //zclSampleLight_ProcessInConfigReportRspCmd( pInMsg );
+//  400       break;
+//  401     
+//  402     case ZCL_CMD_READ_REPORT_CFG:
+//  403       //zclSampleLight_ProcessInReadReportCfgCmd( pInMsg );
+//  404       break;
+//  405     
+//  406     case ZCL_CMD_READ_REPORT_CFG_RSP:
+//  407       //zclSampleLight_ProcessInReadReportCfgRspCmd( pInMsg );
+//  408       break;
+//  409     
+//  410     case ZCL_CMD_REPORT:
+//  411       //zclSampleLight_ProcessInReportCmd( pInMsg );
+//  412       break;
+//  413 #endif   
+//  414       
+//  415     case ZCL_CMD_DEFAULT_RSP:
+//  416       zclZigbeeReceiver_ProcessInDefaultRspCmd( pInMsg );
+//  417       break;
+//  418       
+//  419 #ifdef ZCL_DISCOVER     
+//  420     case ZCL_CMD_DISCOVER_RSP:
+//  421       zclZigbeeReceiver_ProcessInDiscRspCmd( pInMsg );
+//  422       break;
+//  423 #endif
+//  424       
+//  425     default:
+//  426       break;
+//  427   }
+//  428   if ( pInMsg->attrCmd )
+//  429     osal_mem_free( pInMsg->attrCmd );
+//  430 }
+//  431 
+//  432 #ifdef ZCL_READ
+//  433 /*********************************************************************
+//  434  * @fn      zclZigbeeReceiver_ProcessInReadRspCmd
+//  435  * @brief   Process the "Profile" Read Response Command
+//  436  * @param   pInMsg - incoming message to process
+//  437  */
+//  438 static uint8 zclZigbeeReceiver_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
+//  439 {
+//  440   zclReadRspCmd_t *readRspCmd;
+//  441   uint8 i;
+//  442 
+//  443   readRspCmd = (zclReadRspCmd_t *)pInMsg->attrCmd;
+//  444   for (i = 0; i < readRspCmd->numAttr; i++)
+//  445   {
+//  446     // Notify the originator of the results of the original read attributes attempt and, 
+//  447     // for each successfull request, the value of the requested attribute
+//  448   }
+//  449   return TRUE; 
+//  450 }
+//  451 #endif // ZCL_READ
+//  452 
+//  453 #ifdef ZCL_WRITE
+//  454 /*********************************************************************
+//  455  * @fn      zclZigbeeReceiver_ProcessInWriteRspCmd
+//  456  * @brief   Process the "Profile" Write Response Command
+//  457  * @param   pInMsg - incoming message to process
+//  458  */
+//  459 static uint8 zclZigbeeReceiver_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
+//  460 {
+//  461   zclWriteRspCmd_t *writeRspCmd;
+//  462   uint8 i;
+//  463 
+//  464   writeRspCmd = (zclWriteRspCmd_t *)pInMsg->attrCmd;
+//  465   for (i = 0; i < writeRspCmd->numAttr; i++)
+//  466   {
+//  467     // Notify the device of the results of the its original write attributes command.
+//  468   }
+//  469   return TRUE; 
+//  470 }
+//  471 #endif // ZCL_WRITE
+//  472 
+//  473 /*********************************************************************
+//  474  * @fn      zclZigbeeReceiver_ProcessInDefaultRspCmd
+//  475  * @brief   Process the "Profile" Default Response Command
+//  476  * @param   pInMsg - incoming message to process
+//  477  */
+//  478 static uint8 zclZigbeeReceiver_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
+//  479 {
+//  480   // zclDefaultRspCmd_t *defaultRspCmd = (zclDefaultRspCmd_t *)pInMsg->attrCmd; 
+//  481   // Device is notified of the Default Response command.
+//  482   (void)pInMsg;
+//  483   return TRUE; 
+//  484 }
+//  485 
+//  486 #ifdef ZCL_DISCOVER
+//  487 /*********************************************************************
+//  488  * @fn      zclZigbeeReceiver_ProcessInDiscRspCmd
+//  489  * @brief   Process the "Profile" Discover Response Command
+//  490  * @param   pInMsg - incoming message to process
+//  491  */
+//  492 static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
+//  493 {
+//  494   zclDiscoverRspCmd_t *discoverRspCmd;
+//  495   uint8 i;
+//  496   
+//  497   discoverRspCmd = (zclDiscoverRspCmd_t *)pInMsg->attrCmd;
+//  498   for ( i = 0; i < discoverRspCmd->numAttr; i++ )
+//  499   {
+//  500     // Device is notified of the result of its attribute discovery command.
+//  501   }
+//  502   return TRUE;
+//  503 }
+//  504 #endif // ZCL_DISCOVER
+//  505 
+//  506 /****************************************************************************
+//  507 ****************************************************************************/
+//  508 
+//  509 /*********************************************************************
+//  510  * @fn      zclUARTMsg_CallBack
+//  511  * @brief   Send data OTA.
+//  512  * @param   port - UART port.
+//  513  * @param   event - the UART port event flag.
+//  514  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  515 void zclUARTMsg_CallBack(uint8 port, uint8 event)
+zclUARTMsg_CallBack:
+        CFI Block cfiBlock11 Using cfiCommon0
+        CFI Function zclUARTMsg_CallBack
+//  516 {
+        FUNCALL zclUARTMsg_CallBack, Hal_UART_RxBufLen
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclUARTMsg_CallBack, Hal_UART_RxBufLen
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclUARTMsg_CallBack, HalUARTRead
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclUARTMsg_CallBack, osal_set_event
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0xa
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 0
+//  517   (void)port;
+//  518   
+//  519   if(Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT) > 0 )
+        ; Setup parameters for call to function Hal_UART_RxBufLen
+        MOV     R1,#0x0
+        LCALL   ??Hal_UART_RxBufLen?relay
+        MOV     A,R2
+        JNZ     ??zclUARTMsg_CallBack_0
+        MOV     A,R3
+??zclUARTMsg_CallBack_0:
+        JZ      ??zclUARTMsg_CallBack_1
+//  520   {
+//  521       len = Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT );
+        ; Setup parameters for call to function Hal_UART_RxBufLen
+        MOV     R1,#0x0
+        LCALL   ??Hal_UART_RxBufLen?relay
+        MOV     A,R2
+        MOV     DPTR,#len
+        MOVX    @DPTR,A
+//  522       HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, len );
+        ; Setup parameters for call to function HalUARTRead
+        MOV     R4,A
+        MOV     R5,#0x0
+        MOV     R2,#(TransmitApp_Msg & 0xff)
+        MOV     R3,#((TransmitApp_Msg >> 8) & 0xff)
+        MOV     R1,#0x0
+        LCALL   ??HalUARTRead?relay
+//  523       osal_set_event( zclZigbeeReceiver_TaskID, UART_MSG_EVT );
+        ; Setup parameters for call to function osal_set_event
+        MOV     R2,#0x2
+        MOV     R3,#0x0
+        MOV     DPTR,#zclZigbeeReceiver_TaskID
+        MOVX    A,@DPTR
+        MOV     R1,A
+        LCALL   ??osal_set_event?relay
+        CFI EndBlock cfiBlock11
+//  524   }
+//  525 }
+??zclUARTMsg_CallBack_1:
+        REQUIRE ?Subroutine2
+        ; // Fall through to label ?Subroutine2
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine2:
+        CFI Block cfiBlock12 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 10)
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        MOV     R7,#0x2
+        LJMP    ?BANKED_LEAVE_XDATA
+        CFI EndBlock cfiBlock12
+//  526 
+//  527 /*********************************************************************
+//  528  * @fn      zclUartReceiver
+//  529  * @brief   The coordinator receive command.
+//  530  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  531 void zclUartReceiver( void )
+zclUartReceiver:
+        CFI Block cfiBlock13 Using cfiCommon0
+        CFI Function zclUartReceiver
+//  532 {
+        FUNCALL zclUartReceiver, HalLcdWriteChar
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 30, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 30, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zclUartReceiver, zcl_SendCommand
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 41, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 41, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0xa
+        LCALL   ?BANKED_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 20
+        MOV     A,#-0x14
+        LCALL   ?ALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 30)
+//  533   
+//  534   uint8 len;
+//  535   uint8 uart_recv[20]; // Receive the UART command
+//  536   
+//  537   for(len = 0; len < 20; len++)
+        MOV     R6,#0x0
+//  538   {
+//  539     uart_recv[len] = TransmitApp_Msg[len];
+??zclUartReceiver_0:
+        MOV     DPL,R6
+        MOV     R0,DPL
+        MOV     A,R0
+        ADD     A,#(TransmitApp_Msg & 0xff)
+        MOV     DPL,A
+        CLR     A
+        ADDC    A,#((TransmitApp_Msg >> 8) & 0xff)
+        MOV     DPH,A
+        MOVX    A,@DPTR
+        MOV     R3,A
+        MOV     DPL,?XSP + 0
+        MOV     DPH,?XSP + 1
+        MOV     A,DPL
+        ADD     A,R0
+        MOV     DPL,A
+        MOV     A,DPH
+        ADDC    A,#0x0
+        MOV     DPH,A
+        MOV     A,R3
+        MOVX    @DPTR,A
+//  540   #if defined( LCD_SUPPORTED )
+//  541     HalLcdWriteChar(HAL_LCD_LINE_4, len, uart_recv[len]);
+        ; Setup parameters for call to function HalLcdWriteChar
+        MOV     A,R6
+        MOV     R2,A
+        MOV     R1,#0x4
+        LCALL   ??HalLcdWriteChar?relay
+//  542   #endif
+//  543   }
+        INC     R6
+        MOV     A,R6
+        CLR     C
+        SUBB    A,#0x14
+        JC      ??zclUartReceiver_0
+//  544   
+//  545   // Set the End Device state
+//  546   zclZigbeeRecv_DstAddr.endPoint = 12;
+        MOV     A,#0xc
+        MOV     DPTR,#(zclZigbeeRecv_DstAddr + 9)
+        MOVX    @DPTR,A
+//  547   zclZigbeeRecv_DstAddr.addr.shortAddr = 0xFFFF;
+        MOV     DPTR,#zclZigbeeRecv_DstAddr
+        MOV     A,#-0x1
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOVX    @DPTR,A
+//  548   zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
+        MOV     A,#0xf
+        MOV     DPTR,#(zclZigbeeRecv_DstAddr + 8)
+        MOVX    @DPTR,A
+//  549     
+//  550   // Transmit the UART command to End Device
+//  551   uint8 send = zcl_SendCommand( ZIGBEERECV_ENDPOINT, 
+//  552                                 &zclZigbeeRecv_DstAddr,
+//  553                                 ZCL_CLUSTER_ID_GEN_ON_OFF,
+//  554                                 COMMAND_TOGGLE,
+//  555                                 TRUE,
+//  556                                 ZCL_FRAME_CLIENT_SERVER_DIR,
+//  557                                 false,
+//  558                                 0,
+//  559                                 0,
+//  560                                 10,
+//  561                                 uart_recv );
+        ; Setup parameters for call to function zcl_SendCommand
+        MOV     DPL,?XSP + 0
+        MOV     DPH,?XSP + 1
+        MOV     ?V0 + 0,DPL
+        MOV     ?V0 + 1,DPH
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_TWO
+        CFI CFA_XSP16 add(XSP16, 32)
+        MOV     ?V0 + 0,#0xa
+        MOV     ?V0 + 1,#0x0
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_TWO
+        CFI CFA_XSP16 add(XSP16, 34)
+        MOV     ?V0 + 0,#0x0
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_ONE
+        CFI CFA_XSP16 add(XSP16, 35)
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_TWO
+        CFI CFA_XSP16 add(XSP16, 37)
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_ONE
+        CFI CFA_XSP16 add(XSP16, 38)
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_ONE
+        CFI CFA_XSP16 add(XSP16, 39)
+        MOV     ?V0 + 0,#0x1
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_ONE
+        CFI CFA_XSP16 add(XSP16, 40)
+        MOV     ?V0 + 0,#0x2
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_ONE
+        CFI CFA_XSP16 add(XSP16, 41)
+        MOV     R4,#0x6
+        MOV     R5,#0x0
+        MOV     R2,#(zclZigbeeRecv_DstAddr & 0xff)
+        MOV     R3,#((zclZigbeeRecv_DstAddr >> 8) & 0xff)
+        MOV     R1,#0xd
+        LCALL   ??zcl_SendCommand?relay
+        MOV     A,#0xb
+        LCALL   ?DEALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 30)
+//  562 }
+        MOV     A,#0x14
+        LCALL   ?DEALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 10)
+        LJMP    ?Subroutine2 & 0xFFFF
+        CFI EndBlock cfiBlock13
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+        DATA
+`?<Initializer for zigbeeReceiver_TestEp>`:
+        DB 20
+        DW zclZigbeeReceiver_TaskID, 0H
+        DB 0
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+        DATA
+`?<Initializer for zclZigbeeReceiver_CmdCallbac`:
+        DW ??zclZigbeeReceiver_BasicResetCB?relay
+        DW ??zclZigbeeReceiver_IdentifyCB?relay
+        DW ??zclZigbeeReceiver_IdentifyQueryRspCB?relay
+        DW ??zclZigbeeReceiver_OnOffCB?relay, 0H, 0H, 0H, 0H, 0H, 0H, 0H, 0H
+        DW 0H, 0H
+        DB 0, 0
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??zclZigbeeRecv_Init?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    zclZigbeeRecv_Init
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??zclZigbeeRecv_event_loop?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    zclZigbeeRecv_event_loop
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??zclZigbeeReceiver_ProcessIdentifyTimeChange?r:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    zclZigbeeReceiver_ProcessIdentifyTimeChange
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??zclZigbeeReceiver_BasicResetCB?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    zclZigbeeReceiver_BasicResetCB
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??zclZigbeeReceiver_IdentifyCB?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    zclZigbeeReceiver_IdentifyCB
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??zclZigbeeReceiver_IdentifyQueryRspCB?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    zclZigbeeReceiver_IdentifyQueryRspCB
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??zclZigbeeReceiver_OnOffCB?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    zclZigbeeReceiver_OnOffCB
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??zclUARTMsg_CallBack?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    zclUARTMsg_CallBack
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??zclUartReceiver?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    zclUartReceiver
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+`?<Constant "RECV_GROUP">`:
+        DB "RECV_GROUP"
+
+        END
+// 
+// 762 bytes in segment BANKED_CODE
+//  54 bytes in segment BANK_RELAYS
+//  36 bytes in segment XDATA_I
+//  36 bytes in segment XDATA_ID
+//  11 bytes in segment XDATA_ROM_C
+// 236 bytes in segment XDATA_Z
+// 
+// 852 bytes of CODE  memory
+//  11 bytes of CONST memory
+// 272 bytes of XDATA memory
+//
+//Errors: none
+//Warnings: 2

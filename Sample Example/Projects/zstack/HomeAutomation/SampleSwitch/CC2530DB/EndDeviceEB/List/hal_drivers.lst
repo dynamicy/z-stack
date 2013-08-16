@@ -1,0 +1,761 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                29/Nov/2010  16:05:23 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  C:\Documents and Settings\Darren\®à­±\ZIGBEE       #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Components\hal\common\hal_driver #
+#                          s.c                                                #
+#    Command line       =  -f "C:\Documents and Settings\Darren\®à­±\ZIGBEE   #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\Tools\CC2530DB\f8wEn #
+#                          dev.cfg" (-DCPU32MHZ -DROOT=__near_func            #
+#                          -DBLINK_LEDS) -f "C:\Documents and                 #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\Tools\CC2530DB\f8wCo #
+#                          nfig.cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0        #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "C:\Documents and Settings\Darren\®à­±\ZIGBEE   #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\Tools\CC2530DB\f8wZC #
+#                          L.cfg" (-DZCL_READ -DZCL_WRITE -DZCL_BASIC         #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE "C:\Documents and     #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Components\hal\common\hal_driver #
+#                          s.c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D    #
+#                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
+#                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -lC           #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\EndDeviceEB\List\" -lA        #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\EndDeviceEB\List\"            #
+#                          --diag_suppress Pe001,Pa010 -o "C:\Documents and   #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\EndDeviceEB\Obj\" -e          #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "C:\Documents and          #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\" -I "C:\Documents and        #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\SOURCE\" -I "C:\Documents  #
+#                          and Settings\Darren\®à­±\ZIGBEE                    #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\SOURCE\" -I             #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I  #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MT\ #
+#                          " -I "C:\Documents and Settings\Darren\®à­±\ZIGBEE #
+#                           ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                          #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\HAL #
+#                          \INCLUDE\" -I "C:\Documents and                    #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\HAL #
+#                          \TARGET\CC2530EB\" -I "C:\Documents and            #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\OSA #
+#                          L\MCU\CCSOC\" -I "C:\Documents and                 #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\OSA #
+#                          L\INCLUDE\" -I "C:\Documents and                   #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\AF\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\NWK\" -I "C:\Documents and                      #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\SEC\" -I "C:\Documents and                      #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\SAPI\" -I "C:\Documents and                     #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\SYS\" -I "C:\Documents and                      #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\ZCL\" -I "C:\Documents and                      #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\ZDO\" -I "C:\Documents and                      #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\ZMA #
+#                          C\F8W\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\ZMA #
+#                          C\" -I "C:\Documents and                           #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\SER #
+#                          VICES\SADDR\" -I "C:\Documents and                 #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\SER #
+#                          VICES\SDATA\" -I "C:\Documents and                 #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MAC #
+#                          \INCLUDE\" -I "C:\Documents and                    #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MAC #
+#                          \HIGH_LEVEL\" -I "C:\Documents and                 #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MAC #
+#                          \LOW_LEVEL\srf04\" -I "C:\Documents and            #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MAC #
+#                          \LOW_LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR          #
+#                          Systems\Embedded Workbench for MCS-51              #
+#                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded       #
+#                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz    #
+#    List file          =  C:\Documents and Settings\Darren\®à­±\ZIGBEE       #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\EndDeviceEB\List\hal_drivers. #
+#                          lst                                                #
+#    Object file        =  C:\Documents and Settings\Darren\®à­±\ZIGBEE       #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\EndDeviceEB\Obj\hal_drivers.r #
+#                          51                                                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\Darren\®à­±\ZIGBEE ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-CC2530-2.3.0-1.4.0\Components\hal\common\hal_drivers.c
+      1          /**************************************************************************************************
+      2            Filename:       hal_drivers.c
+      3            Revised:        $Date: 2007-07-06 10:42:24 -0700 (Fri, 06 Jul 2007) $
+      4            Revision:       $Revision: 13579 $
+      5          
+      6            Description:    This file contains the interface to the Drivers Service.
+      7          
+      8          
+      9            Copyright 2005-2009 Texas Instruments Incorporated. All rights reserved.
+     10          
+     11            IMPORTANT: Your use of this Software is limited to those specific rights
+     12            granted under the terms of a software license agreement between the user
+     13            who downloaded the software, his/her employer (which must be your employer)
+     14            and Texas Instruments Incorporated (the "License").  You may not use this
+     15            Software unless you agree to abide by the terms of the License. The License
+     16            limits your use, and you acknowledge, that the Software may not be modified,
+     17            copied or distributed unless embedded on a Texas Instruments microcontroller
+     18            or used solely and exclusively in conjunction with a Texas Instruments radio
+     19            frequency transceiver, which is integrated into your product.  Other than for
+     20            the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+     21            works of, modify, distribute, perform, display or sell this Software and/or
+     22            its documentation for any purpose.
+     23          
+     24            YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+     25            PROVIDED “AS IS?WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+     26            INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+     27            NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+     28            TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+     29            NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+     30            LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+     31            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+     32            OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+     33            OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+     34            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+     35          
+     36            Should you have any questions regarding your right to use this Software,
+     37            contact Texas Instruments Incorporated at www.TI.com.
+     38          **************************************************************************************************/
+     39          
+     40          
+     41          /**************************************************************************************************
+     42           *                                            INCLUDES
+     43           **************************************************************************************************/
+     44          #include "hal_types.h"
+     45          #include "OSAL.h"
+     46          #include "hal_drivers.h"
+     47          #include "hal_adc.h"
+     48          #if (defined HAL_DMA) && (HAL_DMA == TRUE)
+     49            #include "hal_dma.h"
+     50          #endif
+     51          
+     52          /* HAL */ 
+     53          #include "hal_lcd.h"
+     54          #include "hal_led.h"
+     55          #include "hal_key.h"
+     56          #include "hal_sleep.h"
+     57          #include "hal_uart.h"
+     58          #include "hal_timer.h"
+     59          #include "hal_flash.h"
+     60          #include "hal_buzzer.h"
+     61          #include "hal_keypad.h" 
+     62          #if (defined HAL_AES) && (HAL_AES == TRUE)
+     63            #include "hal_aes.h"
+     64          #endif
+     65          #if (defined HAL_SPI) && (HAL_SPI == TRUE)
+     66            #include "hal_spi.h"
+     67          #endif
+     68          #if (defined HAL_HID) && (HAL_HID == TRUE)
+     69            #include "usb_hid.h"
+     70          #endif
+     71          
+     72          #if defined(M140) || defined (M200) || defined (M170) // SensorApp example include header file
+     73            #include "M140.h"
+     74            #include "M170.h"
+     75            #include "M200.h"
+     76          #endif
+     77          /**************************************************************************************************
+     78           *                                            MACROS
+     79           **************************************************************************************************/
+     80          
+     81          /**************************************************************************************************
+     82           *                                          CONSTANTS
+     83           **************************************************************************************************/
+     84          
+     85          /**************************************************************************************************
+     86           *                                          TYPEDEFS
+     87           **************************************************************************************************/
+     88          
+     89          /**************************************************************************************************
+     90           *                                      GLOBAL VARIABLES
+     91           **************************************************************************************************/
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     92          uint8 Hal_TaskID;
+   \                     Hal_TaskID:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     93          
+     94          extern void HalLedUpdate( void ); /* Notes: This for internal only so it shouldn't be in hal_led.h */
+     95          
+     96          /**************************************************************************************************
+     97           *                                      FUNCTIONS - API
+     98           **************************************************************************************************/
+     99          
+    100          /**************************************************************************************************
+    101           * @fn      Hal_Init
+    102           *
+    103           * @brief   Hal Initialization function.
+    104           *
+    105           * @param   task_id - Hal TaskId
+    106           *
+    107           * @return  None
+    108           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    109          void Hal_Init( uint8 task_id )
+   \                     Hal_Init:
+    110          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    111            /* Register task ID */
+    112            Hal_TaskID = task_id;
+   \   000004   E9           MOV     A,R1
+   \   000005   90....       MOV     DPTR,#Hal_TaskID
+   \   000008   F0           MOVX    @DPTR,A
+    113          }
+   \   000009                REQUIRE ?Subroutine0
+   \   000009                ; // Fall through to label ?Subroutine0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   D083         POP     DPH
+   \   000002   D082         POP     DPL
+   \   000004   02....       LJMP    ?BRET
+    114          
+    115          /**************************************************************************************************
+    116           * @fn      Hal_DriverInit (ªì©l¤ÆµwÅéªºÅX°Êµ{§Ç, ¨Ï¥ÎªÌ¥i¦b¦¹¨ç¼Æ²K¥[¬ÛÃöµwÅé)
+    117           *
+    118           * @brief   Initialize HW - These need to be initialized before anyone.
+    119           *
+    120           * @param   task_id - Hal TaskId
+    121           *
+    122           * @return  None
+    123           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    124          void HalDriverInit (void)
+   \                     HalDriverInit:
+    125          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    126            /* TIMER */
+    127          #if (defined HAL_TIMER) && (HAL_TIMER == TRUE)
+    128            HalTimerInit();
+    129          #endif
+    130          
+    131            /* ADC */
+    132          #if (defined HAL_ADC) && (HAL_ADC == TRUE)
+    133            HalAdcInit();
+   \   000004                ; Setup parameters for call to function HalAdcInit
+   \   000004   12....       LCALL   ??HalAdcInit?relay
+    134            #if defined(M170)
+    135              M170_Init();
+    136            #endif
+    137          #endif
+    138          
+    139            /* DMA */
+    140          #if (defined HAL_DMA) && (HAL_DMA == TRUE)
+    141            // Must be called before the init call to any module that uses DMA.
+    142            HalDmaInit();
+   \   000007                ; Setup parameters for call to function HalDmaInit
+   \   000007   12....       LCALL   ??HalDmaInit?relay
+    143          #endif
+    144          
+    145            /* Flash */
+    146          #if (defined HAL_FLASH) && (HAL_FLASH == TRUE)
+    147            // Must be called before the init call to any module that uses Flash access or NV.
+    148            HalFlashInit();
+   \   00000A                ; Setup parameters for call to function HalFlashInit
+   \   00000A   12....       LCALL   ??HalFlashInit?relay
+    149          #endif
+    150          
+    151            /* AES */
+    152          #if (defined HAL_AES) && (HAL_AES == TRUE)
+    153            HalAesInit();
+   \   00000D                ; Setup parameters for call to function HalAesInit
+   \   00000D   12....       LCALL   ??HalAesInit?relay
+    154          #endif
+    155          
+    156            /* LCD */
+    157          #if (defined HAL_LCD) && (HAL_LCD == TRUE)
+    158            HalLcdInit();
+   \   000010                ; Setup parameters for call to function HalLcdInit
+   \   000010   12....       LCALL   ??HalLcdInit?relay
+    159          #endif
+    160          
+    161            /* UART */
+    162          #if (defined HAL_UART) && (HAL_UART == TRUE)
+    163            HalUARTInit();
+   \   000013                ; Setup parameters for call to function HalUARTInit
+   \   000013   12....       LCALL   ??HalUARTInit?relay
+    164          #endif
+    165          
+    166            /* KEY */
+    167          #if (defined HAL_KEY) && (HAL_KEY == TRUE)
+    168            HalKeyInit();
+   \   000016                ; Setup parameters for call to function HalKeyInit
+   \   000016   12....       LCALL   ??HalKeyInit?relay
+    169          #endif
+    170            
+    171            /* SPI */
+    172          #if (defined HAL_SPI) && (HAL_SPI == TRUE)
+    173            HalSpiInit();
+    174          #endif
+    175          
+    176            /* HID */
+    177          #if (defined HAL_HID) && (HAL_HID == TRUE)
+    178            usbHidInit();
+    179          #endif
+    180              
+    181            /* KEYPAD */
+    182          #if (defined HAL_KEYPAD) && (HAL_KEYPAD == TRUE)
+    183            halKeypadInit();
+    184          #endif
+    185            
+    186            /* BUZZER */
+    187          #if (defined HAL_BUZZER) && (HAL_BUZZER == TRUE)
+    188            halBuzzerInit();
+    189          #endif
+    190            
+    191            /* I2C (M200 module) */
+    192          #if (defined HAL_I2C) && (HAL_I2C == TRUE)
+    193            #if defined(M200)
+    194              M200_Init();
+    195            #endif
+    196          #endif
+    197              
+    198            /* LED */
+    199          #if (defined HAL_LED) && (HAL_LED == TRUE)
+    200            HalLedInit();
+   \   000019                ; Setup parameters for call to function HalLedInit
+   \   000019   12....       LCALL   ??HalLedInit?relay
+    201          #endif
+    202            
+    203          }
+   \   00001C   80..         SJMP    ?Subroutine0
+    204          
+    205          /**************************************************************************************************
+    206           * @fn      Hal_ProcessEvent (¦bOSALµn°OHAL¬ÛÃöªºªì©l¤Æ¨Æ¥ó)
+    207           *
+    208           * @brief   Hal Process Event
+    209           *
+    210           * @param   task_id - Hal TaskId
+    211           *          events - events
+    212           *
+    213           * @return  None
+    214           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    215          uint16 Hal_ProcessEvent( uint8 task_id, uint16 events )
+   \                     Hal_ProcessEvent:
+    216          {
+   \   000000   74F6         MOV     A,#-0xa
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+   \   000005   EA           MOV     A,R2
+   \   000006   FE           MOV     R6,A
+   \   000007   EB           MOV     A,R3
+   \   000008   FF           MOV     R7,A
+    217            uint8 *msgPtr;
+    218            
+    219            (void)task_id; // Intentionally unreferenced parameter
+    220          
+    221            if ( events & SYS_EVENT_MSG )
+   \   000009   7480         MOV     A,#-0x80
+   \   00000B   5F           ANL     A,R7
+   \   00000C   F9           MOV     R1,A
+   \   00000D   E4           CLR     A
+   \   00000E   7001         JNZ     ??Hal_ProcessEvent_0
+   \   000010   E9           MOV     A,R1
+   \                     ??Hal_ProcessEvent_0:
+   \   000011   601B         JZ      ??Hal_ProcessEvent_1
+    222            {
+    223              msgPtr = osal_msg_receive(Hal_TaskID);
+   \   000013                ; Setup parameters for call to function osal_msg_receive
+   \   000013   8003         SJMP    ??Hal_ProcessEvent_2
+    224              
+    225              while (msgPtr)
+    226              {
+    227                /* Do something here - for now, just deallocate the msg and move on */
+    228                
+    229                /* De-allocate(¤À°t) */ 
+    230                osal_msg_deallocate( msgPtr );
+   \                     ??Hal_ProcessEvent_3:
+   \   000015                ; Setup parameters for call to function osal_msg_deallocate
+   \   000015   12....       LCALL   ??osal_msg_deallocate?relay
+    231                /* Next */
+    232                msgPtr = osal_msg_receive( Hal_TaskID );
+   \   000018                ; Setup parameters for call to function osal_msg_receive
+   \                     ??Hal_ProcessEvent_2:
+   \   000018   90....       MOV     DPTR,#Hal_TaskID
+   \   00001B   E0           MOVX    A,@DPTR
+   \   00001C   F9           MOV     R1,A
+   \   00001D   12....       LCALL   ??osal_msg_receive?relay
+    233              }
+   \   000020   EA           MOV     A,R2
+   \   000021   7001         JNZ     ??Hal_ProcessEvent_4
+   \   000023   EB           MOV     A,R3
+   \                     ??Hal_ProcessEvent_4:
+   \   000024   70EF         JNZ     ??Hal_ProcessEvent_3
+    234              return events ^ SYS_EVENT_MSG;
+   \   000026   EE           MOV     A,R6
+   \   000027   FA           MOV     R2,A
+   \   000028   7480         MOV     A,#-0x80
+   \   00002A   6F           XRL     A,R7
+   \                     ??Hal_ProcessEvent_5:
+   \   00002B   FB           MOV     R3,A
+   \   00002C   8035         SJMP    ??Hal_ProcessEvent_6
+    235            }
+    236          
+    237            if ( events & HAL_LED_BLINK_EVENT )
+   \                     ??Hal_ProcessEvent_1:
+   \   00002E   EE           MOV     A,R6
+   \   00002F   5402         ANL     A,#0x2
+   \   000031   600A         JZ      ??Hal_ProcessEvent_7
+    238            {
+    239              #if (defined (BLINK_LEDS)) && (HAL_LED == TRUE)
+    240                HalLedUpdate();
+   \   000033                ; Setup parameters for call to function HalLedUpdate
+   \   000033   12....       LCALL   ??HalLedUpdate?relay
+    241              #endif /* BLINK_LEDS && HAL_LED */
+    242              return events ^ HAL_LED_BLINK_EVENT;
+   \   000036   7402         MOV     A,#0x2
+   \                     ??Hal_ProcessEvent_8:
+   \   000038   6E           XRL     A,R6
+   \   000039   FA           MOV     R2,A
+   \   00003A   EF           MOV     A,R7
+   \   00003B   80EE         SJMP    ??Hal_ProcessEvent_5
+    243            }
+    244          
+    245            if (events & HAL_KEY_EVENT)
+   \                     ??Hal_ProcessEvent_7:
+   \   00003D   EE           MOV     A,R6
+   \   00003E   A2E0         MOV     C,0xE0 /* A   */.0
+   \   000040   501D         JNC     ??Hal_ProcessEvent_9
+    246            {
+    247              #if (defined HAL_KEY) && (HAL_KEY == TRUE)
+    248              
+    249              HalKeyPoll();/* Check for keys */
+   \   000042                ; Setup parameters for call to function HalKeyPoll
+   \   000042   12....       LCALL   ??HalKeyPoll?relay
+    250              
+    251              if (!Hal_KeyIntEnable)/* if interrupt disabled, do next polling */
+   \   000045   90....       MOV     DPTR,#Hal_KeyIntEnable
+   \   000048   E0           MOVX    A,@DPTR
+   \   000049   7010         JNZ     ??Hal_ProcessEvent_10
+    252              {
+    253                osal_start_timerEx( Hal_TaskID, HAL_KEY_EVENT, 100);
+   \   00004B                ; Setup parameters for call to function osal_start_timerEx
+   \   00004B   7C64         MOV     R4,#0x64
+   \   00004D   7D00         MOV     R5,#0x0
+   \   00004F   7A01         MOV     R2,#0x1
+   \   000051   7B00         MOV     R3,#0x0
+   \   000053   90....       MOV     DPTR,#Hal_TaskID
+   \   000056   E0           MOVX    A,@DPTR
+   \   000057   F9           MOV     R1,A
+   \   000058   12....       LCALL   ??osal_start_timerEx?relay
+    254              }
+    255              #endif // HAL_KEY
+    256              return events ^ HAL_KEY_EVENT;
+   \                     ??Hal_ProcessEvent_10:
+   \   00005B   7401         MOV     A,#0x1
+   \   00005D   80D9         SJMP    ??Hal_ProcessEvent_8
+    257            }
+    258          
+    259          #ifdef POWER_SAVING
+    260            if ( events & HAL_SLEEP_TIMER_EVENT )
+    261            {
+    262              halRestoreSleepLevel();
+    263              return events ^ HAL_SLEEP_TIMER_EVENT;
+    264            }
+    265          #endif
+    266            
+    267            /* Nothing interested, discard the message */
+    268            return 0;
+   \                     ??Hal_ProcessEvent_9:
+   \   00005F   7A00         MOV     R2,#0x0
+   \   000061   7B00         MOV     R3,#0x0
+   \                     ??Hal_ProcessEvent_6:
+   \   000063   7F02         MOV     R7,#0x2
+   \   000065   02....       LJMP    ?BANKED_LEAVE_XDATA
+    269          
+    270          }
+    271          
+    272          /**************************************************************************************************
+    273           * @fn      Hal_ProcessPoll (¦¹¨ç¼Æ¥D­n¬O³z¹LOSAL¶i¦æ½ü¸ß)
+    274           *
+    275           * @brief   This routine will be called by OSAL to poll UART, TIMER...
+    276           *
+    277           * @param   task_id - Hal TaskId
+    278           *
+    279           * @return  None
+    280           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    281          void Hal_ProcessPoll ()
+   \                     Hal_ProcessPoll:
+    282          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    283            /* Timer Poll */
+    284          #if (defined HAL_TIMER) && (HAL_TIMER == TRUE)
+    285            HalTimerTick();  // ÀË¬d²×¤îªºcounter
+    286          #endif
+    287          
+    288            /* UART Poll */
+    289          #if (defined HAL_UART) && (HAL_UART == TRUE)
+    290            HalUARTPoll();  // Poll the UART
+   \   000004                ; Setup parameters for call to function HalUARTPoll
+   \   000004   12....       LCALL   ??HalUARTPoll?relay
+    291          #endif  
+    292          
+    293            /* SPI Poll */
+    294          #if (defined HAL_SPI) && (HAL_SPI == TRUE)
+    295            HalSpiPoll();  
+    296          #endif
+    297          
+    298            /* HID poll */
+    299          #if (defined HAL_HID) && (HAL_HID == TRUE)
+    300            usbHidProcessEvents();
+    301          #endif
+    302          
+    303          }
+   \   000007   02....       LJMP    ?Subroutine0 & 0xFFFF
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??Hal_Init?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    Hal_Init
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalDriverInit?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalDriverInit
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??Hal_ProcessEvent?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    Hal_ProcessEvent
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??Hal_ProcessPoll?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    Hal_ProcessPoll
+    304          
+    305          
+    306          /**************************************************************************************************
+    307          **************************************************************************************************/
+    308          
+
+   Maximum stack usage in bytes:
+
+     Function                 ISTACK PSTACK XSTACK
+     --------                 ------ ------ ------
+     HalDriverInit                2      0      0
+       -> HalAdcInit              4      0      0
+       -> HalDmaInit              4      0      0
+       -> HalFlashInit            4      0      0
+       -> HalAesInit              4      0      0
+       -> HalLcdInit              4      0      0
+       -> HalUARTInit             4      0      0
+       -> HalKeyInit              4      0      0
+       -> HalLedInit              4      0      0
+     Hal_Init                     2      0      0
+     Hal_ProcessEvent             0      0     10
+       -> osal_msg_receive        0      0     20
+       -> osal_msg_deallocate     0      0     20
+       -> osal_msg_receive        0      0     20
+       -> HalLedUpdate            0      0     20
+       -> HalKeyPoll              0      0     20
+       -> osal_start_timerEx      0      0     20
+     Hal_ProcessPoll              2      0      0
+       -> HalUARTPoll             4      0      0
+
+
+   Segment part sizes:
+
+     Function/Label           Bytes
+     --------------           -----
+     Hal_TaskID                  1
+     Hal_Init                    9
+     ?Subroutine0                7
+     HalDriverInit              30
+     Hal_ProcessEvent          104
+     Hal_ProcessPoll            10
+     ??Hal_Init?relay            6
+     ??HalDriverInit?relay       6
+     ??Hal_ProcessEvent?relay    6
+     ??Hal_ProcessPoll?relay     6
+
+ 
+ 160 bytes in segment BANKED_CODE
+  24 bytes in segment BANK_RELAYS
+   1 byte  in segment XDATA_Z
+ 
+ 184 bytes of CODE  memory
+   1 byte  of XDATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,3785 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                29/Nov/2010  15:54:41 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  C:\Documents and Settings\Darren\®à­±\ZIGBEE       #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Components\hal\target\CC2530EB\h #
+#                          al_lcd.c                                           #
+#    Command line       =  -f "C:\Documents and Settings\Darren\®à­±\ZIGBEE   #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\Tools\CC2530DB\f8wEnd #
+#                          ev.cfg" (-DCPU32MHZ -DROOT=__near_func             #
+#                          -DBLINK_LEDS) -f "C:\Documents and                 #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\Tools\CC2530DB\f8wCon #
+#                          fig.cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0         #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "C:\Documents and Settings\Darren\®à­±\ZIGBEE   #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL #
+#                          .cfg" (-DZCL_READ -DZCL_WRITE -DZCL_BASIC          #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE "C:\Documents and     #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Components\hal\target\CC2530EB\h #
+#                          al_lcd.c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK  #
+#                          -D MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D    #
+#                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -lC           #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\EndDeviceEB\List\" -lA         #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\EndDeviceEB\List\"             #
+#                          --diag_suppress Pe001,Pa010 -o "C:\Documents and   #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\EndDeviceEB\Obj\" -e           #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "C:\Documents and          #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\" -I "C:\Documents and         #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\SOURCE\" -I "C:\Documents   #
+#                          and Settings\Darren\®à­±\ZIGBEE                    #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\SOURCE\" -I              #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I   #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MT\" #
+#                           -I "C:\Documents and Settings\Darren\®à­±\ZIGBEE  #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\ #
+#                          INCLUDE\" -I "C:\Documents and                     #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\ #
+#                          TARGET\CC2530EB\" -I "C:\Documents and             #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL #
+#                          \MCU\CCSOC\" -I "C:\Documents and                  #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL #
+#                          \INCLUDE\" -I "C:\Documents and                    #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\AF\" -I "C:\Documents and                        #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\NWK\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\SEC\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\SAPI\" -I "C:\Documents and                      #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\SYS\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\ZCL\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\ZDO\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC #
+#                          \F8W\" -I "C:\Documents and                        #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC #
+#                          \" -I "C:\Documents and Settings\Darren\®à­±\ZIGBE #
+#                          E ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                         #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\SERV #
+#                          ICES\SADDR\" -I "C:\Documents and                  #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\SERV #
+#                          ICES\SDATA\" -I "C:\Documents and                  #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\ #
+#                          INCLUDE\" -I "C:\Documents and                     #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\ #
+#                          HIGH_LEVEL\" -I "C:\Documents and                  #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\ #
+#                          LOW_LEVEL\srf04\" -I "C:\Documents and             #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\ #
+#                          LOW_LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR           #
+#                          Systems\Embedded Workbench for MCS-51              #
+#                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded       #
+#                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz    #
+#    List file          =  C:\Documents and Settings\Darren\®à­±\ZIGBEE       #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\EndDeviceEB\List\hal_lcd.lst   #
+#    Object file        =  C:\Documents and Settings\Darren\®à­±\ZIGBEE       #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\EndDeviceEB\Obj\hal_lcd.r51    #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\Darren\®à­±\ZIGBEE ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-CC2530-2.3.0-1.4.0\Components\hal\target\CC2530EB\hal_lcd.c
+      1          /**************************************************************************************************
+      2            Filename:       hal_lcd.c
+      3            Revised:        $Date: 2009-11-09 20:03:17 -0800 (Mon, 09 Nov 2009) $
+      4            Revision:       $Revision: 21106 $
+      5          
+      6            Description:    This file contains the interface to the HAL LCD Service.
+      7          
+      8          
+      9            Copyright 2007 - 2009 Texas Instruments Incorporated. All rights reserved.
+     10          
+     11            IMPORTANT: Your use of this Software is limited to those specific rights
+     12            granted under the terms of a software license agreement between the user
+     13            who downloaded the software, his/her employer (which must be your employer)
+     14            and Texas Instruments Incorporated (the "License").  You may not use this
+     15            Software unless you agree to abide by the terms of the License. The License
+     16            limits your use, and you acknowledge, that the Software may not be modified,
+     17            copied or distributed unless embedded on a Texas Instruments microcontroller
+     18            or used solely and exclusively in conjunction with a Texas Instruments radio
+     19            frequency transceiver, which is integrated into your product.  Other than for
+     20            the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+     21            works of, modify, distribute, perform, display or sell this Software and/or
+     22            its documentation for any purpose.
+     23          
+     24            YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+     25            PROVIDED “AS IS?WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+     26            INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+     27            NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+     28            TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+     29            NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+     30            LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+     31            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+     32            OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+     33            OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+     34            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+     35          
+     36            Should you have any questions regarding your right to use this Software,
+     37            contact Texas Instruments Incorporated at www.TI.com.
+     38          **************************************************************************************************/
+     39          
+     40          /**************************************************************************************************
+     41           *                                           INCLUDES
+     42           **************************************************************************************************/
+     43          #include "hal_types.h"
+     44          #include "hal_lcd.h"
+
+   \                                 In  segment SFR_AN, at 0x90
+   \   union <unnamed> volatile __sfr _A_P1
+   \                     _A_P1:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xa0
+   \   union <unnamed> volatile __sfr _A_P2
+   \                     _A_P2:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfe
+   \   unsigned char volatile __sfr P1DIR
+   \                     P1DIR:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xff
+   \   unsigned char volatile __sfr P2DIR
+   \                     P2DIR:
+   \   000000                DS 1
+     45          #include "OSAL.h"
+     46          #include "OnBoard.h"
+     47          //#include "hal_assert.h"
+     48          #include <string.h>
+     49          
+     50          #if defined (ZTOOL_P1) || defined (ZTOOL_P2)
+     51            #include "DebugTrace.h"
+     52          #endif
+     53          
+     54          /*
+     55          __code const uint8 Logo[]=
+     56          {
+     57              0xFF,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x81,0xC1,0x41,
+     58              0x41,0x41,0xC1,0x81,0x01,0x01,0xC1,0xC1,0x01,0x01,0x01,0x01,0xC1,0xC1,0x01,0x01,
+     59              0xC1,0xC1,0x01,0x01,0x01,0xF1,0x21,0x21,0x21,0xA1,0xA1,0xA1,0xA1,0xA1,0x21,0x21,
+     60              0x21,0xF1,0x21,0x01,0x21,0x21,0xE1,0x21,0x21,0xE1,0x31,0x21,0x01,0x01,0x81,0x41,
+     61              0x31,0x11,0x01,0x01,0x01,0xF1,0x51,0x51,0x51,0x51,0xF1,0x01,0x21,0x21,0xA1,0x61,
+     62              0x21,0xB1,0x21,0x01,0x01,0x01,0x21,0x21,0x21,0x21,0x21,0x21,0x21,0x21,0x21,0x31,
+     63              0x21,0x01,0x01,0x01,0x01,0xF1,0xA1,0xA1,0xA1,0xF1,0x21,0x01,0xF1,0xA1,0xA1,0xA1,
+     64              0xF1,0x21,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0xFF,
+     65              0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0x7F,0xC0,0x80,
+     66              0x88,0x88,0x78,0xF9,0x00,0x00,0x3F,0x7F,0xC0,0x80,0x80,0xC0,0x7F,0x3F,0x00,0x00,
+     67              0xFF,0xFF,0x00,0x00,0x00,0xFF,0x00,0x08,0xE8,0x2B,0xEA,0xAE,0xEA,0x2B,0xE8,0x08,
+     68              0x00,0xFF,0x00,0x00,0x08,0x08,0xFF,0x08,0x08,0xFF,0x08,0x0C,0x29,0x21,0x10,0x08,
+     69              0x86,0x62,0x20,0x00,0x28,0xBD,0x2B,0x35,0x69,0x3D,0xAB,0x34,0x60,0xFF,0x95,0x95,
+     70              0x95,0xFF,0x01,0x00,0x02,0xC2,0x32,0x12,0x02,0x02,0x02,0xFE,0x02,0x02,0x12,0x22,
+     71              0xC2,0x83,0x02,0x00,0x48,0xC9,0x68,0x68,0x58,0xC9,0x0E,0x0A,0xC9,0x48,0x5A,0x6C,
+     72              0xE9,0x4C,0x48,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,
+     73              0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+     74              0x00,0x80,0x80,0x00,0x80,0x00,0x00,0x00,0x00,0x80,0x00,0x00,0x80,0x00,0x00,0x00,
+     75              0x80,0x00,0x00,0x00,0x00,0x87,0x82,0x02,0x03,0x82,0x02,0x82,0x82,0x02,0x83,0x02,
+     76              0x02,0x07,0x00,0x00,0x04,0x83,0x00,0x00,0x00,0x07,0x00,0x00,0x04,0x04,0x82,0x81,
+     77              0x00,0x00,0x00,0x00,0x02,0x01,0x00,0x03,0x00,0x03,0x00,0x03,0x04,0x02,0x01,0x00,
+     78              0x01,0x02,0x04,0x00,0x01,0x80,0x00,0x00,0x00,0x80,0x00,0x07,0x00,0x00,0x00,0x00,
+     79              0x80,0x01,0x00,0x00,0x00,0x87,0x02,0x02,0x82,0x07,0x00,0x00,0x87,0x02,0x02,0x02,
+     80              0x07,0x80,0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,
+     81              0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0x02,0xEA,0xAA,0xAA,0xAA,0xEA,
+     82              0x02,0x7F,0x82,0x02,0x02,0xF3,0x12,0x00,0x08,0x30,0x03,0x00,0xFF,0x49,0x49,0x49,
+     83              0xFF,0x01,0xFE,0x02,0x00,0xFF,0x00,0x00,0x00,0xFF,0x49,0x6C,0x48,0x00,0xEF,0x09,
+     84              0xFD,0x00,0x49,0x49,0x49,0xFF,0x01,0x00,0x20,0x20,0x10,0x08,0xE4,0x23,0x00,0x01,
+     85              0x02,0xE4,0x28,0x08,0x10,0x30,0x10,0x00,0x01,0xFD,0x09,0x09,0xF9,0x49,0x4D,0x4B,
+     86              0x49,0xF9,0x09,0x09,0xFD,0x09,0x01,0x00,0x04,0x03,0x05,0xC5,0x5F,0x55,0x55,0x5F,
+     87              0x55,0x55,0x5F,0xC5,0x05,0x03,0x01,0x00,0xFF,0x95,0x95,0xFF,0x95,0xD5,0x08,0xF4,
+     88              0x92,0xF5,0x04,0xF5,0x92,0xF4,0x04,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,
+     89              0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x30,0x0F,0x10,0x08,0x1C,0x22,0x24,0x38,
+     90              0x04,0x28,0x13,0x0C,0x13,0x20,0x38,0x00,0x30,0x0C,0x23,0x20,0x17,0x0A,0x02,0x0A,
+     91              0x17,0x30,0x03,0x10,0x30,0x1F,0x00,0x00,0x22,0x23,0x12,0x12,0x0A,0x0A,0x03,0x02,
+     92              0x03,0x02,0x0A,0x0A,0x12,0x33,0x02,0x00,0x00,0x20,0x10,0x0C,0x03,0x00,0x00,0x00,
+     93              0x00,0x3F,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0x10,0x10,0x1F,0x12,0x12,0x12,
+     94              0x12,0x1F,0x10,0x10,0x3F,0x00,0x00,0x00,0x00,0x00,0x20,0x3F,0x15,0x15,0x15,0x15,
+     95              0x15,0x15,0x15,0x3F,0x20,0x00,0x00,0x00,0x0D,0x02,0x2C,0x22,0x14,0x0F,0x20,0x18,
+     96              0x06,0x2A,0x10,0x0E,0x0A,0x30,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,
+     97              0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x80,0x80,0x80,0x80,
+     98              0x80,0x80,0x80,0x80,0x80,0x80,0xF0,0xB0,0xB0,0xB0,0xB0,0xF0,0x80,0x80,0x80,0x80,
+     99              0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    100              0x00,0x00,0xC0,0x00,0x00,0x00,0xC0,0x00,0x80,0x40,0x40,0x80,0x00,0x00,0x00,0x80,
+    101              0xC0,0x00,0x00,0x00,0x80,0x40,0x40,0x80,0x00,0x00,0x80,0x40,0x40,0x80,0x00,0x00,
+    102              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    103              0x00,0x00,0x00,0xC0,0x20,0x10,0x90,0x88,0x08,0x08,0x08,0x88,0x90,0x10,0x20,0xC0,
+    104              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,
+    105              0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0x2A,0x2A,0xEA,
+    106              0xEA,0x7F,0x2A,0x2A,0x3A,0x3A,0x3F,0x2A,0x2A,0x3A,0x3A,0x3F,0x2A,0x2A,0x2A,0x2A,
+    107              0x3F,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    108              0x00,0x00,0x01,0x0E,0x70,0x0E,0x01,0x00,0x3F,0x40,0x40,0x3F,0x00,0x00,0x00,0x00,
+    109              0x7F,0x00,0x00,0x00,0x3F,0x40,0x40,0x3F,0x00,0x00,0x3F,0x40,0x40,0x3F,0x00,0x00,
+    110              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    111              0x00,0x00,0x1F,0x60,0x80,0x18,0x31,0x61,0x40,0x40,0x40,0x61,0x31,0x18,0x80,0x60,
+    112              0x1F,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,
+    113              0x7F,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,
+    114              0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,
+    115              0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,
+    116              0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,
+    117              0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,
+    118              0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,
+    119              0x40,0x40,0x40,0x40,0x40,0x41,0x41,0x42,0x42,0x42,0x42,0x42,0x41,0x41,0x40,0x40,
+    120              0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x7F
+    121          };
+    122          */
+    123          
+    124          //-------------------------------------------------------------------
+    125          // English Font  16 x 8   ASCII 32 ~ 127
+    126          //-------------------------------------------------------------------
+
+   \                                 In  segment CODE_C, align 1
+    127          __code const uint8 Font16x8[]={
+   \                     Font16x8:
+   \   000000   00000000     DB 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 112, 248, 248
+   \            00000000
+   \            00000000
+   \            00000000
+   \            000070F8
+   \            F8      
+   \   000015   70000000     DB 112, 0, 0, 0, 0, 0, 13, 13, 0, 0, 0, 0, 28, 60, 0, 0, 0, 60, 28, 0
+   \            00000D0D
+   \            00000000
+   \            1C3C0000
+   \            003C1C00
+   \   000029   00000000     DB 0, 0, 0, 0, 0, 0, 0, 0, 32, 248, 248, 32, 248, 248, 32, 0, 2, 15, 15
+   \            00000000
+   \            20F8F820
+   \            F8F82000
+   \            020F0F  
+   \   00003C   020F0F02     DB 2, 15, 15, 2, 0, 112, 248, 136, 142, 142, 152, 48, 0, 6, 12, 8, 56
+   \            0070F888
+   \            8E8E9830
+   \            00060C08
+   \            38      
+   \   00004D   380F0700     DB 56, 15, 7, 0, 96, 96, 0, 0, 128, 192, 96, 0, 8, 12, 6, 3, 1, 12, 12
+   \            60600000
+   \            80C06000
+   \            080C0603
+   \            010C0C  
+   \   000060   0000B0F8     DB 0, 0, 176, 248, 200, 120, 176, 128, 0, 7, 15, 8, 9, 7, 15, 8, 0, 32
+   \            C878B080
+   \            00070F08
+   \            09070F08
+   \            0020    
+   \   000072   3C1C0000     DB 60, 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 240, 24, 8, 0
+   \            00000000
+   \            00000000
+   \            00000000
+   \            E0F01808
+   \            00      
+   \   000087   00000003     DB 0, 0, 0, 3, 7, 12, 8, 0, 0, 0, 0, 0, 8, 24, 240, 224, 0, 0, 0, 0, 8
+   \            070C0800
+   \            00000000
+   \            0818F0E0
+   \            00000000
+   \            08      
+   \   00009C   0C070300     DB 12, 7, 3, 0, 128, 160, 224, 192, 192, 224, 160, 128, 0, 2, 3, 1, 1
+   \            80A0E0C0
+   \            C0E0A080
+   \            00020301
+   \            01      
+   \   0000AD   03020080     DB 3, 2, 0, 128, 128, 128, 240, 240, 128, 128, 128, 0, 0, 0, 7, 7, 0, 0
+   \            8080F0F0
+   \            80808000
+   \            00000707
+   \            0000    
+   \   0000BF   00000000     DB 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 30, 14, 0, 0, 0, 128, 128, 128
+   \            00000000
+   \            00000010
+   \            1E0E0000
+   \            00808080
+   \   0000D3   80808080     DB 128, 128, 128, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \            00000000
+   \            00000000
+   \            00000000
+   \            00000000
+   \   0000E7   00000000     DB 0, 0, 0, 0, 12, 12, 0, 0, 0, 0, 0, 0, 128, 192, 96, 48, 24, 0, 6, 3
+   \            0C0C0000
+   \            00000000
+   \            80C06030
+   \            18000603
+   \   0000FB   01000000     DB 1, 0, 0, 0, 0, 0, 240, 248, 136, 200, 104, 248, 240, 0, 7, 15, 9, 8
+   \            0000F0F8
+   \            88C868F8
+   \            F000070F
+   \            0908    
+   \   00010D   080F0700     DB 8, 15, 7, 0, 0, 32, 48, 248, 248, 0, 0, 0, 0, 8, 8, 15, 15, 8, 8, 0
+   \            002030F8
+   \            F8000000
+   \            0008080F
+   \            0F080800
+   \   000121   10180888     DB 16, 24, 8, 136, 200, 120, 48, 0, 12, 14, 11, 9, 8, 12, 12, 0, 16, 24
+   \            C8783000
+   \            0C0E0B09
+   \            080C0C00
+   \            1018    
+   \   000133   888888F8     DB 136, 136, 136, 248, 112, 0, 4, 12, 8, 8, 8, 15, 7, 0, 128, 192, 96
+   \            7000040C
+   \            0808080F
+   \            070080C0
+   \            60      
+   \   000144   30F8F800     DB 48, 248, 248, 0, 0, 1, 1, 1, 9, 15, 15, 9, 0, 248, 248, 136, 136
+   \            00010101
+   \            090F0F09
+   \            00F8F888
+   \            88      
+   \   000155   88880800     DB 136, 136, 8, 0, 4, 12, 8, 8, 8, 15, 7, 0, 224, 240, 152, 136, 136
+   \            040C0808
+   \            080F0700
+   \            E0F09888
+   \            88      
+   \   000166   80000007     DB 128, 0, 0, 7, 15, 8, 8, 8, 15, 7, 0, 24, 24, 8, 136, 200, 120, 56, 0
+   \            0F080808
+   \            0F070018
+   \            180888C8
+   \            783800  
+   \   000179   00000F0F     DB 0, 0, 15, 15, 0, 0, 0, 0, 112, 248, 136, 136, 136, 248, 112, 0, 7
+   \            00000000
+   \            70F88888
+   \            88F87000
+   \            07      
+   \   00018A   0F080808     DB 15, 8, 8, 8, 15, 7, 0, 112, 248, 136, 136, 136, 248, 240, 0, 0, 8, 8
+   \            0F070070
+   \            F8888888
+   \            F8F00000
+   \            0808    
+   \   00019C   080C0703     DB 8, 12, 7, 3, 0, 0, 0, 48, 48, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0
+   \            00000030
+   \            30000000
+   \            00000006
+   \            06000000
+   \            0000    
+   \   0001B2   00303000     DB 0, 48, 48, 0, 0, 0, 0, 0, 8, 14, 6, 0, 0, 0, 0, 128, 192, 96, 48, 24
+   \            00000000
+   \            080E0600
+   \            00000080
+   \            C0603018
+   \   0001C6   08000000     DB 8, 0, 0, 0, 1, 3, 6, 12, 8, 0, 0, 64, 64, 64, 64, 64, 64, 0, 0, 2, 2
+   \            0103060C
+   \            08000040
+   \            40404040
+   \            40000002
+   \            02      
+   \   0001DB   02020202     DB 2, 2, 2, 2, 0, 0, 8, 24, 48, 96, 192, 128, 0, 0, 8, 12, 6, 3, 1, 0
+   \            00000818
+   \            3060C080
+   \            0000080C
+   \            06030100
+   \   0001EF   00003038     DB 0, 0, 48, 56, 8, 136, 200, 120, 48, 0, 0, 0, 0, 13, 13, 0, 0, 0, 240
+   \            0888C878
+   \            30000000
+   \            000D0D00
+   \            0000F0  
+   \   000202   F808C8C8     DB 248, 8, 200, 200, 248, 240, 0, 7, 15, 8, 11, 11, 11, 1, 0, 192, 224
+   \            F8F00007
+   \            0F080B0B
+   \            0B0100C0
+   \            E0      
+   \   000213   301830E0     DB 48, 24, 48, 224, 192, 0, 15, 15, 1, 1, 1, 15, 15, 0, 8, 248, 248
+   \            C0000F0F
+   \            0101010F
+   \            0F0008F8
+   \            F8      
+   \   000224   8888F870     DB 136, 136, 248, 112, 0, 8, 15, 15, 8, 8, 15, 7, 0, 224, 240, 24, 8, 8
+   \            00080F0F
+   \            08080F07
+   \            00E0F018
+   \            0808    
+   \   000236   18300003     DB 24, 48, 0, 3, 7, 12, 8, 8, 12, 6, 0, 8, 248, 248, 8, 24, 240, 224, 0
+   \            070C0808
+   \            0C060008
+   \            F8F80818
+   \            F0E000  
+   \   000249   080F0F08     DB 8, 15, 15, 8, 12, 7, 3, 0, 8, 248, 248, 136, 200, 24, 56, 0, 8, 15
+   \            0C070300
+   \            08F8F888
+   \            C8183800
+   \            080F    
+   \   00025B   0F08090C     DB 15, 8, 9, 12, 14, 0, 8, 248, 248, 136, 200, 24, 56, 0, 8, 15, 15, 8
+   \            0E0008F8
+   \            F888C818
+   \            3800080F
+   \            0F08    
+   \   00026D   01000000     DB 1, 0, 0, 0, 224, 240, 24, 8, 8, 24, 48, 0, 3, 7, 12, 9, 9, 7, 15, 0
+   \            E0F01808
+   \            08183000
+   \            03070C09
+   \            09070F00
+   \   000281   F8F88080     DB 248, 248, 128, 128, 128, 248, 248, 0, 15, 15, 0, 0, 0, 15, 15, 0, 0
+   \            80F8F800
+   \            0F0F0000
+   \            000F0F00
+   \            00      
+   \   000292   08F8F808     DB 8, 248, 248, 8, 0, 0, 0, 0, 8, 15, 15, 8, 0, 0, 0, 0, 0, 0, 8, 248
+   \            00000000
+   \            080F0F08
+   \            00000000
+   \            000008F8
+   \   0002A6   F8080006     DB 248, 8, 0, 6, 14, 8, 8, 15, 7, 0, 0, 8, 248, 248, 128, 224, 120, 24
+   \            0E08080F
+   \            07000008
+   \            F8F880E0
+   \            7818    
+   \   0002B8   00080F0F     DB 0, 8, 15, 15, 0, 3, 15, 12, 0, 8, 248, 248, 8, 0, 0, 0, 0, 8, 15, 15
+   \            00030F0C
+   \            0008F8F8
+   \            08000000
+   \            00080F0F
+   \   0002CC   08080C0E     DB 8, 8, 12, 14, 0, 248, 248, 48, 96, 48, 248, 248, 0, 15, 15, 0, 0, 0
+   \            00F8F830
+   \            6030F8F8
+   \            000F0F00
+   \            0000    
+   \   0002DE   0F0F00F8     DB 15, 15, 0, 248, 248, 112, 224, 192, 248, 248, 0, 15, 15, 0, 0, 1, 15
+   \            F870E0C0
+   \            F8F8000F
+   \            0F000001
+   \            0F      
+   \   0002EF   0F00E0F0     DB 15, 0, 224, 240, 24, 8, 24, 240, 224, 0, 3, 7, 12, 8, 12, 7, 3, 0, 8
+   \            180818F0
+   \            E0000307
+   \            0C080C07
+   \            030008  
+   \   000302   F8F88888     DB 248, 248, 136, 136, 248, 112, 0, 8, 15, 15, 8, 0, 0, 0, 0, 240, 248
+   \            F8700008
+   \            0F0F0800
+   \            000000F0
+   \            F8      
+   \   000313   080808F8     DB 8, 8, 8, 248, 240, 0, 3, 7, 4, 7, 30, 31, 19, 0, 8, 248, 248, 136
+   \            F0000307
+   \            04071E1F
+   \            130008F8
+   \            F888    
+   \   000325   88F87000     DB 136, 248, 112, 0, 8, 15, 15, 0, 1, 15, 14, 0, 48, 120, 200, 136, 136
+   \            080F0F00
+   \            010F0E00
+   \            3078C888
+   \            88      
+   \   000336   38300006     DB 56, 48, 0, 6, 14, 8, 8, 9, 15, 6, 24, 8, 8, 248, 248, 8, 8, 24, 0, 0
+   \            0E080809
+   \            0F061808
+   \            08F8F808
+   \            08180000
+   \   00034A   080F0F08     DB 8, 15, 15, 8, 0, 0, 0, 248, 248, 0, 0, 0, 248, 248, 0, 7, 15, 8, 8
+   \            000000F8
+   \            F8000000
+   \            F8F80007
+   \            0F0808  
+   \   00035D   080F0700     DB 8, 15, 7, 0, 248, 248, 0, 0, 0, 248, 248, 0, 1, 3, 6, 12, 6, 3, 1, 0
+   \            F8F80000
+   \            00F8F800
+   \            0103060C
+   \            06030100
+   \   000371   F8F80000     DB 248, 248, 0, 0, 0, 248, 248, 0, 15, 15, 6, 3, 6, 15, 15, 0, 56, 120
+   \            00F8F800
+   \            0F0F0603
+   \            060F0F00
+   \            3878    
+   \   000383   C080C078     DB 192, 128, 192, 120, 56, 0, 14, 15, 1, 0, 1, 15, 14, 0, 56, 120, 192
+   \            38000E0F
+   \            0100010F
+   \            0E003878
+   \            C0      
+   \   000394   80C07838     DB 128, 192, 120, 56, 0, 0, 8, 15, 15, 15, 8, 0, 0, 56, 24, 136, 200
+   \            0000080F
+   \            0F0F0800
+   \            00381888
+   \            C8      
+   \   0003A5   68381800     DB 104, 56, 24, 0, 14, 15, 9, 8, 8, 12, 14, 0, 0, 248, 248, 8, 8, 0, 0
+   \            0E0F0908
+   \            080C0E00
+   \            00F8F808
+   \            080000  
+   \   0003B8   00000F0F     DB 0, 0, 15, 15, 8, 8, 0, 0, 0, 56, 112, 224, 192, 128, 0, 0, 0, 0, 0
+   \            08080000
+   \            003870E0
+   \            C0800000
+   \            000000  
+   \   0003CB   00010307     DB 0, 1, 3, 7, 14, 0, 0, 8, 8, 248, 248, 0, 0, 0, 0, 8, 8, 15, 15, 0, 0
+   \            0E000008
+   \            08F8F800
+   \            00000008
+   \            080F0F00
+   \            00      
+   \   0003E0   0010180C     DB 0, 16, 24, 12, 6, 12, 24, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \            060C1810
+   \            00000000
+   \            00000000
+   \            00000000
+   \            00      
+   \   0003F5   00000000     DB 0, 0, 0, 0, 32, 32, 32, 32, 32, 32, 0, 0, 0, 0, 6, 14, 8, 0, 0, 0, 0
+   \            20202020
+   \            20200000
+   \            0000060E
+   \            08000000
+   \            00      
+   \   00040A   00000000     DB 0, 0, 0, 0, 0, 0, 0, 0, 64, 64, 64, 192, 128, 0, 0, 6, 15, 9, 9, 7
+   \            00000000
+   \            404040C0
+   \            80000006
+   \            0F090907
+   \   00041E   0F080008     DB 15, 8, 0, 8, 248, 248, 64, 192, 128, 0, 0, 8, 15, 7, 8, 8, 15, 7, 0
+   \            F8F840C0
+   \            80000008
+   \            0F070808
+   \            0F0700  
+   \   000431   80C04040     DB 128, 192, 64, 64, 64, 192, 128, 0, 7, 15, 8, 8, 8, 12, 4, 0, 0, 128
+   \            40C08000
+   \            070F0808
+   \            080C0400
+   \            0080    
+   \   000443   C048F8F8     DB 192, 72, 248, 248, 0, 0, 7, 15, 8, 8, 7, 15, 8, 0, 128, 192, 64, 64
+   \            0000070F
+   \            0808070F
+   \            080080C0
+   \            4040    
+   \   000455   40C08000     DB 64, 192, 128, 0, 7, 15, 9, 9, 9, 13, 5, 0, 128, 240, 248, 136, 152
+   \            070F0909
+   \            090D0500
+   \            80F0F888
+   \            98      
+   \   000466   30000008     DB 48, 0, 0, 8, 15, 15, 8, 0, 0, 0, 0, 128, 192, 64, 64, 128, 192, 64
+   \            0F0F0800
+   \            00000080
+   \            C0404080
+   \            C040    
+   \   000478   00133724     DB 0, 19, 55, 36, 36, 63, 31, 0, 0, 8, 248, 248, 128, 64, 192, 128, 0
+   \            243F1F00
+   \            0008F8F8
+   \            8040C080
+   \            00      
+   \   000489   080F0F00     DB 8, 15, 15, 0, 0, 15, 15, 0, 0, 0, 64, 216, 216, 0, 0, 0, 0, 0, 8, 15
+   \            000F0F00
+   \            000040D8
+   \            D8000000
+   \            0000080F
+   \   00049D   0F080000     DB 15, 8, 0, 0, 0, 0, 0, 64, 216, 216, 0, 0, 24, 56, 32, 32, 63, 31, 0
+   \            00000040
+   \            D8D80000
+   \            18382020
+   \            3F1F00  
+   \   0004B0   0008F8F8     DB 0, 8, 248, 248, 0, 128, 192, 64, 0, 8, 15, 15, 1, 3, 14, 12, 0, 0, 0
+   \            0080C040
+   \            00080F0F
+   \            01030E0C
+   \            000000  
+   \   0004C3   08F8F800     DB 8, 248, 248, 0, 0, 0, 0, 0, 8, 15, 15, 8, 0, 0, 128, 192, 128, 128
+   \            00000000
+   \            080F0F08
+   \            000080C0
+   \            8080    
+   \   0004D5   80C08000     DB 128, 192, 128, 0, 15, 15, 0, 15, 0, 15, 15, 0, 64, 192, 128, 64, 64
+   \            0F0F000F
+   \            000F0F00
+   \            40C08040
+   \            40      
+   \   0004E6   C0800000     DB 192, 128, 0, 0, 15, 15, 0, 0, 15, 15, 0, 128, 192, 64, 64, 64, 192
+   \            0F0F0000
+   \            0F0F0080
+   \            C0404040
+   \            C0      
+   \   0004F7   8000070F     DB 128, 0, 7, 15, 8, 8, 8, 15, 7, 0, 64, 192, 128, 64, 64, 192, 128, 0
+   \            0808080F
+   \            070040C0
+   \            804040C0
+   \            8000    
+   \   000509   203F3F24     DB 32, 63, 63, 36, 4, 7, 3, 0, 128, 192, 64, 64, 128, 192, 64, 0, 3, 7
+   \            04070300
+   \            80C04040
+   \            80C04000
+   \            0307    
+   \   00051B   04243F3F     DB 4, 36, 63, 63, 32, 0, 64, 192, 128, 192, 64, 192, 128, 0, 8, 15, 15
+   \            200040C0
+   \            80C040C0
+   \            8000080F
+   \            0F      
+   \   00052C   08000101     DB 8, 0, 1, 1, 0, 128, 192, 64, 64, 64, 192, 128, 0, 4, 13, 9, 11, 10
+   \            0080C040
+   \            4040C080
+   \            00040D09
+   \            0B0A    
+   \   00053E   0E040040     DB 14, 4, 0, 64, 64, 240, 248, 64, 64, 0, 0, 0, 0, 7, 15, 8, 12, 4, 0
+   \            40F0F840
+   \            40000000
+   \            00070F08
+   \            0C0400  
+   \   000551   C0C00000     DB 192, 192, 0, 0, 192, 192, 0, 0, 7, 15, 8, 8, 7, 15, 8, 0, 192, 192
+   \            C0C00000
+   \            070F0808
+   \            070F0800
+   \            C0C0    
+   \   000563   000000C0     DB 0, 0, 0, 192, 192, 0, 1, 3, 6, 12, 6, 3, 1, 0, 192, 192, 0, 0, 0
+   \            C0000103
+   \            060C0603
+   \            0100C0C0
+   \            000000  
+   \   000576   C0C00007     DB 192, 192, 0, 7, 15, 12, 6, 12, 15, 7, 0, 64, 192, 128, 0, 128, 192
+   \            0F0C060C
+   \            0F070040
+   \            C0800080
+   \            C0      
+   \   000587   4000080C     DB 64, 0, 8, 12, 7, 3, 7, 12, 8, 0, 192, 192, 0, 0, 0, 192, 192, 0, 3
+   \            0703070C
+   \            0800C0C0
+   \            000000C0
+   \            C00003  
+   \   00059A   27242434     DB 39, 36, 36, 52, 31, 15, 0, 192, 192, 64, 64, 192, 192, 64, 0, 8, 12
+   \            1F0F00C0
+   \            C04040C0
+   \            C0400008
+   \            0C      
+   \   0005AB   0E0B090C     DB 14, 11, 9, 12, 12, 0, 128, 128, 240, 120, 8, 8, 0, 0, 0, 0, 7, 15, 8
+   \            0C008080
+   \            F0780808
+   \            00000000
+   \            070F08  
+   \   0005BE   08000000     DB 8, 0, 0, 0, 0, 120, 120, 0, 0, 0, 0, 0, 0, 15, 15, 0, 0, 0, 0, 8, 8
+   \            00787800
+   \            00000000
+   \            000F0F00
+   \            00000008
+   \            08      
+   \   0005D3   78F08080     DB 120, 240, 128, 128, 0, 0, 8, 8, 15, 7, 0, 0, 0, 0, 16, 24, 8, 24, 16
+   \            00000808
+   \            0F070000
+   \            00001018
+   \            081810  
+   \   0005E6   18080000     DB 24, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 10, 14, 0, 0, 0, 0, 0, 0
+   \            00000000
+   \            00000000
+   \            000E0A0E
+   \            00000000
+   \            0000    
+   \   0005FC   00000000     DB 0, 0, 0, 0
+    128              //   - 32
+    129              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    130              // ! - 33
+    131              0x00,0x00,0x70,0xF8,0xF8,0x70,0x00,0x00,0x00,0x00,0x00,0x0D,0x0D,0x00,0x00,0x00,
+    132              // " - 34
+    133              0x00,0x1C,0x3C,0x00,0x00,0x00,0x3C,0x1C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    134              // # - 35
+    135              0x00,0x20,0xF8,0xF8,0x20,0xF8,0xF8,0x20,0x00,0x02,0x0F,0x0F,0x02,0x0F,0x0F,0x02,
+    136              // $ - 36
+    137              0x00,0x70,0xF8,0x88,0x8E,0x8E,0x98,0x30,0x00,0x06,0x0C,0x08,0x38,0x38,0x0F,0x07,
+    138              // % - 37
+    139              0x00,0x60,0x60,0x00,0x00,0x80,0xC0,0x60,0x00,0x08,0x0C,0x06,0x03,0x01,0x0C,0x0C,
+    140              // & - 38
+    141              0x00,0x00,0xB0,0xF8,0xC8,0x78,0xB0,0x80,0x00,0x07,0x0F,0x08,0x09,0x07,0x0F,0x08,
+    142              // ' - 39
+    143              0x00,0x20,0x3C,0x1C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    144              // ( - 40
+    145              0x00,0x00,0xE0,0xF0,0x18,0x08,0x00,0x00,0x00,0x00,0x03,0x07,0x0C,0x08,0x00,0x00,
+    146              // ) - 41
+    147              0x00,0x00,0x00,0x08,0x18,0xF0,0xE0,0x00,0x00,0x00,0x00,0x08,0x0C,0x07,0x03,0x00,
+    148              // * - 42
+    149              0x80,0xA0,0xE0,0xC0,0xC0,0xE0,0xA0,0x80,0x00,0x02,0x03,0x01,0x01,0x03,0x02,0x00,
+    150              // + - 43
+    151              0x80,0x80,0x80,0xF0,0xF0,0x80,0x80,0x80,0x00,0x00,0x00,0x07,0x07,0x00,0x00,0x00,
+    152              // , - 44
+    153              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x1E,0x0E,0x00,0x00,0x00,
+    154              // - - 45
+    155              0x80,0x80,0x80,0x80,0x80,0x80,0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    156              // . - 46
+    157              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0C,0x0C,0x00,0x00,0x00,
+    158              // / - 47
+    159              0x00,0x00,0x00,0x80,0xC0,0x60,0x30,0x18,0x00,0x06,0x03,0x01,0x00,0x00,0x00,0x00,
+    160              // 0 - 48
+    161              0x00,0xF0,0xF8,0x88,0xC8,0x68,0xF8,0xF0,0x00,0x07,0x0F,0x09,0x08,0x08,0x0F,0x07,
+    162              // 1 - 49
+    163              0x00,0x00,0x20,0x30,0xF8,0xF8,0x00,0x00,0x00,0x00,0x08,0x08,0x0F,0x0F,0x08,0x08,
+    164              // 2 - 50
+    165              0x00,0x10,0x18,0x08,0x88,0xC8,0x78,0x30,0x00,0x0C,0x0E,0x0B,0x09,0x08,0x0C,0x0C,
+    166              // 3 - 51
+    167              0x00,0x10,0x18,0x88,0x88,0x88,0xF8,0x70,0x00,0x04,0x0C,0x08,0x08,0x08,0x0F,0x07,
+    168              // 4 - 52
+    169              0x00,0x80,0xC0,0x60,0x30,0xF8,0xF8,0x00,0x00,0x01,0x01,0x01,0x09,0x0F,0x0F,0x09,
+    170              // 5 - 53
+    171              0x00,0xF8,0xF8,0x88,0x88,0x88,0x88,0x08,0x00,0x04,0x0C,0x08,0x08,0x08,0x0F,0x07,
+    172              // 6 - 54
+    173              0x00,0xE0,0xF0,0x98,0x88,0x88,0x80,0x00,0x00,0x07,0x0F,0x08,0x08,0x08,0x0F,0x07,
+    174              // 7 - 55
+    175              0x00,0x18,0x18,0x08,0x88,0xC8,0x78,0x38,0x00,0x00,0x00,0x0F,0x0F,0x00,0x00,0x00,
+    176              // 8 - 56
+    177              0x00,0x70,0xF8,0x88,0x88,0x88,0xF8,0x70,0x00,0x07,0x0F,0x08,0x08,0x08,0x0F,0x07,
+    178              // 9 - 57
+    179              0x00,0x70,0xF8,0x88,0x88,0x88,0xF8,0xF0,0x00,0x00,0x08,0x08,0x08,0x0C,0x07,0x03,
+    180              // : - 58
+    181              0x00,0x00,0x00,0x30,0x30,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x06,0x00,0x00,0x00,
+    182              // ; - 59
+    183              0x00,0x00,0x00,0x30,0x30,0x00,0x00,0x00,0x00,0x00,0x08,0x0E,0x06,0x00,0x00,0x00,
+    184              // < - 60
+    185              0x00,0x80,0xC0,0x60,0x30,0x18,0x08,0x00,0x00,0x00,0x01,0x03,0x06,0x0C,0x08,0x00,
+    186              // = - 61
+    187              0x00,0x40,0x40,0x40,0x40,0x40,0x40,0x00,0x00,0x02,0x02,0x02,0x02,0x02,0x02,0x00,
+    188              // > - 62
+    189              0x00,0x08,0x18,0x30,0x60,0xC0,0x80,0x00,0x00,0x08,0x0C,0x06,0x03,0x01,0x00,0x00,
+    190              // ? - 63
+    191              0x00,0x30,0x38,0x08,0x88,0xC8,0x78,0x30,0x00,0x00,0x00,0x00,0x0D,0x0D,0x00,0x00,
+    192              // @ - 64
+    193              0x00,0xF0,0xF8,0x08,0xC8,0xC8,0xF8,0xF0,0x00,0x07,0x0F,0x08,0x0B,0x0B,0x0B,0x01,
+    194              // A - 65
+    195              0x00,0xC0,0xE0,0x30,0x18,0x30,0xE0,0xC0,0x00,0x0F,0x0F,0x01,0x01,0x01,0x0F,0x0F,
+    196              // B - 66
+    197              0x00,0x08,0xF8,0xF8,0x88,0x88,0xF8,0x70,0x00,0x08,0x0F,0x0F,0x08,0x08,0x0F,0x07,
+    198              // C - 67
+    199              0x00,0xE0,0xF0,0x18,0x08,0x08,0x18,0x30,0x00,0x03,0x07,0x0C,0x08,0x08,0x0C,0x06,
+    200              // D - 68
+    201              0x00,0x08,0xF8,0xF8,0x08,0x18,0xF0,0xE0,0x00,0x08,0x0F,0x0F,0x08,0x0C,0x07,0x03,
+    202              // E - 69
+    203              0x00,0x08,0xF8,0xF8,0x88,0xC8,0x18,0x38,0x00,0x08,0x0F,0x0F,0x08,0x09,0x0C,0x0E,
+    204              // F - 70
+    205              0x00,0x08,0xF8,0xF8,0x88,0xC8,0x18,0x38,0x00,0x08,0x0F,0x0F,0x08,0x01,0x00,0x00,
+    206              // G - 71
+    207              0x00,0xE0,0xF0,0x18,0x08,0x08,0x18,0x30,0x00,0x03,0x07,0x0C,0x09,0x09,0x07,0x0F,
+    208              // H - 72
+    209              0x00,0xF8,0xF8,0x80,0x80,0x80,0xF8,0xF8,0x00,0x0F,0x0F,0x00,0x00,0x00,0x0F,0x0F,
+    210              // I - 73
+    211              0x00,0x00,0x08,0xF8,0xF8,0x08,0x00,0x00,0x00,0x00,0x08,0x0F,0x0F,0x08,0x00,0x00,
+    212              // J - 74
+    213              0x00,0x00,0x00,0x00,0x08,0xF8,0xF8,0x08,0x00,0x06,0x0E,0x08,0x08,0x0F,0x07,0x00,
+    214              // K - 75
+    215              0x00,0x08,0xF8,0xF8,0x80,0xE0,0x78,0x18,0x00,0x08,0x0F,0x0F,0x00,0x03,0x0F,0x0C,
+    216              // L - 76
+    217              0x00,0x08,0xF8,0xF8,0x08,0x00,0x00,0x00,0x00,0x08,0x0F,0x0F,0x08,0x08,0x0C,0x0E,
+    218              // M - 77
+    219              0x00,0xF8,0xF8,0x30,0x60,0x30,0xF8,0xF8,0x00,0x0F,0x0F,0x00,0x00,0x00,0x0F,0x0F,
+    220              // N - 78
+    221              0x00,0xF8,0xF8,0x70,0xE0,0xC0,0xF8,0xF8,0x00,0x0F,0x0F,0x00,0x00,0x01,0x0F,0x0F,
+    222              // O - 79
+    223              0x00,0xE0,0xF0,0x18,0x08,0x18,0xF0,0xE0,0x00,0x03,0x07,0x0C,0x08,0x0C,0x07,0x03,
+    224              // P - 80
+    225              0x00,0x08,0xF8,0xF8,0x88,0x88,0xF8,0x70,0x00,0x08,0x0F,0x0F,0x08,0x00,0x00,0x00,
+    226              // Q - 81
+    227              0x00,0xF0,0xF8,0x08,0x08,0x08,0xF8,0xF0,0x00,0x03,0x07,0x04,0x07,0x1E,0x1F,0x13,
+    228              // R - 82
+    229              0x00,0x08,0xF8,0xF8,0x88,0x88,0xF8,0x70,0x00,0x08,0x0F,0x0F,0x00,0x01,0x0F,0x0E,
+    230              // S - 83
+    231              0x00,0x30,0x78,0xC8,0x88,0x88,0x38,0x30,0x00,0x06,0x0E,0x08,0x08,0x09,0x0F,0x06,
+    232              // T - 84
+    233              0x18,0x08,0x08,0xF8,0xF8,0x08,0x08,0x18,0x00,0x00,0x08,0x0F,0x0F,0x08,0x00,0x00,
+    234              // U - 85
+    235              0x00,0xF8,0xF8,0x00,0x00,0x00,0xF8,0xF8,0x00,0x07,0x0F,0x08,0x08,0x08,0x0F,0x07,
+    236              // V - 86
+    237              0x00,0xF8,0xF8,0x00,0x00,0x00,0xF8,0xF8,0x00,0x01,0x03,0x06,0x0C,0x06,0x03,0x01,
+    238              // W - 87
+    239              0x00,0xF8,0xF8,0x00,0x00,0x00,0xF8,0xF8,0x00,0x0F,0x0F,0x06,0x03,0x06,0x0F,0x0F,
+    240              // X - 88
+    241              0x00,0x38,0x78,0xC0,0x80,0xC0,0x78,0x38,0x00,0x0E,0x0F,0x01,0x00,0x01,0x0F,0x0E,
+    242              // Y - 89
+    243              0x00,0x38,0x78,0xC0,0x80,0xC0,0x78,0x38,0x00,0x00,0x08,0x0F,0x0F,0x0F,0x08,0x00,
+    244              // Z - 90
+    245              0x00,0x38,0x18,0x88,0xC8,0x68,0x38,0x18,0x00,0x0E,0x0F,0x09,0x08,0x08,0x0C,0x0E,
+    246              // [ - 91
+    247              0x00,0x00,0xF8,0xF8,0x08,0x08,0x00,0x00,0x00,0x00,0x0F,0x0F,0x08,0x08,0x00,0x00,
+    248              // \ - 92
+    249              0x00,0x38,0x70,0xE0,0xC0,0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x03,0x07,0x0E,
+    250              // ] - 93
+    251              0x00,0x00,0x08,0x08,0xF8,0xF8,0x00,0x00,0x00,0x00,0x08,0x08,0x0F,0x0F,0x00,0x00,
+    252              // ^ - 94
+    253              0x00,0x10,0x18,0x0C,0x06,0x0C,0x18,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    254              // _ - 95
+    255              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x20,0x20,0x20,0x20,0x20,0x20,0x00,
+    256              // ` - 96
+    257              0x00,0x00,0x00,0x06,0x0E,0x08,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    258              // a - 97
+    259              0x00,0x00,0x40,0x40,0x40,0xC0,0x80,0x00,0x00,0x06,0x0F,0x09,0x09,0x07,0x0F,0x08,
+    260              // b - 98
+    261              0x00,0x08,0xF8,0xF8,0x40,0xC0,0x80,0x00,0x00,0x08,0x0F,0x07,0x08,0x08,0x0F,0x07,
+    262              // c - 99
+    263              0x00,0x80,0xC0,0x40,0x40,0x40,0xC0,0x80,0x00,0x07,0x0F,0x08,0x08,0x08,0x0C,0x04,
+    264              // d - 100
+    265              0x00,0x00,0x80,0xC0,0x48,0xF8,0xF8,0x00,0x00,0x07,0x0F,0x08,0x08,0x07,0x0F,0x08,
+    266              // e - 101
+    267              0x00,0x80,0xC0,0x40,0x40,0x40,0xC0,0x80,0x00,0x07,0x0F,0x09,0x09,0x09,0x0D,0x05,
+    268              // f - 102
+    269              0x00,0x80,0xF0,0xF8,0x88,0x98,0x30,0x00,0x00,0x08,0x0F,0x0F,0x08,0x00,0x00,0x00,
+    270              // g - 103
+    271              0x00,0x80,0xC0,0x40,0x40,0x80,0xC0,0x40,0x00,0x13,0x37,0x24,0x24,0x3F,0x1F,0x00,
+    272              // h - 104
+    273              0x00,0x08,0xF8,0xF8,0x80,0x40,0xC0,0x80,0x00,0x08,0x0F,0x0F,0x00,0x00,0x0F,0x0F,
+    274              // i - 105
+    275              0x00,0x00,0x00,0x40,0xD8,0xD8,0x00,0x00,0x00,0x00,0x00,0x08,0x0F,0x0F,0x08,0x00,
+    276              // j - 106
+    277              0x00,0x00,0x00,0x00,0x40,0xD8,0xD8,0x00,0x00,0x18,0x38,0x20,0x20,0x3F,0x1F,0x00,
+    278              // k - 107
+    279              0x00,0x08,0xF8,0xF8,0x00,0x80,0xC0,0x40,0x00,0x08,0x0F,0x0F,0x01,0x03,0x0E,0x0C,
+    280              // l - 108
+    281              0x00,0x00,0x00,0x08,0xF8,0xF8,0x00,0x00,0x00,0x00,0x00,0x08,0x0F,0x0F,0x08,0x00,
+    282              // m - 109
+    283              0x00,0x80,0xC0,0x80,0x80,0x80,0xC0,0x80,0x00,0x0F,0x0F,0x00,0x0F,0x00,0x0F,0x0F,
+    284              // n - 110
+    285              0x00,0x40,0xC0,0x80,0x40,0x40,0xC0,0x80,0x00,0x00,0x0F,0x0F,0x00,0x00,0x0F,0x0F,
+    286              // o - 111
+    287              0x00,0x80,0xC0,0x40,0x40,0x40,0xC0,0x80,0x00,0x07,0x0F,0x08,0x08,0x08,0x0F,0x07,
+    288              // p - 112
+    289              0x00,0x40,0xC0,0x80,0x40,0x40,0xC0,0x80,0x00,0x20,0x3F,0x3F,0x24,0x04,0x07,0x03,
+    290              // q - 113
+    291              0x00,0x80,0xC0,0x40,0x40,0x80,0xC0,0x40,0x00,0x03,0x07,0x04,0x24,0x3F,0x3F,0x20,
+    292              // r - 114
+    293              0x00,0x40,0xC0,0x80,0xC0,0x40,0xC0,0x80,0x00,0x08,0x0F,0x0F,0x08,0x00,0x01,0x01,
+    294              // s - 115
+    295              0x00,0x80,0xC0,0x40,0x40,0x40,0xC0,0x80,0x00,0x04,0x0D,0x09,0x0B,0x0A,0x0E,0x04,
+    296              // t - 116
+    297              0x00,0x40,0x40,0xF0,0xF8,0x40,0x40,0x00,0x00,0x00,0x00,0x07,0x0F,0x08,0x0C,0x04,
+    298              // u - 117
+    299              0x00,0xC0,0xC0,0x00,0x00,0xC0,0xC0,0x00,0x00,0x07,0x0F,0x08,0x08,0x07,0x0F,0x08,
+    300              // v - 118
+    301              0x00,0xC0,0xC0,0x00,0x00,0x00,0xC0,0xC0,0x00,0x01,0x03,0x06,0x0C,0x06,0x03,0x01,
+    302              // w - 119
+    303              0x00,0xC0,0xC0,0x00,0x00,0x00,0xC0,0xC0,0x00,0x07,0x0F,0x0C,0x06,0x0C,0x0F,0x07,
+    304              // x - 120
+    305              0x00,0x40,0xC0,0x80,0x00,0x80,0xC0,0x40,0x00,0x08,0x0C,0x07,0x03,0x07,0x0C,0x08,
+    306              // y - 121
+    307              0x00,0xC0,0xC0,0x00,0x00,0x00,0xC0,0xC0,0x00,0x03,0x27,0x24,0x24,0x34,0x1F,0x0F,
+    308              // z - 122
+    309              0x00,0xC0,0xC0,0x40,0x40,0xC0,0xC0,0x40,0x00,0x08,0x0C,0x0E,0x0B,0x09,0x0C,0x0C,
+    310              // { - 123
+    311              0x00,0x80,0x80,0xF0,0x78,0x08,0x08,0x00,0x00,0x00,0x00,0x07,0x0F,0x08,0x08,0x00,
+    312              // | - 124
+    313              0x00,0x00,0x00,0x78,0x78,0x00,0x00,0x00,0x00,0x00,0x00,0x0F,0x0F,0x00,0x00,0x00,
+    314              // } - 125
+    315              0x00,0x08,0x08,0x78,0xF0,0x80,0x80,0x00,0x00,0x08,0x08,0x0F,0x07,0x00,0x00,0x00,
+    316              // ~ - 126
+    317              0x00,0x10,0x18,0x08,0x18,0x10,0x18,0x08,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    318              // d - 127
+    319              0x00,0x00,0x00,0x0E,0x0A,0x0E,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
+    320             
+    321              };
+    322          
+    323          /*******************************************************************************
+    324           *                                          CONSTANTS
+    325           ******************************************************************************/
+    326          /* LCD lines */
+    327          #define LCD_LINE_COUNT       4
+    328          #define LCD_LINE_LENGTH      16
+    329          #define LCD_MAX_BUF          25
+    330          
+    331          /* LCD Control */
+    332          #define LCD_CS_BV           BV(0)
+    333          #define LCD_CS_SBIT         P2_0
+    334          #define LCD_CS_DDR          P2DIR
+    335          
+    336          #define LCD_A0_BV           BV(0)
+    337          #define LCD_A0_SBIT         P1_0
+    338          #define LCD_A0_DDR          P1DIR
+    339          
+    340          #define LCD_SCL_BV          BV(1)
+    341          #define LCD_SCL_SBIT        P1_1
+    342          #define LCD_SCL_DDR         P1DIR
+    343          
+    344          #define LCD_SI_BV           BV(2)
+    345          #define LCD_SI_SBIT         P1_2
+    346          #define LCD_SI_DDR          P1DIR
+    347          
+    348          /* LED Control */
+    349          //#define HAL_TURN_OFF_LED3()       st( LED3_SBIT = LED3_POLARITY (0); )
+    350          //#define HAL_TURN_OFF_LED4()       HAL_TURN_OFF_LED1()
+    351          //#define HAL_TURN_ON_LED1()        st( LED1_SBIT = LED1_POLARITY (1); )
+    352          
+    353          /* LCD Setting */
+    354          #define HAL_LCD_CS_SET()          LCD_CS_SBIT=1
+    355          #define HAL_LCD_CS_CLR()          LCD_CS_SBIT=0
+    356          #define HAL_LCD_A0_SET()          LCD_A0_SBIT=1
+    357          #define HAL_LCD_A0_CLR()          LCD_A0_SBIT=0
+    358          #define HAL_LCD_SCL_SET()         LCD_SCL_SBIT=1
+    359          #define HAL_LCD_SCL_CLR()         LCD_SCL_SBIT=0
+    360          #define HAL_LCD_SI_SET()          LCD_SI_SBIT=1
+    361          #define HAL_LCD_SI_CLR()          LCD_SI_SBIT=0
+    362          
+    363          /**************Defines for HW LCD*****************/
+    364          /* Set power save mode */
+    365          #define OSC_OFF                         0x00
+    366          #define OSC_ON                          0x01
+    367          #define POWER_SAVE_OFF                  0x00
+    368          #define POWER_SAVE_ON                   0x02
+    369          #define SET_POWER_SAVE_MODE(options)    lcdCommand(0x0C | (options))
+    370          
+    371          /* Function Set */
+    372          #define CGROM                           0x00
+    373          #define CGRAM                           0x01
+    374          #define COM_FORWARD                     0x00
+    375          #define COM_BACKWARD                    0x02
+    376          #define TWO_LINE                        0x00
+    377          #define THREE_LINE                      0x04
+    378          #define FUNCTION_SET(options)           lcdCommand(0x10 | (options))
+    379          
+    380          // Set Display Start Line
+    381          #define LINE1                           0x00
+    382          #define LINE2                           0x40
+    383          #define SET_DISPLAY_LINE(line)          lcdCommand(0x80 | (line))
+    384          
+    385          /* Power control */
+    386          #define VOLTAGE_DIVIDER_OFF             0x00
+    387          #define VOLTAGE_DIVIDER_ON              0x01
+    388          #define CONVERTER_AND_REG_OFF           0x00
+    389          #define CONVERTER_AND_REG_ON            0x04
+    390          #define SET_POWER_CTRL(options)         lcdCommand(0x20 | (options))
+    391          
+    392          /* Set DD/ CGRAM address */
+    393          #define SET_DDRAM_ADDR(charIndex)       lcdCommand(0x80 | (charIndex))
+    394          #define SET_GCRAM_CHAR(specIndex)       lcdCommand(0xC0 | (specIndex))
+    395          
+    396          /* Set ICONRAM address */
+    397          #define CONTRAST_CTRL_REGISTER          0x10
+    398          #define SET_ICONRAM_ADDR(addr)          lcdCommand(0x40 | (addr))
+    399          
+    400          /*******************************************************************************
+    401           *                                           MACROS
+    402           ******************************************************************************/
+    403          
+    404          #define HAL_IO_SET(port, pin, val)        HAL_IO_SET_PREP(port, pin, val)
+    405          #define HAL_IO_SET_PREP(port, pin, val)   st( P##port##_##pin## = val; )
+    406          
+    407          #define HAL_CONFIG_IO_OUTPUT(port, pin, val)      HAL_CONFIG_IO_OUTPUT_PREP(port, pin, val)
+    408          #define HAL_CONFIG_IO_OUTPUT_PREP(port, pin, val) st( P##port##SEL &= ~BV(pin); \
+    409                                                                P##port##_##pin## = val; \
+    410                                                                P##port##DIR |= BV(pin); )
+    411          
+    412          #define HAL_CONFIG_IO_PERIPHERAL(port, pin)      HAL_CONFIG_IO_PERIPHERAL_PREP(port, pin)
+    413          #define HAL_CONFIG_IO_PERIPHERAL_PREP(port, pin) st( P##port##SEL |= BV(pin); )
+    414          
+    415          /**************************************************************************************************
+    416           *                                       GLOBAL VARIABLES
+    417           **************************************************************************************************/
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    418          static uint8 *Lcd_Line1;
+   \                     Lcd_Line1:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
+    419          
+    420          /*******************************************************************************
+    421           *                                       FUNCTIONS - API
+    422           ******************************************************************************/
+    423          #if (HAL_LCD == TRUE)
+    424          void HalLcd_HW_WaitUs(uint16 i);
+    425          void HalLcd_HW_ClearAllSpecChars(void);
+    426          void HalLcd_HW_SetContrast(uint8 value);
+    427          void HalLcd_HW_WriteLine(uint8 line, const char *pText);
+    428          
+    429          static void initLcd(void);
+    430          static void lcdCommand(uint8 command);
+    431          static void lcdData(uint8 ch);
+    432          static void lcdUpdateChar(uint8 line, uint8 col, char ch);
+    433          static void lcbWait( uint16 timeout );
+    434          #endif //LCD
+    435          
+    436          /*******************************************************************************
+    437           * @fn      HalLcdInit
+    438           *
+    439           * @brief   Initilize LCD Service
+    440           *
+    441           * @param   init - pointer to void that contains the initialized value
+    442           *
+    443           * @return  None
+    444           ******************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    445          void HalLcdInit(void)
+   \                     HalLcdInit:
+    446          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    447            Lcd_Line1 = NULL;
+   \   000004   90....       MOV     DPTR,#Lcd_Line1
+   \   000007   E4           CLR     A
+   \   000008   F0           MOVX    @DPTR,A
+   \   000009   A3           INC     DPTR
+   \   00000A   F0           MOVX    @DPTR,A
+    448          #if (HAL_LCD == TRUE)
+    449            initLcd();
+   \   00000B                ; Setup parameters for call to function initLcd
+   \   00000B   12....       LCALL   ??initLcd?relay
+    450          #endif
+    451          }
+   \   00000E                REQUIRE ?Subroutine24
+   \   00000E                ; // Fall through to label ?Subroutine24
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine24:
+   \   000000   D083         POP     DPH
+   \   000002   D082         POP     DPL
+   \   000004   02....       LJMP    ?BRET
+    452          
+    453          /*************************************************************************************************
+    454           *                    LCD EMULATION FUNCTIONS
+    455           *
+    456           * Some evaluation boards are equipped with Liquid Crystal Displays
+    457           * (LCD) which may be used to display diagnostic information. These
+    458           * functions provide LCD emulation, sending the diagnostic strings
+    459           * to Z-Tool via the RS232 serial port. These functions are enabled
+    460           * when the "LCD_SUPPORTED" compiler flag is placed in the makefile.
+    461           *
+    462           * Most applications update both lines (1 and 2) of the LCD whenever
+    463           * text is posted to the device. This emulator assumes that line 1 is
+    464           * updated first (saved locally) and the formatting and send operation
+    465           * is triggered by receipt of line 2. Nothing will be transmitted if
+    466           * only line 1 is updated.
+    467           *
+    468           *************************************************************************************************/
+    469          
+    470          /*******************************************************************************
+    471           * @fn      HalLcdWriteString
+    472           *
+    473           * @brief   Write a string to the LCD
+    474           *
+    475           * @param   str    - pointer to the string that will be displayed
+    476           *          option - display options
+    477           *
+    478           * @return  None
+    479           ******************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    480          void HalLcdWriteString ( char *str, uint8 option)
+   \                     HalLcdWriteString:
+    481          {
+   \   000000   74E8         MOV     A,#-0x18
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 24
+   \   000005                ; Auto size: 0
+   \   000005   8A..         MOV     ?V0 + 14,R2
+   \   000007   8B..         MOV     ?V0 + 15,R3
+   \   000009   89..         MOV     ?V0 + 3,R1
+    482          #if (HAL_LCD == TRUE)
+    483          
+    484            uint8 strLen = 0;
+    485            uint8 totalLen = 0;
+    486            uint8 *buf;
+    487            uint8 tmpLen;
+    488          
+    489            if ( Lcd_Line1 == NULL )
+   \   00000B   90....       MOV     DPTR,#Lcd_Line1
+   \   00000E   E0           MOVX    A,@DPTR
+   \   00000F   7002         JNZ     ??HalLcdWriteString_0
+   \   000011   A3           INC     DPTR
+   \   000012   E0           MOVX    A,@DPTR
+   \                     ??HalLcdWriteString_0:
+   \   000013   700F         JNZ     ??HalLcdWriteString_1
+    490            {
+    491              Lcd_Line1 = osal_mem_alloc( HAL_LCD_MAX_CHARS+1 );
+   \   000015                ; Setup parameters for call to function osal_mem_alloc
+   \   000015   7A11         MOV     R2,#0x11
+   \   000017   7B00         MOV     R3,#0x0
+   \   000019   12....       LCALL   ??osal_mem_alloc?relay
+   \   00001C   90....       MOV     DPTR,#Lcd_Line1
+   \   00001F   EA           MOV     A,R2
+   \   000020   F0           MOVX    @DPTR,A
+   \   000021   A3           INC     DPTR
+   \   000022   EB           MOV     A,R3
+   \   000023   F0           MOVX    @DPTR,A
+    492            }
+    493          
+    494            strLen = (uint8)osal_strlen( (char*)str );
+   \                     ??HalLcdWriteString_1:
+   \   000024                ; Setup parameters for call to function osal_strlen
+   \   000024   AA..         MOV     R2,?V0 + 14
+   \   000026   AB..         MOV     R3,?V0 + 15
+   \   000028   12....       LCALL   ??osal_strlen?relay
+   \   00002B   EA           MOV     A,R2
+   \   00002C   F5..         MOV     ?V0 + 4,A
+    495          
+    496            /* Check boundries */
+    497            if ( strLen > HAL_LCD_MAX_CHARS )
+   \   00002E   C3           CLR     C
+   \   00002F   9411         SUBB    A,#0x11
+   \   000031   4003         JC      ??HalLcdWriteString_2
+    498              strLen = HAL_LCD_MAX_CHARS;
+   \   000033   75..10       MOV     ?V0 + 4,#0x10
+    499          
+    500            if ( option == HAL_LCD_LINE_1 )
+   \                     ??HalLcdWriteString_2:
+   \   000036   85..82       MOV     DPL,?V0 + 4
+   \   000039   8582..       MOV     ?V0 + 12,DPL
+   \   00003C   85....       MOV     ?V0 + 0,?V0 + 14
+   \   00003F   85....       MOV     ?V0 + 1,?V0 + 15
+   \   000042   75..00       MOV     ?V0 + 2,#0x0
+   \   000045   AE82         MOV     R6,DPL
+   \   000047   7401         MOV     A,#0x1
+   \   000049   65..         XRL     A,?V0 + 3
+   \   00004B   702B         JNZ     ??HalLcdWriteString_3
+    501            {
+    502              /* Line 1 gets saved for later */
+    503              osal_memcpy( Lcd_Line1, str, strLen );
+   \   00004D                ; Setup parameters for call to function osal_memcpy
+   \   00004D   78..         MOV     R0,#?V0 + 0
+   \   00004F   12....       LCALL   ?PUSH_XSTACK_I_THREE
+   \   000052   EE           MOV     A,R6
+   \   000053   FC           MOV     R4,A
+   \   000054   7D00         MOV     R5,#0x0
+   \   000056   90....       MOV     DPTR,#Lcd_Line1
+   \   000059   E0           MOVX    A,@DPTR
+   \   00005A   FA           MOV     R2,A
+   \   00005B   A3           INC     DPTR
+   \   00005C   E0           MOVX    A,@DPTR
+   \   00005D   FB           MOV     R3,A
+   \   00005E   12....       LCALL   ??Subroutine31_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_50:
+   \   000061   12....       LCALL   ?DEALLOC_XSTACK8
+    504              Lcd_Line1[strLen] = '\0';
+   \   000064   90....       MOV     DPTR,#Lcd_Line1
+   \   000067   E0           MOVX    A,@DPTR
+   \   000068   25..         ADD     A,?V0 + 12
+   \   00006A   FA           MOV     R2,A
+   \   00006B   A3           INC     DPTR
+   \   00006C   E0           MOVX    A,@DPTR
+   \   00006D   3400         ADDC    A,#0x0
+   \   00006F   8A82         MOV     DPL,R2
+   \   000071   F583         MOV     DPH,A
+   \   000073   E4           CLR     A
+   \   000074   F0           MOVX    @DPTR,A
+   \   000075   02....       LJMP    ??HalLcdWriteString_4 & 0xFFFF
+    505            }
+    506            else
+    507            {
+    508              /* Line 2 triggers action */
+    509              tmpLen = (uint8)osal_strlen( (char*)Lcd_Line1 );
+   \                     ??HalLcdWriteString_3:
+   \   000078                ; Setup parameters for call to function osal_strlen
+   \   000078   90....       MOV     DPTR,#Lcd_Line1
+   \   00007B   E0           MOVX    A,@DPTR
+   \   00007C   FA           MOV     R2,A
+   \   00007D   A3           INC     DPTR
+   \   00007E   E0           MOVX    A,@DPTR
+   \   00007F   FB           MOV     R3,A
+   \   000080   12....       LCALL   ??osal_strlen?relay
+   \   000083   EA           MOV     A,R2
+   \   000084   F5..         MOV     ?V0 + 6,A
+    510              totalLen =  tmpLen + 1 + strLen + 1;
+    511              buf = osal_mem_alloc( totalLen );
+   \   000086                ; Setup parameters for call to function osal_mem_alloc
+   \   000086   EE           MOV     A,R6
+   \   000087   25..         ADD     A,?V0 + 6
+   \   000089   2402         ADD     A,#0x2
+   \   00008B   FA           MOV     R2,A
+   \   00008C   7B00         MOV     R3,#0x0
+   \   00008E   12....       LCALL   ??osal_mem_alloc?relay
+   \   000091   8A..         MOV     ?V0 + 4,R2
+   \   000093   8B..         MOV     ?V0 + 5,R3
+    512              if ( buf != NULL )
+   \   000095   EA           MOV     A,R2
+   \   000096   7001         JNZ     ??HalLcdWriteString_5
+   \   000098   EB           MOV     A,R3
+   \                     ??HalLcdWriteString_5:
+   \   000099   6060         JZ      ??HalLcdWriteString_4
+    513              {
+    514                /* Concatenate strings */
+    515                osal_memcpy( buf, Lcd_Line1, tmpLen );
+   \   00009B                ; Setup parameters for call to function osal_memcpy
+   \   00009B   90....       MOV     DPTR,#Lcd_Line1
+   \   00009E   E0           MOVX    A,@DPTR
+   \   00009F   F5..         MOV     ?V0 + 8,A
+   \   0000A1   A3           INC     DPTR
+   \   0000A2   E0           MOVX    A,@DPTR
+   \   0000A3   F5..         MOV     ?V0 + 9,A
+   \   0000A5   75..00       MOV     ?V0 + 10,#0x0
+   \   0000A8   78..         MOV     R0,#?V0 + 8
+   \   0000AA   12....       LCALL   ?PUSH_XSTACK_I_THREE
+   \   0000AD   AC..         MOV     R4,?V0 + 6
+   \   0000AF   7D00         MOV     R5,#0x0
+   \   0000B1   12....       LCALL   ??Subroutine31_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_51:
+   \   0000B4   12....       LCALL   ?DEALLOC_XSTACK8
+    516                buf[tmpLen++] = ' ';
+   \   0000B7   85....       MOV     ?V0 + 8,?V0 + 6
+   \   0000BA   E5..         MOV     A,?V0 + 4
+   \   0000BC   25..         ADD     A,?V0 + 8
+   \   0000BE   F582         MOV     DPL,A
+   \   0000C0   E5..         MOV     A,?V0 + 5
+   \   0000C2   12....       LCALL   ??Subroutine30_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_43:
+   \   0000C5   05..         INC     ?V0 + 6
+    517                osal_memcpy( &buf[tmpLen], str, strLen );
+   \   0000C7                ; Setup parameters for call to function osal_memcpy
+   \   0000C7   78..         MOV     R0,#?V0 + 0
+   \   0000C9   12....       LCALL   ?PUSH_XSTACK_I_THREE
+   \   0000CC   EE           MOV     A,R6
+   \   0000CD   FC           MOV     R4,A
+   \   0000CE   7D00         MOV     R5,#0x0
+   \   0000D0   E5..         MOV     A,?V0 + 4
+   \   0000D2   25..         ADD     A,?V0 + 6
+   \   0000D4   FA           MOV     R2,A
+   \   0000D5   E5..         MOV     A,?V0 + 5
+   \   0000D7   3400         ADDC    A,#0x0
+   \   0000D9   FB           MOV     R3,A
+   \   0000DA   12....       LCALL   ??Subroutine31_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_52:
+   \   0000DD   12....       LCALL   ?DEALLOC_XSTACK8
+    518                buf[tmpLen+strLen] = '\0';
+   \   0000E0   EE           MOV     A,R6
+   \   0000E1   25..         ADD     A,?V0 + 6
+   \   0000E3   F8           MOV     R0,A
+   \   0000E4   E4           CLR     A
+   \   0000E5   3400         ADDC    A,#0x0
+   \   0000E7   F9           MOV     R1,A
+   \   0000E8   E5..         MOV     A,?V0 + 4
+   \   0000EA   28           ADD     A,R0
+   \   0000EB   F582         MOV     DPL,A
+   \   0000ED   E5..         MOV     A,?V0 + 5
+   \   0000EF   39           ADDC    A,R1
+   \   0000F0   F583         MOV     DPH,A
+   \   0000F2   E4           CLR     A
+   \   0000F3   F0           MOVX    @DPTR,A
+    519          
+    520          //      /* Send it out */
+    521          //#if defined (ZTOOL_P1) || defined (ZTOOL_P2)
+    522          //#if defined(SERIAL_DEBUG_SUPPORTED)
+    523          //      debug_str( (uint8*)buf );
+    524          //#endif //LCD_SUPPORTED
+    525          //#endif //ZTOOL_P1
+    526          
+    527                /* Free mem */
+    528                osal_mem_free( buf );
+   \   0000F4                ; Setup parameters for call to function osal_mem_free
+   \   0000F4   AA..         MOV     R2,?V0 + 4
+   \   0000F6   AB..         MOV     R3,?V0 + 5
+   \   0000F8   12....       LCALL   ??osal_mem_free?relay
+    529              }
+    530            }
+    531          
+    532            /* Display the string */
+    533            HalLcd_HW_WriteLine (option, str);
+   \                     ??HalLcdWriteString_4:
+   \   0000FB                ; Setup parameters for call to function HalLcd_HW_WriteLine
+   \   0000FB   AA..         MOV     R2,?V0 + 14
+   \   0000FD   AB..         MOV     R3,?V0 + 15
+   \   0000FF   A9..         MOV     R1,?V0 + 3
+   \   000101   12....       LCALL   ??HalLcd_HW_WriteLine?relay
+    534          
+    535          #endif //HAL_LCD
+    536          
+    537          }
+   \   000104   7F10         MOV     R7,#0x10
+   \   000106   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine30_0:
+   \   000000   3400         ADDC    A,#0x0
+   \   000002   F583         MOV     DPH,A
+   \   000004   7420         MOV     A,#0x20
+   \   000006   F0           MOVX    @DPTR,A
+   \   000007   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine31_0:
+   \   000000   12....       LCALL   ??osal_memcpy?relay
+   \   000003   7403         MOV     A,#0x3
+   \   000005   22           RET
+    538          
+    539          /**************************************************************************************************
+    540           * @fn      HalLcdWriteValue
+    541           *
+    542           * @brief   Write a value to the LCD
+    543           *
+    544           * @param   value  - value that will be displayed
+    545           *          radix  - 8, 10, 16
+    546           *          option - display options
+    547           *
+    548           * @return  None
+    549           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    550          void HalLcdWriteValue ( uint32 value, const uint8 radix, uint8 option)
+   \                     HalLcdWriteValue:
+    551          {
+   \   000000   74F2         MOV     A,#-0xe
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 14
+   \   000005                ; Auto size: 25
+   \   000005   74E7         MOV     A,#-0x19
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   00000A   7427         MOV     A,#0x27
+   \   00000C   12....       LCALL   ?XSTACK_DISP0_8
+   \   00000F   E0           MOVX    A,@DPTR
+   \   000010   FE           MOV     R6,A
+    552          #if (HAL_LCD == TRUE)
+    553            uint8 buf[LCD_MAX_BUF];
+    554          
+    555            _ltoa( value, &buf[0], radix );
+   \   000011                ; Setup parameters for call to function _ltoa
+   \   000011   85..82       MOV     DPL,?XSP + 0
+   \   000014   85..83       MOV     DPH,?XSP + 1
+   \   000017   8582..       MOV     ?V0 + 4,DPL
+   \   00001A   8583..       MOV     ?V0 + 5,DPH
+   \   00001D   78..         MOV     R0,#?V0 + 4
+   \   00001F   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000022   12....       LCALL   ??Subroutine33_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_57:
+   \   000025   12....       LCALL   ?DEALLOC_XSTACK8
+    556            HalLcdWriteString( (char*)buf, option );
+   \   000028                ; Setup parameters for call to function HalLcdWriteString
+   \   000028   EE           MOV     A,R6
+   \   000029   F9           MOV     R1,A
+   \   00002A   85..82       MOV     DPL,?XSP + 0
+   \   00002D   85..83       MOV     DPH,?XSP + 1
+   \   000030   AA82         MOV     R2,DPL
+   \   000032   AB83         MOV     R3,DPH
+   \   000034   12....       LCALL   ??HalLcdWriteString?relay
+    557          #endif
+    558          }
+   \   000037   7419         MOV     A,#0x19
+   \   000039   12....       LCALL   ?DEALLOC_XSTACK8
+   \   00003C                REQUIRE ?Subroutine25
+   \   00003C                ; // Fall through to label ?Subroutine25
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine25:
+   \   000000   7F06         MOV     R7,#0x6
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine33_0:
+   \   000000   12....       LCALL   ??_ltoa?relay
+   \   000003   7402         MOV     A,#0x2
+   \   000005   22           RET
+    559          
+    560          /**************************************************************************************************
+    561           * @fn      HalLcdWriteScreen
+    562           *
+    563           * @brief   Write a value to the LCD
+    564           *
+    565           * @param   line1  - string that will be displayed on line 1
+    566           *          line2  - string that will be displayed on line 2
+    567           *
+    568           * @return  None
+    569           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    570          void HalLcdWriteScreen( char *line1, char *line2 )
+   \                     HalLcdWriteScreen:
+    571          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   EC           MOV     A,R4
+   \   000006   FE           MOV     R6,A
+   \   000007   ED           MOV     A,R5
+   \   000008   FF           MOV     R7,A
+    572          #if (HAL_LCD == TRUE)
+    573            HalLcdWriteString( line1, 1 );
+   \   000009                ; Setup parameters for call to function HalLcdWriteString
+   \   000009   7901         MOV     R1,#0x1
+   \   00000B   12....       LCALL   ??HalLcdWriteString?relay
+    574            HalLcdWriteString( line2, 2 );
+   \   00000E                ; Setup parameters for call to function HalLcdWriteString
+   \   00000E   7902         MOV     R1,#0x2
+   \   000010   EE           MOV     A,R6
+   \   000011   FA           MOV     R2,A
+   \   000012   EF           MOV     A,R7
+   \   000013   FB           MOV     R3,A
+   \   000014   12....       LCALL   ??HalLcdWriteString?relay
+    575          #endif
+    576          }
+   \   000017   02....       LJMP    ?Subroutine27 & 0xFFFF
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine27:
+   \   000000   7F01         MOV     R7,#0x1
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+    577          
+    578          /**************************************************************************************************
+    579           * @fn      HalLcdWriteStringValue
+    580           *
+    581           * @brief   Write a string followed by a value to the LCD
+    582           *
+    583           * @param   title  - Title that will be displayed before the value
+    584           *          value  - value
+    585           *          format - redix
+    586           *          line   - line number
+    587           *
+    588           * @return  None
+    589           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    590          void HalLcdWriteStringValue( char *title, uint16 value, uint8 format, uint8 line )
+   \                     HalLcdWriteStringValue:
+    591          {
+   \   000000   74EE         MOV     A,#-0x12
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 18
+   \   000005                ; Auto size: 25
+   \   000005   74E7         MOV     A,#-0x19
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   00000A   EA           MOV     A,R2
+   \   00000B   FE           MOV     R6,A
+   \   00000C   EB           MOV     A,R3
+   \   00000D   FF           MOV     R7,A
+   \   00000E   8C..         MOV     ?V0 + 6,R4
+   \   000010   8D..         MOV     ?V0 + 7,R5
+   \   000012   89..         MOV     ?V0 + 4,R1
+   \   000014   742B         MOV     A,#0x2b
+   \   000016   12....       LCALL   ?XSTACK_DISP0_8
+   \   000019   E0           MOVX    A,@DPTR
+   \   00001A   F5..         MOV     ?V0 + 3,A
+    592          #if (HAL_LCD == TRUE)
+    593            uint8 tmpLen;
+    594            uint8 buf[LCD_MAX_BUF];
+    595            uint32 err;
+    596          
+    597            tmpLen = (uint8)osal_strlen( (char*)title );
+   \   00001C                ; Setup parameters for call to function osal_strlen
+   \   00001C   12....       LCALL   ?Subroutine5 & 0xFFFF
+    598            osal_memcpy( buf, title, tmpLen );
+   \                     ??CrossCallReturnLabel_4:
+   \   00001F                ; Setup parameters for call to function osal_memcpy
+   \   00001F   8E..         MOV     ?V0 + 0,R6
+   \   000021   8F..         MOV     ?V0 + 1,R7
+   \   000023   75..00       MOV     ?V0 + 2,#0x0
+   \   000026   78..         MOV     R0,#?V0 + 0
+   \   000028   12....       LCALL   ?PUSH_XSTACK_I_THREE
+   \   00002B   EA           MOV     A,R2
+   \   00002C   FC           MOV     R4,A
+   \   00002D   7D00         MOV     R5,#0x0
+   \   00002F   7403         MOV     A,#0x3
+   \   000031   12....       LCALL   ?XSTACK_DISP0_8
+   \   000034   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_47:
+   \   000037   12....       LCALL   ?DEALLOC_XSTACK8
+    599            buf[tmpLen] = ' ';
+   \   00003A   85..82       MOV     DPL,?XSP + 0
+   \   00003D   85..83       MOV     DPH,?XSP + 1
+   \   000040   E582         MOV     A,DPL
+   \   000042   25..         ADD     A,?V0 + 8
+   \   000044   12....       LCALL   ?Subroutine0 & 0xFFFF
+    600            err = (uint32)(value);
+    601            _ltoa( err, &buf[tmpLen+1], format );
+   \                     ??CrossCallReturnLabel_44:
+   \   000047                ; Setup parameters for call to function _ltoa
+   \   000047   A3           INC     DPTR
+   \   000048   8582..       MOV     ?V0 + 0,DPL
+   \   00004B   8583..       MOV     ?V0 + 1,DPH
+   \   00004E   78..         MOV     R0,#?V0 + 0
+   \   000050   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000053   A9..         MOV     R1,?V0 + 4
+   \   000055   AA..         MOV     R2,?V0 + 6
+   \   000057   AB..         MOV     R3,?V0 + 7
+   \   000059   12....       LCALL   ??Subroutine32_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_55:
+   \   00005C   12....       LCALL   ?DEALLOC_XSTACK8
+    602            HalLcdWriteString( (char*)buf, line );		
+   \   00005F                ; Setup parameters for call to function HalLcdWriteString
+   \   00005F   A9..         MOV     R1,?V0 + 3
+   \   000061                REQUIRE ?Subroutine28
+   \   000061                ; // Fall through to label ?Subroutine28
+    603          #endif
+    604          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine28:
+   \   000000   85..82       MOV     DPL,?XSP + 0
+   \   000003   85..83       MOV     DPH,?XSP + 1
+   \   000006   AA82         MOV     R2,DPL
+   \   000008   AB83         MOV     R3,DPH
+   \   00000A   12....       LCALL   ??HalLcdWriteString?relay
+   \   00000D   7419         MOV     A,#0x19
+   \   00000F   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000012   7F0A         MOV     R7,#0xa
+   \   000014   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   F582         MOV     DPL,A
+   \   000002   E583         MOV     A,DPH
+   \   000004                REQUIRE ??Subroutine30_0
+   \   000004                ; // Fall through to label ??Subroutine30_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine5:
+   \   000000   12....       LCALL   ??osal_strlen?relay
+   \   000003   EA           MOV     A,R2
+   \   000004   F5..         MOV     ?V0 + 8,A
+   \   000006   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   AA82         MOV     R2,DPL
+   \   000002   AB83         MOV     R3,DPH
+   \   000004                REQUIRE ??Subroutine31_0
+   \   000004                ; // Fall through to label ??Subroutine31_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine32_0:
+   \   000000   7C00         MOV     R4,#0x0
+   \   000002   7D00         MOV     R5,#0x0
+   \   000004                REQUIRE ??Subroutine33_0
+   \   000004                ; // Fall through to label ??Subroutine33_0
+    605          
+    606          /**************************************************************************************************
+    607           * @fn      HalLcdWriteStringValue
+    608           *
+    609           * @brief   Write a string followed by a value to the LCD
+    610           *
+    611           * @param   title   - Title that will be displayed before the value
+    612           *          value1  - value #1
+    613           *          format1 - redix of value #1
+    614           *          value2  - value #2
+    615           *          format2 - redix of value #2
+    616           *          line    - line number
+    617           *
+    618           * @return  None
+    619           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    620          void HalLcdWriteStringValueValue( char *title, uint16 value1, uint8 format1,
+   \                     HalLcdWriteStringValueValue:
+    621                                            uint16 value2, uint8 format2, uint8 line )
+    622          {
+   \   000000   74EE         MOV     A,#-0x12
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 18
+   \   000005                ; Auto size: 25
+   \   000005   74E7         MOV     A,#-0x19
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   00000A   8A..         MOV     ?V0 + 4,R2
+   \   00000C   8B..         MOV     ?V0 + 5,R3
+   \   00000E   8C..         MOV     ?V0 + 0,R4
+   \   000010   8D..         MOV     ?V0 + 1,R5
+   \   000012   89..         MOV     ?V0 + 7,R1
+   \   000014   742B         MOV     A,#0x2b
+   \   000016   12....       LCALL   ?XSTACK_DISP0_8
+   \   000019   E0           MOVX    A,@DPTR
+   \   00001A   FE           MOV     R6,A
+   \   00001B   A3           INC     DPTR
+   \   00001C   E0           MOVX    A,@DPTR
+   \   00001D   FF           MOV     R7,A
+   \   00001E   742D         MOV     A,#0x2d
+   \   000020   12....       LCALL   ?XSTACK_DISP0_8
+   \   000023   E0           MOVX    A,@DPTR
+   \   000024   F5..         MOV     ?V0 + 3,A
+   \   000026   742E         MOV     A,#0x2e
+   \   000028   12....       LCALL   ?XSTACK_DISP0_8
+   \   00002B   E0           MOVX    A,@DPTR
+   \   00002C   F5..         MOV     ?V0 + 2,A
+    623          
+    624          #if (HAL_LCD == TRUE)
+    625          
+    626            uint8 tmpLen;
+    627            uint8 buf[LCD_MAX_BUF];
+    628            uint32 err;
+    629          
+    630            tmpLen = (uint8)osal_strlen( (char*)title );
+   \   00002E                ; Setup parameters for call to function osal_strlen
+   \   00002E   12....       LCALL   ?Subroutine5 & 0xFFFF
+    631            if ( tmpLen )
+   \                     ??CrossCallReturnLabel_5:
+   \   000031   6028         JZ      ??HalLcdWriteStringValueValue_0
+    632            {
+    633              osal_memcpy( buf, title, tmpLen );
+   \   000033                ; Setup parameters for call to function osal_memcpy
+   \   000033   75..00       MOV     ?V0 + 6,#0x0
+   \   000036   78..         MOV     R0,#?V0 + 4
+   \   000038   12....       LCALL   ?PUSH_XSTACK_I_THREE
+   \   00003B   EA           MOV     A,R2
+   \   00003C   F5..         MOV     ?V0 + 4,A
+   \   00003E   FC           MOV     R4,A
+   \   00003F   7D00         MOV     R5,#0x0
+   \   000041   7403         MOV     A,#0x3
+   \   000043   12....       LCALL   ?XSTACK_DISP0_8
+   \   000046   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_48:
+   \   000049   12....       LCALL   ?DEALLOC_XSTACK8
+    634              buf[tmpLen++] = ' ';
+   \   00004C   85..82       MOV     DPL,?XSP + 0
+   \   00004F   85..83       MOV     DPH,?XSP + 1
+   \   000052   E582         MOV     A,DPL
+   \   000054   25..         ADD     A,?V0 + 4
+   \   000056   12....       LCALL   ?Subroutine0 & 0xFFFF
+    635            }
+   \                     ??CrossCallReturnLabel_45:
+   \   000059   05..         INC     ?V0 + 8
+    636          
+    637            err = (uint32)(value1);
+    638            _ltoa( err, &buf[tmpLen], format1 );
+   \                     ??HalLcdWriteStringValueValue_0:
+   \   00005B                ; Setup parameters for call to function _ltoa
+   \   00005B   85..82       MOV     DPL,?XSP + 0
+   \   00005E   85..83       MOV     DPH,?XSP + 1
+   \   000061   E582         MOV     A,DPL
+   \   000063   25..         ADD     A,?V0 + 8
+   \   000065   F5..         MOV     ?V0 + 4,A
+   \   000067   E583         MOV     A,DPH
+   \   000069   3400         ADDC    A,#0x0
+   \   00006B   F5..         MOV     ?V0 + 5,A
+   \   00006D   78..         MOV     R0,#?V0 + 4
+   \   00006F   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000072   A9..         MOV     R1,?V0 + 7
+   \   000074   12....       LCALL   ?Subroutine2 & 0xFFFF
+   \                     ??CrossCallReturnLabel_53:
+   \   000077   12....       LCALL   ?DEALLOC_XSTACK8
+    639            tmpLen = (uint8)osal_strlen( (char*)buf );
+   \   00007A                ; Setup parameters for call to function osal_strlen
+   \   00007A   85..82       MOV     DPL,?XSP + 0
+   \   00007D   85..83       MOV     DPH,?XSP + 1
+   \   000080   AA82         MOV     R2,DPL
+   \   000082   AB83         MOV     R3,DPH
+   \   000084   12....       LCALL   ?Subroutine5 & 0xFFFF
+    640          
+    641            buf[tmpLen++] = ',';
+   \                     ??CrossCallReturnLabel_6:
+   \   000087   F5..         MOV     ?V0 + 0,A
+   \   000089   85..82       MOV     DPL,?XSP + 0
+   \   00008C   85..83       MOV     DPH,?XSP + 1
+   \   00008F   E582         MOV     A,DPL
+   \   000091   25..         ADD     A,?V0 + 0
+   \   000093   F582         MOV     DPL,A
+   \   000095   E583         MOV     A,DPH
+   \   000097   3400         ADDC    A,#0x0
+   \   000099   F583         MOV     DPH,A
+   \   00009B   742C         MOV     A,#0x2c
+   \   00009D   F0           MOVX    @DPTR,A
+   \   00009E   05..         INC     ?V0 + 8
+    642            buf[tmpLen++] = ' ';
+   \   0000A0   85....       MOV     ?V0 + 0,?V0 + 8
+   \   0000A3   85..82       MOV     DPL,?XSP + 0
+   \   0000A6   85..83       MOV     DPH,?XSP + 1
+   \   0000A9   E582         MOV     A,DPL
+   \   0000AB   25..         ADD     A,?V0 + 0
+   \   0000AD   12....       LCALL   ?Subroutine0 & 0xFFFF
+    643            err = (uint32)(value2);
+    644            _ltoa( err, &buf[tmpLen], format2 );
+   \                     ??CrossCallReturnLabel_46:
+   \   0000B0                ; Setup parameters for call to function _ltoa
+   \   0000B0   7401         MOV     A,#0x1
+   \   0000B2   25..         ADD     A,?V0 + 8
+   \   0000B4   F8           MOV     R0,A
+   \   0000B5   85..82       MOV     DPL,?XSP + 0
+   \   0000B8   85..83       MOV     DPH,?XSP + 1
+   \   0000BB   E582         MOV     A,DPL
+   \   0000BD   28           ADD     A,R0
+   \   0000BE   F5..         MOV     ?V0 + 0,A
+   \   0000C0   E583         MOV     A,DPH
+   \   0000C2   3400         ADDC    A,#0x0
+   \   0000C4   F5..         MOV     ?V0 + 1,A
+   \   0000C6   78..         MOV     R0,#?V0 + 0
+   \   0000C8   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000CB   A9..         MOV     R1,?V0 + 3
+   \   0000CD   8E..         MOV     ?V0 + 0,R6
+   \   0000CF   8F..         MOV     ?V0 + 1,R7
+   \   0000D1   12....       LCALL   ?Subroutine2 & 0xFFFF
+   \                     ??CrossCallReturnLabel_54:
+   \   0000D4   12....       LCALL   ?DEALLOC_XSTACK8
+    645          
+    646            HalLcdWriteString( (char *)buf, line );		
+   \   0000D7                ; Setup parameters for call to function HalLcdWriteString
+   \   0000D7   A9..         MOV     R1,?V0 + 2
+   \   0000D9   02....       LJMP    ?Subroutine28 & 0xFFFF
+    647          
+    648          #endif
+    649          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   AA..         MOV     R2,?V0 + 0
+   \   000002   AB..         MOV     R3,?V0 + 1
+   \   000004                REQUIRE ??Subroutine32_0
+   \   000004                ; // Fall through to label ??Subroutine32_0
+    650          
+    651          /**************************************************************************************************
+    652           * @fn      HalLcdDisplayPercentBar
+    653           *
+    654           * @brief   Display percentage bar on the LCD
+    655           *
+    656           * @param   title   -
+    657           *          value   -
+    658           *
+    659           * @return  None
+    660           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    661          void HalLcdDisplayPercentBar( char *title, uint8 value )
+   \                     HalLcdDisplayPercentBar:
+    662          {
+   \   000000   74F1         MOV     A,#-0xf
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 15
+   \   000005                ; Auto size: 17
+   \   000005   74EF         MOV     A,#-0x11
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   00000A   E9           MOV     A,R1
+   \   00000B   FE           MOV     R6,A
+    663          #if (HAL_LCD == TRUE)
+    664          
+    665            uint8 percent;
+    666            uint8 leftOver;
+    667            uint8 buf[17];
+    668            uint32 err;
+    669            uint8 x;
+    670          
+    671            /* Write the title: */
+    672            HalLcdWriteString( title, HAL_LCD_LINE_1 );
+   \   00000C                ; Setup parameters for call to function HalLcdWriteString
+   \   00000C   7901         MOV     R1,#0x1
+   \   00000E   12....       LCALL   ??HalLcdWriteString?relay
+    673          
+    674            if ( value > 100 )
+   \   000011   EE           MOV     A,R6
+   \   000012   C3           CLR     C
+   \   000013   9465         SUBB    A,#0x65
+   \   000015   4002         JC      ??HalLcdDisplayPercentBar_0
+    675              value = 100;
+   \   000017   7E64         MOV     R6,#0x64
+    676          
+    677            /* convert to blocks */
+    678            percent = (uint8)(value / 10);
+   \                     ??HalLcdDisplayPercentBar_0:
+   \   000019   75F00A       MOV     B,#0xa
+   \   00001C   EE           MOV     A,R6
+   \   00001D   84           DIV     AB
+   \   00001E   FF           MOV     R7,A
+    679            leftOver = (uint8)(value % 10);
+   \   00001F   EE           MOV     A,R6
+   \   000020   75F00A       MOV     B,#0xa
+   \   000023   84           DIV     AB
+   \   000024   E5F0         MOV     A,B
+   \   000026   F5..         MOV     ?V0 + 0,A
+    680          
+    681            /* Make window */
+    682            osal_memcpy( buf, "[          ]  ", 15 );
+   \   000028                ; Setup parameters for call to function osal_memcpy
+   \   000028   75....       MOV     ?V0 + 4,#(`?<Constant "[          ]  ">` & 0xff)
+   \   00002B   75....       MOV     ?V0 + 5,#((`?<Constant "[          ]  ">` >> 8) & 0xff)
+   \   00002E   75..00       MOV     ?V0 + 6,#0x0
+   \   000031   78..         MOV     R0,#?V0 + 4
+   \   000033   12....       LCALL   ?PUSH_XSTACK_I_THREE
+   \   000036   7C0F         MOV     R4,#0xf
+   \   000038   7D00         MOV     R5,#0x0
+   \   00003A   7403         MOV     A,#0x3
+   \   00003C   12....       LCALL   ?XSTACK_DISP0_8
+   \   00003F   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_49:
+   \   000042   12....       LCALL   ?DEALLOC_XSTACK8
+    683          
+    684            for ( x = 0; x < percent; x ++ )
+   \   000045   7A00         MOV     R2,#0x0
+   \   000047   8004         SJMP    ??HalLcdDisplayPercentBar_1
+    685            {
+    686              buf[1+x] = '>';
+   \                     ??HalLcdDisplayPercentBar_2:
+   \   000049   743E         MOV     A,#0x3e
+   \   00004B   F0           MOVX    @DPTR,A
+    687            }
+   \   00004C   0A           INC     R2
+   \                     ??HalLcdDisplayPercentBar_1:
+   \   00004D   8A..         MOV     ?V0 + 2,R2
+   \   00004F   85..82       MOV     DPL,?XSP + 0
+   \   000052   85..83       MOV     DPH,?XSP + 1
+   \   000055   E582         MOV     A,DPL
+   \   000057   25..         ADD     A,?V0 + 2
+   \   000059   F582         MOV     DPL,A
+   \   00005B   E583         MOV     A,DPH
+   \   00005D   3400         ADDC    A,#0x0
+   \   00005F   F583         MOV     DPH,A
+   \   000061   A3           INC     DPTR
+   \   000062   EA           MOV     A,R2
+   \   000063   C3           CLR     C
+   \   000064   9F           SUBB    A,R7
+   \   000065   40E2         JC      ??HalLcdDisplayPercentBar_2
+    688          
+    689            if ( leftOver >= 5 )
+   \   000067   E5..         MOV     A,?V0 + 0
+   \   000069   C3           CLR     C
+   \   00006A   9405         SUBB    A,#0x5
+   \   00006C   4003         JC      ??HalLcdDisplayPercentBar_3
+    690              buf[1+x] = '+';
+   \   00006E   742B         MOV     A,#0x2b
+   \   000070   F0           MOVX    @DPTR,A
+    691          
+    692            err = (uint32)value;
+    693            _ltoa( err, (uint8*)&buf[13], 10 );
+   \                     ??HalLcdDisplayPercentBar_3:
+   \   000071                ; Setup parameters for call to function _ltoa
+   \   000071   740D         MOV     A,#0xd
+   \   000073   12....       LCALL   ?XSTACK_DISP0_8
+   \   000076   8582..       MOV     ?V0 + 0,DPL
+   \   000079   8583..       MOV     ?V0 + 1,DPH
+   \   00007C   78..         MOV     R0,#?V0 + 0
+   \   00007E   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000081   790A         MOV     R1,#0xa
+   \   000083   EE           MOV     A,R6
+   \   000084   FA           MOV     R2,A
+   \   000085   7B00         MOV     R3,#0x0
+   \   000087   12....       LCALL   ??Subroutine32_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_56:
+   \   00008A   12....       LCALL   ?DEALLOC_XSTACK8
+    694          
+    695            HalLcdWriteString( (char*)buf, HAL_LCD_LINE_2 );
+   \   00008D                ; Setup parameters for call to function HalLcdWriteString
+   \   00008D   7902         MOV     R1,#0x2
+   \   00008F   85..82       MOV     DPL,?XSP + 0
+   \   000092   85..83       MOV     DPH,?XSP + 1
+   \   000095   AA82         MOV     R2,DPL
+   \   000097   AB83         MOV     R3,DPH
+   \   000099   12....       LCALL   ??HalLcdWriteString?relay
+    696          
+    697          #endif
+    698          
+    699          }
+   \   00009C   7411         MOV     A,#0x11
+   \   00009E   12....       LCALL   ?DEALLOC_XSTACK8
+   \   0000A1   7F07         MOV     R7,#0x7
+   \   0000A3   02....       LJMP    ?BANKED_LEAVE_XDATA
+    700          
+    701          
+    702          #if (HAL_LCD == TRUE)
+    703          /**************************************************************************************************
+    704           *                                    HARDWARE LCD
+    705           **************************************************************************************************/
+    706          
+    707          /*******************************************************************************
+    708           * @fn      initLcd
+    709           *
+    710           * @brief   Initilize HW LCD Driver.
+    711           *
+    712           * @param   None
+    713           *
+    714           * @return  None
+    715           ******************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    716          void initLcd(void)
+   \                     initLcd:
+    717          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    718            LCD_CS_DDR |= LCD_CS_BV; 
+   \   000004   43FF01       ORL     0xff,#0x1
+    719            LCD_A0_DDR |= LCD_A0_BV; 
+   \   000007   43FE01       ORL     0xfe,#0x1
+    720            LCD_SCL_DDR |= LCD_SCL_BV; 
+   \   00000A   43FE02       ORL     0xfe,#0x2
+    721            LCD_SI_DDR |= LCD_SI_BV; 
+   \   00000D   43FE04       ORL     0xfe,#0x4
+    722              
+    723            lcdCommand(0xE2);                 //Reset Function
+   \   000010                ; Setup parameters for call to function lcdCommand
+   \   000010   79E2         MOV     R1,#-0x1e
+   \   000012   12....       LCALL   ?Subroutine8 & 0xFFFF
+    724            lcbWait(2000);
+    725            lcdCommand(0x2F);                 //Set Power Control
+   \                     ??CrossCallReturnLabel_11:
+   \   000015                ; Setup parameters for call to function lcdCommand
+   \   000015   792F         MOV     R1,#0x2f
+   \   000017   12....       LCALL   ?Subroutine8 & 0xFFFF
+    726            lcbWait(2000);
+    727          
+    728            lcdCommand(0xF8);                 //Set BOOSTER RATIO SET 1
+   \                     ??CrossCallReturnLabel_12:
+   \   00001A                ; Setup parameters for call to function lcdCommand
+   \   00001A   79F8         MOV     R1,#-0x8
+   \   00001C   12....       LCALL   ??lcdCommand?relay
+    729            lcdCommand(0x01);                 //Set BOOSTER RATIO SET 2 (5X)
+   \   00001F                ; Setup parameters for call to function lcdCommand
+   \   00001F   7901         MOV     R1,#0x1
+   \   000021   12....       LCALL   ??lcdCommand?relay
+    730          
+    731            lcdCommand(0xA3);                 //Set 1/7 Bias
+   \   000024                ; Setup parameters for call to function lcdCommand
+   \   000024   79A3         MOV     R1,#-0x5d
+   \   000026   12....       LCALL   ??lcdCommand?relay
+    732            lcdCommand(0x26);                 //Set V5 Ratio
+   \   000029                ; Setup parameters for call to function lcdCommand
+   \   000029   7926         MOV     R1,#0x26
+   \   00002B   12....       LCALL   ??lcdCommand?relay
+    733            lcdCommand(0x81);                 //Set Electronic Mode
+   \   00002E                ; Setup parameters for call to function lcdCommand
+   \   00002E   7981         MOV     R1,#-0x7f
+   \   000030   12....       LCALL   ??lcdCommand?relay
+    734            lcdCommand(0x20);                 //Set Electronic EQUister 
+   \   000033                ; Setup parameters for call to function lcdCommand
+   \   000033   7920         MOV     R1,#0x20
+   \   000035   12....       LCALL   ??lcdCommand?relay
+    735          
+    736            lcdCommand(0xC0);                 //COM output -> 0xC0:normal;0xC8:reverse
+   \   000038                ; Setup parameters for call to function lcdCommand
+   \   000038   79C0         MOV     R1,#-0x40
+   \   00003A   12....       LCALL   ??lcdCommand?relay
+    737            lcdCommand(0xA1);                 //SEG output -> 0xA0:normal;0xA1:reverse
+   \   00003D                ; Setup parameters for call to function lcdCommand
+   \   00003D   79A1         MOV     R1,#-0x5f
+   \   00003F   12....       LCALL   ??lcdCommand?relay
+    738            lcdCommand(0xA6);                 //LCD display -> 0xA6:normal;0xA7:reverse
+   \   000042                ; Setup parameters for call to function lcdCommand
+   \   000042   79A6         MOV     R1,#-0x5a
+   \   000044   12....       LCALL   ??lcdCommand?relay
+    739            lcdCommand(0xAF);                 //LCD display -> 0xAF:on;0xAE:off
+   \   000047                ; Setup parameters for call to function lcdCommand
+   \   000047   79AF         MOV     R1,#-0x51
+   \   000049   12....       LCALL   ??lcdCommand?relay
+    740          
+    741            lcdCommand(0x40);                 //Start Line
+   \   00004C                ; Setup parameters for call to function lcdCommand
+   \   00004C   7940         MOV     R1,#0x40
+   \   00004E   12....       LCALL   ?Subroutine8 & 0xFFFF
+    742            lcbWait(2000);
+    743          
+    744            HalLcd_HW_Clear();
+   \                     ??CrossCallReturnLabel_13:
+   \   000051                ; Setup parameters for call to function HalLcd_HW_Clear
+   \   000051   12....       LCALL   ??HalLcd_HW_Clear?relay
+    745          }
+   \   000054   02....       LJMP    ?Subroutine24 & 0xFFFF
+   \   000057                REQUIRE P1DIR
+   \   000057                REQUIRE P2DIR
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine8:
+   \   000000   12....       LCALL   ??lcdCommand?relay
+   \   000003                ; Setup parameters for call to function lcbWait
+   \   000003                ; Setup parameters for call to function lcbWait
+   \   000003                ; Setup parameters for call to function lcbWait
+   \   000003   7AD0         MOV     R2,#-0x30
+   \   000005   7B07         MOV     R3,#0x7
+   \   000007   12....       LCALL   ??lcbWait?relay
+   \   00000A   22           RET
+    746          
+    747          /*******************************************************************************
+    748           * @fn      HalLcd_HW_Control
+    749           *
+    750           * @brief   Write 1 command to the LCD
+    751           *
+    752           * @param   uint8 cmd - command to be written to the LCD
+    753           *
+    754           * @return  None
+    755           ******************************************************************************/
+    756          //-------------------------------------------------------------------
+    757          // @fn          lcdCommand
+    758          // @brief       Send command to display
+    759          // @param       uint8 command
+    760          // @return      none
+    761          //-------------------------------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    762          static void lcdCommand(uint8 command)
+   \                     lcdCommand:
+    763          {
+   \   000000   C0..         PUSH    ?V0 + 0
+   \   000002   C0..         PUSH    ?V0 + 1
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    764              uint8 i;
+    765              HAL_LCD_A0_CLR();
+   \   000004   C290         CLR     0x90.0
+    766              HAL_LCD_CS_CLR();
+   \   000006   C2A0         CLR     0xa0.0
+    767              for(i=0;i<8;i++)
+   \   000008   7A00         MOV     R2,#0x0
+    768              {
+    769                  if(command&(0x80>>i))
+   \                     ??lcdCommand_0:
+   \   00000A   75..80       MOV     ?V0 + 0,#-0x80
+   \   00000D   75..00       MOV     ?V0 + 1,#0x0
+   \   000010   EA           MOV     A,R2
+   \   000011   78..         MOV     R0,#?V0 + 0
+   \   000013   12....       LCALL   ?SS_SHR
+   \   000016   E5..         MOV     A,?V0 + 0
+   \   000018   59           ANL     A,R1
+   \   000019   6004         JZ      ??lcdCommand_1
+    770                  {
+    771                      HAL_LCD_SI_SET();
+   \   00001B   D292         SETB    0x90.2
+   \   00001D   8002         SJMP    ??lcdCommand_2
+    772                  }
+    773                  else
+    774                  {
+    775                      HAL_LCD_SI_CLR();
+   \                     ??lcdCommand_1:
+   \   00001F   C292         CLR     0x90.2
+    776                  }
+    777                  HAL_LCD_SCL_CLR();
+   \                     ??lcdCommand_2:
+   \   000021   C291         CLR     0x90.1
+    778                  HAL_LCD_SCL_SET();
+   \   000023   D291         SETB    0x90.1
+    779              }
+   \   000025   0A           INC     R2
+   \   000026   EA           MOV     A,R2
+   \   000027   C3           CLR     C
+   \   000028   9408         SUBB    A,#0x8
+   \   00002A   40DE         JC      ??lcdCommand_0
+    780              HAL_LCD_CS_SET();
+   \   00002C                REQUIRE ?Subroutine23
+   \   00002C                REQUIRE _A_P1
+   \   00002C                REQUIRE _A_P2
+   \   00002C                ; // Fall through to label ?Subroutine23
+    781              HAL_LCD_SI_SET();
+    782          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine23:
+   \   000000   D2A0         SETB    0xa0.0
+   \   000002   D292         SETB    0x90.2
+   \   000004   D0..         POP     ?V0 + 1
+   \   000006   D0..         POP     ?V0 + 0
+   \   000008   02....       LJMP    ?BRET
+    783          
+    784          /*******************************************************************************
+    785           * @fn      HalLcd_HW_Write
+    786           *
+    787           * @brief   Write 1 byte to the LCD
+    788           *
+    789           * @param   uint8 data - data to be written to the LCD
+    790           *
+    791           * @return  None
+    792           ******************************************************************************/
+    793          //-------------------------------------------------------------------
+    794          // @fn          lcdData
+    795          // @brief       Write character to display
+    796          // @param       uint8 ch - character to display
+    797          // @return      none
+    798          //-------------------------------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    799          static void lcdData(uint8 ch)
+   \                     lcdData:
+    800          {
+   \   000000   C0..         PUSH    ?V0 + 0
+   \   000002   C0..         PUSH    ?V0 + 1
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    801              uint8 i;
+    802              HAL_LCD_A0_SET();
+   \   000004   D290         SETB    0x90.0
+    803              HAL_LCD_CS_CLR();
+   \   000006   C2A0         CLR     0xa0.0
+    804              for(i=0;i<8;i++)
+   \   000008   7A00         MOV     R2,#0x0
+    805              {
+    806                  if(ch&(0x80>>i))
+   \                     ??lcdData_0:
+   \   00000A   75..80       MOV     ?V0 + 0,#-0x80
+   \   00000D   75..00       MOV     ?V0 + 1,#0x0
+   \   000010   EA           MOV     A,R2
+   \   000011   78..         MOV     R0,#?V0 + 0
+   \   000013   12....       LCALL   ?SS_SHR
+   \   000016   E5..         MOV     A,?V0 + 0
+   \   000018   59           ANL     A,R1
+   \   000019   6004         JZ      ??lcdData_1
+    807                  {
+    808                      HAL_LCD_SI_SET();
+   \   00001B   D292         SETB    0x90.2
+   \   00001D   8002         SJMP    ??lcdData_2
+    809                  }
+    810                  else
+    811                  {
+    812                      HAL_LCD_SI_CLR();
+   \                     ??lcdData_1:
+   \   00001F   C292         CLR     0x90.2
+    813                  }
+    814                  HAL_LCD_SCL_CLR();
+   \                     ??lcdData_2:
+   \   000021   C291         CLR     0x90.1
+    815                  HAL_LCD_SCL_SET();
+   \   000023   D291         SETB    0x90.1
+    816              }
+   \   000025   0A           INC     R2
+   \   000026   EA           MOV     A,R2
+   \   000027   C3           CLR     C
+   \   000028   9408         SUBB    A,#0x8
+   \   00002A   40DE         JC      ??lcdData_0
+    817              HAL_LCD_CS_SET();
+   \   00002C   80..         SJMP    ?Subroutine23
+   \   00002E                REQUIRE _A_P1
+   \   00002E                REQUIRE _A_P2
+    818              HAL_LCD_SI_SET();
+    819          }
+    820          
+    821          /**************************************************************************************************
+    822           * @fn          HalLcd_WriteChar
+    823           *
+    824           * @brief       Write a character on LCD
+    825           *
+    826           * @param       uint8 line - display line
+    827           *              uint8 col - column
+    828           *              char text - character to display
+    829           *
+    830           * @return      none
+    831           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    832          extern void HalLcd_WriteChar(uint8 line, uint8 col, char text)
+   \                     HalLcd_WriteChar:
+    833          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   EB           MOV     A,R3
+   \   000006   FE           MOV     R6,A
+    834              if (line == HAL_LCD_LINE_2)
+   \   000007   7402         MOV     A,#0x2
+   \   000009   69           XRL     A,R1
+   \   00000A   7007         JNZ     ??HalLcd_WriteChar_0
+    835              {
+    836                  SET_DISPLAY_LINE(LINE2 + col);
+   \   00000C                ; Setup parameters for call to function lcdCommand
+   \   00000C   7440         MOV     A,#0x40
+   \   00000E   2A           ADD     A,R2
+   \   00000F   4480         ORL     A,#0x80
+   \   000011   8003         SJMP    ??HalLcd_WriteChar_1
+    837              }
+    838              else
+    839              {
+    840                  SET_DISPLAY_LINE(LINE1 + col);
+   \                     ??HalLcd_WriteChar_0:
+   \   000013                ; Setup parameters for call to function lcdCommand
+   \   000013   7480         MOV     A,#-0x80
+   \   000015   4A           ORL     A,R2
+   \                     ??HalLcd_WriteChar_1:
+   \   000016   F9           MOV     R1,A
+    841              }
+   \   000017                REQUIRE ?Subroutine26
+   \   000017                ; // Fall through to label ?Subroutine26
+    842              lcdData(text);
+    843          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine26:
+   \   000000   12....       LCALL   ?Subroutine14 & 0xFFFF
+   \                     ??CrossCallReturnLabel_42:
+   \   000003   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine14:
+   \   000000   12....       LCALL   ??lcdCommand?relay
+   \   000003                ; Setup parameters for call to function lcdData
+   \   000003                ; Setup parameters for call to function lcdData
+   \   000003   EE           MOV     A,R6
+   \   000004   F9           MOV     R1,A
+   \   000005   12....       LCALL   ??lcdData?relay
+   \   000008   7F01         MOV     R7,#0x1
+   \   00000A   22           RET
+    844          
+    845          
+    846          
+    847          /**************************************************************************************************
+    848           * @fn          HalLcd_HW_SetContrast
+    849           *
+    850           * @brief       Set display contrast
+    851           *
+    852           * @param       uint8 value - contrast value
+    853           *
+    854           * @return      none
+    855           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    856          void HalLcd_HW_SetContrast(uint8 value)
+   \                     HalLcd_HW_SetContrast:
+    857          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
+   \   000006   FE           MOV     R6,A
+    858            SET_ICONRAM_ADDR(CONTRAST_CTRL_REGISTER);
+   \   000007                ; Setup parameters for call to function lcdCommand
+   \   000007   7950         MOV     R1,#0x50
+   \   000009   80..         SJMP    ?Subroutine26
+    859            lcdData(value);
+    860          }
+    861          
+    862          /*******************************************************************************
+    863           * @fn      HalLcd_HW_Clear
+    864           *
+    865           * @brief   Clear the HW LCD
+    866           *
+    867           * @param   None
+    868           *
+    869           * @return  None
+    870           ******************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    871          void HalLcd_HW_Clear(void)
+   \                     HalLcd_HW_Clear:
+    872          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+    873              uint8 i,j;
+    874              for(i = 0xB0;i<0xB8;i++)
+   \   000005   7FB0         MOV     R7,#-0x50
+    875              { 
+    876                  lcdCommand(i); //¼g­¶¦a§}
+   \                     ??HalLcd_HW_Clear_0:
+   \   000007                ; Setup parameters for call to function lcdCommand
+   \   000007   EF           MOV     A,R7
+   \   000008   F9           MOV     R1,A
+   \   000009   12....       LCALL   ??lcdCommand?relay
+    877                  lcdCommand(0x10); //¼gªì©l¦C¦a§}
+   \   00000C                ; Setup parameters for call to function lcdCommand
+   \   00000C   12....       LCALL   ?Subroutine15 & 0xFFFF
+    878                  lcdCommand(0x04);
+    879                  for(j = 0;j<128;j++)
+    880                  {
+    881                      lcdData(0x00); //¼gÅã¥Ü¸ê®Æ
+   \                     ??CrossCallReturnLabel_25:
+   \   00000F                ; Setup parameters for call to function lcdData
+   \   00000F   7900         MOV     R1,#0x0
+   \   000011   12....       LCALL   ??lcdData?relay
+    882                  }
+   \   000014   1E           DEC     R6
+   \   000015   EE           MOV     A,R6
+   \   000016   70F7         JNZ     ??CrossCallReturnLabel_25
+    883              }
+   \   000018   0F           INC     R7
+   \   000019   EF           MOV     A,R7
+   \   00001A   C3           CLR     C
+   \   00001B   94B8         SUBB    A,#-0x48
+   \   00001D   40E8         JC      ??HalLcd_HW_Clear_0
+    884          }
+   \   00001F   80..         SJMP    ?Subroutine27
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine15:
+   \   000000   7910         MOV     R1,#0x10
+   \   000002   12....       LCALL   ??lcdCommand?relay
+   \   000005                ; Setup parameters for call to function lcdCommand
+   \   000005                ; Setup parameters for call to function lcdCommand
+   \   000005   7904         MOV     R1,#0x4
+   \   000007   12....       LCALL   ??lcdCommand?relay
+   \   00000A   7E80         MOV     R6,#-0x80
+   \   00000C   22           RET
+    885          
+    886          /*******************************************************************************
+    887           * @fn      HalLcd_ClearLine
+    888           *
+    889           * @brief   Clear one line on display
+    890           *
+    891           * @param   uint8 line - display line
+    892           *
+    893           * @return  None
+    894           ******************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    895          void HalLcd_ClearLine(uint8 line)
+   \                     HalLcd_ClearLine:
+    896          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+    897              uint8 i, j, page;
+    898              page = 0xB0 + ((line - 1) *2);
+   \   000005   E9           MOV     A,R1
+   \   000006   C3           CLR     C
+   \   000007   33           RLC     A
+   \   000008   24AE         ADD     A,#-0x52
+   \   00000A   F5..         MOV     ?V0 + 0,A
+    899              for (i = 0; i < 2; i++)
+   \   00000C   7F02         MOV     R7,#0x2
+    900              {
+    901                  lcdCommand(page++); //¼g­¶¦a§}
+   \                     ??HalLcd_ClearLine_0:
+   \   00000E                ; Setup parameters for call to function lcdCommand
+   \   00000E   A9..         MOV     R1,?V0 + 0
+   \   000010   12....       LCALL   ??lcdCommand?relay
+   \   000013   05..         INC     ?V0 + 0
+    902                  lcdCommand(0x10); //¼gªì©l¦C¦a§}
+   \   000015                ; Setup parameters for call to function lcdCommand
+   \   000015   12....       LCALL   ?Subroutine15 & 0xFFFF
+    903                  lcdCommand(0x04);
+    904                  for (j = 0; j < 128; j++)
+    905                  {
+    906                      lcdData(0x00); //¼gÅã¥Ü¸ê®Æ
+   \                     ??CrossCallReturnLabel_26:
+   \   000018                ; Setup parameters for call to function lcdData
+   \   000018   7900         MOV     R1,#0x0
+   \   00001A   12....       LCALL   ??lcdData?relay
+    907                  }
+   \   00001D   1E           DEC     R6
+   \   00001E   EE           MOV     A,R6
+   \   00001F   70F7         JNZ     ??CrossCallReturnLabel_26
+    908              }
+   \   000021   1F           DEC     R7
+   \   000022   EF           MOV     A,R7
+   \   000023   70E9         JNZ     ??HalLcd_ClearLine_0
+    909          }
+   \   000025                REQUIRE ?Subroutine27
+   \   000025                ; // Fall through to label ?Subroutine27
+    910          
+    911          /**************************************************************************************************
+    912           * @fn      HalLcd_HW_ClearAllSpecChars
+    913           *
+    914           * @brief   Clear all special chars
+    915           *
+    916           * @param   None
+    917           *
+    918           * @return  None
+    919           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    920          void HalLcd_HW_ClearAllSpecChars(void)
+   \                     HalLcd_HW_ClearAllSpecChars:
+    921          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+    922            uint8 n = 0;
+    923          
+    924            SET_GCRAM_CHAR(0);
+   \   000005                ; Setup parameters for call to function lcdCommand
+   \   000005   79C0         MOV     R1,#-0x40
+   \   000007   12....       LCALL   ??lcdCommand?relay
+    925            for (n = 0; n < (8 * 8); n++)
+   \   00000A   7E40         MOV     R6,#0x40
+    926            {
+    927              lcdData(0x00);
+   \                     ??HalLcd_HW_ClearAllSpecChars_0:
+   \   00000C                ; Setup parameters for call to function lcdData
+   \   00000C   7900         MOV     R1,#0x0
+   \   00000E   12....       LCALL   ??lcdData?relay
+    928            }
+   \   000011   1E           DEC     R6
+   \   000012   EE           MOV     A,R6
+   \   000013   70F7         JNZ     ??HalLcd_HW_ClearAllSpecChars_0
+    929          }
+   \   000015   80..         SJMP    ?Subroutine27
+    930          
+    931          /*******************************************************************************
+    932           * @fn      HalLcd_HW_WriteChar
+    933           *
+    934           * @brief   Write one char to the display
+    935           *
+    936           * @param   uint8 line - line number that the char will be displayed
+    937           *          uint8 col - colum where the char will be displayed
+    938           *
+    939           * @return  None
+    940           ******************************************************************************/
+    941          /************************************************************
+    942           * @fn      HalLcd_HW_WriteChar
+    943          ************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    944          static void lcdUpdateChar( uint8 line, uint8 col, char ch )
+   \                     lcdUpdateChar:
+    945          {
+   \   000000   74F3         MOV     A,#-0xd
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 13
+   \   000005                ; Auto size: 0
+    946              uint8 i,pag,colh,coll;
+    947          
+    948              pag = ((line-1)*2)+0xB0;
+   \   000005   12....       LCALL   ?Subroutine7 & 0xFFFF
+    949              col*=8;
+    950              col+=4;
+    951              colh = col>>4;
+    952              colh = colh | 0xf0;
+    953              colh = colh & 0x1f;
+    954              coll = col & 0x0f;
+    955          
+    956              if(ch<32 || ch>127)
+   \                     ??CrossCallReturnLabel_9:
+   \   000008   4006         JC      ??lcdUpdateChar_0
+   \   00000A   EB           MOV     A,R3
+   \   00000B   C3           CLR     C
+   \   00000C   9480         SUBB    A,#-0x80
+   \   00000E   4002         JC      ??lcdUpdateChar_1
+    957                      ch=32;
+   \                     ??lcdUpdateChar_0:
+   \   000010   7B20         MOV     R3,#0x20
+    958              uint16 j=((uint16)(ch-32))*16;
+   \                     ??lcdUpdateChar_1:
+   \   000012   12....       LCALL   ?Subroutine6 & 0xFFFF
+   \                     ??CrossCallReturnLabel_7:
+   \   000015   12....       LCALL   ?S_SHL
+   \   000018   12....       LCALL   ?Subroutine10 & 0xFFFF
+    959          
+    960              lcdCommand(colh);
+    961              lcdCommand(coll);
+    962              lcdCommand(pag);
+    963              for (i=0;i<16;i++)
+   \                     ??CrossCallReturnLabel_16:
+   \   00001B   8009         SJMP    ??CrossCallReturnLabel_14
+    964              { 
+    965                  if (i == 8)
+   \                     ??lcdUpdateChar_2:
+   \   00001D   7408         MOV     A,#0x8
+   \   00001F   65..         XRL     A,?V0 + 0
+   \   000021   7003         JNZ     ??CrossCallReturnLabel_14
+    966                  { 
+    967                      lcdCommand(pag+1);
+   \   000023                ; Setup parameters for call to function lcdCommand
+   \   000023   12....       LCALL   ?Subroutine9 & 0xFFFF
+    968                      lcdCommand(colh);
+    969                      lcdCommand(coll);
+    970                  }
+    971          		lcdData(Font16x8[j++]);
+   \                     ??CrossCallReturnLabel_14:
+   \   000026                ; Setup parameters for call to function lcdData
+   \   000026   12....       LCALL   ?Subroutine3 & 0xFFFF
+    972              }
+   \                     ??CrossCallReturnLabel_0:
+   \   000029   40F2         JC      ??lcdUpdateChar_2
+    973          }
+   \   00002B                REQUIRE ?Subroutine29
+   \   00002B                ; // Fall through to label ?Subroutine29
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine29:
+   \   000000   7F05         MOV     R7,#0x5
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine10:
+   \   000000   AE..         MOV     R6,?V0 + 0
+   \   000002   AF..         MOV     R7,?V0 + 1
+   \   000004                ; Setup parameters for call to function lcdCommand
+   \   000004                ; Setup parameters for call to function lcdCommand
+   \   000004   12....       LCALL   ?Subroutine21 & 0xFFFF
+   \                     ??CrossCallReturnLabel_38:
+   \   000007                ; Setup parameters for call to function lcdCommand
+   \   000007                ; Setup parameters for call to function lcdCommand
+   \   000007   A9..         MOV     R1,?V0 + 2
+   \   000009   12....       LCALL   ??lcdCommand?relay
+   \   00000C   75..00       MOV     ?V0 + 0,#0x0
+   \   00000F   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine9:
+   \   000000   7401         MOV     A,#0x1
+   \   000002   25..         ADD     A,?V0 + 2
+   \   000004   F9           MOV     R1,A
+   \   000005   12....       LCALL   ??lcdCommand?relay
+   \   000008                ; Setup parameters for call to function lcdCommand
+   \   000008                ; Setup parameters for call to function lcdCommand
+   \   000008   12....       LCALL   ?Subroutine21 & 0xFFFF
+   \                     ??CrossCallReturnLabel_39:
+   \   00000B   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine21:
+   \   000000   A9..         MOV     R1,?V0 + 3
+   \   000002   12....       LCALL   ??lcdCommand?relay
+   \   000005                ; Setup parameters for call to function lcdCommand
+   \   000005                ; Setup parameters for call to function lcdCommand
+   \   000005                ; Setup parameters for call to function lcdCommand
+   \   000005                ; Setup parameters for call to function lcdCommand
+   \   000005   A9..         MOV     R1,?V0 + 4
+   \   000007   12....       LCALL   ??lcdCommand?relay
+   \   00000A   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine7:
+   \   000000   E9           MOV     A,R1
+   \   000001   C3           CLR     C
+   \   000002   33           RLC     A
+   \   000003   24AE         ADD     A,#-0x52
+   \   000005   F5..         MOV     ?V0 + 2,A
+   \   000007   EA           MOV     A,R2
+   \   000008   33           RLC     A
+   \   000009   33           RLC     A
+   \   00000A   33           RLC     A
+   \   00000B   54F8         ANL     A,#0xf8
+   \   00000D   2404         ADD     A,#0x4
+   \   00000F   FA           MOV     R2,A
+   \   000010   C4           SWAP    A
+   \   000011   540F         ANL     A,#0xf
+   \   000013   4410         ORL     A,#0x10
+   \   000015   F5..         MOV     ?V0 + 3,A
+   \   000017   740F         MOV     A,#0xf
+   \   000019   5A           ANL     A,R2
+   \   00001A   F5..         MOV     ?V0 + 4,A
+   \   00001C   EB           MOV     A,R3
+   \   00001D   C3           CLR     C
+   \   00001E   9420         SUBB    A,#0x20
+   \   000020   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine6:
+   \   000000   8B..         MOV     ?V0 + 0,R3
+   \   000002   74E0         MOV     A,#-0x20
+   \   000004   25..         ADD     A,?V0 + 0
+   \   000006   F5..         MOV     ?V0 + 0,A
+   \   000008   74FF         MOV     A,#-0x1
+   \   00000A   3400         ADDC    A,#0x0
+   \   00000C   F5..         MOV     ?V0 + 1,A
+   \   00000E   7404         MOV     A,#0x4
+   \   000010   78..         MOV     R0,#?V0 + 0
+   \   000012   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine3:
+   \   000000   EE           MOV     A,R6
+   \   000001   24..         ADD     A,#(Font16x8 & 0xff)
+   \   000003   F582         MOV     DPL,A
+   \   000005   EF           MOV     A,R7
+   \   000006   34..         ADDC    A,#((Font16x8 >> 8) & 0xff)
+   \   000008   F583         MOV     DPH,A
+   \   00000A   E4           CLR     A
+   \   00000B   93           MOVC    A,@A+DPTR
+   \   00000C   F9           MOV     R1,A
+   \   00000D   12....       LCALL   ??lcdData?relay
+   \   000010   EE           MOV     A,R6
+   \   000011   2401         ADD     A,#0x1
+   \   000013   0E           INC     R6
+   \   000014   EF           MOV     A,R7
+   \   000015   3400         ADDC    A,#0x0
+   \   000017   FF           MOV     R7,A
+   \   000018   05..         INC     ?V0 + 0
+   \   00001A   E5..         MOV     A,?V0 + 0
+   \   00001C   C3           CLR     C
+   \   00001D   9410         SUBB    A,#0x10
+   \   00001F   22           RET
+    974          
+    975          /*********************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    976          void HalLcdWriteChar( uint8 line, uint8 col, char ch )
+   \                     HalLcdWriteChar:
+    977          {
+   \   000000   74F3         MOV     A,#-0xd
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 13
+   \   000005                ; Auto size: 0
+    978              uint8 i,pag,colh,coll;
+    979          
+    980              pag = ((line-1)*2)+0xB0;
+   \   000005   12....       LCALL   ?Subroutine7 & 0xFFFF
+    981              col*=8;
+    982              col+=4;
+    983              colh = col>>4;
+    984              colh = colh | 0xf0;
+    985              colh = colh & 0x1f;
+    986              coll = col & 0x0f;
+    987          
+    988              if(ch<32 || ch>127)
+   \                     ??CrossCallReturnLabel_10:
+   \   000008   4006         JC      ??HalLcdWriteChar_0
+   \   00000A   EB           MOV     A,R3
+   \   00000B   C3           CLR     C
+   \   00000C   9480         SUBB    A,#-0x80
+   \   00000E   4002         JC      ??HalLcdWriteChar_1
+    989                      ch=32;
+   \                     ??HalLcdWriteChar_0:
+   \   000010   7B20         MOV     R3,#0x20
+    990              uint16 j=((uint16)(ch-32))*16;
+   \                     ??HalLcdWriteChar_1:
+   \   000012   12....       LCALL   ?Subroutine6 & 0xFFFF
+   \                     ??CrossCallReturnLabel_8:
+   \   000015   12....       LCALL   ?S_SHL
+   \   000018   12....       LCALL   ?Subroutine10 & 0xFFFF
+    991          
+    992              lcdCommand(colh);
+    993              lcdCommand(coll);
+    994              lcdCommand(pag);
+    995              for (i=0;i<16;i++)
+   \                     ??CrossCallReturnLabel_17:
+   \   00001B   8009         SJMP    ??CrossCallReturnLabel_15
+    996              { 
+    997                  if (i == 8)
+   \                     ??HalLcdWriteChar_2:
+   \   00001D   7408         MOV     A,#0x8
+   \   00001F   65..         XRL     A,?V0 + 0
+   \   000021   7003         JNZ     ??CrossCallReturnLabel_15
+    998                  { 
+    999                      lcdCommand(pag+1);
+   \   000023                ; Setup parameters for call to function lcdCommand
+   \   000023   12....       LCALL   ?Subroutine9 & 0xFFFF
+   1000                      lcdCommand(colh);
+   1001                      lcdCommand(coll);
+   1002                  }
+   1003          		lcdData(Font16x8[j++]);
+   \                     ??CrossCallReturnLabel_15:
+   \   000026                ; Setup parameters for call to function lcdData
+   \   000026   12....       LCALL   ?Subroutine3 & 0xFFFF
+   1004              }
+   \                     ??CrossCallReturnLabel_1:
+   \   000029   40F2         JC      ??HalLcdWriteChar_2
+   1005          }
+   \   00002B   80..         SJMP    ?Subroutine29
+   1006          
+   1007          /**************************************************************************************************
+   1008           * @fn          halLcdWriteLine
+   1009           *
+   1010           * @brief       Write one line on display
+   1011           *
+   1012           * @param       uint8 line - display line
+   1013           *              char *pText - text buffer to write
+   1014           *
+   1015           * @return      none
+   1016           **************************************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   1017          void HalLcd_HW_WriteLine(uint8 line, const char *pText)
+   \                     HalLcd_HW_WriteLine:
+   1018          {
+   \   000000   74F5         MOV     A,#-0xb
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 11
+   \   000005                ; Auto size: 0
+   \   000005   89..         MOV     ?V0 + 1,R1
+   \   000007   EA           MOV     A,R2
+   \   000008   FE           MOV     R6,A
+   \   000009   EB           MOV     A,R3
+   \   00000A   FF           MOV     R7,A
+   1019            uint8 count;
+   1020            uint8 totalLength = (uint8)osal_strlen( (char *)pText );
+   \   00000B                ; Setup parameters for call to function osal_strlen
+   \   00000B   12....       LCALL   ??osal_strlen?relay
+   \   00000E   EA           MOV     A,R2
+   \   00000F   F5..         MOV     ?V0 + 2,A
+   1021          
+   1022            /* Write the content first */
+   1023            for (count=0; count<totalLength; count++)
+   \   000011   75..00       MOV     ?V0 + 0,#0x0
+   \   000014   8018         SJMP    ??HalLcd_HW_WriteLine_0
+   1024            {
+   1025              lcdUpdateChar(line, count, (*(pText++)));
+   \                     ??HalLcd_HW_WriteLine_1:
+   \   000016                ; Setup parameters for call to function lcdUpdateChar
+   \   000016   8E82         MOV     DPL,R6
+   \   000018   8F83         MOV     DPH,R7
+   \   00001A   E0           MOVX    A,@DPTR
+   \   00001B   FB           MOV     R3,A
+   \   00001C   AA..         MOV     R2,?V0 + 0
+   \   00001E   A9..         MOV     R1,?V0 + 1
+   \   000020   12....       LCALL   ??lcdUpdateChar?relay
+   \   000023   8E82         MOV     DPL,R6
+   \   000025   8F83         MOV     DPH,R7
+   \   000027   A3           INC     DPTR
+   \   000028   AE82         MOV     R6,DPL
+   \   00002A   AF83         MOV     R7,DPH
+   1026            }
+   \   00002C   05..         INC     ?V0 + 0
+   \                     ??HalLcd_HW_WriteLine_0:
+   \   00002E   E5..         MOV     A,?V0 + 0
+   \   000030   C3           CLR     C
+   \   000031   95..         SUBB    A,?V0 + 2
+   \   000033   40E1         JC      ??HalLcd_HW_WriteLine_1
+   1027          
+   1028            /* Write blank spaces to rest of the line */
+   1029            for(count=totalLength; count<LCD_LINE_LENGTH;count++)
+   \   000035   85....       MOV     ?V0 + 0,?V0 + 2
+   \   000038   800B         SJMP    ??HalLcd_HW_WriteLine_2
+   1030            {
+   1031              lcdUpdateChar(line, count, ' ');
+   \                     ??HalLcd_HW_WriteLine_3:
+   \   00003A                ; Setup parameters for call to function lcdUpdateChar
+   \   00003A   7B20         MOV     R3,#0x20
+   \   00003C   AA..         MOV     R2,?V0 + 0
+   \   00003E   A9..         MOV     R1,?V0 + 1
+   \   000040   12....       LCALL   ??lcdUpdateChar?relay
+   1032            }
+   \   000043   05..         INC     ?V0 + 0
+   \                     ??HalLcd_HW_WriteLine_2:
+   \   000045   E5..         MOV     A,?V0 + 0
+   \   000047   C3           CLR     C
+   \   000048   9410         SUBB    A,#0x10
+   \   00004A   40EE         JC      ??HalLcd_HW_WriteLine_3
+   1033          }
+   \   00004C   7F03         MOV     R7,#0x3
+   \   00004E   02....       LJMP    ?BANKED_LEAVE_XDATA
+   1034          
+   1035          /*******************************************************************************
+   1036           * @fn      HalLcd_HW_WaitUs
+   1037           *
+   1038           * @brief   wait for x us. @ 32MHz MCU clock it takes 32 "nop"s for 1 us delay.
+   1039           *
+   1040           * @param   x us. range[0-65536]
+   1041           *
+   1042           * @return  None
+   1043           ******************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   1044          void HalLcd_HW_WaitUs(uint16 microSecs)
+   \                     HalLcd_HW_WaitUs:
+   1045          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+   \   000000   8020         SJMP    ??HalLcd_HW_WaitUs_0
+   1046            while(microSecs--)
+   1047            {
+   1048              /* 32 NOPs == 1 usecs */
+   1049              asm("nop"); asm("nop"); asm("nop"); asm("nop"); asm("nop");
+   \                     ??HalLcd_HW_WaitUs_1:
+   \   000002   00           nop
+   \   000003   00           nop
+   \   000004   00           nop
+   \   000005   00           nop
+   \   000006   00           nop
+   1050              asm("nop"); asm("nop"); asm("nop"); asm("nop"); asm("nop");
+   \   000007   00           nop
+   \   000008   00           nop
+   \   000009   00           nop
+   \   00000A   00           nop
+   \   00000B   00           nop
+   1051              asm("nop"); asm("nop"); asm("nop"); asm("nop"); asm("nop");
+   \   00000C   00           nop
+   \   00000D   00           nop
+   \   00000E   00           nop
+   \   00000F   00           nop
+   \   000010   00           nop
+   1052              asm("nop"); asm("nop"); asm("nop"); asm("nop"); asm("nop");
+   \   000011   00           nop
+   \   000012   00           nop
+   \   000013   00           nop
+   \   000014   00           nop
+   \   000015   00           nop
+   1053              asm("nop"); asm("nop"); asm("nop"); asm("nop"); asm("nop");
+   \   000016   00           nop
+   \   000017   00           nop
+   \   000018   00           nop
+   \   000019   00           nop
+   \   00001A   00           nop
+   1054              asm("nop"); asm("nop"); asm("nop"); asm("nop"); asm("nop");
+   \   00001B   00           nop
+   \   00001C   00           nop
+   \   00001D   00           nop
+   \   00001E   00           nop
+   \   00001F   00           nop
+   1055              asm("nop"); asm("nop");
+   \   000020   00           nop
+   \   000021   00           nop
+   1056            }
+   \                     ??HalLcd_HW_WaitUs_0:
+   \   000022   EA           MOV     A,R2
+   \   000023   F8           MOV     R0,A
+   \   000024   EB           MOV     A,R3
+   \   000025   F9           MOV     R1,A
+   \   000026   74FF         MOV     A,#-0x1
+   \   000028   28           ADD     A,R0
+   \   000029   1A           DEC     R2
+   \   00002A   74FF         MOV     A,#-0x1
+   \   00002C   39           ADDC    A,R1
+   \   00002D   FB           MOV     R3,A
+   \   00002E   E8           MOV     A,R0
+   \   00002F   7001         JNZ     ??HalLcd_HW_WaitUs_2
+   \   000031   E9           MOV     A,R1
+   \                     ??HalLcd_HW_WaitUs_2:
+   \   000032   70CE         JNZ     ??HalLcd_HW_WaitUs_1
+   1057          }
+   \   000034   02....       LJMP    ?BRET
+   1058          //-------------------------------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   1059          static void lcbWait( uint16 timeout )
+   \                     lcbWait:
+   1060          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+   \   000000   8003         SJMP    ??lcbWait_0
+   1061            while (timeout--)
+   1062            {
+   1063              asm("NOP");
+   \                     ??lcbWait_1:
+   \   000002   00           NOP
+   1064              asm("NOP");
+   \   000003   00           NOP
+   1065              asm("NOP");
+   \   000004   00           NOP
+   1066            }
+   \                     ??lcbWait_0:
+   \   000005   EA           MOV     A,R2
+   \   000006   F8           MOV     R0,A
+   \   000007   EB           MOV     A,R3
+   \   000008   F9           MOV     R1,A
+   \   000009   74FF         MOV     A,#-0x1
+   \   00000B   28           ADD     A,R0
+   \   00000C   1A           DEC     R2
+   \   00000D   74FF         MOV     A,#-0x1
+   \   00000F   39           ADDC    A,R1
+   \   000010   FB           MOV     R3,A
+   \   000011   E8           MOV     A,R0
+   \   000012   7001         JNZ     ??lcbWait_2
+   \   000014   E9           MOV     A,R1
+   \                     ??lcbWait_2:
+   \   000015   70EB         JNZ     ??lcbWait_1
+   1067          }
+   \   000017   02....       LJMP    ?BRET
+   1068          
+   1069          /*******************************************************************************
+   1070          * @fn          convInt32ToText
+   1071          * @brief       Converts 32 bit int to text
+   1072          * @param       int32 value
+   1073          * @return      char* - pointer to text buffer which is a file scope allocated array
+   1074           ******************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   1075          char *convInt32ToText(int32 value)
+   \                     convInt32ToText:
+   1076          {
+   \   000000   74EC         MOV     A,#-0x14
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 20
+   \   000005                ; Auto size: 0
+   \   000005   8A..         MOV     ?V0 + 4,R2
+   \   000007   8B..         MOV     ?V0 + 5,R3
+   \   000009   8C..         MOV     ?V0 + 6,R4
+   \   00000B   8D..         MOV     ?V0 + 7,R5
+   1077              static char pValueToTextBuffer[12];
+   1078              char *pLast;
+   1079              char *pFirst;
+   1080              char last;
+   1081              uint8 negative;
+   1082          
+   1083              pLast = pValueToTextBuffer;
+   \   00000D   7A..         MOV     R2,#(??pValueToTextBuffer & 0xff)
+   \   00000F   7B..         MOV     R3,#((??pValueToTextBuffer >> 8) & 0xff)
+   1084          
+   1085              // Record the sign of the value
+   1086              negative = (value < 0);
+   \   000011   90....       MOV     DPTR,#__Constant_0
+   \   000014   78..         MOV     R0,#?V0 + 0
+   \   000016   12....       LCALL   ?L_MOV_X
+   \   000019   78..         MOV     R0,#?V0 + 0
+   \   00001B   79..         MOV     R1,#?V0 + 4
+   \   00001D   12....       LCALL   ?SL_GT
+   \   000020   5009         JNC     ??convInt32ToText_0
+   \   000022   7C01         MOV     R4,#0x1
+   \   000024   78..         MOV     R0,#?V0 + 4
+   \   000026   12....       LCALL   ?L_NEG
+   \   000029   8002         SJMP    ??convInt32ToText_1
+   \                     ??convInt32ToText_0:
+   \   00002B   7C00         MOV     R4,#0x0
+   1087              value = ABS(value);
+   1088          
+   1089              // Print the value in the reverse order
+   1090              do
+   1091              {
+   1092                  *(pLast++) = '0' + (uint8)(value % 10);
+   \                     ??convInt32ToText_1:
+   \   00002D   85....       MOV     ?V0 + 8,?V0 + 4
+   \   000030   85....       MOV     ?V0 + 9,?V0 + 5
+   \   000033   85....       MOV     ?V0 + 10,?V0 + 6
+   \   000036   85....       MOV     ?V0 + 11,?V0 + 7
+   \   000039   90....       MOV     DPTR,#__Constant_a
+   \   00003C   78..         MOV     R0,#?V0 + 0
+   \   00003E   12....       LCALL   ?L_MOV_X
+   \   000041   78..         MOV     R0,#?V0 + 8
+   \   000043   79..         MOV     R1,#?V0 + 0
+   \   000045   12....       LCALL   ?L_DIV_MOD
+   \   000048   E5..         MOV     A,?V0 + 0
+   \   00004A   2430         ADD     A,#0x30
+   \   00004C   8A82         MOV     DPL,R2
+   \   00004E   8B83         MOV     DPH,R3
+   \   000050   F0           MOVX    @DPTR,A
+   \   000051   A3           INC     DPTR
+   \   000052   AA82         MOV     R2,DPL
+   \   000054   AB83         MOV     R3,DPH
+   1093                  value /= 10;
+   \   000056   90....       MOV     DPTR,#__Constant_a
+   \   000059   78..         MOV     R0,#?V0 + 0
+   \   00005B   12....       LCALL   ?L_MOV_X
+   \   00005E   78..         MOV     R0,#?V0 + 4
+   \   000060   79..         MOV     R1,#?V0 + 0
+   \   000062   12....       LCALL   ?L_DIV_MOD
+   1094              }
+   1095              while (value);
+   \   000065   90....       MOV     DPTR,#__Constant_0
+   \   000068   78..         MOV     R0,#?V0 + 4
+   \   00006A   12....       LCALL   ?L_EQ_X
+   \   00006D   70BE         JNZ     ??convInt32ToText_1
+   1096          
+   1097              // Add the '-' when the number is negative, and terminate the string
+   1098              if (negative)
+   \   00006F   EC           MOV     A,R4
+   \   000070   600B         JZ      ??convInt32ToText_2
+   1099              {
+   1100                  *(pLast++) = '-';
+   \   000072   742D         MOV     A,#0x2d
+   \   000074   8A82         MOV     DPL,R2
+   \   000076   8B83         MOV     DPH,R3
+   \   000078   F0           MOVX    @DPTR,A
+   \   000079   A3           INC     DPTR
+   \   00007A   0A           INC     R2
+   \   00007B   AB83         MOV     R3,DPH
+   1101              }
+   1102              *(pLast--) = 0x00;
+   \                     ??convInt32ToText_2:
+   \   00007D   E4           CLR     A
+   \   00007E   12....       LCALL   ?Subroutine4 & 0xFFFF
+   1103          
+   1104              // Now reverse the string
+   1105              pFirst = pValueToTextBuffer;
+   \                     ??CrossCallReturnLabel_2:
+   \   000081   78..         MOV     R0,#(??pValueToTextBuffer & 0xff)
+   \   000083   79..         MOV     R1,#((??pValueToTextBuffer >> 8) & 0xff)
+   \   000085   8019         SJMP    ??convInt32ToText_3
+   1106              while (pLast > pFirst)
+   1107              {
+   1108                  last =  *pLast;
+   \                     ??convInt32ToText_4:
+   \   000087   8A82         MOV     DPL,R2
+   \   000089   8B83         MOV     DPH,R3
+   \   00008B   E0           MOVX    A,@DPTR
+   \   00008C   FC           MOV     R4,A
+   1109                  *(pLast--) =  *pFirst;
+   \   00008D   8882         MOV     DPL,R0
+   \   00008F   8983         MOV     DPH,R1
+   \   000091   E0           MOVX    A,@DPTR
+   \   000092   12....       LCALL   ?Subroutine4 & 0xFFFF
+   1110                  *(pFirst++) = last;
+   \                     ??CrossCallReturnLabel_3:
+   \   000095   EC           MOV     A,R4
+   \   000096   8882         MOV     DPL,R0
+   \   000098   8983         MOV     DPH,R1
+   \   00009A   F0           MOVX    @DPTR,A
+   \   00009B   A3           INC     DPTR
+   \   00009C   A882         MOV     R0,DPL
+   \   00009E   A983         MOV     R1,DPH
+   1111              }
+   \                     ??convInt32ToText_3:
+   \   0000A0   C3           CLR     C
+   \   0000A1   E8           MOV     A,R0
+   \   0000A2   9A           SUBB    A,R2
+   \   0000A3   E9           MOV     A,R1
+   \   0000A4   9B           SUBB    A,R3
+   \   0000A5   40E0         JC      ??convInt32ToText_4
+   1112              return pValueToTextBuffer;
+   \   0000A7   7A..         MOV     R2,#(??pValueToTextBuffer & 0xff)
+   \   0000A9   7B..         MOV     R3,#((??pValueToTextBuffer >> 8) & 0xff)
+   \   0000AB   7F0C         MOV     R7,#0xc
+   \   0000AD   02....       LJMP    ?BANKED_LEAVE_XDATA
+   1113          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine4:
+   \   000000   8A82         MOV     DPL,R2
+   \   000002   8B83         MOV     DPH,R3
+   \   000004   F0           MOVX    @DPTR,A
+   \   000005   EA           MOV     A,R2
+   \   000006   24FF         ADD     A,#-0x1
+   \   000008   1A           DEC     R2
+   \   000009   EB           MOV     A,R3
+   \   00000A   34FF         ADDC    A,#-0x1
+   \   00000C   FB           MOV     R3,A
+   \   00000D   22           RET
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     ??pValueToTextBuffer:
+   \   000000                DS 12
+   \   00000C                REQUIRE __INIT_XDATA_Z
+   1114          
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   1115          static const char hex[] = 
+   \                     hex:
+   \   000000   30313233     DB 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68, 69, 70
+   \            34353637
+   \            38394142
+   \            43444546
+   1116          {
+   1117              '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+   1118          };
+   1119          /*******************************************************************************
+   1120          * @fn          halLcdDisplayUint8
+   1121          * @brief       Write a 8 bit value on the specified line on the LCD
+   1122          * @param       uint8 value - value to display
+   1123          *              uint8 radix - must be HAL_LCD_RADIX_DEC
+   1124          *              uint8 line - line on display
+   1125          * @return      none
+   1126           ******************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   1127          void halLcdDisplayUint8(uint8 line, uint8 col, uint8 radix, uint8 value)
+   \                     halLcdDisplayUint8:
+   1128          {
+   \   000000   74F2         MOV     A,#-0xe
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 14
+   \   000005                ; Auto size: 0
+   \   000005   89..         MOV     ?V0 + 2,R1
+   \   000007   8A..         MOV     ?V0 + 1,R2
+   \   000009   8C..         MOV     ?V0 + 4,R4
+   1129              if (radix == HAL_LCD_RADIX_DEC)
+   \   00000B   EB           MOV     A,R3
+   \   00000C   703A         JNZ     ??halLcdDisplayUint8_0
+   1130              {
+   1131                  uint8 n = 0;
+   \   00000E   75..00       MOV     ?V0 + 0,#0x0
+   1132                  char *pValue = convInt32ToText((uint32)value);
+   \   000011                ; Setup parameters for call to function convInt32ToText
+   \   000011   EC           MOV     A,R4
+   \   000012   FA           MOV     R2,A
+   \   000013   7B00         MOV     R3,#0x0
+   \   000015   7C00         MOV     R4,#0x0
+   \   000017   7D00         MOV     R5,#0x0
+   \   000019   12....       LCALL   ??convInt32ToText?relay
+   \   00001C   8A..         MOV     ?V0 + 4,R2
+   \   00001E   8B..         MOV     ?V0 + 5,R3
+   \   000020   AE..         MOV     R6,?V0 + 4
+   \   000022   AF..         MOV     R7,?V0 + 5
+   \   000024   800C         SJMP    ??halLcdDisplayUint8_1
+   1133                  while (*pValue)
+   1134                  {
+   1135                      HalLcdWriteChar(line, col + n++, *(pValue++));
+   \                     ??halLcdDisplayUint8_2:
+   \   000026                ; Setup parameters for call to function HalLcdWriteChar
+   \   000026   12....       LCALL   ?Subroutine18 & 0xFFFF
+   1136                  }
+   \                     ??CrossCallReturnLabel_31:
+   \   000029   8E82         MOV     DPL,R6
+   \   00002B   8F83         MOV     DPH,R7
+   \   00002D   A3           INC     DPTR
+   \   00002E   AE82         MOV     R6,DPL
+   \   000030   AF83         MOV     R7,DPH
+   \                     ??halLcdDisplayUint8_1:
+   \   000032   8E82         MOV     DPL,R6
+   \   000034   8F83         MOV     DPH,R7
+   \   000036   E0           MOVX    A,@DPTR
+   \   000037   FB           MOV     R3,A
+   \   000038   70EC         JNZ     ??halLcdDisplayUint8_2
+   1137                  while (n < 3)
+   \                     ??halLcdDisplayUint8_3:
+   \   00003A   E5..         MOV     A,?V0 + 0
+   \   00003C   C3           CLR     C
+   \   00003D   9403         SUBB    A,#0x3
+   \   00003F   501D         JNC     ??CrossCallReturnLabel_40
+   1138                  {
+   1139                      HalLcdWriteChar(line, col + n++, ' ');
+   \   000041                ; Setup parameters for call to function HalLcdWriteChar
+   \   000041   7B20         MOV     R3,#0x20
+   \   000043   12....       LCALL   ?Subroutine18 & 0xFFFF
+   1140                  }
+   1141              }
+   \                     ??CrossCallReturnLabel_32:
+   \   000046   80F2         SJMP    ??halLcdDisplayUint8_3
+   1142              else if (radix == HAL_LCD_RADIX_HEX)
+   \                     ??halLcdDisplayUint8_0:
+   \   000048   7401         MOV     A,#0x1
+   \   00004A   6B           XRL     A,R3
+   \   00004B   7011         JNZ     ??CrossCallReturnLabel_40
+   1143              {
+   1144                  HalLcdWriteChar(line, col, hex[(value &0xF0) >> 4]);
+   \   00004D                ; Setup parameters for call to function HalLcdWriteChar
+   \   00004D   EC           MOV     A,R4
+   \   00004E   12....       LCALL   ?Subroutine11 & 0xFFFF
+   \                     ??CrossCallReturnLabel_18:
+   \   000051   12....       LCALL   ??HalLcdWriteChar?relay
+   1145                  HalLcdWriteChar(line, col + 1, hex[(value &0x0F)]);
+   \   000054                ; Setup parameters for call to function HalLcdWriteChar
+   \   000054   740F         MOV     A,#0xf
+   \   000056   55..         ANL     A,?V0 + 4
+   \   000058   12....       LCALL   ?Subroutine16 & 0xFFFF
+   1146              }
+   \                     ??CrossCallReturnLabel_27:
+   \   00005B   12....       LCALL   ?Subroutine22 & 0xFFFF
+   1147          }
+   \                     ??CrossCallReturnLabel_40:
+   \   00005E   02....       LJMP    ?Subroutine25 & 0xFFFF
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine18:
+   \   000000   E5..         MOV     A,?V0 + 0
+   \   000002   12....       LCALL   ?Subroutine22 & 0xFFFF
+   \                     ??CrossCallReturnLabel_41:
+   \   000005   05..         INC     ?V0 + 0
+   \   000007   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine22:
+   \   000000   25..         ADD     A,?V0 + 1
+   \   000002   FA           MOV     R2,A
+   \   000003   A9..         MOV     R1,?V0 + 2
+   \   000005   12....       LCALL   ??HalLcdWriteChar?relay
+   \   000008   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine16:
+   \   000000   12....       LCALL   ?Subroutine20 & 0xFFFF
+   \                     ??CrossCallReturnLabel_36:
+   \   000003   7401         MOV     A,#0x1
+   \   000005   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine11:
+   \   000000   C4           SWAP    A
+   \   000001   540F         ANL     A,#0xf
+   \   000003   12....       LCALL   ?Subroutine20 & 0xFFFF
+   \                     ??CrossCallReturnLabel_35:
+   \   000006   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine20:
+   \   000000   24..         ADD     A,#(hex & 0xff)
+   \   000002   F582         MOV     DPL,A
+   \   000004   E4           CLR     A
+   \   000005   34..         ADDC    A,#((hex >> 8) & 0xff)
+   \   000007   F583         MOV     DPH,A
+   \   000009   E0           MOVX    A,@DPTR
+   \   00000A   FB           MOV     R3,A
+   \   00000B   22           RET
+   1148          
+   1149          /*******************************************************************************
+   1150           @fn          halLcdDisplayUint16
+   1151           @brief       Write a 16 bit value on the specified line on the LCD
+   1152           @param       uint16 value - value to display
+   1153                        uint8 radix - must be HAL_LCD_RADIX_DEC
+   1154                        uint8 line - line on display
+   1155           @return      none
+   1156            *****************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   1157          void halLcdDisplayUint16(uint8 line, uint8 col, uint8 radix, uint16 value)
+   \                     halLcdDisplayUint16:
+   1158          {
+   \   000000   74F2         MOV     A,#-0xe
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 14
+   \   000005                ; Auto size: 0
+   \   000005   89..         MOV     ?V0 + 3,R1
+   \   000007   8A..         MOV     ?V0 + 2,R2
+   \   000009   8C..         MOV     ?V0 + 0,R4
+   \   00000B   8D..         MOV     ?V0 + 1,R5
+   1159              if (radix == HAL_LCD_RADIX_DEC)
+   \   00000D   EB           MOV     A,R3
+   \   00000E   703A         JNZ     ??halLcdDisplayUint16_0
+   1160              {
+   1161                  uint8 n = 0;
+   \   000010   75..00       MOV     ?V0 + 4,#0x0
+   1162                  char *pValue = convInt32ToText((uint32)value);
+   \   000013                ; Setup parameters for call to function convInt32ToText
+   \   000013   AA..         MOV     R2,?V0 + 0
+   \   000015   AB..         MOV     R3,?V0 + 1
+   \   000017   7C00         MOV     R4,#0x0
+   \   000019   7D00         MOV     R5,#0x0
+   \   00001B   12....       LCALL   ??convInt32ToText?relay
+   \   00001E   8A..         MOV     ?V0 + 0,R2
+   \   000020   8B..         MOV     ?V0 + 1,R3
+   \   000022   AE..         MOV     R6,?V0 + 0
+   \   000024   AF..         MOV     R7,?V0 + 1
+   \   000026   800C         SJMP    ??halLcdDisplayUint16_1
+   1163                  while (*pValue)
+   1164                  {
+   1165                      lcdUpdateChar(line, col + n++, *(pValue++));
+   \                     ??halLcdDisplayUint16_2:
+   \   000028                ; Setup parameters for call to function lcdUpdateChar
+   \   000028   12....       LCALL   ?Subroutine12 & 0xFFFF
+   1166                  }
+   \                     ??CrossCallReturnLabel_20:
+   \   00002B   8E82         MOV     DPL,R6
+   \   00002D   8F83         MOV     DPH,R7
+   \   00002F   A3           INC     DPTR
+   \   000030   AE82         MOV     R6,DPL
+   \   000032   AF83         MOV     R7,DPH
+   \                     ??halLcdDisplayUint16_1:
+   \   000034   8E82         MOV     DPL,R6
+   \   000036   8F83         MOV     DPH,R7
+   \   000038   E0           MOVX    A,@DPTR
+   \   000039   FB           MOV     R3,A
+   \   00003A   70EC         JNZ     ??halLcdDisplayUint16_2
+   1167                  while (n < 5)
+   \                     ??halLcdDisplayUint16_3:
+   \   00003C   E5..         MOV     A,?V0 + 4
+   \   00003E   C3           CLR     C
+   \   00003F   9405         SUBB    A,#0x5
+   \   000041   503F         JNC     ??CrossCallReturnLabel_24
+   1168                  {
+   1169                      lcdUpdateChar(line, col + n++, ' ');
+   \   000043                ; Setup parameters for call to function lcdUpdateChar
+   \   000043   7B20         MOV     R3,#0x20
+   \   000045   12....       LCALL   ?Subroutine12 & 0xFFFF
+   1170                  }
+   1171              }
+   \                     ??CrossCallReturnLabel_21:
+   \   000048   80F2         SJMP    ??halLcdDisplayUint16_3
+   1172              else if (radix == HAL_LCD_RADIX_HEX)
+   \                     ??halLcdDisplayUint16_0:
+   \   00004A   7401         MOV     A,#0x1
+   \   00004C   6B           XRL     A,R3
+   \   00004D   7033         JNZ     ??CrossCallReturnLabel_24
+   1173              {
+   1174                  lcdUpdateChar(line, col, hex[(value &0xF000) >> 12]);
+   \   00004F                ; Setup parameters for call to function lcdUpdateChar
+   \   00004F   8C..         MOV     ?V0 + 4,R4
+   \   000051   8D..         MOV     ?V0 + 5,R5
+   \   000053   740C         MOV     A,#0xc
+   \   000055   78..         MOV     R0,#?V0 + 4
+   \   000057   12....       LCALL   ?US_SHR
+   \   00005A   E5..         MOV     A,?V0 + 4
+   \   00005C   12....       LCALL   ?Subroutine17 & 0xFFFF
+   \                     ??CrossCallReturnLabel_29:
+   \   00005F   12....       LCALL   ??lcdUpdateChar?relay
+   1175                  lcdUpdateChar(line, col + 1, hex[(value &0x0F00) >> 8]);
+   \   000062                ; Setup parameters for call to function lcdUpdateChar
+   \   000062   740F         MOV     A,#0xf
+   \   000064   55..         ANL     A,?V0 + 1
+   \   000066   12....       LCALL   ?Subroutine16 & 0xFFFF
+   \                     ??CrossCallReturnLabel_28:
+   \   000069   12....       LCALL   ?Subroutine13 & 0xFFFF
+   1176                  lcdUpdateChar(line, col + 2, hex[(value &0x00F0) >> 4]);
+   \                     ??CrossCallReturnLabel_22:
+   \   00006C                ; Setup parameters for call to function lcdUpdateChar
+   \   00006C   E5..         MOV     A,?V0 + 0
+   \   00006E   12....       LCALL   ?Subroutine11 & 0xFFFF
+   \                     ??CrossCallReturnLabel_19:
+   \   000071   7402         MOV     A,#0x2
+   \   000073   12....       LCALL   ?Subroutine13 & 0xFFFF
+   1177                  lcdUpdateChar(line, col + 3, hex[(value &0x000F)]);
+   \                     ??CrossCallReturnLabel_23:
+   \   000076                ; Setup parameters for call to function lcdUpdateChar
+   \   000076   740F         MOV     A,#0xf
+   \   000078   55..         ANL     A,?V0 + 0
+   \   00007A   12....       LCALL   ?Subroutine17 & 0xFFFF
+   1178              }
+   \                     ??CrossCallReturnLabel_30:
+   \   00007D   7403         MOV     A,#0x3
+   \   00007F   12....       LCALL   ?Subroutine13 & 0xFFFF
+   1179          }
+   \                     ??CrossCallReturnLabel_24:
+   \   000082   02....       LJMP    ?Subroutine25 & 0xFFFF
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine17:
+   \   000000   12....       LCALL   ?Subroutine20 & 0xFFFF
+   \                     ??CrossCallReturnLabel_37:
+   \   000003   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine13:
+   \   000000   12....       LCALL   ?Subroutine19 & 0xFFFF
+   \                     ??CrossCallReturnLabel_33:
+   \   000003   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine19:
+   \   000000   25..         ADD     A,?V0 + 2
+   \   000002   FA           MOV     R2,A
+   \   000003   A9..         MOV     R1,?V0 + 3
+   \   000005   12....       LCALL   ??lcdUpdateChar?relay
+   \   000008   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine12:
+   \   000000   E5..         MOV     A,?V0 + 4
+   \   000002   12....       LCALL   ?Subroutine19 & 0xFFFF
+   \                     ??CrossCallReturnLabel_34:
+   \   000005   05..         INC     ?V0 + 4
+   \   000007   22           RET
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcdInit?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcdInit
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcdWriteString?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcdWriteString
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcdWriteValue?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcdWriteValue
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcdWriteScreen?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcdWriteScreen
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcdWriteStringValue?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcdWriteStringValue
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcdWriteStringValueValue?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcdWriteStringValueValue
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcdDisplayPercentBar?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcdDisplayPercentBar
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??initLcd?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    initLcd
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??lcdCommand?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    lcdCommand
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??lcdData?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    lcdData
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcd_WriteChar?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcd_WriteChar
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcd_HW_SetContrast?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcd_HW_SetContrast
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcd_HW_Clear?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcd_HW_Clear
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcd_ClearLine?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcd_ClearLine
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcd_HW_ClearAllSpecChars?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcd_HW_ClearAllSpecChars
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??lcdUpdateChar?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    lcdUpdateChar
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcdWriteChar?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcdWriteChar
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcd_HW_WriteLine?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcd_HW_WriteLine
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??HalLcd_HW_WaitUs?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    HalLcd_HW_WaitUs
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??lcbWait?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    lcbWait
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??convInt32ToText?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    convInt32ToText
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halLcdDisplayUint8?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halLcdDisplayUint8
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halLcdDisplayUint16?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halLcdDisplayUint16
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "[          ]  ">`:
+   \   000000   5B202020     DB "[          ]  "
+   \            20202020
+   \            2020205D
+   \            202000  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_0:
+   \   000000   00000000     DD 0
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_a:
+   \   000000   0A000000     DD 10
+   1180          
+   1181          
+   1182          
+   1183          #endif
+   1184          
+   1185          
+   1186          /**************************************************************************************************
+   1187          **************************************************************************************************/
+   1188          
+   1189          
+   1190          
+
+   Maximum stack usage in bytes:
+
+     Function                    ISTACK PSTACK XSTACK
+     --------                    ------ ------ ------
+     HalLcdDisplayPercentBar         1      0     35
+       -> HalLcdWriteString          0      0     64
+       -> osal_memcpy                0      0     70
+       -> _ltoa                      0      0     68
+       -> HalLcdWriteString          0      0     64
+     HalLcdInit                      2      0      0
+       -> initLcd                    4      0      0
+     HalLcdWriteChar                 0      0     27
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdData                    0      0     26
+     HalLcdWriteScreen               0      0      9
+       -> HalLcdWriteString          0      0     18
+       -> HalLcdWriteString          0      0     18
+     HalLcdWriteString               1      0     70
+       -> osal_mem_alloc             0      0     48
+       -> osal_strlen                0      0     48
+       -> osal_memcpy                0      0     54
+       -> osal_strlen                0      0     48
+       -> osal_mem_alloc             0      0     48
+       -> osal_memcpy                0      0     54
+       -> osal_memcpy                0      0     54
+       -> osal_mem_free              0      0     48
+       -> HalLcd_HW_WriteLine        0      0     48
+     HalLcdWriteStringValue          1      0     47
+       -> osal_strlen                0      0     86
+       -> osal_memcpy                0      0     92
+       -> _ltoa                      0      0     90
+       -> HalLcdWriteString          0      0     86
+     HalLcdWriteStringValueValue     1      0     50
+       -> osal_strlen                0      0     86
+       -> osal_memcpy                0      0     92
+       -> _ltoa                      0      0     90
+       -> osal_strlen                0      0     86
+       -> _ltoa                      0      0     90
+       -> HalLcdWriteString          0      0     86
+     HalLcdWriteValue                0      0     42
+       -> _ltoa                      0      0     82
+       -> HalLcdWriteString          0      0     78
+     HalLcd_ClearLine                0      0      9
+       -> lcdCommand                 0      0     18
+       -> lcdCommand                 0      0     18
+       -> lcdCommand                 0      0     18
+       -> lcdData                    0      0     18
+     HalLcd_HW_Clear                 0      0      9
+       -> lcdCommand                 0      0     18
+       -> lcdCommand                 0      0     18
+       -> lcdCommand                 0      0     18
+       -> lcdData                    0      0     18
+     HalLcd_HW_ClearAllSpecChars     0      0      9
+       -> lcdCommand                 0      0     18
+       -> lcdData                    0      0     18
+     HalLcd_HW_SetContrast           0      0      9
+       -> lcdCommand                 0      0     18
+       -> lcdData                    0      0     18
+     HalLcd_HW_WaitUs                0      0      0
+     HalLcd_HW_WriteLine             0      0     35
+       -> osal_strlen                0      0     22
+       -> lcdUpdateChar              0      0     22
+       -> lcdUpdateChar              0      0     22
+     HalLcd_WriteChar                0      0      9
+       -> lcdCommand                 0      0     18
+       -> lcdCommand                 0      0     18
+       -> lcdData                    0      0     18
+     convInt32ToText                 1      0     34
+     halLcdDisplayUint16             0      0     14
+       -> convInt32ToText            0      0     28
+       -> lcdUpdateChar              0      0     28
+       -> lcdUpdateChar              0      0     28
+       -> lcdUpdateChar              0      0     28
+       -> lcdUpdateChar              0      0     28
+       -> lcdUpdateChar              0      0     28
+       -> lcdUpdateChar              0      0     28
+     halLcdDisplayUint8              0      0     14
+       -> convInt32ToText            0      0     28
+       -> HalLcdWriteChar            0      0     28
+       -> HalLcdWriteChar            0      0     28
+       -> HalLcdWriteChar            0      0     28
+       -> HalLcdWriteChar            0      0     28
+     initLcd                         2      0      0
+       -> lcdCommand                 4      0      0
+       -> lcbWait                    4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcbWait                    4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcdCommand                 4      0      0
+       -> lcbWait                    4      0      0
+       -> HalLcd_HW_Clear            4      0      0
+     lcbWait                         0      0      0
+     lcdCommand                      2      0     13
+     lcdData                         2      0     13
+     lcdUpdateChar                   0      0     27
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdCommand                 0      0     26
+       -> lcdData                    0      0     26
+
+
+   Segment part sizes:
+
+     Function/Label                      Bytes
+     --------------                      -----
+     _A_P1                                  1
+     _A_P2                                  1
+     P1DIR                                  1
+     P2DIR                                  1
+     Font16x8                            1536
+     Lcd_Line1                              2
+     HalLcdInit                            14
+     ?Subroutine24                          7
+     HalLcdWriteString                    265
+     ??Subroutine30_0                       8
+     ??Subroutine31_0                       6
+     HalLcdWriteValue                      60
+     ?Subroutine25                          5
+     ??Subroutine33_0                       6
+     HalLcdWriteScreen                     26
+     ?Subroutine27                          5
+     HalLcdWriteStringValue                97
+     ?Subroutine28                         23
+     ?Subroutine0                           4
+     ?Subroutine5                           7
+     ?Subroutine1                           4
+     ??Subroutine32_0                       4
+     HalLcdWriteStringValueValue          220
+     ?Subroutine2                           4
+     HalLcdDisplayPercentBar              166
+     initLcd                               87
+     ?Subroutine8                          11
+     lcdCommand                            44
+     ?Subroutine23                         11
+     lcdData                               46
+     HalLcd_WriteChar                      23
+     ?Subroutine26                          6
+     ?Subroutine14                         11
+     HalLcd_HW_SetContrast                 11
+     HalLcd_HW_Clear                       33
+     ?Subroutine15                         13
+     HalLcd_ClearLine                      37
+     HalLcd_HW_ClearAllSpecChars           23
+     lcdUpdateChar                         43
+     ?Subroutine29                          5
+     ?Subroutine10                         16
+     ?Subroutine9                          12
+     ?Subroutine21                         11
+     ?Subroutine7                          33
+     ?Subroutine6                          19
+     ?Subroutine3                          32
+     HalLcdWriteChar                       45
+     HalLcd_HW_WriteLine                   81
+     HalLcd_HW_WaitUs                      55
+     lcbWait                               26
+     convInt32ToText                      176
+     ?Subroutine4                          14
+     pValueToTextBuffer                    12
+     hex                                   16
+     halLcdDisplayUint8                    97
+     ?Subroutine18                          8
+     ?Subroutine22                          9
+     ?Subroutine16                          6
+     ?Subroutine11                          7
+     ?Subroutine20                         12
+     halLcdDisplayUint16                  133
+     ?Subroutine17                          4
+     ?Subroutine13                          4
+     ?Subroutine19                          9
+     ?Subroutine12                          8
+     ??HalLcdInit?relay                     6
+     ??HalLcdWriteString?relay              6
+     ??HalLcdWriteValue?relay               6
+     ??HalLcdWriteScreen?relay              6
+     ??HalLcdWriteStringValue?relay         6
+     ??HalLcdWriteStringValueValue?relay    6
+     ??HalLcdDisplayPercentBar?relay        6
+     ??initLcd?relay                        6
+     ??lcdCommand?relay                     6
+     ??lcdData?relay                        6
+     ??HalLcd_WriteChar?relay               6
+     ??HalLcd_HW_SetContrast?relay          6
+     ??HalLcd_HW_Clear?relay                6
+     ??HalLcd_ClearLine?relay               6
+     ??HalLcd_HW_ClearAllSpecChars?relay    6
+     ??lcdUpdateChar?relay                  6
+     ??HalLcdWriteChar?relay                6
+     ??HalLcd_HW_WriteLine?relay            6
+     ??HalLcd_HW_WaitUs?relay               6
+     ??lcbWait?relay                        6
+     ??convInt32ToText?relay                6
+     ??halLcdDisplayUint8?relay             6
+     ??halLcdDisplayUint16?relay            6
+     ?<Constant "[          ]  ">          15
+     __Constant_0                           4
+     __Constant_a                           4
+
+ 
+ 2 152 bytes in segment BANKED_CODE
+   138 bytes in segment BANK_RELAYS
+ 1 536 bytes in segment CODE_C
+     4 bytes in segment SFR_AN
+    39 bytes in segment XDATA_ROM_C
+    14 bytes in segment XDATA_Z
+ 
+ 3 826 bytes of CODE  memory
+    31 bytes of CONST memory (+ 8 bytes shared)
+     0 bytes of DATA  memory (+ 4 bytes shared)
+    14 bytes of XDATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,549 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                01/Aug/2013  23:47:43 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network        #
+#                          Example\Components\hal\module\M140.c               #
+#    Command line       =  -f "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network    #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.c #
+#                          fg" (-DCPU32MHZ -DROOT=__near_func -DBLINK_LEDS)   #
+#                          -f "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network    #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig. #
+#                          cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0             #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network    #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg #
+#                          " (-DZCL_READ -DZCL_WRITE -DZCL_BASIC              #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE                       #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Components\hal\module\M140.c" -D           #
+#                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D            #
+#                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
+#                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
+#                          End_Device -D M140 -D xPA2591 -lC                  #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\List\" -lA        #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\List\"            #
+#                          --diag_suppress Pe001,Pa010 -o                     #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\Obj\" -e          #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "D:\CC2530_ZStack-2.3.0-1. #
+#                          4.0\Sensor Network Example\Projects\zstack\Sensor  #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\" -I "D:\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Projects\zstack\Sensor     #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\SOURCE\" -I                     #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\SOURCE\" -I                  #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I       #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\" -I  #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INCL #
+#                          UDE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor      #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MODU #
+#                          LE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor       #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TARG #
+#                          ET\CC2530KB\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sen #
+#                          sor Network Example\Projects\zstack\Sensor         #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MCU #
+#                          \CCSOC\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor   #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\INC #
+#                          LUDE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor     #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\AF #
+#                          \" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor         #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\NW #
+#                          K\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SE #
+#                          C\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SA #
+#                          PI\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor       #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SY #
+#                          S\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZC #
+#                          L\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZD #
+#                          O\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8W #
+#                          \" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor         #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"   #
+#                          -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network    #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SADDR\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor   #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SDATA\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor   #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INCL #
+#                          UDE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor      #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIGH #
+#                          _LEVEL\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor   #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sen #
+#                          sor Network Example\Projects\zstack\Sensor         #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\SINGLE_CHIP\" -I "C:\Program Files     #
+#                          (x86)\IAR Systems\Embedded Workbench               #
+#                          5.3\8051\INC\" -I "C:\Program Files (x86)\IAR      #
+#                          Systems\Embedded Workbench 5.3\8051\INC\CLIB\"     #
+#                          -Ohz                                               #
+#    List file          =  D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network        #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\List\M140.lst     #
+#    Object file        =  D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network        #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\Obj\M140.r51      #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network Example\Components\hal\module\M140.c
+      1          //-------------------------------------------------------------------
+      2          // Filename: M140.c
+      3          // Description: hal M140 library
+      4          //-------------------------------------------------------------------
+      5          //-------------------------------------------------------------------
+      6          // INCLUDES
+      7          //-------------------------------------------------------------------
+      8          #include "hal_mcu.h"
+
+   \                                 In  segment SFR_AN, at 0x80
+   \   union <unnamed> volatile __sfr _A_P0
+   \                     _A_P0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf3
+   \   unsigned char volatile __sfr P0SEL
+   \                     P0SEL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfd
+   \   unsigned char volatile __sfr P0DIR
+   \                     P0DIR:
+   \   000000                DS 1
+      9          #include "hal_board.h"
+     10          #include "hal_digio.h"
+     11          #include "hal_keypad.h"
+     12          #include "hal_timer.h"
+     13          #include "M140.h"
+     14          
+     15          //-------------------------------------------------------------------
+     16          // LOCAL VARIABLES
+     17          //-------------------------------------------------------------------
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     18          uint16 M140_Value;
+   \                     M140_Value:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
+     19          
+     20          uint8 M140_SpiRW(uint8 ch);
+     21          void ADT7301_Start(void);
+     22          void ADT7301_Read(void);
+     23          
+     24          //-------------------------------------------------------------------
+     25          // LOCAL FUNCTIONS
+     26          //-------------------------------------------------------------------
+     27          //--------------------------------------------
+     28          // The M140 module SPI read, write
+     29          //--------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     30          uint8 M140_SpiRW(uint8 ch)
+   \                     M140_SpiRW:
+     31          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+   \   000000   E9           MOV     A,R1
+     32              uint8 i, cmd, ret;
+     33          
+     34              cmd = ch;
+   \   000001   FB           MOV     R3,A
+     35              for (i = 0; i < 8; i++)
+   \   000002   7A08         MOV     R2,#0x8
+     36              {
+     37                  HAL_SPI_CLK_CLR();
+   \                     ??M140_SpiRW_0:
+   \   000004   C285         CLR     0x80.5
+     38                  if (cmd &0x80)
+   \   000006   EB           MOV     A,R3
+   \   000007   A2E7         MOV     C,0xE0 /* A   */.7
+   \   000009   5004         JNC     ??M140_SpiRW_1
+     39                  {
+     40                      HAL_SPI_MOSI_SET();
+   \   00000B   D284         SETB    0x80.4
+   \   00000D   8002         SJMP    ??M140_SpiRW_2
+     41                  }
+     42                  else
+     43                  {
+     44                      HAL_SPI_MOSI_CLR();
+   \                     ??M140_SpiRW_1:
+   \   00000F   C284         CLR     0x80.4
+     45                  }
+     46                  cmd <<= 1;
+   \                     ??M140_SpiRW_2:
+   \   000011   C3           CLR     C
+   \   000012   33           RLC     A
+   \   000013   FB           MOV     R3,A
+     47                  ret <<= 1;
+   \   000014   E9           MOV     A,R1
+   \   000015   C3           CLR     C
+   \   000016   33           RLC     A
+   \   000017   F9           MOV     R1,A
+     48                  HAL_SPI_CLK_SET();
+   \   000018   D285         SETB    0x80.5
+     49                  if (HAL_SPI_MISO_VAL())
+   \   00001A   A286         MOV     C,0x80.6
+   \   00001C   5003         JNC     ??M140_SpiRW_3
+     50                  {
+     51                      ret |= 0x01;
+   \   00001E   D2E0         SETB    0xE0 /* A   */.0
+   \   000020   F9           MOV     R1,A
+     52                  }
+     53              }
+   \                     ??M140_SpiRW_3:
+   \   000021   1A           DEC     R2
+   \   000022   EA           MOV     A,R2
+   \   000023   70DF         JNZ     ??M140_SpiRW_0
+     54              HAL_SPI_MOSI_SET();
+   \   000025   D284         SETB    0x80.4
+     55              return ret;
+   \   000027   02....       LJMP    ?BRET
+   \   00002A                REQUIRE _A_P0
+     56          }
+     57          
+     58          //--------------------------------------------
+     59          // Start the ADT7301
+     60          //--------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     61          void ADT7301_Start(void)
+   \                     ADT7301_Start:
+     62          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     63              HAL_SPI_CS_EN();
+   \   000004   C287         CLR     0x80.7
+     64              M140_SpiRW(0x00);
+   \   000006                ; Setup parameters for call to function M140_SpiRW
+   \   000006   7900         MOV     R1,#0x0
+   \   000008   12....       LCALL   ??M140_SpiRW?relay
+     65              M140_SpiRW(0x00);
+   \   00000B                ; Setup parameters for call to function M140_SpiRW
+   \   00000B   7900         MOV     R1,#0x0
+   \   00000D   12....       LCALL   ??M140_SpiRW?relay
+     66              HAL_SPI_CS_DIS();
+   \   000010   D287         SETB    0x80.7
+     67          }
+   \   000012                REQUIRE ?Subroutine1
+   \   000012                REQUIRE _A_P0
+   \   000012                ; // Fall through to label ?Subroutine1
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   D083         POP     DPH
+   \   000002   D082         POP     DPL
+   \   000004   02....       LJMP    ?BRET
+     68          
+     69          //--------------------------------------------
+     70          // Read the ADT7301 
+     71          //--------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     72          void ADT7301_Read(void)
+   \                     ADT7301_Read:
+     73          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+     74              HAL_SPI_CS_EN();
+   \   000005   C287         CLR     0x80.7
+     75              M140_Value = M140_SpiRW(0x20);
+   \   000007                ; Setup parameters for call to function M140_SpiRW
+   \   000007   7920         MOV     R1,#0x20
+   \   000009   12....       LCALL   ??M140_SpiRW?relay
+   \   00000C   E9           MOV     A,R1
+   \   00000D   90....       MOV     DPTR,#M140_Value
+   \   000010   F0           MOVX    @DPTR,A
+   \   000011   A3           INC     DPTR
+   \   000012   E4           CLR     A
+   \   000013   F0           MOVX    @DPTR,A
+     76              M140_Value = (M140_Value << 8) + M140_SpiRW(0x00);
+   \   000014   90....       MOV     DPTR,#M140_Value
+   \   000017   E0           MOVX    A,@DPTR
+   \   000018   FF           MOV     R7,A
+   \   000019                ; Setup parameters for call to function M140_SpiRW
+   \   000019   7900         MOV     R1,#0x0
+   \   00001B   12....       LCALL   ??M140_SpiRW?relay
+   \   00001E   E9           MOV     A,R1
+   \   00001F   2400         ADD     A,#0x0
+   \   000021   F8           MOV     R0,A
+   \   000022   E4           CLR     A
+   \   000023   3F           ADDC    A,R7
+   \   000024   F9           MOV     R1,A
+   \   000025   90....       MOV     DPTR,#M140_Value
+   \   000028   E8           MOV     A,R0
+   \   000029   F0           MOVX    @DPTR,A
+   \   00002A   A3           INC     DPTR
+   \   00002B   E9           MOV     A,R1
+   \   00002C   F0           MOVX    @DPTR,A
+     77              HAL_SPI_CS_DIS();
+   \   00002D   D287         SETB    0x80.7
+     78          }
+   \   00002F   7F01         MOV     R7,#0x1
+   \   000031   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   000034                REQUIRE _A_P0
+     79          
+     80          //-------------------------------------------------------------------
+     81          // GLOBAL FUNCTIONS
+     82          //-------------------------------------------------------------------
+     83          //--------------------------------------------
+     84          // Initilization M140 module
+     85          //--------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     86          void M140_Init(void)
+   \                     M140_Init:
+     87          {   
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     88              HAL_SPI_MISO_INPUT();
+   \   000004   53F3BF       ANL     0xf3,#0xbf
+   \   000007   53FDBF       ANL     0xfd,#0xbf
+     89              HAL_SPI_MOSI_OUTPUT();
+   \   00000A   53F3EF       ANL     0xf3,#0xef
+   \   00000D   43FD10       ORL     0xfd,#0x10
+     90              HAL_SPI_CLK_OUTPUT();
+   \   000010   53F3DF       ANL     0xf3,#0xdf
+   \   000013   43FD20       ORL     0xfd,#0x20
+     91              HAL_SPI_CS_OUTPUT();
+   \   000016   53F37F       ANL     0xf3,#0x7f
+   \   000019   43FD80       ORL     0xfd,#0x80
+     92              
+     93              ADT7301_Start();
+   \   00001C                ; Setup parameters for call to function ADT7301_Start
+   \   00001C   12....       LCALL   ?Subroutine0 & 0xFFFF
+     94              halMcuWaitMs(2);
+     95              ADT7301_Read();
+     96          }
+   \                     ??CrossCallReturnLabel_0:
+   \   00001F   80..         SJMP    ?Subroutine1
+   \   000021                REQUIRE P0DIR
+   \   000021                REQUIRE P0SEL
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   12....       LCALL   ??ADT7301_Start?relay
+   \   000003                ; Setup parameters for call to function halMcuWaitMs
+   \   000003                ; Setup parameters for call to function halMcuWaitMs
+   \   000003   7A02         MOV     R2,#0x2
+   \   000005   7B00         MOV     R3,#0x0
+   \   000007   12....       LCALL   ??halMcuWaitMs?relay
+   \   00000A                ; Setup parameters for call to function ADT7301_Read
+   \   00000A                ; Setup parameters for call to function ADT7301_Read
+   \   00000A   12....       LCALL   ??ADT7301_Read?relay
+   \   00000D   22           RET
+     97          
+     98          //--------------------------------------------
+     99          // Get the M140 sensor module value
+    100          //--------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    101          uint16 M140_GetValue(void)
+   \                     M140_GetValue:
+    102          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    103              ADT7301_Start();
+   \   000004                ; Setup parameters for call to function ADT7301_Start
+   \   000004   12....       LCALL   ?Subroutine0 & 0xFFFF
+    104              halMcuWaitMs(2);
+    105              ADT7301_Read();
+    106              return M140_Value;
+   \                     ??CrossCallReturnLabel_1:
+   \   000007   90....       MOV     DPTR,#M140_Value
+   \   00000A   E0           MOVX    A,@DPTR
+   \   00000B   FA           MOV     R2,A
+   \   00000C   A3           INC     DPTR
+   \   00000D   E0           MOVX    A,@DPTR
+   \   00000E   FB           MOV     R3,A
+   \   00000F   80..         SJMP    ?Subroutine1
+    107          }
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M140_SpiRW?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M140_SpiRW
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??ADT7301_Start?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    ADT7301_Start
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??ADT7301_Read?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    ADT7301_Read
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M140_Init?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M140_Init
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M140_GetValue?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M140_GetValue
+    108          
+
+   Maximum stack usage in bytes:
+
+     Function           ISTACK PSTACK XSTACK
+     --------           ------ ------ ------
+     ADT7301_Read           0      0      9
+       -> M140_SpiRW        0      0     18
+       -> M140_SpiRW        0      0     18
+     ADT7301_Start          2      0      0
+       -> M140_SpiRW        4      0      0
+       -> M140_SpiRW        4      0      0
+     M140_GetValue          2      0      0
+       -> ADT7301_Start     4      0      0
+       -> halMcuWaitMs      4      0      0
+       -> ADT7301_Read      4      0      0
+     M140_Init              2      0      0
+       -> ADT7301_Start     4      0      0
+       -> halMcuWaitMs      4      0      0
+       -> ADT7301_Read      4      0      0
+     M140_SpiRW             0      0      9
+
+
+   Segment part sizes:
+
+     Function/Label        Bytes
+     --------------        -----
+     _A_P0                    1
+     P0SEL                    1
+     P0DIR                    1
+     M140_Value               2
+     M140_SpiRW              42
+     ADT7301_Start           18
+     ?Subroutine1             7
+     ADT7301_Read            52
+     M140_Init               33
+     ?Subroutine0            14
+     M140_GetValue           17
+     ??M140_SpiRW?relay       6
+     ??ADT7301_Start?relay    6
+     ??ADT7301_Read?relay     6
+     ??M140_Init?relay        6
+     ??M140_GetValue?relay    6
+
+ 
+ 183 bytes in segment BANKED_CODE
+  30 bytes in segment BANK_RELAYS
+   3 bytes in segment SFR_AN
+   2 bytes in segment XDATA_Z
+ 
+ 213 bytes of CODE  memory
+   0 bytes of DATA  memory (+ 3 bytes shared)
+   2 bytes of XDATA memory
+
+Errors: none
+Warnings: none

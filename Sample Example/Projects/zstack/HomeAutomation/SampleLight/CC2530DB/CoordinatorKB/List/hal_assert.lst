@@ -1,0 +1,860 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                29/Nov/2010  16:01:06 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  C:\Documents and Settings\Darren\®à­±\ZIGBEE       #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Components\hal\common\hal_assert #
+#                          .c                                                 #
+#    Command line       =  -f "C:\Documents and Settings\Darren\®à­±\ZIGBEE   #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\Tools\CC2530DB\f8wCoo #
+#                          rd.cfg" (-DCPU32MHZ -DROOT=__near_func             #
+#                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE                   #
+#                          -DZDO_COORDINATOR -DRTR_NWK -DBLINK_LEDS) -f       #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\Tools\CC2530DB\f8wCon #
+#                          fig.cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0         #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "C:\Documents and Settings\Darren\®à­±\ZIGBEE   #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL #
+#                          .cfg" (-DZCL_READ -DZCL_WRITE -DZCL_BASIC          #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE "C:\Documents and     #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Components\hal\common\hal_assert #
+#                          .c" -D ZTOOL_P1 -D MT_TASK -D MT_APP_FUNC -D       #
+#                          MT_SYS_FUNC -D MT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG  #
+#                          -lC "C:\Documents and Settings\Darren\®à­±\ZIGBEE  #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\CoordinatorKB\List\" -lA       #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\CoordinatorKB\List\"           #
+#                          --diag_suppress Pe001,Pa010 -o "C:\Documents and   #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\CoordinatorKB\Obj\" -e         #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "C:\Documents and          #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\" -I "C:\Documents and         #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\SOURCE\" -I "C:\Documents   #
+#                          and Settings\Darren\®à­±\ZIGBEE                    #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\SOURCE\" -I              #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I   #
+#                          "C:\Documents and Settings\Darren\®à­±\ZIGBEE      #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MT\" #
+#                           -I "C:\Documents and Settings\Darren\®à­±\ZIGBEE  #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\ #
+#                          INCLUDE\" -I "C:\Documents and                     #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\ #
+#                          TARGET\CC2530EB\" -I "C:\Documents and             #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL #
+#                          \MCU\CCSOC\" -I "C:\Documents and                  #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL #
+#                          \INCLUDE\" -I "C:\Documents and                    #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\AF\" -I "C:\Documents and                        #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\NWK\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\SEC\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\SAPI\" -I "C:\Documents and                      #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\SYS\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\ZCL\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\STAC #
+#                          K\ZDO\" -I "C:\Documents and                       #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC #
+#                          \F8W\" -I "C:\Documents and                        #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC #
+#                          \" -I "C:\Documents and Settings\Darren\®à­±\ZIGBE #
+#                          E ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                         #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\SERV #
+#                          ICES\SADDR\" -I "C:\Documents and                  #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\SERV #
+#                          ICES\SDATA\" -I "C:\Documents and                  #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\ #
+#                          INCLUDE\" -I "C:\Documents and                     #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\ #
+#                          HIGH_LEVEL\" -I "C:\Documents and                  #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\ #
+#                          LOW_LEVEL\srf04\" -I "C:\Documents and             #
+#                          Settings\Darren\®à­±\ZIGBEE                        #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\ #
+#                          LOW_LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR           #
+#                          Systems\Embedded Workbench for MCS-51              #
+#                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded       #
+#                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz    #
+#    List file          =  C:\Documents and Settings\Darren\®à­±\ZIGBEE       #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\CoordinatorKB\List\hal_assert. #
+#                          lst                                                #
+#    Object file        =  C:\Documents and Settings\Darren\®à­±\ZIGBEE       #
+#                          ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE                           #
+#                          Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleLight\CC2530DB\CoordinatorKB\Obj\hal_assert.r #
+#                          51                                                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\Darren\®à­±\ZIGBEE ±Ð¾Ç¼Ò²Õ_¥X³f¥úºÐ\ZIGBEE Example\CC2530_ZStack\±Ð¾Ç¼Ò²Õ_Z-Stack_Ex\ZStack-CC2530-2.3.0-1.4.0\Components\hal\common\hal_assert.c
+      1          /**************************************************************************************************
+      2            Filename:       hal_assert.c
+      3            Revised:        $Date: 2010-01-07 10:10:43 -0800 (Thu, 07 Jan 2010) $
+      4            Revision:       $Revision: 21451 $
+      5          
+      6            Description:    Describe the purpose and contents of the file.
+      7          
+      8          
+      9            Copyright 2006-2010 Texas Instruments Incorporated. All rights reserved.
+     10          
+     11            IMPORTANT: Your use of this Software is limited to those specific rights
+     12            granted under the terms of a software license agreement between the user
+     13            who downloaded the software, his/her employer (which must be your employer)
+     14            and Texas Instruments Incorporated (the "License").  You may not use this
+     15            Software unless you agree to abide by the terms of the License. The License
+     16            limits your use, and you acknowledge, that the Software may not be modified,
+     17            copied or distributed unless embedded on a Texas Instruments microcontroller
+     18            or used solely and exclusively in conjunction with a Texas Instruments radio
+     19            frequency transceiver, which is integrated into your product.  Other than for
+     20            the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+     21            works of, modify, distribute, perform, display or sell this Software and/or
+     22            its documentation for any purpose.
+     23          
+     24            YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+     25            PROVIDED “AS IS?WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+     26            INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+     27            NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+     28            TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+     29            NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+     30            LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+     31            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+     32            OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+     33            OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+     34            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+     35          
+     36            Should you have any questions regarding your right to use this Software,
+     37            contact Texas Instruments Incorporated at www.TI.com.
+     38          **************************************************************************************************/
+     39          
+     40          
+     41          /* ------------------------------------------------------------------------------------------------
+     42           *                                          Includes
+     43           * ------------------------------------------------------------------------------------------------
+     44           */
+     45          #include "hal_assert.h"
+     46          #include "hal_types.h"
+     47          #include "hal_board.h"
+
+   \                                 In  segment SFR_AN, at 0x80
+   \   union <unnamed> volatile __sfr _A_P0
+   \                     _A_P0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x90
+   \   union <unnamed> volatile __sfr _A_P1
+   \                     _A_P1:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x9d
+   \   unsigned char volatile __sfr SLEEPSTA
+   \                     SLEEPSTA:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x9e
+   \   unsigned char volatile __sfr CLKCONSTA
+   \                     CLKCONSTA:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xa8
+   \   union <unnamed> volatile __sfr _A_IEN0
+   \                     _A_IEN0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xbe
+   \   unsigned char volatile __sfr SLEEPCMD
+   \                     SLEEPCMD:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xc6
+   \   unsigned char volatile __sfr CLKCONCMD
+   \                     CLKCONCMD:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfe
+   \   unsigned char volatile __sfr P1DIR
+   \                     P1DIR:
+   \   000000                DS 1
+     48          #include "hal_defs.h"
+     49          #include "hal_mcu.h"
+     50          
+     51          #if (defined HAL_MCU_AVR) || (defined HAL_MCU_CC2430) || (defined HAL_MCU_CC2530) || \
+     52            (defined HAL_MCU_CC2533) || (defined HAL_MCU_MSP430)
+     53            /* for access to debug data */
+     54            #include "mac_rx.h"
+     55            #include "mac_tx.h"
+     56          #endif
+     57          
+     58          /* ------------------------------------------------------------------------------------------------
+     59           *                                       Local Prototypes
+     60           * ------------------------------------------------------------------------------------------------
+     61           */
+     62          void halAssertHazardLights(void);
+     63          
+     64          
+     65          /**************************************************************************************************
+     66           * @fn          halAssertHandler
+     67           *
+     68           * @brief       Logic to handle an assert.
+     69           *
+     70           * @param       none
+     71           *
+     72           * @return      none
+     73           **************************************************************************************************
+     74           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     75          void halAssertHandler(void)
+   \                     halAssertHandler:
+     76          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     77            /* execute code that handles asserts */
+     78          #ifdef ASSERT_RESET
+     79            HAL_SYSTEM_RESET();
+     80          #else
+     81            halAssertHazardLights();
+   \   000004                ; Setup parameters for call to function halAssertHazardLights
+   \   000004   12....       LCALL   ??halAssertHazardLights?relay
+     82          #endif
+     83          
+     84          }
+   \   000007   D083         POP     DPH
+   \   000009   D082         POP     DPL
+   \   00000B   02....       LJMP    ?BRET
+     85          
+     86          
+     87          /**************************************************************************************************
+     88           * @fn          halAssertHazardLights
+     89           * @brief       Blink LEDs to indicate an error.
+     90           * @param       none
+     91           * @return      none
+     92           **************************************************************************************************
+     93           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     94          void halAssertHazardLights(void)
+   \                     halAssertHazardLights:
+     95          {
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 4
+   \   000005   74FC         MOV     A,#-0x4
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+     96            enum
+     97            {
+     98              DEBUG_DATA_RSTACK_HIGH_OFS,
+     99              DEBUG_DATA_RSTACK_LOW_OFS,
+    100              DEBUG_DATA_TX_ACTIVE_OFS,
+    101              DEBUG_DATA_RX_ACTIVE_OFS,
+    102          
+    103          #if (defined HAL_MCU_AVR) || (defined HAL_MCU_CC2430)
+    104              DEBUG_DATA_INT_MASK_OFS,
+    105          #elif (defined HAL_MCU_CC2530) || (defined HAL_MCU_CC2533)
+    106              DEBUG_DATA_INT_MASK0_OFS,
+    107              DEBUG_DATA_INT_MASK1_OFS,
+    108          #endif
+    109          
+    110              DEBUG_DATA_SIZE
+    111            };
+    112          
+    113            uint8 buttonHeld;
+    114            uint8 debugData[DEBUG_DATA_SIZE];
+    115          
+    116            /* disable all interrupts before anything else */
+    117            HAL_DISABLE_INTERRUPTS();
+   \   00000A   C2AF         CLR     0xa8.7
+    118          
+    119            /*-------------------------------------------------------------------------------
+    120             *  Initialize LEDs and turn them off.
+    121             */
+    122            HAL_BOARD_INIT();
+   \   00000C   53BEFB       ANL     0xbe,#0xfb
+   \                     ??halAssertHazardLights_0:
+   \   00000F   E59D         MOV     A,0x9d
+   \   000011   A2E6         MOV     C,0xE0 /* A   */.6
+   \   000013   50FA         JNC     ??halAssertHazardLights_0
+   \   000015   00           NOP
+   \   000016   78F8         MOV     R0,#-0x8
+   \   000018   7901         MOV     R1,#0x1
+   \                     ??halAssertHazardLights_1:
+   \   00001A   00           NOP
+   \   00001B   E8           MOV     A,R0
+   \   00001C   24FF         ADD     A,#-0x1
+   \   00001E   18           DEC     R0
+   \   00001F   E9           MOV     A,R1
+   \   000020   34FF         ADDC    A,#-0x1
+   \   000022   F9           MOV     R1,A
+   \   000023   E8           MOV     A,R0
+   \   000024   7001         JNZ     ??halAssertHazardLights_2
+   \   000026   E9           MOV     A,R1
+   \                     ??halAssertHazardLights_2:
+   \   000027   70F1         JNZ     ??halAssertHazardLights_1
+   \   000029   75C680       MOV     0xc6,#-0x80
+   \                     ??halAssertHazardLights_3:
+   \   00002C   7480         MOV     A,#-0x80
+   \   00002E   659E         XRL     A,0x9e
+   \   000030   70FA         JNZ     ??halAssertHazardLights_3
+   \   000032   43BE04       ORL     0xbe,#0x4
+   \   000035   7408         MOV     A,#0x8
+   \   000037   906270       MOV     DPTR,#0x6270
+   \   00003A   F0           MOVX    @DPTR,A
+   \   00003B   43FE01       ORL     0xfe,#0x1
+   \   00003E   43FE02       ORL     0xfe,#0x2
+   \   000041   43FE04       ORL     0xfe,#0x4
+   \   000044   43FE08       ORL     0xfe,#0x8
+    123          
+    124            HAL_TURN_OFF_LED1();
+   \   000047   D290         SETB    0x90.0
+    125            HAL_TURN_OFF_LED2();
+   \   000049   D291         SETB    0x90.1
+   \   00004B   805D         SJMP    ??halAssertHazardLights_4
+    126          //  HAL_TURN_OFF_LED3();
+    127          //  HAL_TURN_OFF_LED4();
+    128          
+    129            /*-------------------------------------------------------------------------------
+    130             *  Master infinite loop.
+    131             */
+    132            for (;;)
+    133            {
+    134              buttonHeld = 0;
+    135          
+    136              /*-------------------------------------------------------------------------------
+    137               *  "Hazard lights" loop.  A held keypress will exit this loop.
+    138               */
+    139              do
+    140              {
+    141                HAL_LED_BLINK_DELAY();
+    142          
+    143                /* toggle LEDS, the #ifdefs are in case HAL has logically remapped non-existent LEDs */
+    144          //#if (HAL_NUM_LEDS >= 1)
+    145          //      HAL_TOGGLE_LED1();
+    146          //#if (HAL_NUM_LEDS >= 2)
+    147          //      HAL_TOGGLE_LED2();
+    148          //#if (HAL_NUM_LEDS >= 3)
+    149          //      HAL_TOGGLE_LED3();
+    150          //#if (HAL_NUM_LEDS >= 4)
+    151          //      HAL_TOGGLE_LED4();
+    152          //#endif
+    153          //#endif
+    154          //#endif
+    155          //#endif
+    156          
+    157                /* escape hatch to continue execution, set escape to '1' to continue execution */
+    158                {
+    159                  static uint8 escape = 0;
+    160                  if (escape)
+    161                  {
+    162                    escape = 0;
+    163                    return;
+    164                  }
+    165                }
+    166          
+    167                /* break out of loop if button is held long enough */
+    168                if (HAL_PUSH_BUTTON1())
+    169                {
+    170                  buttonHeld++;
+    171                }
+    172                else
+    173                {
+    174                  buttonHeld = 0;
+    175                }
+    176              }
+    177              while (buttonHeld != 10);  /* loop until button is held specified number of loops */
+    178          
+    179              /*-------------------------------------------------------------------------------
+    180               *  Just exited from "hazard lights" loop.
+    181               */
+    182          
+    183              /* turn off all LEDs */
+    184              HAL_TURN_OFF_LED1();
+   \                     ??halAssertHazardLights_5:
+   \   00004D   D290         SETB    0x90.0
+    185              HAL_TURN_OFF_LED2();
+   \   00004F   D291         SETB    0x90.1
+    186              
+    187              #if !defined ( XT200_PA )
+    188                HAL_TURN_OFF_LED3();
+   \   000051   D292         SETB    0x90.2
+    189                HAL_TURN_OFF_LED4();
+   \   000053   D293         SETB    0x90.3
+    190              #endif
+    191              
+    192              /* wait for button release */
+    193              HAL_DEBOUNCE(!HAL_PUSH_BUTTON1());
+   \   000055   7800         MOV     R0,#0x0
+   \   000057   7900         MOV     R1,#0x0
+   \                     ??halAssertHazardLights_6:
+   \   000059   A281         MOV     C,0x80.1
+   \   00005B   5004         JNC     ??halAssertHazardLights_7
+   \   00005D   7800         MOV     R0,#0x0
+   \   00005F   7900         MOV     R1,#0x0
+   \                     ??halAssertHazardLights_7:
+   \   000061   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_0:
+   \   000064   40F3         JC      ??halAssertHazardLights_6
+    194          
+    195              /*-------------------------------------------------------------------------------
+    196               *  Load debug data into memory.
+    197               */
+    198          #ifdef HAL_MCU_AVR
+    199              {
+    200                uint8 * pStack;
+    201                pStack = (uint8 *) SP;
+    202                pStack++; /* point to return address on stack */
+    203                debugData[DEBUG_DATA_RSTACK_HIGH_OFS] = *pStack;
+    204                pStack++;
+    205                debugData[DEBUG_DATA_RSTACK_LOW_OFS] = *pStack;
+    206              }
+    207              debugData[DEBUG_DATA_INT_MASK_OFS] = EIMSK;
+    208          #endif
+    209          
+    210          #if (defined HAL_MCU_CC2430)
+    211              debugData[DEBUG_DATA_INT_MASK_OFS] = RFIM;
+    212          #elif (defined HAL_MCU_CC2530) || (defined HAL_MCU_CC2533)
+    213              debugData[DEBUG_DATA_INT_MASK0_OFS] = RFIRQM0;
+   \   000066   9061A3       MOV     DPTR,#0x61a3
+   \   000069   E0           MOVX    A,@DPTR
+    214              debugData[DEBUG_DATA_INT_MASK1_OFS] = RFIRQM1;
+   \   00006A   9061A4       MOV     DPTR,#0x61a4
+   \   00006D   E0           MOVX    A,@DPTR
+    215          #endif
+    216          
+    217          
+    218          #if (defined HAL_MCU_AVR) || (defined HAL_MCU_CC2430) || (defined HAL_MCU_CC2530) || \
+    219            (defined HAL_MCU_CC2533) || (defined HAL_MCU_MSP430)
+    220              debugData[DEBUG_DATA_TX_ACTIVE_OFS] = macTxActive;
+    221              debugData[DEBUG_DATA_RX_ACTIVE_OFS] = macRxActive;
+    222          #endif
+    223          
+    224             /* initialize for data dump loop */
+    225              {
+    226                uint8 iBit;
+    227                uint8 iByte;
+    228          
+    229                iBit  = 0;
+   \   00006E   7B00         MOV     R3,#0x0
+    230                iByte = 0;
+   \   000070   7A00         MOV     R2,#0x0
+    231          
+    232                /*-------------------------------------------------------------------------------
+    233                 *  Data dump loop.  A button press cycles data bits to an LED.
+    234                 */
+    235                while (iByte < DEBUG_DATA_SIZE)
+    236                {
+    237                  /* wait for key press */
+    238                  while(!HAL_PUSH_BUTTON1());
+   \                     ??halAssertHazardLights_8:
+   \   000072   A281         MOV     C,0x80.1
+   \   000074   50FC         JNC     ??halAssertHazardLights_8
+    239          
+    240                  /* turn on all LEDs for first bit of byte, turn on three LEDs if not first bit */
+    241                  HAL_TURN_ON_LED1();
+   \   000076   D290         SETB    0x90.0
+    242                  HAL_TURN_ON_LED2();
+   \   000078   D291         SETB    0x90.1
+    243                  
+    244                  #if !defined ( XT200_PA )
+    245                    HAL_TURN_ON_LED3();
+   \   00007A   D292         SETB    0x90.2
+    246                    if (iBit == 0)
+    247                    {
+    248                      HAL_TURN_ON_LED4();
+   \   00007C   D293         SETB    0x90.3
+    249                    }
+    250                    else
+    251                    {
+    252                      HAL_TURN_OFF_LED4();
+    253                    }
+    254                  #endif
+    255                    
+    256                  /* wait for debounced key release */
+    257                  HAL_DEBOUNCE(!HAL_PUSH_BUTTON1());
+   \   00007E   7800         MOV     R0,#0x0
+   \   000080   7900         MOV     R1,#0x0
+   \                     ??halAssertHazardLights_9:
+   \   000082   A281         MOV     C,0x80.1
+   \   000084   5004         JNC     ??halAssertHazardLights_10
+   \   000086   7800         MOV     R0,#0x0
+   \   000088   7900         MOV     R1,#0x0
+   \                     ??halAssertHazardLights_10:
+   \   00008A   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_1:
+   \   00008D   40F3         JC      ??halAssertHazardLights_9
+    258          
+    259                  /* turn off all LEDs */
+    260                  HAL_TURN_OFF_LED1();
+   \   00008F   D290         SETB    0x90.0
+    261                  HAL_TURN_OFF_LED2();
+   \   000091   D291         SETB    0x90.1
+    262                  
+    263                  #if !defined ( XT200_PA )
+    264                    HAL_TURN_OFF_LED3();
+   \   000093   D292         SETB    0x90.2
+    265                    HAL_TURN_OFF_LED4();
+   \   000095   D293         SETB    0x90.3
+    266                  #endif
+    267                    
+    268                  /* output value of data bit to LED1 */
+    269                  if (debugData[iByte] & (1 << (7 - iBit)))
+    270                  {
+    271                    HAL_TURN_ON_LED1();
+   \   000097   D290         SETB    0x90.0
+    272                  }
+    273                  else
+    274                  {
+    275                    HAL_TURN_OFF_LED1();
+    276                  }
+    277          
+    278                  /* advance to next bit */
+    279                  iBit++;
+   \   000099   0B           INC     R3
+    280                  if (iBit == 8)
+   \   00009A   7408         MOV     A,#0x8
+   \   00009C   6B           XRL     A,R3
+   \   00009D   70D3         JNZ     ??halAssertHazardLights_8
+    281                  {
+    282                    iBit = 0;
+   \   00009F   7B00         MOV     R3,#0x0
+    283                    iByte++;
+   \   0000A1   0A           INC     R2
+    284                  }
+    285                }
+   \   0000A2   EA           MOV     A,R2
+   \   0000A3   C3           CLR     C
+   \   0000A4   9406         SUBB    A,#0x6
+   \   0000A6   40CA         JC      ??halAssertHazardLights_8
+    286              }
+    287          
+    288              /*
+    289               *  About to enter "hazard lights" loop again.  Turn off LED1 in case the last bit
+    290               *  displayed happened to be one.  This guarantees all LEDs are off at the start of
+    291               *  the flashing loop which uses a toggle operation to change LED states.
+    292               */
+    293              HAL_TURN_OFF_LED1();
+   \   0000A8   D290         SETB    0x90.0
+   \                     ??halAssertHazardLights_4:
+   \   0000AA   7A00         MOV     R2,#0x0
+   \   0000AC   8006         SJMP    ??halAssertHazardLights_11
+   \                     ??halAssertHazardLights_12:
+   \   0000AE   0A           INC     R2
+   \   0000AF   740A         MOV     A,#0xa
+   \   0000B1   6A           XRL     A,R2
+   \   0000B2   6099         JZ      ??halAssertHazardLights_5
+   \                     ??halAssertHazardLights_11:
+   \   0000B4   90....       MOV     DPTR,#__Constant_0
+   \   0000B7   78..         MOV     R0,#?V0 + 0
+   \   0000B9   12....       LCALL   ?L_MOV_X
+   \   0000BC   85..82       MOV     DPL,?XSP + 0
+   \   0000BF   85..83       MOV     DPH,?XSP + 1
+   \   0000C2   78..         MOV     R0,#?V0 + 0
+   \   0000C4   12....       LCALL   ?L_MOV_TO_X
+   \   0000C7   8013         SJMP    ??halAssertHazardLights_13
+   \                     ??halAssertHazardLights_14:
+   \   0000C9   90....       MOV     DPTR,#__Constant_1
+   \   0000CC   78..         MOV     R0,#?V0 + 0
+   \   0000CE   12....       LCALL   ?L_MOV_X
+   \   0000D1   85..82       MOV     DPL,?XSP + 0
+   \   0000D4   85..83       MOV     DPH,?XSP + 1
+   \   0000D7   78..         MOV     R0,#?V0 + 0
+   \   0000D9   12....       LCALL   ?L_ADD_TO_X
+   \                     ??halAssertHazardLights_13:
+   \   0000DC   85..82       MOV     DPL,?XSP + 0
+   \   0000DF   85..83       MOV     DPH,?XSP + 1
+   \   0000E2   C082         PUSH    DPL
+   \   0000E4   C083         PUSH    DPH
+   \   0000E6   90....       MOV     DPTR,#__Constant_5800
+   \   0000E9   78..         MOV     R0,#?V0 + 0
+   \   0000EB   12....       LCALL   ?L_MOV_X
+   \   0000EE   D083         POP     DPH
+   \   0000F0   D082         POP     DPL
+   \   0000F2   78..         MOV     R0,#?V0 + 0
+   \   0000F4   12....       LCALL   ?UL_GT_X
+   \   0000F7   40D0         JC      ??halAssertHazardLights_14
+   \   0000F9   90....       MOV     DPTR,#??escape
+   \   0000FC   E0           MOVX    A,@DPTR
+   \   0000FD   600C         JZ      ??halAssertHazardLights_15
+   \   0000FF   E4           CLR     A
+   \   000100   F0           MOVX    @DPTR,A
+   \   000101   7404         MOV     A,#0x4
+   \   000103   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000106   7F04         MOV     R7,#0x4
+   \   000108   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \                     ??halAssertHazardLights_15:
+   \   00010B   A281         MOV     C,0x80.1
+   \   00010D   409F         JC      ??halAssertHazardLights_12
+   \   00010F   8099         SJMP    ??halAssertHazardLights_4
+   \   000111                REQUIRE _A_P0
+   \   000111                REQUIRE SLEEPSTA
+   \   000111                REQUIRE CLKCONSTA
+   \   000111                REQUIRE _A_IEN0
+   \   000111                REQUIRE _A_P1
+   \   000111                REQUIRE SLEEPCMD
+   \   000111                REQUIRE CLKCONCMD
+   \   000111                REQUIRE P1DIR
+    294            }
+    295          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   E8           MOV     A,R0
+   \   000001   2401         ADD     A,#0x1
+   \   000003   08           INC     R0
+   \   000004   E9           MOV     A,R1
+   \   000005   3400         ADDC    A,#0x0
+   \   000007   F9           MOV     R1,A
+   \   000008   C3           CLR     C
+   \   000009   E8           MOV     A,R0
+   \   00000A   94F4         SUBB    A,#-0xc
+   \   00000C   E9           MOV     A,R1
+   \   00000D   9401         SUBB    A,#0x1
+   \   00000F   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   000011   65D0         XRL     A,PSW
+   \   000013   33           RLC     A
+   \   000014   22           RET
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     ??escape:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_0:
+   \   000000   00000000     DD 0
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_1:
+   \   000000   01000000     DD 1
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_5800:
+   \   000000   00580000     DD 22528
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halAssertHandler?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halAssertHandler
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halAssertHazardLights?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halAssertHazardLights
+    296          
+    297          
+    298          /* ------------------------------------------------------------------------------------------------
+    299           *                                    Compile Time Assertions
+    300           * ------------------------------------------------------------------------------------------------
+    301           */
+    302          
+    303          /* integrity check of type sizes */
+    304          HAL_ASSERT_SIZE(  int8, 1);
+    305          HAL_ASSERT_SIZE( uint8, 1);
+    306          HAL_ASSERT_SIZE( int16, 2);
+    307          HAL_ASSERT_SIZE(uint16, 2);
+    308          HAL_ASSERT_SIZE( int32, 4);
+    309          HAL_ASSERT_SIZE(uint32, 4);
+    310          
+    311          
+    312          /***************************************************************************************************/
+
+   Maximum stack usage in bytes:
+
+     Function                   ISTACK PSTACK XSTACK
+     --------                   ------ ------ ------
+     halAssertHandler               2      0      0
+       -> halAssertHazardLights     4      0      0
+     halAssertHazardLights          2      0     16
+
+
+   Segment part sizes:
+
+     Function/Label                Bytes
+     --------------                -----
+     _A_P0                            1
+     _A_P1                            1
+     SLEEPSTA                         1
+     CLKCONSTA                        1
+     _A_IEN0                          1
+     SLEEPCMD                         1
+     CLKCONCMD                        1
+     P1DIR                            1
+     halAssertHandler                14
+     halAssertHazardLights          273
+     ?Subroutine0                    21
+     escape                           1
+     __Constant_0                     4
+     __Constant_1                     4
+     __Constant_5800                  4
+     ??halAssertHandler?relay         6
+     ??halAssertHazardLights?relay    6
+
+ 
+ 308 bytes in segment BANKED_CODE
+  12 bytes in segment BANK_RELAYS
+   8 bytes in segment SFR_AN
+  12 bytes in segment XDATA_ROM_C
+   1 byte  in segment XDATA_Z
+ 
+ 320 bytes of CODE  memory
+   0 bytes of CONST memory (+ 12 bytes shared)
+   0 bytes of DATA  memory (+  8 bytes shared)
+   1 byte  of XDATA memory
+
+Errors: none
+Warnings: none

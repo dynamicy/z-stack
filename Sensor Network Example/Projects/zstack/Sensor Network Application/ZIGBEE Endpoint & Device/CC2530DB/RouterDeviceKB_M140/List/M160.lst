@@ -1,0 +1,523 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                30/Nov/2010  15:27:29 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fina #
+#                          l Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Components\hal\module\M160 #
+#                          .c                                                 #
+#    Command line       =  -f "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wRouter. #
+#                          cfg" (-DCPU32MHZ -DROOT=__near_func                #
+#                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE -DRTR_NWK         #
+#                          -DBLINK_LEDS) -f "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³ #
+#                          f¥úºÐ(CC2530)_Final Version\ZIGBEE                 #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig. #
+#                          cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0             #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg #
+#                          " (-DZCL_READ -DZCL_WRITE -DZCL_BASIC              #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE                       #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Components\hal\module\M16 #
+#                          0.c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D    #
+#                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
+#                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
+#                          Router_Device -D M140 -D xPA2591 -lC               #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceKB_M140\List\" -lA     #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceKB_M140\List\"         #
+#                          --diag_suppress Pe001,Pa010 -o                     #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceKB_M140\Obj\" -e       #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\ #
+#                          ¤½¥q¥X³f¥úºÐ(CC2530)_Final Version\ZIGBEE          #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint & Device\CC2530DB\"    #
+#                          -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\SOURCE\" -I                     #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\SOURCE\" -I                  #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I       #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\" -I  #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INCL #
+#                          UDE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC #
+#                          2530)_Final Version\ZIGBEE                         #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MODU #
+#                          LE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2 #
+#                          530)_Final Version\ZIGBEE                          #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TARG #
+#                          ET\CC2530KB\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³ #
+#                          f¥úºÐ(CC2530)_Final Version\ZIGBEE                 #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MCU #
+#                          \CCSOC\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\INC #
+#                          LUDE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(C #
+#                          C2530)_Final Version\ZIGBEE                        #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\AF #
+#                          \" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC253 #
+#                          0)_Final Version\ZIGBEE Example\CC2530_ZStack-2.3. #
+#                          0-1.4.0\Sensor Network Example\Projects\zstack\Sen #
+#                          sor Network Application\ZIGBEE Endpoint &          #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\NW #
+#                          K\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SE #
+#                          C\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SA #
+#                          PI\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2 #
+#                          530)_Final Version\ZIGBEE                          #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SY #
+#                          S\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZC #
+#                          L\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZD #
+#                          O\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8W #
+#                          \" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC253 #
+#                          0)_Final Version\ZIGBEE Example\CC2530_ZStack-2.3. #
+#                          0-1.4.0\Sensor Network Example\Projects\zstack\Sen #
+#                          sor Network Application\ZIGBEE Endpoint &          #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"   #
+#                          -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SADDR\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SDATA\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INCL #
+#                          UDE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC #
+#                          2530)_Final Version\ZIGBEE                         #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIGH #
+#                          _LEVEL\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³ #
+#                          f¥úºÐ(CC2530)_Final Version\ZIGBEE                 #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR               #
+#                          Systems\Embedded Workbench for MCS-51              #
+#                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded       #
+#                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz    #
+#    List file          =  D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fina #
+#                          l Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Projects\zstack\Sensor     #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceKB_M140\List\M160.lst  #
+#    Object file        =  D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fina #
+#                          l Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Projects\zstack\Sensor     #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceKB_M140\Obj\M160.r51   #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network Example\Components\hal\module\M160.c
+      1          //-------------------------------------------------------------------
+      2          // Filename: M160.c
+      3          // Description: hal M160 PWM library
+      4          //-------------------------------------------------------------------
+      5          //-------------------------------------------------------------------
+      6          // INCLUDES
+      7          //-------------------------------------------------------------------
+      8          #include "hal_defs.h"
+      9          #include "hal_mcu.h"
+
+   \                                 In  segment SFR_AN, at 0x80
+   \   union <unnamed> volatile __sfr _A_P0
+   \                     _A_P0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xb8
+   \   union <unnamed> volatile __sfr _A_IEN1
+   \                     _A_IEN1:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xeb
+   \   unsigned char volatile __sfr T4CTL
+   \                     T4CTL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf3
+   \   unsigned char volatile __sfr P0SEL
+   \                     P0SEL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfd
+   \   unsigned char volatile __sfr P0DIR
+   \                     P0DIR:
+   \   000000                DS 1
+     10          #include "hal_board.h"
+     11          #include "M160.h"
+     12          
+     13          //-------------------------------------------------------------------
+     14          // LOCAL VARIABLES
+     15          //-------------------------------------------------------------------
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     16          uint8 M160_DutyCount;
+   \                     M160_DutyCount:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     17          uint8 M160_DutyValue;
+   \                     M160_DutyValue:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     18          
+     19          //-------------------------------------------------------------------
+     20          // LOCAL FUNCTIONS
+     21          //-------------------------------------------------------------------
+     22          //-------------------------------------------------------------------
+     23          // @fn      timerPwm_ISR
+     24          // @brief   ISR framework for the 1k timer component
+     25          // @param   none
+     26          // @return  none
+     27          //-------------------------------------------------------------------
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+     28          HAL_ISR_FUNCTION(T4_ISR, T4_VECTOR)
+   \                     T4_ISR:
+     29          {
+   \   000000   C0E0         PUSH    A
+   \   000002   C0D0         PUSH    PSW
+   \   000004   EA           MOV     A,R2
+   \   000005   C0E0         PUSH    A
+   \   000007   C082         PUSH    DPL
+   \   000009   C083         PUSH    DPH
+   \   00000B                ; Saved register size: 5
+   \   00000B                ; Auto size: 0
+     30              M160_DutyCount++;
+   \   00000B   90....       MOV     DPTR,#M160_DutyCount
+   \   00000E   E0           MOVX    A,@DPTR
+   \   00000F   04           INC     A
+   \   000010   F0           MOVX    @DPTR,A
+     31              if (M160_DutyCount >= 100)
+   \   000011   C3           CLR     C
+   \   000012   9464         SUBB    A,#0x64
+   \   000014   4002         JC      ??T4_ISR_0
+     32              {
+     33                  M160_DutyCount = 0;
+   \   000016   E4           CLR     A
+   \   000017   F0           MOVX    @DPTR,A
+     34              }
+     35              if (M160_DutyCount >= M160_DutyValue)
+   \                     ??T4_ISR_0:
+   \   000018   E0           MOVX    A,@DPTR
+   \   000019   C0E0         PUSH    A
+   \   00001B   90....       MOV     DPTR,#M160_DutyValue
+   \   00001E   E0           MOVX    A,@DPTR
+   \   00001F   FA           MOV     R2,A
+   \   000020   D0E0         POP     A
+   \   000022   C3           CLR     C
+   \   000023   9A           SUBB    A,R2
+   \   000024   4004         JC      ??T4_ISR_1
+     36              {
+     37                  HAL_DO_OFF();
+   \   000026   D280         SETB    0x80.0
+   \   000028   8002         SJMP    ??T4_ISR_2
+     38              }
+     39              else
+     40              {
+     41                  HAL_DO_ON();
+   \                     ??T4_ISR_1:
+   \   00002A   C280         CLR     0x80.0
+     42              }
+     43          }
+   \                     ??T4_ISR_2:
+   \   00002C   D083         POP     DPH
+   \   00002E   D082         POP     DPL
+   \   000030   D0E0         POP     A
+   \   000032   FA           MOV     R2,A
+   \   000033   D0D0         POP     PSW
+   \   000035   D0E0         POP     A
+   \   000037   32           RETI
+   \   000038                REQUIRE _A_P0
+     44          
+     45          //-------------------------------------------------------------------
+     46          // GLOBAL FUNCTIONS
+     47          //-------------------------------------------------------------------
+     48          //-------------------------------------------------------------------
+     49          // @fn      M160_Init
+     50          // @brief    Set up timer 4 to generate an interrupt 1 kHz for PWM
+     51          // @return  none
+     52          //-------------------------------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     53          void M160_Init(void)
+   \                     M160_Init:
+     54          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+     55              HAL_DO_OUTPUT();
+   \   000000   53F3FE       ANL     0xf3,#0xfe
+   \   000003   43FD01       ORL     0xfd,#0x1
+     56          
+     57              // Set prescaler divider value to 128 (8KHz)
+     58              T4CTL |= 0x80;
+   \   000006   43EB80       ORL     0xeb,#0x80
+     59          
+     60              T4CTL &= ~(0x10); // Stop timer
+   \   000009   53EBEF       ANL     0xeb,#0xef
+     61              T4IE = 0; // Disable interrupt
+   \   00000C   C2BC         CLR     0xb8.4
+     62          }
+   \   00000E   02....       LJMP    ?BRET
+   \   000011                REQUIRE _A_IEN1
+   \   000011                REQUIRE T4CTL
+   \   000011                REQUIRE P0SEL
+   \   000011                REQUIRE P0DIR
+     63          
+     64          //-------------------------------------------------------------------
+     65          // @fn          M160_On
+     66          // @brief       Turn M160 on.
+     67          // @param       uint8 duty
+     68          // @return      none
+     69          //-------------------------------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     70          void M160_On(uint8 duty)
+   \                     M160_On:
+     71          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     72              M160_DutyCount = 0;
+   \   000004   E4           CLR     A
+   \   000005   90....       MOV     DPTR,#M160_DutyCount
+   \   000008   F0           MOVX    @DPTR,A
+     73              M160_DutyValue = duty;
+   \   000009   E9           MOV     A,R1
+   \   00000A   90....       MOV     DPTR,#M160_DutyValue
+   \   00000D   F0           MOVX    @DPTR,A
+     74          
+     75              T4CTL |= 0x10; // Start timer
+   \   00000E   43EB10       ORL     0xeb,#0x10
+     76              T4IE = 1; // Enable interrupt
+   \   000011   D2BC         SETB    0xb8.4
+     77          }
+   \   000013   D083         POP     DPH
+   \   000015   D082         POP     DPL
+   \   000017   02....       LJMP    ?BRET
+   \   00001A                REQUIRE _A_IEN1
+   \   00001A                REQUIRE T4CTL
+     78          
+     79          //-------------------------------------------------------------------
+     80          // @fn          M160_Off
+     81          // @brief       Turn M160 off.
+     82          // @return      none
+     83          //-------------------------------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     84          void M160_Off(void)
+   \                     M160_Off:
+     85          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+     86              T4CTL &= ~(0x10); // Stop timer
+   \   000000   53EBEF       ANL     0xeb,#0xef
+     87              T4IE = 0; // Disable interrupt
+   \   000003   C2BC         CLR     0xb8.4
+     88              HAL_DO_OFF();
+   \   000005   D280         SETB    0x80.0
+     89          }
+   \   000007   02....       LJMP    ?BRET
+   \   00000A                REQUIRE _A_P0
+   \   00000A                REQUIRE _A_IEN1
+   \   00000A                REQUIRE T4CTL
+
+   \                                 In  segment INTVEC, offset 0x63, root
+   \                     `??T4_ISR??INTVEC 99`:
+   \   000063   02....       LJMP       (T4_ISR)
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M160_Init?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M160_Init
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M160_On?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M160_On
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M160_Off?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M160_Off
+     90          
+
+   Maximum stack usage in bytes:
+
+     Function  ISTACK PSTACK XSTACK
+     --------  ------ ------ ------
+     M160_Init     0      0      0
+     M160_Off      0      0      0
+     M160_On       2      0      0
+     T4_ISR        6      0      0
+
+
+   Segment part sizes:
+
+     Function/Label      Bytes
+     --------------      -----
+     _A_P0                  1
+     _A_IEN1                1
+     T4CTL                  1
+     P0SEL                  1
+     P0DIR                  1
+     M160_DutyCount         1
+     M160_DutyValue         1
+     T4_ISR                56
+     M160_Init             17
+     M160_On               26
+     M160_Off              10
+     ??T4_ISR??INTVEC 99    3
+     ??M160_Init?relay      6
+     ??M160_On?relay        6
+     ??M160_Off?relay       6
+
+ 
+ 53 bytes in segment BANKED_CODE
+ 18 bytes in segment BANK_RELAYS
+  3 bytes in segment INTVEC
+ 56 bytes in segment NEAR_CODE
+  5 bytes in segment SFR_AN
+  2 bytes in segment XDATA_Z
+ 
+ 127 bytes of CODE  memory (+ 3 bytes shared)
+   0 bytes of DATA  memory (+ 5 bytes shared)
+   2 bytes of XDATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,643 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                30/Nov/2010  16:01:15 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fina #
+#                          l Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Projects\zstack\Sensor     #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\Source\zcl_zigbee device_data.c             #
+#    Command line       =  -f "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wRouter. #
+#                          cfg" (-DCPU32MHZ -DROOT=__near_func                #
+#                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE -DRTR_NWK         #
+#                          -DBLINK_LEDS) -f "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³ #
+#                          f¥úºÐ(CC2530)_Final Version\ZIGBEE                 #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig. #
+#                          cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0             #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg #
+#                          " (-DZCL_READ -DZCL_WRITE -DZCL_BASIC              #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE                       #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\Source\zcl_zigbee device_data.c" -D         #
+#                          LCD_SUPPORTED=DEBUG -D NWK_AUTO_POLL -D ZTOOL_P1   #
+#                          -D MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D    #
+#                          MT_TASK -D xPOWER_SAVING -D xNV_RESTORE -D         #
+#                          End_Device -D M310 -D xHAL_KEYPAD -D xPA2591 -lC   #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M310\List\" -lA     #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M310\List\"         #
+#                          --diag_suppress Pe001,Pa010 -o                     #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M310\Obj\" -e       #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\ #
+#                          ¤½¥q¥X³f¥úºÐ(CC2530)_Final Version\ZIGBEE          #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint & Device\CC2530DB\"    #
+#                          -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\SOURCE\" -I                     #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\SOURCE\" -I                  #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I       #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\" -I  #
+#                          "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fin #
+#                          al Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4. #
+#                          0\Sensor Network Example\Projects\zstack\Sensor    #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INCL #
+#                          UDE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC #
+#                          2530)_Final Version\ZIGBEE                         #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MODU #
+#                          LE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2 #
+#                          530)_Final Version\ZIGBEE                          #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TARG #
+#                          ET\CC2530EB\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³ #
+#                          f¥úºÐ(CC2530)_Final Version\ZIGBEE                 #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MCU #
+#                          \CCSOC\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\INC #
+#                          LUDE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(C #
+#                          C2530)_Final Version\ZIGBEE                        #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\AF #
+#                          \" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC253 #
+#                          0)_Final Version\ZIGBEE Example\CC2530_ZStack-2.3. #
+#                          0-1.4.0\Sensor Network Example\Projects\zstack\Sen #
+#                          sor Network Application\ZIGBEE Endpoint &          #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\NW #
+#                          K\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SE #
+#                          C\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SA #
+#                          PI\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2 #
+#                          530)_Final Version\ZIGBEE                          #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SY #
+#                          S\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZC #
+#                          L\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZD #
+#                          O\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC25 #
+#                          30)_Final Version\ZIGBEE                           #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8W #
+#                          \" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC253 #
+#                          0)_Final Version\ZIGBEE Example\CC2530_ZStack-2.3. #
+#                          0-1.4.0\Sensor Network Example\Projects\zstack\Sen #
+#                          sor Network Application\ZIGBEE Endpoint &          #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"   #
+#                          -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_ #
+#                          Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1 #
+#                          .4.0\Sensor Network Example\Projects\zstack\Sensor #
+#                           Network Application\ZIGBEE Endpoint &             #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SADDR\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SDATA\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INCL #
+#                          UDE\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC #
+#                          2530)_Final Version\ZIGBEE                         #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIGH #
+#                          _LEVEL\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ #
+#                          (CC2530)_Final Version\ZIGBEE                      #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\" -I "D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³ #
+#                          f¥úºÐ(CC2530)_Final Version\ZIGBEE                 #
+#                          Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR               #
+#                          Systems\Embedded Workbench for MCS-51              #
+#                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded       #
+#                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz    #
+#    List file          =  D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fina #
+#                          l Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Projects\zstack\Sensor     #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M310\List\zcl_zigbe #
+#                          e device_data.lst                                  #
+#    Object file        =  D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Fina #
+#                          l Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Projects\zstack\Sensor     #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\RouterDeviceEB_M310\Obj\zcl_zigbee #
+#                           device_data.r51                                   #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\¤½¥q¤W¯Z¸ê®Æ\±Ð¾Ç¼Ò²Õ\¤½¥q¥X³f¥úºÐ(CC2530)_Final Version\ZIGBEE Example\CC2530_ZStack-2.3.0-1.4.0\Sensor Network Example\Projects\zstack\Sensor Network Application\ZIGBEE Endpoint & Device\Source\zcl_zigbee device_data.c
+      1          /**************************************************************************************************
+      2            Filename:       zcl_zigbee devcie_data.c
+      3            Revised:        $Date: 2008-03-11 11:01:35 -0700 (Tue, 11 Mar 2008) $
+      4            Revision:       $Revision: 16570 $
+      5          
+      6            Description:    Zigbee Cluster Library - sample device application.
+      7          
+      8            Copyright 2006-2007 Texas Instruments Incorporated. All rights reserved.
+      9          
+     10            Should you have any questions regarding your right to use this Software,
+     11            contact Texas Instruments Incorporated at www.TI.com. 
+     12          **************************************************************************************************/
+     13          
+     14          /*********************************************************************
+     15           * INCLUDES
+     16           */
+     17          #include "ZComDef.h"
+     18          #include "OSAL.h"
+     19          #include "AF.h"
+     20          #include "ZDConfig.h"
+     21          
+     22          #include "zcl.h"
+     23          #include "zcl_general.h"
+     24          #include "zcl_ha.h"
+     25          
+     26          #include "zcl_zigbee device.h"
+     27          
+     28          /*********************************************************************
+     29           * CONSTANTS
+     30           */
+     31          
+     32          #define SAMPLESW_DEVICE_VERSION     0
+     33          #define SAMPLESW_FLAGS              0
+     34          
+     35          #define SAMPLESW_HWVERSION          0
+     36          #define SAMPLESW_ZCLVERSION         0
+     37          
+     38          /*********************************************************************
+     39           * TYPEDEFS
+     40           */
+     41          
+     42          /*********************************************************************
+     43           * MACROS
+     44           */
+     45          
+     46          /*********************************************************************
+     47           * GLOBAL VARIABLES
+     48           */
+     49          
+     50          // Basic Cluster
+
+   \                                 In  segment XDATA_ROM_C, align 1
+     51          const uint8 zclSampleSw_HWRevision = SAMPLESW_HWVERSION;
+   \                     zclSampleSw_HWRevision:
+   \   000000   00           DB 0
+
+   \                                 In  segment XDATA_ROM_C, align 1
+     52          const uint8 zclSampleSw_ZCLVersion = SAMPLESW_ZCLVERSION;
+   \                     zclSampleSw_ZCLVersion:
+   \   000000   00           DB 0
+
+   \                                 In  segment XDATA_ROM_C, align 1
+     53          const uint8 zclSampleSw_ManufacturerName[] = { 16, 'T','e','x','a','s','I','n','s','t','r','u','m','e','n','t','s' };
+   \                     zclSampleSw_ManufacturerName:
+   \   000000   10546578     DB 16, 84, 101, 120, 97, 115, 73, 110, 115, 116, 114, 117, 109, 101
+   \            6173496E
+   \            73747275
+   \            6D65    
+   \   00000E   6E7473       DB 110, 116, 115
+
+   \                                 In  segment XDATA_ROM_C, align 1
+     54          const uint8 zclSampleSw_ModelId[] = { 16, 'T','I','0','0','0','1',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ' };
+   \                     zclSampleSw_ModelId:
+   \   000000   10544930     DB 16, 84, 73, 48, 48, 48, 49, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+   \            30303120
+   \            20202020
+   \            20202020
+   \            20      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+     55          const uint8 zclSampleSw_DateCode[] = { 16, '2','0','0','6','0','8','3','1',' ',' ',' ',' ',' ',' ',' ',' ' };
+   \                     zclSampleSw_DateCode:
+   \   000000   10323030     DB 16, 50, 48, 48, 54, 48, 56, 51, 49, 32, 32, 32, 32, 32, 32, 32, 32
+   \            36303833
+   \            31202020
+   \            20202020
+   \            20      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+     56          const uint8 zclSampleSw_PowerSource = POWER_SOURCE_MAINS_1_PHASE;
+   \                     zclSampleSw_PowerSource:
+   \   000000   01           DB 1
+     57          
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+     58          uint8 zclSampleSw_LocationDescription[17] = { 16, ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ' };
+   \                     zclSampleSw_LocationDescription:
+   \   000000                DS 17
+   \   000011                REQUIRE `?<Initializer for zclSampleSw_LocationDescript`
+   \   000011                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     59          uint8 zclSampleSw_PhysicalEnvironment = 0;
+   \                     zclSampleSw_PhysicalEnvironment:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+     60          uint8 zclSampleSw_DeviceEnable = DEVICE_ENABLED;
+   \                     zclSampleSw_DeviceEnable:
+   \   000000                DS 1
+   \   000001                REQUIRE `?<Initializer for zclSampleSw_DeviceEnable>`
+   \   000001                REQUIRE __INIT_XDATA_I
+     61          
+     62          // Identify Cluster
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     63          uint16 zclSampleSw_IdentifyTime = 0;
+   \                     zclSampleSw_IdentifyTime:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
+     64          
+     65          // On/Off Cluster
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     66          uint8  zclSampleSw_OnOff = LIGHT_OFF;
+   \                     zclSampleSw_OnOff:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     67          
+     68          /*********************************************************************
+     69           * ATTRIBUTE DEFINITIONS - Uses REAL cluster IDs
+     70           */
+
+   \                                 In  segment CODE_C, align 1
+     71          CONST zclAttrRec_t zclZigbeeDevice_Attrs[ZIGBEEDEVICE_MAX_ATTRIBUTES] =
+   \                     zclZigbeeDevice_Attrs:
+   \   000000   00000300     DW 0, 3
+   \   000004   2001         DB 32, 1
+   \   000006   ....0000     DW zclSampleSw_HWRevision, 0, 0
+   \            0000    
+   \   00000C   2001         DB 32, 1
+   \   00000E   ....0000     DW zclSampleSw_ZCLVersion, 0, 4
+   \            0400    
+   \   000014   4201         DB 66, 1
+   \   000016   ....0000     DW zclSampleSw_ManufacturerName, 0, 5
+   \            0500    
+   \   00001C   4201         DB 66, 1
+   \   00001E   ....0000     DW zclSampleSw_ModelId, 0, 6
+   \            0600    
+   \   000024   4201         DB 66, 1
+   \   000026   ....0000     DW zclSampleSw_DateCode, 0, 7
+   \            0700    
+   \   00002C   2001         DB 32, 1
+   \   00002E   ....0000     DW zclSampleSw_PowerSource, 0, 16
+   \            1000    
+   \   000034   4203         DB 66, 3
+   \   000036   ....0000     DW zclSampleSw_LocationDescription, 0, 17
+   \            1100    
+   \   00003C   2003         DB 32, 3
+   \   00003E   ....0000     DW zclSampleSw_PhysicalEnvironment, 0, 18
+   \            1200    
+   \   000044   2003         DB 32, 3
+   \   000046   ....0300     DW zclSampleSw_DeviceEnable, 3, 0
+   \            0000    
+   \   00004C   2103         DB 33, 3
+   \   00004E   ....0600     DW zclSampleSw_IdentifyTime, 6, 0
+   \            0000    
+   \   000054   2001         DB 32, 1
+   \   000056   ....         DW zclSampleSw_OnOff
+     72          {
+     73            // *** General Basic Cluster Attributes ***
+     74            {
+     75              ZCL_CLUSTER_ID_GEN_BASIC,             // Cluster IDs - defined in the foundation (ie. zcl.h)
+     76              { // Attribute record
+     77                ATTRID_BASIC_HW_VERSION,            // Attribute ID - Found in Cluster Library header (ie. zcl_general.h)
+     78                ZCL_DATATYPE_UINT8,                 // Data Type - found in zcl.h
+     79                ACCESS_CONTROL_READ,                // Variable access control - found in zcl.h
+     80                (void *)&zclSampleSw_HWRevision     // Pointer to attribute variable
+     81              }
+     82            },
+     83            {
+     84              ZCL_CLUSTER_ID_GEN_BASIC,
+     85              { // Attribute record
+     86                ATTRID_BASIC_ZCL_VERSION,
+     87                ZCL_DATATYPE_UINT8,
+     88                ACCESS_CONTROL_READ,
+     89                (void *)&zclSampleSw_ZCLVersion
+     90              }
+     91            },
+     92            {
+     93              ZCL_CLUSTER_ID_GEN_BASIC,
+     94              { // Attribute record
+     95                ATTRID_BASIC_MANUFACTURER_NAME,
+     96                ZCL_DATATYPE_CHAR_STR,
+     97                ACCESS_CONTROL_READ,
+     98                (void *)zclSampleSw_ManufacturerName
+     99              }
+    100            },
+    101            {
+    102              ZCL_CLUSTER_ID_GEN_BASIC,
+    103              { // Attribute record
+    104                ATTRID_BASIC_MODEL_ID,
+    105                ZCL_DATATYPE_CHAR_STR,
+    106                ACCESS_CONTROL_READ,
+    107                (void *)zclSampleSw_ModelId
+    108              }
+    109            },
+    110            {
+    111              ZCL_CLUSTER_ID_GEN_BASIC,
+    112              { // Attribute record
+    113                ATTRID_BASIC_DATE_CODE,
+    114                ZCL_DATATYPE_CHAR_STR,
+    115                ACCESS_CONTROL_READ,
+    116                (void *)zclSampleSw_DateCode
+    117              }
+    118            },
+    119            {
+    120              ZCL_CLUSTER_ID_GEN_BASIC,
+    121              { // Attribute record
+    122                ATTRID_BASIC_POWER_SOURCE,
+    123                ZCL_DATATYPE_UINT8,
+    124                ACCESS_CONTROL_READ,
+    125                (void *)&zclSampleSw_PowerSource
+    126              }
+    127            },
+    128            {
+    129              ZCL_CLUSTER_ID_GEN_BASIC,
+    130              { // Attribute record
+    131                ATTRID_BASIC_LOCATION_DESC,
+    132                ZCL_DATATYPE_CHAR_STR,
+    133                (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+    134                (void *)zclSampleSw_LocationDescription
+    135              }
+    136            },
+    137            {
+    138              ZCL_CLUSTER_ID_GEN_BASIC,
+    139              { // Attribute record
+    140                ATTRID_BASIC_PHYSICAL_ENV,
+    141                ZCL_DATATYPE_UINT8,
+    142                (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+    143                (void *)&zclSampleSw_PhysicalEnvironment
+    144              }
+    145            },
+    146            {
+    147              ZCL_CLUSTER_ID_GEN_BASIC,
+    148              { // Attribute record
+    149                ATTRID_BASIC_DEVICE_ENABLED,
+    150                ZCL_DATATYPE_UINT8,
+    151                (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+    152                (void *)&zclSampleSw_DeviceEnable
+    153              }
+    154            },
+    155            
+    156            // *** Identify Cluster Attribute ***
+    157            {
+    158              ZCL_CLUSTER_ID_GEN_IDENTIFY,
+    159              { // Attribute record
+    160                ATTRID_IDENTIFY_TIME,
+    161                ZCL_DATATYPE_UINT16,
+    162                (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+    163                (void *)&zclSampleSw_IdentifyTime
+    164              }
+    165            },
+    166            
+    167            // *** On / Off Cluster Attributes ***
+    168            {
+    169              ZCL_CLUSTER_ID_GEN_ON_OFF,
+    170              { // Attribute record
+    171                ATTRID_ON_OFF,
+    172                ZCL_DATATYPE_UINT8,
+    173                ACCESS_CONTROL_READ,
+    174                (void *)&zclSampleSw_OnOff
+    175              }
+    176            },
+    177          };
+    178          
+    179          /*********************************************************************
+    180           * SIMPLE DESCRIPTOR
+    181           */
+    182          // This is the Cluster ID List and should be filled with Application specific cluster IDs.
+    183          
+    184          #define ZCLSAMPLESW_MAX_INCLUSTERS       1
+
+   \                                 In  segment XDATA_ROM_C, align 1
+    185          const cId_t zclSampleSw_InClusterList[ZCLSAMPLESW_MAX_INCLUSTERS] =
+   \                     zclSampleSw_InClusterList:
+   \   000000   0000         DW 0
+    186          {
+    187            ZCL_CLUSTER_ID_GEN_BASIC
+    188          };
+    189          
+    190          #define ZCLSAMPLESW_MAX_OUTCLUSTERS       1
+
+   \                                 In  segment XDATA_ROM_C, align 1
+    191          const cId_t zclSampleSw_OutClusterList[ZCLSAMPLESW_MAX_OUTCLUSTERS] =
+   \                     zclSampleSw_OutClusterList:
+   \   000000   0600         DW 6
+    192          {
+    193            ZCL_CLUSTER_ID_GEN_ON_OFF
+    194          };
+    195          
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+    196          SimpleDescriptionFormat_t zclZigbeeDevice_SimpleDesc =
+   \                     zclZigbeeDevice_SimpleDesc:
+   \   000000                DS 12
+   \   00000C                REQUIRE `?<Initializer for zclZigbeeDevice_SimpleDesc>`
+   \   00000C                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for zclSampleSw_LocationDescript`:
+   \   000000   10202020     DB 16, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+   \            20202020
+   \            20202020
+   \            20202020
+   \            20      
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for zclSampleSw_DeviceEnable>`:
+   \   000000   01           DB 1
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for zclZigbeeDevice_SimpleDesc>`:
+   \   000000   0C           DB 12
+   \   000001   04010000     DW 260, 0
+   \   000005   0001         DB 0, 1
+   \   000007   ....         DW zclSampleSw_InClusterList
+   \   000009   01           DB 1
+   \   00000A   ....         DW zclSampleSw_OutClusterList
+    197          {
+    198            ZIGBEEDEVICE_ENDPOINT,              //  int Endpoint;
+    199            ZCL_HA_PROFILE_ID,                  //  uint16 AppProfId[2];
+    200            ZCL_HA_DEVICEID_ON_OFF_SWITCH,      //  uint16 AppDeviceId[2];
+    201            SAMPLESW_DEVICE_VERSION,            //  int   AppDevVer:4;
+    202            SAMPLESW_FLAGS,                     //  int   AppFlags:4;
+    203            ZCLSAMPLESW_MAX_INCLUSTERS,         //  byte  AppNumInClusters;
+    204            (cId_t *)zclSampleSw_InClusterList, //  byte *pAppInClusterList;
+    205            ZCLSAMPLESW_MAX_OUTCLUSTERS,        //  byte  AppNumInClusters;
+    206            (cId_t *)zclSampleSw_OutClusterList //  byte *pAppInClusterList;
+    207          };
+    208          
+    209          /*********************************************************************
+    210           * GLOBAL FUNCTIONS
+    211           */
+    212          
+    213          /*********************************************************************
+    214           * LOCAL FUNCTIONS
+    215           */
+    216          
+    217          /****************************************************************************
+    218          ****************************************************************************/
+    219          
+    220          
+
+
+   Segment part sizes:
+
+     Function/Label                                 Bytes
+     --------------                                 -----
+     zclSampleSw_HWRevision                            1
+     zclSampleSw_ZCLVersion                            1
+     zclSampleSw_ManufacturerName                     17
+     zclSampleSw_ModelId                              17
+     zclSampleSw_DateCode                             17
+     zclSampleSw_PowerSource                           1
+     zclSampleSw_LocationDescription
+                                                      17
+     zclSampleSw_PhysicalEnvironment
+                                                       1
+     zclSampleSw_DeviceEnable                          1
+     zclSampleSw_IdentifyTime                          2
+     zclSampleSw_OnOff                                 1
+     zclZigbeeDevice_Attrs                            88
+     zclSampleSw_InClusterList                         2
+     zclSampleSw_OutClusterList                        2
+     zclZigbeeDevice_SimpleDesc                       12
+     ?<Initializer for zclSampleSw_LocationDescript   17
+     ?<Initializer for zclSampleSw_DeviceEnable>       1
+     ?<Initializer for zclZigbeeDevice_SimpleDesc>    12
+
+ 
+ 88 bytes in segment CODE_C
+ 30 bytes in segment XDATA_I
+ 30 bytes in segment XDATA_ID
+ 58 bytes in segment XDATA_ROM_C
+  4 bytes in segment XDATA_Z
+ 
+ 118 bytes of CODE  memory
+  58 bytes of CONST memory
+  34 bytes of XDATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,679 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                29/Nov/2010  16:04:05 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  C:\Documents and Settings\Darren\桌面\ZIGBEE       #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Components\mac\low_level\srf04\s #
+#                          ingle_chip\mac_radio_defs.c                        #
+#    Command line       =  -f "C:\Documents and Settings\Darren\桌面\ZIGBEE   #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\Tools\CC2530DB\f8wCo #
+#                          ord.cfg" (-DCPU32MHZ -DROOT=__near_func            #
+#                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE                   #
+#                          -DZDO_COORDINATOR -DRTR_NWK -DBLINK_LEDS) -f       #
+#                          "C:\Documents and Settings\Darren\桌面\ZIGBEE      #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\Tools\CC2530DB\f8wCo #
+#                          nfig.cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0        #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "C:\Documents and Settings\Darren\桌面\ZIGBEE   #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\Tools\CC2530DB\f8wZC #
+#                          L.cfg" (-DZCL_READ -DZCL_WRITE -DZCL_BASIC         #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE "C:\Documents and     #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Components\mac\low_level\srf04\s #
+#                          ingle_chip\mac_radio_defs.c" -D Coordinator -D     #
+#                          ZTOOL_P1 -D MT_TASK -D MT_APP_FUNC -D MT_SYS_FUNC  #
+#                          -D MT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG -lC          #
+#                          "C:\Documents and Settings\Darren\桌面\ZIGBEE      #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\CoordinatorEB\List\" -lA      #
+#                          "C:\Documents and Settings\Darren\桌面\ZIGBEE      #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\CoordinatorEB\List\"          #
+#                          --diag_suppress Pe001,Pa010 -o "C:\Documents and   #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\CoordinatorEB\Obj\" -e        #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "C:\Documents and          #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\" -I "C:\Documents and        #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\SOURCE\" -I "C:\Documents  #
+#                          and Settings\Darren\桌面\ZIGBEE                    #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\SOURCE\" -I             #
+#                          "C:\Documents and Settings\Darren\桌面\ZIGBEE      #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I  #
+#                          "C:\Documents and Settings\Darren\桌面\ZIGBEE      #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MT\ #
+#                          " -I "C:\Documents and Settings\Darren\桌面\ZIGBEE #
+#                           教學模組_出貨光碟\ZIGBEE                          #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\HAL #
+#                          \INCLUDE\" -I "C:\Documents and                    #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\HAL #
+#                          \TARGET\CC2530EB\" -I "C:\Documents and            #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\OSA #
+#                          L\MCU\CCSOC\" -I "C:\Documents and                 #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\OSA #
+#                          L\INCLUDE\" -I "C:\Documents and                   #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\AF\" -I "C:\Documents and                       #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\NWK\" -I "C:\Documents and                      #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\SEC\" -I "C:\Documents and                      #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\SAPI\" -I "C:\Documents and                     #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\SYS\" -I "C:\Documents and                      #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\ZCL\" -I "C:\Documents and                      #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\STA #
+#                          CK\ZDO\" -I "C:\Documents and                      #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\ZMA #
+#                          C\F8W\" -I "C:\Documents and                       #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\ZMA #
+#                          C\" -I "C:\Documents and                           #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\SER #
+#                          VICES\SADDR\" -I "C:\Documents and                 #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\SER #
+#                          VICES\SDATA\" -I "C:\Documents and                 #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MAC #
+#                          \INCLUDE\" -I "C:\Documents and                    #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MAC #
+#                          \HIGH_LEVEL\" -I "C:\Documents and                 #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MAC #
+#                          \LOW_LEVEL\srf04\" -I "C:\Documents and            #
+#                          Settings\Darren\桌面\ZIGBEE                        #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\..\..\..\..\..\COMPONENTS\MAC #
+#                          \LOW_LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR          #
+#                          Systems\Embedded Workbench for MCS-51              #
+#                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded       #
+#                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz    #
+#    List file          =  C:\Documents and Settings\Darren\桌面\ZIGBEE       #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\CoordinatorEB\List\mac_radio_ #
+#                          defs.lst                                           #
+#    Object file        =  C:\Documents and Settings\Darren\桌面\ZIGBEE       #
+#                          教學模組_出貨光碟\ZIGBEE                           #
+#                          Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-C #
+#                          C2530-2.3.0-1.4.0\Projects\zstack\HomeAutomation\S #
+#                          ampleSwitch\CC2530DB\CoordinatorEB\Obj\mac_radio_d #
+#                          efs.r51                                            #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\Darren\桌面\ZIGBEE 教學模組_出貨光碟\ZIGBEE Example\CC2530_ZStack\教學模組_Z-Stack_Ex\ZStack-CC2530-2.3.0-1.4.0\Components\mac\low_level\srf04\single_chip\mac_radio_defs.c
+      1          /**************************************************************************************************
+      2            Filename:       mac_radio_defs.c
+      3            Revised:        $Date: 2010-01-06 14:40:42 -0800 (Wed, 06 Jan 2010) $
+      4            Revision:       $Revision: 21441 $
+      5          
+      6            Description:    Describe the purpose and contents of the file.
+      7          
+      8            Copyright 2006-2010 Texas Instruments Incorporated. All rights reserved.
+      9          
+     10            Should you have any questions regarding your right to use this Software,
+     11            contact Texas Instruments Incorporated at www.TI.com.
+     12          **************************************************************************************************/
+     13          
+     14          /* ------------------------------------------------------------------------------------------------
+     15           *                                             Includes
+     16           * ------------------------------------------------------------------------------------------------
+     17           */
+     18          #include "mac_radio_defs.h"
+     19          #include "hal_types.h"
+     20          #include "hal_assert.h"
+     21          #include "mac_pib.h"
+     22          
+     23          
+     24          /* ------------------------------------------------------------------------------------------------
+     25           *                                        Global Constants
+     26           * ------------------------------------------------------------------------------------------------
+     27           */
+     28          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 || (!defined HAL_PA_LNA && !defined HAL_PA_LNA_CC2590)
+     29          
+
+   \                                 In  segment CODE_C, align 1
+     30          const uint8 CODE macRadioDefsTxPwrBare[] =
+   \                     macRadioDefsTxPwrBare:
+   \   000000   03EAF5E5     DB 3, 234, 245, 229, 213, 213, 197, 181, 165, 149, 149, 133, 133, 117
+   \            D5D5C5B5
+   \            A5959585
+   \            8575    
+   \   00000E   75656555     DB 117, 101, 101, 85, 85, 69, 69, 53, 53, 37, 37, 21, 21, 5
+   \            55454535
+   \            35252515
+   \            1505    
+     31          {
+     32            3,  /* tramsmit power level of the first entry */
+     33            (uint8)(int8)-22, /* transmit power level of the last entry */
+     34            /*   3 dBm */   0xF5,   /* characterized as  4.5 dBm in datasheet */
+     35            /*   2 dBm */   0xE5,   /* characterized as  2.5 dBm in datasheet */
+     36            /*   1 dBm */   0xD5,   /* characterized as  1   dBm in datasheet */
+     37            /*   0 dBm */   0xD5,   /* characterized as  1   dBm in datasheet */
+     38            /*  -1 dBm */   0xC5,   /* characterized as -0.5 dBm in datasheet */
+     39            /*  -2 dBm */   0xB5,   /* characterized as -1.5 dBm in datasheet */
+     40            /*  -3 dBm */   0xA5,   /* characterized as -3   dBm in datasheet */
+     41            /*  -4 dBm */   0x95,   /* characterized as -4   dBm in datasheet */
+     42            /*  -5 dBm */   0x95,
+     43            /*  -6 dBm */   0x85,   /* characterized as -6   dBm in datasheet */
+     44            /*  -7 dBm */   0x85,
+     45            /*  -8 dBm */   0x75,   /* characterized as -8   dBm in datasheet */
+     46            /*  -9 dBm */   0x75,
+     47            /* -10 dBm */   0x65,   /* characterized as -10  dBm in datasheet */
+     48            /* -11 dBm */   0x65,
+     49            /* -12 dBm */   0x55,   /* characterized as -12  dBm in datasheet */
+     50            /* -13 dBm */   0x55,
+     51            /* -14 dBm */   0x45,   /* characterized as -14  dBm in datasheet */
+     52            /* -15 dBm */   0x45,
+     53            /* -16 dBm */   0x35,   /* characterized as -16  dBm in datasheet */
+     54            /* -17 dBm */   0x35,
+     55            /* -18 dBm */   0x25,   /* characterized as -18  dBm in datasheet */
+     56            /* -19 dBm */   0x25,
+     57            /* -20 dBm */   0x15,   /* characterized as -20  dBm in datasheet */
+     58            /* -21 dBm */   0x15,
+     59            /* -22 dBm */   0x05    /* characterized as -22  dBm in datasheet */
+     60          };
+     61          #endif
+     62          
+     63          #if defined HAL_PA_LNA || defined MAC_RUNTIME_CC2591
+     64          const uint8 CODE macRadioDefsTxPwrCC2591[] =
+     65          {
+     66            19,  /* tramsmit power level of the first entry */
+     67            (uint8)(int8)0, /* transmit power level of the last entry */
+     68            /*   0 dBm */   0x05,   /* characterized as -0.8 dBm in datasheet */
+     69            /*   1 dBm */   0x15,   /* characterized as 0.70 dBm in datasheet*/
+     70            /*   2 dBm */   0x25,   /* characterized as 2.71 dBm in datasheet */
+     71            /*   3 dBm */   0x25,
+     72            /*   4 dBm */   0x35,   /* characterized as 4.30 dBm in datasheet */ 
+     73            /*   5 dBm */   0x35, 
+     74            /*   6 dBm */   0x45,   /* characterized as 6.64 dBm in datasheet */ 
+     75            /*   7 dBm */   0x45, 
+     76            /*   8 dBm */   0x55,   /* characterized as 8.94 dBm in datasheet */ 
+     77            /*   9 dBm */   0x55, 
+     78            /*  10 dBm */   0x55, 
+     79            /*  11 dBm */   0x65,   /* characterized as 10.97 dBm in datasheet */  
+     80            /*  12 dBm */   0x75,   /* characterized as 12.63 dBm in datasheet */ 
+     81            /*  13 dBm */   0x75, 
+     82            /*  14 dBm */   0x85,   /* characterized as 14.08 dBm in datasheet */ 
+     83            /*  15 dBm */   0x95,   /* characterized as 15.06 dBm in datasheet */
+     84            /*  16 dBm */   0xA5,   /* characterized as 16.42 dBm in datasheet */
+     85            /*  17 dBm */   0xB5,   /* characterized as 17.37 dBm in datasheet */
+     86            /*  18 dBm */   0xD5,   /* characterized as 18.45 dBm in datasheet */
+     87            /*  19 dBm */   0xF5,   /* characterized as 19.36 dBm in datasheet */
+     88          };
+     89          #endif
+     90          
+     91          
+     92          /* Placeholder for CC2590 */
+     93          #if defined HAL_PA_LNA_CC2590 || defined MAC_RUNTIME_CC2590
+     94          const uint8 CODE macRadioDefsTxPwrCC2590[] =
+     95          {
+     96            11,  /* tramsmit power level of the first entry */
+     97            (uint8)(int8)-12, /* transmit power level of the last entry */
+     98            /* Note that the characterization is preliminary */
+     99            /* 11 dBm */   0xF5,   /* characterized as 11.8 dBm */
+    100            /* 10 dBm */   0xE5,   /* characterized as 10.6 dBm */
+    101            /*  9 dBm */   0xD5,   /* characterized as 9.5 dBm */
+    102            /*  8 dBm */   0xC5,   /* characterized as 8.5 dBm */
+    103            /*  7 dBm */   0xB5,   /* characterized as 7.6 dBm */
+    104            /*  6 dBm */   0xA5,   /* characterized as 6.4 dBm */
+    105            /*  5 dBm */   0xA5,   /* characterized as 6.4 dBm */
+    106            /*  4 dBm */   0x95,   /* characterized as 4.7 dBm */
+    107            /*  3 dBm */   0x85,   /* characterized as 3.5 dBm */
+    108            /*  2 dBm */   0x75,   /* characterized as 2.0 dBm */
+    109            /*  1 dBm */   0x75,   /* characterized as 2.0 dBm */
+    110            /*  0 dBm */   0x65,   /* characterized as 0.3 dBm */
+    111            /* -1 dBm */   0x65,   /* characterized as 0.3 dBm */
+    112            /* -2 dBm */   0x55,   /* characterized as -1.7 dBm */
+    113            /* -3 dBm */   0x55,   /* characterized as -1.7 dBm */
+    114            /* -4 dBm */   0x45,   /* characterized as -3.9 dBm */
+    115            /* -5 dBm */   0x45,   /* characterized as -3.9 dBm */
+    116            /* -6 dBm */   0x45,   /* characterized as -3.9 dBm */
+    117            /* -7 dBm */   0x35,   /* characterized as -6.3 dBm*/
+    118            /* -8 dBm */   0x25,   /* characterized as -7.8 dBm */
+    119            /* -9 dBm */   0x25,   /* characterized as -7.8 dBm */
+    120            /* -10 dBm */  0x15,   /* characterized as -9.8 dBm */
+    121            /* -11 dBm */  0x15,   /* characterized as -9.8 dBm */
+    122            /* -12 dBm */  0x05,   /* characterized as -11.8 dBm */
+    123          };
+    124          #endif
+    125          
+    126          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 || defined HAL_PA_LNA || defined HAL_PA_LNA_CC2590
+    127          
+    128          /* TX power table array */
+    129          const uint8 CODE *const CODE macRadioDefsTxPwrTables[] =
+    130          {
+    131          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 || (!defined HAL_PA_LNA && !defined HAL_PA_LNA_CC2590)
+    132            macRadioDefsTxPwrBare,
+    133          #endif
+    134          
+    135          #if defined HAL_PA_LNA || defined MAC_RUNTIME_CC2591
+    136            macRadioDefsTxPwrCC2591,
+    137          #endif
+    138          
+    139          #if defined HAL_PA_LNA_CC2590 || defined MAC_RUNTIME_CC2590
+    140            macRadioDefsTxPwrCC2590,
+    141          #endif
+    142          };
+    143          
+    144          /* RSSI offset adjustment value array */
+    145          const int8 CODE macRadioDefsRssiAdj[] =
+    146          {
+    147          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 || (!defined HAL_PA_LNA && !defined HAL_PA_LNA_CC2590)
+    148            0,
+    149          #endif
+    150          
+    151          #if defined HAL_PA_LNA || defined MAC_RUNTIME_CC2591
+    152            -9, /* high gain mode */
+    153            4,  /* low gain mode */
+    154          #endif
+    155          
+    156          #if defined HAL_PA_LNA_CC2590 || defined MAC_RUNTIME_CC2590
+    157            -10, /* high gain mode */
+    158            0,   /* low gain mode */
+    159          #endif
+    160          };
+    161          
+    162          #endif /* defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 || ... */
+    163          
+    164          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 || defined HAL_PA_LNA || defined HAL_PA_LNA_CC2590
+    165          uint8 macRadioDefsRefTableId = 0;
+    166          #endif
+    167          
+    168          /* RF observable control register value to output PA signal */
+    169          #define RFC_OBS_CTRL_PA_PD_INV        0x68
+    170          
+    171          /* RF observable control register value to output LNA signal */
+    172          #define RFC_OBS_CTRL_LNAMIX_PD_INV    0x6A
+    173          
+    174          /* OBSSELn register value to select RF observable 0 */
+    175          #define OBSSEL_OBS_CTRL0             0xFB
+    176          
+    177          /* OBSSELn register value to select RF observable 1 */
+    178          #define OBSSEL_OBS_CTRL1             0xFC
+    179          
+    180          
+    181          /**************************************************************************************************
+    182           * @fn          MAC_SelectRadioRegTable
+    183           * @brief       Select radio register table in case multiple register tables are included
+    184           *              in the build
+    185           * @param       txPwrTblIdx - TX power register value table index
+    186           * @param       rssiAdjIdx - RSSI adjustment value index
+    187           **************************************************************************************************
+    188           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    189          extern void MAC_SetRadioRegTable ( uint8 txPwrTblIdx, uint8 rssiAdjIdx )
+   \                     MAC_SetRadioRegTable:
+    190          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+    191            /* Depending on compile flags, the parameters may not be used */
+    192            (void) txPwrTblIdx;
+    193            (void) rssiAdjIdx;
+    194          
+    195          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590
+    196            if (txPwrTblIdx >= sizeof(macRadioDefsTxPwrTables)/sizeof(macRadioDefsTxPwrTables[0]))
+    197            {
+    198              txPwrTblIdx = 0;
+    199            }
+    200          #endif /* defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 */
+    201          
+    202          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 || \
+    203            defined HAL_PA_LNA || defined HAL_PA_LNA_CC2590
+    204          
+    205            if (rssiAdjIdx >= sizeof(macRadioDefsRssiAdj)/sizeof(macRadioDefsRssiAdj[0]))
+    206            {
+    207              rssiAdjIdx = 0;
+    208            }
+    209          
+    210            macRadioDefsRefTableId = (txPwrTblIdx << 4) | rssiAdjIdx;
+    211          
+    212          #endif /* defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 || .. */
+    213          }
+   \   000000   02....       LJMP    ?BRET
+    214          
+    215          
+    216          /**************************************************************************************************
+    217           * @fn          macRadioTurnOnPower
+    218           * @brief       Logic and sequence for powering up the radio.
+    219           **************************************************************************************************
+    220           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    221          MAC_INTERNAL_API void macRadioTurnOnPower(void)
+   \                     macRadioTurnOnPower:
+    222          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    223            /* Enable RF error trap */
+    224            MAC_MCU_RFERR_ENABLE_INTERRUPT();
+   \   000004   9061A5       MOV     DPTR,#0x61a5
+   \   000007   E0           MOVX    A,@DPTR
+   \   000008   D2E2         SETB    0xE0 /* A   */.2
+   \   00000A   F0           MOVX    @DPTR,A
+    225          
+    226          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590
+    227            /* table ID is referenced only when runtime configuratino is enabled */
+    228            if (macRadioDefsRefTableId & 0xf0)
+    229          #endif /* defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 */
+    230          
+    231          #if defined MAC_RUNTIME_CC2591 || defined MAC_RUNTIME_CC2590 || defined HAL_PA_LNA || defined HAL_PA_LNA_CC2590
+    232            { /* either if compound statement or non-conditional compound statement */
+    233          
+    234              /* (Re-)Configure PA and LNA control signals to RF frontend chips. Note that The register values
+    235                 are not retained during sleep. */
+    236          
+    237          #ifdef XT200_PA  
+    238               /* P1_1 -> PAEN */
+    239              RFC_OBS_CTRL0 = RFC_OBS_CTRL_PA_PD_INV;
+    240              OBSSEL1       = OBSSEL_OBS_CTRL0;
+    241              /* P1_0 -> EN (LNA control) */
+    242              RFC_OBS_CTRL1 = RFC_OBS_CTRL_LNAMIX_PD_INV;
+    243              OBSSEL0       = OBSSEL_OBS_CTRL1;
+    244          #else
+    245              /* P1_1 -> PAEN */
+    246              RFC_OBS_CTRL0 = RFC_OBS_CTRL_PA_PD_INV;
+    247              OBSSEL1       = OBSSEL_OBS_CTRL0;
+    248              /* P1_4 -> EN (LNA control) */
+    249              RFC_OBS_CTRL1 = RFC_OBS_CTRL_LNAMIX_PD_INV;
+    250              OBSSEL4       = OBSSEL_OBS_CTRL1;
+    251          #endif
+    252              
+    253            }
+    254          #endif /* defined MAC_RUNTIME_CC2591 || ... || defined HAL_PA_LNA_CC2590 */
+    255          
+    256            if (macChipVersion <= REV_B)
+   \   00000B   90....       MOV     DPTR,#macChipVersion
+   \   00000E   E0           MOVX    A,@DPTR
+   \   00000F   C3           CLR     C
+   \   000010   9412         SUBB    A,#0x12
+   \   000012   502D         JNC     ??macRadioTurnOnPower_0
+    257            {
+    258              /* radio initializations for disappearing RAM; PG1.0 and before only */
+    259              MAC_RADIO_SET_PAN_ID(macPib.panId);
+   \   000014   90....       MOV     DPTR,#(macPib + 29)
+   \   000017   E0           MOVX    A,@DPTR
+   \   000018   906172       MOV     DPTR,#0x6172
+   \   00001B   F0           MOVX    @DPTR,A
+   \   00001C   90....       MOV     DPTR,#(macPib + 30)
+   \   00001F   E0           MOVX    A,@DPTR
+   \   000020   906173       MOV     DPTR,#0x6173
+   \   000023   F0           MOVX    @DPTR,A
+    260              MAC_RADIO_SET_SHORT_ADDR(macPib.shortAddress);
+   \   000024   90....       MOV     DPTR,#(macPib + 33)
+   \   000027   E0           MOVX    A,@DPTR
+   \   000028   906174       MOV     DPTR,#0x6174
+   \   00002B   F0           MOVX    @DPTR,A
+   \   00002C   90....       MOV     DPTR,#(macPib + 34)
+   \   00002F   E0           MOVX    A,@DPTR
+   \   000030   906175       MOV     DPTR,#0x6175
+   \   000033   F0           MOVX    @DPTR,A
+    261              MAC_RADIO_SET_IEEE_ADDR(macPib.extendedAddress.addr.extAddr);
+   \   000034                ; Setup parameters for call to function macMemWriteRam
+   \   000034   7908         MOV     R1,#0x8
+   \   000036   7C..         MOV     R4,#((macPib + 49) & 0xff)
+   \   000038   7D..         MOV     R5,#(((macPib + 49) >> 8) & 0xff)
+   \   00003A   7A6A         MOV     R2,#0x6a
+   \   00003C   7B61         MOV     R3,#0x61
+   \   00003E   12....       LCALL   ??macMemWriteRam?relay
+    262            }
+    263          }
+   \                     ??macRadioTurnOnPower_0:
+   \   000041                REQUIRE ?Subroutine0
+   \   000041                ; // Fall through to label ?Subroutine0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   D083         POP     DPH
+   \   000002   D082         POP     DPL
+   \   000004   02....       LJMP    ?BRET
+    264          
+    265          
+    266          /**************************************************************************************************
+    267           * @fn          macRadioTurnOffPower
+    268           *
+    269           * @brief       Logic and sequence for powering down the radio.
+    270           *
+    271           * @param       none
+    272           *
+    273           * @return      none
+    274           **************************************************************************************************
+    275           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    276          MAC_INTERNAL_API void macRadioTurnOffPower(void)
+   \                     macRadioTurnOffPower:
+    277          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    278            /* Disable RF error trap */
+    279            MAC_MCU_RFERR_DISABLE_INTERRUPT();
+   \   000004   9061A5       MOV     DPTR,#0x61a5
+   \   000007   E0           MOVX    A,@DPTR
+   \   000008   C2E2         CLR     0xE0 /* A   */.2
+   \   00000A   F0           MOVX    @DPTR,A
+    280          }
+   \   00000B   80..         SJMP    ?Subroutine0
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??MAC_SetRadioRegTable?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    MAC_SetRadioRegTable
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioTurnOnPower?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioTurnOnPower
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??macRadioTurnOffPower?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    macRadioTurnOffPower
+    281          
+    282          
+    283          /**************************************************************************************************
+    284           *                                  Compile Time Integrity Checks
+    285           **************************************************************************************************
+    286           */
+    287          #if (HAL_CPU_CLOCK_MHZ != 32)
+    288          #error "ERROR: The only tested/supported clock speed is 32 MHz."
+    289          #endif
+    290          
+    291          #if (MAC_RADIO_RECEIVER_SENSITIVITY_DBM > MAC_SPEC_MIN_RECEIVER_SENSITIVITY)
+    292          #error "ERROR: Radio sensitivity does not meet specification."
+    293          #endif
+    294          
+    295          #if defined (HAL_PA_LNA) && defined (HAL_PA_LNA_CC2590)
+    296          #error "ERROR: HAL_PA_LNA and HAL_PA_LNA_CC2590 cannot be both defined."
+    297          #endif
+    298          
+    299          #if defined (HAL_PA_LNA) && defined (MAC_RUNTIME_CC2591)
+    300          #error "ERROR: HAL_PA_LNA and MAC_RUNTIME_CC2591 cannot be both defined."
+    301          #endif
+    302          
+    303          #if defined (HAL_PA_LNA_CC2590) && defined (MAC_RUNTIME_CC2590)
+    304          #error "ERROR: HAL_PA_LNA_CC2590 and MAC_RUNTIME_CC2590 cannot be both defined."
+    305          #endif
+    306          
+    307          
+    308          /**************************************************************************************************
+    309           */
+
+   Maximum stack usage in bytes:
+
+     Function             ISTACK PSTACK XSTACK
+     --------             ------ ------ ------
+     MAC_SetRadioRegTable     0      0      0
+     macRadioTurnOffPower     2      0      0
+     macRadioTurnOnPower      2      0      0
+       -> macMemWriteRam      4      0      0
+
+
+   Segment part sizes:
+
+     Function/Label               Bytes
+     --------------               -----
+     macRadioDefsTxPwrBare          28
+     MAC_SetRadioRegTable            3
+     macRadioTurnOnPower            65
+     ?Subroutine0                    7
+     macRadioTurnOffPower           13
+     ??MAC_SetRadioRegTable?relay    6
+     ??macRadioTurnOnPower?relay     6
+     ??macRadioTurnOffPower?relay    6
+
+ 
+ 88 bytes in segment BANKED_CODE
+ 18 bytes in segment BANK_RELAYS
+ 28 bytes in segment CODE_C
+ 
+ 134 bytes of CODE memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,658 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               27/Aug/2010  16:03:43 /
+// Copyright 2004-2009 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  banked                                            /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data_rom                                          /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter\ /
+//                          XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Compon /
+//                          ents\hal\target\CC2530NB\hal_rs485.c              /
+//    Command line       =  -f "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRou /
+//                          ter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Pr /
+//                          ojects\zstack\Sensor Network Application\ZIGBEE   /
+//                          Coordinator & Router\CC2530DB\..\..\..\Tools\CC25 /
+//                          30DB\f8wCoord.cfg" (-DCPU32MHZ                    /
+//                          -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TR /
+//                          UE -DZDO_COORDINATOR -DRTR_NWK -DBLINK_LEDS) -f   /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\Tools\CC25 /
+//                          30DB\f8wConfig.cfg" (-DSECURE=0                   /
+//                          -DZG_SECURE_DYNAMIC=0 -DREFLECTOR                 /
+//                          -DDEFAULT_CHANLIST=0x00000800                     /
+//                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
+//                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
+//                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
+//                          -DBEACON_REQ_DELAY_MASK=0x00FF                    /
+//                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_P /
+//                          OLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7           /
+//                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3   /
+//                          -DNWK_MAX_DATA_RETRIES=2                          /
+//                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9        /
+//                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40          /
+//                          -DNWK_MAX_BINDING_ENTRIES=4                       /
+//                          -DMAX_BINDING_CLUSTER_IDS=4                       /
+//                          "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07, 0x09,     /
+//                          0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08,   /
+//                          0x0A, 0x0C, 0x0D}" -DMAC_MAX_FRAME_SIZE=116       /
+//                          "-DCONST=const __code" -DGENERIC=__generic        /
+//                          -DRFD_RCVC_ALWAYS_ON=TRUE -DPOLL_RATE=1000        /
+//                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100   /
+//                          -DREJOIN_POLL_RATE=440) -f                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\Tools\CC25 /
+//                          30DB\f8wZCL.cfg" (-DZCL_READ -DZCL_WRITE          /
+//                          -DZCL_BASIC -DZCL_IDENTIFY -DZCL_ON_OFF           /
+//                          -DZCL_KEY_ESTABLISH -DZCL_LOAD_CONTROL            /
+//                          -DZCL_SIMPLE_METERING -DZCL_PRICING)              /
+//                          -DZCL_MESSAGE D:\Z-Stack整理Code\南開科大_Z-Stack /
+//                          _ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3. /
+//                          0-1.4.0\Components\hal\target\CC2530NB\hal_rs485. /
+//                          c -D CC2530 -D ZTOOL_P1 -D MT_TASK -D             /
+//                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
+//                          xLCD_SUPPORTED=DEBUG -D Coor_receiver -D          /
+//                          xHAL_KEYPAD -D PA2591 -lC                         /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\Coordinator_NB_PA\L /
+//                          ist\" -lA "D:\Z-Stack整理Code\南開科大_Z-Stack_Zi /
+//                          gbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1 /
+//                          .4.0\Projects\zstack\Sensor Network               /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\Coordinator_NB_PA\List\"          /
+//                          --diag_suppress Pe001,Pa010 -o                    /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\Coordinator_NB_PA\O /
+//                          bj\" -e --require_prototypes --debug              /
+//                          --core=plain --dptr=16,1 --data_model=large       /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I                           /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\" -I                /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\SOURCE\" -I      /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\SOURCE\" -I   /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\ZMAIN\TI25 /
+//                          30DB\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zi /
+//                          gbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1 /
+//                          .4.0\Projects\zstack\Sensor Network               /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\MT\"    /
+//                          -I "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRou /
+//                          ter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Pr /
+//                          ojects\zstack\Sensor Network Application\ZIGBEE   /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\HAL\INCLUDE\" -I                           /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\HAL\TARGET\CC2530NB\" -I                   /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\OSAL\MCU\CCSOC\" -I                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\OSAL\INCLUDE\" -I                          /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\STACK\AF\" -I "D:\Z-Stack整理Code\南開科大 /
+//                          _Z-Stack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2 /
+//                          530-2.3.0-1.4.0\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\N /
+//                          WK\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          EC\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          API\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zig /
+//                          beeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1. /
+//                          4.0\Projects\zstack\Sensor Network                /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          YS\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          CL\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          DO\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigb /
+//                          eeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4 /
+//                          .0\Projects\zstack\Sensor Network                 /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8 /
+//                          W\" -I "D:\Z-Stack整理Code\南開科大_Z-Stack_Zigbe /
+//                          eRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4. /
+//                          0\Projects\zstack\Sensor Network                  /
+//                          Application\ZIGBEE Coordinator &                  /
+//                          Router\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"  /
+//                          -I "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRou /
+//                          ter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Pr /
+//                          ojects\zstack\Sensor Network Application\ZIGBEE   /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\SERVICES\SADDR\" -I                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\SERVICES\SDATA\" -I                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\MAC\INCLUDE\" -I                           /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\MAC\HIGH_LEVEL\" -I                        /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\MAC\LOW_LEVEL\srf04\" -I                   /
+//                          "D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter /
+//                          \XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Proje /
+//                          cts\zstack\Sensor Network Application\ZIGBEE      /
+//                          Coordinator & Router\CC2530DB\..\..\..\..\..\COMP /
+//                          ONENTS\MAC\LOW_LEVEL\srf04\SINGLE_CHIP\" -I       /
+//                          "C:\IAR Systems\Embedded Workbench MCS            /
+//                          51\8051\INC\" -I "C:\IAR Systems\Embedded         /
+//                          Workbench MCS 51\8051\INC\CLIB\" -Ohz             /
+//    List file          =  D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter\ /
+//                          XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Projec /
+//                          ts\zstack\Sensor Network Application\ZIGBEE       /
+//                          Coordinator & Router\CC2530DB\Coordinator_NB_PA\L /
+//                          ist\hal_rs485.s51                                 /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME hal_rs485
+
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+
+        PUBLIC ??HalRS485DisTX?relay
+        FUNCTION ??HalRS485DisTX?relay,0203H
+        PUBLIC ??HalRS485EnRX?relay
+        FUNCTION ??HalRS485EnRX?relay,0203H
+        PUBLIC ??HalRS485EnTX?relay
+        FUNCTION ??HalRS485EnTX?relay,0203H
+        PUBLIC ??HalRS485Init?relay
+        FUNCTION ??HalRS485Init?relay,0203H
+        PUBLIC HalRS485DisTX
+        FUNCTION HalRS485DisTX,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC HalRS485EnRX
+        FUNCTION HalRS485EnRX,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC HalRS485EnTX
+        FUNCTION HalRS485EnTX,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC HalRS485Init
+        FUNCTION HalRS485Init,0203H
+        ARGFRAME XSTACK, 0, STACK
+        PUBWEAK P1DIR
+        PUBWEAK P1SEL
+        PUBWEAK _A_P1
+        
+        CFI Names cfiNames0
+        CFI StackFrame CFA_SP SP IDATA
+        CFI StackFrame CFA_PSP16 PSP16 XDATA
+        CFI StackFrame CFA_XSP16 XSP16 XDATA
+        CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+        CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+        CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+        CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+        CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+        CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+        CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+        CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+        CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+        CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+        CFI VirtualResource ?RET:24
+        CFI Resource ?BRET_EXT:8
+        CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+        CFI ResourceParts PSP16 PSPH, PSPL
+        CFI ResourceParts XSP16 XSPH, XSPL
+        CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+        CFI EndNames cfiNames0
+        
+        CFI Common cfiCommon0 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-3
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B Undefined
+        CFI A Undefined
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 Undefined
+        CFI R1 Undefined
+        CFI R2 Undefined
+        CFI R3 Undefined
+        CFI R4 Undefined
+        CFI R5 Undefined
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT Frame(CFA_SP, 3)
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon0
+        
+halMcuWaitUs        SYMBOL "halMcuWaitUs"
+??halMcuWaitUs?relay SYMBOL "?relay", halMcuWaitUs
+HalRS485DisTX       SYMBOL "HalRS485DisTX"
+??HalRS485DisTX?relay SYMBOL "?relay", HalRS485DisTX
+HalRS485EnRX        SYMBOL "HalRS485EnRX"
+??HalRS485EnRX?relay SYMBOL "?relay", HalRS485EnRX
+HalRS485EnTX        SYMBOL "HalRS485EnTX"
+??HalRS485EnTX?relay SYMBOL "?relay", HalRS485EnTX
+HalRS485Init        SYMBOL "HalRS485Init"
+??HalRS485Init?relay SYMBOL "?relay", HalRS485Init
+
+        EXTERN halMcuWaitUs
+        FUNCTION halMcuWaitUs,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN ??halMcuWaitUs?relay
+        FUNCTION ??halMcuWaitUs?relay,00H
+
+// D:\Z-Stack整理Code\南開科大_Z-Stack_ZigbeeRouter\XT200_PA_Z-Stack\ZStack-CC2530-2.3.0-1.4.0\Components\hal\target\CC2530NB\hal_rs485.c
+//    1 /**************************************************************************************************
+//    2   Filename:       hal_rs485.c
+//    3   Revised:        $Date: 2009-06-12 09:16:43 -0700 (Fri, 12 Jun 2009) $
+//    4   Revision:       $Revision: 20142 $
+//    5 
+//    6   Description: This file contains the interface to the H/W UART driver.
+//    7 
+//    8   Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
+//    9 
+//   10   Should you have any questions regarding your right to use this Software,
+//   11   contact Texas Instruments Incorporated at www.TI.com.
+//   12 **************************************************************************************************/
+//   13 
+//   14 /*********************************************************************
+//   15  * INCLUDES
+//   16  */
+//   17 #include "hal_defs.h"
+//   18 #include "hal_types.h"
+//   19 
+//   20 /* APP */
+//   21 #if defined(End_Device)
+//   22   #include "zcl_zigbee device.h"
+//   23 #endif
+//   24 
+//   25 /* HAL */
+//   26 #include "hal_board_cfg.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,090H
+// union <unnamed> volatile __sfr _A_P1
+_A_P1:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f4H
+// unsigned char volatile __sfr P1SEL
+P1SEL:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0feH
+// unsigned char volatile __sfr P1DIR
+P1DIR:
+        DS 1
+//   27 #include "mt_uart.h"
+//   28 #include "hal_timer.h"
+//   29 #include "hal_uart.h"
+//   30 #include "hal_rs485.h"
+//   31 
+//   32 /*********************************************************************
+//   33  * MACROS
+//   34  */
+//   35 
+//   36 /*********************************************************************
+//   37  * TYPEDEFS
+//   38  */
+//   39 
+//   40 /*********************************************************************
+//   41  * CONSTANTS
+//   42  */
+//   43 
+//   44 /*********************************************************************
+//   45  * GLOBAL VARIABLES
+//   46  */
+//   47 
+//   48 /*********************************************************************
+//   49  * GLOBAL FUNCTIONS
+//   50  */
+//   51 
+//   52 /*********************************************************************
+//   53  * LOCAL VARIABLES
+//   54  */
+//   55 
+//   56 /*********************************************************************
+//   57  * LOCAL FUNCTIONS
+//   58  */
+//   59 
+//   60 
+//   61 /******************************************************************************
+//   62  * @fn      HalRS485Init
+//   63  * @brief   Initilization the RS485 to transmit/receive
+//   64  *****************************************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   65 void HalRS485Init(void)
+HalRS485Init:
+        CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function HalRS485Init
+//   66 { 
+        ; Saved register size: 0
+        ; Auto size: 0
+//   67   // Set the RS485 Enable pin to output
+//   68   HAL_RS485_EN_OUTPUT();
+        ANL     0xf4,#0xbf
+        SETB    0x90.6
+        ORL     0xfe,#0x40
+//   69   // Initilization the Enable pin to low
+//   70   HAL_RS485_EN_LOW();
+        CLR     0x90.6
+//   71 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock0
+        REQUIRE _A_P1
+        REQUIRE P1SEL
+        REQUIRE P1DIR
+//   72 
+//   73 /******************************************************************************
+//   74  * @fn      HalRS485EnTX
+//   75  * @brief   Enable the RS485 to transmit state
+//   76  *****************************************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   77 void HalRS485EnTX(void)
+HalRS485EnTX:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI Function HalRS485EnTX
+//   78 {
+        FUNCALL HalRS485EnTX, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   79   HAL_RS485_EN_HIGH();
+        SETB    0x90.6
+        CFI EndBlock cfiBlock1
+//   80   halMcuWaitUs(500);
+        ; Setup parameters for call to function halMcuWaitUs
+        REQUIRE ?Subroutine0
+        REQUIRE _A_P1
+        ; // Fall through to label ?Subroutine0
+//   81 }
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine0:
+        CFI Block cfiBlock2 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+-5
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        MOV     R2,#-0xc
+        MOV     R3,#0x1
+        LCALL   ??halMcuWaitUs?relay
+        CFI EndBlock cfiBlock2
+        REQUIRE ??Subroutine1_0
+        ; // Fall through to label ??Subroutine1_0
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+??Subroutine1_0:
+        CFI Block cfiBlock3 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+-5
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        POP     DPH
+        CFI CFA_SP SP+-4
+        CFI DPH0 SameValue
+        POP     DPL
+        CFI CFA_SP SP+-3
+        CFI DPL0 SameValue
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock3
+//   82 
+//   83 /******************************************************************************
+//   84  * @fn      HalRS485DisTX
+//   85  * @brief   Disable the RS485 to transmit state
+//   86  *****************************************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   87 void HalRS485DisTX (void)
+HalRS485DisTX:
+        CFI Block cfiBlock4 Using cfiCommon0
+        CFI Function HalRS485DisTX
+//   88 {
+        FUNCALL HalRS485DisTX, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   89   halMcuWaitUs(500);
+        ; Setup parameters for call to function halMcuWaitUs
+        MOV     R2,#-0xc
+        MOV     R3,#0x1
+        LCALL   ??halMcuWaitUs?relay
+//   90   HAL_RS485_EN_LOW();
+        CLR     0x90.6
+//   91 }
+        SJMP    ??Subroutine1_0
+        CFI EndBlock cfiBlock4
+        REQUIRE _A_P1
+//   92 
+//   93 /******************************************************************************
+//   94  * @fn      HalRS485EnRX
+//   95  * @brief   Enable the RS485 to receive state
+//   96  *****************************************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   97 void HalRS485EnRX ( void )
+HalRS485EnRX:
+        CFI Block cfiBlock5 Using cfiCommon0
+        CFI Function HalRS485EnRX
+//   98 {
+        FUNCALL HalRS485EnRX, halMcuWaitUs
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   99   HAL_RS485_EN_LOW();
+        CLR     0x90.6
+//  100   halMcuWaitUs(500);
+        ; Setup parameters for call to function halMcuWaitUs
+        SJMP    ?Subroutine0
+        CFI EndBlock cfiBlock5
+        REQUIRE _A_P1
+//  101 }
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??HalRS485Init?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    HalRS485Init
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??HalRS485EnTX?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    HalRS485EnTX
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??HalRS485DisTX?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    HalRS485DisTX
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??HalRS485EnRX?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    HalRS485EnRX
+
+        END
+//  102 
+//  103 /******************************************************************************
+//  104 ******************************************************************************/
+// 
+// 56 bytes in segment BANKED_CODE
+// 24 bytes in segment BANK_RELAYS
+//  3 bytes in segment SFR_AN
+// 
+// 80 bytes of CODE memory
+//  0 bytes of DATA memory (+ 3 bytes shared)
+//
+//Errors: none
+//Warnings: none

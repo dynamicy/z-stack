@@ -1,0 +1,878 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               01/Dec/2010  16:52:52 /
+// Copyright 2004-2009 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  banked                                            /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data_rom                                          /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE     /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\Source\hal_sensor.c                        /
+//    Command line       =  -f "D:\R.D Dept\程式開發\TI CC2530                /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev. /
+//                          cfg" (-DCPU32MHZ -DROOT=__near_func               /
+//                          -DBLINK_LEDS) -f "D:\R.D Dept\程式開發\TI CC2530  /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig /
+//                          .cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0           /
+//                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800         /
+//                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
+//                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
+//                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
+//                          -DBEACON_REQ_DELAY_MASK=0x00FF                    /
+//                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_P /
+//                          OLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7           /
+//                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3   /
+//                          -DNWK_MAX_DATA_RETRIES=2                          /
+//                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9        /
+//                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40          /
+//                          -DNWK_MAX_BINDING_ENTRIES=4                       /
+//                          -DMAX_BINDING_CLUSTER_IDS=4                       /
+//                          "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07, 0x09,     /
+//                          0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08,   /
+//                          0x0A, 0x0C, 0x0D}" -DMAC_MAX_FRAME_SIZE=116       /
+//                          "-DCONST=const __code" -DGENERIC=__generic        /
+//                          -DRFD_RCVC_ALWAYS_ON=TRUE -DPOLL_RATE=1000        /
+//                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100   /
+//                          -DREJOIN_POLL_RATE=440) -f "D:\R.D                /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cf /
+//                          g" (-DZCL_READ -DZCL_WRITE -DZCL_BASIC            /
+//                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH   /
+//                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
+//                          -DZCL_PRICING) -DZCL_MESSAGE "D:\R.D              /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\Source\hal_sensor.c" -D NWK_AUTO_POLL -D   /
+//                          ZTOOL_P1 -D MT_TASK -D MT_APP_FUNC -D             /
+//                          MT_SYS_FUNC -D MT_ZDO_FUNC -D                     /
+//                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
+//                          End_Device -D HAL_KEYPAD -D M270 -D xPA2591 -lC   /
+//                          "D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE    /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceEB_M270\List\" -lA       /
+//                          "D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE    /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceEB_M270\List\"           /
+//                          --diag_suppress Pe001,Pa010 -o "D:\R.D            /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceEB_M270\Obj\" -e         /
+//                          --require_prototypes --debug --core=plain         /
+//                          --dptr=16,1 --data_model=large                    /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I "D:\R.D Dept\程式開發\TI  /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Endpoint &         /
+//                          Device\CC2530DB\" -I "D:\R.D Dept\程式開發\TI     /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Endpoint &         /
+//                          Device\CC2530DB\..\SOURCE\" -I "D:\R.D            /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\SOURCE\" -I "D:\R.D         /
+//                          Dept\程式開發\TI CC2530 example\ZIGBEE            /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I      /
+//                          "D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE    /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\"    /
+//                          -I "D:\R.D Dept\程式開發\TI CC2530                /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INC /
+//                          LUDE\" -I "D:\R.D Dept\程式開發\TI CC2530         /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MOD /
+//                          ULE\" -I "D:\R.D Dept\程式開發\TI CC2530          /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TAR /
+//                          GET\CC2530EB\" -I "D:\R.D Dept\程式開發\TI        /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Endpoint &         /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MC /
+//                          U\CCSOC\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\IN /
+//                          CLUDE\" -I "D:\R.D Dept\程式開發\TI CC2530        /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\A /
+//                          F\" -I "D:\R.D Dept\程式開發\TI CC2530            /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\N /
+//                          WK\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          EC\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          API\" -I "D:\R.D Dept\程式開發\TI CC2530          /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          YS\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          CL\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          DO\" -I "D:\R.D Dept\程式開發\TI CC2530           /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8 /
+//                          W\" -I "D:\R.D Dept\程式開發\TI CC2530            /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"  /
+//                          -I "D:\R.D Dept\程式開發\TI CC2530                /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SADDR\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SDATA\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INC /
+//                          LUDE\" -I "D:\R.D Dept\程式開發\TI CC2530         /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIG /
+//                          H_LEVEL\" -I "D:\R.D Dept\程式開發\TI CC2530      /
+//                          example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\ /
+//                          Sensor Network Example\Projects\zstack\Sensor     /
+//                          Network Application\ZIGBEE Endpoint &             /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\" -I "D:\R.D Dept\程式開發\TI        /
+//                          CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0 /
+//                          -1.4.0\Sensor Network Example\Projects\zstack\Sen /
+//                          sor Network Application\ZIGBEE Endpoint &         /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\SINGLE_CHIP\" -I "C:\IAR             /
+//                          Systems\Embedded Workbench for MCS-51             /
+//                          V7.51\8051\INC\" -I "C:\IAR Systems\Embedded      /
+//                          Workbench for MCS-51 V7.51\8051\INC\CLIB\" -Ohz   /
+//    List file          =  D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE     /
+//                          Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceEB_M270\List\hal_sensor. /
+//                          s51                                               /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME hal_sensor
+
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+        EXTERN __INIT_XDATA_Z
+
+        PUBLIC ??M270_SensorFunction?relay
+        FUNCTION ??M270_SensorFunction?relay,0203H
+        PUBLIC M270_SensorFunction
+        FUNCTION M270_SensorFunction,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC TransmitApp_Msg
+        
+        CFI Names cfiNames0
+        CFI StackFrame CFA_SP SP IDATA
+        CFI StackFrame CFA_PSP16 PSP16 XDATA
+        CFI StackFrame CFA_XSP16 XSP16 XDATA
+        CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+        CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+        CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+        CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+        CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+        CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+        CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+        CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+        CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+        CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+        CFI VirtualResource ?RET:24
+        CFI Resource ?BRET_EXT:8
+        CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+        CFI ResourceParts PSP16 PSPH, PSPL
+        CFI ResourceParts XSP16 XSPH, XSPL
+        CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+        CFI EndNames cfiNames0
+        
+        CFI Common cfiCommon0 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-3
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B Undefined
+        CFI A Undefined
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 Undefined
+        CFI R1 Undefined
+        CFI R2 Undefined
+        CFI R3 Undefined
+        CFI R4 Undefined
+        CFI R5 Undefined
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT Frame(CFA_SP, 3)
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon0
+        
+M270_Init           SYMBOL "M270_Init"
+M270_SetDO          SYMBOL "M270_SetDO"
+HalLcdWriteString   SYMBOL "HalLcdWriteString"
+HalLcdWriteChar     SYMBOL "HalLcdWriteChar"
+??HalLcdWriteChar?relay SYMBOL "?relay", HalLcdWriteChar
+??HalLcdWriteString?relay SYMBOL "?relay", HalLcdWriteString
+??M270_Init?relay   SYMBOL "?relay", M270_Init
+??M270_SetDO?relay  SYMBOL "?relay", M270_SetDO
+M270_SensorFunction SYMBOL "M270_SensorFunction"
+??M270_SensorFunction?relay SYMBOL "?relay", M270_SensorFunction
+
+        EXTERN M270_Init
+        FUNCTION M270_Init,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN M270_SetDO
+        FUNCTION M270_SetDO,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN HalLcdWriteString
+        FUNCTION HalLcdWriteString,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN HalLcdWriteChar
+        FUNCTION HalLcdWriteChar,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN ??HalLcdWriteChar?relay
+        FUNCTION ??HalLcdWriteChar?relay,00H
+        EXTERN ??HalLcdWriteString?relay
+        FUNCTION ??HalLcdWriteString?relay,00H
+        EXTERN ??M270_Init?relay
+        FUNCTION ??M270_Init?relay,00H
+        EXTERN ??M270_SetDO?relay
+        FUNCTION ??M270_SetDO?relay,00H
+        EXTERN ch
+
+// D:\R.D Dept\程式開發\TI CC2530 example\ZIGBEE Z-Stack\CC2530_ZStack-2.3.0-1.4.0\Sensor Network Example\Projects\zstack\Sensor Network Application\ZIGBEE Endpoint & Device\Source\hal_sensor.c
+//    1 /**************************************************************************************************
+//    2   Filename:       hal_sensor.c
+//    3   Revised:        $Date: 2010-07-14 (Wed, 14 July 2010) $
+//    4   Revision:       $Revision: 19453 $
+//    5 
+//    6   Description:    HAL Sensor - the device receive the sensor data application.
+//    7 **************************************************************************************************/
+//    8 /*********************************************************************
+//    9  * INCLUDES
+//   10  */  
+//   11 #include "ZComDef.h"
+//   12 #include "OSAL.h"
+//   13 #include "AF.h"
+//   14 #include "ZDApp.h"
+//   15 #include "ZDObject.h"
+//   16 #include "ZDProfile.h"
+//   17 
+//   18 #include "mac_radio_defs.h"
+//   19 
+//   20 /* ZCL */
+//   21 #include "zcl.h"
+//   22 #include "zcl_general.h"
+//   23 #include "zcl_ha.h"
+//   24 #include "zcl_zigbee device.h"
+//   25 
+//   26 /* HAL */
+//   27 #include "onboard.h"
+//   28 #include "hal_lcd.h"
+//   29 #include "hal_led.h"
+//   30 #include "hal_key.h"
+//   31 #include "MT_UART.h"
+//   32 #include "hal_uart.h"
+//   33 #include "hal_timer.h"
+//   34 #include "hal_keypad.h"
+//   35 #include "hal_buzzer.h"
+//   36   
+//   37 /* HAL Sensor */
+//   38 #include "hal_sensor.h"
+//   39 
+//   40 #if defined(M140)
+//   41   #include "M140.h"
+//   42 #endif
+//   43 #if defined(M160)
+//   44   #include "M160.h"
+//   45 #endif
+//   46 #if defined(M170)
+//   47   #include "M170.h"
+//   48 #endif
+//   49 #if defined(M200)
+//   50   #include "M200.h"
+//   51 #endif
+//   52 #if defined(M270)
+//   53   #include "M270.h"
+//   54 #endif
+//   55 
+//   56 /*********************************************************************
+//   57  * GLOBAL VARIABLES
+//   58  */
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   59  byte TransmitApp_Msg[ TRANSMITAPP_MAX_DATA_LEN ]; 
+TransmitApp_Msg:
+        DS 102
+        REQUIRE __INIT_XDATA_Z
+//   60  
+//   61 /*********************************************************************
+//   62  * LOCAL VARIABLES
+//   63  */
+//   64 /*********************************************************************
+//   65  * LOCAL FUNCTIONS
+//   66  */
+//   67  void M140_SensorFunction(void); // M140 Module function
+//   68  void M160_SensorFunction(void); // M160 Module function
+//   69  void M170_SensorFunction(void); // M170 Module function
+//   70  void M200_SensorFunction(void); // M200 Module function
+//   71  void M270_SensorFunction(void); // M270 Module function
+//   72 
+//   73 #if defined(M140)
+//   74 /*********************************************************************
+//   75  * @fn          M140_SensorFunction
+//   76  * @brief       The ZIGBEE Device to receive the M140 tempture data.
+//   77  */
+//   78  void M140_SensorFunction(void)
+//   79  {
+//   80   // M140 sensor variable
+//   81   uint16 val;
+//   82   uint8 tmp1, tmp2, tmp3, tmp4;
+//   83   
+//   84   // ZCL transmit variable
+//   85   uint8 len;
+//   86   
+//   87   // initilization the device
+//   88   M140_Init();
+//   89       
+//   90   val = M140_GetValue();  
+//   91   if((0x2000 & val) == 0x2000) // check sign bit for negative value
+//   92   {
+//   93     val = ((val - 16384) * 10) / 32;
+//   94   }
+//   95   else
+//   96   {
+//   97     val = (val * 10) / 32;
+//   98   }
+//   99   tmp1 = (val / 100) + '0';
+//  100   TransmitApp_Msg[0] = tmp1;
+//  101   tmp2 = ((val / 10) % 10) + '0';
+//  102   TransmitApp_Msg[1] = tmp2;
+//  103   tmp3 = '.';
+//  104   TransmitApp_Msg[2] = tmp3;
+//  105   tmp4 = (val % 10) + '0';
+//  106   TransmitApp_Msg[3] = tmp4;
+//  107   
+//  108   len = 4;
+//  109     
+//  110 #if defined ( LCD_SUPPORTED )
+//  111   HalLcdWriteString("* Z-Stack M140 *", HAL_LCD_LINE_1);
+//  112   HalLcdWriteString(" Temp. =       C", HAL_LCD_LINE_2);
+//  113   HalLcdWriteChar(HAL_LCD_LINE_2, 14, 0xDF);
+//  114   HalLcdWriteChar(HAL_LCD_LINE_2, 9, tmp1);
+//  115   HalLcdWriteChar(HAL_LCD_LINE_2, 10, tmp2);
+//  116   HalLcdWriteChar(HAL_LCD_LINE_2, 11, tmp3);
+//  117   HalLcdWriteChar(HAL_LCD_LINE_2, 12, tmp4);
+//  118 #endif 
+//  119 
+//  120   len = 4;
+//  121   uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, ZCL_CLUSTER_ID_GEN_ON_OFF, 
+//  122                                 ZCL_CLUSTER_ID_GEN_BASIC, TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, TransmitApp_Msg );   
+//  123  }
+//  124 #endif
+//  125 
+//  126 #if defined(M160)
+//  127 /*********************************************************************
+//  128  * @fn          M160_SensorFunction
+//  129  * @brief       The ZIGBEE Device to receive the M160 tempture data.
+//  130  */
+//  131  void M160_SensorFunction(void)
+//  132  {
+//  133   // M160 sensor variable
+//  134   static uint8 duty = 50;
+//  135   
+//  136   // initilization the device
+//  137   M160_Init();
+//  138   
+//  139   if (ch > 0)
+//  140   {           
+//  141     if (ch == 'U')
+//  142     {
+//  143       if (duty < 100)
+//  144       {
+//  145         duty = duty + 5;
+//  146       }
+//  147     }
+//  148     
+//  149     if (ch == 'N')
+//  150     {
+//  151       if (duty > 0)
+//  152       {
+//  153         duty = duty - 5;
+//  154       }
+//  155     }
+//  156       
+//  157     M160_On(duty);
+//  158     #if defined ( LCD_SUPPORTED )
+//  159       HalLcdWriteString("** M160 Test  **", HAL_LCD_LINE_1);
+//  160       HalLcdWriteString("   Duty =     % ", HAL_LCD_LINE_2);
+//  161       halLcdDisplayUint8(HAL_LCD_LINE_2, 10, HAL_LCD_RADIX_DEC, duty); 
+//  162     #endif
+//  163   }
+//  164 //  M160_Off();
+//  165  }
+//  166 #endif 
+//  167 
+//  168  
+//  169 #if defined(M170)
+//  170 /*********************************************************************
+//  171  * @fn          M170_SensorFunction
+//  172  * @brief       The ZIGBEE Device to receive the M170 optical data.
+//  173  */
+//  174  void M170_SensorFunction(void)
+//  175  {
+//  176     // M170 sensor variable
+//  177     uint16 val;
+//  178     uint8 tmp1, tmp2, tmp3;
+//  179     // ZCL transmit variable
+//  180     uint8 len;
+//  181       
+//  182     // initilization the device
+//  183     M170_Init();
+//  184   
+//  185    val = M170_GetValue();
+//  186    if (val > 2000)
+//  187    {
+//  188       val -= 2000;
+//  189    }
+//  190    else
+//  191     {
+//  192       val = 0;
+//  193     }val /= 120;
+//  194             
+//  195    if (val > 100)
+//  196    {
+//  197       val = 100;
+//  198    }
+//  199    
+//  200    tmp1 = (val / 100) + '0';
+//  201    TransmitApp_Msg[0] = tmp1;
+//  202    tmp2 = ((val / 10) % 10) + '0';
+//  203    TransmitApp_Msg[1] = tmp2;
+//  204    tmp3 = (val % 10) + '0';
+//  205    TransmitApp_Msg[2] = tmp3;
+//  206    
+//  207 #if defined ( LCD_SUPPORTED )
+//  208    HalLcdWriteString("* Z-Stack M170 *", HAL_LCD_LINE_1);
+//  209    HalLcdWriteString(" Bright =     % ", HAL_LCD_LINE_2);
+//  210    HalLcdWriteChar(HAL_LCD_LINE_2, 10, tmp1);
+//  211    HalLcdWriteChar(HAL_LCD_LINE_2, 11, tmp2);
+//  212    HalLcdWriteChar(HAL_LCD_LINE_2, 12, tmp3);
+//  213 #endif
+//  214    
+//  215    len = 3;
+//  216    uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
+//  217                                  TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, TransmitApp_Msg );
+//  218  }
+//  219 #endif
+//  220  
+//  221 #if defined(M200)
+//  222 /*********************************************************************
+//  223  * @fn          M200_SensorFunction
+//  224  * @brief       The ZIGBEE Device to receive the M200 Temp and Humi data.
+//  225  */
+//  226  void M200_SensorFunction(void)
+//  227  {
+//  228     // M200 module variable
+//  229     uint16 temp, humi;
+//  230     uint8 hum_1,hum_2,hum_3,hum_4;
+//  231     uint8 temp_1,temp_2,temp_3,temp_4;
+//  232     uint8 len;
+//  233       
+//  234     // initilization the device
+//  235     M200_Init();
+//  236   
+//  237     M200_GetValue();
+//  238     temp = (uint16)(((((float)M200_Temp) *0.01) - 40.0) *10.0);
+//  239     humi = (uint16)(((((float)M200_Humi) *0.0405) - (((float)M200_Humi)*((float)M200_Humi) *0.0000028) - 4.0) *10.0);
+//  240     if (humi > 999)
+//  241     {
+//  242       humi = 999;
+//  243     }
+//  244     if (temp > 999)
+//  245     {
+//  246       temp = 999;
+//  247     }
+//  248     hum_1 = (humi / 100) + '0';
+//  249     TransmitApp_Msg[0] = hum_1;
+//  250     hum_2 = ((humi / 10) % 10) + '0';
+//  251     TransmitApp_Msg[1] = hum_2;
+//  252     hum_3 = '.';
+//  253     TransmitApp_Msg[2] = hum_3;
+//  254     hum_4 = (humi % 10) + '0';
+//  255     TransmitApp_Msg[3] = hum_4;
+//  256     TransmitApp_Msg[4] = ' ';
+//  257     temp_1 = (temp / 100) + '0';
+//  258     TransmitApp_Msg[5] = temp_1;
+//  259     temp_2 = ((temp / 10) % 10) + '0';
+//  260     TransmitApp_Msg[6] = temp_2;
+//  261     temp_3 = '.';
+//  262     TransmitApp_Msg[7] = temp_3;
+//  263     temp_4 = (temp % 10) + '0';
+//  264     TransmitApp_Msg[8] = temp_4;
+//  265     
+//  266     #if defined ( LCD_SUPPORTED )
+//  267       HalLcdWriteString("Humidity=      %", HAL_LCD_LINE_1);
+//  268       HalLcdWriteString(" Temp. =       C", HAL_LCD_LINE_2);
+//  269       // Humi
+//  270       HalLcdWriteChar(HAL_LCD_LINE_1, 10, hum_1);
+//  271       HalLcdWriteChar(HAL_LCD_LINE_1, 11, hum_2);
+//  272       HalLcdWriteChar(HAL_LCD_LINE_1, 12, hum_3);
+//  273       HalLcdWriteChar(HAL_LCD_LINE_1, 13, hum_4);
+//  274       // Temp
+//  275       HalLcdWriteChar(HAL_LCD_LINE_2, 9, temp_1);
+//  276       HalLcdWriteChar(HAL_LCD_LINE_2, 10, temp_2);
+//  277       HalLcdWriteChar(HAL_LCD_LINE_2, 11, temp_3);
+//  278       HalLcdWriteChar(HAL_LCD_LINE_2, 12, temp_4);
+//  279     #endif
+//  280 
+//  281     len = 9;
+//  282     uint8 tmp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, ZCL_CLUSTER_ID_GEN_ON_OFF, 
+//  283                                  ZCL_CLUSTER_ID_GEN_BASIC, TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, TransmitApp_Msg );
+//  284  }
+//  285 #endif
+//  286  
+//  287 #if defined(M270)
+//  288 /*********************************************************************
+//  289  * @fn          M270_SensorFunction
+//  290  * @brief       The ZIGBEE Device to receive the M200 Temp and Humi data.
+//  291  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  292  void M270_SensorFunction(void)
+M270_SensorFunction:
+        CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function M270_SensorFunction
+//  293  {
+        FUNCALL M270_SensorFunction, M270_Init
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M270_SensorFunction, M270_SetDO
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M270_SensorFunction, M270_SetDO
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M270_SensorFunction, HalLcdWriteString
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M270_SensorFunction, HalLcdWriteString
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL M270_SensorFunction, HalLcdWriteChar
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  294     static uint8 udo;
+//  295 
+//  296     M270_Init();
+        ; Setup parameters for call to function M270_Init
+        LCALL   ??M270_Init?relay
+//  297     
+//  298      if( ch == 'A' )
+        MOV     DPTR,#ch
+        MOVX    A,@DPTR
+        XRL     A,#0x41
+        JNZ     ??M270_SensorFunction_0
+//  299      {
+//  300         udo = 1;
+        MOV     A,#0x1
+        MOV     DPTR,#??udo
+        MOVX    @DPTR,A
+//  301         M270_SetDO(udo);
+        ; Setup parameters for call to function M270_SetDO
+        MOV     R1,A
+        LCALL   ??M270_SetDO?relay
+//  302      }
+//  303      
+//  304      if( ch == 'D' )
+??M270_SensorFunction_0:
+        MOV     DPTR,#ch
+        MOVX    A,@DPTR
+        XRL     A,#0x44
+        JNZ     ??M270_SensorFunction_1
+//  305      {
+//  306         udo = 0;
+        CLR     A
+        MOV     DPTR,#??udo
+        MOVX    @DPTR,A
+//  307         M270_SetDO(udo);
+        ; Setup parameters for call to function M270_SetDO
+        MOV     R1,A
+        LCALL   ??M270_SetDO?relay
+//  308      }
+//  309     
+//  310      #if defined ( LCD_SUPPORTED )
+//  311         HalLcdWriteString("** M270 Test  **", HAL_LCD_LINE_1);
+??M270_SensorFunction_1:
+        ; Setup parameters for call to function HalLcdWriteString
+        MOV     R1,#0x1
+        MOV     R2,#(`?<Constant "** M270 Test  **">` & 0xff)
+        MOV     R3,#((`?<Constant "** M270 Test  **">` >> 8) & 0xff)
+        LCALL   ??HalLcdWriteString?relay
+//  312         HalLcdWriteString("* RELAY DO=[0] *", HAL_LCD_LINE_2);
+        ; Setup parameters for call to function HalLcdWriteString
+        MOV     R1,#0x2
+        MOV     R2,#(`?<Constant "* RELAY DO=[0] *">` & 0xff)
+        MOV     R3,#((`?<Constant "* RELAY DO=[0] *">` >> 8) & 0xff)
+        LCALL   ??HalLcdWriteString?relay
+//  313         // Show the control value
+//  314         HalLcdWriteChar(HAL_LCD_LINE_2, 12, udo + '0');
+        ; Setup parameters for call to function HalLcdWriteChar
+        MOV     DPTR,#??udo
+        MOVX    A,@DPTR
+        ADD     A,#0x30
+        MOV     R3,A
+        MOV     R2,#0xc
+        MOV     R1,#0x2
+        LCALL   ??HalLcdWriteChar?relay
+//  315      #endif
+//  316  }
+        POP     DPH
+        CFI DPH0 SameValue
+        CFI CFA_SP SP+-4
+        POP     DPL
+        CFI DPL0 SameValue
+        CFI CFA_SP SP+-3
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock0
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+??udo:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M270_SensorFunction?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M270_SensorFunction
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+`?<Constant "** M270 Test  **">`:
+        DB "** M270 Test  **"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA
+`?<Constant "* RELAY DO=[0] *">`:
+        DB "* RELAY DO=[0] *"
+
+        END
+//  317 #endif
+// 
+//  81 bytes in segment BANKED_CODE
+//   6 bytes in segment BANK_RELAYS
+//  34 bytes in segment XDATA_ROM_C
+// 103 bytes in segment XDATA_Z
+// 
+//  87 bytes of CODE  memory
+//  34 bytes of CONST memory
+// 103 bytes of XDATA memory
+//
+//Errors: none
+//Warnings: none

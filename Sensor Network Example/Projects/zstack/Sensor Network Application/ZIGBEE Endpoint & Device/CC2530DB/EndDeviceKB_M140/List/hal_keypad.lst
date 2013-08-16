@@ -1,0 +1,1301 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                01/Aug/2013  23:47:56 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network        #
+#                          Example\Components\hal\target\CC2530KB\hal_keypad. #
+#                          c                                                  #
+#    Command line       =  -f "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network    #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.c #
+#                          fg" (-DCPU32MHZ -DROOT=__near_func -DBLINK_LEDS)   #
+#                          -f "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network    #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig. #
+#                          cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0             #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network    #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg #
+#                          " (-DZCL_READ -DZCL_WRITE -DZCL_BASIC              #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE                       #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Components\hal\target\CC2530KB\hal_keypad. #
+#                          c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D      #
+#                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
+#                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
+#                          End_Device -D M140 -D xPA2591 -lC                  #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\List\" -lA        #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\List\"            #
+#                          --diag_suppress Pe001,Pa010 -o                     #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\Obj\" -e          #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "D:\CC2530_ZStack-2.3.0-1. #
+#                          4.0\Sensor Network Example\Projects\zstack\Sensor  #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\" -I "D:\CC2530_ZStack-2.3.0-1.4.0 #
+#                          \Sensor Network Example\Projects\zstack\Sensor     #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\SOURCE\" -I                     #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\SOURCE\" -I                  #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I       #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\" -I  #
+#                          "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network       #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INCL #
+#                          UDE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor      #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MODU #
+#                          LE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor       #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TARG #
+#                          ET\CC2530KB\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sen #
+#                          sor Network Example\Projects\zstack\Sensor         #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MCU #
+#                          \CCSOC\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor   #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\INC #
+#                          LUDE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor     #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\AF #
+#                          \" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor         #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\NW #
+#                          K\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SE #
+#                          C\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SA #
+#                          PI\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor       #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SY #
+#                          S\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZC #
+#                          L\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZD #
+#                          O\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor        #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8W #
+#                          \" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor         #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"   #
+#                          -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network    #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SADDR\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor   #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SDATA\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor   #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INCL #
+#                          UDE\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor      #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIGH #
+#                          _LEVEL\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sensor   #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\" -I "D:\CC2530_ZStack-2.3.0-1.4.0\Sen #
+#                          sor Network Example\Projects\zstack\Sensor         #
+#                          Network Application\ZIGBEE Endpoint &              #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\SINGLE_CHIP\" -I "C:\Program Files     #
+#                          (x86)\IAR Systems\Embedded Workbench               #
+#                          5.3\8051\INC\" -I "C:\Program Files (x86)\IAR      #
+#                          Systems\Embedded Workbench 5.3\8051\INC\CLIB\"     #
+#                          -Ohz                                               #
+#    List file          =  D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network        #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\List\hal_keypad.l #
+#                          st                                                 #
+#    Object file        =  D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network        #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\EndDeviceKB_M140\Obj\hal_keypad.r5 #
+#                          1                                                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\CC2530_ZStack-2.3.0-1.4.0\Sensor Network Example\Components\hal\target\CC2530KB\hal_keypad.c
+      1          //-------------------------------------------------------------------
+      2          // Filename: hal_keypad.c
+      3          // Description: HAL keypad control implementation file
+      4          //-------------------------------------------------------------------
+      5          //-------------------------------------------------------------------
+      6          // INCLUDES
+      7          //-------------------------------------------------------------------
+      8          #include "hal_defs.h"
+      9          #include "hal_mcu.h"
+
+   \                                 In  segment SFR_AN, at 0xa0
+   \   union <unnamed> volatile __sfr _A_P2
+   \                     _A_P2:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf5
+   \   unsigned char volatile __sfr P2SEL
+   \                     P2SEL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf7
+   \   unsigned char volatile __sfr P2INP
+   \                     P2INP:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xff
+   \   unsigned char volatile __sfr P2DIR
+   \                     P2DIR:
+   \   000000                DS 1
+     10          #include "hal_board.h"
+     11          #include "hal_lcd.h"
+     12          #include "hal_key.h"
+     13          #include "hal_timer.h"
+     14          #include "hal_keypad.h"
+     15          #include "hal_buzzer.h"
+     16          
+     17          //-------------------------------------------------------------------
+     18          // GENERAL VARIABLES
+     19          //-------------------------------------------------------------------
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     20          uint8 keypad_TaskID;
+   \                     keypad_TaskID:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     21          
+     22          //-------------------------------------------------------------------
+     23          // LOCAL VARIABLES
+     24          //-------------------------------------------------------------------
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     25          uint8 halKeypadResetCount;
+   \                     halKeypadResetCount:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     26          
+     27          /**************************************************
+     28           * @fn      halKeypadI2cStart
+     29           * @brief   Initilize the keypad I2C
+     30           *************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     31          void halKeypadI2cStart(void)
+   \                     halKeypadI2cStart:
+     32          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     33              HAL_KEYPAD_SCL_SET();
+   \   000004   D2A4         SETB    0xa0.4
+     34              HAL_KEYPAD_SDA_SET();
+   \   000006   D2A3         SETB    0xa0.3
+     35              halMcuWaitUs(4);
+   \   000008                ; Setup parameters for call to function halMcuWaitUs
+   \   000008   7A04         MOV     R2,#0x4
+   \   00000A   7B00         MOV     R3,#0x0
+   \   00000C   12....       LCALL   ??halMcuWaitUs?relay
+     36              HAL_KEYPAD_SDA_CLR();
+   \   00000F   C2A3         CLR     0xa0.3
+     37              halMcuWaitUs(4);
+   \   000011                ; Setup parameters for call to function halMcuWaitUs
+   \   000011   12....       LCALL   ??Subroutine12_0 & 0xFFFF
+     38              HAL_KEYPAD_SCL_CLR();
+     39              halMcuWaitUs(4);
+     40          }
+   \                     ??CrossCallReturnLabel_20:
+   \   000014   80..         SJMP    ??Subroutine11_0
+   \   000016                REQUIRE _A_P2
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine11_0:
+   \   000000   D083         POP     DPH
+   \   000002   D082         POP     DPL
+   \   000004   02....       LJMP    ?BRET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine12_0:
+   \   000000   12....       LCALL   ?Subroutine8 & 0xFFFF
+   \                     ??CrossCallReturnLabel_21:
+   \   000003   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine8:
+   \   000000   7A04         MOV     R2,#0x4
+   \   000002   7B00         MOV     R3,#0x0
+   \   000004   12....       LCALL   ??halMcuWaitUs?relay
+   \   000007   C2A4         CLR     0xa0.4
+   \   000009                ; Setup parameters for call to function halMcuWaitUs
+   \   000009                ; Setup parameters for call to function halMcuWaitUs
+   \   000009                ; Setup parameters for call to function halMcuWaitUs
+   \   000009                ; Setup parameters for call to function halMcuWaitUs
+   \   000009                ; Setup parameters for call to function halMcuWaitUs
+   \   000009   7A04         MOV     R2,#0x4
+   \   00000B   7B00         MOV     R3,#0x0
+   \   00000D   12....       LCALL   ??halMcuWaitUs?relay
+   \   000010   22           RET
+     41          
+     42          /*************************************************
+     43           * @fn      halKeypadI2cStop
+     44           * @brief   Stop the keypad I2C
+     45           ************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     46          void halKeypadI2cStop(void)
+   \                     halKeypadI2cStop:
+     47          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     48              HAL_KEYPAD_SDA_CLR();
+   \   000004   C2A3         CLR     0xa0.3
+     49              halMcuWaitUs(4);
+   \   000006                ; Setup parameters for call to function halMcuWaitUs
+   \   000006   7A04         MOV     R2,#0x4
+   \   000008   7B00         MOV     R3,#0x0
+   \   00000A   12....       LCALL   ??halMcuWaitUs?relay
+     50              HAL_KEYPAD_SCL_SET();
+   \   00000D   D2A4         SETB    0xa0.4
+     51              halMcuWaitUs(4);
+   \   00000F                ; Setup parameters for call to function halMcuWaitUs
+   \   00000F   7A04         MOV     R2,#0x4
+   \   000011   7B00         MOV     R3,#0x0
+   \   000013   12....       LCALL   ??halMcuWaitUs?relay
+     52              HAL_KEYPAD_SDA_SET();
+   \   000016   D2A3         SETB    0xa0.3
+     53              halMcuWaitUs(4);
+   \   000018                ; Setup parameters for call to function halMcuWaitUs
+   \   000018   7A04         MOV     R2,#0x4
+   \   00001A   7B00         MOV     R3,#0x0
+   \   00001C   12....       LCALL   ??halMcuWaitUs?relay
+     54          }
+   \   00001F   80..         SJMP    ??Subroutine11_0
+   \   000021                REQUIRE _A_P2
+     55          
+     56          /*************************************************
+     57           * @fn      halKeypadI2cAck
+     58           * @brief   The keypad I2C Ack
+     59           ************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine9:
+   \   000000   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_19:
+   \   000003                REQUIRE ??Subroutine11_0
+   \   000003                ; // Fall through to label ??Subroutine11_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     60          void halKeypadI2cAck(void)
+   \                     halKeypadI2cAck:
+     61          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     62              HAL_KEYPAD_SDA_CLR();
+   \   000004   C2A3         CLR     0xa0.3
+     63              HAL_KEYPAD_SCL_SET();
+   \   000006   80..         SJMP    ?Subroutine9
+   \   000008                REQUIRE _A_P2
+     64              halMcuWaitUs(4);
+     65              HAL_KEYPAD_SCL_CLR();
+     66              halMcuWaitUs(4);
+     67          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine3:
+   \   000000   D2A4         SETB    0xa0.4
+   \   000002                ; Setup parameters for call to function halMcuWaitUs
+   \   000002                ; Setup parameters for call to function halMcuWaitUs
+   \   000002                REQUIRE ??Subroutine12_0
+   \   000002                ; // Fall through to label ??Subroutine12_0
+     68          
+     69          /************************************************
+     70           * @fn      halKeypadI2cNack
+     71           * @brief   The keypad I2C NoAck
+     72           ***********************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     73          void halKeypadI2cNack(void)
+   \                     halKeypadI2cNack:
+     74          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     75              HAL_KEYPAD_SDA_SET();
+   \   000004   D2A3         SETB    0xa0.3
+     76              HAL_KEYPAD_SCL_SET();
+   \   000006   80..         SJMP    ?Subroutine9
+   \   000008                REQUIRE _A_P2
+     77              halMcuWaitUs(4);
+     78              HAL_KEYPAD_SCL_CLR();
+     79              halMcuWaitUs(4);
+     80          }
+     81          
+     82          /**********************************************
+     83           * @fn      halKeypadI2cWrite
+     84           * @brief   The keypad I2C Write Command
+     85           *********************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     86          void halKeypadI2cWrite(uint8 d)
+   \                     halKeypadI2cWrite:
+     87          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
+   \   000006   FF           MOV     R7,A
+     88              uint8 i;
+     89          
+     90              for (i = 0; i < 8; i++)
+   \   000007   7E08         MOV     R6,#0x8
+     91              {
+     92                  if (d &0x80)
+   \                     ??halKeypadI2cWrite_0:
+   \   000009   EF           MOV     A,R7
+   \   00000A   A2E7         MOV     C,0xE0 /* A   */.7
+   \   00000C   5004         JNC     ??halKeypadI2cWrite_1
+     93                  {
+     94                      HAL_KEYPAD_SDA_SET();
+   \   00000E   D2A3         SETB    0xa0.3
+   \   000010   8002         SJMP    ??halKeypadI2cWrite_2
+     95                  }
+     96                  else
+     97                  {
+     98                      HAL_KEYPAD_SDA_CLR();
+   \                     ??halKeypadI2cWrite_1:
+   \   000012   C2A3         CLR     0xa0.3
+     99                  }
+    100                  HAL_KEYPAD_SCL_SET();
+   \                     ??halKeypadI2cWrite_2:
+   \   000014   D2A4         SETB    0xa0.4
+    101                  d = d << 1;
+   \   000016   C3           CLR     C
+   \   000017   33           RLC     A
+   \   000018   FF           MOV     R7,A
+    102                  halMcuWaitUs(4);
+   \   000019                ; Setup parameters for call to function halMcuWaitUs
+   \   000019   12....       LCALL   ?Subroutine2 & 0xFFFF
+    103                  HAL_KEYPAD_SCL_CLR();
+    104                  halMcuWaitUs(4);
+    105              }
+   \                     ??CrossCallReturnLabel_4:
+   \   00001C   70EB         JNZ     ??halKeypadI2cWrite_0
+    106          }
+   \   00001E   80..         SJMP    ??Subroutine13_0
+   \   000020                REQUIRE _A_P2
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine13_0:
+   \   000000   7F01         MOV     R7,#0x1
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   12....       LCALL   ?Subroutine8 & 0xFFFF
+   \                     ??CrossCallReturnLabel_22:
+   \   000003   1E           DEC     R6
+   \   000004   EE           MOV     A,R6
+   \   000005   22           RET
+    107          
+    108          /*******************************************
+    109           * @fn      halKeypadI2cRead
+    110           * @brief   The keypad I2C Read Command
+    111           ******************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine10:
+   \   000000   F9           MOV     R1,A
+   \   000001                REQUIRE ??Subroutine13_0
+   \   000001                ; // Fall through to label ??Subroutine13_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    112          uint8 halKeypadI2cRead(void)
+   \                     halKeypadI2cRead:
+    113          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+    114              uint8 res = 0;
+   \   000005   7F00         MOV     R7,#0x0
+    115              uint8 cnt;
+    116          
+    117              HAL_KEYPAD_SDA_SET();
+   \   000007   D2A3         SETB    0xa0.3
+    118              HAL_KEY_SDA_DIR_IN();
+   \   000009   12....       LCALL   ?Subroutine6 & 0xFFFF
+    119              halMcuWaitUs(4);
+   \                     ??CrossCallReturnLabel_12:
+   \   00000C                ; Setup parameters for call to function halMcuWaitUs
+   \   00000C   7A04         MOV     R2,#0x4
+   \   00000E   7B00         MOV     R3,#0x0
+   \   000010   12....       LCALL   ??halMcuWaitUs?relay
+    120              for (cnt = 0; cnt < 8; cnt++)
+   \   000013   7E08         MOV     R6,#0x8
+    121              {
+    122                  HAL_KEYPAD_SCL_SET();
+   \                     ??halKeypadI2cRead_0:
+   \   000015   D2A4         SETB    0xa0.4
+    123                  halMcuWaitUs(4);
+   \   000017                ; Setup parameters for call to function halMcuWaitUs
+   \   000017   7A04         MOV     R2,#0x4
+   \   000019   7B00         MOV     R3,#0x0
+   \   00001B   12....       LCALL   ??halMcuWaitUs?relay
+    124                  res <<= 1;
+   \   00001E   EF           MOV     A,R7
+   \   00001F   C3           CLR     C
+   \   000020   33           RLC     A
+   \   000021   FF           MOV     R7,A
+    125                  if (HAL_KEYPAD_SDA_VAL())
+   \   000022   A2A3         MOV     C,0xa0.3
+   \   000024   5003         JNC     ??halKeypadI2cRead_1
+    126                  {
+    127                      res |= 0x01;
+   \   000026   D2E0         SETB    0xE0 /* A   */.0
+   \   000028   FF           MOV     R7,A
+    128                  }
+    129                  halMcuWaitUs(4);
+   \                     ??halKeypadI2cRead_1:
+   \   000029                ; Setup parameters for call to function halMcuWaitUs
+   \   000029   12....       LCALL   ?Subroutine2 & 0xFFFF
+    130                  HAL_KEYPAD_SCL_CLR();
+    131                  halMcuWaitUs(4);
+    132              }
+   \                     ??CrossCallReturnLabel_5:
+   \   00002C   70E7         JNZ     ??halKeypadI2cRead_0
+    133              HAL_KEYPAD_SDA_OUT();
+   \   00002E   53F5F7       ANL     0xf5,#0xf7
+   \   000031   43FF08       ORL     0xff,#0x8
+    134              
+    135              return res;
+   \   000034   EF           MOV     A,R7
+   \   000035   80..         SJMP    ?Subroutine10
+   \   000037                REQUIRE _A_P2
+   \   000037                REQUIRE P2SEL
+   \   000037                REQUIRE P2INP
+   \   000037                REQUIRE P2DIR
+    136          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine6:
+   \   000000   53F5F7       ANL     0xf5,#0xf7
+   \   000003   53FFF7       ANL     0xff,#0xf7
+   \   000006   43F708       ORL     0xf7,#0x8
+   \   000009   22           RET
+    137          
+    138          /**********************************************************
+    139           * @fn      halKeypadWriteRegister
+    140           * @brief   Write the keypad I2C register
+    141           *********************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    142          void halKeypadWriteRegister(uint8 addr, uint8 ch)
+   \                     halKeypadWriteRegister:
+    143          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
+   \   000006   FE           MOV     R6,A
+   \   000007   EA           MOV     A,R2
+   \   000008   FF           MOV     R7,A
+    144              halKeypadI2cStart();
+   \   000009                ; Setup parameters for call to function halKeypadI2cStart
+   \   000009   12....       LCALL   ?Subroutine0 & 0xFFFF
+    145              halKeypadI2cWrite(0xE0);
+    146              halKeypadI2cAck();
+    147              halKeypadI2cWrite(0x00);
+    148              halKeypadI2cAck();
+    149              halKeypadI2cWrite(addr); //addr
+    150              halKeypadI2cAck();
+    151              halKeypadI2cWrite(ch); //data
+   \                     ??CrossCallReturnLabel_0:
+   \   00000C                ; Setup parameters for call to function halKeypadI2cWrite
+   \   00000C   EF           MOV     A,R7
+   \   00000D   F9           MOV     R1,A
+   \   00000E   12....       LCALL   ?Subroutine4 & 0xFFFF
+    152              halKeypadI2cAck();
+    153              halKeypadI2cStop();
+   \                     ??CrossCallReturnLabel_6:
+   \   000011                ; Setup parameters for call to function halKeypadI2cStop
+   \   000011   12....       LCALL   ??halKeypadI2cStop?relay
+    154          }
+   \   000014   80..         SJMP    ??Subroutine13_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   12....       LCALL   ??halKeypadI2cStart?relay
+   \   000003                ; Setup parameters for call to function halKeypadI2cWrite
+   \   000003                ; Setup parameters for call to function halKeypadI2cWrite
+   \   000003   79E0         MOV     R1,#-0x20
+   \   000005   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \                     ??CrossCallReturnLabel_14:
+   \   000008                ; Setup parameters for call to function halKeypadI2cWrite
+   \   000008                ; Setup parameters for call to function halKeypadI2cWrite
+   \   000008   7900         MOV     R1,#0x0
+   \   00000A   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \                     ??CrossCallReturnLabel_15:
+   \   00000D                ; Setup parameters for call to function halKeypadI2cWrite
+   \   00000D                ; Setup parameters for call to function halKeypadI2cWrite
+   \   00000D   EE           MOV     A,R6
+   \   00000E   F9           MOV     R1,A
+   \   00000F   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \                     ??CrossCallReturnLabel_16:
+   \   000012   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine4:
+   \   000000   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \                     ??CrossCallReturnLabel_17:
+   \   000003   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine7:
+   \   000000   12....       LCALL   ??halKeypadI2cWrite?relay
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003                ; Setup parameters for call to function halKeypadI2cAck
+   \   000003   12....       LCALL   ??halKeypadI2cAck?relay
+   \   000006   22           RET
+    155          
+    156          /********************************************************
+    157           * @fn      halKeypadReadRegister
+    158           * @brief   Read the keypad I2C Register
+    159           *******************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    160          uint8 halKeypadReadRegister(uint8 addr)
+   \                     halKeypadReadRegister:
+    161          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
+   \   000006   FE           MOV     R6,A
+    162              uint8 ch;
+    163          
+    164              halKeypadI2cStart();
+   \   000007                ; Setup parameters for call to function halKeypadI2cStart
+   \   000007   12....       LCALL   ?Subroutine0 & 0xFFFF
+    165              halKeypadI2cWrite(0xE0);
+    166              halKeypadI2cAck();
+    167              halKeypadI2cWrite(0x00);
+    168              halKeypadI2cAck();
+    169              halKeypadI2cWrite(addr);
+    170              halKeypadI2cAck();
+    171              halKeypadI2cStop();
+   \                     ??CrossCallReturnLabel_1:
+   \   00000A                ; Setup parameters for call to function halKeypadI2cStop
+   \   00000A   12....       LCALL   ?Subroutine1 & 0xFFFF
+    172          
+    173              halKeypadI2cStart();
+    174              halKeypadI2cWrite(0xE1);
+    175              halKeypadI2cAck();
+    176              ch = halKeypadI2cRead();
+    177              halKeypadI2cNack();
+   \                     ??CrossCallReturnLabel_2:
+   \   00000D                ; Setup parameters for call to function halKeypadI2cNack
+   \   00000D   12....       LCALL   ??halKeypadI2cNack?relay
+    178              halKeypadI2cStop();
+   \   000010                ; Setup parameters for call to function halKeypadI2cStop
+   \   000010   12....       LCALL   ??halKeypadI2cStop?relay
+    179          
+    180              return ch;
+   \   000013   EE           MOV     A,R6
+   \   000014   80..         SJMP    ?Subroutine10
+    181          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   12....       LCALL   ??halKeypadI2cStop?relay
+   \   000003                ; Setup parameters for call to function halKeypadI2cStart
+   \   000003                ; Setup parameters for call to function halKeypadI2cStart
+   \   000003   12....       LCALL   ??halKeypadI2cStart?relay
+   \   000006                ; Setup parameters for call to function halKeypadI2cWrite
+   \   000006                ; Setup parameters for call to function halKeypadI2cWrite
+   \   000006   79E1         MOV     R1,#-0x1f
+   \   000008   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \                     ??CrossCallReturnLabel_18:
+   \   00000B                ; Setup parameters for call to function halKeypadI2cRead
+   \   00000B                ; Setup parameters for call to function halKeypadI2cRead
+   \   00000B   12....       LCALL   ??halKeypadI2cRead?relay
+   \   00000E   E9           MOV     A,R1
+   \   00000F   FE           MOV     R6,A
+   \   000010   22           RET
+    182          
+    183          /*****************************************************
+    184           * @fn      halKeypadSensorData
+    185           * @brief   
+    186           ****************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    187          uint16 halKeypadSensorData(void)
+   \                     halKeypadSensorData:
+    188          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+    189              uint16 val;
+    190              halKeypadI2cStart();
+   \   000005                ; Setup parameters for call to function halKeypadI2cStart
+   \   000005   12....       LCALL   ??halKeypadI2cStart?relay
+    191              halKeypadI2cWrite(0xE0);
+   \   000008                ; Setup parameters for call to function halKeypadI2cWrite
+   \   000008   79E0         MOV     R1,#-0x20
+   \   00000A   12....       LCALL   ?Subroutine4 & 0xFFFF
+    192              halKeypadI2cAck();
+    193              halKeypadI2cWrite(0x00);
+   \                     ??CrossCallReturnLabel_7:
+   \   00000D                ; Setup parameters for call to function halKeypadI2cWrite
+   \   00000D   7900         MOV     R1,#0x0
+   \   00000F   12....       LCALL   ?Subroutine4 & 0xFFFF
+    194              halKeypadI2cAck();
+    195              halKeypadI2cWrite(0x08); // 0x08 and 0x09 is read sensor data
+   \                     ??CrossCallReturnLabel_8:
+   \   000012                ; Setup parameters for call to function halKeypadI2cWrite
+   \   000012   7908         MOV     R1,#0x8
+   \   000014   12....       LCALL   ?Subroutine4 & 0xFFFF
+    196              halKeypadI2cAck();
+    197              halKeypadI2cStop();
+   \                     ??CrossCallReturnLabel_9:
+   \   000017                ; Setup parameters for call to function halKeypadI2cStop
+   \   000017   12....       LCALL   ?Subroutine1 & 0xFFFF
+    198          
+    199              halKeypadI2cStart();
+    200              halKeypadI2cWrite(0xE1);
+    201              halKeypadI2cAck();
+    202              val = halKeypadI2cRead();
+    203              halKeypadI2cAck();
+   \                     ??CrossCallReturnLabel_3:
+   \   00001A                ; Setup parameters for call to function halKeypadI2cAck
+   \   00001A   12....       LCALL   ??halKeypadI2cAck?relay
+    204              val = (val << 8) | halKeypadI2cRead();
+   \   00001D   EE           MOV     A,R6
+   \   00001E   FF           MOV     R7,A
+   \   00001F                ; Setup parameters for call to function halKeypadI2cRead
+   \   00001F   12....       LCALL   ??halKeypadI2cRead?relay
+   \   000022   E9           MOV     A,R1
+   \   000023   FE           MOV     R6,A
+    205              halKeypadI2cNack();
+   \   000024                ; Setup parameters for call to function halKeypadI2cNack
+   \   000024   12....       LCALL   ??halKeypadI2cNack?relay
+    206              halKeypadI2cStop();
+   \   000027                ; Setup parameters for call to function halKeypadI2cStop
+   \   000027   12....       LCALL   ??halKeypadI2cStop?relay
+    207              
+    208              return val;
+   \   00002A   EE           MOV     A,R6
+   \   00002B   FA           MOV     R2,A
+   \   00002C   EF           MOV     A,R7
+   \   00002D   FB           MOV     R3,A
+   \   00002E   02....       LJMP    ??Subroutine13_0 & 0xFFFF
+    209          }
+    210          
+    211          /********************************************************
+    212           * @fn      halKeypadInit
+    213           * @brief   Initializes the keypad functionality
+    214           *******************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    215          void halKeypadInit(void)
+   \                     halKeypadInit:
+    216          {   
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    217              HAL_KEYPAD_SCL_OUT();
+   \   000004   12....       LCALL   ?Subroutine5 & 0xFFFF
+    218              HAL_KEYPAD_SDA_OUT();
+    219              HAL_KEY_SDA_DIR_IN();
+   \                     ??CrossCallReturnLabel_10:
+   \   000007   12....       LCALL   ?Subroutine6 & 0xFFFF
+    220             
+    221              halKeypadWriteRegister(0x00, 0x62);
+   \                     ??CrossCallReturnLabel_13:
+   \   00000A                ; Setup parameters for call to function halKeypadWriteRegister
+   \   00000A   7A62         MOV     R2,#0x62
+   \   00000C   7900         MOV     R1,#0x0
+   \   00000E   12....       LCALL   ??halKeypadWriteRegister?relay
+    222              halKeypadWriteRegister(0x02, 0xF7); // Sense1 bit0-3
+   \   000011                ; Setup parameters for call to function halKeypadWriteRegister
+   \   000011   7AF7         MOV     R2,#-0x9
+   \   000013   7902         MOV     R1,#0x2
+   \   000015   12....       LCALL   ??halKeypadWriteRegister?relay
+    223              halKeypadWriteRegister(0x03, 0x07); // Sense2 bit0-3
+   \   000018                ; Setup parameters for call to function halKeypadWriteRegister
+   \   000018   7A07         MOV     R2,#0x7
+   \   00001A   7903         MOV     R1,#0x3
+   \   00001C   12....       LCALL   ??halKeypadWriteRegister?relay
+    224              halKeypadWriteRegister(0x04, 0x00);
+   \   00001F                ; Setup parameters for call to function halKeypadWriteRegister
+   \   00001F   7A00         MOV     R2,#0x0
+   \   000021   7904         MOV     R1,#0x4
+   \   000023   12....       LCALL   ??halKeypadWriteRegister?relay
+    225              halKeypadWriteRegister(0x05, 0x00);
+   \   000026                ; Setup parameters for call to function halKeypadWriteRegister
+   \   000026   7A00         MOV     R2,#0x0
+   \   000028   7905         MOV     R1,#0x5
+   \   00002A   12....       LCALL   ??halKeypadWriteRegister?relay
+    226              halKeypadWriteRegister(0x0E, 0x30);
+   \   00002D                ; Setup parameters for call to function halKeypadWriteRegister
+   \   00002D   7A30         MOV     R2,#0x30
+   \   00002F   790E         MOV     R1,#0xe
+   \   000031   12....       LCALL   ??halKeypadWriteRegister?relay
+    227              halKeypadWriteRegister(0x00, 0x6A); //Reset
+   \   000034                ; Setup parameters for call to function halKeypadWriteRegister
+   \   000034   7A6A         MOV     R2,#0x6a
+   \   000036   7900         MOV     R1,#0x0
+   \   000038   12....       LCALL   ??halKeypadWriteRegister?relay
+    228          }
+   \   00003B   02....       LJMP    ??Subroutine11_0 & 0xFFFF
+   \   00003E                REQUIRE P2SEL
+   \   00003E                REQUIRE P2INP
+   \   00003E                REQUIRE P2DIR
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine5:
+   \   000000   53F5EF       ANL     0xf5,#0xef
+   \   000003   43FF10       ORL     0xff,#0x10
+   \   000006   53F5F7       ANL     0xf5,#0xf7
+   \   000009   43FF08       ORL     0xff,#0x8
+   \   00000C   22           RET
+    229          
+    230          /*******************************************************************************
+    231           * @fn      halKeypadPushed
+    232           * @brief   This function detects if the keypad is being pushed. 
+    233           * @param   void
+    234           * @return  uint8
+    235           *          '0'~'9' 'A' 'B' 'C' 'D' 'E' 'F' 'U' 'N' '#' '*' : keypad is being pushed
+    236           *          0: Button is not being pushed
+    237           ******************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    238          uint8 halKeypadPushed(void)
+   \                     halKeypadPushed:
+    239          {
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+    240              HAL_KEYPAD_SCL_OUT();
+   \   000005   12....       LCALL   ?Subroutine5 & 0xFFFF
+    241              HAL_KEYPAD_SDA_OUT();
+    242            
+    243              uint16 val;
+    244              uint8 ch;
+    245              
+    246              val = halKeypadSensorData();
+   \                     ??CrossCallReturnLabel_11:
+   \   000008                ; Setup parameters for call to function halKeypadSensorData
+   \   000008   12....       LCALL   ??halKeypadSensorData?relay
+   \   00000B   8A..         MOV     ?V0 + 0,R2
+   \   00000D   8B..         MOV     ?V0 + 1,R3
+    247              halLcdDisplayUint16(HAL_LCD_LINE_4,0,HAL_LCD_RADIX_HEX,val);
+   \   00000F                ; Setup parameters for call to function halLcdDisplayUint16
+   \   00000F   AC..         MOV     R4,?V0 + 0
+   \   000011   AD..         MOV     R5,?V0 + 1
+   \   000013   7B01         MOV     R3,#0x1
+   \   000015   7A00         MOV     R2,#0x0
+   \   000017   7904         MOV     R1,#0x4
+   \   000019   12....       LCALL   ??halLcdDisplayUint16?relay
+    248              switch (val)
+   \   00001C   78..         MOV     R0,#?V0 + 0
+   \   00001E   12....       LCALL   ?US_SWITCH_SPARSE
+   \                     `?<Jumptable for halKeypadPushed>_0`:
+   \   000021   0000         DW        0
+   \   000023   1400         DW        20
+   \   000025   8200         DW        130
+   \   000027   ....         DW        ??halKeypadPushed_0
+   \   000029   8400         DW        132
+   \   00002B   ....         DW        ??halKeypadPushed_1
+   \   00002D   8800         DW        136
+   \   00002F   ....         DW        ??halKeypadPushed_2
+   \   000031   9000         DW        144
+   \   000033   ....         DW        ??halKeypadPushed_3
+   \   000035   A000         DW        160
+   \   000037   ....         DW        ??halKeypadPushed_4
+   \   000039   0201         DW        258
+   \   00003B   ....         DW        ??halKeypadPushed_5
+   \   00003D   0401         DW        260
+   \   00003F   ....         DW        ??halKeypadPushed_6
+   \   000041   0801         DW        264
+   \   000043   ....         DW        ??halKeypadPushed_7
+   \   000045   1001         DW        272
+   \   000047   ....         DW        ??halKeypadPushed_8
+   \   000049   2001         DW        288
+   \   00004B   ....         DW        ??halKeypadPushed_9
+   \   00004D   0202         DW        514
+   \   00004F   ....         DW        ??halKeypadPushed_10
+   \   000051   0402         DW        516
+   \   000053   ....         DW        ??halKeypadPushed_11
+   \   000055   0802         DW        520
+   \   000057   ....         DW        ??halKeypadPushed_12
+   \   000059   1002         DW        528
+   \   00005B   ....         DW        ??halKeypadPushed_13
+   \   00005D   2002         DW        544
+   \   00005F   ....         DW        ??halKeypadPushed_14
+   \   000061   0204         DW        1026
+   \   000063   ....         DW        ??halKeypadPushed_15
+   \   000065   0404         DW        1028
+   \   000067   ....         DW        ??halKeypadPushed_16
+   \   000069   0804         DW        1032
+   \   00006B   ....         DW        ??halKeypadPushed_17
+   \   00006D   1004         DW        1040
+   \   00006F   ....         DW        ??halKeypadPushed_18
+   \   000071   2004         DW        1056
+   \   000073   ....         DW        ??halKeypadPushed_19
+   \   000075   ....         DW        ??halKeypadPushed_20
+    249              {
+    250                  case 0x0404: // 0
+    251                      ch = '0';
+   \                     ??halKeypadPushed_16:
+   \   000077   7E30         MOV     R6,#0x30
+   \   000079   804E         SJMP    ??halKeypadPushed_21
+    252                      break;
+    253                  case 0x0082: // 1
+    254                      ch = '1';
+   \                     ??halKeypadPushed_0:
+   \   00007B   7E31         MOV     R6,#0x31
+   \   00007D   804A         SJMP    ??halKeypadPushed_21
+    255                      break;
+    256                  case 0x0084: // 2
+    257                      ch = '2';
+   \                     ??halKeypadPushed_1:
+   \   00007F   7E32         MOV     R6,#0x32
+   \   000081   8046         SJMP    ??halKeypadPushed_21
+    258                      break;
+    259                  case 0x0088: // 3
+    260                      ch = '3';
+   \                     ??halKeypadPushed_2:
+   \   000083   7E33         MOV     R6,#0x33
+   \   000085   8042         SJMP    ??halKeypadPushed_21
+    261                      break;
+    262                  case 0x0102: // 4
+    263                      ch = '4';
+   \                     ??halKeypadPushed_5:
+   \   000087   7E34         MOV     R6,#0x34
+   \   000089   803E         SJMP    ??halKeypadPushed_21
+    264                      break;
+    265                  case 0x0104: // 5
+    266                      ch = '5';
+   \                     ??halKeypadPushed_6:
+   \   00008B   7E35         MOV     R6,#0x35
+   \   00008D   803A         SJMP    ??halKeypadPushed_21
+    267                      break;
+    268                  case 0x0108: // 6
+    269                      ch = '6';
+   \                     ??halKeypadPushed_7:
+   \   00008F   7E36         MOV     R6,#0x36
+   \   000091   8036         SJMP    ??halKeypadPushed_21
+    270                      break;
+    271                  case 0x0202: // 7
+    272                      ch = '7';
+   \                     ??halKeypadPushed_10:
+   \   000093   7E37         MOV     R6,#0x37
+   \   000095   8032         SJMP    ??halKeypadPushed_21
+    273                      break;
+    274                  case 0x0204: // 8
+    275                      ch = '8';
+   \                     ??halKeypadPushed_11:
+   \   000097   7E38         MOV     R6,#0x38
+   \   000099   802E         SJMP    ??halKeypadPushed_21
+    276                      break;
+    277                  case 0x0208: // 9
+    278                      ch = '9';
+   \                     ??halKeypadPushed_12:
+   \   00009B   7E39         MOV     R6,#0x39
+   \   00009D   802A         SJMP    ??halKeypadPushed_21
+    279                      break;
+    280                  case 0x0402: // *
+    281                      ch = '*';
+   \                     ??halKeypadPushed_15:
+   \   00009F   7E2A         MOV     R6,#0x2a
+   \   0000A1   8026         SJMP    ??halKeypadPushed_21
+    282                      break;
+    283                  case 0x0408: // #
+    284                      ch = '#';
+   \                     ??halKeypadPushed_17:
+   \   0000A3   7E23         MOV     R6,#0x23
+   \   0000A5   8022         SJMP    ??halKeypadPushed_21
+    285                      break;
+    286                  case 0x0090: // A
+    287                      ch = 'A';
+   \                     ??halKeypadPushed_3:
+   \   0000A7   7E41         MOV     R6,#0x41
+   \   0000A9   801E         SJMP    ??halKeypadPushed_21
+    288                      break;
+    289                  case 0x0110: // B
+    290                      ch = 'B';
+   \                     ??halKeypadPushed_8:
+   \   0000AB   7E42         MOV     R6,#0x42
+   \   0000AD   801A         SJMP    ??halKeypadPushed_21
+    291                      break;
+    292                  case 0x0210: // C
+    293                      ch = 'C';
+   \                     ??halKeypadPushed_13:
+   \   0000AF   7E43         MOV     R6,#0x43
+   \   0000B1   8016         SJMP    ??halKeypadPushed_21
+    294                      break;
+    295                  case 0x00A0: // D
+    296                      ch = 'D';
+   \                     ??halKeypadPushed_4:
+   \   0000B3   7E44         MOV     R6,#0x44
+   \   0000B5   8012         SJMP    ??halKeypadPushed_21
+    297                      break;
+    298                  case 0x0120: // E
+    299                      ch = 'E';
+   \                     ??halKeypadPushed_9:
+   \   0000B7   7E45         MOV     R6,#0x45
+   \   0000B9   800E         SJMP    ??halKeypadPushed_21
+    300                      break;
+    301                  case 0x0220: // F
+    302                      ch = 'F';
+   \                     ??halKeypadPushed_14:
+   \   0000BB   7E46         MOV     R6,#0x46
+   \   0000BD   800A         SJMP    ??halKeypadPushed_21
+    303                      break;
+    304                  case 0x0410: // U
+    305                      ch = 'U';
+   \                     ??halKeypadPushed_18:
+   \   0000BF   7E55         MOV     R6,#0x55
+   \   0000C1   8006         SJMP    ??halKeypadPushed_21
+    306                      break;
+    307                  case 0x0420: // N
+    308                      ch = 'N';
+   \                     ??halKeypadPushed_19:
+   \   0000C3   7E4E         MOV     R6,#0x4e
+   \   0000C5   8002         SJMP    ??halKeypadPushed_21
+    309                      break;
+    310                  default:
+    311                      ch = 0;
+   \                     ??halKeypadPushed_20:
+   \   0000C7   7E00         MOV     R6,#0x0
+    312                      break;
+    313              }
+    314              halKeypadResetCount++;
+   \                     ??halKeypadPushed_21:
+   \   0000C9   90....       MOV     DPTR,#halKeypadResetCount
+   \   0000CC   E0           MOVX    A,@DPTR
+   \   0000CD   04           INC     A
+   \   0000CE   F0           MOVX    @DPTR,A
+    315              if (halKeypadResetCount > 100)
+   \   0000CF   C3           CLR     C
+   \   0000D0   9465         SUBB    A,#0x65
+   \   0000D2   4008         JC      ??halKeypadPushed_22
+    316              {
+    317                  halKeypadResetCount = 0;
+   \   0000D4   E4           CLR     A
+   \   0000D5   F0           MOVX    @DPTR,A
+    318                  halKeypadWriteRegister(0x00, 0x6A); //Reset
+   \   0000D6                ; Setup parameters for call to function halKeypadWriteRegister
+   \   0000D6   7A6A         MOV     R2,#0x6a
+   \   0000D8   F9           MOV     R1,A
+   \   0000D9   12....       LCALL   ??halKeypadWriteRegister?relay
+    319              }
+    320          //    if (ch > 0)
+    321          //    {
+    322          //		halBuzzerOn(BUZZER_FREQ);
+    323          //		halMcuWaitMs(20);
+    324          //		halBuzzerOff();
+    325          //    }
+    326              return ch;
+   \                     ??halKeypadPushed_22:
+   \   0000DC   EE           MOV     A,R6
+   \   0000DD   F9           MOV     R1,A
+   \   0000DE   7F04         MOV     R7,#0x4
+   \   0000E0   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   0000E3                REQUIRE P2SEL
+   \   0000E3                REQUIRE P2DIR
+    327          
+    328          
+    329          }
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadI2cStart?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadI2cStart
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadI2cStop?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadI2cStop
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadI2cAck?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadI2cAck
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadI2cNack?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadI2cNack
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadI2cWrite?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadI2cWrite
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadI2cRead?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadI2cRead
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadWriteRegister?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadWriteRegister
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadReadRegister?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadReadRegister
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadSensorData?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadSensorData
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadInit?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadInit
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??halKeypadPushed?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    halKeypadPushed
+
+   Maximum stack usage in bytes:
+
+     Function                    ISTACK PSTACK XSTACK
+     --------                    ------ ------ ------
+     halKeypadI2cAck                 2      0      9
+       -> halMcuWaitUs               4      0      0
+       -> halMcuWaitUs               4      0      0
+     halKeypadI2cNack                2      0      9
+       -> halMcuWaitUs               4      0      0
+       -> halMcuWaitUs               4      0      0
+     halKeypadI2cRead                0      0     18
+       -> halMcuWaitUs               0      0     18
+       -> halMcuWaitUs               0      0     18
+       -> halMcuWaitUs               0      0     18
+       -> halMcuWaitUs               0      0     18
+     halKeypadI2cStart               2      0      9
+       -> halMcuWaitUs               4      0      0
+       -> halMcuWaitUs               4      0      0
+       -> halMcuWaitUs               4      0      0
+     halKeypadI2cStop                2      0      9
+       -> halMcuWaitUs               4      0      0
+       -> halMcuWaitUs               4      0      0
+       -> halMcuWaitUs               4      0      0
+     halKeypadI2cWrite               0      0     18
+       -> halMcuWaitUs               0      0     18
+       -> halMcuWaitUs               0      0     18
+     halKeypadInit                   2      0      0
+       -> halKeypadWriteRegister     4      0      0
+       -> halKeypadWriteRegister     4      0      0
+       -> halKeypadWriteRegister     4      0      0
+       -> halKeypadWriteRegister     4      0      0
+       -> halKeypadWriteRegister     4      0      0
+       -> halKeypadWriteRegister     4      0      0
+       -> halKeypadWriteRegister     4      0      0
+     halKeypadPushed                 0      0     12
+       -> halKeypadSensorData        0      0     24
+       -> halLcdDisplayUint16        0      0     24
+       -> halKeypadWriteRegister     0      0     24
+     halKeypadReadRegister           0      0      9
+       -> halKeypadI2cStart          0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cStop           0      0     18
+       -> halKeypadI2cStart          0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cRead           0      0     18
+       -> halKeypadI2cNack           0      0     18
+       -> halKeypadI2cStop           0      0     18
+     halKeypadSensorData             0      0     21
+       -> halKeypadI2cStart          0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cStop           0      0     18
+       -> halKeypadI2cStart          0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cRead           0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cRead           0      0     18
+       -> halKeypadI2cNack           0      0     18
+       -> halKeypadI2cStop           0      0     18
+     halKeypadWriteRegister          0      0     21
+       -> halKeypadI2cStart          0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cWrite          0      0     18
+       -> halKeypadI2cAck            0      0     18
+       -> halKeypadI2cStop           0      0     18
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     _A_P2                             1
+     P2SEL                             1
+     P2INP                             1
+     P2DIR                             1
+     keypad_TaskID                     1
+     halKeypadResetCount               1
+     halKeypadI2cStart                22
+     ??Subroutine11_0                  7
+     ??Subroutine12_0                  4
+     ?Subroutine8                     17
+     halKeypadI2cStop                 33
+     ?Subroutine9                      3
+     halKeypadI2cAck                   8
+     ?Subroutine3                      2
+     halKeypadI2cNack                  8
+     halKeypadI2cWrite                32
+     ??Subroutine13_0                  5
+     ?Subroutine2                      6
+     ?Subroutine10                     1
+     halKeypadI2cRead                 55
+     ?Subroutine6                     10
+     halKeypadWriteRegister           22
+     ?Subroutine0                     19
+     ?Subroutine4                      4
+     ?Subroutine7                      7
+     halKeypadReadRegister            22
+     ?Subroutine1                     17
+     halKeypadSensorData              49
+     halKeypadInit                    62
+     ?Subroutine5                     13
+     halKeypadPushed                 227
+     ??halKeypadI2cStart?relay         6
+     ??halKeypadI2cStop?relay          6
+     ??halKeypadI2cAck?relay           6
+     ??halKeypadI2cNack?relay          6
+     ??halKeypadI2cWrite?relay         6
+     ??halKeypadI2cRead?relay          6
+     ??halKeypadWriteRegister?relay    6
+     ??halKeypadReadRegister?relay     6
+     ??halKeypadSensorData?relay       6
+     ??halKeypadInit?relay             6
+     ??halKeypadPushed?relay           6
+
+ 
+ 655 bytes in segment BANKED_CODE
+  66 bytes in segment BANK_RELAYS
+   4 bytes in segment SFR_AN
+   2 bytes in segment XDATA_Z
+ 
+ 721 bytes of CODE  memory
+   0 bytes of DATA  memory (+ 4 bytes shared)
+   2 bytes of XDATA memory
+
+Errors: none
+Warnings: none

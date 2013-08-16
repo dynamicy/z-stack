@@ -1,0 +1,730 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               14/Aug/2013  12:38:50 /
+// Copyright 2004-2009 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  banked                                            /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data_rom                                          /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  D:\z-stack_813\z-stack\Sensor Network             /
+//                          Example\Components\hal\module\M280.c              /
+//    Command line       =  -f "D:\z-stack_813\z-stack\Sensor Network         /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev. /
+//                          cfg" (-DCPU32MHZ -DROOT=__near_func               /
+//                          -DBLINK_LEDS) -f "D:\z-stack_813\z-stack\Sensor   /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig /
+//                          .cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0           /
+//                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800         /
+//                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                      /
+//                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_M /
+//                          ASK=0x007F -DBEACON_REQUEST_DELAY=100             /
+//                          -DBEACON_REQ_DELAY_MASK=0x00FF                    /
+//                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_P /
+//                          OLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7           /
+//                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3   /
+//                          -DNWK_MAX_DATA_RETRIES=2                          /
+//                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9        /
+//                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40          /
+//                          -DNWK_MAX_BINDING_ENTRIES=4                       /
+//                          -DMAX_BINDING_CLUSTER_IDS=4                       /
+//                          "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07, 0x09,     /
+//                          0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08,   /
+//                          0x0A, 0x0C, 0x0D}" -DMAC_MAX_FRAME_SIZE=116       /
+//                          "-DCONST=const __code" -DGENERIC=__generic        /
+//                          -DRFD_RCVC_ALWAYS_ON=TRUE -DPOLL_RATE=1000        /
+//                          -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100   /
+//                          -DREJOIN_POLL_RATE=440) -f                        /
+//                          "D:\z-stack_813\z-stack\Sensor Network            /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cf /
+//                          g" (-DZCL_READ -DZCL_WRITE -DZCL_BASIC            /
+//                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH   /
+//                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
+//                          -DZCL_PRICING) -DZCL_MESSAGE                      /
+//                          "D:\z-stack_813\z-stack\Sensor Network            /
+//                          Example\Components\hal\module\M280.c" -D          /
+//                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D           /
+//                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
+//                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
+//                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC   /
+//                          "D:\z-stack_813\z-stack\Sensor Network            /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
+//                          "D:\z-stack_813\z-stack\Sensor Network            /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceEB_M160\List\"           /
+//                          --diag_suppress Pe001,Pa010 -o                    /
+//                          "D:\z-stack_813\z-stack\Sensor Network            /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceEB_M160\Obj\" -e         /
+//                          --require_prototypes --debug --core=plain         /
+//                          --dptr=16,1 --data_model=large                    /
+//                          --code_model=banked --calling_convention=xdata_re /
+//                          entrant --place_constants=data_rom                /
+//                          --nr_virtual_regs 16 -I                           /
+//                          "D:\z-stack_813\z-stack\Sensor Network            /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint & Device\CC2530DB\"   /
+//                          -I "D:\z-stack_813\z-stack\Sensor Network         /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\SOURCE\" -I                    /
+//                          "D:\z-stack_813\z-stack\Sensor Network            /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\SOURCE\" -I                 /
+//                          "D:\z-stack_813\z-stack\Sensor Network            /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I      /
+//                          "D:\z-stack_813\z-stack\Sensor Network            /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\"    /
+//                          -I "D:\z-stack_813\z-stack\Sensor Network         /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INC /
+//                          LUDE\" -I "D:\z-stack_813\z-stack\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MOD /
+//                          ULE\" -I "D:\z-stack_813\z-stack\Sensor Network   /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TAR /
+//                          GET\CC2530EB\" -I "D:\z-stack_813\z-stack\Sensor  /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MC /
+//                          U\CCSOC\" -I "D:\z-stack_813\z-stack\Sensor       /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\IN /
+//                          CLUDE\" -I "D:\z-stack_813\z-stack\Sensor         /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\A /
+//                          F\" -I "D:\z-stack_813\z-stack\Sensor Network     /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\N /
+//                          WK\" -I "D:\z-stack_813\z-stack\Sensor Network    /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          EC\" -I "D:\z-stack_813\z-stack\Sensor Network    /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          API\" -I "D:\z-stack_813\z-stack\Sensor Network   /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\S /
+//                          YS\" -I "D:\z-stack_813\z-stack\Sensor Network    /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          CL\" -I "D:\z-stack_813\z-stack\Sensor Network    /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\Z /
+//                          DO\" -I "D:\z-stack_813\z-stack\Sensor Network    /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8 /
+//                          W\" -I "D:\z-stack_813\z-stack\Sensor Network     /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"  /
+//                          -I "D:\z-stack_813\z-stack\Sensor Network         /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SADDR\" -I "D:\z-stack_813\z-stack\Sensor       /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICE /
+//                          S\SDATA\" -I "D:\z-stack_813\z-stack\Sensor       /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INC /
+//                          LUDE\" -I "D:\z-stack_813\z-stack\Sensor Network  /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIG /
+//                          H_LEVEL\" -I "D:\z-stack_813\z-stack\Sensor       /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\" -I "D:\z-stack_813\z-stack\Sensor  /
+//                          Network Example\Projects\zstack\Sensor Network    /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW /
+//                          _LEVEL\srf04\SINGLE_CHIP\" -I "C:\Program Files   /
+//                          (x86)\IAR Systems\Embedded Workbench              /
+//                          5.3\8051\INC\" -I "C:\Program Files (x86)\IAR     /
+//                          Systems\Embedded Workbench 5.3\8051\INC\CLIB\"    /
+//                          -Ohz                                              /
+//    List file          =  D:\z-stack_813\z-stack\Sensor Network             /
+//                          Example\Projects\zstack\Sensor Network            /
+//                          Application\ZIGBEE Endpoint &                     /
+//                          Device\CC2530DB\EndDeviceEB_M160\List\M280.s51    /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME M280
+
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+        EXTERN __INIT_XDATA_Z
+
+        PUBLIC ??M280_Init?relay
+        FUNCTION ??M280_Init?relay,0203H
+        PUBLIC ??M280_Off?relay
+        FUNCTION ??M280_Off?relay,0203H
+        PUBLIC ??M280_On?relay
+        FUNCTION ??M280_On?relay,0203H
+        PUBWEAK `??T4_ISR??INTVEC 99`
+        PUBLIC M280_DutyCount
+        PUBLIC M280_DutyValue
+        PUBLIC M280_Init
+        FUNCTION M280_Init,0203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC M280_Off
+        FUNCTION M280_Off,0203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC M280_On
+        FUNCTION M280_On,0203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBWEAK P0DIR
+        PUBWEAK P0SEL
+        PUBLIC T4_ISR
+        FUNCTION T4_ISR,0233H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 6, STACK
+        PUBWEAK _A_IEN1
+        PUBWEAK _A_P0
+        
+        CFI Names cfiNames0
+        CFI StackFrame CFA_SP SP IDATA
+        CFI StackFrame CFA_PSP16 PSP16 XDATA
+        CFI StackFrame CFA_XSP16 XSP16 XDATA
+        CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+        CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+        CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+        CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+        CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+        CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+        CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+        CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+        CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+        CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+        CFI VirtualResource ?RET:24
+        CFI Resource ?BRET_EXT:8
+        CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+        CFI ResourceParts PSP16 PSPH, PSPL
+        CFI ResourceParts XSP16 XSPH, XSPL
+        CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+        CFI EndNames cfiNames0
+        
+        CFI Common cfiCommon0 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-2
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B SameValue
+        CFI A SameValue
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 SameValue
+        CFI R1 SameValue
+        CFI R2 SameValue
+        CFI R3 SameValue
+        CFI R4 SameValue
+        CFI R5 SameValue
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT SameValue
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon0
+        
+        
+        CFI Common cfiCommon1 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-3
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B Undefined
+        CFI A Undefined
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 Undefined
+        CFI R1 Undefined
+        CFI R2 Undefined
+        CFI R3 Undefined
+        CFI R4 Undefined
+        CFI R5 Undefined
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?BRET_EXT Frame(CFA_SP, 3)
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon1
+        
+M280_Init           SYMBOL "M280_Init"
+??M280_Init?relay   SYMBOL "?relay", M280_Init
+M280_Off            SYMBOL "M280_Off"
+??M280_Off?relay    SYMBOL "?relay", M280_Off
+M280_On             SYMBOL "M280_On"
+??M280_On?relay     SYMBOL "?relay", M280_On
+T4_ISR              SYMBOL "T4_ISR"
+`??T4_ISR??INTVEC 99` SYMBOL "??INTVEC 99", T4_ISR
+
+// D:\z-stack_813\z-stack\Sensor Network Example\Components\hal\module\M280.c
+//    1 //-------------------------------------------------------------------
+//    2 // Filename: M160.c
+//    3 // Description: hal M160 PWM library
+//    4 //-------------------------------------------------------------------
+//    5 //-------------------------------------------------------------------
+//    6 // INCLUDES
+//    7 //-------------------------------------------------------------------
+//    8 #include "hal_defs.h"
+//    9 #include "ioCC2530.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,080H
+// union <unnamed> volatile __sfr _A_P0
+_A_P0:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0b8H
+// union <unnamed> volatile __sfr _A_IEN1
+_A_IEN1:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f3H
+// unsigned char volatile __sfr P0SEL
+P0SEL:
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0fdH
+// unsigned char volatile __sfr P0DIR
+P0DIR:
+        DS 1
+//   10 #include "hal_mcu.h"
+//   11 #include "hal_board.h"
+//   12 #include "M280.h"
+//   13 
+//   14 //-------------------------------------------------------------------
+//   15 // LOCAL VARIABLES
+//   16 //-------------------------------------------------------------------
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   17 uint8 M280_DutyCount;
+M280_DutyCount:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//   18 uint8 M280_DutyValue;
+M280_DutyValue:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+//   19 
+//   20 //-------------------------------------------------------------------
+//   21 // LOCAL FUNCTIONS
+//   22 //-------------------------------------------------------------------
+//   23 //-------------------------------------------------------------------
+//   24 // @fn      timerPwm_ISR
+//   25 // @brief   ISR framework for the 1k timer component
+//   26 // @param   none
+//   27 // @return  none
+//   28 //-------------------------------------------------------------------
+//   29 //HAL_ISR_FUNCTION(T4_ISR, T4_VECTOR)
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+//   30 HAL_ISR_FUNCTION(T4_ISR, T4_VECTOR)
+T4_ISR:
+        CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function T4_ISR
+//   31 {
+        PUSH    A
+        CFI A Frame(CFA_SP, 3)
+        CFI CFA_SP SP+-3
+        PUSH    PSW
+        CFI PSW Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        MOV     A,R2
+        CFI R2 A
+        PUSH    A
+        CFI R2 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 6)
+        CFI CFA_SP SP+-6
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 7)
+        CFI CFA_SP SP+-7
+        ; Saved register size: 5
+        ; Auto size: 0
+//   32     M280_DutyCount++;
+        MOV     DPTR,#M280_DutyCount
+        MOVX    A,@DPTR
+        INC     A
+        MOVX    @DPTR,A
+//   33     if (M280_DutyCount >= 100)
+        CLR     C
+        SUBB    A,#0x64
+        JC      ??T4_ISR_0
+//   34     {
+//   35         M280_DutyCount = 0;
+        CLR     A
+        MOVX    @DPTR,A
+//   36     }
+//   37     if (M280_DutyCount >= M280_DutyValue)
+??T4_ISR_0:
+        MOVX    A,@DPTR
+        PUSH    A
+        CFI CFA_SP SP+-8
+        MOV     DPTR,#M280_DutyValue
+        MOVX    A,@DPTR
+        MOV     R2,A
+        POP     A
+        CFI CFA_SP SP+-7
+        CLR     C
+        SUBB    A,R2
+        JC      ??T4_ISR_1
+//   38     {
+//   39         HAL_DO_OFF();
+        SETB    0x80.0
+        SJMP    ??T4_ISR_2
+//   40     }
+//   41     else
+//   42     {
+//   43         HAL_DO_ON();
+??T4_ISR_1:
+        CLR     0x80.0
+//   44     }
+//   45 }
+??T4_ISR_2:
+        POP     DPH
+        CFI DPH0 SameValue
+        CFI CFA_SP SP+-6
+        POP     DPL
+        CFI DPL0 SameValue
+        CFI CFA_SP SP+-5
+        POP     A
+        CFI R2 A
+        CFI CFA_SP SP+-4
+        MOV     R2,A
+        CFI R2 SameValue
+        POP     PSW
+        CFI PSW SameValue
+        CFI CFA_SP SP+-3
+        POP     A
+        CFI A SameValue
+        CFI CFA_SP SP+-2
+        RETI
+        CFI EndBlock cfiBlock0
+        REQUIRE _A_P0
+//   46 
+//   47 //-------------------------------------------------------------------
+//   48 // GLOBAL FUNCTIONS
+//   49 //-------------------------------------------------------------------
+//   50 //-------------------------------------------------------------------
+//   51 // @fn      M160_Init
+//   52 // @brief    Set up timer 4 to generate an interrupt 1 kHz for PWM
+//   53 // @return  none
+//   54 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   55 void M280_Init(void)
+M280_Init:
+        CFI Block cfiBlock1 Using cfiCommon1
+        CFI Function M280_Init
+//   56 {
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   57     HAL_DO_OUTPUT();
+        ANL     0xf3,#0xfe
+        ORL     0xfd,#0x1
+//   58 
+//   59     // Set prescaler divider value to 128 (8KHz)
+//   60     X_T4CTL |= 0x80;
+        MOV     DPTR,#0x70eb
+        MOVX    A,@DPTR
+        SETB    0xE0 /* A   */.7
+        MOVX    @DPTR,A
+//   61 
+//   62     X_T4CTL &= ~(0x10); // Stop timer
+        MOVX    A,@DPTR
+        CLR     0xE0 /* A   */.4
+        MOVX    @DPTR,A
+//   63     T4IE = 0; // Disable interrupt
+        CLR     0xb8.4
+        CFI EndBlock cfiBlock1
+//   64 }
+        REQUIRE ?Subroutine0
+        REQUIRE _A_IEN1
+        REQUIRE P0SEL
+        REQUIRE P0DIR
+        ; // Fall through to label ?Subroutine0
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine0:
+        CFI Block cfiBlock2 Using cfiCommon1
+        CFI NoFunction
+        CFI CFA_SP SP+-5
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        POP     DPH
+        CFI CFA_SP SP+-4
+        CFI DPH0 SameValue
+        POP     DPL
+        CFI CFA_SP SP+-3
+        CFI DPL0 SameValue
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock2
+//   65 
+//   66 //-------------------------------------------------------------------
+//   67 // @fn          M160_On
+//   68 // @brief       Turn M160 on.
+//   69 // @param       uint8 duty
+//   70 // @return      none
+//   71 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   72 void M280_On(uint8 duty)
+M280_On:
+        CFI Block cfiBlock3 Using cfiCommon1
+        CFI Function M280_On
+//   73 {
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   74     M280_DutyCount = 0;
+        CLR     A
+        MOV     DPTR,#M280_DutyCount
+        MOVX    @DPTR,A
+//   75     M280_DutyValue = duty;
+        MOV     A,R1
+        MOV     DPTR,#M280_DutyValue
+        MOVX    @DPTR,A
+//   76 
+//   77     X_T4CTL |= 0x10; // Start timer
+        MOV     DPTR,#0x70eb
+        MOVX    A,@DPTR
+        SETB    0xE0 /* A   */.4
+        MOVX    @DPTR,A
+//   78     T4IE = 1; // Enable interrupt
+        SETB    0xb8.4
+//   79 }
+        SJMP    ?Subroutine0
+        CFI EndBlock cfiBlock3
+        REQUIRE _A_IEN1
+//   80 
+//   81 //-------------------------------------------------------------------
+//   82 // @fn          M160_Off
+//   83 // @brief       Turn M160 off.
+//   84 // @return      none
+//   85 //-------------------------------------------------------------------
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//   86 void M280_Off(void)
+M280_Off:
+        CFI Block cfiBlock4 Using cfiCommon1
+        CFI Function M280_Off
+//   87 {
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 5)
+        CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   88     X_T4CTL &= ~(0x10); // Stop timer
+        MOV     DPTR,#0x70eb
+        MOVX    A,@DPTR
+        CLR     0xE0 /* A   */.4
+        MOVX    @DPTR,A
+//   89     T4IE = 0; // Disable interrupt
+        CLR     0xb8.4
+//   90     HAL_DO_OFF();
+        SETB    0x80.0
+//   91 }
+        SJMP    ?Subroutine0
+        CFI EndBlock cfiBlock4
+        REQUIRE _A_P0
+        REQUIRE _A_IEN1
+
+        COMMON INTVEC:CODE:ROOT(0)
+        ORG 99
+`??T4_ISR??INTVEC 99`:
+        LJMP       (T4_ISR)
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M280_Init?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M280_Init
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M280_On?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M280_On
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??M280_Off?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    M280_Off
+
+        END
+//   92 
+// 
+// 72 bytes in segment BANKED_CODE
+// 18 bytes in segment BANK_RELAYS
+//  3 bytes in segment INTVEC
+// 56 bytes in segment NEAR_CODE
+//  4 bytes in segment SFR_AN
+//  2 bytes in segment XDATA_Z
+// 
+// 146 bytes of CODE  memory (+ 3 bytes shared)
+//   0 bytes of DATA  memory (+ 4 bytes shared)
+//   2 bytes of XDATA memory
+//
+//Errors: none
+//Warnings: none

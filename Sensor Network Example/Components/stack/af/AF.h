@@ -243,6 +243,7 @@ typedef struct
   uint16 panId;  // used for the INTER_PAN feature
 } afAddrType_t;
 
+
 typedef struct
 {
   osal_event_hdr_t hdr;     /* OSAL Message header */
@@ -260,19 +261,6 @@ typedef struct
   uint32 timestamp;         /* receipt timestamp from MAC */
   afMSGCommandFormat_t cmd; /* Application Data */
 } afIncomingMSGPacket_t;
-
-extern uint8 top;
-//[Type][Logical address] [Module/M140,M160][Data]
-//[1Byte][4Bytes][3Bytes][8Bytes] =>[16Bytes]
-typedef struct
-{
-  uint8 *Type;
-  uint32 *shortAddr;   //HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
-  uint8 *Module;  
-  uint8 *Data;
-} packet_t;
-  
-extern packet_t device_manager[10];
 
 typedef struct
 {

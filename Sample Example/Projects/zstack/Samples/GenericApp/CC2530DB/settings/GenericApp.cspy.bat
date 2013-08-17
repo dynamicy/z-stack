@@ -22,11 +22,11 @@
 @REM but they are listed at the end of this file for reference.
 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\common\bin\cspybat" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\8051\bin\8051proc.dll" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\8051\bin\8051emu_cc.dll"  %1 --plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\8051\bin\<libsupport_plugin>" --backend -B "--proc_core" "plain" "--proc_code_model" "banked" "--proc_nr_virtual_regs" "16" "--proc_dptr_nr_of" "1" "--proc_DPL1" "0x84" "--proc_DPH1" "0x85" "--proc_codebank_reg" "0x9F" "--proc_codebank_start" "0x8000" "--proc_codebank_end" "0xFFFF" "--proc_codebank_mask" "0x07" "--derivative_file" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\8051\config\derivatives\Chipcon\CC2530.i51" "-p" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\8051\config\devices\Texas Instruments\CC2530.ddf" "--proc_data_model" "large" "--proc_driver" "chipcon" "--retain_memory" "--verify_download" "use_crc16" "--stack_overflow" "--no_banks=4" 
+"C:\IAR Systems\Embedded Workbench 5.3\common\bin\cspybat" "C:\IAR Systems\Embedded Workbench 5.3\8051\bin\8051proc.dll" "C:\IAR Systems\Embedded Workbench 5.3\8051\bin\8051emu_cc.dll"  %1 --plugin "C:\IAR Systems\Embedded Workbench 5.3\8051\bin\<libsupport_plugin>" --backend -B "--proc_core" "plain" "--proc_code_model" "banked" "--proc_nr_virtual_regs" "16" "--proc_dptr_nr_of" "1" "--proc_DPL1" "0x84" "--proc_DPH1" "0x85" "--proc_codebank_reg" "0x9F" "--proc_codebank_start" "0x8000" "--proc_codebank_end" "0xFFFF" "--proc_codebank_mask" "0x07" "--derivative_file" "C:\IAR Systems\Embedded Workbench 5.3\8051\config\derivatives\Chipcon\CC2530.i51" "-p" "C:\IAR Systems\Embedded Workbench 5.3\8051\config\devices\Texas Instruments\CC2530.ddf" "--proc_data_model" "large" "--proc_driver" "chipcon" "--retain_memory" "--verify_download" "use_crc16" "--stack_overflow" "--no_banks=4" 
 
 
 @REM Loaded plugins:
 @REM    8051libsupport.dll
-@REM    C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\common\plugins\CodeCoverage\CodeCoverage.dll
-@REM    C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\common\plugins\Profiling\Profiling.dll
-@REM    C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\common\plugins\stack\stack.dll
+@REM    C:\IAR Systems\Embedded Workbench 5.3\common\plugins\CodeCoverage\CodeCoverage.dll
+@REM    C:\IAR Systems\Embedded Workbench 5.3\common\plugins\Profiling\Profiling.dll
+@REM    C:\IAR Systems\Embedded Workbench 5.3\common\plugins\stack\stack.dll

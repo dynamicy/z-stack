@@ -71,8 +71,6 @@ extern void zclZigbeeRecv_Init( byte task_id );
  */
 extern UINT16 zclZigbeeRecv_event_loop( byte task_id, UINT16 events );
 
-extern uint16 zclZigbeeSendMsg_event_loop(uint8 task_id, uint16 events);
-
 extern void zclUARTMsg_CallBack(uint8 port, uint8 event); // The UART Message callback
 
 /*********************************************************************

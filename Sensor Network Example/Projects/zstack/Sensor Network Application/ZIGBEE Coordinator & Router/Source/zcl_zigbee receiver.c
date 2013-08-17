@@ -11,11 +11,6 @@
   contact Texas Instruments Incorporated at www.TI.com. 
 **************************************************************************************************/
 
-/*************************************************************************************************
-  This device will be like a Light device.  This application is not intended to be a Light device, 
-  but will use the device description to implement this sample code.
-*************************************************************************************************/
-
 /*********************************************************************
  * INCLUDES
  */
@@ -48,6 +43,7 @@
 #include "MT_UART.h"
 #include "MT.h"
 
+#include "ZComDef.h"
 /*********************************************************************
  * MACROS
  */
@@ -63,7 +59,11 @@
  * GLOBAL VARIABLES
  */
 
+uint8 send_msg_counter = 0;
+
 byte zclZigbeeReceiver_TaskID; // The zigbee task_ID
+
+byte ZDO_MSG_SEND_ID; // The zigbee task_ID
 
 // The UART transmit variable and array
 // the transmit data length
@@ -149,6 +149,32 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
   NULL,                                        // RSSI Location Response commands
 };
 
+void ZSendMsgProcess(char *temp)
+{  
+//    show("ZSendMsgProcess"); 
+//    afIncomingMSGPacket_t *MSGpkt;
+//    char buf[64];
+    
+//    memset(buf, 0x0, 64);
+//    MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( zclZigbeeReceiver_TaskID );
+//    sprintf(buf, "%s", MSGpkt->cmd.Data);
+ //   sprintf(buf, "%s", temp);
+//    show(device_manager.Type);
+    
+//    sprintf(buf, "\r%s\n", temp);
+  
+    HalUARTWrite(HAL_UART_PORT_0, device_manager.Type, 8);
+    HalUARTWrite(HAL_UART_PORT_0, device_manager.Module, 10);   
+    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);     
+    HalUARTWrite(HAL_UART_PORT_0, device_manager.Data, 20);   
+    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);   
+ 
+//    show(device_manager.Data);    
+//    show(device_manager.Module);    
+   
+    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 3000 );        
+}
+
 /*********************************************************************
  * @fn          zclZigbeeRecv_Init
  * @brief       Initialization function for the zclGeneral layer.
@@ -184,6 +210,7 @@ void zclZigbeeRecv_Init( byte task_id )
   
   // Register for a test endpoint
   afRegister( &zigbeeReceiver_TestEp ); 
+    osal_set_event( zclZigbeeReceiver_TaskID, NWK_RETRY_DELAY);//chris  
 }
 
 /*********************************************************************
@@ -191,24 +218,16 @@ void zclZigbeeRecv_Init( byte task_id )
  * @brief       Event Loop Processor for zclGeneral.
  */
 uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
-{ 
+{   
     afIncomingMSGPacket_t *MSGpkt;
     (void)task_id;  // Intentionally unreferenced parameter
   
     if ( events & SYS_EVENT_MSG ) // SYSTEM Message event
     {
       while ( (MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( zclZigbeeReceiver_TaskID )) )
-      { 
-        char temp[32];
-//        sprintf(temp, "Data:%s", MSGpkt->cmd.Data);
-//        show(temp);
-//        sprintf(temp, "Length:%d", MSGpkt->cmd.DataLength);  
-//        show(temp);
-//        sprintf(temp, "RSSI:%d", MSGpkt->rssi);    
-//        show(temp);        
-        
+      {   
         switch ( MSGpkt->hdr.event )
-        {
+        {       
         case ZCL_INCOMING_MSG: //0x34 : Incoming ZCL foundation message
             show("ZCL_INCOMING_MSG");
             // Incoming ZCL Foundation command/response messages
@@ -216,54 +235,21 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
             break; 
         case KEY_CHANGE: //0xC0 : Key Events
             show("KEY_CHANGE");
-            zclZigbeeReceiver_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );
-            break;
-            
-        case AF_DATA_CONFIRM_CMD:
-            show("AF_DATA_CONFIRM_CMD");
-            break;      
-        case AF_INCOMING_MSG_CMD:
-            show("AF_INCOMING_MSG_CMD");
-            break;                
-        case AF_INCOMING_KVP_CMD:       
-            show("AF_INCOMING_KVP_CMD");
-            break;
-        case AF_INCOMING_GRP_KVP_CMD:       
-            show("AF_INCOMING_GRP_KVP_CMD");
-            break;   
-
-        case ZDO_NEW_DSTADDR:       
-            show("ZDO_NEW_DSTADDR");
-            break;   
+            zclZigbeeReceiver_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );            
+            break;           
+        case AF_DATA_CONFIRM_CMD:           
+              strcpy(device_manager.Type, "\r 1 \n");  
+              strcpy(device_manager.Module, "\r 140 \n");                            
+              strncpy(device_manager.Data, MSGpkt->cmd.Data, 14);         
+            break;         
         case ZDO_STATE_CHANGE:       
-            show("ZDO_STATE_CHANGE");
+//            show("ZDO_STATE_CHANGE");
+            ZSendMsgProcess("Hi");            
             break;         
         case ZDO_MATCH_DESC_RSP_SENT:       
             show("ZDO_MATCH_DESC_RSP_SENT");
-            break;    
-        case ZDO_CB_MSG:       
-            show("ZDO_CB_MSG");
-            break;    
-        case ZDO_NETWORK_REPORT:       
-            show("ZDO_NETWORK_REPORT");
-            break;    
-        case ZDO_NETWORK_UPDATE:       
-            show("ZDO_NETWORK_UPDATE");
-            break;     
-
-        case NM_CHANNEL_INTERFERE:       
-            show("NM_CHANNEL_INTERFERE");
-            break;     
-        case NM_ED_SCAN_CONFIRM:       
-            show("NM_ED_SCAN_CONFIRM");
-            break;     
-        case SAPS_CHANNEL_CHANGE:       
-            show("SAPS_CHANNEL_CHANGE");
+            // Check the state of NWK
             break;         
-        case ZCL_KEY_ESTABLISH_IND:       
-            show("ZCL_KEY_ESTABLISH_IND");
-            break;   
-           
           default:
             break;
         }
@@ -275,6 +261,10 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
     // The user define application events
     switch ( events )
     {
+      case ZDO_MSG_SEND_EVT:
+//          show("ZDO_MSG_SEND_EVT");
+            ZSendMsgProcess("Chris:ZDO_MSG_SEND_EVT");                
+            break;
       case SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT: // ZIGBEE Receiver identify timeout event
         show("SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT");
         if ( zclZigbeeRecv_IdentifyTime > 0 )
@@ -293,8 +283,7 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
           HalLcdWriteChar(HAL_LCD_LINE_3, 0, ch);
         #endif
         break;
-    }
-    
+    }    
     return 0; // Discard unknown events
 }
 

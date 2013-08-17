@@ -54,6 +54,7 @@ extern "C"
 #define ZDO_SECMGR_EVENT          0x0100
 #define ZDO_NWK_UPDATE_NV         0x0200
 #define ZDO_FRAMECOUNTER_CHANGE   0x0400
+#define ZDO_MSG_SEND_EVT          0x0800    // Add for sending msg
 
 // Incoming to ZDO
 #define ZDO_NWK_DISC_CNF        0x01

@@ -376,6 +376,12 @@ UINT16 ZDApp_event_loop( uint8 task_id, UINT16 events )
     if ( zgConcentratorEnable == TRUE ) 
     {
       // Start next event
+      // chris
+      //  osal_start_timerEx(ZDAppTaskID, ZDO_NWK_UPDATE_NV, ZDAPP_UPDATE_NWK_NV_TIME );
+      //  NWK_RETRY_DELAY             1000   // in milliseconds  
+//          osal_start_timerEx(ZDAppTaskID, show("hello"), NWK_RETRY_DELAY );
+
+  
       osal_start_timerEx( NWK_TaskID, NWK_MTO_RTG_REQ_EVT, 100 );
     }
     
@@ -913,9 +919,11 @@ void ZDApp_ProcessOSALMsg( osal_event_hdr_t *msgPtr )
     case AF_DATA_CONFIRM_CMD:
       // This message is received as a confirmation of a data packet sent. The status is of ZStatus_t type 
       // [defined in NLMEDE.h] The message fields are defined in AF.h
+//      show("ChrisChris");      
       afDataConfirm = (afDataConfirm_t *)msgPtr;
       sentEP = afDataConfirm->endpoint;
       sentStatus = afDataConfirm->hdr.status;
+//      show("ChrisChris");
 
       // Action taken when confirmation is received.
 #if defined ( ZIGBEE_FREQ_AGILITY )

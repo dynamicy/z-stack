@@ -243,7 +243,6 @@ typedef struct
   uint16 panId;  // used for the INTER_PAN feature
 } afAddrType_t;
 
-
 typedef struct
 {
   osal_event_hdr_t hdr;     /* OSAL Message header */
@@ -327,12 +326,23 @@ typedef struct
   APSDE_DataReqMTU_t aps;
 } afDataReqMTU_t;
 
-
+//[Type][Logical address] [Module/M140,M160][Data]
+//[1Byte][4Bytes][3Bytes][8Bytes] =>[16Bytes]
+typedef struct
+{
+  char Type[8];
+//  uint32 *shortAddr;   //HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
+  char Module[10];  
+  char Data[15];
+} packet_t;
+  
 /*********************************************************************
  * Globals
  */
 
 extern epList_t *epList;
+
+extern packet_t device_manager;
 
 /*********************************************************************
  * FUNCTIONS

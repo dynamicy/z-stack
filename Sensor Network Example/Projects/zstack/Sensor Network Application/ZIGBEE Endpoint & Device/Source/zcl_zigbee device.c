@@ -64,9 +64,6 @@
 #if defined(M250)
   #include "M250.h"
 #endif
-#if defined(M280)
-  #include "M280.h"
-#endif
 #if defined(M320)
   #include "M320.h"
 #endif
@@ -594,8 +591,5 @@ void zclZIGBEEDevice_SendMsg(void)
   #if defined(M270)
     M270_SensorFunction();
   #endif
-  #if defined(M280)
-    M280_SensorFunction();
-  #endif    
 }
 

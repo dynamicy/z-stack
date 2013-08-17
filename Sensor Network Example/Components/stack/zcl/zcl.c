@@ -1326,7 +1326,8 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
         HalLcdWriteChar(HAL_LCD_LINE_4, len, recv_data[len]);
       #endif
     }
-    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
+    //chris
+//    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
   }
 #endif
 
@@ -1341,8 +1342,8 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
         HalLcdWriteChar(HAL_LCD_LINE_3, len, receive[len]);
       #endif
     }
-    // Write receive coordinator command to UART
-    HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
+    // Write receive coordinator command to UART, chrischris
+ //   HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
     
     return ;
   }

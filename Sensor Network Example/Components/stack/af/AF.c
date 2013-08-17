@@ -76,6 +76,8 @@
  */
 
 epList_t *epList;
+//Chris Defined
+packet_t device_manager;
 
 /*********************************************************************
  * EXTERNAL VARIABLES

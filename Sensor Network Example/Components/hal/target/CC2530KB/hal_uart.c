@@ -47,6 +47,7 @@
 #include "hal_defs.h"
 #include "hal_types.h"
 #include "hal_uart.h"
+#include "ZDApp.h"
 
 /*********************************************************************
  * MACROS
@@ -85,6 +86,7 @@
 #if HAL_UART_USB
 #include "_hal_uart_usb.c"
 #endif
+
 
 /******************************************************************************
  * @fn      HalUARTInit

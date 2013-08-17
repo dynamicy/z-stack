@@ -12,6 +12,7 @@
  * INCLUDES
  */
 #include <string.h>
+#include <stdio.h>
 #include "comdef.h"
 
 /* OSAL */
@@ -28,7 +29,6 @@
 #if defined(End_Device) || defined(Router_Device)
   #include "zcl_zigbee device.h"
 #endif
-
 
 /* HAL */
 #include "OnBoard.h"
@@ -54,6 +54,7 @@ osal_msg_q_t osal_qHead;
 /*********************************************************************
  * EXTERNAL VARIABLES
  */
+extern uint8 send_msg_counter;
 /*********************************************************************
  * EXTERNAL FUNCTIONS
  */
@@ -962,7 +963,11 @@ void osal_start_system( void )
       HAL_EXIT_CRITICAL_SECTION(intState); //exit critical section
 
 //      show("choose current event");
+//      Onboard_wait(1500000);
       events = (tasksArr[idx])( idx, events );
+//      char temp[16];
+//      sprintf(temp, "event:%d", events);
+//      show(temp);      
 
       HAL_ENTER_CRITICAL_SECTION(intState);
       tasksEvents[idx] |= events;  // Add back unprocessed events to the current task.

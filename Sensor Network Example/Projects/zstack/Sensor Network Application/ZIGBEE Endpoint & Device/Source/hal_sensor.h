@@ -46,11 +46,6 @@
  *  The ZIGBEE Device to control the M270 Relay.
  */
  extern void M270_SensorFunction(void);
- 
- /*
- *  The ZIGBEE Device to receive the M280 tempture data.
- */
- extern void M280_SensorFunction(void);
 
 /*********************************************************************
 *********************************************************************/

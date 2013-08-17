@@ -60,9 +60,6 @@
 #if defined(M270)
   #include "M270.h"
 #endif
-#if defined(M280)
-  #include "M280.h"
-#endif
 
 /*********************************************************************
  * GLOBAL VARIABLES
@@ -82,7 +79,6 @@
  void M190_SensorFunction(void); // M190 Module function
  void M200_SensorFunction(void); // M200 Module function
  void M270_SensorFunction(void); // M270 Module function
- void M280_SensorFunction(void); // M270 Module function
 
 #if defined(M110)
 /*********************************************************************
@@ -399,45 +395,3 @@
      #endif
  }
 #endif
- 
-#if defined(M280)
-/*********************************************************************
- * @fn          M280_SensorFunction
- * @brief       The ZIGBEE Device to receive the M160 tempture data.
- */
- void M280_SensorFunction(void)
- {
-  // M280 sensor variable
-  static uint8 duty = 50;
-  
-  // initilization the device
-  M280_Init();
-  
-  if (ch > 0)
-  {           
-    if (ch == 'U')
-    {
-      if (duty < 100)
-      {
-        duty = duty + 5;
-      }
-    }
-    
-    if (ch == 'N')
-    {
-      if (duty > 0)
-      {
-        duty = duty - 5;
-      }
-    }
-      
-    M280_On(duty);
-    #if defined ( LCD_SUPPORTED )
-      HalLcdWriteString("** M280 Test  **", HAL_LCD_LINE_1);
-      HalLcdWriteString("   Duty =     % ", HAL_LCD_LINE_2);
-      halLcdDisplayUint8(HAL_LCD_LINE_2, 10, HAL_LCD_RADIX_DEC, duty); 
-    #endif
-  }
-//  M280_Off();
- }
-#endif 

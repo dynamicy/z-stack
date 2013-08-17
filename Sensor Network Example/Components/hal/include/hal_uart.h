@@ -166,6 +166,11 @@ extern uint16 HalUARTWrite ( uint8 port, uint8 *pBuffer, uint16 length );
 extern void show(char *temp);
 
 /*
+ * Write a buff to the uart
+ */
+extern void ZSendMsg(char *temp);
+
+/*
  * Write a buffer to the UART
  */
 extern uint8 HalUARTIoctl ( uint8 port, uint8 cmd, halUARTIoctl_t *pIoctl );

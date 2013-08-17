@@ -68,7 +68,7 @@ const pTaskEventHandlerFn tasksArr[] = {
   ZDNwkMgr_event_loop,
 #endif
   zcl_event_loop,
-  zclZigbeeRecv_event_loop,
+  zclZigbeeRecv_event_loop,   
 };
 
 const uint8 tasksCnt = sizeof( tasksArr ) / sizeof( tasksArr[0] );

@@ -1,0 +1,307 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                18/Aug/2013  22:28:41 #
+# Copyright 2004-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  C:\GitHub\z-stack\Sensor Network                   #
+#                          Example\Components\hal\module\M190.c               #
+#    Command line       =  -f "C:\GitHub\z-stack\Sensor Network               #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wRouter. #
+#                          cfg" (-DCPU32MHZ -DROOT=__near_func                #
+#                          -DMAC_CFG_APP_PENDING_QUEUE=TRUE -DRTR_NWK         #
+#                          -DBLINK_LEDS) -f "C:\GitHub\z-stack\Sensor         #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig. #
+#                          cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0             #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFFF                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE      #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440)   #
+#                          -f "C:\GitHub\z-stack\Sensor Network               #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg #
+#                          " (-DZCL_READ -DZCL_WRITE -DZCL_BASIC              #
+#                          -DZCL_IDENTIFY -DZCL_ON_OFF -DZCL_KEY_ESTABLISH    #
+#                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
+#                          -DZCL_PRICING) -DZCL_MESSAGE                       #
+#                          "C:\GitHub\z-stack\Sensor Network                  #
+#                          Example\Components\hal\module\M190.c" -D           #
+#                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D            #
+#                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
+#                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
+#                          Router_Device -D M140 -D xPA2591 -lC               #
+#                          "C:\GitHub\z-stack\Sensor Network                  #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\RouterDeviceKB_M140\List\" -lA     #
+#                          "C:\GitHub\z-stack\Sensor Network                  #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\RouterDeviceKB_M140\List\"         #
+#                          --diag_suppress Pe001,Pa010 -o                     #
+#                          "C:\GitHub\z-stack\Sensor Network                  #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\RouterDeviceKB_M140\Obj\" -e       #
+#                          --require_prototypes --debug --core=plain          #
+#                          --dptr=16,1 --data_model=large                     #
+#                          --code_model=banked --calling_convention=xdata_ree #
+#                          ntrant --place_constants=data_rom                  #
+#                          --nr_virtual_regs 16 -I "C:\GitHub\z-stack\Sensor  #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint & Device\CC2530DB\"    #
+#                          -I "C:\GitHub\z-stack\Sensor Network               #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\SOURCE\" -I                     #
+#                          "C:\GitHub\z-stack\Sensor Network                  #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\SOURCE\" -I                  #
+#                          "C:\GitHub\z-stack\Sensor Network                  #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\ZMAIN\TI2530DB\" -I       #
+#                          "C:\GitHub\z-stack\Sensor Network                  #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MT\" -I  #
+#                          "C:\GitHub\z-stack\Sensor Network                  #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\INCL #
+#                          UDE\" -I "C:\GitHub\z-stack\Sensor Network         #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\MODU #
+#                          LE\" -I "C:\GitHub\z-stack\Sensor Network          #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\HAL\TARG #
+#                          ET\CC2530KB\" -I "C:\GitHub\z-stack\Sensor         #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\MCU #
+#                          \CCSOC\" -I "C:\GitHub\z-stack\Sensor Network      #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\OSAL\INC #
+#                          LUDE\" -I "C:\GitHub\z-stack\Sensor Network        #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\AF #
+#                          \" -I "C:\GitHub\z-stack\Sensor Network            #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\NW #
+#                          K\" -I "C:\GitHub\z-stack\Sensor Network           #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SE #
+#                          C\" -I "C:\GitHub\z-stack\Sensor Network           #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SA #
+#                          PI\" -I "C:\GitHub\z-stack\Sensor Network          #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\SY #
+#                          S\" -I "C:\GitHub\z-stack\Sensor Network           #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZC #
+#                          L\" -I "C:\GitHub\z-stack\Sensor Network           #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\STACK\ZD #
+#                          O\" -I "C:\GitHub\z-stack\Sensor Network           #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\F8W #
+#                          \" -I "C:\GitHub\z-stack\Sensor Network            #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\ZMAC\"   #
+#                          -I "C:\GitHub\z-stack\Sensor Network               #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SADDR\" -I "C:\GitHub\z-stack\Sensor Network      #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\SERVICES #
+#                          \SDATA\" -I "C:\GitHub\z-stack\Sensor Network      #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\INCL #
+#                          UDE\" -I "C:\GitHub\z-stack\Sensor Network         #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\HIGH #
+#                          _LEVEL\" -I "C:\GitHub\z-stack\Sensor Network      #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\" -I "C:\GitHub\z-stack\Sensor         #
+#                          Network Example\Projects\zstack\Sensor Network     #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\..\..\..\..\..\COMPONENTS\MAC\LOW_ #
+#                          LEVEL\srf04\SINGLE_CHIP\" -I "C:\Program           #
+#                          Files\IAR Systems\Embedded Workbench               #
+#                          5.3\8051\INC\" -I "C:\Program Files\IAR            #
+#                          Systems\Embedded Workbench 5.3\8051\INC\CLIB\"     #
+#                          -Ohz                                               #
+#    List file          =  C:\GitHub\z-stack\Sensor Network                   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\RouterDeviceKB_M140\List\M190.lst  #
+#    Object file        =  C:\GitHub\z-stack\Sensor Network                   #
+#                          Example\Projects\zstack\Sensor Network             #
+#                          Application\ZIGBEE Endpoint &                      #
+#                          Device\CC2530DB\RouterDeviceKB_M140\Obj\M190.r51   #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M190.c
+      1          //-------------------------------------------------------------------
+      2          // Filename: M190.c
+      3          // Description: hal M190 library ?¯è??»é˜»(A/D)
+      4          //-------------------------------------------------------------------
+      5          //-------------------------------------------------------------------
+      6          // INCLUDES
+      7          //-------------------------------------------------------------------
+      8          /*
+      9          #include "hal_defs.h"
+     10          #include "hal_cc8051.h"
+     11          #include "hal_mcu.h"
+     12          #include "hal_board.h"
+     13          #include "hal_digio.h"
+     14          #include "hal_adc.h"
+     15          */
+     16          #include "hal_mcu.h"
+
+   \                                 In  segment SFR_AN, at 0xf3
+   \   unsigned char volatile __sfr P0SEL
+   \                     P0SEL:
+   \   000000                DS 1
+     17          #include "hal_board.h"
+     18          #include "hal_digio.h"
+     19          #include "hal_adc.h"
+     20          #include "M190.h"
+     21          
+     22          //-------------------------------------------------------------------
+     23          // @fn      M190_Init
+     24          // @brief    Set up port M190 ad
+     25          // @return  none
+     26          //-------------------------------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     27          void M190_Init(void)
+   \                     M190_Init:
+     28          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+     29              // Analog input
+     30              //MCU_IO_PERIPHERAL(HAL_BOARD_IO_ADC_PORT, HAL_BOARD_IO_ADC_CH);
+     31              HAL_ADC_PERIPHERAL();
+   \   000000   43F301       ORL     0xf3,#0x1
+     32          }
+   \   000003   02....       LJMP    ?BRET
+   \   000006                REQUIRE P0SEL
+     33          
+     34          //-------------------------------------------------------------------
+     35          // @fn      M190_GetValue
+     36          // @brief   Get this M190 module value
+     37          // @param   none
+     38          // @return  none
+     39          //-------------------------------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     40          uint16 M190_GetValue(void)
+   \                     M190_GetValue:
+     41          {
+   \   000000   74F6         MOV     A,#-0xa
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+     42            
+     43          //    uint16 adcValue;
+     44          //    adcValue = adcSampleSingle(ADC_REF_AVDD, ADC_12_BIT, HAL_BOARD_IO_ADC_CH);
+     45          //    return adcValue;
+     46              uint16 adcValue;
+     47              adcValue = adcSampleSingle(HAL_ADC_REF_AVDD, ADC_12_BIT, 0);
+   \   000005                ; Setup parameters for call to function adcSampleSingle
+   \   000005   7B00         MOV     R3,#0x0
+   \   000007   7A30         MOV     R2,#0x30
+   \   000009   7980         MOV     R1,#-0x80
+   \   00000B   12....       LCALL   ??adcSampleSingle?relay
+     48              return adcValue;
+   \   00000E   7F02         MOV     R7,#0x2
+   \   000010   02....       LJMP    ?BANKED_LEAVE_XDATA
+     49          }
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M190_Init?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M190_Init
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M190_GetValue?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M190_GetValue
+
+   Maximum stack usage in bytes:
+
+     Function             ISTACK PSTACK XSTACK
+     --------             ------ ------ ------
+     M190_GetValue            0      0     10
+       -> adcSampleSingle     0      0     20
+     M190_Init                0      0      0
+
+
+   Segment part sizes:
+
+     Function/Label        Bytes
+     --------------        -----
+     P0SEL                    1
+     M190_Init                6
+     M190_GetValue           19
+     ??M190_Init?relay        6
+     ??M190_GetValue?relay    6
+
+ 
+ 25 bytes in segment BANKED_CODE
+ 12 bytes in segment BANK_RELAYS
+  1 byte  in segment SFR_AN
+ 
+ 37 bytes of CODE memory
+  0 bytes of DATA memory (+ 1 byte shared)
+
+Errors: none
+Warnings: none

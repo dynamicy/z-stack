@@ -6,14 +6,6 @@
   Description:    Zigbee Cluster Library - sample device application.
 **************************************************************************************************/
 
-/**************************************************************************************************
-  This device will be like an On/Off Switch device. This application is not intended to be a On/Off 
-  Switch device, but will use the device description to implement this sample code.
-**************************************************************************************************/
-
-/*********************************************************************
- * INCLUDES
- */
 #include "ZComDef.h"
 
 /* OSAL */
@@ -68,31 +60,11 @@
   #include "M320.h"
 #endif
 
-/*********************************************************************
- * MACROS
- */
-/*********************************************************************
- * CONSTANTS
- */
 afAddrType_t zclZigbeeDevice_DstAddr;
-
-/*********************************************************************
- * TYPEDEFS
- */
-/*********************************************************************
- * GLOBAL VARIABLES
- */
 byte zclZigbeeDevice_TaskID; // Task ID variable
 endPointDesc_t TransmitApp_epDesc;
 uint8 len; // the transmit data length
 
-/*********************************************************************
- * GLOBAL FUNCTIONS
- */
-
-/*********************************************************************
- * LOCAL VARIABLES
- */
 #define ZCLZIGBEEDEV_BINDINGLIST       1
 static cId_t bindingOutClusters[ZCLZIGBEEDEV_BINDINGLIST] = {
                                                               ZCL_CLUSTER_ID_GEN_ON_OFF // The binding cluster ID
@@ -378,12 +350,6 @@ static void zclZigbeeDevice_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
 {
   (void)pRsp; // Query Response (with timeout value)
 }
-
-/******************************************************************************
- *
- *  Functions for processing ZCL Foundation incoming Command/Response messages
- *
- *****************************************************************************/
 
 /*********************************************************************
  * @fn      zclZigbeeDevice_ProcessIncomingMsg

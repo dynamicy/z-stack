@@ -64,21 +64,15 @@
 /*********************************************************************
  * GLOBAL VARIABLES
  */
- byte TransmitApp_Msg[ TRANSMITAPP_MAX_DATA_LEN ]; 
+byte TransmitApp_Msg[ TRANSMITAPP_MAX_DATA_LEN ]; 
  
-/*********************************************************************
- * LOCAL VARIABLES
- */
-/*********************************************************************
- * LOCAL FUNCTIONS
- */
- void M110_SensorFunction(void); // M140 Module function
- void M140_SensorFunction(void); // M140 Module function
- void M160_SensorFunction(void); // M160 Module function
- void M170_SensorFunction(void); // M170 Module function
- void M190_SensorFunction(void); // M190 Module function
- void M200_SensorFunction(void); // M200 Module function
- void M270_SensorFunction(void); // M270 Module function
+void M110_SensorFunction(void); // M140 Module function
+void M140_SensorFunction(void); // M140 Module function
+void M160_SensorFunction(void); // M160 Module function
+void M170_SensorFunction(void); // M170 Module function
+void M190_SensorFunction(void); // M190 Module function
+void M200_SensorFunction(void); // M200 Module function
+void M270_SensorFunction(void); // M270 Module function
 
 #if defined(M110)
 /*********************************************************************
@@ -138,6 +132,7 @@
   M140_Init();
       
   val = M140_GetValue();  
+  
   if((0x2000 & val) == 0x2000) // check sign bit for negative value
   {
     val = ((val - 16384) * 10) / 32;
@@ -160,11 +155,14 @@
 #if defined ( LCD_SUPPORTED )
   HalLcdWriteString("* Z-Stack M140 *", HAL_LCD_LINE_1);
   HalLcdWriteString(" Temp. =       C", HAL_LCD_LINE_2);
+ // HalLcdWriteString(TransmitApp_Msg, HAL_LCD_LINE_2);
+  
   HalLcdWriteChar(HAL_LCD_LINE_2, 14, 0xDF);
   HalLcdWriteChar(HAL_LCD_LINE_2, 9, tmp1);
   HalLcdWriteChar(HAL_LCD_LINE_2, 10, tmp2);
   HalLcdWriteChar(HAL_LCD_LINE_2, 11, tmp3);
   HalLcdWriteChar(HAL_LCD_LINE_2, 12, tmp4);
+ 
 #endif 
 
   len = 4;

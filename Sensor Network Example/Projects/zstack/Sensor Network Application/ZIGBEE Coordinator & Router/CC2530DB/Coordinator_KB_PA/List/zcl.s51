@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               18/Aug/2013  17:36:01 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  00:54:13 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -7908,7 +7908,7 @@ zclProcessMessageMSG:
         MOV     DPH,?V0 + 1
         LCALL   ?Subroutine55 & 0xFFFF
 // 1329     //chris
-// 1330 //    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
+// 1330  //   HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
 // 1331   }
 ??CrossCallReturnLabel_73:
         CLR     C
@@ -7931,14 +7931,15 @@ zclProcessMessageMSG:
 // 1343       #endif
 // 1344     }
 // 1345     // Write receive coordinator command to UART, chrischris
-// 1346  //   HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
-// 1347     
-// 1348     return ;
-// 1349   }
-// 1350 #endif  
-// 1351   
-// 1352   // Initialize
-// 1353   inMsg.msg = pkt;
+// 1346 //    uint16 HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
+// 1347  //   HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
+// 1348     
+// 1349     return ;
+// 1350   }
+// 1351 #endif  
+// 1352   
+// 1353   // Initialize
+// 1354   inMsg.msg = pkt;
         MOV     A,#0x2
         LCALL   ?XSTACK_DISP0_8
         MOV     A,R6
@@ -7946,28 +7947,28 @@ zclProcessMessageMSG:
         INC     DPTR
         MOV     A,R7
         MOVX    @DPTR,A
-// 1354   inMsg.attrCmd = NULL;
+// 1355   inMsg.attrCmd = NULL;
         MOV     A,#0xe
         LCALL   ?XSTACK_DISP0_8
         CLR     A
         MOVX    @DPTR,A
         INC     DPTR
         MOVX    @DPTR,A
-// 1355   inMsg.pData = NULL;
+// 1356   inMsg.pData = NULL;
         MOV     A,#0xa
         LCALL   ?XSTACK_DISP0_8
         CLR     A
         MOVX    @DPTR,A
         INC     DPTR
         MOVX    @DPTR,A
-// 1356   inMsg.pDataLen = 0;
+// 1357   inMsg.pDataLen = 0;
         MOV     A,#0xc
         LCALL   ?XSTACK_DISP0_8
         CLR     A
         MOVX    @DPTR,A
         LCALL   ?Subroutine5 & 0xFFFF
-// 1357 
-// 1358   inMsg.pData = zclParseHdr( &(inMsg.hdr), pkt->cmd.Data );
+// 1358 
+// 1359   inMsg.pData = zclParseHdr( &(inMsg.hdr), pkt->cmd.Data );
 ??CrossCallReturnLabel_8:
         MOV     R4,A
         INC     DPTR
@@ -7981,8 +7982,8 @@ zclProcessMessageMSG:
         MOV     A,#0xa
         LCALL   ?XSTACK_DISP0_8
         LCALL   ??Subroutine146_0 & 0xFFFF
-// 1359   inMsg.pDataLen = pkt->cmd.DataLength;
-// 1360   inMsg.pDataLen -= (uint16)(inMsg.pData - pkt->cmd.Data);
+// 1360   inMsg.pDataLen = pkt->cmd.DataLength;
+// 1361   inMsg.pDataLen -= (uint16)(inMsg.pData - pkt->cmd.Data);
 ??CrossCallReturnLabel_292:
         MOV     DPL,?V0 + 0
         MOV     DPH,?V0 + 1
@@ -8018,9 +8019,9 @@ zclProcessMessageMSG:
         MOV     A,#0xc
         LCALL   ?XSTACK_DISP0_8
         LCALL   ??Subroutine137_0 & 0xFFFF
-// 1361 
-// 1362   // Find the wanted endpoint
-// 1363   epDesc = afFindEndPointDesc( pkt->endPoint );
+// 1362 
+// 1363   // Find the wanted endpoint
+// 1364   epDesc = afFindEndPointDesc( pkt->endPoint );
 ??CrossCallReturnLabel_235:
         MOV     A,R6
         ADD     A,#0x14
@@ -8035,16 +8036,16 @@ zclProcessMessageMSG:
         MOV     ?V0 + 1,R3
         MOV     R0,?V0 + 0
         MOV     R1,?V0 + 1
-// 1364   if ( epDesc == NULL )
+// 1365   if ( epDesc == NULL )
         MOV     A,R0
         JNZ     ??zclProcessMessageMSG_4
         MOV     A,R1
 ??zclProcessMessageMSG_4:
         JNZ     $+5
         LJMP    ??zclProcessMessageMSG_1 & 0xFFFF
-// 1365     return;   // Error, ignore the message
-// 1366 
-// 1367   if ( pkt->clusterId == ZCL_INVALID_CLUSTER_ID )
+// 1366     return;   // Error, ignore the message
+// 1367 
+// 1368   if ( pkt->clusterId == ZCL_INVALID_CLUSTER_ID )
         MOV     A,R6
         ADD     A,#0x4
         MOV     ?V0 + 4,A
@@ -8061,11 +8062,11 @@ zclProcessMessageMSG:
 ??zclProcessMessageMSG_5:
         JNZ     $+5
         LJMP    ??zclProcessMessageMSG_1 & 0xFFFF
-// 1368     return;   // Error, ignore the message
-// 1369   
-// 1370   if ((epDesc->simpleDesc == NULL) ||
-// 1371       (zcl_DeviceOperational(pkt->endPoint, pkt->clusterId, inMsg.hdr.fc.type, inMsg.hdr.commandID,
-// 1372                                    epDesc->simpleDesc->AppProfId) == FALSE))
+// 1369     return;   // Error, ignore the message
+// 1370   
+// 1371   if ((epDesc->simpleDesc == NULL) ||
+// 1372       (zcl_DeviceOperational(pkt->endPoint, pkt->clusterId, inMsg.hdr.fc.type, inMsg.hdr.commandID,
+// 1373                                    epDesc->simpleDesc->AppProfId) == FALSE))
         MOV     A,R0
         ADD     A,#0x3
         MOV     ?V0 + 6,A
@@ -8105,39 +8106,39 @@ zclProcessMessageMSG:
         MOV     A,R1
         JNZ     $+5
         LJMP    ??zclProcessMessageMSG_1 & 0xFFFF
-// 1373   {
-// 1374     return; // Error, ignore the message
-// 1375   }
-// 1376 
-// 1377 #if defined ( INTER_PAN )
-// 1378   if ( StubAPS_InterPan( pkt->srcAddr.panId, pkt->srcAddr.endPoint ) )
-// 1379   {
-// 1380     // No foundation command is supported thru Inter-PAN communication
-// 1381     if ( zcl_ProfileCmd( inMsg.hdr.fc.type ) )
-// 1382       return;
-// 1383 
-// 1384     interPanMsg = TRUE; 
-// 1385     options = AF_TX_OPTIONS_NONE;
-// 1386   }
-// 1387   else
-// 1388 #endif
-// 1389   {
-// 1390     interPanMsg = FALSE;
-// 1391     options = zclGetClusterOption( pkt->endPoint, pkt->clusterId );
+// 1374   {
+// 1375     return; // Error, ignore the message
+// 1376   }
+// 1377 
+// 1378 #if defined ( INTER_PAN )
+// 1379   if ( StubAPS_InterPan( pkt->srcAddr.panId, pkt->srcAddr.endPoint ) )
+// 1380   {
+// 1381     // No foundation command is supported thru Inter-PAN communication
+// 1382     if ( zcl_ProfileCmd( inMsg.hdr.fc.type ) )
+// 1383       return;
+// 1384 
+// 1385     interPanMsg = TRUE; 
+// 1386     options = AF_TX_OPTIONS_NONE;
+// 1387   }
+// 1388   else
+// 1389 #endif
+// 1390   {
+// 1391     interPanMsg = FALSE;
+// 1392     options = zclGetClusterOption( pkt->endPoint, pkt->clusterId );
         ; Setup parameters for call to function zclGetClusterOption
         MOV     DPL,?V0 + 4
         MOV     DPH,?V0 + 5
         LCALL   ?Subroutine43 & 0xFFFF
-// 1392   }
+// 1393   }
 ??CrossCallReturnLabel_56:
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??zclGetClusterOption?relay
         MOV     A,R1
         MOV     R2,A
-// 1393   
-// 1394   // Local and remote Security options must match except for Default Response command
-// 1395   if ( !zcl_DefaultRspCmd( inMsg.hdr ) )
+// 1394   
+// 1395   // Local and remote Security options must match except for Default Response command
+// 1396   if ( !zcl_DefaultRspCmd( inMsg.hdr ) )
         MOV     A,#0x4
         LCALL   ?XSTACK_DISP0_8
         MOVX    A,@DPTR
@@ -8150,8 +8151,8 @@ zclProcessMessageMSG:
         XRL     A,#0xb
         JNZ     $+5
         LJMP    ??zclProcessMessageMSG_8 & 0xFFFF
-// 1396   {
-// 1397     securityEnable = ( options & AF_EN_SECURITY ) ? TRUE : FALSE;
+// 1397   {
+// 1398     securityEnable = ( options & AF_EN_SECURITY ) ? TRUE : FALSE;
 ??zclProcessMessageMSG_7:
         MOV     A,R2
         MOV     C,0xE0 /* A   */.6
@@ -8165,7 +8166,7 @@ zclProcessMessageMSG:
         CLR     A
         MOV     0xE0 /* A   */.0,C
         MOV     ?V0 + 0,A
-// 1398     if ( pkt->SecurityUse != securityEnable )
+// 1399     if ( pkt->SecurityUse != securityEnable )
         MOV     A,R6
         ADD     A,#0x19
         MOV     DPL,A
@@ -8175,8 +8176,8 @@ zclProcessMessageMSG:
         XRL     A,?V0 + 0
         JNZ     $+5
         LJMP    ??zclProcessMessageMSG_8 & 0xFFFF
-// 1399     {
-// 1400       if ( UNICAST_MSG( inMsg.msg ) )
+// 1400     {
+// 1401       if ( UNICAST_MSG( inMsg.msg ) )
         MOV     A,#0x2
         LCALL   ?XSTACK_DISP0_8
         LCALL   ?Subroutine31 & 0xFFFF
@@ -8193,30 +8194,30 @@ zclProcessMessageMSG:
 ??zclProcessMessageMSG_11:
         JZ      $+5
         LJMP    ??zclProcessMessageMSG_1 & 0xFFFF
-// 1401       {
-// 1402         // Send a Default Response command back with no Application Link Key security
-// 1403         if ( securityEnable )
+// 1402       {
+// 1403         // Send a Default Response command back with no Application Link Key security
+// 1404         if ( securityEnable )
         MOV     A,?V0 + 0
         JZ      ??CrossCallReturnLabel_33
-// 1404           zclSetSecurityOption( pkt->endPoint, pkt->clusterId, FALSE );
+// 1405           zclSetSecurityOption( pkt->endPoint, pkt->clusterId, FALSE );
         ; Setup parameters for call to function zclSetSecurityOption
         MOV     R4,#0x0
         LCALL   ?Subroutine27 & 0xFFFF
-// 1405         
-// 1406         defautlRspCmd.statusCode = status;
+// 1406         
+// 1407         defautlRspCmd.statusCode = status;
 ??CrossCallReturnLabel_33:
         MOV     A,#0x1
         LCALL   ?XSTACK_DISP0_8
         MOV     A,#0x1
         MOVX    @DPTR,A
-// 1407         defautlRspCmd.commandID = inMsg.hdr.commandID;
+// 1408         defautlRspCmd.commandID = inMsg.hdr.commandID;
         MOV     A,#0x9
         LCALL   ?XSTACK_DISP0_8
         LCALL   ?Subroutine51 & 0xFFFF
-// 1408         zcl_SendDefaultRspCmd( inMsg.msg->endPoint, &(inMsg.msg->srcAddr),
-// 1409                                inMsg.msg->clusterId, &defautlRspCmd, 
-// 1410                                ZCL_FRAME_SERVER_CLIENT_DIR, true, 
-// 1411                                inMsg.hdr.manuCode, inMsg.hdr.transSeqNum );
+// 1409         zcl_SendDefaultRspCmd( inMsg.msg->endPoint, &(inMsg.msg->srcAddr),
+// 1410                                inMsg.msg->clusterId, &defautlRspCmd, 
+// 1411                                ZCL_FRAME_SERVER_CLIENT_DIR, true, 
+// 1412                                inMsg.hdr.manuCode, inMsg.hdr.transSeqNum );
 ??CrossCallReturnLabel_66:
         LCALL   ?XSTACK_DISP0_8
         MOVX    A,@DPTR
@@ -8255,41 +8256,41 @@ zclProcessMessageMSG:
 ??CrossCallReturnLabel_31:
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 67)
-// 1412         if ( securityEnable )
+// 1413         if ( securityEnable )
         MOV     A,?V0 + 0
         JNZ     $+5
         LJMP    ??zclProcessMessageMSG_1 & 0xFFFF
-// 1413           zclSetSecurityOption( pkt->endPoint, pkt->clusterId, TRUE );       
+// 1414           zclSetSecurityOption( pkt->endPoint, pkt->clusterId, TRUE );       
         ; Setup parameters for call to function zclSetSecurityOption
         MOV     R4,#0x1
         LCALL   ?Subroutine27 & 0xFFFF
-// 1414       }
-// 1415       return;   // Error, ignore the message
-// 1416     }
-// 1417   }
+// 1415       }
+// 1416       return;   // Error, ignore the message
+// 1417     }
+// 1418   }
 ??CrossCallReturnLabel_34:
         LJMP    ??zclProcessMessageMSG_1 & 0xFFFF
-// 1418   
-// 1419   // Is this a foundation type message
-// 1420   if ( zcl_ProfileCmd( inMsg.hdr.fc.type ) )
+// 1419   
+// 1420   // Is this a foundation type message
+// 1421   if ( zcl_ProfileCmd( inMsg.hdr.fc.type ) )
 ??zclProcessMessageMSG_8:
         MOV     A,R0
         ANL     A,#0x3
         JZ      $+5
         LJMP    ??zclProcessMessageMSG_12 & 0xFFFF
-// 1421   { 
-// 1422     if ( inMsg.hdr.fc.manuSpecific )
+// 1422   { 
+// 1423     if ( inMsg.hdr.fc.manuSpecific )
         MOV     A,R0
         ANL     A,#0x4
         JZ      ??zclProcessMessageMSG_13
-// 1423     {
-// 1424       // We don't support any manufacturer specific command
-// 1425       status = ZCL_STATUS_UNSUP_MANU_GENERAL_COMMAND;
+// 1424     {
+// 1425       // We don't support any manufacturer specific command
+// 1426       status = ZCL_STATUS_UNSUP_MANU_GENERAL_COMMAND;
         MOV     R2,#-0x7c
         LJMP    ??zclProcessMessageMSG_14 & 0xFFFF
-// 1426     }
-// 1427     else if ( ( inMsg.hdr.commandID <= ZCL_CMD_MAX ) && 
-// 1428               ( zclCmdTable[inMsg.hdr.commandID].pfnParseInProfile != NULL ) )
+// 1427     }
+// 1428     else if ( ( inMsg.hdr.commandID <= ZCL_CMD_MAX ) && 
+// 1429               ( zclCmdTable[inMsg.hdr.commandID].pfnParseInProfile != NULL ) )
 ??zclProcessMessageMSG_13:
         MOV     A,#0x9
         LCALL   ?XSTACK_DISP0_8
@@ -8315,10 +8316,10 @@ zclProcessMessageMSG:
 ??zclProcessMessageMSG_16:
         JNZ     $+5
         LJMP    ??zclProcessMessageMSG_15 & 0xFFFF
-// 1429     {
-// 1430       zclParseCmd_t parseCmd;
-// 1431       
-// 1432       parseCmd.endpoint = pkt->endPoint;
+// 1430     {
+// 1431       zclParseCmd_t parseCmd;
+// 1432       
+// 1433       parseCmd.endpoint = pkt->endPoint;
         MOV     DPL,?V0 + 2
         MOV     DPH,?V0 + 3
         MOVX    A,@DPTR
@@ -8329,7 +8330,7 @@ zclProcessMessageMSG:
         POP     A
         CFI CFA_SP SP+0
         MOVX    @DPTR,A
-// 1433       parseCmd.dataLen = inMsg.pDataLen;
+// 1434       parseCmd.dataLen = inMsg.pDataLen;
         MOV     A,#0xc
         LCALL   ?XSTACK_DISP0_8
         LCALL   ?Subroutine55 & 0xFFFF
@@ -8337,7 +8338,7 @@ zclProcessMessageMSG:
         MOV     A,#0x11
         LCALL   ?XSTACK_DISP0_8
         LCALL   ??Subroutine137_0 & 0xFFFF
-// 1434       parseCmd.pData = inMsg.pData;
+// 1435       parseCmd.pData = inMsg.pData;
 ??CrossCallReturnLabel_236:
         MOV     A,#0xa
         LCALL   ?XSTACK_DISP0_8
@@ -8346,9 +8347,9 @@ zclProcessMessageMSG:
         MOV     A,#0x13
         LCALL   ?XSTACK_DISP0_8
         LCALL   ??Subroutine137_0 & 0xFFFF
-// 1435       
-// 1436       // Parse the command, remember that the return value is a pointer to allocated memory
-// 1437       inMsg.attrCmd = zclParseCmd( inMsg.hdr.commandID, &parseCmd );
+// 1436       
+// 1437       // Parse the command, remember that the return value is a pointer to allocated memory
+// 1438       inMsg.attrCmd = zclParseCmd( inMsg.hdr.commandID, &parseCmd );
 ??CrossCallReturnLabel_237:
         ; Setup parameters for indirect call
         MOV     A,#0x10
@@ -8371,7 +8372,7 @@ zclProcessMessageMSG:
         MOV     A,#0xe
         LCALL   ?XSTACK_DISP0_8
         LCALL   ??Subroutine146_0 & 0xFFFF
-// 1438       if ( (inMsg.attrCmd != NULL) && (zclCmdTable[inMsg.hdr.commandID].pfnProcessInProfile != NULL) )
+// 1439       if ( (inMsg.attrCmd != NULL) && (zclCmdTable[inMsg.hdr.commandID].pfnProcessInProfile != NULL) )
 ??CrossCallReturnLabel_293:
         MOV     A,#0xe
         LCALL   ?XSTACK_DISP0_8
@@ -8399,9 +8400,9 @@ zclProcessMessageMSG:
         MOV     A,R1
 ??zclProcessMessageMSG_19:
         JZ      ??zclProcessMessageMSG_20
-// 1439       { 
-// 1440         // Process the command
-// 1441         if ( zclProcessCmd( inMsg.hdr.commandID, &inMsg ) == FALSE )
+// 1440       { 
+// 1441         // Process the command
+// 1442         if ( zclProcessCmd( inMsg.hdr.commandID, &inMsg ) == FALSE )
         ; Setup parameters for indirect call
         MOV     A,#0x2
         LCALL   ?XSTACK_DISP0_8
@@ -8410,13 +8411,13 @@ zclProcessMessageMSG:
         MOV     DPL,R0
         MOV     DPH,R1
         LCALL   ?CALL_IND
-// 1442         {
-// 1443           // Couldn't find attribute in the table.
-// 1444         }
-// 1445       }
-// 1446        
-// 1447       // Free the buffer
-// 1448       if ( inMsg.attrCmd )
+// 1443         {
+// 1444           // Couldn't find attribute in the table.
+// 1445         }
+// 1446       }
+// 1447        
+// 1448       // Free the buffer
+// 1449       if ( inMsg.attrCmd )
         MOV     A,#0xe
         LCALL   ?XSTACK_DISP0_8
         MOVX    A,@DPTR
@@ -8425,7 +8426,7 @@ zclProcessMessageMSG:
         MOVX    A,@DPTR
 ??zclProcessMessageMSG_21:
         JZ      ??zclProcessMessageMSG_18
-// 1449         osal_mem_free( inMsg.attrCmd );
+// 1450         osal_mem_free( inMsg.attrCmd );
 ??zclProcessMessageMSG_20:
         ; Setup parameters for call to function osal_mem_free
         MOV     A,#0xe
@@ -8433,8 +8434,8 @@ zclProcessMessageMSG:
         LCALL   ??Subroutine128_0 & 0xFFFF
 ??CrossCallReturnLabel_190:
         LCALL   ??osal_mem_free?relay
-// 1450       
-// 1451       if ( CMD_HAS_RSP( inMsg.hdr.commandID ) )
+// 1451       
+// 1452       if ( CMD_HAS_RSP( inMsg.hdr.commandID ) )
 ??zclProcessMessageMSG_18:
         MOV     A,#0x9
         LCALL   ?XSTACK_DISP0_8
@@ -8466,24 +8467,24 @@ zclProcessMessageMSG:
         XRL     A,R2
         JNZ     $+5
         LJMP    ??zclProcessMessageMSG_1 & 0xFFFF
-// 1452         return; // We're done
-// 1453       
-// 1454       status = ZSuccess;
+// 1453         return; // We're done
+// 1454       
+// 1455       status = ZSuccess;
         MOV     R2,#0x0
         LJMP    ??zclProcessMessageMSG_14 & 0xFFFF
-// 1455     }
-// 1456     else
-// 1457     {
-// 1458       // Unsupported message
-// 1459       status = ZCL_STATUS_UNSUP_GENERAL_COMMAND;
+// 1456     }
+// 1457     else
+// 1458     {
+// 1459       // Unsupported message
+// 1460       status = ZCL_STATUS_UNSUP_GENERAL_COMMAND;
 ??zclProcessMessageMSG_15:
         MOV     R2,#-0x7e
         LJMP    ??zclProcessMessageMSG_14 & 0xFFFF
-// 1460     }
-// 1461   }
-// 1462   else  // Not a foundation type message, so it must be specific to the cluster ID.
-// 1463   {
-// 1464     if (epDesc->simpleDesc == NULL)
+// 1461     }
+// 1462   }
+// 1463   else  // Not a foundation type message, so it must be specific to the cluster ID.
+// 1464   {
+// 1465     if (epDesc->simpleDesc == NULL)
 ??zclProcessMessageMSG_12:
         MOV     DPL,?V0 + 6
         MOV     DPH,?V0 + 7
@@ -8493,13 +8494,13 @@ zclProcessMessageMSG:
         MOVX    A,@DPTR
 ??zclProcessMessageMSG_22:
         JZ      ??zclProcessMessageMSG_23
-// 1465     {
-// 1466       pInPlugin = NULL;
-// 1467     }
-// 1468     else
-// 1469     {
-// 1470       // Find the appropriate plugin
-// 1471       pInPlugin = zclFindPlugin( pkt->clusterId, epDesc->simpleDesc->AppProfId );
+// 1466     {
+// 1467       pInPlugin = NULL;
+// 1468     }
+// 1469     else
+// 1470     {
+// 1471       // Find the appropriate plugin
+// 1472       pInPlugin = zclFindPlugin( pkt->clusterId, epDesc->simpleDesc->AppProfId );
         MOV     DPL,?V0 + 4
         MOV     DPH,?V0 + 5
         LCALL   ?Subroutine58 & 0xFFFF
@@ -8550,8 +8551,8 @@ zclProcessMessageMSG:
 ??zclProcessMessageMSG_25:
         MOV     DPL,#0x0
         MOV     DPH,#0x0
-// 1472     }
-// 1473     if ( pInPlugin && pInPlugin->pfnIncomingHdlr )
+// 1473     }
+// 1474     if ( pInPlugin && pInPlugin->pfnIncomingHdlr )
 ??zclProcessMessageMSG_29:
         MOV     A,DPL
         JNZ     ??zclProcessMessageMSG_30
@@ -8567,14 +8568,14 @@ zclProcessMessageMSG:
         MOV     A,R1
 ??zclProcessMessageMSG_31:
         JZ      ??zclProcessMessageMSG_23
-// 1474     { 
-// 1475       // The return value of the plugin function will be ZSuccess - Supported and need default response
-// 1476       //                                                 ZFailure - Unsupported
-// 1477       //                                                 ZCL_STATUS_CMD_HAS_RSP - Supported and do not need default rsp
-// 1478       //                                                 ZCL_STATUS_INVALID_FIELD - Supported, but the incoming msg is wrong formatted
-// 1479       //                                                 ZCL_STATUS_INVALID_VALUE - Supported, but the request not achievable by the h/w
-// 1480       //                                                 ZCL_STATUS_SOFTWARE_FAILURE - Supported but ZStack memory allocation fails
-// 1481       status = pInPlugin->pfnIncomingHdlr( &inMsg );
+// 1475     { 
+// 1476       // The return value of the plugin function will be ZSuccess - Supported and need default response
+// 1477       //                                                 ZFailure - Unsupported
+// 1478       //                                                 ZCL_STATUS_CMD_HAS_RSP - Supported and do not need default rsp
+// 1479       //                                                 ZCL_STATUS_INVALID_FIELD - Supported, but the incoming msg is wrong formatted
+// 1480       //                                                 ZCL_STATUS_INVALID_VALUE - Supported, but the request not achievable by the h/w
+// 1481       //                                                 ZCL_STATUS_SOFTWARE_FAILURE - Supported but ZStack memory allocation fails
+// 1482       status = pInPlugin->pfnIncomingHdlr( &inMsg );
         ; Setup parameters for indirect call
         MOV     A,#0x2
         LCALL   ?XSTACK_DISP0_8
@@ -8585,38 +8586,38 @@ zclProcessMessageMSG:
         LCALL   ?CALL_IND
         MOV     A,R1
         MOV     R2,A
-// 1482       if ( status == ZCL_STATUS_CMD_HAS_RSP || ( interPanMsg && status == ZSuccess ) )
+// 1483       if ( status == ZCL_STATUS_CMD_HAS_RSP || ( interPanMsg && status == ZSuccess ) )
         MOV     A,#-0x1
         XRL     A,R2
         JNZ     $+5
         LJMP    ??zclProcessMessageMSG_1 & 0xFFFF
-// 1483         return; // We're done      
-// 1484     }
-// 1485     
-// 1486     if ( status == ZFailure )
+// 1484         return; // We're done      
+// 1485     }
+// 1486     
+// 1487     if ( status == ZFailure )
         MOV     A,#0x1
         XRL     A,R2
         JNZ     ??zclProcessMessageMSG_14
-// 1487     {
-// 1488       // Unsupported message
-// 1489       if ( inMsg.hdr.fc.manuSpecific )
+// 1488     {
+// 1489       // Unsupported message
+// 1490       if ( inMsg.hdr.fc.manuSpecific )
 ??zclProcessMessageMSG_23:
         MOV     A,#0x4
         LCALL   ?XSTACK_DISP0_8
         MOVX    A,@DPTR
         ANL     A,#0x4
         JZ      ??zclProcessMessageMSG_32
-// 1490         status = ZCL_STATUS_UNSUP_MANU_CLUSTER_COMMAND;
+// 1491         status = ZCL_STATUS_UNSUP_MANU_CLUSTER_COMMAND;
         MOV     R2,#-0x7d
         SJMP    ??zclProcessMessageMSG_14
-// 1491       else
-// 1492         status = ZCL_STATUS_UNSUP_CLUSTER_COMMAND;
+// 1492       else
+// 1493         status = ZCL_STATUS_UNSUP_CLUSTER_COMMAND;
 ??zclProcessMessageMSG_32:
         MOV     R2,#-0x7f
-// 1493     }
-// 1494   }
-// 1495   
-// 1496   if ( UNICAST_MSG( inMsg.msg ) && inMsg.hdr.fc.disableDefaultRsp == 0 )
+// 1494     }
+// 1495   }
+// 1496   
+// 1497   if ( UNICAST_MSG( inMsg.msg ) && inMsg.hdr.fc.disableDefaultRsp == 0 )
 ??zclProcessMessageMSG_14:
         MOV     A,#0x2
         LCALL   ?XSTACK_DISP0_8
@@ -8637,22 +8638,22 @@ zclProcessMessageMSG:
         MOVX    A,@DPTR
         ANL     A,#0x10
         JNZ     ??zclProcessMessageMSG_1
-// 1497   {
-// 1498     // Send a Default Response command back
-// 1499     defautlRspCmd.statusCode = status;
+// 1498   {
+// 1499     // Send a Default Response command back
+// 1500     defautlRspCmd.statusCode = status;
         MOV     A,#0x1
         LCALL   ?XSTACK_DISP0_8
         MOV     A,R2
         MOVX    @DPTR,A
-// 1500     defautlRspCmd.commandID = inMsg.hdr.commandID;
+// 1501     defautlRspCmd.commandID = inMsg.hdr.commandID;
         MOV     A,#0x9
         LCALL   ?XSTACK_DISP0_8
         LCALL   ?Subroutine51 & 0xFFFF
-// 1501     zcl_SendDefaultRspCmd( inMsg.msg->endPoint, &(inMsg.msg->srcAddr),
-// 1502                            inMsg.msg->clusterId, &defautlRspCmd, 
-// 1503                            ZCL_FRAME_SERVER_CLIENT_DIR, true, 
-// 1504                            inMsg.hdr.manuCode, inMsg.hdr.transSeqNum );
-// 1505   }
+// 1502     zcl_SendDefaultRspCmd( inMsg.msg->endPoint, &(inMsg.msg->srcAddr),
+// 1503                            inMsg.msg->clusterId, &defautlRspCmd, 
+// 1504                            ZCL_FRAME_SERVER_CLIENT_DIR, true, 
+// 1505                            inMsg.hdr.manuCode, inMsg.hdr.transSeqNum );
+// 1506   }
 ??CrossCallReturnLabel_67:
         LCALL   ?XSTACK_DISP0_8
         MOVX    A,@DPTR
@@ -8697,7 +8698,7 @@ zclProcessMessageMSG:
         CFI EndBlock cfiBlock158
         REQUIRE ?Subroutine116
         ; // Fall through to label ?Subroutine116
-// 1506 }
+// 1507 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine116:
@@ -9412,21 +9413,21 @@ zclProcessMessageMSG:
         CFI EndBlock cfiCond192
         CFI EndBlock cfiCond193
         CFI EndBlock cfiPicker194
-// 1507 
-// 1508 /*********************************************************************
-// 1509  * @fn      zclParseHdr
-// 1510  * @brief   Parse header of the ZCL format
-// 1511  * @param   hdr - place to put the frame control information
-// 1512  *          pData - incoming buffer to parse
-// 1513  * @return  pointer past the header
-// 1514  */
+// 1508 
+// 1509 /*********************************************************************
+// 1510  * @fn      zclParseHdr
+// 1511  * @brief   Parse header of the ZCL format
+// 1512  * @param   hdr - place to put the frame control information
+// 1513  *          pData - incoming buffer to parse
+// 1514  * @return  pointer past the header
+// 1515  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 1515 uint8 *zclParseHdr( zclFrameHdr_t *hdr, uint8 *pData )
+// 1516 uint8 *zclParseHdr( zclFrameHdr_t *hdr, uint8 *pData )
 zclParseHdr:
         CFI Block cfiBlock195 Using cfiCommon0
         CFI Function zclParseHdr
-// 1516 {
+// 1517 {
         FUNCALL zclParseHdr, osal_memset
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -9462,16 +9463,16 @@ zclParseHdr:
         MOV     R6,A
         MOV     A,R5
         MOV     R7,A
-// 1517   // Clear the header
-// 1518   osal_memset( (uint8 *)hdr, 0, sizeof ( zclFrameHdr_t ) );
+// 1518   // Clear the header
+// 1519   osal_memset( (uint8 *)hdr, 0, sizeof ( zclFrameHdr_t ) );
         ; Setup parameters for call to function osal_memset
         MOV     R4,#0x6
         MOV     R5,#0x0
         MOV     R1,#0x0
         LCALL   ??osal_memset?relay
-// 1519 
-// 1520   // Parse the Frame Control
-// 1521   hdr->fc.type = zcl_FCType( *pData );
+// 1520 
+// 1521   // Parse the Frame Control
+// 1522   hdr->fc.type = zcl_FCType( *pData );
         MOV     DPL,?V0 + 0
         MOV     DPH,?V0 + 1
         MOVX    A,@DPTR
@@ -9487,7 +9488,7 @@ zclParseHdr:
         MOV     DPL,?V0 + 0
         MOV     DPH,?V0 + 1
         LCALL   ??Subroutine138_0 & 0xFFFF
-// 1522   hdr->fc.manuSpecific = zcl_FCManuSpecific( *pData ) ? 1 : 0;
+// 1523   hdr->fc.manuSpecific = zcl_FCManuSpecific( *pData ) ? 1 : 0;
 ??CrossCallReturnLabel_234:
         MOV     A,#-0x5
         ANL     A,R0
@@ -9509,18 +9510,18 @@ zclParseHdr:
         MOV     DPL,?V0 + 0
         MOV     DPH,?V0 + 1
         LCALL   ?Subroutine13 & 0xFFFF
-// 1523   if ( zcl_FCDirection( *pData ) )
+// 1524   if ( zcl_FCDirection( *pData ) )
 ??CrossCallReturnLabel_20:
         MOV     C,0xE0 /* A   */.3
         MOV     DPL,?V0 + 0
         MOV     DPH,?V0 + 1
         MOVX    A,@DPTR
         JNC     ??zclParseHdr_0
-// 1524     hdr->fc.direction = ZCL_FRAME_SERVER_CLIENT_DIR;
+// 1525     hdr->fc.direction = ZCL_FRAME_SERVER_CLIENT_DIR;
         ORL     A,#0x8
         SJMP    ??zclParseHdr_1
-// 1525   else
-// 1526     hdr->fc.direction = ZCL_FRAME_CLIENT_SERVER_DIR;
+// 1526   else
+// 1527     hdr->fc.direction = ZCL_FRAME_CLIENT_SERVER_DIR;
 ??zclParseHdr_0:
         ANL     A,#0xf7
 ??zclParseHdr_1:
@@ -9528,8 +9529,8 @@ zclParseHdr:
         INC     DPTR
         MOVX    A,@DPTR
         MOVX    @DPTR,A
-// 1527   
-// 1528   hdr->fc.disableDefaultRsp = zcl_FCDisableDefaultRsp( *pData ) ? 1 : 0;
+// 1528   
+// 1529   hdr->fc.disableDefaultRsp = zcl_FCDisableDefaultRsp( *pData ) ? 1 : 0;
         MOV     DPL,?V0 + 0
         MOV     DPH,?V0 + 1
         MOVX    A,@DPTR
@@ -9561,16 +9562,16 @@ zclParseHdr:
         INC     DPTR
         MOV     A,R1
         LCALL   ??Subroutine132_0 & 0xFFFF
-// 1529   pData++;  // move past the frame control field
-// 1530 
-// 1531   // parse the manfacturer code
-// 1532   if ( hdr->fc.manuSpecific )
+// 1530   pData++;  // move past the frame control field
+// 1531 
+// 1532   // parse the manfacturer code
+// 1533   if ( hdr->fc.manuSpecific )
 ??CrossCallReturnLabel_209:
         MOV     A,R0
         ANL     A,#0x4
         JZ      ??CrossCallReturnLabel_13
-// 1533   {
-// 1534     hdr->manuCode = BUILD_UINT16( pData[0], pData[1] );
+// 1534   {
+// 1535     hdr->manuCode = BUILD_UINT16( pData[0], pData[1] );
         MOVX    A,@DPTR
         MOV     R2,A
         INC     DPTR
@@ -9585,11 +9586,11 @@ zclParseHdr:
         INC     DPTR
         MOV     A,R1
         LCALL   ?Subroutine10 & 0xFFFF
-// 1535     pData += 2;
-// 1536   }
-// 1537 
-// 1538   // parse the Transaction Sequence Number
-// 1539   hdr->transSeqNum = *pData++;
+// 1536     pData += 2;
+// 1537   }
+// 1538 
+// 1539   // parse the Transaction Sequence Number
+// 1540   hdr->transSeqNum = *pData++;
 ??CrossCallReturnLabel_13:
         MOV     DPL,R6
         MOV     DPH,R7
@@ -9600,9 +9601,9 @@ zclParseHdr:
         INC     DPTR
         INC     DPTR
         LCALL   ?Subroutine6 & 0xFFFF
-// 1540 
-// 1541   // parse the Cluster's command ID
-// 1542   hdr->commandID = *pData++;
+// 1541 
+// 1542   // parse the Cluster's command ID
+// 1543   hdr->commandID = *pData++;
 ??CrossCallReturnLabel_11:
         MOV     DPL,?V0 + 0
         MOV     DPH,?V0 + 1
@@ -9612,16 +9613,16 @@ zclParseHdr:
         INC     DPTR
         INC     DPTR
         LCALL   ??Subroutine133_0 & 0xFFFF
-// 1543 
-// 1544   // Should point to the frame payload
-// 1545   return ( pData );
+// 1544 
+// 1545   // Should point to the frame payload
+// 1546   return ( pData );
 ??CrossCallReturnLabel_215:
         MOV     R2,DPL
         MOV     R3,DPH
         CFI EndBlock cfiBlock195
         REQUIRE ?Subroutine104
         ; // Fall through to label ?Subroutine104
-// 1546 }
+// 1547 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine104:
@@ -9644,21 +9645,21 @@ zclParseHdr:
         MOV     R7,#0x4
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock196
-// 1547 
-// 1548 /*********************************************************************
-// 1549  * @fn      zclBuildHdr
-// 1550  * @brief   Build header of the ZCL format
-// 1551  * @param   hdr - outgoing header information
-// 1552  *          pData - outgoing header space
-// 1553  * @return  pointer past the header
-// 1554  */
+// 1548 
+// 1549 /*********************************************************************
+// 1550  * @fn      zclBuildHdr
+// 1551  * @brief   Build header of the ZCL format
+// 1552  * @param   hdr - outgoing header information
+// 1553  *          pData - outgoing header space
+// 1554  * @return  pointer past the header
+// 1555  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 1555 static uint8 *zclBuildHdr( zclFrameHdr_t *hdr, uint8 *pData )
+// 1556 static uint8 *zclBuildHdr( zclFrameHdr_t *hdr, uint8 *pData )
 zclBuildHdr:
         CFI Block cfiBlock197 Using cfiCommon0
         CFI Function zclBuildHdr
-// 1556 {
+// 1557 {
         MOV     A,#-0x9
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
@@ -9674,8 +9675,8 @@ zclBuildHdr:
         CFI CFA_XSP16 add(XSP16, 9)
         ; Saved register size: 9
         ; Auto size: 0
-// 1557   // Build the Frame Control byte
-// 1558   *pData = hdr->fc.type;
+// 1558   // Build the Frame Control byte
+// 1559   *pData = hdr->fc.type;
         MOV     DPL,R2
         MOV     DPH,R3
         MOVX    A,@DPTR
@@ -9683,15 +9684,15 @@ zclBuildHdr:
         MOV     DPL,R4
         MOV     DPH,R5
         LCALL   ??Subroutine124_0 & 0xFFFF
-// 1559   *pData |= hdr->fc.manuSpecific << 2;
+// 1560   *pData |= hdr->fc.manuSpecific << 2;
 ??CrossCallReturnLabel_178:
         ANL     A,#0x4
         LCALL   ?Subroutine17 & 0xFFFF
-// 1560   *pData |= hdr->fc.direction << 3;
+// 1561   *pData |= hdr->fc.direction << 3;
 ??CrossCallReturnLabel_176:
         ANL     A,#0x8
         LCALL   ?Subroutine17 & 0xFFFF
-// 1561   *pData |= hdr->fc.disableDefaultRsp << 4;
+// 1562   *pData |= hdr->fc.disableDefaultRsp << 4;
 ??CrossCallReturnLabel_177:
         ANL     A,#0x10
         MOV     R6,A
@@ -9700,16 +9701,16 @@ zclBuildHdr:
         MOVX    A,@DPTR
         ORL     A,R6
         LCALL   ?Subroutine9 & 0xFFFF
-// 1562   pData++;  // move past the frame control field
-// 1563 
-// 1564   // Add the manfacturer code
-// 1565   if ( hdr->fc.manuSpecific )
+// 1563   pData++;  // move past the frame control field
+// 1564 
+// 1565   // Add the manfacturer code
+// 1566   if ( hdr->fc.manuSpecific )
 ??CrossCallReturnLabel_227:
         MOVX    A,@DPTR
         ANL     A,#0x4
         JZ      ??CrossCallReturnLabel_71
-// 1566   {
-// 1567     *pData++ = LO_UINT16( hdr->manuCode );
+// 1567   {
+// 1568     *pData++ = LO_UINT16( hdr->manuCode );
         MOV     A,R2
         ADD     A,#0x2
         MOV     R0,A
@@ -9717,16 +9718,16 @@ zclBuildHdr:
         LCALL   ?Subroutine100 & 0xFFFF
 ??CrossCallReturnLabel_140:
         LCALL   ?Subroutine53 & 0xFFFF
-// 1568     *pData++ = HI_UINT16( hdr->manuCode );
+// 1569     *pData++ = HI_UINT16( hdr->manuCode );
 ??CrossCallReturnLabel_70:
         MOV     DPL,R0
         MOV     DPH,R1
         INC     DPTR
         LCALL   ?Subroutine53 & 0xFFFF
-// 1569   }
-// 1570 
-// 1571   // Add the Transaction Sequence Number
-// 1572   *pData++ = hdr->transSeqNum;
+// 1570   }
+// 1571 
+// 1572   // Add the Transaction Sequence Number
+// 1573   *pData++ = hdr->transSeqNum;
 ??CrossCallReturnLabel_71:
         MOV     DPL,R2
         MOV     DPH,R3
@@ -9738,9 +9739,9 @@ zclBuildHdr:
         MOV     DPL,R4
         MOV     DPH,R5
         LCALL   ?Subroutine9 & 0xFFFF
-// 1573   
-// 1574   // Add the Cluster's command ID
-// 1575   *pData++ = hdr->commandID;
+// 1574   
+// 1575   // Add the Cluster's command ID
+// 1576   *pData++ = hdr->commandID;
 ??CrossCallReturnLabel_228:
         INC     DPTR
         INC     DPTR
@@ -9752,15 +9753,15 @@ zclBuildHdr:
         MOV     DPH,R5
         MOVX    @DPTR,A
         INC     DPTR
-// 1576 
-// 1577   // Should point to the frame payload
-// 1578   return ( pData );
+// 1577 
+// 1578   // Should point to the frame payload
+// 1579   return ( pData );
         MOV     R2,DPL
         MOV     R3,DPH
         MOV     R7,#0x1
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock197
-// 1579 }
+// 1580 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine100:
@@ -10223,66 +10224,66 @@ zclBuildHdr:
         CFI EndBlock cfiCond223
         CFI EndBlock cfiCond224
         CFI EndBlock cfiPicker225
-// 1580 
-// 1581 /*********************************************************************
-// 1582  * @fn      zclCalcHdrSize
-// 1583  * @brief   Calculate the number of bytes needed for an outgoing
-// 1584  *          ZCL header.
-// 1585  * @param   hdr - outgoing header information
-// 1586  * @return  returns the number of bytes needed
-// 1587  */
-// 1588 static uint8 zclCalcHdrSize( zclFrameHdr_t *hdr )
-// 1589 {
-// 1590   uint8 needed = (1 + 1 + 1); // frame control + transaction seq num + cmd ID
-// 1591 
-// 1592   // Add the manfacturer code
-// 1593   if ( hdr->fc.manuSpecific )
-// 1594     needed += 2;
-// 1595 
-// 1596   return ( needed );
-// 1597 }
-// 1598 
-// 1599 /*********************************************************************
-// 1600  * @fn      zclFindPlugin
-// 1601  * @brief   Find the right plugin for a cluster ID
-// 1602  * @param   clusterID - cluster ID to look for
-// 1603  *          profileID - profile ID
-// 1604  * @return  pointer to plugin, NULL if not found
-// 1605  */
-// 1606 static zclLibPlugin_t *zclFindPlugin( uint16 clusterID, uint16 profileID )
-// 1607 {
-// 1608   zclLibPlugin_t *pLoop;
-// 1609   
-// 1610   (void)profileID;  // Intentionally unreferenced parameter
-// 1611 
-// 1612   if ( clusterID != ZCL_INVALID_CLUSTER_ID )
-// 1613   {
-// 1614     pLoop = plugins;
-// 1615     while ( pLoop != NULL )
-// 1616     {
-// 1617       if ( clusterID >= pLoop->startClusterID && clusterID <= pLoop->endClusterID )
-// 1618         return ( pLoop );
-// 1619       pLoop = pLoop->next;
-// 1620     }
-// 1621   }
-// 1622   return ( (zclLibPlugin_t *)NULL );
-// 1623 }
-// 1624 
-// 1625 /*********************************************************************
-// 1626  * @fn      zclFindAttrRec
-// 1627  * @brief   Find the attribute record that matchs the parameters
-// 1628  * @param   endpoint - Application's endpoint
-// 1629  *          clusterID - cluster ID
-// 1630  *          attrId - attribute looking for
-// 1631  * @return  TRUE if record found. FALSE, otherwise.
-// 1632  */
+// 1581 
+// 1582 /*********************************************************************
+// 1583  * @fn      zclCalcHdrSize
+// 1584  * @brief   Calculate the number of bytes needed for an outgoing
+// 1585  *          ZCL header.
+// 1586  * @param   hdr - outgoing header information
+// 1587  * @return  returns the number of bytes needed
+// 1588  */
+// 1589 static uint8 zclCalcHdrSize( zclFrameHdr_t *hdr )
+// 1590 {
+// 1591   uint8 needed = (1 + 1 + 1); // frame control + transaction seq num + cmd ID
+// 1592 
+// 1593   // Add the manfacturer code
+// 1594   if ( hdr->fc.manuSpecific )
+// 1595     needed += 2;
+// 1596 
+// 1597   return ( needed );
+// 1598 }
+// 1599 
+// 1600 /*********************************************************************
+// 1601  * @fn      zclFindPlugin
+// 1602  * @brief   Find the right plugin for a cluster ID
+// 1603  * @param   clusterID - cluster ID to look for
+// 1604  *          profileID - profile ID
+// 1605  * @return  pointer to plugin, NULL if not found
+// 1606  */
+// 1607 static zclLibPlugin_t *zclFindPlugin( uint16 clusterID, uint16 profileID )
+// 1608 {
+// 1609   zclLibPlugin_t *pLoop;
+// 1610   
+// 1611   (void)profileID;  // Intentionally unreferenced parameter
+// 1612 
+// 1613   if ( clusterID != ZCL_INVALID_CLUSTER_ID )
+// 1614   {
+// 1615     pLoop = plugins;
+// 1616     while ( pLoop != NULL )
+// 1617     {
+// 1618       if ( clusterID >= pLoop->startClusterID && clusterID <= pLoop->endClusterID )
+// 1619         return ( pLoop );
+// 1620       pLoop = pLoop->next;
+// 1621     }
+// 1622   }
+// 1623   return ( (zclLibPlugin_t *)NULL );
+// 1624 }
+// 1625 
+// 1626 /*********************************************************************
+// 1627  * @fn      zclFindAttrRec
+// 1628  * @brief   Find the attribute record that matchs the parameters
+// 1629  * @param   endpoint - Application's endpoint
+// 1630  *          clusterID - cluster ID
+// 1631  *          attrId - attribute looking for
+// 1632  * @return  TRUE if record found. FALSE, otherwise.
+// 1633  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 1633 uint8 zclFindAttrRec( uint8 endpoint, uint16 clusterID, uint16 attrId, zclAttrRec_t *pAttr )
+// 1634 uint8 zclFindAttrRec( uint8 endpoint, uint16 clusterID, uint16 attrId, zclAttrRec_t *pAttr )
 zclFindAttrRec:
         CFI Block cfiBlock226 Using cfiCommon0
         CFI Function zclFindAttrRec
-// 1634 {
+// 1635 {
         MOV     A,#-0x12
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
@@ -10317,28 +10318,28 @@ zclFindAttrRec:
         MOV     A,#0x12
         LCALL   ?XSTACK_DISP0_8
         LCALL   ??Subroutine145_0 & 0xFFFF
-// 1635   uint8 x;
-// 1636   zclAttrRecsList *pLoop;
-// 1637 
-// 1638   pLoop = attrList;
+// 1636   uint8 x;
+// 1637   zclAttrRecsList *pLoop;
+// 1638 
+// 1639   pLoop = attrList;
 ??CrossCallReturnLabel_277:
         MOV     DPTR,#attrList
         SJMP    ??zclFindAttrRec_0
-// 1639 
-// 1640   while ( pLoop != NULL )
-// 1641   {
-// 1642     if ( pLoop->endpoint == endpoint )
-// 1643     {
-// 1644       for ( x = 0; x < pLoop->numAttributes; x++ )
-// 1645       {
-// 1646         if ( pLoop->attrs[x].clusterID == clusterID && pLoop->attrs[x].attr.attrId == attrId )
-// 1647         {
-// 1648           *pAttr = pLoop->attrs[x];
-// 1649           return ( TRUE ); // EMBEDDED RETURN
-// 1650         }
-// 1651       }
-// 1652     }
-// 1653     pLoop = pLoop->next;
+// 1640 
+// 1641   while ( pLoop != NULL )
+// 1642   {
+// 1643     if ( pLoop->endpoint == endpoint )
+// 1644     {
+// 1645       for ( x = 0; x < pLoop->numAttributes; x++ )
+// 1646       {
+// 1647         if ( pLoop->attrs[x].clusterID == clusterID && pLoop->attrs[x].attr.attrId == attrId )
+// 1648         {
+// 1649           *pAttr = pLoop->attrs[x];
+// 1650           return ( TRUE ); // EMBEDDED RETURN
+// 1651         }
+// 1652       }
+// 1653     }
+// 1654     pLoop = pLoop->next;
 ??zclFindAttrRec_1:
         MOV     DPL,R2
         MOV     DPH,R3
@@ -10433,16 +10434,16 @@ zclFindAttrRec:
         LCALL   ?MOVE_LONG8_XDATA_CODE
         MOV     R1,#0x1
         SJMP    ??zclFindAttrRec_8
-// 1654   }
-// 1655 
-// 1656   return ( FALSE );
+// 1655   }
+// 1656 
+// 1657   return ( FALSE );
 ??zclFindAttrRec_3:
         MOV     R1,#0x0
 ??zclFindAttrRec_8:
         MOV     R7,#0xa
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock226
-// 1657 }
+// 1658 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine74:
@@ -10527,24 +10528,24 @@ zclFindAttrRec:
         CFI EndBlock cfiCond228
         CFI EndBlock cfiCond229
         CFI EndBlock cfiPicker230
-// 1658 
-// 1659 /*********************************************************************
-// 1660  * @fn      zclFindClusterOption
-// 1661  *
-// 1662  * @brief   Find the option record that matchs the cluster id
-// 1663  *
-// 1664  * @param   endpoint - Application's endpoint
-// 1665  * @param   clusterID - cluster ID looking for
-// 1666  *
-// 1667  * @return  pointer to clutser option, NULL if not found
-// 1668  */
+// 1659 
+// 1660 /*********************************************************************
+// 1661  * @fn      zclFindClusterOption
+// 1662  *
+// 1663  * @brief   Find the option record that matchs the cluster id
+// 1664  *
+// 1665  * @param   endpoint - Application's endpoint
+// 1666  * @param   clusterID - cluster ID looking for
+// 1667  *
+// 1668  * @return  pointer to clutser option, NULL if not found
+// 1669  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 1669 static zclOptionRec_t *zclFindClusterOption( uint8 endpoint, uint16 clusterID )
+// 1670 static zclOptionRec_t *zclFindClusterOption( uint8 endpoint, uint16 clusterID )
 zclFindClusterOption:
         CFI Block cfiBlock231 Using cfiCommon0
         CFI Function zclFindClusterOption
-// 1670 {
+// 1671 {
         MOV     A,#-0xb
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
@@ -10563,24 +10564,24 @@ zclFindClusterOption:
         ; Saved register size: 11
         ; Auto size: 0
         MOV     ?V0 + 0,R1
-// 1671   uint8 x;
-// 1672   zclClusterOptionList *pLoop;
-// 1673 
-// 1674   pLoop = clusterOptionList;
+// 1672   uint8 x;
+// 1673   zclClusterOptionList *pLoop;
+// 1674 
+// 1675   pLoop = clusterOptionList;
         MOV     DPTR,#clusterOptionList
         SJMP    ??zclFindClusterOption_0
-// 1675 
-// 1676   while ( pLoop != NULL )
-// 1677   {
-// 1678     if ( pLoop->endpoint == endpoint )
-// 1679     {
-// 1680       for ( x = 0; x < pLoop->numOptions; x++ )
-// 1681       {
-// 1682         if ( pLoop->options[x].clusterID == clusterID )
-// 1683           return ( &(pLoop->options[x]) ); // EMBEDDED RETURN
-// 1684       }
-// 1685     }
-// 1686     pLoop = pLoop->next;
+// 1676 
+// 1677   while ( pLoop != NULL )
+// 1678   {
+// 1679     if ( pLoop->endpoint == endpoint )
+// 1680     {
+// 1681       for ( x = 0; x < pLoop->numOptions; x++ )
+// 1682       {
+// 1683         if ( pLoop->options[x].clusterID == clusterID )
+// 1684           return ( &(pLoop->options[x]) ); // EMBEDDED RETURN
+// 1685       }
+// 1686     }
+// 1687     pLoop = pLoop->next;
 ??zclFindClusterOption_1:
         MOV     DPL,R0
         MOV     DPH,R1
@@ -10658,9 +10659,9 @@ zclFindClusterOption:
         ADDC    A,R5
         MOV     R3,A
         SJMP    ??zclFindClusterOption_7
-// 1687   }
-// 1688 
-// 1689   return ( NULL );
+// 1688   }
+// 1689 
+// 1690   return ( NULL );
 ??zclFindClusterOption_3:
         MOV     R2,#0x0
         MOV     R3,#0x0
@@ -10668,7 +10669,7 @@ zclFindClusterOption:
 ??zclFindClusterOption_7:
         REQUIRE ?Subroutine117
         ; // Fall through to label ?Subroutine117
-// 1690 }
+// 1691 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine117:
@@ -10832,24 +10833,24 @@ zclFindClusterOption:
         CFI EndBlock cfiCond238
         CFI EndBlock cfiCond239
         CFI EndBlock cfiPicker240
-// 1691 
-// 1692 /*********************************************************************
-// 1693  * @fn      zclGetClusterOption
-// 1694  *
-// 1695  * @brief   Get the option record that matchs the cluster id
-// 1696  *
-// 1697  * @param   endpoint - Application's endpoint
-// 1698  * @param   clusterID - cluster ID looking for
-// 1699  *
-// 1700  * @return  clutser option, AF_TX_OPTIONS_NONE if not found
-// 1701  */
+// 1692 
+// 1693 /*********************************************************************
+// 1694  * @fn      zclGetClusterOption
+// 1695  *
+// 1696  * @brief   Get the option record that matchs the cluster id
+// 1697  *
+// 1698  * @param   endpoint - Application's endpoint
+// 1699  * @param   clusterID - cluster ID looking for
+// 1700  *
+// 1701  * @return  clutser option, AF_TX_OPTIONS_NONE if not found
+// 1702  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 1702 static uint8 zclGetClusterOption( uint8 endpoint, uint16 clusterID )
+// 1703 static uint8 zclGetClusterOption( uint8 endpoint, uint16 clusterID )
 zclGetClusterOption:
         CFI Block cfiBlock241 Using cfiCommon0
         CFI Function zclGetClusterOption
-// 1703 {
+// 1704 {
         FUNCALL zclGetClusterOption, zclFindClusterOption
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -10877,60 +10878,60 @@ zclGetClusterOption:
         CFI CFA_XSP16 add(XSP16, 10)
         ; Saved register size: 10
         ; Auto size: 0
-// 1704   uint8 option;
-// 1705   zclOptionRec_t *pOption;
-// 1706 
-// 1707    pOption = zclFindClusterOption( endpoint, clusterID );
+// 1705   uint8 option;
+// 1706   zclOptionRec_t *pOption;
+// 1707 
+// 1708    pOption = zclFindClusterOption( endpoint, clusterID );
         ; Setup parameters for call to function zclFindClusterOption
         LCALL   ??zclFindClusterOption?relay
         MOV     DPL,R2
         MOV     DPH,R3
-// 1708   if ( pOption != NULL )
+// 1709   if ( pOption != NULL )
         MOV     A,DPL
         JNZ     ??zclGetClusterOption_0
         MOV     A,DPH
 ??zclGetClusterOption_0:
         JZ      ??zclGetClusterOption_1
-// 1709   {
-// 1710     option = pOption->option;
-// 1711     if ( !ZG_SECURE_ENABLED )
-// 1712       option &= (AF_EN_SECURITY ^ 0xFF); // make sure Application Link Key security is off
-// 1713 
-// 1714     return ( option ); // EMBEDDED RETURN
+// 1710   {
+// 1711     option = pOption->option;
+// 1712     if ( !ZG_SECURE_ENABLED )
+// 1713       option &= (AF_EN_SECURITY ^ 0xFF); // make sure Application Link Key security is off
+// 1714 
+// 1715     return ( option ); // EMBEDDED RETURN
         INC     DPTR
         INC     DPTR
         MOVX    A,@DPTR
         ANL     A,#0xbf
         MOV     R1,A
         SJMP    ??zclGetClusterOption_2
-// 1715   }
-// 1716 
-// 1717   return ( AF_TX_OPTIONS_NONE );
+// 1716   }
+// 1717 
+// 1718   return ( AF_TX_OPTIONS_NONE );
 ??zclGetClusterOption_1:
         MOV     R1,#0x0
 ??zclGetClusterOption_2:
         SJMP    ?Subroutine113
         CFI EndBlock cfiBlock241
-// 1718 }
-// 1719 
-// 1720 /*********************************************************************
-// 1721  * @fn      zclSetSecurityOption
-// 1722  *
-// 1723  * @brief   Set the security option for the cluster id
-// 1724  *
-// 1725  * @param   endpoint - Application's endpoint
-// 1726  * @param   clusterID - cluster ID looking for
-// 1727  * @param   enable - whether to enable (TRUE) or disable (FALSE) security option
-// 1728  *
-// 1729  * @return  none
-// 1730  */
+// 1719 }
+// 1720 
+// 1721 /*********************************************************************
+// 1722  * @fn      zclSetSecurityOption
+// 1723  *
+// 1724  * @brief   Set the security option for the cluster id
+// 1725  *
+// 1726  * @param   endpoint - Application's endpoint
+// 1727  * @param   clusterID - cluster ID looking for
+// 1728  * @param   enable - whether to enable (TRUE) or disable (FALSE) security option
+// 1729  *
+// 1730  * @return  none
+// 1731  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 1731 static void zclSetSecurityOption( uint8 endpoint, uint16 clusterID, uint8 enable )
+// 1732 static void zclSetSecurityOption( uint8 endpoint, uint16 clusterID, uint8 enable )
 zclSetSecurityOption:
         CFI Block cfiBlock242 Using cfiCommon0
         CFI Function zclSetSecurityOption
-// 1732 {
+// 1733 {
         FUNCALL zclSetSecurityOption, zclFindClusterOption
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -10960,23 +10961,23 @@ zclSetSecurityOption:
         ; Auto size: 0
         MOV     A,R4
         MOV     R6,A
-// 1733   zclOptionRec_t *pOption;
-// 1734 
-// 1735   pOption = zclFindClusterOption( endpoint, clusterID );
+// 1734   zclOptionRec_t *pOption;
+// 1735 
+// 1736   pOption = zclFindClusterOption( endpoint, clusterID );
         ; Setup parameters for call to function zclFindClusterOption
         LCALL   ??zclFindClusterOption?relay
         MOV     ?V0 + 0,R2
         MOV     ?V0 + 1,R3
         MOV     R0,?V0 + 0
         MOV     R1,?V0 + 1
-// 1736   if ( pOption != NULL )
+// 1737   if ( pOption != NULL )
         MOV     A,R0
         JNZ     ??zclSetSecurityOption_0
         MOV     A,R1
 ??zclSetSecurityOption_0:
         JZ      ??zclSetSecurityOption_1
-// 1737   {
-// 1738     if ( enable )
+// 1738   {
+// 1739     if ( enable )
         MOV     A,R0
         ADD     A,#0x2
         MOV     DPL,A
@@ -10985,20 +10986,20 @@ zclSetSecurityOption:
         MOV     DPH,A
         MOV     A,R6
         JZ      ??zclSetSecurityOption_2
-// 1739       pOption->option |= AF_EN_SECURITY;
+// 1740       pOption->option |= AF_EN_SECURITY;
         MOVX    A,@DPTR
         SETB    0xE0 /* A   */.6
         SJMP    ??zclSetSecurityOption_3
-// 1740     else
-// 1741       pOption->option &= (AF_EN_SECURITY ^ 0xFF);
+// 1741     else
+// 1742       pOption->option &= (AF_EN_SECURITY ^ 0xFF);
 ??zclSetSecurityOption_2:
         MOVX    A,@DPTR
         CLR     0xE0 /* A   */.6
 ??zclSetSecurityOption_3:
         MOVX    @DPTR,A
         CFI EndBlock cfiBlock242
-// 1742   }
-// 1743 }
+// 1743   }
+// 1744 }
 ??zclSetSecurityOption_1:
         REQUIRE ?Subroutine113
         ; // Fall through to label ?Subroutine113
@@ -11022,66 +11023,66 @@ zclSetSecurityOption:
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock243
-// 1744 
-// 1745 #ifdef ZCL_DISCOVER
-// 1746 /*********************************************************************
-// 1747  * @fn      zclFindNextAttrRec
-// 1748  *
-// 1749  * @brief   Find the attribute (or next) record that matchs the parameters
-// 1750  *
-// 1751  * @param   endpoint - Application's endpoint
-// 1752  * @param   clusterID - cluster ID
-// 1753  * @param   attr - attribute looking for
-// 1754  *
-// 1755  * @return  pointer to attribute record, NULL if not found
-// 1756  */
-// 1757 static uint8 zclFindNextAttrRec( uint8 endpoint, uint16 clusterID,
-// 1758                                  uint16 *attrId, zclAttrRec_t *pAttr )
-// 1759 {
-// 1760   uint16 x;
-// 1761   zclAttrRecsList *pLoop;
-// 1762 
-// 1763   pLoop = attrList;
-// 1764 
-// 1765   while ( pLoop != NULL )
-// 1766   {
-// 1767     if ( pLoop->endpoint == endpoint )
-// 1768     {
-// 1769       for ( x = 0; x < pLoop->numAttributes; x++ )
-// 1770       {
-// 1771         if ( pLoop->attrs[x].clusterID == clusterID && pLoop->attrs[x].attr.attrId >= *attrId )
-// 1772         {
-// 1773           *pAttr = pLoop->attrs[x];
-// 1774           
-// 1775           // Update attribute ID
-// 1776           *attrId = pAttr->attr.attrId; 
-// 1777           return ( TRUE ); // EMBEDDED RETURN
-// 1778         }
-// 1779       }
-// 1780     }
-// 1781     pLoop = pLoop->next;
-// 1782   }
-// 1783 
-// 1784   return ( FALSE );
-// 1785 }
-// 1786 #endif // ZCL_DISCOVER
-// 1787 
-// 1788 #if defined(ZCL_READ) || defined(ZCL_WRITE) || defined(ZCL_REPORT)
-// 1789 /*********************************************************************
-// 1790  * @fn      zclSerializeData
-// 1791  * @brief   Builds a buffer from the attribute data to sent out over
-// 1792  *          the air.
-// 1793  * @param   dataType - data types defined in zcl.h
-// 1794  *          attrData - pointer to the attribute data
-// 1795  *          buf - where to put the serialized data
-// 1796  */
+// 1745 
+// 1746 #ifdef ZCL_DISCOVER
+// 1747 /*********************************************************************
+// 1748  * @fn      zclFindNextAttrRec
+// 1749  *
+// 1750  * @brief   Find the attribute (or next) record that matchs the parameters
+// 1751  *
+// 1752  * @param   endpoint - Application's endpoint
+// 1753  * @param   clusterID - cluster ID
+// 1754  * @param   attr - attribute looking for
+// 1755  *
+// 1756  * @return  pointer to attribute record, NULL if not found
+// 1757  */
+// 1758 static uint8 zclFindNextAttrRec( uint8 endpoint, uint16 clusterID,
+// 1759                                  uint16 *attrId, zclAttrRec_t *pAttr )
+// 1760 {
+// 1761   uint16 x;
+// 1762   zclAttrRecsList *pLoop;
+// 1763 
+// 1764   pLoop = attrList;
+// 1765 
+// 1766   while ( pLoop != NULL )
+// 1767   {
+// 1768     if ( pLoop->endpoint == endpoint )
+// 1769     {
+// 1770       for ( x = 0; x < pLoop->numAttributes; x++ )
+// 1771       {
+// 1772         if ( pLoop->attrs[x].clusterID == clusterID && pLoop->attrs[x].attr.attrId >= *attrId )
+// 1773         {
+// 1774           *pAttr = pLoop->attrs[x];
+// 1775           
+// 1776           // Update attribute ID
+// 1777           *attrId = pAttr->attr.attrId; 
+// 1778           return ( TRUE ); // EMBEDDED RETURN
+// 1779         }
+// 1780       }
+// 1781     }
+// 1782     pLoop = pLoop->next;
+// 1783   }
+// 1784 
+// 1785   return ( FALSE );
+// 1786 }
+// 1787 #endif // ZCL_DISCOVER
+// 1788 
+// 1789 #if defined(ZCL_READ) || defined(ZCL_WRITE) || defined(ZCL_REPORT)
+// 1790 /*********************************************************************
+// 1791  * @fn      zclSerializeData
+// 1792  * @brief   Builds a buffer from the attribute data to sent out over
+// 1793  *          the air.
+// 1794  * @param   dataType - data types defined in zcl.h
+// 1795  *          attrData - pointer to the attribute data
+// 1796  *          buf - where to put the serialized data
+// 1797  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 1797 static void zclSerializeData( uint8 dataType, void *attrData, uint8 *buf )
+// 1798 static void zclSerializeData( uint8 dataType, void *attrData, uint8 *buf )
 zclSerializeData:
         CFI Block cfiBlock244 Using cfiCommon0
         CFI Function zclSerializeData
-// 1798 {
+// 1799 {
         FUNCALL zclSerializeData, osal_buffer_uint32
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -11163,10 +11164,10 @@ zclSerializeData:
         MOV     R2,A
         MOV     A,R5
         MOV     R3,A
-// 1799   uint8 *pStr;
-// 1800   uint8 len;
-// 1801 
-// 1802   switch ( dataType )
+// 1800   uint8 *pStr;
+// 1801   uint8 len;
+// 1802 
+// 1803   switch ( dataType )
         MOV     ?V0 + 0,R6
         MOV     ?V0 + 1,R7
         MOV     ?V0 + 2,#0x0
@@ -11242,14 +11243,14 @@ zclSerializeData:
         DW        ??zclSerializeData_7
         DW        ??zclSerializeData_8
         CODE
-// 1803   {
-// 1804     case ZCL_DATATYPE_DATA8:
-// 1805     case ZCL_DATATYPE_BOOLEAN:
-// 1806     case ZCL_DATATYPE_BITMAP8:
-// 1807     case ZCL_DATATYPE_INT8:
-// 1808     case ZCL_DATATYPE_UINT8:
-// 1809     case ZCL_DATATYPE_ENUM8:
-// 1810       *buf = *((uint8 *)attrData);
+// 1804   {
+// 1805     case ZCL_DATATYPE_DATA8:
+// 1806     case ZCL_DATATYPE_BOOLEAN:
+// 1807     case ZCL_DATATYPE_BITMAP8:
+// 1808     case ZCL_DATATYPE_INT8:
+// 1809     case ZCL_DATATYPE_UINT8:
+// 1810     case ZCL_DATATYPE_ENUM8:
+// 1811       *buf = *((uint8 *)attrData);
 ??zclSerializeData_3:
         MOV     DPL,R6
         MOV     DPH,R7
@@ -11258,32 +11259,32 @@ zclSerializeData:
 ??CrossCallReturnLabel_229:
         MOVX    @DPTR,A
         LJMP    ??zclSerializeData_8 & 0xFFFF
-// 1811        break;
-// 1812 
-// 1813     case ZCL_DATATYPE_DATA16:
-// 1814     case ZCL_DATATYPE_BITMAP16:
-// 1815     case ZCL_DATATYPE_UINT16:
-// 1816     case ZCL_DATATYPE_INT16: 
-// 1817     case ZCL_DATATYPE_ENUM16:
-// 1818     case ZCL_DATATYPE_SEMI_PREC:
-// 1819     case ZCL_DATATYPE_CLUSTER_ID:
-// 1820     case ZCL_DATATYPE_ATTR_ID:
-// 1821       *buf++ = LO_UINT16( *((uint16*)attrData) );
+// 1812        break;
+// 1813 
+// 1814     case ZCL_DATATYPE_DATA16:
+// 1815     case ZCL_DATATYPE_BITMAP16:
+// 1816     case ZCL_DATATYPE_UINT16:
+// 1817     case ZCL_DATATYPE_INT16: 
+// 1818     case ZCL_DATATYPE_ENUM16:
+// 1819     case ZCL_DATATYPE_SEMI_PREC:
+// 1820     case ZCL_DATATYPE_CLUSTER_ID:
+// 1821     case ZCL_DATATYPE_ATTR_ID:
+// 1822       *buf++ = LO_UINT16( *((uint16*)attrData) );
 ??zclSerializeData_2:
         LCALL   ?Subroutine49 & 0xFFFF
 ??CrossCallReturnLabel_232:
         LCALL   ?Subroutine16 & 0xFFFF
-// 1822       *buf++ = HI_UINT16( *((uint16*)attrData) );
+// 1823       *buf++ = HI_UINT16( *((uint16*)attrData) );
 ??CrossCallReturnLabel_222:
         INC     DPTR
         SJMP    ??zclSerializeData_9
-// 1823       break;
-// 1824 
-// 1825     case ZCL_DATATYPE_DATA24:
-// 1826     case ZCL_DATATYPE_BITMAP24: 
-// 1827     case ZCL_DATATYPE_UINT24:
-// 1828     case ZCL_DATATYPE_INT24:
-// 1829       *buf++ = BREAK_UINT32( *((uint32*)attrData), 0 );
+// 1824       break;
+// 1825 
+// 1826     case ZCL_DATATYPE_DATA24:
+// 1827     case ZCL_DATATYPE_BITMAP24: 
+// 1828     case ZCL_DATATYPE_UINT24:
+// 1829     case ZCL_DATATYPE_INT24:
+// 1830       *buf++ = BREAK_UINT32( *((uint32*)attrData), 0 );
 ??zclSerializeData_4:
         MOV     DPL,R6
         MOV     DPH,R7
@@ -11293,7 +11294,7 @@ zclSerializeData:
         MOV     DPH,R3
         MOV     A,?V0 + 0
         LCALL   ?Subroutine16 & 0xFFFF
-// 1830       *buf++ = BREAK_UINT32( *((uint32*)attrData), 1 );
+// 1831       *buf++ = BREAK_UINT32( *((uint32*)attrData), 1 );
 ??CrossCallReturnLabel_223:
         MOV     R0,#?V0 + 0
         LCALL   ?L_MOV_X
@@ -11304,7 +11305,7 @@ zclSerializeData:
         INC     DPTR
         INC     R2
         MOV     R3,DPH
-// 1831       *buf++ = BREAK_UINT32( *((uint32*)attrData), 2 );
+// 1832       *buf++ = BREAK_UINT32( *((uint32*)attrData), 2 );
         MOV     DPL,R6
         MOV     DPH,R7
         MOV     R0,#?V0 + 0
@@ -11316,18 +11317,18 @@ zclSerializeData:
         MOV     DPH,R3
         MOV     A,?V0 + 0
         SJMP    ??CrossCallReturnLabel_229
-// 1832       break;
-// 1833       
-// 1834     case ZCL_DATATYPE_DATA32:
-// 1835     case ZCL_DATATYPE_BITMAP32:
-// 1836     case ZCL_DATATYPE_UINT32:
-// 1837     case ZCL_DATATYPE_INT32:
-// 1838     case ZCL_DATATYPE_SINGLE_PREC:
-// 1839     case ZCL_DATATYPE_TOD:
-// 1840     case ZCL_DATATYPE_DATE:
-// 1841     case ZCL_DATATYPE_UTC:
-// 1842     case ZCL_DATATYPE_BAC_OID:
-// 1843       buf = osal_buffer_uint32( buf, *((uint32*)attrData) );
+// 1833       break;
+// 1834       
+// 1835     case ZCL_DATATYPE_DATA32:
+// 1836     case ZCL_DATATYPE_BITMAP32:
+// 1837     case ZCL_DATATYPE_UINT32:
+// 1838     case ZCL_DATATYPE_INT32:
+// 1839     case ZCL_DATATYPE_SINGLE_PREC:
+// 1840     case ZCL_DATATYPE_TOD:
+// 1841     case ZCL_DATATYPE_DATE:
+// 1842     case ZCL_DATATYPE_UTC:
+// 1843     case ZCL_DATATYPE_BAC_OID:
+// 1844       buf = osal_buffer_uint32( buf, *((uint32*)attrData) );
 ??zclSerializeData_1:
         ; Setup parameters for call to function osal_buffer_uint32
         MOV     DPL,R6
@@ -11339,11 +11340,11 @@ zclSerializeData:
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 12)
         SJMP    ??zclSerializeData_8
-// 1844       break;
-// 1845       
-// 1846     case ZCL_DATATYPE_UINT40:
-// 1847       pStr = (uint8*)attrData;
-// 1848       osal_memcpy( buf, pStr, 5 );
+// 1845       break;
+// 1846       
+// 1847     case ZCL_DATATYPE_UINT40:
+// 1848       pStr = (uint8*)attrData;
+// 1849       osal_memcpy( buf, pStr, 5 );
 ??zclSerializeData_5:
         ; Setup parameters for call to function osal_memcpy
         MOV     R0,#?V0 + 0
@@ -11352,11 +11353,11 @@ zclSerializeData:
         MOV     R4,#0x5
         SJMP    ??zclSerializeData_10
         CFI CFA_XSP16 add(XSP16, 12)
-// 1849       break;
-// 1850       
-// 1851     case ZCL_DATATYPE_UINT48:
-// 1852       pStr = (uint8*)attrData;
-// 1853       osal_memcpy( buf, pStr, 6 );
+// 1850       break;
+// 1851       
+// 1852     case ZCL_DATATYPE_UINT48:
+// 1853       pStr = (uint8*)attrData;
+// 1854       osal_memcpy( buf, pStr, 6 );
 ??zclSerializeData_6:
         ; Setup parameters for call to function osal_memcpy
         MOV     R0,#?V0 + 0
@@ -11365,11 +11366,11 @@ zclSerializeData:
         MOV     R4,#0x6
         SJMP    ??zclSerializeData_10
         CFI CFA_XSP16 add(XSP16, 12)
-// 1854       break;
-// 1855       
-// 1856     case ZCL_DATATYPE_IEEE_ADDR:
-// 1857       pStr = (uint8*)attrData;
-// 1858       osal_memcpy( buf, pStr, 8 );
+// 1855       break;
+// 1856       
+// 1857     case ZCL_DATATYPE_IEEE_ADDR:
+// 1858       pStr = (uint8*)attrData;
+// 1859       osal_memcpy( buf, pStr, 8 );
 ??zclSerializeData_7:
         ; Setup parameters for call to function osal_memcpy
         MOV     R0,#?V0 + 0
@@ -11378,12 +11379,12 @@ zclSerializeData:
         MOV     R4,#0x8
         SJMP    ??zclSerializeData_10
         CFI CFA_XSP16 add(XSP16, 12)
-// 1859       break;
-// 1860       
-// 1861     case ZCL_DATATYPE_CHAR_STR:
-// 1862     case ZCL_DATATYPE_OCTET_STR:
-// 1863       pStr = (uint8*)attrData;
-// 1864       len = *pStr++;
+// 1860       break;
+// 1861       
+// 1862     case ZCL_DATATYPE_CHAR_STR:
+// 1863     case ZCL_DATATYPE_OCTET_STR:
+// 1864       pStr = (uint8*)attrData;
+// 1865       len = *pStr++;
 ??zclSerializeData_0:
         MOV     DPL,R6
         MOV     DPH,R7
@@ -11392,7 +11393,7 @@ zclSerializeData:
         INC     DPTR
         MOV     R6,DPL
         MOV     R7,DPH
-// 1865       *buf++ = len;
+// 1866       *buf++ = len;
         MOV     DPL,R2
         MOV     DPH,R3
         MOVX    @DPTR,A
@@ -11400,7 +11401,7 @@ zclSerializeData:
         MOV     R2,A
         MOV     A,R5
         MOV     R3,A
-// 1866       osal_memcpy( buf, pStr, len );
+// 1867       osal_memcpy( buf, pStr, len );
         ; Setup parameters for call to function osal_memcpy
         MOV     ?V0 + 0,R6
         MOV     ?V0 + 1,R7
@@ -11410,20 +11411,20 @@ zclSerializeData:
         MOV     R4,?V0 + 3
 ??zclSerializeData_10:
         MOV     R5,#0x0
-// 1867       break;
-// 1868       
-// 1869     case ZCL_DATATYPE_NO_DATA:
-// 1870     case ZCL_DATATYPE_UNKNOWN:
-// 1871       // Fall through
-// 1872 
-// 1873     default:
-// 1874       break;
-// 1875   }
+// 1868       break;
+// 1869       
+// 1870     case ZCL_DATATYPE_NO_DATA:
+// 1871     case ZCL_DATATYPE_UNKNOWN:
+// 1872       // Fall through
+// 1873 
+// 1874     default:
+// 1875       break;
+// 1876   }
         LCALL   ?Subroutine107 & 0xFFFF
 ??CrossCallReturnLabel_154:
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 12)
-// 1876 }
+// 1877 }
 ??zclSerializeData_8:
         LJMP    ?Subroutine104 & 0xFFFF
         CFI EndBlock cfiBlock244
@@ -11847,108 +11848,108 @@ zclSerializeData:
         CFI EndBlock cfiCond263
         CFI EndBlock cfiCond264
         CFI EndBlock cfiPicker265
-// 1877 #endif // ZCL_READ || ZCL_WRITE || ZCL_REPORT
-// 1878 
-// 1879 #ifdef ZCL_REPORT
-// 1880 /*********************************************************************
-// 1881  * @fn      zclAnalogDataType
-// 1882  * @brief   Checks to see if Data Type is Analog
-// 1883  * @param   dataType - data type
-// 1884  * @return  TRUE if data type is analog
-// 1885  */
-// 1886 uint8 zclAnalogDataType( uint8 dataType )
-// 1887 {
-// 1888   uint8 analog;
-// 1889   
-// 1890   switch ( dataType )
-// 1891   {
-// 1892     case ZCL_DATATYPE_UINT8:
-// 1893     case ZCL_DATATYPE_UINT16:
-// 1894     case ZCL_DATATYPE_UINT24:
-// 1895     case ZCL_DATATYPE_UINT32:
-// 1896     case ZCL_DATATYPE_UINT40:
-// 1897     case ZCL_DATATYPE_UINT48:
-// 1898     case ZCL_DATATYPE_INT8:
-// 1899     case ZCL_DATATYPE_INT16:
-// 1900     case ZCL_DATATYPE_INT24:
-// 1901     case ZCL_DATATYPE_INT32:
-// 1902     case ZCL_DATATYPE_SEMI_PREC:
-// 1903     case ZCL_DATATYPE_SINGLE_PREC:
-// 1904     case ZCL_DATATYPE_DOUBLE_PREC:
-// 1905     case ZCL_DATATYPE_TOD:
-// 1906     case ZCL_DATATYPE_DATE:
-// 1907     case ZCL_DATATYPE_UTC:
-// 1908       analog = TRUE;
-// 1909       break;
-// 1910       
-// 1911     default:
-// 1912       analog = FALSE;
-// 1913       break;
-// 1914   }
-// 1915   return ( analog );
-// 1916 }
-// 1917 
-// 1918 /*********************************************************************
-// 1919  * @fn      zcl_BuildAnalogData
-// 1920  * @brief   Build an analog arribute out of sequential bytes.
-// 1921  * @param   dataType - type of data
-// 1922  *          pData - pointer to data
-// 1923  *          pBuf - where to put the data
-// 1924  */
-// 1925 static void zcl_BuildAnalogData( uint8 dataType, uint8 *pData, uint8 *pBuf)
-// 1926 {
-// 1927   switch ( dataType )
-// 1928   {
-// 1929     case ZCL_DATATYPE_UINT8:
-// 1930     case ZCL_DATATYPE_INT8:
-// 1931       *pData = *pBuf;
-// 1932       break;
-// 1933 
-// 1934     case ZCL_DATATYPE_UINT16:
-// 1935     case ZCL_DATATYPE_INT16:
-// 1936     case ZCL_DATATYPE_SEMI_PREC:
-// 1937       *((uint16*)pData) = BUILD_UINT16( pBuf[0], pBuf[1] ); 
-// 1938       break;
-// 1939  
-// 1940     case ZCL_DATATYPE_UINT24:
-// 1941     case ZCL_DATATYPE_INT24:
-// 1942       *((uint32*)pData) = osal_build_uint32( pBuf, 3 );
-// 1943       break;
-// 1944       
-// 1945     case ZCL_DATATYPE_UINT32:
-// 1946     case ZCL_DATATYPE_INT32:
-// 1947     case ZCL_DATATYPE_SINGLE_PREC:
-// 1948     case ZCL_DATATYPE_TOD:
-// 1949     case ZCL_DATATYPE_DATE:
-// 1950     case ZCL_DATATYPE_UTC:
-// 1951       *((uint32*)pData) = osal_build_uint32( pBuf, 4 );
-// 1952       break;
-// 1953       
-// 1954     case ZCL_DATATYPE_DOUBLE_PREC:
-// 1955       *pData = 0;
-// 1956       break;
-// 1957  
-// 1958     default:
-// 1959       break;
-// 1960   }
-// 1961 }
-// 1962 #endif // ZCL_REPORT
-// 1963 
-// 1964 /*********************************************************************
-// 1965  * @fn      zclGetDataTypeLength
-// 1966  * @brief   Return the length of the datatype in length. 
-// 1967  *          NOTE: Should not be called for ZCL_DATATYPE_OCTECT_STR or 
-// 1968  *                ZCL_DATATYPE_CHAR_STR data types.
-// 1969  * @param   dataType - data type
-// 1970  * @return  length of data
-// 1971  */
+// 1878 #endif // ZCL_READ || ZCL_WRITE || ZCL_REPORT
+// 1879 
+// 1880 #ifdef ZCL_REPORT
+// 1881 /*********************************************************************
+// 1882  * @fn      zclAnalogDataType
+// 1883  * @brief   Checks to see if Data Type is Analog
+// 1884  * @param   dataType - data type
+// 1885  * @return  TRUE if data type is analog
+// 1886  */
+// 1887 uint8 zclAnalogDataType( uint8 dataType )
+// 1888 {
+// 1889   uint8 analog;
+// 1890   
+// 1891   switch ( dataType )
+// 1892   {
+// 1893     case ZCL_DATATYPE_UINT8:
+// 1894     case ZCL_DATATYPE_UINT16:
+// 1895     case ZCL_DATATYPE_UINT24:
+// 1896     case ZCL_DATATYPE_UINT32:
+// 1897     case ZCL_DATATYPE_UINT40:
+// 1898     case ZCL_DATATYPE_UINT48:
+// 1899     case ZCL_DATATYPE_INT8:
+// 1900     case ZCL_DATATYPE_INT16:
+// 1901     case ZCL_DATATYPE_INT24:
+// 1902     case ZCL_DATATYPE_INT32:
+// 1903     case ZCL_DATATYPE_SEMI_PREC:
+// 1904     case ZCL_DATATYPE_SINGLE_PREC:
+// 1905     case ZCL_DATATYPE_DOUBLE_PREC:
+// 1906     case ZCL_DATATYPE_TOD:
+// 1907     case ZCL_DATATYPE_DATE:
+// 1908     case ZCL_DATATYPE_UTC:
+// 1909       analog = TRUE;
+// 1910       break;
+// 1911       
+// 1912     default:
+// 1913       analog = FALSE;
+// 1914       break;
+// 1915   }
+// 1916   return ( analog );
+// 1917 }
+// 1918 
+// 1919 /*********************************************************************
+// 1920  * @fn      zcl_BuildAnalogData
+// 1921  * @brief   Build an analog arribute out of sequential bytes.
+// 1922  * @param   dataType - type of data
+// 1923  *          pData - pointer to data
+// 1924  *          pBuf - where to put the data
+// 1925  */
+// 1926 static void zcl_BuildAnalogData( uint8 dataType, uint8 *pData, uint8 *pBuf)
+// 1927 {
+// 1928   switch ( dataType )
+// 1929   {
+// 1930     case ZCL_DATATYPE_UINT8:
+// 1931     case ZCL_DATATYPE_INT8:
+// 1932       *pData = *pBuf;
+// 1933       break;
+// 1934 
+// 1935     case ZCL_DATATYPE_UINT16:
+// 1936     case ZCL_DATATYPE_INT16:
+// 1937     case ZCL_DATATYPE_SEMI_PREC:
+// 1938       *((uint16*)pData) = BUILD_UINT16( pBuf[0], pBuf[1] ); 
+// 1939       break;
+// 1940  
+// 1941     case ZCL_DATATYPE_UINT24:
+// 1942     case ZCL_DATATYPE_INT24:
+// 1943       *((uint32*)pData) = osal_build_uint32( pBuf, 3 );
+// 1944       break;
+// 1945       
+// 1946     case ZCL_DATATYPE_UINT32:
+// 1947     case ZCL_DATATYPE_INT32:
+// 1948     case ZCL_DATATYPE_SINGLE_PREC:
+// 1949     case ZCL_DATATYPE_TOD:
+// 1950     case ZCL_DATATYPE_DATE:
+// 1951     case ZCL_DATATYPE_UTC:
+// 1952       *((uint32*)pData) = osal_build_uint32( pBuf, 4 );
+// 1953       break;
+// 1954       
+// 1955     case ZCL_DATATYPE_DOUBLE_PREC:
+// 1956       *pData = 0;
+// 1957       break;
+// 1958  
+// 1959     default:
+// 1960       break;
+// 1961   }
+// 1962 }
+// 1963 #endif // ZCL_REPORT
+// 1964 
+// 1965 /*********************************************************************
+// 1966  * @fn      zclGetDataTypeLength
+// 1967  * @brief   Return the length of the datatype in length. 
+// 1968  *          NOTE: Should not be called for ZCL_DATATYPE_OCTECT_STR or 
+// 1969  *                ZCL_DATATYPE_CHAR_STR data types.
+// 1970  * @param   dataType - data type
+// 1971  * @return  length of data
+// 1972  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 1972 uint8 zclGetDataTypeLength( uint8 dataType )
+// 1973 uint8 zclGetDataTypeLength( uint8 dataType )
 zclGetDataTypeLength:
         CFI Block cfiBlock266 Using cfiCommon0
         CFI Function zclGetDataTypeLength
-// 1973 {
+// 1974 {
         PUSH    DPL
         CFI DPL0 Frame(CFA_SP, 4)
         CFI CFA_SP SP+-4
@@ -11957,9 +11958,9 @@ zclGetDataTypeLength:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-// 1974   uint8 len;
-// 1975   
-// 1976   switch ( dataType )
+// 1975   uint8 len;
+// 1976   
+// 1977   switch ( dataType )
         MOV     A,R1
         LCALL   ?UC_SWITCH_SPARSE
 `?<Jumptable for zclGetDataTypeLength>_0`:
@@ -12026,110 +12027,110 @@ zclGetDataTypeLength:
         DW        ??zclGetDataTypeLength_6
         DW        ??zclGetDataTypeLength_7
         CODE
-// 1977   {
-// 1978     case ZCL_DATATYPE_DATA8:
-// 1979     case ZCL_DATATYPE_BOOLEAN:
-// 1980     case ZCL_DATATYPE_BITMAP8:
-// 1981     case ZCL_DATATYPE_INT8:
-// 1982     case ZCL_DATATYPE_UINT8:
-// 1983     case ZCL_DATATYPE_ENUM8:
-// 1984       len = 1;
+// 1978   {
+// 1979     case ZCL_DATATYPE_DATA8:
+// 1980     case ZCL_DATATYPE_BOOLEAN:
+// 1981     case ZCL_DATATYPE_BITMAP8:
+// 1982     case ZCL_DATATYPE_INT8:
+// 1983     case ZCL_DATATYPE_UINT8:
+// 1984     case ZCL_DATATYPE_ENUM8:
+// 1985       len = 1;
 ??zclGetDataTypeLength_2:
         MOV     R1,#0x1
         SJMP    ??zclGetDataTypeLength_8
-// 1985       break;
-// 1986       
-// 1987     case ZCL_DATATYPE_DATA16:
-// 1988     case ZCL_DATATYPE_BITMAP16:
-// 1989     case ZCL_DATATYPE_UINT16:
-// 1990     case ZCL_DATATYPE_INT16: 
-// 1991     case ZCL_DATATYPE_ENUM16:
-// 1992     case ZCL_DATATYPE_SEMI_PREC:
-// 1993     case ZCL_DATATYPE_CLUSTER_ID:
-// 1994     case ZCL_DATATYPE_ATTR_ID:
-// 1995       len = 2;
+// 1986       break;
+// 1987       
+// 1988     case ZCL_DATATYPE_DATA16:
+// 1989     case ZCL_DATATYPE_BITMAP16:
+// 1990     case ZCL_DATATYPE_UINT16:
+// 1991     case ZCL_DATATYPE_INT16: 
+// 1992     case ZCL_DATATYPE_ENUM16:
+// 1993     case ZCL_DATATYPE_SEMI_PREC:
+// 1994     case ZCL_DATATYPE_CLUSTER_ID:
+// 1995     case ZCL_DATATYPE_ATTR_ID:
+// 1996       len = 2;
 ??zclGetDataTypeLength_1:
         MOV     R1,#0x2
         SJMP    ??zclGetDataTypeLength_8
-// 1996       break;
-// 1997       
-// 1998     case ZCL_DATATYPE_DATA24:
-// 1999     case ZCL_DATATYPE_BITMAP24: 
-// 2000     case ZCL_DATATYPE_UINT24:
-// 2001     case ZCL_DATATYPE_INT24:
-// 2002       len = 3;
+// 1997       break;
+// 1998       
+// 1999     case ZCL_DATATYPE_DATA24:
+// 2000     case ZCL_DATATYPE_BITMAP24: 
+// 2001     case ZCL_DATATYPE_UINT24:
+// 2002     case ZCL_DATATYPE_INT24:
+// 2003       len = 3;
 ??zclGetDataTypeLength_3:
         MOV     R1,#0x3
         SJMP    ??zclGetDataTypeLength_8
-// 2003       break;
-// 2004       
-// 2005     case ZCL_DATATYPE_DATA32:
-// 2006     case ZCL_DATATYPE_BITMAP32:
-// 2007     case ZCL_DATATYPE_UINT32:
-// 2008     case ZCL_DATATYPE_INT32:
-// 2009     case ZCL_DATATYPE_SINGLE_PREC:
-// 2010     case ZCL_DATATYPE_TOD:
-// 2011     case ZCL_DATATYPE_DATE:
-// 2012     case ZCL_DATATYPE_UTC:
-// 2013     case ZCL_DATATYPE_BAC_OID:
-// 2014       len = 4;
+// 2004       break;
+// 2005       
+// 2006     case ZCL_DATATYPE_DATA32:
+// 2007     case ZCL_DATATYPE_BITMAP32:
+// 2008     case ZCL_DATATYPE_UINT32:
+// 2009     case ZCL_DATATYPE_INT32:
+// 2010     case ZCL_DATATYPE_SINGLE_PREC:
+// 2011     case ZCL_DATATYPE_TOD:
+// 2012     case ZCL_DATATYPE_DATE:
+// 2013     case ZCL_DATATYPE_UTC:
+// 2014     case ZCL_DATATYPE_BAC_OID:
+// 2015       len = 4;
 ??zclGetDataTypeLength_0:
         MOV     R1,#0x4
         SJMP    ??zclGetDataTypeLength_8
-// 2015       break;                       
-// 2016                 
-// 2017    case ZCL_DATATYPE_UINT40:
-// 2018        len = 5;
+// 2016       break;                       
+// 2017                 
+// 2018    case ZCL_DATATYPE_UINT40:
+// 2019        len = 5;
 ??zclGetDataTypeLength_4:
         MOV     R1,#0x5
         SJMP    ??zclGetDataTypeLength_8
-// 2019        break;
-// 2020        
-// 2021    case ZCL_DATATYPE_UINT48:
-// 2022        len = 6;
+// 2020        break;
+// 2021        
+// 2022    case ZCL_DATATYPE_UINT48:
+// 2023        len = 6;
 ??zclGetDataTypeLength_5:
         MOV     R1,#0x6
         SJMP    ??zclGetDataTypeLength_8
-// 2023        break;
-// 2024        
-// 2025    case ZCL_DATATYPE_DOUBLE_PREC:
-// 2026    case ZCL_DATATYPE_IEEE_ADDR:
-// 2027      len = 8;
+// 2024        break;
+// 2025        
+// 2026    case ZCL_DATATYPE_DOUBLE_PREC:
+// 2027    case ZCL_DATATYPE_IEEE_ADDR:
+// 2028      len = 8;
 ??zclGetDataTypeLength_6:
         MOV     R1,#0x8
         SJMP    ??zclGetDataTypeLength_8
-// 2028      break;
-// 2029 
-// 2030     case ZCL_DATATYPE_NO_DATA:
-// 2031     case ZCL_DATATYPE_UNKNOWN:
-// 2032       // Fall through
-// 2033       
-// 2034     default:
-// 2035       len = 0;
+// 2029      break;
+// 2030 
+// 2031     case ZCL_DATATYPE_NO_DATA:
+// 2032     case ZCL_DATATYPE_UNKNOWN:
+// 2033       // Fall through
+// 2034       
+// 2035     default:
+// 2036       len = 0;
 ??zclGetDataTypeLength_7:
         MOV     R1,#0x0
-// 2036       break;
-// 2037   }  
-// 2038   return ( len );
+// 2037       break;
+// 2038   }  
+// 2039   return ( len );
 ??zclGetDataTypeLength_8:
         LJMP    ?Subroutine103 & 0xFFFF
         CFI EndBlock cfiBlock266
-// 2039 }
-// 2040 
-// 2041 /*********************************************************************
-// 2042  * @fn      zclGetAttrDataLength
-// 2043  * @brief   Return the length of the attribute.
-// 2044  * @param   dataType - data type
-// 2045  *          pData - pointer to data
-// 2046  * @return  returns atrribute lentgh
-// 2047  */
+// 2040 }
+// 2041 
+// 2042 /*********************************************************************
+// 2043  * @fn      zclGetAttrDataLength
+// 2044  * @brief   Return the length of the attribute.
+// 2045  * @param   dataType - data type
+// 2046  *          pData - pointer to data
+// 2047  * @return  returns atrribute lentgh
+// 2048  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 2048 uint8 zclGetAttrDataLength( uint8  dataType, uint8 *pData)
+// 2049 uint8 zclGetAttrDataLength( uint8  dataType, uint8 *pData)
 zclGetAttrDataLength:
         CFI Block cfiBlock267 Using cfiCommon0
         CFI Function zclGetAttrDataLength
-// 2049 {
+// 2050 {
         FUNCALL zclGetAttrDataLength, zclGetDataTypeLength
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -12149,17 +12150,17 @@ zclGetAttrDataLength:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-// 2050   uint8 dataLen = 0;
-// 2051   
-// 2052   if ( dataType  == ZCL_DATATYPE_CHAR_STR || dataType == ZCL_DATATYPE_OCTET_STR )
+// 2051   uint8 dataLen = 0;
+// 2052   
+// 2053   if ( dataType  == ZCL_DATATYPE_CHAR_STR || dataType == ZCL_DATATYPE_OCTET_STR )
         MOV     A,#0x42
         XRL     A,R1
         JZ      ??zclGetAttrDataLength_0
         MOV     A,#0x41
         XRL     A,R1
         JNZ     ??zclGetAttrDataLength_1
-// 2053   {
-// 2054     dataLen = *pData + 1; // string length + 1 for length field
+// 2054   {
+// 2055     dataLen = *pData + 1; // string length + 1 for length field
 ??zclGetAttrDataLength_0:
         MOV     DPL,R2
         MOV     DPH,R3
@@ -12167,35 +12168,35 @@ zclGetAttrDataLength:
         INC     A
         MOV     R1,A
         SJMP    ??zclGetAttrDataLength_2
-// 2055   }
-// 2056   else
-// 2057   {
-// 2058     dataLen = zclGetDataTypeLength( dataType );
+// 2056   }
+// 2057   else
+// 2058   {
+// 2059     dataLen = zclGetDataTypeLength( dataType );
 ??zclGetAttrDataLength_1:
         ; Setup parameters for call to function zclGetDataTypeLength
         LCALL   ??zclGetDataTypeLength?relay
-// 2059   }
-// 2060 
-// 2061   return ( dataLen );
+// 2060   }
+// 2061 
+// 2062   return ( dataLen );
 ??zclGetAttrDataLength_2:
         LJMP    ?Subroutine103 & 0xFFFF
         CFI EndBlock cfiBlock267
-// 2062 }
-// 2063 
-// 2064 /*********************************************************************
-// 2065  * @fn      zclReadAttrData
-// 2066  * @brief   Read the attribute's current value into pAttrData.
-// 2067  * @param   pAttrData - where to put attribute data
-// 2068  *          pAttr - pointer to attribute
-// 2069  * @return Success
-// 2070  */
+// 2063 }
+// 2064 
+// 2065 /*********************************************************************
+// 2066  * @fn      zclReadAttrData
+// 2067  * @brief   Read the attribute's current value into pAttrData.
+// 2068  * @param   pAttrData - where to put attribute data
+// 2069  *          pAttr - pointer to attribute
+// 2070  * @return Success
+// 2071  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 2071 uint8 zclReadAttrData( uint8 *pAttrData, zclAttrRec_t *pAttr )
+// 2072 uint8 zclReadAttrData( uint8 *pAttrData, zclAttrRec_t *pAttr )
 zclReadAttrData:
         CFI Block cfiBlock268 Using cfiCommon0
         CFI Function zclReadAttrData
-// 2072 {
+// 2073 {
         FUNCALL zclReadAttrData, zclGetAttrDataLength
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -12239,9 +12240,9 @@ zclReadAttrData:
         MOV     R6,A
         MOV     A,R3
         MOV     R7,A
-// 2073   uint8 dataLen;
-// 2074     
-// 2075   dataLen = zclGetAttrDataLength( pAttr->attr.dataType, (uint8*)(pAttr->attr.dataPtr) );
+// 2074   uint8 dataLen;
+// 2075     
+// 2076   dataLen = zclGetAttrDataLength( pAttr->attr.dataType, (uint8*)(pAttr->attr.dataPtr) );
         MOV     A,R4
         ADD     A,#0x6
         MOV     R0,A
@@ -12258,7 +12259,7 @@ zclReadAttrData:
         MOV     DPL,R4
         MOV     DPH,R5
         LCALL   ?Subroutine29 & 0xFFFF
-// 2076   osal_memcpy( pAttrData, pAttr->attr.dataPtr, dataLen );
+// 2077   osal_memcpy( pAttrData, pAttr->attr.dataPtr, dataLen );
 ??CrossCallReturnLabel_183:
         ; Setup parameters for call to function osal_memcpy
         MOV     DPL,?V0 + 0
@@ -12283,74 +12284,74 @@ zclReadAttrData:
 ??CrossCallReturnLabel_155:
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 11)
-// 2077   return ( ZCL_STATUS_SUCCESS );
+// 2078   return ( ZCL_STATUS_SUCCESS );
         MOV     R1,#0x0
         LJMP    ?Subroutine117 & 0xFFFF
         CFI EndBlock cfiBlock268
-// 2078 }
-// 2079 
-// 2080 #ifdef ZCL_WRITE
-// 2081 /*********************************************************************
-// 2082  * @fn      zclWriteAttrData
-// 2083  * @brief   Write the received data.
-// 2084  * @param   pAttr - where to write data to
-// 2085  *          pWriteRec - data to be written
-// 2086  * @return  Successful if data was written
-// 2087  */
-// 2088 static uint8 zclWriteAttrData( zclAttrRec_t *pAttr, zclWriteRec_t *pWriteRec )
-// 2089 {
-// 2090   uint8 len;
-// 2091 
-// 2092   if ( zcl_AccessCtrlWrite( pAttr->attr.accessControl ) )
-// 2093   {
-// 2094     if ( zcl_ValidateAttrDataCB && !zcl_ValidateAttrDataCB( pAttr, pWriteRec ) )
-// 2095       return ( ZCL_STATUS_INVALID_VALUE );
-// 2096     
-// 2097     len = zclGetAttrDataLength( pAttr->attr.dataType, pWriteRec->attrData );
-// 2098     osal_memcpy( pAttr->attr.dataPtr, pWriteRec->attrData, len );
-// 2099     return ( ZCL_STATUS_SUCCESS );
-// 2100   }
-// 2101   return ( ZCL_STATUS_READ_ONLY );
-// 2102 }
-// 2103 #endif // ZCL_WRITE
-// 2104 
-// 2105 #ifdef ZCL_READ
-// 2106 /*********************************************************************
-// 2107  * @fn      zclParseInReadCmd
-// 2108  * @brief   Parse the "Profile" Read Commands
-// 2109  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2110  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2111  * @param   pCmd - pointer to incoming data to parse
-// 2112  * @return  pointer to the parsed command structure
-// 2113  */
-// 2114 void *zclParseInReadCmd( zclParseCmd_t *pCmd )
-// 2115 {
-// 2116   zclReadCmd_t *readCmd;
-// 2117   uint8 *pBuf = pCmd->pData;
-// 2118   
-// 2119   readCmd = (zclReadCmd_t *)osal_mem_alloc( sizeof ( zclReadCmd_t ) + pCmd->dataLen );
-// 2120   if ( readCmd != NULL )
-// 2121   {
-// 2122     uint8 i;
-// 2123     
-// 2124     readCmd->numAttr = pCmd->dataLen / 2; // Atrribute ID
-// 2125     for ( i = 0; i < readCmd->numAttr; i++ )
-// 2126     {
-// 2127       readCmd->attrID[i] = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2128       pBuf += 2;
-// 2129     }
-// 2130   }
-// 2131   return ( (void *)readCmd );
-// 2132 }
-// 2133 
-// 2134 /*********************************************************************
-// 2135  * @fn      zclParseInReadRspCmd
-// 2136  * @brief   Parse the "Profile" Read Response Commands
-// 2137  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2138  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2139  * @param   pCmd - pointer to incoming data to parse
-// 2140  * @return  pointer to the parsed command structure
-// 2141  */
+// 2079 }
+// 2080 
+// 2081 #ifdef ZCL_WRITE
+// 2082 /*********************************************************************
+// 2083  * @fn      zclWriteAttrData
+// 2084  * @brief   Write the received data.
+// 2085  * @param   pAttr - where to write data to
+// 2086  *          pWriteRec - data to be written
+// 2087  * @return  Successful if data was written
+// 2088  */
+// 2089 static uint8 zclWriteAttrData( zclAttrRec_t *pAttr, zclWriteRec_t *pWriteRec )
+// 2090 {
+// 2091   uint8 len;
+// 2092 
+// 2093   if ( zcl_AccessCtrlWrite( pAttr->attr.accessControl ) )
+// 2094   {
+// 2095     if ( zcl_ValidateAttrDataCB && !zcl_ValidateAttrDataCB( pAttr, pWriteRec ) )
+// 2096       return ( ZCL_STATUS_INVALID_VALUE );
+// 2097     
+// 2098     len = zclGetAttrDataLength( pAttr->attr.dataType, pWriteRec->attrData );
+// 2099     osal_memcpy( pAttr->attr.dataPtr, pWriteRec->attrData, len );
+// 2100     return ( ZCL_STATUS_SUCCESS );
+// 2101   }
+// 2102   return ( ZCL_STATUS_READ_ONLY );
+// 2103 }
+// 2104 #endif // ZCL_WRITE
+// 2105 
+// 2106 #ifdef ZCL_READ
+// 2107 /*********************************************************************
+// 2108  * @fn      zclParseInReadCmd
+// 2109  * @brief   Parse the "Profile" Read Commands
+// 2110  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2111  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2112  * @param   pCmd - pointer to incoming data to parse
+// 2113  * @return  pointer to the parsed command structure
+// 2114  */
+// 2115 void *zclParseInReadCmd( zclParseCmd_t *pCmd )
+// 2116 {
+// 2117   zclReadCmd_t *readCmd;
+// 2118   uint8 *pBuf = pCmd->pData;
+// 2119   
+// 2120   readCmd = (zclReadCmd_t *)osal_mem_alloc( sizeof ( zclReadCmd_t ) + pCmd->dataLen );
+// 2121   if ( readCmd != NULL )
+// 2122   {
+// 2123     uint8 i;
+// 2124     
+// 2125     readCmd->numAttr = pCmd->dataLen / 2; // Atrribute ID
+// 2126     for ( i = 0; i < readCmd->numAttr; i++ )
+// 2127     {
+// 2128       readCmd->attrID[i] = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2129       pBuf += 2;
+// 2130     }
+// 2131   }
+// 2132   return ( (void *)readCmd );
+// 2133 }
+// 2134 
+// 2135 /*********************************************************************
+// 2136  * @fn      zclParseInReadRspCmd
+// 2137  * @brief   Parse the "Profile" Read Response Commands
+// 2138  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2139  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2140  * @param   pCmd - pointer to incoming data to parse
+// 2141  * @return  pointer to the parsed command structure
+// 2142  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine61:
@@ -12991,777 +12992,777 @@ zclWriteAttrData:
         MOV     R7,#0x7
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock293
-// 2142 static void *zclParseInReadRspCmd( zclParseCmd_t *pCmd )
-// 2143 {
-// 2144   zclReadRspCmd_t *readRspCmd;
-// 2145   zclReadRspStatus_t *statusRec;
-// 2146   uint8 *pBuf = pCmd->pData;
-// 2147   uint8 *dataPtr;
-// 2148   uint8 numAttr = 0;
-// 2149   uint8 hdrLen;
-// 2150   uint8 dataLen = 0;
-// 2151   uint8 attrDataLen;
-// 2152   uint8 dataType;
-// 2153   uint8 status;
-// 2154   uint8 i;
-// 2155   
-// 2156   // find out the number of attributes and the length of attribute data
-// 2157   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) )
-// 2158   {
-// 2159     numAttr++;
-// 2160 
-// 2161     pBuf += 2; // move pass attribute id
-// 2162     
-// 2163     status = *pBuf++;  
-// 2164     if ( status == ZCL_STATUS_SUCCESS )
-// 2165     {
-// 2166       dataType = *pBuf++;
-// 2167 
-// 2168       attrDataLen = zclGetAttrDataLength( dataType, pBuf );
-// 2169       pBuf += attrDataLen; // move pass attribute data
-// 2170       
-// 2171       if ( PADDING_NEEDED( attrDataLen ) ) // add padding if needed
-// 2172         attrDataLen++;
-// 2173       dataLen += attrDataLen;
-// 2174     }
-// 2175   }
-// 2176  
-// 2177   hdrLen = sizeof( zclReadRspCmd_t ) + ( numAttr * sizeof( zclReadRspStatus_t ) ); // calculate the length of the response header
-// 2178   
-// 2179   readRspCmd = (zclReadRspCmd_t *)osal_mem_alloc( hdrLen + dataLen );
-// 2180   if ( readRspCmd != NULL )
-// 2181   {
-// 2182     pBuf = pCmd->pData;
-// 2183     dataPtr = (uint8 *)( (uint8 *)readRspCmd + hdrLen );
-// 2184         
-// 2185     readRspCmd->numAttr = numAttr;
-// 2186     for ( i = 0; i < numAttr; i++ )
-// 2187     {
-// 2188       statusRec = &(readRspCmd->attrList[i]);
-// 2189       
-// 2190       statusRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2191       pBuf += 2;
-// 2192       
-// 2193       statusRec->status = *pBuf++;
-// 2194       if ( statusRec->status == ZCL_STATUS_SUCCESS )
-// 2195       {
-// 2196         statusRec->dataType = *pBuf++;
-// 2197 
-// 2198         attrDataLen = zclGetAttrDataLength( statusRec->dataType, pBuf );
-// 2199         osal_memcpy( dataPtr, pBuf, attrDataLen);
-// 2200         statusRec->data = dataPtr;
-// 2201         
-// 2202         pBuf += attrDataLen; // move pass attribute data
-// 2203        
-// 2204         if ( PADDING_NEEDED( attrDataLen ) ) // advance attribute data pointer
-// 2205           attrDataLen++;
-// 2206         dataPtr += attrDataLen;
-// 2207       }
-// 2208     }
-// 2209   }
-// 2210   return ( (void *)readRspCmd );
-// 2211 }
-// 2212 #endif // ZCL_READ
-// 2213 
-// 2214 #ifdef ZCL_WRITE
-// 2215 /*********************************************************************
-// 2216  * @fn      zclParseInWriteCmd
-// 2217  * @brief   Parse the "Profile" Write, Write Undivided and Write No
-// 2218  *          Response Commands
-// 2219  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2220  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2221  * @param   pCmd - pointer to incoming data to parse
-// 2222  * @return  pointer to the parsed command structure
-// 2223  */
-// 2224 void *zclParseInWriteCmd( zclParseCmd_t *pCmd )
-// 2225 {
-// 2226   zclWriteCmd_t *writeCmd;
-// 2227   zclWriteRec_t *statusRec;
-// 2228   uint8 *pBuf = pCmd->pData;
-// 2229   uint8 attrDataLen;
-// 2230   uint8 *dataPtr;
-// 2231   uint8 numAttr = 0;
-// 2232   uint8 hdrLen;
-// 2233   uint8 dataLen = 0;
-// 2234   uint8 dataType;
-// 2235   uint8 i;
-// 2236 
-// 2237   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) ) // find out the number of attributes and the length of attribute data
-// 2238   {
-// 2239     numAttr++;
-// 2240 
-// 2241     pBuf += 2; // move pass attribute id
-// 2242 
-// 2243     dataType = *pBuf++;
-// 2244 
-// 2245     attrDataLen = zclGetAttrDataLength( dataType, pBuf );
-// 2246     pBuf += attrDataLen; // move pass attribute data
-// 2247     
-// 2248     if ( PADDING_NEEDED( attrDataLen ) ) // add padding if needed
-// 2249       attrDataLen++;
-// 2250     dataLen += attrDataLen;
-// 2251   }
-// 2252   
-// 2253   hdrLen = sizeof( zclWriteCmd_t ) + ( numAttr * sizeof( zclWriteRec_t ) ); // calculate the length of the response header
-// 2254   
-// 2255   writeCmd = (zclWriteCmd_t *)osal_mem_alloc( hdrLen + dataLen );
-// 2256   if ( writeCmd != NULL )
-// 2257   {
-// 2258     pBuf = pCmd->pData;
-// 2259     dataPtr = (uint8 *)( (uint8 *)writeCmd + hdrLen );
-// 2260 
-// 2261     writeCmd->numAttr = numAttr;
-// 2262     for ( i = 0; i < numAttr; i++ )
-// 2263     {
-// 2264       statusRec = &(writeCmd->attrList[i]);
-// 2265       
-// 2266       statusRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2267       pBuf += 2;
-// 2268       statusRec->dataType = *pBuf++;
-// 2269 
-// 2270       attrDataLen = zclGetAttrDataLength( statusRec->dataType, pBuf );
-// 2271       osal_memcpy( dataPtr, pBuf, attrDataLen);
-// 2272       statusRec->attrData = dataPtr;
-// 2273       
-// 2274       pBuf += attrDataLen; // move pass attribute data
-// 2275 
-// 2276       if ( PADDING_NEEDED( attrDataLen ) ) // advance attribute data pointer
-// 2277         attrDataLen++;
-// 2278       dataPtr += attrDataLen;
-// 2279     }
-// 2280   }
-// 2281   
-// 2282   return ( (void *)writeCmd );
-// 2283 }
-// 2284 
-// 2285 /*********************************************************************
-// 2286  * @fn      zclParseInWriteRspCmd
-// 2287  * @brief   Parse the "Profile" Write Response Commands
-// 2288  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2289  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2290  * @param   pCmd - pointer to incoming data to parse
-// 2291  * @return  pointer to the parsed command structure
-// 2292  */
-// 2293 static void *zclParseInWriteRspCmd( zclParseCmd_t *pCmd )
-// 2294 {
-// 2295   zclWriteRspCmd_t *writeRspCmd;
-// 2296   uint8 *pBuf = pCmd->pData;
-// 2297   uint8 i = 0;
-// 2298 
-// 2299   writeRspCmd = (zclWriteRspCmd_t *)osal_mem_alloc( sizeof ( zclWriteRspCmd_t ) + pCmd->dataLen );
-// 2300   if ( writeRspCmd != NULL )
-// 2301   {
-// 2302     if ( pCmd->dataLen == 1 )
-// 2303     {
-// 2304       writeRspCmd->attrList[i++].status = *pBuf; // special case when all writes were successfull
-// 2305     }
-// 2306     else
-// 2307     {
-// 2308       while ( pBuf < ( pCmd->pData + pCmd->dataLen ) )
-// 2309       {
-// 2310         writeRspCmd->attrList[i].status = *pBuf++;
-// 2311         writeRspCmd->attrList[i++].attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2312         pBuf += 2;
-// 2313       }
-// 2314     }
-// 2315     writeRspCmd->numAttr = i; 
-// 2316   }
-// 2317   return ( (void *)writeRspCmd );
-// 2318 }
-// 2319 #endif // ZCL_WRITE
-// 2320 
-// 2321 #ifdef ZCL_REPORT
-// 2322 /*********************************************************************
-// 2323  * @fn      zclParseInConfigReportCmd
-// 2324  * @brief   Parse the "Profile" Configure Reporting Command
-// 2325  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2326  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2327  * @param   pCmd - pointer to incoming data to parse
-// 2328  * @return  pointer to the parsed command structure
-// 2329  */
-// 2330 void *zclParseInConfigReportCmd( zclParseCmd_t *pCmd )
-// 2331 {
-// 2332   zclCfgReportCmd_t *cfgReportCmd;
-// 2333   zclCfgReportRec_t *reportRec;
-// 2334   uint8 *pBuf = pCmd->pData;
-// 2335   uint8 *dataPtr;
-// 2336   uint8 numAttr = 0;
-// 2337   uint8 direction;
-// 2338   uint8 dataType;
-// 2339   uint8 hdrLen;
-// 2340   uint8 dataLen = 0;
-// 2341   uint8 reportChangeLen; // length of Reportable Change field
-// 2342   uint8 i;
-// 2343  
-// 2344   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) ) // Calculate the length of the Request command
-// 2345   {
-// 2346     numAttr++;
-// 2347     
-// 2348     direction = *pBuf++;
-// 2349     pBuf += 2; // move pass the attribute ID
-// 2350     
-// 2351     if ( direction == ZCL_SEND_ATTR_REPORTS ) // Is there a Reportable Change field?
-// 2352     {
-// 2353       dataType = *pBuf++;
-// 2354       pBuf += 4; // move pass the Min and Max Reporting Intervals
-// 2355  
-// 2356       if ( zclAnalogDataType( dataType ) ) // For attributes of 'discrete' data types this field is omitted
-// 2357       {
-// 2358         reportChangeLen = zclGetDataTypeLength( dataType );
-// 2359         pBuf += reportChangeLen;
-// 2360         
-// 2361         if ( PADDING_NEEDED( reportChangeLen ) ) // add padding if needed
-// 2362           reportChangeLen++;
-// 2363         dataLen += reportChangeLen;
-// 2364       }
-// 2365     }
-// 2366     else
-// 2367     {
-// 2368       pBuf += 2; // move pass the Timeout Period
-// 2369     }
-// 2370   } // while loop
-// 2371 
-// 2372   hdrLen = sizeof( zclCfgReportCmd_t ) + ( numAttr * sizeof( zclCfgReportRec_t ) );
-// 2373   
-// 2374   cfgReportCmd = (zclCfgReportCmd_t *)osal_mem_alloc( hdrLen + dataLen );
-// 2375   if ( cfgReportCmd != NULL )
-// 2376   { 
-// 2377     pBuf = pCmd->pData;
-// 2378     dataPtr = (uint8 *)( (uint8 *)cfgReportCmd + hdrLen );
-// 2379     
-// 2380     cfgReportCmd->numAttr = numAttr;
-// 2381     for ( i = 0; i < numAttr; i++ )
-// 2382     {
-// 2383       reportRec = &(cfgReportCmd->attrList[i]);
-// 2384       
-// 2385       osal_memset( reportRec, 0, sizeof( zclCfgReportRec_t ) );
-// 2386         
-// 2387       reportRec->direction = *pBuf++;
-// 2388       reportRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2389       pBuf += 2;
-// 2390       if ( reportRec->direction == ZCL_SEND_ATTR_REPORTS )
-// 2391       {
-// 2392        
-// 2393         reportRec->dataType = *pBuf++; // Attribute to be reported
-// 2394         reportRec->minReportInt = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2395         pBuf += 2;
-// 2396         reportRec->maxReportInt = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2397         pBuf += 2;
-// 2398        
-// 2399         if ( zclAnalogDataType( reportRec->dataType ) ) // For attributes of 'discrete' data types this field is omitted
-// 2400         {
-// 2401           zcl_BuildAnalogData( reportRec->dataType, dataPtr, pBuf);
-// 2402           reportRec->reportableChange = dataPtr;
-// 2403           
-// 2404           reportChangeLen = zclGetDataTypeLength( reportRec->dataType );
-// 2405           pBuf += reportChangeLen;
-// 2406          
-// 2407           if ( PADDING_NEEDED( reportChangeLen ) ) // advance attribute data pointer
-// 2408             reportChangeLen++;
-// 2409           dataPtr += reportChangeLen;
-// 2410         }
-// 2411       }
-// 2412       else
-// 2413       {
-// 2414         reportRec->timeoutPeriod = BUILD_UINT16( pBuf[0], pBuf[1] ); // Attribute reports to be received
-// 2415         pBuf += 2;
-// 2416       }
-// 2417     } // while loop
-// 2418   }
-// 2419   return ( (void *)cfgReportCmd );
-// 2420 }
-// 2421 
-// 2422 /*********************************************************************
-// 2423  * @fn      zclParseInConfigReportRspCmd
-// 2424  * @brief   Parse the "Profile" Configure Reporting Response Command
-// 2425  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2426  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2427  * @param   pCmd - pointer to incoming data to parse
-// 2428  * @return  pointer to the parsed command structure
-// 2429  */
-// 2430 static void *zclParseInConfigReportRspCmd( zclParseCmd_t *pCmd )
-// 2431 {
-// 2432   zclCfgReportRspCmd_t *cfgReportRspCmd;
-// 2433   uint8 *pBuf = pCmd->pData;
-// 2434   uint8 numAttr;
-// 2435   uint8 i; 
-// 2436   
-// 2437   numAttr = pCmd->dataLen / ( 1 + 1 + 2 ); // Status + Direction + Attribute ID
-// 2438   
-// 2439   cfgReportRspCmd = (zclCfgReportRspCmd_t *)osal_mem_alloc( sizeof( zclCfgReportRspCmd_t ) 
-// 2440                                             + ( numAttr * sizeof( zclCfgReportStatus_t ) ) );
-// 2441   if ( cfgReportRspCmd != NULL )
-// 2442   {
-// 2443     cfgReportRspCmd->numAttr = numAttr;
-// 2444     for ( i = 0; i < cfgReportRspCmd->numAttr; i++ )
-// 2445     {
-// 2446       cfgReportRspCmd->attrList[i].status = *pBuf++;
-// 2447       cfgReportRspCmd->attrList[i].direction = *pBuf++;
-// 2448       cfgReportRspCmd->attrList[i].attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2449       pBuf += 2;
-// 2450     }
-// 2451   }
-// 2452   return ( (void *)cfgReportRspCmd );  
-// 2453 }
-// 2454 
-// 2455 /*********************************************************************
-// 2456  * @fn      zclParseInReadReportCfgCmd
-// 2457  * @brief   Parse the "Profile" Read Reporting Configuration Command
-// 2458  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2459  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2460  * @param   pCmd - pointer to incoming data to parse
-// 2461  * @return  pointer to the parsed command structure
-// 2462  */
-// 2463 void *zclParseInReadReportCfgCmd( zclParseCmd_t *pCmd )
-// 2464 {
-// 2465   zclReadReportCfgCmd_t *readReportCfgCmd;
-// 2466   uint8 *pBuf = pCmd->pData;
-// 2467   uint8 numAttr;
-// 2468   uint8 i;
-// 2469   
-// 2470   numAttr = pCmd->dataLen / ( 1 + 2 ); // Direction + Attribute ID
-// 2471   
-// 2472   readReportCfgCmd = (zclReadReportCfgCmd_t *)osal_mem_alloc( sizeof( zclReadReportCfgCmd_t ) 
-// 2473                                                   + ( numAttr * sizeof( zclReadReportCfgRec_t ) ) );
-// 2474   if ( readReportCfgCmd != NULL )
-// 2475   {
-// 2476     readReportCfgCmd->numAttr = numAttr;
-// 2477     for ( i = 0; i < readReportCfgCmd->numAttr; i++)
-// 2478     {
-// 2479       readReportCfgCmd->attrList[i].direction = *pBuf++;;
-// 2480       readReportCfgCmd->attrList[i].attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2481       pBuf += 2;
-// 2482     }
-// 2483   }
-// 2484   return ( (void *)readReportCfgCmd );
-// 2485 }
-// 2486 
-// 2487 /*********************************************************************
-// 2488  * @fn      zclParseInReadReportCfgRspCmd
-// 2489  * @brief   Parse the "Profile" Read Reporting Configuration Response Command
-// 2490  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2491  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2492  * @param   pCmd - pointer to incoming data to parse
-// 2493  * @return  pointer to the parsed command structure
-// 2494  */
-// 2495 static void *zclParseInReadReportCfgRspCmd( zclParseCmd_t *pCmd )
-// 2496 {
-// 2497   zclReadReportCfgRspCmd_t *readReportCfgRspCmd;
-// 2498   zclReportCfgRspRec_t *reportRspRec;
-// 2499   uint8 reportChangeLen;
-// 2500   uint8 *pBuf = pCmd->pData;
-// 2501   uint8 *dataPtr;
-// 2502   uint8 numAttr = 0;
-// 2503   uint8 hdrLen;
-// 2504   uint8 dataLen = 0;
-// 2505   uint8 status;
-// 2506   uint8 direction;
-// 2507   uint8 dataType;
-// 2508   uint8 i;
-// 2509   
-// 2510   // Calculate the length of the response command
-// 2511   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) )
-// 2512   { 
-// 2513     numAttr++;
-// 2514     
-// 2515     status = *pBuf++;
-// 2516     direction = *pBuf++; 
-// 2517     pBuf += 2; // move pass the attribute ID
-// 2518     
-// 2519     if ( status == ZCL_STATUS_SUCCESS )
-// 2520     {
-// 2521       if ( direction == ZCL_SEND_ATTR_REPORTS )
-// 2522       {
-// 2523         dataType = *pBuf++;
-// 2524         pBuf += 4; // move pass the Min and Max Reporting Intervals
-// 2525  
-// 2526         // For attributes of 'discrete' data types this field is omitted
-// 2527         if ( zclAnalogDataType( dataType ) )
-// 2528         {
-// 2529           reportChangeLen = zclGetDataTypeLength( dataType );
-// 2530           pBuf += reportChangeLen;
-// 2531           
-// 2532           // add padding if needed
-// 2533           if ( PADDING_NEEDED( reportChangeLen ) )
-// 2534             reportChangeLen++;
-// 2535           dataLen += reportChangeLen;
-// 2536         }
-// 2537       }
-// 2538       else
-// 2539       {
-// 2540         pBuf += 2; // move pass the Timeout field
-// 2541       }
-// 2542     }
-// 2543   } // while loop
-// 2544   
-// 2545   hdrLen = sizeof( zclReadReportCfgRspCmd_t ) + ( numAttr * sizeof( zclReportCfgRspRec_t ) );
-// 2546   
-// 2547   readReportCfgRspCmd = (zclReadReportCfgRspCmd_t *)osal_mem_alloc( hdrLen + dataLen );
-// 2548   if ( readReportCfgRspCmd != NULL )
-// 2549   {
-// 2550     pBuf = pCmd->pData;
-// 2551     dataPtr = (uint8 *)( (uint8 *)readReportCfgRspCmd + hdrLen );
-// 2552     
-// 2553     readReportCfgRspCmd->numAttr = numAttr;
-// 2554     for ( i = 0; i < numAttr; i++ )
-// 2555     {
-// 2556       reportRspRec = &(readReportCfgRspCmd->attrList[i]);
-// 2557       
-// 2558       reportRspRec->status = *pBuf++;
-// 2559       reportRspRec->direction = *pBuf++;
-// 2560       reportRspRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2561       pBuf += 2;
-// 2562  
-// 2563       if ( reportRspRec->status == ZCL_STATUS_SUCCESS )
-// 2564       {
-// 2565         if ( reportRspRec->direction == ZCL_SEND_ATTR_REPORTS )
-// 2566         {
-// 2567           reportRspRec->dataType = *pBuf++;
-// 2568           reportRspRec->minReportInt = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2569           pBuf += 2;
-// 2570           reportRspRec->maxReportInt = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2571           pBuf += 2;
-// 2572 
-// 2573           if ( zclAnalogDataType( reportRspRec->dataType ) )
-// 2574           {
-// 2575             zcl_BuildAnalogData( reportRspRec->dataType, dataPtr, pBuf);
-// 2576             reportRspRec->reportableChange = dataPtr;
-// 2577             
-// 2578             reportChangeLen = zclGetDataTypeLength( reportRspRec->dataType ); 
-// 2579             pBuf += reportChangeLen;
-// 2580             
-// 2581             // advance attribute data pointer
-// 2582             if ( PADDING_NEEDED( reportChangeLen ) )
-// 2583               reportChangeLen++;
-// 2584             dataPtr += reportChangeLen;
-// 2585           }
-// 2586         }
-// 2587         else
-// 2588         {
-// 2589           reportRspRec->timeoutPeriod = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2590           pBuf += 2;
-// 2591         }
-// 2592       }
-// 2593     } 
-// 2594   }
-// 2595   
-// 2596   return ( (void *)readReportCfgRspCmd );
-// 2597 }
-// 2598 
-// 2599 /*********************************************************************
-// 2600  * @fn      zclParseInReportCmd
-// 2601  * @brief   Parse the "Profile" Report Command
-// 2602  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2603  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2604  * @param   pCmd - pointer to incoming data to parse
-// 2605  * @return  pointer to the parsed command structure
-// 2606  */
-// 2607 void *zclParseInReportCmd( zclParseCmd_t *pCmd )
-// 2608 {
-// 2609   zclReportCmd_t *reportCmd;
-// 2610   zclReport_t *reportRec;
-// 2611   uint8 *pBuf = pCmd->pData;
-// 2612   uint8 attrDataLen;
-// 2613   uint8 *dataPtr;
-// 2614   uint8 numAttr = 0;
-// 2615   uint8 hdrLen;
-// 2616   uint8 dataLen = 0;
-// 2617   uint8 dataType;
-// 2618   uint8 i;
-// 2619 
-// 2620   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) ) // find out the number of attributes and the length of attribute data
-// 2621   {
-// 2622     numAttr++;
-// 2623 
-// 2624     pBuf += 2; // move pass attribute id
-// 2625     dataType = *pBuf++;
-// 2626     attrDataLen = zclGetAttrDataLength( dataType, pBuf );
-// 2627     pBuf += attrDataLen; // move pass attribute data
-// 2628       
-// 2629     if ( PADDING_NEEDED( attrDataLen ) ) // add padding if needed
-// 2630       attrDataLen++;
-// 2631     dataLen += attrDataLen;
-// 2632   }
-// 2633   
-// 2634   hdrLen = sizeof( zclReportCmd_t ) + ( numAttr * sizeof( zclReport_t ) );
-// 2635   
-// 2636   reportCmd = (zclReportCmd_t *)osal_mem_alloc( hdrLen + dataLen );
-// 2637   if (reportCmd != NULL )
-// 2638   {
-// 2639     pBuf = pCmd->pData;
-// 2640     dataPtr = (uint8 *)( (uint8 *)reportCmd + hdrLen );
-// 2641     
-// 2642     reportCmd->numAttr = numAttr;
-// 2643     for ( i = 0; i < numAttr; i++ )
-// 2644     {
-// 2645       reportRec = &(reportCmd->attrList[i]);
-// 2646       
-// 2647       reportRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2648       pBuf += 2;
-// 2649       reportRec->dataType = *pBuf++;
-// 2650 
-// 2651       attrDataLen = zclGetAttrDataLength( reportRec->dataType, pBuf );  
-// 2652       osal_memcpy( dataPtr, pBuf, attrDataLen );
-// 2653       reportRec->attrData = dataPtr;
-// 2654       
-// 2655       pBuf += attrDataLen; // move pass attribute data
-// 2656       
-// 2657       if ( PADDING_NEEDED( attrDataLen ) ) // advance attribute data pointer
-// 2658         attrDataLen++;
-// 2659       dataPtr += attrDataLen;
-// 2660     }
-// 2661   }
-// 2662   return ( (void *)reportCmd );
-// 2663 }
-// 2664 #endif // ZCL_REPORT
-// 2665 
-// 2666 /*********************************************************************
-// 2667  * @fn      zclParseInDefaultRspCmd
-// 2668  * @brief   Parse the "Profile" Default Response Command
-// 2669  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2670  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2671  * @param   pCmd - pointer to incoming data to parse
-// 2672  * @return  pointer to the parsed command structure
-// 2673  */
-// 2674 static void *zclParseInDefaultRspCmd( zclParseCmd_t *pCmd )
-// 2675 {
-// 2676   zclDefaultRspCmd_t *defaultRspCmd;
-// 2677   uint8 *pBuf = pCmd->pData;
-// 2678 
-// 2679   defaultRspCmd = (zclDefaultRspCmd_t *)osal_mem_alloc( sizeof ( zclDefaultRspCmd_t ) );
-// 2680   if ( defaultRspCmd != NULL )
-// 2681   {
-// 2682     defaultRspCmd->commandID = *pBuf++;
-// 2683     defaultRspCmd->statusCode = *pBuf;
-// 2684   }
-// 2685   return ( (void *)defaultRspCmd );
-// 2686 }
-// 2687 
-// 2688 #ifdef ZCL_DISCOVER
-// 2689 /*********************************************************************
-// 2690  * @fn      zclParseInDiscCmd
-// 2691  * @brief   Parse the "Profile" Discovery Commands
-// 2692  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2693  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2694  * @param   pCmd - pointer to incoming data to parse
-// 2695  * @return  pointer to the parsed command structure
-// 2696  */
-// 2697 void *zclParseInDiscCmd( zclParseCmd_t *pCmd )
-// 2698 {
-// 2699   zclDiscoverCmd_t *discoverCmd;
-// 2700   uint8 *pBuf = pCmd->pData;
-// 2701 
-// 2702   discoverCmd = (zclDiscoverCmd_t *)osal_mem_alloc( sizeof ( zclDiscoverCmd_t ) );
-// 2703   if ( discoverCmd != NULL )
-// 2704   {
-// 2705     discoverCmd->startAttr = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2706     pBuf += 2;
-// 2707     discoverCmd->maxAttrIDs = *pBuf;
-// 2708   }
-// 2709   return ( (void *)discoverCmd );
-// 2710 }
-// 2711 
-// 2712 /*********************************************************************
-// 2713  * @fn      zclParseInDiscRspCmd
-// 2714  * @brief   Parse the "Profile" Discovery Response Commands
-// 2715  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
-// 2716  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
-// 2717  * @param   pCmd - pointer to incoming data to parse
-// 2718  * @return  pointer to the parsed command structure
-// 2719  */
-// 2720 #define ZCLDISCRSPCMD_DATALEN(a)  ((a)-1) // data len - Discovery Complete
-// 2721 static void *zclParseInDiscRspCmd( zclParseCmd_t *pCmd )
-// 2722 {
-// 2723   zclDiscoverRspCmd_t *discoverRspCmd;
-// 2724   uint8 *pBuf = pCmd->pData;
-// 2725   uint8 numAttr = ZCLDISCRSPCMD_DATALEN(pCmd->dataLen) / ( 2 + 1 ); // Attr ID + Data Type
-// 2726   uint8 i;
-// 2727 
-// 2728   discoverRspCmd = (zclDiscoverRspCmd_t *)osal_mem_alloc( sizeof ( zclDiscoverRspCmd_t ) 
-// 2729                                                  + ( numAttr * sizeof(zclDiscoverInfo_t) ) );
-// 2730   if ( discoverRspCmd != NULL )
-// 2731   {
-// 2732     discoverRspCmd->discComplete = *pBuf++;
-// 2733     discoverRspCmd->numAttr = numAttr;
-// 2734     
-// 2735     for ( i = 0; i < numAttr; i++ )
-// 2736     {
-// 2737       discoverRspCmd->attrList[i].attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
-// 2738       pBuf += 2;
-// 2739       discoverRspCmd->attrList[i].dataType = *pBuf++;;
-// 2740     }
-// 2741   }
-// 2742   return ( (void *)discoverRspCmd );
-// 2743 }
-// 2744 #endif // ZCL_DISCOVER
-// 2745 
-// 2746 #ifdef ZCL_READ
-// 2747 /*********************************************************************
-// 2748  * @fn      zclProcessInReadCmd
-// 2749  * @brief   Process the "Profile" Read Command
-// 2750  * @param   pInMsg - incoming message to process
-// 2751  * @return  TRUE if command processed. FALSE, otherwise.
-// 2752  */
-// 2753 static uint8 zclProcessInReadCmd( zclIncoming_t *pInMsg )
-// 2754 {
-// 2755   zclReadCmd_t *readCmd;
-// 2756   zclReadRspCmd_t *readRspCmd;
-// 2757   zclReadRspStatus_t *statusRec;
-// 2758   zclAttrRec_t attrRec;
-// 2759   uint8 len;
-// 2760   uint8 i;
-// 2761   
-// 2762   readCmd = (zclReadCmd_t *)pInMsg->attrCmd;
-// 2763   
-// 2764   // calculate the length of the response status record
-// 2765   len = sizeof( zclReadRspCmd_t ) + (readCmd->numAttr * sizeof( zclReadRspStatus_t ));
-// 2766   
-// 2767   readRspCmd = osal_mem_alloc( len );
-// 2768   if ( readRspCmd == NULL )
-// 2769     return FALSE; // EMBEDDED RETURN
-// 2770 
-// 2771   readRspCmd->numAttr = readCmd->numAttr;
-// 2772   for (i = 0; i < readCmd->numAttr; i++)
-// 2773   {
-// 2774     statusRec = &(readRspCmd->attrList[i]);
-// 2775     statusRec->attrID = readCmd->attrID[i];
-// 2776     
-// 2777     if ( zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, readCmd->attrID[i], &attrRec ) )
-// 2778     {
-// 2779       statusRec->data = attrRec.attr.dataPtr;
-// 2780       statusRec->status = ZCL_STATUS_SUCCESS;
-// 2781       statusRec->dataType = attrRec.attr.dataType;
-// 2782     }
-// 2783     else
-// 2784     {
-// 2785       statusRec->status = ZCL_STATUS_UNSUPPORTED_ATTRIBUTE;
-// 2786     }
-// 2787   }
-// 2788   
-// 2789   // Build and send Read Response command
-// 2790   zcl_SendReadRsp( pInMsg->msg->endPoint, &(pInMsg->msg->srcAddr), pInMsg->msg->clusterId,
-// 2791                    readRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR,
-// 2792                    true, pInMsg->hdr.transSeqNum );
-// 2793   osal_mem_free( readRspCmd );
-// 2794     
-// 2795   return TRUE;
-// 2796 }
-// 2797 #endif // ZCL_READ
-// 2798 
-// 2799 #ifdef ZCL_WRITE
-// 2800 /*********************************************************************
-// 2801  * @fn      processInWriteCmd
-// 2802  * @brief   Process the "Profile" Write and Write No Response Commands
-// 2803  * @param   pInMsg - incoming message to process
-// 2804  * @return  TRUE if command processed. FALSE, otherwise.
-// 2805  */
-// 2806 static uint8 zclProcessInWriteCmd( zclIncoming_t *pInMsg )
-// 2807 {
-// 2808   zclWriteCmd_t *writeCmd;
-// 2809   zclWriteRec_t *statusRec;
-// 2810   zclWriteRspCmd_t *writeRspCmd;
-// 2811   zclAttrRec_t attrRec;
-// 2812   uint8 sendRsp = FALSE;
-// 2813   uint8 status;
-// 2814   uint8 i, j = 0;
-// 2815 
-// 2816   writeCmd = (zclWriteCmd_t *)pInMsg->attrCmd;
-// 2817   if ( pInMsg->hdr.commandID == ZCL_CMD_WRITE )
-// 2818   {
-// 2819     // We need to send a response back - allocate space for it
-// 2820     writeRspCmd = (zclWriteRspCmd_t *)osal_mem_alloc( sizeof( zclWriteRspCmd_t ) 
-// 2821             + sizeof( zclWriteRspStatus_t ) * writeCmd->numAttr );
-// 2822     if ( writeRspCmd == NULL )
-// 2823       return FALSE; // EMBEDDED RETURN
-// 2824     sendRsp = TRUE;
-// 2825   }
-// 2826   
-// 2827   for (i = 0; i < writeCmd->numAttr; i++)
-// 2828   {
-// 2829     statusRec = &(writeCmd->attrList[i]);
-// 2830     if ( zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, statusRec->attrID, &attrRec ) )
-// 2831     {
-// 2832       if ( statusRec->dataType == attrRec.attr.dataType )
-// 2833       {
-// 2834         status = zclWriteAttrData( &attrRec, statusRec );
-// 2835 
-// 2836         if ( sendRsp && status != ZCL_STATUS_SUCCESS ) // If successful, a write attribute status record shall NOT be generated
-// 2837         {
-// 2838           writeRspCmd->attrList[j].status = status; // Attribute is read only - move on to the next write attribute record
-// 2839           writeRspCmd->attrList[j++].attrID = statusRec->attrID;
-// 2840         }
-// 2841       }
-// 2842       else
-// 2843       {
-// 2844         if ( sendRsp ) // Attribute data type is incorrect - move on to the next write attribute record
-// 2845         {
-// 2846           writeRspCmd->attrList[j].status = ZCL_STATUS_INVALID_DATA_TYPE;
-// 2847           writeRspCmd->attrList[j++].attrID = statusRec->attrID;
-// 2848         }
-// 2849       }
-// 2850     }
-// 2851     else
-// 2852     {
-// 2853       if ( sendRsp ) // Attribute is not supported - move on to the next write attribute record
-// 2854       {
-// 2855         writeRspCmd->attrList[j].status = ZCL_STATUS_UNSUPPORTED_ATTRIBUTE;
-// 2856         writeRspCmd->attrList[j++].attrID = statusRec->attrID;
-// 2857       }
-// 2858     }
-// 2859   } // for loop
-// 2860 
-// 2861   if ( sendRsp )
-// 2862   {
-// 2863     writeRspCmd->numAttr = j;
-// 2864     if ( writeRspCmd->numAttr == 0 )
-// 2865     {
-// 2866       // Since all records were written successful, include a single status record in the resonse command 
-// 2867       // with the status field set to SUCCESS and the attribute ID field omitted.
-// 2868       writeRspCmd->attrList[0].status = ZCL_STATUS_SUCCESS;
-// 2869       writeRspCmd->numAttr = 1;
-// 2870     }
-// 2871     zcl_SendWriteRsp( pInMsg->msg->endPoint, &(pInMsg->msg->srcAddr),
-// 2872                       pInMsg->msg->clusterId, writeRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR, 
-// 2873                       true, pInMsg->hdr.transSeqNum );
-// 2874     osal_mem_free( writeRspCmd );
-// 2875   }
-// 2876   return TRUE; 
-// 2877 }
-// 2878 
-// 2879 /*********************************************************************
-// 2880  * @fn      zclRevertWriteUndividedCmd
-// 2881  * @brief   Revert the "Profile" Write Undevided Command
-// 2882  * @param   pInMsg - incoming message to process
-// 2883  *          curWriteRec - old data
-// 2884  *          numAttr - number of attributes to be reverted
-// 2885  */
-// 2886 static void zclRevertWriteUndividedCmd( zclIncoming_t *pInMsg, zclWriteRec_t *curWriteRec, uint16 numAttr )
-// 2887 {
-// 2888   zclWriteRec_t *statusRec;
-// 2889   zclAttrRec_t attrRec;
-// 2890   uint8 dataLen;
-// 2891   uint8 i;
-// 2892 
-// 2893   statusRec = curWriteRec;
-// 2894   for (i = 0; i < numAttr; i++)
-// 2895   {
-// 2896     statusRec = &(curWriteRec[i]);
-// 2897     
-// 2898     if ( !zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, statusRec->attrID, &attrRec ) )
-// 2899       break; // should never happen
-// 2900  
-// 2901     // Just copy the old data back - no need to validate the data
-// 2902     dataLen = zclGetAttrDataLength( attrRec.attr.dataType, statusRec->attrData );
-// 2903     osal_memcpy( attrRec.attr.dataPtr, statusRec->attrData, dataLen );
-// 2904   } // for loop
-// 2905 }
-// 2906 
-// 2907 /*********************************************************************
-// 2908  * @fn      zclProcessInWriteUndividedCmd
-// 2909  * @brief   Process the "Profile" Write Undivided Command
-// 2910  * @param   pInMsg - incoming message to process
-// 2911  * @return  TRUE if command processed. FALSE, otherwise.
-// 2912  */
+// 2143 static void *zclParseInReadRspCmd( zclParseCmd_t *pCmd )
+// 2144 {
+// 2145   zclReadRspCmd_t *readRspCmd;
+// 2146   zclReadRspStatus_t *statusRec;
+// 2147   uint8 *pBuf = pCmd->pData;
+// 2148   uint8 *dataPtr;
+// 2149   uint8 numAttr = 0;
+// 2150   uint8 hdrLen;
+// 2151   uint8 dataLen = 0;
+// 2152   uint8 attrDataLen;
+// 2153   uint8 dataType;
+// 2154   uint8 status;
+// 2155   uint8 i;
+// 2156   
+// 2157   // find out the number of attributes and the length of attribute data
+// 2158   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) )
+// 2159   {
+// 2160     numAttr++;
+// 2161 
+// 2162     pBuf += 2; // move pass attribute id
+// 2163     
+// 2164     status = *pBuf++;  
+// 2165     if ( status == ZCL_STATUS_SUCCESS )
+// 2166     {
+// 2167       dataType = *pBuf++;
+// 2168 
+// 2169       attrDataLen = zclGetAttrDataLength( dataType, pBuf );
+// 2170       pBuf += attrDataLen; // move pass attribute data
+// 2171       
+// 2172       if ( PADDING_NEEDED( attrDataLen ) ) // add padding if needed
+// 2173         attrDataLen++;
+// 2174       dataLen += attrDataLen;
+// 2175     }
+// 2176   }
+// 2177  
+// 2178   hdrLen = sizeof( zclReadRspCmd_t ) + ( numAttr * sizeof( zclReadRspStatus_t ) ); // calculate the length of the response header
+// 2179   
+// 2180   readRspCmd = (zclReadRspCmd_t *)osal_mem_alloc( hdrLen + dataLen );
+// 2181   if ( readRspCmd != NULL )
+// 2182   {
+// 2183     pBuf = pCmd->pData;
+// 2184     dataPtr = (uint8 *)( (uint8 *)readRspCmd + hdrLen );
+// 2185         
+// 2186     readRspCmd->numAttr = numAttr;
+// 2187     for ( i = 0; i < numAttr; i++ )
+// 2188     {
+// 2189       statusRec = &(readRspCmd->attrList[i]);
+// 2190       
+// 2191       statusRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2192       pBuf += 2;
+// 2193       
+// 2194       statusRec->status = *pBuf++;
+// 2195       if ( statusRec->status == ZCL_STATUS_SUCCESS )
+// 2196       {
+// 2197         statusRec->dataType = *pBuf++;
+// 2198 
+// 2199         attrDataLen = zclGetAttrDataLength( statusRec->dataType, pBuf );
+// 2200         osal_memcpy( dataPtr, pBuf, attrDataLen);
+// 2201         statusRec->data = dataPtr;
+// 2202         
+// 2203         pBuf += attrDataLen; // move pass attribute data
+// 2204        
+// 2205         if ( PADDING_NEEDED( attrDataLen ) ) // advance attribute data pointer
+// 2206           attrDataLen++;
+// 2207         dataPtr += attrDataLen;
+// 2208       }
+// 2209     }
+// 2210   }
+// 2211   return ( (void *)readRspCmd );
+// 2212 }
+// 2213 #endif // ZCL_READ
+// 2214 
+// 2215 #ifdef ZCL_WRITE
+// 2216 /*********************************************************************
+// 2217  * @fn      zclParseInWriteCmd
+// 2218  * @brief   Parse the "Profile" Write, Write Undivided and Write No
+// 2219  *          Response Commands
+// 2220  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2221  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2222  * @param   pCmd - pointer to incoming data to parse
+// 2223  * @return  pointer to the parsed command structure
+// 2224  */
+// 2225 void *zclParseInWriteCmd( zclParseCmd_t *pCmd )
+// 2226 {
+// 2227   zclWriteCmd_t *writeCmd;
+// 2228   zclWriteRec_t *statusRec;
+// 2229   uint8 *pBuf = pCmd->pData;
+// 2230   uint8 attrDataLen;
+// 2231   uint8 *dataPtr;
+// 2232   uint8 numAttr = 0;
+// 2233   uint8 hdrLen;
+// 2234   uint8 dataLen = 0;
+// 2235   uint8 dataType;
+// 2236   uint8 i;
+// 2237 
+// 2238   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) ) // find out the number of attributes and the length of attribute data
+// 2239   {
+// 2240     numAttr++;
+// 2241 
+// 2242     pBuf += 2; // move pass attribute id
+// 2243 
+// 2244     dataType = *pBuf++;
+// 2245 
+// 2246     attrDataLen = zclGetAttrDataLength( dataType, pBuf );
+// 2247     pBuf += attrDataLen; // move pass attribute data
+// 2248     
+// 2249     if ( PADDING_NEEDED( attrDataLen ) ) // add padding if needed
+// 2250       attrDataLen++;
+// 2251     dataLen += attrDataLen;
+// 2252   }
+// 2253   
+// 2254   hdrLen = sizeof( zclWriteCmd_t ) + ( numAttr * sizeof( zclWriteRec_t ) ); // calculate the length of the response header
+// 2255   
+// 2256   writeCmd = (zclWriteCmd_t *)osal_mem_alloc( hdrLen + dataLen );
+// 2257   if ( writeCmd != NULL )
+// 2258   {
+// 2259     pBuf = pCmd->pData;
+// 2260     dataPtr = (uint8 *)( (uint8 *)writeCmd + hdrLen );
+// 2261 
+// 2262     writeCmd->numAttr = numAttr;
+// 2263     for ( i = 0; i < numAttr; i++ )
+// 2264     {
+// 2265       statusRec = &(writeCmd->attrList[i]);
+// 2266       
+// 2267       statusRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2268       pBuf += 2;
+// 2269       statusRec->dataType = *pBuf++;
+// 2270 
+// 2271       attrDataLen = zclGetAttrDataLength( statusRec->dataType, pBuf );
+// 2272       osal_memcpy( dataPtr, pBuf, attrDataLen);
+// 2273       statusRec->attrData = dataPtr;
+// 2274       
+// 2275       pBuf += attrDataLen; // move pass attribute data
+// 2276 
+// 2277       if ( PADDING_NEEDED( attrDataLen ) ) // advance attribute data pointer
+// 2278         attrDataLen++;
+// 2279       dataPtr += attrDataLen;
+// 2280     }
+// 2281   }
+// 2282   
+// 2283   return ( (void *)writeCmd );
+// 2284 }
+// 2285 
+// 2286 /*********************************************************************
+// 2287  * @fn      zclParseInWriteRspCmd
+// 2288  * @brief   Parse the "Profile" Write Response Commands
+// 2289  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2290  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2291  * @param   pCmd - pointer to incoming data to parse
+// 2292  * @return  pointer to the parsed command structure
+// 2293  */
+// 2294 static void *zclParseInWriteRspCmd( zclParseCmd_t *pCmd )
+// 2295 {
+// 2296   zclWriteRspCmd_t *writeRspCmd;
+// 2297   uint8 *pBuf = pCmd->pData;
+// 2298   uint8 i = 0;
+// 2299 
+// 2300   writeRspCmd = (zclWriteRspCmd_t *)osal_mem_alloc( sizeof ( zclWriteRspCmd_t ) + pCmd->dataLen );
+// 2301   if ( writeRspCmd != NULL )
+// 2302   {
+// 2303     if ( pCmd->dataLen == 1 )
+// 2304     {
+// 2305       writeRspCmd->attrList[i++].status = *pBuf; // special case when all writes were successfull
+// 2306     }
+// 2307     else
+// 2308     {
+// 2309       while ( pBuf < ( pCmd->pData + pCmd->dataLen ) )
+// 2310       {
+// 2311         writeRspCmd->attrList[i].status = *pBuf++;
+// 2312         writeRspCmd->attrList[i++].attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2313         pBuf += 2;
+// 2314       }
+// 2315     }
+// 2316     writeRspCmd->numAttr = i; 
+// 2317   }
+// 2318   return ( (void *)writeRspCmd );
+// 2319 }
+// 2320 #endif // ZCL_WRITE
+// 2321 
+// 2322 #ifdef ZCL_REPORT
+// 2323 /*********************************************************************
+// 2324  * @fn      zclParseInConfigReportCmd
+// 2325  * @brief   Parse the "Profile" Configure Reporting Command
+// 2326  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2327  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2328  * @param   pCmd - pointer to incoming data to parse
+// 2329  * @return  pointer to the parsed command structure
+// 2330  */
+// 2331 void *zclParseInConfigReportCmd( zclParseCmd_t *pCmd )
+// 2332 {
+// 2333   zclCfgReportCmd_t *cfgReportCmd;
+// 2334   zclCfgReportRec_t *reportRec;
+// 2335   uint8 *pBuf = pCmd->pData;
+// 2336   uint8 *dataPtr;
+// 2337   uint8 numAttr = 0;
+// 2338   uint8 direction;
+// 2339   uint8 dataType;
+// 2340   uint8 hdrLen;
+// 2341   uint8 dataLen = 0;
+// 2342   uint8 reportChangeLen; // length of Reportable Change field
+// 2343   uint8 i;
+// 2344  
+// 2345   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) ) // Calculate the length of the Request command
+// 2346   {
+// 2347     numAttr++;
+// 2348     
+// 2349     direction = *pBuf++;
+// 2350     pBuf += 2; // move pass the attribute ID
+// 2351     
+// 2352     if ( direction == ZCL_SEND_ATTR_REPORTS ) // Is there a Reportable Change field?
+// 2353     {
+// 2354       dataType = *pBuf++;
+// 2355       pBuf += 4; // move pass the Min and Max Reporting Intervals
+// 2356  
+// 2357       if ( zclAnalogDataType( dataType ) ) // For attributes of 'discrete' data types this field is omitted
+// 2358       {
+// 2359         reportChangeLen = zclGetDataTypeLength( dataType );
+// 2360         pBuf += reportChangeLen;
+// 2361         
+// 2362         if ( PADDING_NEEDED( reportChangeLen ) ) // add padding if needed
+// 2363           reportChangeLen++;
+// 2364         dataLen += reportChangeLen;
+// 2365       }
+// 2366     }
+// 2367     else
+// 2368     {
+// 2369       pBuf += 2; // move pass the Timeout Period
+// 2370     }
+// 2371   } // while loop
+// 2372 
+// 2373   hdrLen = sizeof( zclCfgReportCmd_t ) + ( numAttr * sizeof( zclCfgReportRec_t ) );
+// 2374   
+// 2375   cfgReportCmd = (zclCfgReportCmd_t *)osal_mem_alloc( hdrLen + dataLen );
+// 2376   if ( cfgReportCmd != NULL )
+// 2377   { 
+// 2378     pBuf = pCmd->pData;
+// 2379     dataPtr = (uint8 *)( (uint8 *)cfgReportCmd + hdrLen );
+// 2380     
+// 2381     cfgReportCmd->numAttr = numAttr;
+// 2382     for ( i = 0; i < numAttr; i++ )
+// 2383     {
+// 2384       reportRec = &(cfgReportCmd->attrList[i]);
+// 2385       
+// 2386       osal_memset( reportRec, 0, sizeof( zclCfgReportRec_t ) );
+// 2387         
+// 2388       reportRec->direction = *pBuf++;
+// 2389       reportRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2390       pBuf += 2;
+// 2391       if ( reportRec->direction == ZCL_SEND_ATTR_REPORTS )
+// 2392       {
+// 2393        
+// 2394         reportRec->dataType = *pBuf++; // Attribute to be reported
+// 2395         reportRec->minReportInt = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2396         pBuf += 2;
+// 2397         reportRec->maxReportInt = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2398         pBuf += 2;
+// 2399        
+// 2400         if ( zclAnalogDataType( reportRec->dataType ) ) // For attributes of 'discrete' data types this field is omitted
+// 2401         {
+// 2402           zcl_BuildAnalogData( reportRec->dataType, dataPtr, pBuf);
+// 2403           reportRec->reportableChange = dataPtr;
+// 2404           
+// 2405           reportChangeLen = zclGetDataTypeLength( reportRec->dataType );
+// 2406           pBuf += reportChangeLen;
+// 2407          
+// 2408           if ( PADDING_NEEDED( reportChangeLen ) ) // advance attribute data pointer
+// 2409             reportChangeLen++;
+// 2410           dataPtr += reportChangeLen;
+// 2411         }
+// 2412       }
+// 2413       else
+// 2414       {
+// 2415         reportRec->timeoutPeriod = BUILD_UINT16( pBuf[0], pBuf[1] ); // Attribute reports to be received
+// 2416         pBuf += 2;
+// 2417       }
+// 2418     } // while loop
+// 2419   }
+// 2420   return ( (void *)cfgReportCmd );
+// 2421 }
+// 2422 
+// 2423 /*********************************************************************
+// 2424  * @fn      zclParseInConfigReportRspCmd
+// 2425  * @brief   Parse the "Profile" Configure Reporting Response Command
+// 2426  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2427  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2428  * @param   pCmd - pointer to incoming data to parse
+// 2429  * @return  pointer to the parsed command structure
+// 2430  */
+// 2431 static void *zclParseInConfigReportRspCmd( zclParseCmd_t *pCmd )
+// 2432 {
+// 2433   zclCfgReportRspCmd_t *cfgReportRspCmd;
+// 2434   uint8 *pBuf = pCmd->pData;
+// 2435   uint8 numAttr;
+// 2436   uint8 i; 
+// 2437   
+// 2438   numAttr = pCmd->dataLen / ( 1 + 1 + 2 ); // Status + Direction + Attribute ID
+// 2439   
+// 2440   cfgReportRspCmd = (zclCfgReportRspCmd_t *)osal_mem_alloc( sizeof( zclCfgReportRspCmd_t ) 
+// 2441                                             + ( numAttr * sizeof( zclCfgReportStatus_t ) ) );
+// 2442   if ( cfgReportRspCmd != NULL )
+// 2443   {
+// 2444     cfgReportRspCmd->numAttr = numAttr;
+// 2445     for ( i = 0; i < cfgReportRspCmd->numAttr; i++ )
+// 2446     {
+// 2447       cfgReportRspCmd->attrList[i].status = *pBuf++;
+// 2448       cfgReportRspCmd->attrList[i].direction = *pBuf++;
+// 2449       cfgReportRspCmd->attrList[i].attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2450       pBuf += 2;
+// 2451     }
+// 2452   }
+// 2453   return ( (void *)cfgReportRspCmd );  
+// 2454 }
+// 2455 
+// 2456 /*********************************************************************
+// 2457  * @fn      zclParseInReadReportCfgCmd
+// 2458  * @brief   Parse the "Profile" Read Reporting Configuration Command
+// 2459  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2460  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2461  * @param   pCmd - pointer to incoming data to parse
+// 2462  * @return  pointer to the parsed command structure
+// 2463  */
+// 2464 void *zclParseInReadReportCfgCmd( zclParseCmd_t *pCmd )
+// 2465 {
+// 2466   zclReadReportCfgCmd_t *readReportCfgCmd;
+// 2467   uint8 *pBuf = pCmd->pData;
+// 2468   uint8 numAttr;
+// 2469   uint8 i;
+// 2470   
+// 2471   numAttr = pCmd->dataLen / ( 1 + 2 ); // Direction + Attribute ID
+// 2472   
+// 2473   readReportCfgCmd = (zclReadReportCfgCmd_t *)osal_mem_alloc( sizeof( zclReadReportCfgCmd_t ) 
+// 2474                                                   + ( numAttr * sizeof( zclReadReportCfgRec_t ) ) );
+// 2475   if ( readReportCfgCmd != NULL )
+// 2476   {
+// 2477     readReportCfgCmd->numAttr = numAttr;
+// 2478     for ( i = 0; i < readReportCfgCmd->numAttr; i++)
+// 2479     {
+// 2480       readReportCfgCmd->attrList[i].direction = *pBuf++;;
+// 2481       readReportCfgCmd->attrList[i].attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2482       pBuf += 2;
+// 2483     }
+// 2484   }
+// 2485   return ( (void *)readReportCfgCmd );
+// 2486 }
+// 2487 
+// 2488 /*********************************************************************
+// 2489  * @fn      zclParseInReadReportCfgRspCmd
+// 2490  * @brief   Parse the "Profile" Read Reporting Configuration Response Command
+// 2491  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2492  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2493  * @param   pCmd - pointer to incoming data to parse
+// 2494  * @return  pointer to the parsed command structure
+// 2495  */
+// 2496 static void *zclParseInReadReportCfgRspCmd( zclParseCmd_t *pCmd )
+// 2497 {
+// 2498   zclReadReportCfgRspCmd_t *readReportCfgRspCmd;
+// 2499   zclReportCfgRspRec_t *reportRspRec;
+// 2500   uint8 reportChangeLen;
+// 2501   uint8 *pBuf = pCmd->pData;
+// 2502   uint8 *dataPtr;
+// 2503   uint8 numAttr = 0;
+// 2504   uint8 hdrLen;
+// 2505   uint8 dataLen = 0;
+// 2506   uint8 status;
+// 2507   uint8 direction;
+// 2508   uint8 dataType;
+// 2509   uint8 i;
+// 2510   
+// 2511   // Calculate the length of the response command
+// 2512   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) )
+// 2513   { 
+// 2514     numAttr++;
+// 2515     
+// 2516     status = *pBuf++;
+// 2517     direction = *pBuf++; 
+// 2518     pBuf += 2; // move pass the attribute ID
+// 2519     
+// 2520     if ( status == ZCL_STATUS_SUCCESS )
+// 2521     {
+// 2522       if ( direction == ZCL_SEND_ATTR_REPORTS )
+// 2523       {
+// 2524         dataType = *pBuf++;
+// 2525         pBuf += 4; // move pass the Min and Max Reporting Intervals
+// 2526  
+// 2527         // For attributes of 'discrete' data types this field is omitted
+// 2528         if ( zclAnalogDataType( dataType ) )
+// 2529         {
+// 2530           reportChangeLen = zclGetDataTypeLength( dataType );
+// 2531           pBuf += reportChangeLen;
+// 2532           
+// 2533           // add padding if needed
+// 2534           if ( PADDING_NEEDED( reportChangeLen ) )
+// 2535             reportChangeLen++;
+// 2536           dataLen += reportChangeLen;
+// 2537         }
+// 2538       }
+// 2539       else
+// 2540       {
+// 2541         pBuf += 2; // move pass the Timeout field
+// 2542       }
+// 2543     }
+// 2544   } // while loop
+// 2545   
+// 2546   hdrLen = sizeof( zclReadReportCfgRspCmd_t ) + ( numAttr * sizeof( zclReportCfgRspRec_t ) );
+// 2547   
+// 2548   readReportCfgRspCmd = (zclReadReportCfgRspCmd_t *)osal_mem_alloc( hdrLen + dataLen );
+// 2549   if ( readReportCfgRspCmd != NULL )
+// 2550   {
+// 2551     pBuf = pCmd->pData;
+// 2552     dataPtr = (uint8 *)( (uint8 *)readReportCfgRspCmd + hdrLen );
+// 2553     
+// 2554     readReportCfgRspCmd->numAttr = numAttr;
+// 2555     for ( i = 0; i < numAttr; i++ )
+// 2556     {
+// 2557       reportRspRec = &(readReportCfgRspCmd->attrList[i]);
+// 2558       
+// 2559       reportRspRec->status = *pBuf++;
+// 2560       reportRspRec->direction = *pBuf++;
+// 2561       reportRspRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2562       pBuf += 2;
+// 2563  
+// 2564       if ( reportRspRec->status == ZCL_STATUS_SUCCESS )
+// 2565       {
+// 2566         if ( reportRspRec->direction == ZCL_SEND_ATTR_REPORTS )
+// 2567         {
+// 2568           reportRspRec->dataType = *pBuf++;
+// 2569           reportRspRec->minReportInt = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2570           pBuf += 2;
+// 2571           reportRspRec->maxReportInt = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2572           pBuf += 2;
+// 2573 
+// 2574           if ( zclAnalogDataType( reportRspRec->dataType ) )
+// 2575           {
+// 2576             zcl_BuildAnalogData( reportRspRec->dataType, dataPtr, pBuf);
+// 2577             reportRspRec->reportableChange = dataPtr;
+// 2578             
+// 2579             reportChangeLen = zclGetDataTypeLength( reportRspRec->dataType ); 
+// 2580             pBuf += reportChangeLen;
+// 2581             
+// 2582             // advance attribute data pointer
+// 2583             if ( PADDING_NEEDED( reportChangeLen ) )
+// 2584               reportChangeLen++;
+// 2585             dataPtr += reportChangeLen;
+// 2586           }
+// 2587         }
+// 2588         else
+// 2589         {
+// 2590           reportRspRec->timeoutPeriod = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2591           pBuf += 2;
+// 2592         }
+// 2593       }
+// 2594     } 
+// 2595   }
+// 2596   
+// 2597   return ( (void *)readReportCfgRspCmd );
+// 2598 }
+// 2599 
+// 2600 /*********************************************************************
+// 2601  * @fn      zclParseInReportCmd
+// 2602  * @brief   Parse the "Profile" Report Command
+// 2603  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2604  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2605  * @param   pCmd - pointer to incoming data to parse
+// 2606  * @return  pointer to the parsed command structure
+// 2607  */
+// 2608 void *zclParseInReportCmd( zclParseCmd_t *pCmd )
+// 2609 {
+// 2610   zclReportCmd_t *reportCmd;
+// 2611   zclReport_t *reportRec;
+// 2612   uint8 *pBuf = pCmd->pData;
+// 2613   uint8 attrDataLen;
+// 2614   uint8 *dataPtr;
+// 2615   uint8 numAttr = 0;
+// 2616   uint8 hdrLen;
+// 2617   uint8 dataLen = 0;
+// 2618   uint8 dataType;
+// 2619   uint8 i;
+// 2620 
+// 2621   while ( pBuf < ( pCmd->pData + pCmd->dataLen ) ) // find out the number of attributes and the length of attribute data
+// 2622   {
+// 2623     numAttr++;
+// 2624 
+// 2625     pBuf += 2; // move pass attribute id
+// 2626     dataType = *pBuf++;
+// 2627     attrDataLen = zclGetAttrDataLength( dataType, pBuf );
+// 2628     pBuf += attrDataLen; // move pass attribute data
+// 2629       
+// 2630     if ( PADDING_NEEDED( attrDataLen ) ) // add padding if needed
+// 2631       attrDataLen++;
+// 2632     dataLen += attrDataLen;
+// 2633   }
+// 2634   
+// 2635   hdrLen = sizeof( zclReportCmd_t ) + ( numAttr * sizeof( zclReport_t ) );
+// 2636   
+// 2637   reportCmd = (zclReportCmd_t *)osal_mem_alloc( hdrLen + dataLen );
+// 2638   if (reportCmd != NULL )
+// 2639   {
+// 2640     pBuf = pCmd->pData;
+// 2641     dataPtr = (uint8 *)( (uint8 *)reportCmd + hdrLen );
+// 2642     
+// 2643     reportCmd->numAttr = numAttr;
+// 2644     for ( i = 0; i < numAttr; i++ )
+// 2645     {
+// 2646       reportRec = &(reportCmd->attrList[i]);
+// 2647       
+// 2648       reportRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2649       pBuf += 2;
+// 2650       reportRec->dataType = *pBuf++;
+// 2651 
+// 2652       attrDataLen = zclGetAttrDataLength( reportRec->dataType, pBuf );  
+// 2653       osal_memcpy( dataPtr, pBuf, attrDataLen );
+// 2654       reportRec->attrData = dataPtr;
+// 2655       
+// 2656       pBuf += attrDataLen; // move pass attribute data
+// 2657       
+// 2658       if ( PADDING_NEEDED( attrDataLen ) ) // advance attribute data pointer
+// 2659         attrDataLen++;
+// 2660       dataPtr += attrDataLen;
+// 2661     }
+// 2662   }
+// 2663   return ( (void *)reportCmd );
+// 2664 }
+// 2665 #endif // ZCL_REPORT
+// 2666 
+// 2667 /*********************************************************************
+// 2668  * @fn      zclParseInDefaultRspCmd
+// 2669  * @brief   Parse the "Profile" Default Response Command
+// 2670  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2671  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2672  * @param   pCmd - pointer to incoming data to parse
+// 2673  * @return  pointer to the parsed command structure
+// 2674  */
+// 2675 static void *zclParseInDefaultRspCmd( zclParseCmd_t *pCmd )
+// 2676 {
+// 2677   zclDefaultRspCmd_t *defaultRspCmd;
+// 2678   uint8 *pBuf = pCmd->pData;
+// 2679 
+// 2680   defaultRspCmd = (zclDefaultRspCmd_t *)osal_mem_alloc( sizeof ( zclDefaultRspCmd_t ) );
+// 2681   if ( defaultRspCmd != NULL )
+// 2682   {
+// 2683     defaultRspCmd->commandID = *pBuf++;
+// 2684     defaultRspCmd->statusCode = *pBuf;
+// 2685   }
+// 2686   return ( (void *)defaultRspCmd );
+// 2687 }
+// 2688 
+// 2689 #ifdef ZCL_DISCOVER
+// 2690 /*********************************************************************
+// 2691  * @fn      zclParseInDiscCmd
+// 2692  * @brief   Parse the "Profile" Discovery Commands
+// 2693  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2694  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2695  * @param   pCmd - pointer to incoming data to parse
+// 2696  * @return  pointer to the parsed command structure
+// 2697  */
+// 2698 void *zclParseInDiscCmd( zclParseCmd_t *pCmd )
+// 2699 {
+// 2700   zclDiscoverCmd_t *discoverCmd;
+// 2701   uint8 *pBuf = pCmd->pData;
+// 2702 
+// 2703   discoverCmd = (zclDiscoverCmd_t *)osal_mem_alloc( sizeof ( zclDiscoverCmd_t ) );
+// 2704   if ( discoverCmd != NULL )
+// 2705   {
+// 2706     discoverCmd->startAttr = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2707     pBuf += 2;
+// 2708     discoverCmd->maxAttrIDs = *pBuf;
+// 2709   }
+// 2710   return ( (void *)discoverCmd );
+// 2711 }
+// 2712 
+// 2713 /*********************************************************************
+// 2714  * @fn      zclParseInDiscRspCmd
+// 2715  * @brief   Parse the "Profile" Discovery Response Commands
+// 2716  *          NOTE: THIS FUNCTION ALLOCATES THE RETURN BUFFER, SO THE CALLING
+// 2717  *                FUNCTION IS RESPONSIBLE TO FREE THE MEMORY.
+// 2718  * @param   pCmd - pointer to incoming data to parse
+// 2719  * @return  pointer to the parsed command structure
+// 2720  */
+// 2721 #define ZCLDISCRSPCMD_DATALEN(a)  ((a)-1) // data len - Discovery Complete
+// 2722 static void *zclParseInDiscRspCmd( zclParseCmd_t *pCmd )
+// 2723 {
+// 2724   zclDiscoverRspCmd_t *discoverRspCmd;
+// 2725   uint8 *pBuf = pCmd->pData;
+// 2726   uint8 numAttr = ZCLDISCRSPCMD_DATALEN(pCmd->dataLen) / ( 2 + 1 ); // Attr ID + Data Type
+// 2727   uint8 i;
+// 2728 
+// 2729   discoverRspCmd = (zclDiscoverRspCmd_t *)osal_mem_alloc( sizeof ( zclDiscoverRspCmd_t ) 
+// 2730                                                  + ( numAttr * sizeof(zclDiscoverInfo_t) ) );
+// 2731   if ( discoverRspCmd != NULL )
+// 2732   {
+// 2733     discoverRspCmd->discComplete = *pBuf++;
+// 2734     discoverRspCmd->numAttr = numAttr;
+// 2735     
+// 2736     for ( i = 0; i < numAttr; i++ )
+// 2737     {
+// 2738       discoverRspCmd->attrList[i].attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
+// 2739       pBuf += 2;
+// 2740       discoverRspCmd->attrList[i].dataType = *pBuf++;;
+// 2741     }
+// 2742   }
+// 2743   return ( (void *)discoverRspCmd );
+// 2744 }
+// 2745 #endif // ZCL_DISCOVER
+// 2746 
+// 2747 #ifdef ZCL_READ
+// 2748 /*********************************************************************
+// 2749  * @fn      zclProcessInReadCmd
+// 2750  * @brief   Process the "Profile" Read Command
+// 2751  * @param   pInMsg - incoming message to process
+// 2752  * @return  TRUE if command processed. FALSE, otherwise.
+// 2753  */
+// 2754 static uint8 zclProcessInReadCmd( zclIncoming_t *pInMsg )
+// 2755 {
+// 2756   zclReadCmd_t *readCmd;
+// 2757   zclReadRspCmd_t *readRspCmd;
+// 2758   zclReadRspStatus_t *statusRec;
+// 2759   zclAttrRec_t attrRec;
+// 2760   uint8 len;
+// 2761   uint8 i;
+// 2762   
+// 2763   readCmd = (zclReadCmd_t *)pInMsg->attrCmd;
+// 2764   
+// 2765   // calculate the length of the response status record
+// 2766   len = sizeof( zclReadRspCmd_t ) + (readCmd->numAttr * sizeof( zclReadRspStatus_t ));
+// 2767   
+// 2768   readRspCmd = osal_mem_alloc( len );
+// 2769   if ( readRspCmd == NULL )
+// 2770     return FALSE; // EMBEDDED RETURN
+// 2771 
+// 2772   readRspCmd->numAttr = readCmd->numAttr;
+// 2773   for (i = 0; i < readCmd->numAttr; i++)
+// 2774   {
+// 2775     statusRec = &(readRspCmd->attrList[i]);
+// 2776     statusRec->attrID = readCmd->attrID[i];
+// 2777     
+// 2778     if ( zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, readCmd->attrID[i], &attrRec ) )
+// 2779     {
+// 2780       statusRec->data = attrRec.attr.dataPtr;
+// 2781       statusRec->status = ZCL_STATUS_SUCCESS;
+// 2782       statusRec->dataType = attrRec.attr.dataType;
+// 2783     }
+// 2784     else
+// 2785     {
+// 2786       statusRec->status = ZCL_STATUS_UNSUPPORTED_ATTRIBUTE;
+// 2787     }
+// 2788   }
+// 2789   
+// 2790   // Build and send Read Response command
+// 2791   zcl_SendReadRsp( pInMsg->msg->endPoint, &(pInMsg->msg->srcAddr), pInMsg->msg->clusterId,
+// 2792                    readRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR,
+// 2793                    true, pInMsg->hdr.transSeqNum );
+// 2794   osal_mem_free( readRspCmd );
+// 2795     
+// 2796   return TRUE;
+// 2797 }
+// 2798 #endif // ZCL_READ
+// 2799 
+// 2800 #ifdef ZCL_WRITE
+// 2801 /*********************************************************************
+// 2802  * @fn      processInWriteCmd
+// 2803  * @brief   Process the "Profile" Write and Write No Response Commands
+// 2804  * @param   pInMsg - incoming message to process
+// 2805  * @return  TRUE if command processed. FALSE, otherwise.
+// 2806  */
+// 2807 static uint8 zclProcessInWriteCmd( zclIncoming_t *pInMsg )
+// 2808 {
+// 2809   zclWriteCmd_t *writeCmd;
+// 2810   zclWriteRec_t *statusRec;
+// 2811   zclWriteRspCmd_t *writeRspCmd;
+// 2812   zclAttrRec_t attrRec;
+// 2813   uint8 sendRsp = FALSE;
+// 2814   uint8 status;
+// 2815   uint8 i, j = 0;
+// 2816 
+// 2817   writeCmd = (zclWriteCmd_t *)pInMsg->attrCmd;
+// 2818   if ( pInMsg->hdr.commandID == ZCL_CMD_WRITE )
+// 2819   {
+// 2820     // We need to send a response back - allocate space for it
+// 2821     writeRspCmd = (zclWriteRspCmd_t *)osal_mem_alloc( sizeof( zclWriteRspCmd_t ) 
+// 2822             + sizeof( zclWriteRspStatus_t ) * writeCmd->numAttr );
+// 2823     if ( writeRspCmd == NULL )
+// 2824       return FALSE; // EMBEDDED RETURN
+// 2825     sendRsp = TRUE;
+// 2826   }
+// 2827   
+// 2828   for (i = 0; i < writeCmd->numAttr; i++)
+// 2829   {
+// 2830     statusRec = &(writeCmd->attrList[i]);
+// 2831     if ( zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, statusRec->attrID, &attrRec ) )
+// 2832     {
+// 2833       if ( statusRec->dataType == attrRec.attr.dataType )
+// 2834       {
+// 2835         status = zclWriteAttrData( &attrRec, statusRec );
+// 2836 
+// 2837         if ( sendRsp && status != ZCL_STATUS_SUCCESS ) // If successful, a write attribute status record shall NOT be generated
+// 2838         {
+// 2839           writeRspCmd->attrList[j].status = status; // Attribute is read only - move on to the next write attribute record
+// 2840           writeRspCmd->attrList[j++].attrID = statusRec->attrID;
+// 2841         }
+// 2842       }
+// 2843       else
+// 2844       {
+// 2845         if ( sendRsp ) // Attribute data type is incorrect - move on to the next write attribute record
+// 2846         {
+// 2847           writeRspCmd->attrList[j].status = ZCL_STATUS_INVALID_DATA_TYPE;
+// 2848           writeRspCmd->attrList[j++].attrID = statusRec->attrID;
+// 2849         }
+// 2850       }
+// 2851     }
+// 2852     else
+// 2853     {
+// 2854       if ( sendRsp ) // Attribute is not supported - move on to the next write attribute record
+// 2855       {
+// 2856         writeRspCmd->attrList[j].status = ZCL_STATUS_UNSUPPORTED_ATTRIBUTE;
+// 2857         writeRspCmd->attrList[j++].attrID = statusRec->attrID;
+// 2858       }
+// 2859     }
+// 2860   } // for loop
+// 2861 
+// 2862   if ( sendRsp )
+// 2863   {
+// 2864     writeRspCmd->numAttr = j;
+// 2865     if ( writeRspCmd->numAttr == 0 )
+// 2866     {
+// 2867       // Since all records were written successful, include a single status record in the resonse command 
+// 2868       // with the status field set to SUCCESS and the attribute ID field omitted.
+// 2869       writeRspCmd->attrList[0].status = ZCL_STATUS_SUCCESS;
+// 2870       writeRspCmd->numAttr = 1;
+// 2871     }
+// 2872     zcl_SendWriteRsp( pInMsg->msg->endPoint, &(pInMsg->msg->srcAddr),
+// 2873                       pInMsg->msg->clusterId, writeRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR, 
+// 2874                       true, pInMsg->hdr.transSeqNum );
+// 2875     osal_mem_free( writeRspCmd );
+// 2876   }
+// 2877   return TRUE; 
+// 2878 }
+// 2879 
+// 2880 /*********************************************************************
+// 2881  * @fn      zclRevertWriteUndividedCmd
+// 2882  * @brief   Revert the "Profile" Write Undevided Command
+// 2883  * @param   pInMsg - incoming message to process
+// 2884  *          curWriteRec - old data
+// 2885  *          numAttr - number of attributes to be reverted
+// 2886  */
+// 2887 static void zclRevertWriteUndividedCmd( zclIncoming_t *pInMsg, zclWriteRec_t *curWriteRec, uint16 numAttr )
+// 2888 {
+// 2889   zclWriteRec_t *statusRec;
+// 2890   zclAttrRec_t attrRec;
+// 2891   uint8 dataLen;
+// 2892   uint8 i;
+// 2893 
+// 2894   statusRec = curWriteRec;
+// 2895   for (i = 0; i < numAttr; i++)
+// 2896   {
+// 2897     statusRec = &(curWriteRec[i]);
+// 2898     
+// 2899     if ( !zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, statusRec->attrID, &attrRec ) )
+// 2900       break; // should never happen
+// 2901  
+// 2902     // Just copy the old data back - no need to validate the data
+// 2903     dataLen = zclGetAttrDataLength( attrRec.attr.dataType, statusRec->attrData );
+// 2904     osal_memcpy( attrRec.attr.dataPtr, statusRec->attrData, dataLen );
+// 2905   } // for loop
+// 2906 }
+// 2907 
+// 2908 /*********************************************************************
+// 2909  * @fn      zclProcessInWriteUndividedCmd
+// 2910  * @brief   Process the "Profile" Write Undivided Command
+// 2911  * @param   pInMsg - incoming message to process
+// 2912  * @return  TRUE if command processed. FALSE, otherwise.
+// 2913  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine59:
@@ -21960,11 +21961,11 @@ zclProcessInWriteCmd:
         CFI EndBlock cfiPicker606
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 2913 static uint8 zclProcessInWriteUndividedCmd( zclIncoming_t *pInMsg )
+// 2914 static uint8 zclProcessInWriteUndividedCmd( zclIncoming_t *pInMsg )
 zclProcessInWriteUndividedCmd:
         CFI Block cfiBlock607 Using cfiCommon0
         CFI Function zclProcessInWriteUndividedCmd
-// 2914 {
+// 2915 {
         FUNCALL zclProcessInWriteUndividedCmd, osal_mem_alloc
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -22165,80 +22166,80 @@ zclProcessInWriteUndividedCmd:
         CFI CFA_XSP16 add(XSP16, 42)
         MOV     ?V0 + 14,R2
         MOV     ?V0 + 15,R3
-// 2915   zclWriteCmd_t *writeCmd;
-// 2916   zclWriteRec_t *statusRec;
-// 2917   zclWriteRec_t *curWriteRec;
-// 2918   zclWriteRec_t *curStatusRec;
-// 2919   zclWriteRspCmd_t *writeRspCmd;
-// 2920   zclAttrRec_t attrRec;
-// 2921   uint8 *curDataPtr;
-// 2922   uint8 hdrLen;
-// 2923   uint8 dataLen;
-// 2924   uint8 curLen = 0;
+// 2916   zclWriteCmd_t *writeCmd;
+// 2917   zclWriteRec_t *statusRec;
+// 2918   zclWriteRec_t *curWriteRec;
+// 2919   zclWriteRec_t *curStatusRec;
+// 2920   zclWriteRspCmd_t *writeRspCmd;
+// 2921   zclAttrRec_t attrRec;
+// 2922   uint8 *curDataPtr;
+// 2923   uint8 hdrLen;
+// 2924   uint8 dataLen;
+// 2925   uint8 curLen = 0;
         MOV     ?V0 + 4,#0x0
-// 2925   uint8 status;
-// 2926   uint8 i, j = 0;
+// 2926   uint8 status;
+// 2927   uint8 i, j = 0;
         MOV     R7,#0x0
-// 2927 
-// 2928   writeCmd = (zclWriteCmd_t *)pInMsg->attrCmd;
+// 2928 
+// 2929   writeCmd = (zclWriteCmd_t *)pInMsg->attrCmd;
         LCALL   ?Subroutine66 & 0xFFFF
 ??CrossCallReturnLabel_268:
         MOV     ?V0 + 6,A
         INC     DPTR
         MOVX    A,@DPTR
         MOV     ?V0 + 7,A
-// 2929   
-// 2930   // Allocate space for Write Response Command
-// 2931   writeRspCmd = (zclWriteRspCmd_t *)osal_mem_alloc( sizeof( zclWriteRspCmd_t ) + sizeof( zclWriteRspStatus_t )* writeCmd->numAttr );
+// 2930   
+// 2931   // Allocate space for Write Response Command
+// 2932   writeRspCmd = (zclWriteRspCmd_t *)osal_mem_alloc( sizeof( zclWriteRspCmd_t ) + sizeof( zclWriteRspStatus_t )* writeCmd->numAttr );
         ; Setup parameters for call to function osal_mem_alloc
         MOV     DPL,?V0 + 6
         MOV     DPH,A
         LCALL   ?Subroutine24 & 0xFFFF
-// 2932   
-// 2933   if ( writeRspCmd == NULL )
+// 2933   
+// 2934   if ( writeRspCmd == NULL )
 ??CrossCallReturnLabel_30:
         JNZ     ??zclProcessInWriteUndividedCmd_0
         MOV     A,R3
 ??zclProcessInWriteUndividedCmd_0:
         JNZ     ??zclProcessInWriteUndividedCmd_1
-// 2934     return FALSE; // EMBEDDED RETURN
+// 2935     return FALSE; // EMBEDDED RETURN
 ??zclProcessInWriteUndividedCmd_2:
         MOV     R1,#0x0
         LJMP    ??zclProcessInWriteUndividedCmd_3 & 0xFFFF
-// 2935   
-// 2936   // If any attribute cannot be written, no attribute values are changed. Hence,
-// 2937   // make sure all the attributes are supported and writable
-// 2938   for (i = 0; i < writeCmd->numAttr; i++)
+// 2936   
+// 2937   // If any attribute cannot be written, no attribute values are changed. Hence,
+// 2938   // make sure all the attributes are supported and writable
+// 2939   for (i = 0; i < writeCmd->numAttr; i++)
 ??zclProcessInWriteUndividedCmd_1:
         MOV     R6,#0x0
         SJMP    ??zclProcessInWriteUndividedCmd_4
-// 2939   {
-// 2940     statusRec = &(writeCmd->attrList[i]);
-// 2941     
-// 2942     if ( !zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, statusRec->attrID, &attrRec ) )
-// 2943     {
-// 2944       // Attribute is not supported - stop here
-// 2945       writeRspCmd->attrList[j].status = ZCL_STATUS_UNSUPPORTED_ATTRIBUTE;
-// 2946       writeRspCmd->attrList[j++].attrID = statusRec->attrID;
-// 2947       break;
-// 2948     }
-// 2949     
-// 2950     if ( statusRec->dataType != attrRec.attr.dataType )
-// 2951     {
-// 2952       // Attribute data type is incorrect - stope here
-// 2953       writeRspCmd->attrList[j].status = ZCL_STATUS_INVALID_DATA_TYPE;
-// 2954       writeRspCmd->attrList[j++].attrID = statusRec->attrID;
-// 2955       break;
-// 2956     }
-// 2957     
-// 2958     if ( !zcl_AccessCtrlWrite( attrRec.attr.accessControl ) )
-// 2959     {
-// 2960       // Attribute is not writable - stop here
-// 2961       writeRspCmd->attrList[j].status = ZCL_STATUS_READ_ONLY;
-// 2962       writeRspCmd->attrList[j++].attrID = statusRec->attrID;
-// 2963       break;
-// 2964     }  
-// 2965     dataLen = zclGetAttrDataLength( statusRec->dataType, statusRec->attrData );
+// 2940   {
+// 2941     statusRec = &(writeCmd->attrList[i]);
+// 2942     
+// 2943     if ( !zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, statusRec->attrID, &attrRec ) )
+// 2944     {
+// 2945       // Attribute is not supported - stop here
+// 2946       writeRspCmd->attrList[j].status = ZCL_STATUS_UNSUPPORTED_ATTRIBUTE;
+// 2947       writeRspCmd->attrList[j++].attrID = statusRec->attrID;
+// 2948       break;
+// 2949     }
+// 2950     
+// 2951     if ( statusRec->dataType != attrRec.attr.dataType )
+// 2952     {
+// 2953       // Attribute data type is incorrect - stope here
+// 2954       writeRspCmd->attrList[j].status = ZCL_STATUS_INVALID_DATA_TYPE;
+// 2955       writeRspCmd->attrList[j++].attrID = statusRec->attrID;
+// 2956       break;
+// 2957     }
+// 2958     
+// 2959     if ( !zcl_AccessCtrlWrite( attrRec.attr.accessControl ) )
+// 2960     {
+// 2961       // Attribute is not writable - stop here
+// 2962       writeRspCmd->attrList[j].status = ZCL_STATUS_READ_ONLY;
+// 2963       writeRspCmd->attrList[j++].attrID = statusRec->attrID;
+// 2964       break;
+// 2965     }  
+// 2966     dataLen = zclGetAttrDataLength( statusRec->dataType, statusRec->attrData );
 ??zclProcessInWriteUndividedCmd_5:
         ; Setup parameters for call to function zclGetAttrDataLength
         MOV     DPL,?V0 + 2
@@ -22248,14 +22249,14 @@ zclProcessInWriteUndividedCmd:
         LCALL   ??zclGetAttrDataLength?relay
         MOV     A,R1
         MOV     R2,A
-// 2966     
-// 2967     // add padding if needed
-// 2968     if ( PADDING_NEEDED( dataLen ) )
+// 2967     
+// 2968     // add padding if needed
+// 2969     if ( PADDING_NEEDED( dataLen ) )
         MOV     C,0xE0 /* A   */.0
         JNC     ??zclProcessInWriteUndividedCmd_6
-// 2969       dataLen++;
+// 2970       dataLen++;
         INC     R2
-// 2970     curLen += dataLen;
+// 2971     curLen += dataLen;
 ??zclProcessInWriteUndividedCmd_6:
         MOV     A,R2
         ADD     A,?V0 + 4
@@ -22325,26 +22326,26 @@ zclProcessInWriteUndividedCmd:
         LCALL   ??Subroutine137_0 & 0xFFFF
 ??CrossCallReturnLabel_241:
         INC     R7
-// 2971   } // for loop
-// 2972   
-// 2973   writeRspCmd->numAttr = j;
+// 2972   } // for loop
+// 2973   
+// 2974   writeRspCmd->numAttr = j;
 ??zclProcessInWriteUndividedCmd_7:
         MOV     A,R7
         MOV     DPL,?V0 + 0
         MOV     DPH,?V0 + 1
         MOVX    @DPTR,A
-// 2974   if ( writeRspCmd->numAttr == 0 ) // All attributes can be written
+// 2975   if ( writeRspCmd->numAttr == 0 ) // All attributes can be written
         JZ      $+5
         LJMP    ??zclProcessInWriteUndividedCmd_11 & 0xFFFF
-// 2975   {
-// 2976     // calculate the length of the current data header
-// 2977     hdrLen = j * sizeof( zclWriteRec_t );
+// 2976   {
+// 2977     // calculate the length of the current data header
+// 2978     hdrLen = j * sizeof( zclWriteRec_t );
         MOV     B,#0x5
         MUL     AB
         MOV     R2,A
-// 2978   
-// 2979     // Allocate space to keep a copy of the current data
-// 2980     curWriteRec = (zclWriteRec_t *) osal_mem_alloc( hdrLen + curLen ); 
+// 2979   
+// 2980     // Allocate space to keep a copy of the current data
+// 2981     curWriteRec = (zclWriteRec_t *) osal_mem_alloc( hdrLen + curLen ); 
         MOV     DPL,R2
         MOV     ?V0 + 2,DPL
         ; Setup parameters for call to function osal_mem_alloc
@@ -22357,23 +22358,23 @@ zclProcessInWriteUndividedCmd:
         LCALL   ??osal_mem_alloc?relay
         MOV     ?V0 + 12,R2
         MOV     ?V0 + 13,R3
-// 2981     if ( curWriteRec == NULL )
+// 2982     if ( curWriteRec == NULL )
         MOV     A,R2
         JNZ     ??zclProcessInWriteUndividedCmd_12
         MOV     A,R3
 ??zclProcessInWriteUndividedCmd_12:
         JNZ     ??zclProcessInWriteUndividedCmd_13
-// 2982     {
-// 2983       osal_mem_free(writeRspCmd );
+// 2983     {
+// 2984       osal_mem_free(writeRspCmd );
         ; Setup parameters for call to function osal_mem_free
         MOV     R2,?V0 + 0
         MOV     R3,?V0 + 1
         LCALL   ??osal_mem_free?relay
-// 2984       return FALSE; // EMBEDDED RETURN
+// 2985       return FALSE; // EMBEDDED RETURN
         LJMP    ??zclProcessInWriteUndividedCmd_2 & 0xFFFF
-// 2985     }
-// 2986 
-// 2987     curDataPtr = (uint8 *)((uint8 *)curWriteRec + hdrLen);
+// 2986     }
+// 2987 
+// 2988     curDataPtr = (uint8 *)((uint8 *)curWriteRec + hdrLen);
 ??zclProcessInWriteUndividedCmd_13:
         MOV     A,R2
         ADD     A,?V0 + 2
@@ -22381,37 +22382,37 @@ zclProcessInWriteUndividedCmd:
         MOV     A,R3
         ADDC    A,#0x0
         MOV     ?V0 + 5,A
-// 2988     
-// 2989     // Write the new data over
-// 2990     for (i = 0; i < writeCmd->numAttr; i++)
+// 2989     
+// 2990     // Write the new data over
+// 2991     for (i = 0; i < writeCmd->numAttr; i++)
         MOV     R6,#0x0
         SJMP    ??zclProcessInWriteUndividedCmd_14
-// 2991     {
-// 2992       statusRec = &(writeCmd->attrList[i]);
-// 2993       curStatusRec = &(curWriteRec[i]);
-// 2994     
-// 2995       if ( !zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, statusRec->attrID, &attrRec ) )
-// 2996         break; // should never happen
-// 2997 
-// 2998       // Keep a copy of the current data before before writing the new data over
-// 2999       curStatusRec->attrID = statusRec->attrID;
-// 3000       zclReadAttrData( curDataPtr, &attrRec );
-// 3001       curStatusRec->attrData = curDataPtr;
-// 3002       
-// 3003       status = zclWriteAttrData( &attrRec, statusRec );
-// 3004          
-// 3005       // If successful, a write attribute status record shall NOT be generated
-// 3006       if ( status != ZCL_STATUS_SUCCESS )
-// 3007       {
-// 3008         writeRspCmd->attrList[j].status = status;
-// 3009         writeRspCmd->attrList[j++].attrID = statusRec->attrID;
-// 3010           
-// 3011         // Since this write failed, we need to revert all the pervious writes
-// 3012         zclRevertWriteUndividedCmd( pInMsg, curWriteRec, i);
-// 3013         break;
-// 3014       }
-// 3015       
-// 3016       dataLen = zclGetAttrDataLength( statusRec->dataType, statusRec->attrData );
+// 2992     {
+// 2993       statusRec = &(writeCmd->attrList[i]);
+// 2994       curStatusRec = &(curWriteRec[i]);
+// 2995     
+// 2996       if ( !zclFindAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, statusRec->attrID, &attrRec ) )
+// 2997         break; // should never happen
+// 2998 
+// 2999       // Keep a copy of the current data before before writing the new data over
+// 3000       curStatusRec->attrID = statusRec->attrID;
+// 3001       zclReadAttrData( curDataPtr, &attrRec );
+// 3002       curStatusRec->attrData = curDataPtr;
+// 3003       
+// 3004       status = zclWriteAttrData( &attrRec, statusRec );
+// 3005          
+// 3006       // If successful, a write attribute status record shall NOT be generated
+// 3007       if ( status != ZCL_STATUS_SUCCESS )
+// 3008       {
+// 3009         writeRspCmd->attrList[j].status = status;
+// 3010         writeRspCmd->attrList[j++].attrID = statusRec->attrID;
+// 3011           
+// 3012         // Since this write failed, we need to revert all the pervious writes
+// 3013         zclRevertWriteUndividedCmd( pInMsg, curWriteRec, i);
+// 3014         break;
+// 3015       }
+// 3016       
+// 3017       dataLen = zclGetAttrDataLength( statusRec->dataType, statusRec->attrData );
 ??zclProcessInWriteUndividedCmd_15:
         ; Setup parameters for call to function zclGetAttrDataLength
         MOV     DPL,?V0 + 2
@@ -22422,15 +22423,15 @@ zclProcessInWriteUndividedCmd:
         LCALL   ?Subroutine43 & 0xFFFF
 ??CrossCallReturnLabel_57:
         LCALL   ??Subroutine126_0 & 0xFFFF
-// 3017       
-// 3018       // add padding if needed
-// 3019       if ( PADDING_NEEDED( dataLen ) )
+// 3018       
+// 3019       // add padding if needed
+// 3020       if ( PADDING_NEEDED( dataLen ) )
 ??CrossCallReturnLabel_185:
         MOV     C,0xE0 /* A   */.0
         JNC     ??zclProcessInWriteUndividedCmd_16
-// 3020         dataLen++;
+// 3021         dataLen++;
         INC     R2
-// 3021       curDataPtr += dataLen;
+// 3022       curDataPtr += dataLen;
 ??zclProcessInWriteUndividedCmd_16:
         MOV     ?V0 + 2,R2
         MOV     A,?V0 + 4
@@ -22540,7 +22541,7 @@ zclProcessInWriteUndividedCmd:
         MOV     ?V0 + 8,DPL
         MOV     R6,#0x0
         SJMP    ??zclProcessInWriteUndividedCmd_18
-// 3022     } // for loop
+// 3023     } // for loop
 ??zclProcessInWriteUndividedCmd_19:
         MOV     A,?V0 + 2
         ADD     A,#0x3
@@ -22625,34 +22626,34 @@ zclProcessInWriteUndividedCmd:
         MOV     A,R1
         JZ      $+5
         LJMP    ??zclProcessInWriteUndividedCmd_19 & 0xFFFF
-// 3023   
-// 3024     writeRspCmd->numAttr = j;
+// 3024   
+// 3025     writeRspCmd->numAttr = j;
 ??zclProcessInWriteUndividedCmd_17:
         MOV     A,R7
         MOV     DPL,?V0 + 0
         MOV     DPH,?V0 + 1
         MOVX    @DPTR,A
-// 3025     if ( writeRspCmd->numAttr  == 0 )
+// 3026     if ( writeRspCmd->numAttr  == 0 )
         JNZ     ??CrossCallReturnLabel_16
-// 3026     {
-// 3027       // Since all records were written successful, include a single status record in the resonse command
-// 3028       // with the status field set to SUCCESS and the attribute ID field omitted.
-// 3029       writeRspCmd->attrList[0].status = ZCL_STATUS_SUCCESS;
+// 3027     {
+// 3028       // Since all records were written successful, include a single status record in the resonse command
+// 3029       // with the status field set to SUCCESS and the attribute ID field omitted.
+// 3030       writeRspCmd->attrList[0].status = ZCL_STATUS_SUCCESS;
         LCALL   ?Subroutine11 & 0xFFFF
-// 3030       writeRspCmd->numAttr = 1;
-// 3031     }
-// 3032 
-// 3033     osal_mem_free( curWriteRec );
+// 3031       writeRspCmd->numAttr = 1;
+// 3032     }
+// 3033 
+// 3034     osal_mem_free( curWriteRec );
 ??CrossCallReturnLabel_16:
         ; Setup parameters for call to function osal_mem_free
         MOV     R2,?V0 + 12
         MOV     R3,?V0 + 13
         LCALL   ??osal_mem_free?relay
-// 3034   }
-// 3035   
-// 3036   zcl_SendWriteRsp( pInMsg->msg->endPoint, &(pInMsg->msg->srcAddr),
-// 3037                     pInMsg->msg->clusterId, writeRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR, 
-// 3038                     true, pInMsg->hdr.transSeqNum );  
+// 3035   }
+// 3036   
+// 3037   zcl_SendWriteRsp( pInMsg->msg->endPoint, &(pInMsg->msg->srcAddr),
+// 3038                     pInMsg->msg->clusterId, writeRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR, 
+// 3039                     true, pInMsg->hdr.transSeqNum );  
 ??zclProcessInWriteUndividedCmd_11:
         MOV     DPL,?V0 + 14
         MOV     DPH,?V0 + 15
@@ -22686,18 +22687,18 @@ zclProcessInWriteUndividedCmd:
 ??CrossCallReturnLabel_26:
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 42)
-// 3039   osal_mem_free( writeRspCmd );
+// 3040   osal_mem_free( writeRspCmd );
         ; Setup parameters for call to function osal_mem_free
         MOV     R2,?V0 + 0
         MOV     R3,?V0 + 1
         LCALL   ??osal_mem_free?relay
-// 3040  
-// 3041   return TRUE; 
+// 3041  
+// 3042   return TRUE; 
         MOV     R1,#0x1
 ??zclProcessInWriteUndividedCmd_3:
         LJMP    ?Subroutine119 & 0xFFFF
         CFI EndBlock cfiBlock607
-// 3042 }
+// 3043 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine78:
@@ -24890,79 +24891,79 @@ zclProcessInWriteUndividedCmd:
         CFI EndBlock cfiCond698
         CFI EndBlock cfiCond699
         CFI EndBlock cfiPicker700
-// 3043 #endif // ZCL_WRITE
-// 3044 
-// 3045 #ifdef ZCL_DISCOVER
-// 3046 /*********************************************************************
-// 3047  * @fn      zclProcessInDiscCmd
-// 3048  * @brief   Process the "Profile" Discover Command
-// 3049  * @param   pInMsg - incoming message to process
-// 3050  * @return  TRUE if command processed. FALSE, otherwise.
-// 3051  */
-// 3052 static uint8 zclProcessInDiscCmd( zclIncoming_t *pInMsg )
-// 3053 {
-// 3054   zclDiscoverCmd_t *discoverCmd;
-// 3055   zclDiscoverRspCmd_t *discoverRspCmd;
-// 3056   uint8 discComplete = TRUE;
-// 3057   zclAttrRec_t attrRec;
-// 3058   uint16 attrID;
-// 3059   uint8 i;
-// 3060   
-// 3061   discoverCmd = (zclDiscoverCmd_t *)pInMsg->attrCmd;
-// 3062   
-// 3063   // Find out the number of attributes supported within the specified range
-// 3064   for ( i = 0, attrID = discoverCmd->startAttr; i < discoverCmd->maxAttrIDs; i++, attrID++ )
-// 3065   {
-// 3066     if ( !zclFindNextAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, &attrID, &attrRec ) )
-// 3067       break;
-// 3068   }
-// 3069   
-// 3070   // Allocate space for the response command
-// 3071   discoverRspCmd = (zclDiscoverRspCmd_t *)osal_mem_alloc( sizeof (zclDiscoverRspCmd_t) 
-// 3072                                                          + sizeof ( zclDiscoverInfo_t ) * i );
-// 3073   if ( discoverRspCmd == NULL )
-// 3074     return FALSE; // EMEDDED RETURN
-// 3075   
-// 3076   discoverRspCmd->numAttr = i;
-// 3077   if ( discoverRspCmd->numAttr != 0 )
-// 3078   {
-// 3079     for ( i = 0, attrID = discoverCmd->startAttr; i < discoverRspCmd->numAttr; i++, attrID++ )
-// 3080     {
-// 3081       if ( !zclFindNextAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, &attrID, &attrRec ) )
-// 3082         break; // Attribute not supported
-// 3083       
-// 3084       discoverRspCmd->attrList[i].attrID = attrRec.attr.attrId;
-// 3085       discoverRspCmd->attrList[i].dataType = attrRec.attr.dataType;
-// 3086     }
-// 3087     
-// 3088     // Are there more attributes to be discovered?
-// 3089     if ( zclFindNextAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, &attrID, &attrRec ) )
-// 3090       discComplete = FALSE;
-// 3091   }
-// 3092   
-// 3093   discoverRspCmd->discComplete = discComplete;
-// 3094   zcl_SendDiscoverRspCmd( pInMsg->msg->endPoint, &pInMsg->msg->srcAddr, 
-// 3095                           pInMsg->msg->clusterId, discoverRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR, 
-// 3096                           true, pInMsg->hdr.transSeqNum );
-// 3097   osal_mem_free( discoverRspCmd );
-// 3098   
-// 3099   return TRUE;
-// 3100 }
-// 3101 #endif // ZCL_DISCOVER
-// 3102 
-// 3103 /*********************************************************************
-// 3104  * @fn      zclSendMsg
-// 3105  * @brief   Send an incoming message to the Application
-// 3106  * @param   pInMsg - incoming message to process
-// 3107  * @return  TRUE
-// 3108  */
+// 3044 #endif // ZCL_WRITE
+// 3045 
+// 3046 #ifdef ZCL_DISCOVER
+// 3047 /*********************************************************************
+// 3048  * @fn      zclProcessInDiscCmd
+// 3049  * @brief   Process the "Profile" Discover Command
+// 3050  * @param   pInMsg - incoming message to process
+// 3051  * @return  TRUE if command processed. FALSE, otherwise.
+// 3052  */
+// 3053 static uint8 zclProcessInDiscCmd( zclIncoming_t *pInMsg )
+// 3054 {
+// 3055   zclDiscoverCmd_t *discoverCmd;
+// 3056   zclDiscoverRspCmd_t *discoverRspCmd;
+// 3057   uint8 discComplete = TRUE;
+// 3058   zclAttrRec_t attrRec;
+// 3059   uint16 attrID;
+// 3060   uint8 i;
+// 3061   
+// 3062   discoverCmd = (zclDiscoverCmd_t *)pInMsg->attrCmd;
+// 3063   
+// 3064   // Find out the number of attributes supported within the specified range
+// 3065   for ( i = 0, attrID = discoverCmd->startAttr; i < discoverCmd->maxAttrIDs; i++, attrID++ )
+// 3066   {
+// 3067     if ( !zclFindNextAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, &attrID, &attrRec ) )
+// 3068       break;
+// 3069   }
+// 3070   
+// 3071   // Allocate space for the response command
+// 3072   discoverRspCmd = (zclDiscoverRspCmd_t *)osal_mem_alloc( sizeof (zclDiscoverRspCmd_t) 
+// 3073                                                          + sizeof ( zclDiscoverInfo_t ) * i );
+// 3074   if ( discoverRspCmd == NULL )
+// 3075     return FALSE; // EMEDDED RETURN
+// 3076   
+// 3077   discoverRspCmd->numAttr = i;
+// 3078   if ( discoverRspCmd->numAttr != 0 )
+// 3079   {
+// 3080     for ( i = 0, attrID = discoverCmd->startAttr; i < discoverRspCmd->numAttr; i++, attrID++ )
+// 3081     {
+// 3082       if ( !zclFindNextAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, &attrID, &attrRec ) )
+// 3083         break; // Attribute not supported
+// 3084       
+// 3085       discoverRspCmd->attrList[i].attrID = attrRec.attr.attrId;
+// 3086       discoverRspCmd->attrList[i].dataType = attrRec.attr.dataType;
+// 3087     }
+// 3088     
+// 3089     // Are there more attributes to be discovered?
+// 3090     if ( zclFindNextAttrRec( pInMsg->msg->endPoint, pInMsg->msg->clusterId, &attrID, &attrRec ) )
+// 3091       discComplete = FALSE;
+// 3092   }
+// 3093   
+// 3094   discoverRspCmd->discComplete = discComplete;
+// 3095   zcl_SendDiscoverRspCmd( pInMsg->msg->endPoint, &pInMsg->msg->srcAddr, 
+// 3096                           pInMsg->msg->clusterId, discoverRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR, 
+// 3097                           true, pInMsg->hdr.transSeqNum );
+// 3098   osal_mem_free( discoverRspCmd );
+// 3099   
+// 3100   return TRUE;
+// 3101 }
+// 3102 #endif // ZCL_DISCOVER
+// 3103 
+// 3104 /*********************************************************************
+// 3105  * @fn      zclSendMsg
+// 3106  * @brief   Send an incoming message to the Application
+// 3107  * @param   pInMsg - incoming message to process
+// 3108  * @return  TRUE
+// 3109  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-// 3109 static uint8 zclSendMsg( zclIncoming_t *pInMsg )
+// 3110 static uint8 zclSendMsg( zclIncoming_t *pInMsg )
 zclSendMsg:
         CFI Block cfiBlock701 Using cfiCommon0
         CFI Function zclSendMsg
-// 3110 {
+// 3111 {
         FUNCALL zclSendMsg, osal_msg_allocate
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -25005,36 +25006,36 @@ zclSendMsg:
         MOV     R6,A
         MOV     A,R3
         MOV     R7,A
-// 3111   zclIncomingMsg_t *pCmd;
-// 3112     
-// 3113   if ( zcl_RegisteredMsgTaskID == TASK_NO_TASK )
+// 3112   zclIncomingMsg_t *pCmd;
+// 3113     
+// 3114   if ( zcl_RegisteredMsgTaskID == TASK_NO_TASK )
         MOV     DPTR,#zcl_RegisteredMsgTaskID
         MOVX    A,@DPTR
         XRL     A,#0xff
         JNZ     ??zclSendMsg_0
-// 3114     return ( TRUE );
+// 3115     return ( TRUE );
 ??zclSendMsg_1:
         MOV     R1,#0x1
         LJMP    ?Subroutine113 & 0xFFFF
-// 3115   
-// 3116   pCmd = (zclIncomingMsg_t *)osal_msg_allocate( sizeof ( zclIncomingMsg_t ) );
+// 3116   
+// 3117   pCmd = (zclIncomingMsg_t *)osal_msg_allocate( sizeof ( zclIncomingMsg_t ) );
 ??zclSendMsg_0:
         ; Setup parameters for call to function osal_msg_allocate
         MOV     R2,#0x18
         MOV     R3,#0x0
         LCALL   ??osal_msg_allocate?relay
-// 3117   if ( pCmd != NULL )
+// 3118   if ( pCmd != NULL )
         MOV     A,R2
         JNZ     ??zclSendMsg_2
         MOV     A,R3
 ??zclSendMsg_2:
         JZ      ??zclSendMsg_1
-// 3118   {
-// 3119     // fill in the message
-// 3120     pCmd->hdr.event = ZCL_INCOMING_MSG;
+// 3119   {
+// 3120     // fill in the message
+// 3121     pCmd->hdr.event = ZCL_INCOMING_MSG;
         MOV     A,#0x34
         LCALL   ?Subroutine8 & 0xFFFF
-// 3121     pCmd->zclHdr    = pInMsg->hdr;
+// 3122     pCmd->zclHdr    = pInMsg->hdr;
 ??CrossCallReturnLabel_214:
         INC     DPTR
         MOV     A,R2
@@ -25045,7 +25046,7 @@ zclSendMsg:
         MOV     R5,A
         MOV     A,#0x6
         LCALL   ?MOVE_LONG8_XDATA_XDATA
-// 3122     pCmd->clusterId = pInMsg->msg->clusterId;
+// 3123     pCmd->clusterId = pInMsg->msg->clusterId;
         MOV     DPL,R6
         MOV     DPH,R7
         LCALL   ?Subroutine46 & 0xFFFF
@@ -25065,7 +25066,7 @@ zclSendMsg:
         INC     DPTR
         MOV     A,R0
         LCALL   ?Subroutine13 & 0xFFFF
-// 3123     pCmd->srcAddr   = pInMsg->msg->srcAddr;
+// 3124     pCmd->srcAddr   = pInMsg->msg->srcAddr;
 ??CrossCallReturnLabel_21:
         MOV     R0,A
         INC     DPTR
@@ -25086,7 +25087,7 @@ zclSendMsg:
         MOV     R5,A
         MOV     A,#0xc
         LCALL   ?MOVE_LONG8_XDATA_XDATA
-// 3124     pCmd->attrCmd   = pInMsg->attrCmd;
+// 3125     pCmd->attrCmd   = pInMsg->attrCmd;
         MOV     A,R6
         ADD     A,#0xc
         MOV     R0,A
@@ -25106,18 +25107,18 @@ zclSendMsg:
         INC     DPTR
         MOV     A,R5
         MOVX    @DPTR,A
-// 3125     
-// 3126     // Application will free the attrCmd buffer
-// 3127     pInMsg->attrCmd = NULL;
+// 3126     
+// 3127     // Application will free the attrCmd buffer
+// 3128     pInMsg->attrCmd = NULL;
         MOV     DPL,R0
         MOV     DPH,R1
         CLR     A
         MOVX    @DPTR,A
         INC     DPTR
         MOVX    @DPTR,A
-// 3128     
-// 3129     /* send message through task message */
-// 3130     osal_msg_send( zcl_RegisteredMsgTaskID, (uint8 *)pCmd );
+// 3129     
+// 3130     /* send message through task message */
+// 3131     osal_msg_send( zcl_RegisteredMsgTaskID, (uint8 *)pCmd );
         ; Setup parameters for call to function osal_msg_send
         MOV     DPTR,#zcl_RegisteredMsgTaskID
         MOVX    A,@DPTR
@@ -25125,9 +25126,9 @@ zclSendMsg:
         LCALL   ??osal_msg_send?relay
         LJMP    ??zclSendMsg_1 & 0xFFFF
         CFI EndBlock cfiBlock701
-// 3131   }
-// 3132   return ( TRUE );
-// 3133 }
+// 3132   }
+// 3133   return ( TRUE );
+// 3134 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine46:
@@ -25552,9 +25553,9 @@ zclSendMsg:
         DC24    zclSendMsg
 
         END
-// 3134 
-// 3135 /*********************************************************************
-// 3136 *********************************************************************/
+// 3135 
+// 3136 /*********************************************************************
+// 3137 *********************************************************************/
 // 
 // 8 068 bytes in segment BANKED_CODE
 //   210 bytes in segment BANK_RELAYS

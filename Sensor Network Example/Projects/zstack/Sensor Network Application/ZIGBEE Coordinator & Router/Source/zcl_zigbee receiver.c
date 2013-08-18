@@ -10,10 +10,6 @@
   Should you have any questions regarding your right to use this Software,
   contact Texas Instruments Incorporated at www.TI.com. 
 **************************************************************************************************/
-
-/*********************************************************************
- * INCLUDES
- */
 #include <stdio.h>
 #include <string.h>
 #include "ZComDef.h"
@@ -44,9 +40,7 @@
 #include "MT.h"
 
 #include "ZComDef.h"
-/*********************************************************************
- * MACROS
- */
+
 /*********************************************************************
  * CONSTANTS
  */
@@ -65,8 +59,7 @@ byte zclZigbeeReceiver_TaskID; // The zigbee task_ID
 
 byte ZDO_MSG_SEND_ID; // The zigbee task_ID
 
-// The UART transmit variable and array
-// the transmit data length
+// The UART transmit variable and array, the transmit data length
 uint8 len; 
 // Transmit message array
 byte TransmitApp_Msg[ TRANSMITAPP_MAX_DATA_LEN ]; 
@@ -74,10 +67,6 @@ byte TransmitApp_Msg[ TRANSMITAPP_MAX_DATA_LEN ];
 byte UartTransmit_Msg[ TRANSMITAPP_MAX_DATA_LEN ]; 
 // Receive the UART command
 uint8 uart_recv[TRANSMITAPP_MAX_DATA_LEN]; 
-
-/*********************************************************************
- * GLOBAL FUNCTIONS
- */
 
 /*********************************************************************
  * LOCAL VARIABLES
@@ -151,31 +140,16 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
 
 void ZSendMsgProcess(char *temp)
 {  
-//    show("ZSendMsgProcess"); 
-//    afIncomingMSGPacket_t *MSGpkt;
-//    char buf[64];
-    
-//    memset(buf, 0x0, 64);
-//    MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( zclZigbeeReceiver_TaskID );
-//    sprintf(buf, "%s", MSGpkt->cmd.Data);
- //   sprintf(buf, "%s", temp);
-//    show(device_manager.Type);
-    
-//    sprintf(buf, "\r%s\n", temp);
-  
     HalUARTWrite(HAL_UART_PORT_0, device_manager.Type, 8);
     HalUARTWrite(HAL_UART_PORT_0, device_manager.Module, 10);   
     HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);     
-    HalUARTWrite(HAL_UART_PORT_0, device_manager.Data, 20);   
+//    HalUARTWrite(HAL_UART_PORT_0, device_manager.Data, 20);   
     HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);   
  
-//    show(device_manager.Data);    
-//    show(device_manager.Module);    
-   
-    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 3000 );        
+    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
 }
 
-/*********************************************************************
+/*
  * @fn          zclZigbeeRecv_Init
  * @brief       Initialization function for the zclGeneral layer.
  */
@@ -548,9 +522,6 @@ static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
   return TRUE;
 }
 #endif // ZCL_DISCOVER
-
-/****************************************************************************
-****************************************************************************/
 
 /*********************************************************************
  * @fn      zclUARTMsg_CallBack

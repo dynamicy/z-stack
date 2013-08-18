@@ -42,12 +42,6 @@ extern "C"
 #define RECV_GROUP                           0x2010
   
 /*********************************************************************
- * MACROS
- */
-/*********************************************************************
- * TYPEDEFS
- */
-/*********************************************************************
  * VARIABLES
  */
 extern SimpleDescriptionFormat_t zclZigbeeRecv_SimpleDesc;
@@ -57,28 +51,18 @@ extern uint16 zclZigbeeRecv_IdentifyTime;
 
 extern byte zclZigbeeReceiver_TaskID;
 
-/*********************************************************************
- * FUNCTIONS
+/*
+ * Initialization for the task
  */
-
- /*
-  * Initialization for the task
-  */
 extern void zclZigbeeRecv_Init( byte task_id );
-
 extern void ZSendMsgProcess(char *temp);
 
 /*
  *  Event Process for the task
  */
 extern UINT16 zclZigbeeRecv_event_loop( byte task_id, UINT16 events );
-
 extern uint16 zclZigbeeSendMsg_event_loop(uint8 task_id, uint16 events);
-
 extern void zclUARTMsg_CallBack(uint8 port, uint8 event); // The UART Message callback
-
-/*********************************************************************
-*********************************************************************/
 
 #ifdef __cplusplus
 }

@@ -1283,10 +1283,6 @@ ZStatus_t zcl_SendDiscoverRspCmd( uint8 srcEP, afAddrType_t *dstAddr,
 #endif // ZCL_DISCOVER
 
 /*********************************************************************
- * PRIVATE FUNCTIONS
- *********************************************************************/
-
-/*********************************************************************
  * @fn      zclProcessMessageMSG
  * @brief   Data message processor callback.  This function processes
  *          any incoming data - probably from other devices.  So, based
@@ -1327,7 +1323,8 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       #endif
     }
     //chris
-//    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
+    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
+    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);      
   }
 #endif
 
@@ -1343,8 +1340,8 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       #endif
     }
     // Write receive coordinator command to UART, chrischris
- //   HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
-    
+//  HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
+      
     return ;
   }
 #endif  

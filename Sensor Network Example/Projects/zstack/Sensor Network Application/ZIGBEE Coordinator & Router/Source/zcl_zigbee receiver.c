@@ -1,15 +1,3 @@
-/**************************************************************************************************
-  Filename:       zcl_zigbee receiver.c
-  Revised:        $Date: 2009-03-18 15:56:27 -0700 (Wed, 18 Mar 2009) $
-  Revision:       $Revision: 19453 $
-
-  Description:    Zigbee Cluster Library - ZIGBEE Receiver device application.
-
-  Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
-
-  Should you have any questions regarding your right to use this Software,
-  contact Texas Instruments Incorporated at www.TI.com. 
-**************************************************************************************************/
 #include <stdio.h>
 #include <string.h>
 #include "ZComDef.h"
@@ -46,17 +34,8 @@
  */
  #define TRANSMITAPP_MAX_DATA_LEN    102
 
-/*********************************************************************
- * TYPEDEFS
- */
-/*********************************************************************
- * GLOBAL VARIABLES
- */
-
 uint8 send_msg_counter = 0;
-
 byte zclZigbeeReceiver_TaskID; // The zigbee task_ID
-
 byte ZDO_MSG_SEND_ID; // The zigbee task_ID
 
 // The UART transmit variable and array, the transmit data length
@@ -140,19 +119,16 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
 
 void ZSendMsgProcess(char *temp)
 {  
-    HalUARTWrite(HAL_UART_PORT_0, device_manager.Type, 8);
-    HalUARTWrite(HAL_UART_PORT_0, device_manager.Module, 10);   
-    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);     
-//    HalUARTWrite(HAL_UART_PORT_0, device_manager.Data, 20);   
-    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);   
+//    HalUARTWrite(HAL_UART_PORT_0, device_manager.Type, 8);
+    HalUARTWrite(HAL_UART_PORT_0, device_manager.Module, 10);         
+    // Write receive coordinator command to UART, chrischris
+//   HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);    
+ //   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2); 
+ //   HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);   
  
     osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
 }
 
-/*
- * @fn          zclZigbeeRecv_Init
- * @brief       Initialization function for the zclGeneral layer.
- */
 void zclZigbeeRecv_Init( byte task_id )
 {
   zclZigbeeReceiver_TaskID = task_id;
@@ -184,7 +160,9 @@ void zclZigbeeRecv_Init( byte task_id )
   
   // Register for a test endpoint
   afRegister( &zigbeeReceiver_TestEp ); 
-    osal_set_event( zclZigbeeReceiver_TaskID, NWK_RETRY_DELAY);//chris  
+ 
+  // Set osal event for zclZigbeeReceiver_TaskID, chris
+  osal_set_event( zclZigbeeReceiver_TaskID, NWK_RETRY_DELAY);  
 }
 
 /*********************************************************************
@@ -195,6 +173,7 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
 {   
     afIncomingMSGPacket_t *MSGpkt;
     (void)task_id;  // Intentionally unreferenced parameter
+//    uint32 i = 0;
   
     if ( events & SYS_EVENT_MSG ) // SYSTEM Message event
     {
@@ -207,17 +186,26 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
             // Incoming ZCL Foundation command/response messages
             zclZigbeeReceiver_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); 
             break; 
-        case KEY_CHANGE: //0xC0 : Key Events
-            show("KEY_CHANGE");
-            zclZigbeeReceiver_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );            
-            break;           
-        case AF_DATA_CONFIRM_CMD:           
-              strcpy(device_manager.Type, "\r 1 \n");  
-              strcpy(device_manager.Module, "\r 140 \n");                            
-              strncpy(device_manager.Data, MSGpkt->cmd.Data, 14);         
+//        case KEY_CHANGE: //0xC0 : Key Events
+//            show("KEY_CHANGE");
+//            zclZigbeeReceiver_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );            
+//            break;           
+        case AF_DATA_CONFIRM_CMD:            
+//              strcpy(device_manager.Type, "\r 1 \n");  
+//              strcpy(device_manager.Module, "\r 140 \n");                            
+  
+//              device_manager.DataLength = MSGpkt->cmd.DataLength;
+//              sprintf(buf, "%d", MSGpkt->cmd.DataLength);
+//              HalUARTWrite(HAL_UART_PORT_0, buf, 16); 
+/*              if( MSGpkt->cmd.DataLength > 0 && MSGpkt->cmd.DataLength < 30 )
+                {                   
+                  for(i = 0; i < MSGpkt->cmd.DataLength; i++)  // Send the recv_data to UART 
+                  {                  
+                    device_manager.Data[i] = MSGpkt->cmd.Data[i+3];
+                  }
+                }*/
             break;         
         case ZDO_STATE_CHANGE:       
-//            show("ZDO_STATE_CHANGE");
             ZSendMsgProcess("Hi");            
             break;         
         case ZDO_MATCH_DESC_RSP_SENT:       
@@ -236,7 +224,6 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
     switch ( events )
     {
       case ZDO_MSG_SEND_EVT:
-//          show("ZDO_MSG_SEND_EVT");
             ZSendMsgProcess("Chris:ZDO_MSG_SEND_EVT");                
             break;
       case SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT: // ZIGBEE Receiver identify timeout event
@@ -244,30 +231,15 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
         if ( zclZigbeeRecv_IdentifyTime > 0 )
              zclZigbeeRecv_IdentifyTime--;
              zclZigbeeReceiver_ProcessIdentifyTimeChange();
-        break;
-      
+        break;   
       case UART_MSG_EVT: // The UART Message event
         show("UART_MSG_EVT");
         zclUartReceiver();
-        break;
-      
-      case KEYPAD_MSG_EVT: // The KEYPAD keyin event
-        show("KEYPAD_MSG_EVT");
-        #if defined( LCD_SUPPORTED )
-          HalLcdWriteChar(HAL_LCD_LINE_3, 0, ch);
-        #endif
         break;
     }    
     return 0; // Discard unknown events
 }
 
-/*********************************************************************
- * @fn      zclZigbeeReceiver_HandleKeys
- * @brief   Handles all key events for this device.
- * @param   shift - true if in shift/alt.
- * @param   keys - bit field for key events.
- *          Valid entries: HAL_KEY_SW_1(MCU-K1)                        
- */
 static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys )
 {
   zAddrType_t dstAddr;

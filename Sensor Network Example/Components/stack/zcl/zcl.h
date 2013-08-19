@@ -1,16 +1,3 @@
-/**************************************************************************************************
-  Filename:       zcl.h
-  Revised:        $Date: 2009-12-18 11:03:34 -0800 (Fri, 18 Dec 2009) $
-  Revision:       $Revision: 21374 $
-
-  Description:    This file contains the Zigbee Cluster Library Foundation definitions.
-
-  Copyright 2006-2010 Texas Instruments Incorporated. All rights reserved.
-
-  Should you have any questions regarding your right to use this Software,
-  contact Texas Instruments Incorporated at www.TI.com. 
-**************************************************************************************************/
-
 #ifndef ZCL_H
 #define ZCL_H
 
@@ -19,15 +6,8 @@ extern "C"
 {
 #endif
 
-/*********************************************************************
- * INCLUDES
- */
 #include "AF.h"
 #include "aps_groups.h"
-
-/*********************************************************************
- * CONSTANTS
- */
 
 // General Clusters
 #define ZCL_CLUSTER_ID_GEN_BASIC                             0x0000
@@ -433,10 +413,6 @@ typedef struct
   uint8 strLen;
   uint8 *pStr;
 } UTF8String_t;
-
-/*********************************************************************
- * Plugins
- */
 
 // Incoming ZCL message, this buffer will be allocated, cmd will point to the
 // the command record.

@@ -1,51 +1,17 @@
-/**************************************************************************************************
-  Filename:       zcl_zigbee receiver_data.c
-  Revised:        $Date: 2008-03-11 11:01:35 -0700 (Tue, 11 Mar 2008) $
-  Revision:       $Revision: 16570 $
-
-  Description:    Zigbee Cluster Library - sample device application.
-
-  Copyright 2006-2007 Texas Instruments Incorporated. All rights reserved.
-
-  Should you have any questions regarding your right to use this Software,
-  contact Texas Instruments Incorporated at www.TI.com. 
-**************************************************************************************************/
-
-/*********************************************************************
- * INCLUDES
- */
 #include "ZComDef.h"
 #include "OSAL.h"
 #include "AF.h"
 #include "ZDConfig.h"
-
 #include "zcl.h"
 #include "zcl_general.h"
 #include "zcl_ha.h"
-
 #include "zcl_zigbee receiver.h"
-
-/*********************************************************************
- * CONSTANTS
- */
 
 #define SAMPLELIGHT_DEVICE_VERSION     0
 #define SAMPLELIGHT_FLAGS              0
 
 #define SAMPLELIGHT_HWVERSION          1
 #define SAMPLELIGHT_ZCLVERSION         1
-
-/*********************************************************************
- * TYPEDEFS
- */
-
-/*********************************************************************
- * MACROS
- */
-
-/*********************************************************************
- * GLOBAL VARIABLES
- */
 
 // Basic Cluster
 const uint8 zclSampleLight_HWRevision = SAMPLELIGHT_HWVERSION;
@@ -209,16 +175,3 @@ SimpleDescriptionFormat_t zclZigbeeRecv_SimpleDesc =
   ZCLSAMPLELIGHT_MAX_OUTCLUSTERS,        //  byte  AppNumInClusters;
   (cId_t *)zclSampleLight_OutClusterList //  byte *pAppInClusterList;
 };
-
-/*********************************************************************
- * GLOBAL FUNCTIONS
- */
-
-/*********************************************************************
- * LOCAL FUNCTIONS
- */
-
-/****************************************************************************
-****************************************************************************/
-
-

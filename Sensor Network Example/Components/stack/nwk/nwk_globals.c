@@ -1,19 +1,3 @@
-/**************************************************************************************************
-  Filename:       nwk_globals.c
-  Revised:        $Date: 2010-01-11 09:24:44 -0800 (Mon, 11 Jan 2010) $
-  Revision:       $Revision: 21474 $
-
-  Description:    User definable Network Parameters.
-
-  Copyright 2004-2009 Texas Instruments Incorporated. All rights reserved.
-
-  Should you have any questions regarding your right to use this Software,
-  contact Texas Instruments Incorporated at www.TI.com. 
-**************************************************************************************************/
-
-/*********************************************************************
- * INCLUDES
- */
 #include "ZComdef.h"
 #include "OSAL.h"
 #include "AddrMgr.h"
@@ -39,14 +23,6 @@
 /* HAL */
 #include "hal_lcd.h"
 #include "hal_timer.h"
-
-/*********************************************************************
- * MACROS
- */
-
-/*********************************************************************
- * CONSTANTS
- */
 
 // Maximums for the data buffer queue
 #define NWK_MAX_DATABUFS_WAITING    8     // Waiting to be sent to MAC
@@ -77,14 +53,6 @@
 // Maximum total msgs to hold for all associated devices.
 #define NWK_INDIRECT_MSG_MAX_ALL    \
                             (NWK_MAX_DATABUFS_TOTAL - NWK_INDIRECT_MSG_MAX_PER)
-
-/*********************************************************************
- * TYPEDEFS
- */
-
-/*********************************************************************
- * NWK GLOBAL VARIABLES
- */
 
 // Variables for MAX list size
 CONST uint16 gNWK_MAX_DEVICE_LIST = NWK_MAX_DEVICES;
@@ -253,12 +221,6 @@ CONST uint8 defaultTCLinkKey[SEC_KEY_LEN] =
   const char ScanFailedStr[]   = "Scan Failed";
 #endif
 
-/*********************************************************************
- * @fn       nwk_globals_init()
- * @brief    Initialize nwk layer globals.  These are the system defaults and
- *           should be changed by the user here.  The default definitions are
- *           defined in nwk.h or NLMEDE.h.
- */
 void nwk_globals_init( void )
 {
   AddrMgrInit( NWK_MAX_ADDRESSES );
@@ -284,13 +246,6 @@ void nwk_globals_init( void )
 #endif
 }
 
-/*********************************************************************
- * @fn       NIB_init()
- *
- * @brief
- *
- *   Initialize attribute values in NIB
- */
 void NIB_init()
 {
   _NIB.SequenceNum = LO_UINT16(osal_rand());
@@ -303,13 +258,6 @@ void NIB_init()
   _NIB.superFrameOrder = BEACON_ORDER_NO_BEACONS;
 #endif
 
-  // BROADCAST SETTINGS:
-  // ************************************************************************************************************
-  //   Broadcast Delivery Time - set to multiples of 100ms 
-  //                           - should be 500ms more than the retry time
-  //                           - "retry time" = PassiveAckTimeout * (MaxBroadcastRetries + 1) Passive Ack Timeout
-  //                           - set to multiples of 100ms 
-  //
   _NIB.BroadcastDeliveryTime = zgBcastDeliveryTime;
   _NIB.PassiveAckTimeout     = zgPassiveAckTimeout;
   _NIB.MaxBroadcastRetries   = zgMaxBcastRetires;
@@ -387,16 +335,6 @@ void NIB_init()
   }
 }
 
-/*********************************************************************
- * @fn       nwk_Status()
- *
- * @brief
- *
- *   Status report.
- *
- * @param   statusCode
- * @param   statusValue
- */
 void nwk_Status( uint16 statusCode, uint16 statusValue )
 {
   switch ( statusCode )
@@ -516,6 +454,3 @@ void nwk_Status( uint16 statusCode, uint16 statusValue )
       break;
   }
 }
-
-/*********************************************************************
-*********************************************************************/

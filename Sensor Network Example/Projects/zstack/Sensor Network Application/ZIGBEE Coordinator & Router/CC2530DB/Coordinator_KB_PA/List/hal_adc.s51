@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  15:31:41 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  19:14:30 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -639,11 +639,11 @@ HalAdcInit:
         CFI EndBlock cfiBlock0
 //  142   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         REQUIRE ?Subroutine1
-        REQUIRE ADCCON1
         REQUIRE ADCCON2
-        REQUIRE ADCCON3
-        REQUIRE ADCL
+        REQUIRE ADCCON1
         REQUIRE ADCH
+        REQUIRE ADCL
+        REQUIRE ADCCON3
         ; // Fall through to label ?Subroutine1
 //  143   tmp = ADCH;
 //  144 #endif
@@ -936,9 +936,9 @@ HalAdcRead:
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock2
         REQUIRE ADCCON1
-        REQUIRE ADCCON3
-        REQUIRE ADCL
         REQUIRE ADCH
+        REQUIRE ADCL
+        REQUIRE ADCCON3
         REQUIRE ADCCFG
 //  263 }
 //  264 
@@ -1012,11 +1012,11 @@ HalAdcSetReference:
 //  294   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         LJMP    ?Subroutine1 & 0xFFFF
         CFI EndBlock cfiBlock3
-        REQUIRE ADCCON1
         REQUIRE ADCCON2
-        REQUIRE ADCCON3
-        REQUIRE ADCL
+        REQUIRE ADCCON1
         REQUIRE ADCH
+        REQUIRE ADCL
+        REQUIRE ADCCON3
 //  295   tmp = ADCH;
 //  296 #endif
 //  297 }
@@ -1238,9 +1238,9 @@ HalAdcCheckVdd:
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock16
         REQUIRE _A_TCON
-        REQUIRE ADCCON3
-        REQUIRE ADCL
         REQUIRE ADCH
+        REQUIRE ADCL
+        REQUIRE ADCCON3
 //  332 }
 //  333 
 //  334 /**************************************************************************************************
@@ -1331,9 +1331,9 @@ adcSampleSingle:
         LJMP    ?BRET
         CFI EndBlock cfiBlock17
         REQUIRE _A_TCON
-        REQUIRE ADCCON3
-        REQUIRE ADCL
         REQUIRE ADCH
+        REQUIRE ADCL
+        REQUIRE ADCCON3
         REQUIRE ADCCFG
 //  375 }
 

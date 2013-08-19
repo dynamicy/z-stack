@@ -191,20 +191,6 @@ void halProcessTimer1 (void);
 void halProcessTimer3 (void);
 void halProcessTimer4 (void);
 
-
-/*********************************************************************
- * FUNCTIONS - API
- */
-
-/*********************************************************************
- * @fn      HalTimerInit
- *
- * @brief   Initialize Timer Service
- *
- * @param   None
- *
- * @return  None
- */
 void HalTimerInit (void)
 {
   T1CCTL0 = 0;    /* Make sure interrupts are disabled */
@@ -255,20 +241,6 @@ void HalTimerInit (void)
   halTimerChannel[HW_TIMER_4].intbit =  TCHN_T4INTBIT;
 }
 
-/***************************************************************************************************
- * @fn      HalTimerConfig
- *
- * @brief   Configure the Timer Serivce
- *
- * @param   timerId - Id of the timer
- *          opMode  - Operation mode
- *          channel - Channel where the counter operates on
- *          channelMode - Mode of that channel
- *          prescale - Prescale of the clock
- *          cBack - Pointer to the callback function
- *
- * @return  Status of the configuration
- ***************************************************************************************************/
 uint8 HalTimerConfig (uint8 timerId, uint8 opMode, uint8 channel, uint8 channelMode,
                       bool intEnable, halTimerCBack_t cBack)
 {
@@ -293,17 +265,6 @@ uint8 HalTimerConfig (uint8 timerId, uint8 opMode, uint8 channel, uint8 channelM
   return HAL_TIMER_OK;
 }
 
-
-/***************************************************************************************************
- * @fn      HalTimerStart
- *
- * @brief   Start the Timer Service
- *
- * @param   timerId      - ID of the timer
- *          timerPerTick - number of micro sec per tick, (ticks x prescale) / clock = usec/tick
- *
- * @return  Status - OK or Not OK
- ***************************************************************************************************/
 uint8 HalTimerStart (uint8 timerId, uint32 timePerTick)
 {
   uint8 hwtimerid;
@@ -335,15 +296,6 @@ uint8 HalTimerStart (uint8 timerId, uint32 timePerTick)
   return HAL_TIMER_OK;
 }
 
-/***************************************************************************************************
- * @fn      HalTimerTick
- *
- * @brief   Check the counter for expired counter. ÀË¬d²×¤îªºcounter
- *
- * @param   None
- *
- * @return  None
- ***************************************************************************************************/
 void HalTimerTick (void)
 {
   if (!halTimerRecord[HW_TIMER_1].intEnable)
@@ -362,15 +314,6 @@ void HalTimerTick (void)
   }
 }
 
-/***************************************************************************************************
- * @fn      HalTimerStop
- *
- * @brief   Stop the Timer Service
- *
- * @param   timerId - ID of the timer
- *
- * @return  Status - OK or Not OK
- ***************************************************************************************************/
 uint8 HalTimerStop (uint8 timerId)
 {
   uint8 hwtimerid;
@@ -394,16 +337,6 @@ uint8 HalTimerStop (uint8 timerId)
   return HAL_TIMER_OK;
 }
 
-/***************************************************************************************************
- * @fn      halTimerSetCount
- *
- * @brief   Stop the Timer Service
- *
- * @param   hwtimerid - ID of the timer
- *          timerPerTick - Number micro sec per ticks
- *
- * @return  Status - OK or Not OK
- ***************************************************************************************************/
 uint8 halTimerSetCount (uint8 hwtimerid, uint32 timePerTick)
 {
   uint16  count;
@@ -420,16 +353,6 @@ uint8 halTimerSetCount (uint8 hwtimerid, uint32 timePerTick)
   return HAL_TIMER_OK;
 }
 
-/***************************************************************************************************
- * @fn      halTimerSetPrescale
- *
- * @brief   Stop the Timer Service
- *
- * @param   hwtimerid - ID of the timer
- *          prescale - Prescale of the clock
- *
- * @return  Status - OK or Not OK
- ***************************************************************************************************/
 uint8 halTimerSetPrescale (uint8 hwtimerid, uint8 prescale)
 {
   switch (hwtimerid)
@@ -452,16 +375,6 @@ uint8 halTimerSetPrescale (uint8 hwtimerid, uint8 prescale)
   return HAL_TIMER_OK;
 }
 
-/***************************************************************************************************
- * @fn      halTimerSetOpMode
- *
- * @brief   Setup operate modes
- *
- * @param   hwtimerid - ID of the timer
- *          opMode - operation mode of the timer
- *
- * @return  Status - OK or Not OK
- ***************************************************************************************************/
 uint8 halTimerSetOpMode (uint8 hwtimerid, uint8 opMode)
 {
   /* Load Waveform Generation Mode */
@@ -521,18 +434,6 @@ uint8 halTimerSetOpMode (uint8 hwtimerid, uint8 opMode)
   return HAL_TIMER_OK;
 }
 
-/***************************************************************************************************
- * @fn      halTimerSetChannelMode
- *
- * @brief   Setup channel modes.  Currently, only output compare mode is supported.  Input capture
- *          mode is NOT supported.  Additionally, mapping timer channel inputs/outputs to I/O pins
- *          is NOT supported.
- *
- * @param   hwtimerid - ID of the timer
- *          channelMode - channel mode of the timer
- *
- * @return  Status - OK or Not OK
- ***************************************************************************************************/
 uint8 halTimerSetChannelMode (uint8 hwtimerid, uint8 channelMode)
 {
   switch (channelMode)
@@ -555,17 +456,6 @@ uint8 halTimerSetChannelMode (uint8 hwtimerid, uint8 channelMode)
   return HAL_TIMER_OK;
 }
 
-/***************************************************************************************************
- * @fn      HalTimerInterruptEnable
- *
- * @brief   Setup operate modes
- *
- * @param   hwtimerid - ID of the timer
- *          channelMode - channel mode
- *          enable - TRUE or FALSE
- *
- * @return  Status - OK or Not OK
- ***************************************************************************************************/
 uint8 HalTimerInterruptEnable (uint8 hwtimerid, uint8 channelMode, bool enable)
 {
   switch (channelMode)
@@ -610,18 +500,6 @@ uint8 HalTimerInterruptEnable (uint8 hwtimerid, uint8 channelMode, bool enable)
   return HAL_TIMER_OK;
 }
 
-/***************************************************************************************************
- * @fn      halTimerSendCallBack
- *
- * @brief   Send Callback back to the caller
- *
- * @param   timerId - ID of the timer
- *          channel - channel where the interrupt occurs
- *          channelMode - channel mode
- *
- *
- * @return  None
- ***************************************************************************************************/
 void halTimerSendCallBack (uint8 timerId, uint8 channel, uint8 channelMode)
 {
   uint8 hwtimerid;
@@ -632,18 +510,6 @@ void halTimerSendCallBack (uint8 timerId, uint8 channel, uint8 channelMode)
     (halTimerRecord[hwtimerid].callBackFunc) (timerId, channel, channelMode);
 }
 
-/***************************************************************************************************
- * @fn      halTimerRemap
- *
- * @brief   Maps API HAL_TIMER_ID to HW Timer ID.
- *          HAL_TIMER_0 --> HW Timer 3 8bit
- *          HAL_TIMER_2 --> HW Timer 4 8bit
- *          HAL_TIMER_3 --> HW Timer 1 16bit
- *
- * @param   timerId - ID of the timer
- *
- * @return  HW timer ID
- ***************************************************************************************************/
 uint8 halTimerRemap (uint8 timerId)
 {
   switch (timerId)
@@ -659,15 +525,6 @@ uint8 halTimerRemap (uint8 timerId)
   }
 }
 
-/***************************************************************************************************
- * @fn      halProcessTimer1
- *
- * @brief   Processes Timer 1 Events.
- *
- * @param
- *
- * @return
- ***************************************************************************************************/
 void halProcessTimer1 (void)
 {
   if (halTimerRecord[halTimerRemap(HAL_TIMER_3)].channelMode == HAL_TIMER_CH_MODE_OUTPUT_COMPARE)
@@ -698,15 +555,6 @@ void halProcessTimer1 (void)
   }
 }
 
-/***************************************************************************************************
- * @fn      halProcessTimer3
- *
- * @brief   Processes Timer 3 Events.
- *
- * @param
- *
- * @return
- ***************************************************************************************************/
 void halProcessTimer3 (void)
 {
   if (halTimerRecord[halTimerRemap(HAL_TIMER_0)].channelMode == HAL_TIMER_CH_MODE_OUTPUT_COMPARE)
@@ -732,15 +580,6 @@ void halProcessTimer3 (void)
   }
 }
 
-/***************************************************************************************************
- * @fn      halProcessTimer4
- *
- * @brief   Processes Timer 4 Events.
- *
- * @param
- *
- * @return
- ***************************************************************************************************/
 void halProcessTimer4 (void)
 {
   if (halTimerRecord[halTimerRemap(HAL_TIMER_2)].channelMode == HAL_TIMER_CH_MODE_OUTPUT_COMPARE)
@@ -764,64 +603,21 @@ void halProcessTimer4 (void)
   }
 }
 
-/***************************************************************************************************
- *                                    INTERRUPT SERVICE ROUTINE
- ***************************************************************************************************/
-
-/**************************************************************************************************
- * @fn      halTimer1Isr
- *
- * @brief   Timer 1 ISR
- *
- * @param
- *
- * @return
- **************************************************************************************************/
 HAL_ISR_FUNCTION( halTimer1Isr, T1_VECTOR )
 {
   halProcessTimer1 ();
 }
 
-/**************************************************************************************************
- * @fn      halTimer3Isr
- *
- * @brief   Timer 3 ISR
- *
- * @param
- *
- * @return
- **************************************************************************************************/
 HAL_ISR_FUNCTION( halTimer3Isr, T3_VECTOR )
 {
   halProcessTimer3 ();
 }
 
-/**************************************************************************************************
- * @fn      halTimer4Isr
- *
- * @brief   Timer 4 ISR
- *
- * @param
- *
- * @return
- **************************************************************************************************/
 HAL_ISR_FUNCTION( halTimer4Isr, T4_VECTOR )
 {
   halProcessTimer4 ();
 }
 
-/***************************************************************************************************
-***************************************************************************************************/
-
-/*******************************************************************************
- * @fn          halMcuWaitUs
- * @brief       Busy wait function. Waits the specified number of microseconds. Use
- *              assumptions about number of clock cycles needed for the various
- *              instructions. This function assumes a 32 MHz clock.
- *              NB! This function is highly dependent on architecture and compiler!
- * @param       uint16 usec - number of microseconds delays
- * @return      none
- ******************************************************************************/
 void halMcuWaitUs(uint16 usec)
 {
     usec >>= 1;
@@ -836,14 +632,6 @@ void halMcuWaitUs(uint16 usec)
     }
 }
 
-/*******************************************************************************
- * @fn          halMcuWaitMs
- * @brief       Busy wait function. Waits the specified number of milliseconds. Use
- *              assumptions about number of clock cycles needed for the various
- *              instructions.
- *              NB! This function is highly dependent on architecture and compiler!
- * @param       uint16 millisec - number of milliseconds delay
- ******************************************************************************/
 void halMcuWaitMs(uint16 msec)
 {
     while (msec--)

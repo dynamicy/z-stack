@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  15:31:44 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  19:14:34 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -791,9 +791,9 @@ HalUARTInitDMA:
         CFI EndBlock cfiBlock0
         REQUIRE U0CSR
         REQUIRE U0UCR
+        REQUIRE ADCCFG
         REQUIRE PERCFG
         REQUIRE P0SEL
-        REQUIRE ADCCFG
         REQUIRE P2DIR
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
@@ -927,11 +927,11 @@ HalUARTOpenDMA:
         MOV     DPTR,#(dmaCfg + 522)
         LJMP    ?Subroutine14 & 0xFFFF
         CFI EndBlock cfiBlock1
-        REQUIRE U0CSR
         REQUIRE _A_P0
+        REQUIRE U0CSR
+        REQUIRE DMAIRQ
         REQUIRE U0BAUD
         REQUIRE U0UCR
-        REQUIRE DMAIRQ
         REQUIRE U0GCR
         REQUIRE DMAARM
         REQUIRE P0SEL
@@ -1803,10 +1803,10 @@ HalUARTPollDMA:
         REQUIRE _A_P0
         REQUIRE _A_IEN0
         REQUIRE ST0
-        REQUIRE U0BAUD
         REQUIRE DMAIRQ
-        REQUIRE DMAREQ
+        REQUIRE U0BAUD
         REQUIRE DMAARM
+        REQUIRE DMAREQ
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine7:

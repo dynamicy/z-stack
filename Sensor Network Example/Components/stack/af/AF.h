@@ -241,9 +241,9 @@ typedef struct
 //[1Byte][4Bytes][3Bytes][8Bytes] =>[16Bytes]
 typedef struct
 {
-  char Type[8];
+//  char Type[8];
 //  uint32 *shortAddr;   //HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
-  char Module[10];  
+//  char Module[10];  
   byte Data[30];        // receive data array  
   uint16 DataLength;    // Number of bytes in TransData
 } packet_t;

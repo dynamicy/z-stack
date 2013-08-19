@@ -375,14 +375,11 @@ UINT16 ZDApp_event_loop( uint8 task_id, UINT16 events )
     // At start up, do one MTO route discovery if the device is a concentrator(¶°¤¤¾¹)
     if ( zgConcentratorEnable == TRUE ) 
     {
-      // Start next event
-      // chris
       //  osal_start_timerEx(ZDAppTaskID, ZDO_NWK_UPDATE_NV, ZDAPP_UPDATE_NWK_NV_TIME );
       //  NWK_RETRY_DELAY             1000   // in milliseconds  
-//          osal_start_timerEx(ZDAppTaskID, show("hello"), NWK_RETRY_DELAY );
 
-  
-      osal_start_timerEx( NWK_TaskID, NWK_MTO_RTG_REQ_EVT, 100 );
+//     osal_start_timerEx( NWK_TaskID, NWK_MTO_RTG_REQ_EVT, 100 );      
+      osal_start_timerEx( NWK_TaskID, NWK_MTO_RTG_REQ_EVT, 3000 );
     }
     
     // Return unprocessed events
@@ -391,8 +388,6 @@ UINT16 ZDApp_event_loop( uint8 task_id, UINT16 events )
 
   if ( events & ZDO_COMMAND_CNF )
   {
-    // User defined logic
-
     // Return unprocessed events
     return (events ^ ZDO_COMMAND_CNF);
   }

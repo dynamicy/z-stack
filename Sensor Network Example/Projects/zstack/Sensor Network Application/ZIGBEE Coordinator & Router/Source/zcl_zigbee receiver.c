@@ -105,15 +105,11 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
 };
 
 void ZSendMsgProcess(void)
-{  
-    HalUARTWrite(HAL_UART_PORT_0, device_manager.Type, 8);
-    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3); 
-    HalUARTWrite(HAL_UART_PORT_0, device_manager.Module, 10);  
-    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);     
+{      
     // Write receive coordinator command to UART
-    HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2); 
-    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);  
-    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 3000 );        
+ //   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2); 
+ //   HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);    
+    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
 }
 
 void zclZigbeeRecv_Init( byte task_id )
@@ -168,17 +164,15 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
             // Incoming ZCL Foundation command/response messages
             zclZigbeeReceiver_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); 
             break;          
-        case AF_DATA_CONFIRM_CMD:            
-              strcpy(device_manager.Type, "\r 1 \n");  
-              strcpy(device_manager.Module, "\r 140 \n");                            
+        case AF_DATA_CONFIRM_CMD:     
             break;         
         case ZDO_STATE_CHANGE:       
             ZSendMsgProcess();            
             break;         
-        case ZDO_MATCH_DESC_RSP_SENT:       
-            show("ZDO_MATCH_DESC_RSP_SENT");
+//        case ZDO_MATCH_DESC_RSP_SENT:       
+//            show("ZDO_MATCH_DESC_RSP_SENT");
             // Check the state of NWK
-            break;         
+//            break;         
           default:
             break;
         }
@@ -200,7 +194,6 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
              zclZigbeeReceiver_ProcessIdentifyTimeChange();
         break;   
       case UART_MSG_EVT: // The UART Message event
-        show("UART_MSG_EVT");
         zclUartReceiver();
         break;
     }    

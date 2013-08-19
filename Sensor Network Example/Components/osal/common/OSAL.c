@@ -1,16 +1,3 @@
-/**************************************************************************************************
-  Filename:       OSAL.c
-  Revised:        $Date: 2009-12-04 08:04:20 -0800 (Fri, 04 Dec 2009) $
-  Revision:       $Revision: 21276 $
-
-  Description:    This API allows the software components in the Z-stack to be written
-                  independently of the specifics of the operating system, kernel or tasking
-                  environment (including control loops or connect-to-interrupt systems).
-**************************************************************************************************/
-
-/*********************************************************************
- * INCLUDES
- */
 #include <string.h>
 #include <stdio.h>
 #include "comdef.h"
@@ -36,40 +23,12 @@
 #include "hal_keypad.h"
 #include "hal_drivers.h"
 
-/*********************************************************************
- * MACROS
- */
-/*********************************************************************
- * CONSTANTS
- */
-/*********************************************************************
- * TYPEDEFS
- */
-/*********************************************************************
- * GLOBAL VARIABLES
- */
-// Message Pool Definitions
 osal_msg_q_t osal_qHead;
 
-/*********************************************************************
- * EXTERNAL VARIABLES
- */
 extern uint8 send_msg_counter;
-/*********************************************************************
- * EXTERNAL FUNCTIONS
- */
-/*********************************************************************
- * LOCAL VARIABLES
- */
- uint8 ch;
- 
-/*********************************************************************
- * LOCAL FUNCTION PROTOTYPES
- */
-/*********************************************************************
- * HELPER FUNCTIONS
- */
-/* very ugly stub so Keil can compile */
+
+uint8 ch;
+
 #ifdef __KEIL__
 char *  itoa ( int value, char * buffer, int radix )
 {

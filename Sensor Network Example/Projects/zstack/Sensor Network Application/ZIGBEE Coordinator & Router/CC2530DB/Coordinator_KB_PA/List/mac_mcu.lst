@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                19/Aug/2013  15:31:46 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                19/Aug/2013  19:14:35 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -845,16 +845,16 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
    \   000156   12....       LCALL   ?DEALLOC_XSTACK8
    \   000159   7F02         MOV     R7,#0x2
    \   00015B   02....       LJMP    ?BANKED_LEAVE_XDATA
-   \   00015E                REQUIRE T2CTRL
+   \   00015E                REQUIRE IEN2
    \   00015E                REQUIRE T2M0
    \   00015E                REQUIRE IP0
-   \   00015E                REQUIRE IEN2
-   \   00015E                REQUIRE _A_IEN0
    \   00015E                REQUIRE T2M1
-   \   00015E                REQUIRE T2MSEL
-   \   00015E                REQUIRE IP1
-   \   00015E                REQUIRE _A_IEN1
+   \   00015E                REQUIRE _A_IEN0
+   \   00015E                REQUIRE T2CTRL
    \   00015E                REQUIRE RNDL
+   \   00015E                REQUIRE T2MSEL
+   \   00015E                REQUIRE _A_IEN1
+   \   00015E                REQUIRE IP1
     307          
     308          
     309          /**************************************************************************************************
@@ -930,8 +930,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
     353            return(random_word);
    \   00000E   02....       LJMP    ?BRET
    \   000011                REQUIRE ADCCON1
-   \   000011                REQUIRE RNDH
    \   000011                REQUIRE RNDL
+   \   000011                REQUIRE RNDH
     354          }
     355          
     356          
@@ -971,8 +971,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
     375            HAL_EXIT_CRITICAL_SECTION(s);
    \   000011                REQUIRE ?Subroutine5
    \   000011                REQUIRE T2M0
-   \   000011                REQUIRE _A_IEN0
    \   000011                REQUIRE T2M1
+   \   000011                REQUIRE _A_IEN0
    \   000011                REQUIRE T2MSEL
    \   000011                ; // Fall through to label ?Subroutine5
     376          }
@@ -1022,8 +1022,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
     398            HAL_EXIT_CRITICAL_SECTION(s);
    \   000011   80..         SJMP    ?Subroutine5
    \   000013                REQUIRE T2M0
-   \   000013                REQUIRE _A_IEN0
    \   000013                REQUIRE T2M1
+   \   000013                REQUIRE _A_IEN0
    \   000013                REQUIRE T2MSEL
     399          
     400            return (timerCapture);
@@ -1073,11 +1073,11 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
    \   000015   E5A2         MOV     A,0xa2
     429            ((uint8 *)&overflowCount)[UINT32_NDX0] = T2MOVF0;
    \   000017   02....       LJMP    ?Subroutine7 & 0xFFFF
-   \   00001A                REQUIRE T2MOVF2
-   \   00001A                REQUIRE T2M0
-   \   00001A                REQUIRE _A_IEN0
    \   00001A                REQUIRE T2MOVF0
+   \   00001A                REQUIRE T2M0
    \   00001A                REQUIRE T2MOVF1
+   \   00001A                REQUIRE T2MOVF2
+   \   00001A                REQUIRE _A_IEN0
    \   00001A                REQUIRE T2MSEL
     430            ((uint8 *)&overflowCount)[UINT32_NDX1] = T2MOVF1;
     431            ((uint8 *)&overflowCount)[UINT32_NDX2] = T2MOVF2;
@@ -1184,10 +1184,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
    \   000012   75C310       MOV     0xc3,#0x10
     458            ((uint8 *)&overflowCapture)[UINT32_NDX0] = T2MOVF0;
    \   000015   02....       LJMP    ?Subroutine7 & 0xFFFF
-   \   000018                REQUIRE T2MOVF2
-   \   000018                REQUIRE _A_IEN0
    \   000018                REQUIRE T2MOVF0
    \   000018                REQUIRE T2MOVF1
+   \   000018                REQUIRE T2MOVF2
+   \   000018                REQUIRE _A_IEN0
    \   000018                REQUIRE T2MSEL
     459            ((uint8 *)&overflowCapture)[UINT32_NDX1] = T2MOVF1;
     460            ((uint8 *)&overflowCapture)[UINT32_NDX2] = T2MOVF2;
@@ -1290,10 +1290,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
    \   000075   F5A6         MOV     0xa6,A
     498            HAL_EXIT_CRITICAL_SECTION(s);
    \   000077                REQUIRE ?Subroutine9
-   \   000077                REQUIRE T2MOVF2
-   \   000077                REQUIRE _A_IEN0
    \   000077                REQUIRE T2MOVF0
    \   000077                REQUIRE T2MOVF1
+   \   000077                REQUIRE T2MOVF2
+   \   000077                REQUIRE _A_IEN0
    \   000077                REQUIRE T2MSEL
    \   000077                ; // Fall through to label ?Subroutine9
     499          }
@@ -1439,12 +1439,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
     548            HAL_EXIT_CRITICAL_SECTION(s);
    \                     ??macMcuOverflowSetCompare_2:
    \   00006E   80..         SJMP    ?Subroutine9
-   \   000070                REQUIRE T2MOVF2
    \   000070                REQUIRE T2IRQF
-   \   000070                REQUIRE T2IRQM
-   \   000070                REQUIRE _A_IEN0
    \   000070                REQUIRE T2MOVF0
    \   000070                REQUIRE T2MOVF1
+   \   000070                REQUIRE T2IRQM
+   \   000070                REQUIRE T2MOVF2
+   \   000070                REQUIRE _A_IEN0
    \   000070                REQUIRE T2MSEL
     549          }
     550          
@@ -1669,10 +1669,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
    \   000063   02....       LJMP    ??Subroutine10_0 & 0xFFFF
    \   000066                REQUIRE T2IRQF
    \   000066                REQUIRE T2IRQM
-   \   000066                REQUIRE T2MOVF2
-   \   000066                REQUIRE _A_IEN0
    \   000066                REQUIRE T2MOVF0
    \   000066                REQUIRE T2MOVF1
+   \   000066                REQUIRE T2MOVF2
+   \   000066                REQUIRE _A_IEN0
    \   000066                REQUIRE T2MSEL
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -1760,10 +1760,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
    \   000046   FB           MOV     R3,A
    \   000047   7402         MOV     A,#0x2
    \   000049   02....       LJMP    ??Subroutine11_0 & 0xFFFF
-   \   00004C                REQUIRE T2M0
-   \   00004C                REQUIRE _A_IEN0
    \   00004C                REQUIRE T2MOVF0
+   \   00004C                REQUIRE T2M0
    \   00004C                REQUIRE T2MOVF1
+   \   00004C                REQUIRE _A_IEN0
    \   00004C                REQUIRE T2MSEL
     694          }
     695          
@@ -1890,8 +1890,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\mac\low_level\srf04\single_c
     755          }
    \                     ??macMcuRfIsr_3:
    \   000062   80..         SJMP    ?Subroutine8
-   \   000064                REQUIRE RFIRQF1
    \   000064                REQUIRE S1CON
+   \   000064                REQUIRE RFIRQF1
    \   000064                REQUIRE RFIRQF0
     756          
     757          

@@ -1266,17 +1266,10 @@ ZStatus_t zcl_SendDiscoverRspCmd( uint8 srcEP, afAddrType_t *dstAddr,
 }
 #endif // ZCL_DISCOVER
 
-/*********************************************************************
- * @fn      zclProcessMessageMSG
- * @brief   Data message processor callback.  This function processes
- *          any incoming data - probably from other devices.  So, based
- *          on cluster ID, perform the intended action.
- * @param   pkt - incoming message
- */
 void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
 {
 #if defined(Coor_receiver) // The coordinator receive data
-  byte recv_data[30]; // receive data array
+  byte recv_data[30];  
   uint16 len;
 #endif
   
@@ -1305,14 +1298,10 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
     {
       recv_data[len] = pkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.
       device_manager.Data[len]= pkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.  
-      #if defined ( LCD_SUPPORTED )
-        HalLcdWriteChar(HAL_LCD_LINE_4, len, recv_data[len]);
-      #endif
     }
     //chris
-//    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
-//    HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, pkt->cmd.DataLength-2);    
-//    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);      
+    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);   
+    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);      
   }
 #endif
 
@@ -1323,9 +1312,6 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
     for(len = 0; len < pkt->cmd.DataLength; len++)
     {
       receive[len] = pkt->cmd.Data[len+3];
-      #if defined ( LCD_SUPPORTED )
-        HalLcdWriteChar(HAL_LCD_LINE_3, len, receive[len]);
-      #endif
     }
     // Write receive coordinator command to UART, chrischris
 //  HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);

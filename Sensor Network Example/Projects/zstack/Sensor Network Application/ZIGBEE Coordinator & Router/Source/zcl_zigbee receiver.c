@@ -1,6 +1,17 @@
+/**************************************************************************************************
+  Filename:       zcl_zigbee receiver.c
+  Revised:        $Date: 2009-03-18 15:56:27 -0700 (Wed, 18 Mar 2009) $
+  Revision:       $Revision: 19453 $
+
+  Description:    Zigbee Cluster Library - ZIGBEE Receiver device application.
+
+  Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
+
+  Should you have any questions regarding your right to use this Software,
+  contact Texas Instruments Incorporated at www.TI.com. 
+**************************************************************************************************/
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 #include "ZComDef.h"
 #include "OSAL.h"
 #include "AF.h"
@@ -27,12 +38,25 @@
 /* MT */
 #include "MT_UART.h"
 #include "MT.h"
+
 #include "ZComDef.h"
 
-#define TRANSMITAPP_MAX_DATA_LEN    102
+/*********************************************************************
+ * CONSTANTS
+ */
+ #define TRANSMITAPP_MAX_DATA_LEN    102
+
+/*********************************************************************
+ * TYPEDEFS
+ */
+/*********************************************************************
+ * GLOBAL VARIABLES
+ */
 
 uint8 send_msg_counter = 0;
+
 byte zclZigbeeReceiver_TaskID; // The zigbee task_ID
+
 byte ZDO_MSG_SEND_ID; // The zigbee task_ID
 
 // The UART transmit variable and array, the transmit data length
@@ -117,8 +141,9 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
 void ZSendMsgProcess(char *temp)
 {  
     HalUARTWrite(HAL_UART_PORT_0, device_manager.Type, 8);
-    HalUARTWrite(HAL_UART_PORT_0, device_manager.Module, 10);       
-    HalUARTWrite(HAL_UART_PORT_0, device_manager.Data, len-2);    
+    HalUARTWrite(HAL_UART_PORT_0, device_manager.Module, 10);   
+    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);     
+//    HalUARTWrite(HAL_UART_PORT_0, device_manager.Data, 20);   
     HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);   
  
     osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
@@ -187,15 +212,9 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
             zclZigbeeReceiver_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );            
             break;           
         case AF_DATA_CONFIRM_CMD:           
-            strcpy(device_manager.Type, "\r 1 \n");  
-            strcpy(device_manager.Module, "\r 140 \n");        
-            
-            if (MSGpkt->cmd.DataLength > 0)
-              for(len = 0; len < MSGpkt->cmd.DataLength; len++) // Send the recv_data to UART
-              {
-                device_manager.Data[len] = MSGpkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.
-              }       
-            len = MSGpkt->cmd.DataLength;
+              strcpy(device_manager.Type, "\r 1 \n");  
+              strcpy(device_manager.Module, "\r 140 \n");                            
+              strncpy(device_manager.Data, MSGpkt->cmd.Data, 14);         
             break;         
         case ZDO_STATE_CHANGE:       
 //            show("ZDO_STATE_CHANGE");

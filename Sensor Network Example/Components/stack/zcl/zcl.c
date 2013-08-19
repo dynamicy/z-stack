@@ -1327,7 +1327,7 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       #endif
     }
     //chris
- //   HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
+//    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
   }
 #endif
 
@@ -1343,7 +1343,6 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       #endif
     }
     // Write receive coordinator command to UART, chrischris
-//    uint16 HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
  //   HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
     
     return ;

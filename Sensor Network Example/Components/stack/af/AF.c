@@ -1,3 +1,20 @@
+/**************************************************************************************************
+  Filename:       AF.c
+  Revised:        $Date: 2009-10-29 00:15:32 -0700 (Thu, 29 Oct 2009) $
+  Revision:       $Revision: 21013 $
+
+  Description:    Application Framework - Device Description helper functions
+
+  Copyright 2004-2009 Texas Instruments Incorporated. All rights reserved.
+
+  Should you have any questions regarding your right to use this Software,
+  contact Texas Instruments Incorporated at www.TI.com.
+**************************************************************************************************/
+
+/*********************************************************************
+ * INCLUDES
+ */
+
 #include "OSAL.h"
 #include "nwk_globals.h"
 #include "nwk_util.h"
@@ -15,6 +32,10 @@
 
 /* Profile */
 #include "AF.h"
+
+/*********************************************************************
+ * MACROS
+ */
 
 /*********************************************************************
  * @fn      afSend
@@ -42,9 +63,37 @@
         AF_DataRequest( (dstAddr), afFindEndPointDesc( (srcEP) ), \
                           (cID), (len), (buf), (transID), (options), (radius) )
 
+/*********************************************************************
+ * CONSTANTS
+ */
+
+/*********************************************************************
+ * TYPEDEFS
+ */
+
+/*********************************************************************
+ * GLOBAL VARIABLES
+ */
+
 epList_t *epList;
 //Chris Defined
 packet_t device_manager;
+
+/*********************************************************************
+ * EXTERNAL VARIABLES
+ */
+
+/*********************************************************************
+ * EXTERNAL FUNCTIONS
+ */
+
+/*********************************************************************
+ * LOCAL VARIABLES
+ */
+
+/*********************************************************************
+ * LOCAL FUNCTIONS
+ */
 
 static void afBuildMSGIncoming( aps_FrameFormat_t *aff, endPointDesc_t *epDesc,
                 zAddrType_t *SrcAddress, uint16 SrcPanId, NLDE_Signal_t *sig,

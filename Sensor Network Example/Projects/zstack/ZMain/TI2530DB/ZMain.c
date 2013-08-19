@@ -11,6 +11,12 @@
   Should you have any questions regarding your right to use this Software,
   contact Texas Instruments Incorporated at www.TI.com.
 **************************************************************************************************/
+
+/*********************************************************************
+ * INCLUDES
+ */
+//#include "ZComDef.h"
+
 /* OSAL */
 #include "OSAL.h"
 #include "OSAL_Nv.h"
@@ -40,10 +46,32 @@
   #include "M140.h"
 #endif
 
+/*********************************************************************
+ * MACROS
+ */
+
+/*********************************************************************
+ * CONSTANTS
+ */
+
 // Maximun number of Vdd samples checked before go on
 #define MAX_VDD_SAMPLES  3
 #define ZMAIN_VDD_LIMIT  HAL_ADC_VDD_LIMIT_4
 
+/*********************************************************************
+ * TYPEDEFS
+ */
+
+/*********************************************************************
+ * GLOBAL VARIABLES
+ */
+
+/*********************************************************************
+ * EXTERNAL VARIABLES
+ */
+/*********************************************************************
+ * EXTERNAL FUNCTIONS
+ */
 extern bool HalAdcCheckVdd (uint8 limit);
 
 /*********************************************************************
@@ -309,3 +337,6 @@ static void zmain_lcd_init ( void )
   #endif // SERIAL_DEBUG_SUPPORTED
 }
 #endif
+
+/*********************************************************************
+*********************************************************************/

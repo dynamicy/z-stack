@@ -1,19 +1,3 @@
-/**************************************************************************************************
-  Filename:       zcl.c
-  Revised:        $Date: 2009-12-22 17:20:57 -0800 (Tue, 22 Dec 2009) $
-  Revision:       $Revision: 21402 $
-
-  Description:    This file contains the Zigbee Cluster Library Foundation functions.
-
-  Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
-
-  Should you have any questions regarding your right to use this Software,
-  contact Texas Instruments Incorporated at www.TI.com. 
-**************************************************************************************************/
-
-/*********************************************************************
- * INCLUDES
- */
 #include "ZComDef.h"
 #include "OSAL.h"
 #include "OSAL_Tasks.h"
@@ -1315,16 +1299,20 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
 #if defined(Coor_receiver)
   if (pkt->cmd.DataLength > 0)
   {
+    device_manager.DataLength = pkt->cmd.DataLength;
+    
     for(len = 0; len < pkt->cmd.DataLength; len++) // Send the recv_data to UART
     {
       recv_data[len] = pkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.
+      device_manager.Data[len]= pkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.  
       #if defined ( LCD_SUPPORTED )
         HalLcdWriteChar(HAL_LCD_LINE_4, len, recv_data[len]);
       #endif
     }
     //chris
-    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
-    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);      
+//    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);
+//    HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, pkt->cmd.DataLength-2);    
+//    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);      
   }
 #endif
 

@@ -26,13 +26,9 @@
 /* MT */
 #include "MT_UART.h"
 #include "MT.h"
-
 #include "ZComDef.h"
 
-/*********************************************************************
- * CONSTANTS
- */
- #define TRANSMITAPP_MAX_DATA_LEN    102
+#define TRANSMITAPP_MAX_DATA_LEN    102
 
 uint8 send_msg_counter = 0;
 byte zclZigbeeReceiver_TaskID; // The zigbee task_ID
@@ -47,9 +43,6 @@ byte UartTransmit_Msg[ TRANSMITAPP_MAX_DATA_LEN ];
 // Receive the UART command
 uint8 uart_recv[TRANSMITAPP_MAX_DATA_LEN]; 
 
-/*********************************************************************
- * LOCAL VARIABLES
- */
 afAddrType_t zclZigbeeRecv_DstAddr;  // AF address type
 aps_Group_t zclZigbeeRecv_Group;
 
@@ -70,9 +63,6 @@ static endPointDesc_t zigbeeReceiver_TestEp =
   (afNetworkLatencyReq_t)0            // No Network Latency req
 };
 
-/*********************************************************************
- * LOCAL FUNCTIONS
- */
 static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys );
 static void zclZigbeeReceiver_BasicResetCB( void );
 static void zclZigbeeReceiver_IdentifyCB( zclIdentify_t *pCmd );
@@ -95,10 +85,7 @@ static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *msg );
 #ifdef ZCL_DISCOVER
   static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg );
 #endif
-  
-/*********************************************************************
- * ZCL General Profile Callback table
- */
+
 static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
 {
   zclZigbeeReceiver_BasicResetCB,              // Basic Cluster Reset command
@@ -117,16 +104,16 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
   NULL,                                        // RSSI Location Response commands
 };
 
-void ZSendMsgProcess(char *temp)
+void ZSendMsgProcess(void)
 {  
-//    HalUARTWrite(HAL_UART_PORT_0, device_manager.Type, 8);
-    HalUARTWrite(HAL_UART_PORT_0, device_manager.Module, 10);         
-    // Write receive coordinator command to UART, chrischris
-//   HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);    
- //   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2); 
- //   HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);   
- 
-    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
+    HalUARTWrite(HAL_UART_PORT_0, device_manager.Type, 8);
+    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3); 
+    HalUARTWrite(HAL_UART_PORT_0, device_manager.Module, 10);  
+    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);     
+    // Write receive coordinator command to UART
+    HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2); 
+    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);  
+    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 3000 );        
 }
 
 void zclZigbeeRecv_Init( byte task_id )
@@ -165,15 +152,10 @@ void zclZigbeeRecv_Init( byte task_id )
   osal_set_event( zclZigbeeReceiver_TaskID, NWK_RETRY_DELAY);  
 }
 
-/*********************************************************************
- * @fn          zclZigbeeRecv_event_loop
- * @brief       Event Loop Processor for zclGeneral.
- */
 uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
 {   
     afIncomingMSGPacket_t *MSGpkt;
     (void)task_id;  // Intentionally unreferenced parameter
-//    uint32 i = 0;
   
     if ( events & SYS_EVENT_MSG ) // SYSTEM Message event
     {
@@ -185,28 +167,13 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
             show("ZCL_INCOMING_MSG");
             // Incoming ZCL Foundation command/response messages
             zclZigbeeReceiver_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); 
-            break; 
-//        case KEY_CHANGE: //0xC0 : Key Events
-//            show("KEY_CHANGE");
-//            zclZigbeeReceiver_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );            
-//            break;           
+            break;          
         case AF_DATA_CONFIRM_CMD:            
-//              strcpy(device_manager.Type, "\r 1 \n");  
-//              strcpy(device_manager.Module, "\r 140 \n");                            
-  
-//              device_manager.DataLength = MSGpkt->cmd.DataLength;
-//              sprintf(buf, "%d", MSGpkt->cmd.DataLength);
-//              HalUARTWrite(HAL_UART_PORT_0, buf, 16); 
-/*              if( MSGpkt->cmd.DataLength > 0 && MSGpkt->cmd.DataLength < 30 )
-                {                   
-                  for(i = 0; i < MSGpkt->cmd.DataLength; i++)  // Send the recv_data to UART 
-                  {                  
-                    device_manager.Data[i] = MSGpkt->cmd.Data[i+3];
-                  }
-                }*/
+              strcpy(device_manager.Type, "\r 1 \n");  
+              strcpy(device_manager.Module, "\r 140 \n");                            
             break;         
         case ZDO_STATE_CHANGE:       
-            ZSendMsgProcess("Hi");            
+            ZSendMsgProcess();            
             break;         
         case ZDO_MATCH_DESC_RSP_SENT:       
             show("ZDO_MATCH_DESC_RSP_SENT");
@@ -224,7 +191,7 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
     switch ( events )
     {
       case ZDO_MSG_SEND_EVT:
-            ZSendMsgProcess("Chris:ZDO_MSG_SEND_EVT");                
+            ZSendMsgProcess();                
             break;
       case SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT: // ZIGBEE Receiver identify timeout event
         show("SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT");
@@ -265,10 +232,6 @@ static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys )
 #endif
 }
 
-/*********************************************************************
- * @fn      zclZigbeeReceiver_ProcessIdentifyTimeChange
- * @brief   Called to process any change to the IdentifyTime attribute.
- */
 static void zclZigbeeReceiver_ProcessIdentifyTimeChange( void )
 {
   if ( zclZigbeeRecv_IdentifyTime > 0 )
@@ -300,37 +263,17 @@ static void zclZigbeeReceiver_BasicResetCB( void )
   // Reset all attributes to default values
 }
 
-/*********************************************************************
- * @fn      zclZigbeeReceiver_IdentifyCB
- * @brief   Callback from the ZCL General Cluster Library when
- *          it received an Identity Command for this application.
- * @param   srcAddr - source address and endpoint of the response message
- *          identifyTime - the number of seconds to identify yourself
- */
 static void zclZigbeeReceiver_IdentifyCB( zclIdentify_t *pCmd )
 {
   zclZigbeeRecv_IdentifyTime = pCmd->identifyTime;
   zclZigbeeReceiver_ProcessIdentifyTimeChange();
 }
 
-/*********************************************************************
- * @fn      zclZigbeeReceiver_IdentifyQueryRspCB
- * @brief   Callback from the ZCL General Cluster Library when
- *          it received an Identity Query Response Command for this application.
- * @param   srcAddr - requestor's address
- *          timeout - number of seconds to identify yourself (valid for query response)
- */
 static void zclZigbeeReceiver_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
 {
   (void)pRsp; // Query Response (with timeout value)
 }
 
-/*********************************************************************
- * @fn      zclZigbeeReceiver_OnOffCB
- * @brief   Callback from the ZCL General Cluster Library when
- *          it received an On/Off Command for this application.
- * @param   cmd - COMMAND_ON, COMMAND_OFF or COMMAND_TOGGLE
- */
 static void zclZigbeeReceiver_OnOffCB( uint8 cmd )
 { 
   if ( cmd == COMMAND_ON ) // Turn on the light
@@ -355,17 +298,7 @@ static void zclZigbeeReceiver_OnOffCB( uint8 cmd )
   else
     HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF ); // setting the LED_1 off
 }
-/****************************************************************************** 
- * 
- *  Functions for processing ZCL Foundation incoming Command/Response messages
- *
- *****************************************************************************/
 
-/*********************************************************************
- * @fn      zclZigbeeReceiver_ProcessIncomingMsg
- * @brief   Process ZCL Foundation incoming message
- * @param   pInMsg - pointer to the received message
- */
 static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg)
 {
   switch ( pInMsg->zclHdr.commandID )
@@ -422,11 +355,7 @@ static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg)
 }
 
 #ifdef ZCL_READ
-/*********************************************************************
- * @fn      zclZigbeeReceiver_ProcessInReadRspCmd
- * @brief   Process the "Profile" Read Response Command
- * @param   pInMsg - incoming message to process
- */
+
 static uint8 zclZigbeeReceiver_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
 {
   zclReadRspCmd_t *readRspCmd;
@@ -443,11 +372,7 @@ static uint8 zclZigbeeReceiver_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
 #endif // ZCL_READ
 
 #ifdef ZCL_WRITE
-/*********************************************************************
- * @fn      zclZigbeeReceiver_ProcessInWriteRspCmd
- * @brief   Process the "Profile" Write Response Command
- * @param   pInMsg - incoming message to process
- */
+
 static uint8 zclZigbeeReceiver_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
 {
   zclWriteRspCmd_t *writeRspCmd;
@@ -495,12 +420,6 @@ static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
 }
 #endif // ZCL_DISCOVER
 
-/*********************************************************************
- * @fn      zclUARTMsg_CallBack
- * @brief   Send data OTA.
- * @param   port - UART port.
- * @param   event - the UART port event flag.
- */
 void zclUARTMsg_CallBack(uint8 port, uint8 event)
 {
   (void)port;
@@ -513,10 +432,6 @@ void zclUARTMsg_CallBack(uint8 port, uint8 event)
   }
 }
 
-/*********************************************************************
- * @fn      zclUartReceiver
- * @brief   The coordinator receive command.
- */
 void zclUartReceiver( void )
 { 
   show("zclUartReceiver");

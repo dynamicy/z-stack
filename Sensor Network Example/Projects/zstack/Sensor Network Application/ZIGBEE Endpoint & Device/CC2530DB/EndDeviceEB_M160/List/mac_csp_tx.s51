@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  22:10:49 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               20/Aug/2013  00:07:20 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -56,7 +56,7 @@
 //                          MT_TASK -D MT_APP_FUNC -D MT_SYS_FUNC -D          /
 //                          MT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG -D             /
 //                          xPOWER_SAVING -D End_Device -D HAL_KEYPAD -D      /
-//                          M160 -D xPA2591 -lC "D:\GitHub\z-stack\Sensor     /
+//                          M190 -D xPA2591 -lC "D:\GitHub\z-stack\Sensor     /
 //                          Network Example\Projects\zstack\Sensor Network    /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -993,8 +993,8 @@ cspReadCountSymbols:
         CFI CFA_SP SP+-3
         LJMP    ?BRET
         CFI EndBlock cfiBlock2
-        REQUIRE _A_IEN0
         REQUIRE T2M1
+        REQUIRE _A_IEN0
         REQUIRE T2M0
         REQUIRE T2MSEL
 //  305 }
@@ -1081,9 +1081,9 @@ cspPrepForTxProgram:
         LJMP    ??Subroutine7_0 & 0xFFFF
         CFI EndBlock cfiBlock3
         REQUIRE RFIRQF1
-        REQUIRE T2CSPCFG
         REQUIRE _A_IEN0
         REQUIRE S1CON
+        REQUIRE T2CSPCFG
         REQUIRE RFST
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
@@ -1468,9 +1468,9 @@ macCspTxGoCsma:
         SJMP    ??Subroutine7_0
         CFI EndBlock cfiBlock14
         REQUIRE RFST
-        REQUIRE _A_IEN0
         REQUIRE T2IRQF
         REQUIRE T2M1
+        REQUIRE _A_IEN0
         REQUIRE T2M0
         REQUIRE T2MSEL
 
@@ -1787,8 +1787,8 @@ macCspTxGoSlotted:
         MOV     R7,#0x1
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock19
-        REQUIRE T2MOVF0
         REQUIRE _A_IEN0
+        REQUIRE T2MOVF0
         REQUIRE T2M0
         REQUIRE T2MSEL
         REQUIRE RFST

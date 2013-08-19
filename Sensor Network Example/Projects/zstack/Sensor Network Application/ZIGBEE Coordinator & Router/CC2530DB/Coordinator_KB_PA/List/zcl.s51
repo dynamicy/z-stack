@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  19:14:40 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  23:41:48 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -7882,8 +7882,8 @@ zclProcessMessageMSG:
         MOV     A,R1
         SUBB    A,R3
         JC      ??zclProcessMessageMSG_3
-// 1302     //chris
-// 1303     HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);   
+// 1302 
+// 1303     HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);    
         ; Setup parameters for call to function HalUARTWrite
         MOV     A,#-0x2
         ADD     A,R2
@@ -7897,7 +7897,7 @@ zclProcessMessageMSG:
         MOV     R3,DPH
         MOV     R1,#0x0
         LCALL   ??HalUARTWrite?relay
-// 1304     HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);      
+// 1304     HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);
         ; Setup parameters for call to function HalUARTWrite
         MOV     R4,#0x3
         MOV     R5,#0x0
@@ -7917,7 +7917,7 @@ zclProcessMessageMSG:
 // 1314       receive[len] = pkt->cmd.Data[len+3];
 // 1315     }
 // 1316     // Write receive coordinator command to UART, chrischris
-// 1317 //  HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
+// 1317 //    HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
 // 1318       
 // 1319     return ;
 // 1320   }

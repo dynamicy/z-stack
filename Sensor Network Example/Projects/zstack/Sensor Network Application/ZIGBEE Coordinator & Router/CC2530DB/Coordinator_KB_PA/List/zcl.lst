@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                19/Aug/2013  19:14:40 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                19/Aug/2013  23:41:48 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -3455,8 +3455,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000085   E9           MOV     A,R1
    \   000086   9B           SUBB    A,R3
    \   000087   40B3         JC      ??zclProcessMessageMSG_3
-   1302              //chris
-   1303              HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);   
+   1302          
+   1303              HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);    
    \   000089                ; Setup parameters for call to function HalUARTWrite
    \   000089   74FE         MOV     A,#-0x2
    \   00008B   2A           ADD     A,R2
@@ -3470,7 +3470,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000098   AB83         MOV     R3,DPH
    \   00009A   7900         MOV     R1,#0x0
    \   00009C   12....       LCALL   ??HalUARTWrite?relay
-   1304              HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);      
+   1304              HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);
    \   00009F                ; Setup parameters for call to function HalUARTWrite
    \   00009F   7C03         MOV     R4,#0x3
    \   0000A1   7D00         MOV     R5,#0x0
@@ -3490,7 +3490,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    1314                receive[len] = pkt->cmd.Data[len+3];
    1315              }
    1316              // Write receive coordinator command to UART, chrischris
-   1317          //  HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
+   1317          //    HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
    1318                
    1319              return ;
    1320            }

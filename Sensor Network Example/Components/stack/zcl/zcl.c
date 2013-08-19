@@ -1299,9 +1299,9 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       recv_data[len] = pkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.
       device_manager.Data[len]= pkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.  
     }
-    //chris
-    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);   
-    HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);      
+
+    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);    
+    HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);
   }
 #endif
 
@@ -1314,7 +1314,7 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       receive[len] = pkt->cmd.Data[len+3];
     }
     // Write receive coordinator command to UART, chrischris
-//  HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
+//    HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
       
     return ;
   }

@@ -250,10 +250,6 @@ uint16 zclZigbeeDevice_event_loop( uint8 task_id, uint16 events )
   return 0; // Discard unknown events
 }
 
-/*********************************************************************
- * @fn      zclZigbeeDevice_ProcessZDOMsgs()
- * @brief   Process response messages
- */
 void zclZigbeeDevice_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg )
 {
   switch ( inMsg->clusterID )
@@ -293,14 +289,6 @@ void zclZigbeeDevice_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg )
   }
 }
 
-/*********************************************************************
- * @fn      zclZigbeeDevice_HandleKeys
- * @brief   Handles all key events for this device.
- * @param   shift - true if in shift/alt.
- * @param   keys - bit field for key events. 
- *          Valid entries: HAL_KEY_SW_4(MCU-K2)
- *                         HAL_KEY_SW_1(MCU-K1)
- */
 static void zclZigbeeDevice_HandleKeys( byte shift, byte keys )
 {
   zAddrType_t dstAddr;
@@ -324,10 +312,6 @@ static void zclZigbeeDevice_HandleKeys( byte shift, byte keys )
   }
 }
 
-/*********************************************************************
- * @fn      zclZigbeeDevice_ProcessIdentifyTimeChange
- * @brief   Called to process any change to the IdentifyTime attribute.
- */
 static void zclZigbeeDevice_ProcessIdentifyTimeChange( void )
 {
   if ( zclSampleSw_IdentifyTime > 0 )
@@ -345,51 +329,21 @@ static void zclZigbeeDevice_ProcessIdentifyTimeChange( void )
   }
 }
 
-/*********************************************************************
- * @fn      zclZigbeeDevice_BasicResetCB
- * @brief   Callback from the ZCL General Cluster Library
- *          to set all the Basic Cluster attributes to  default values.
- */
 static void zclZigbeeDevice_BasicResetCB( void )
 {
 }
 
-/*********************************************************************
- * @fn      zclZigbeeDevice_IdentifyCB
- * @brief   Callback from the ZCL General Cluster Library when
- *          it received an Identity Command for this application.
- * @param   srcAddr - source address and endpoint of the response message
- *          identifyTime - the number of seconds to identify yourself
- */
 static void zclZigbeeDevice_IdentifyCB( zclIdentify_t *pCmd )
 {
   zclSampleSw_IdentifyTime = pCmd->identifyTime;
   zclZigbeeDevice_ProcessIdentifyTimeChange();
 }
 
-/*********************************************************************
- * @fn      zclZigbeeDevice_IdentifyQueryRspCB
- * @brief   Callback from the ZCL General Cluster Library when
- *          it received an Identity Query Response Command for this application.
- * @param   srcAddr - source address
- *          timeout - number of seconds to identify yourself (valid for query response)
- */
 static void zclZigbeeDevice_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
 {
   (void)pRsp; // Query Response (with timeout value)
 }
 
-/******************************************************************************
- *
- *  Functions for processing ZCL Foundation incoming Command/Response messages
- *
- *****************************************************************************/
-
-/*********************************************************************
- * @fn      zclZigbeeDevice_ProcessIncomingMsg
- * @brief   Process ZCL Foundation incoming message
- * @param   pInMsg - pointer to the received message
- */
 static void zclZigbeeDevice_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg )
 {
   switch ( pInMsg->zclHdr.commandID )
@@ -441,11 +395,6 @@ static void zclZigbeeDevice_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg )
 }
 
 #ifdef ZCL_READ
-/*********************************************************************
- * @fn      zclZigbeeDevice_ProcessInReadRspCmd
- * @brief   Process the "Profile" Read Response Command
- * @param   pInMsg - incoming message to process
- */
 static uint8 zclZigbeeDevice_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
 {
   zclReadRspCmd_t *readRspCmd;
@@ -462,11 +411,6 @@ static uint8 zclZigbeeDevice_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
 #endif // ZCL_READ
 
 #ifdef ZCL_WRITE
-/*********************************************************************
- * @fn      zclZigbeeDevice_ProcessInWriteRspCmd
- * @brief   Process the "Profile" Write Response Command
- * @param   pInMsg - incoming message to process
- */
 static uint8 zclZigbeeDevice_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
 {
   zclWriteRspCmd_t *writeRspCmd;
@@ -481,11 +425,6 @@ static uint8 zclZigbeeDevice_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
 }
 #endif // ZCL_WRITE
 
-/*********************************************************************
- * @fn      zclZigbeeDevice_ProcessInDefaultRspCmd
- * @brief   Process the "Profile" Default Response Command
- * @param   pInMsg - incoming message to process
- */
 static uint8 zclZigbeeDevice_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
 {
   // zclDefaultRspCmd_t *defaultRspCmd = (zclDefaultRspCmd_t *)pInMsg->attrCmd;
@@ -496,11 +435,6 @@ static uint8 zclZigbeeDevice_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
 }
 
 #ifdef ZCL_DISCOVER
-/*********************************************************************
- * @fn      zclZigbeeDevice_ProcessInDiscRspCmd
- * @brief   Process the "Profile" Discover Response Command
- * @param   pInMsg - incoming message to process
- */
 static uint8 zclZigbeeDevice_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
 {
   zclDiscoverRspCmd_t *discoverRspCmd;
@@ -515,16 +449,6 @@ static uint8 zclZigbeeDevice_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
 }
 #endif // ZCL_DISCOVER
 
-
-/****************************************************************************
-****************************************************************************/
-
-/*********************************************************************
- * @fn      zclRS485_CallBack
- * @brief   Send data OTA.
- * @param   port - UART port.
- * @param   event - the UART port event flag.
- */
 void zclRS485_CallBack(uint8 port, uint8 event)
 {
   (void)port;
@@ -537,10 +461,6 @@ void zclRS485_CallBack(uint8 port, uint8 event)
   }
 }
 
-/*********************************************************************
- * @fn      zclRS485_SendMsg
- * @brief   Use RS485 interface receive message send to coordinator
- */
 void zclRS485_SendMsg(void)
 {
   uint8 len;
@@ -554,20 +474,12 @@ void zclRS485_SendMsg(void)
   #endif
   }
   
-//  // Set the End Device state
-//  zclZigbeeDevice_DstAddr.endPoint = 12;
-//  zclZigbeeDevice_DstAddr.addr.shortAddr = 0xFFFF;
-//  zclZigbeeDevice_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
-    
   // Transmit the UART command to End Device
-  uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
+  uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
+                               ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, uart_recv );
 }
 
-/*********************************************************************
- * @fn      zclZIGBEEDevice_SendMsg
- * @brief   Use ZCL Foundation send the sensor message to coordinator
- */
 void zclZIGBEEDevice_SendMsg(void)
 {
   #if defined(M110)

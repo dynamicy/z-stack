@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                19/Aug/2013  21:28:11 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                19/Aug/2013  23:46:14 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -188,15 +188,8 @@
 ###############################################################################
 
 D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
-      1          //-------------------------------------------------------------------
-      2          // Filename: M160.c
-      3          // Description: hal M160 PWM library
-      4          //-------------------------------------------------------------------
-      5          //-------------------------------------------------------------------
-      6          // INCLUDES
-      7          //-------------------------------------------------------------------
-      8          #include "hal_defs.h"
-      9          #include "ioCC2530.h"
+      1          #include "hal_defs.h"
+      2          #include "ioCC2530.h"
 
    \                                 In  segment SFR_AN, at 0x80
    \   union <unnamed> volatile __sfr _A_P0
@@ -217,40 +210,28 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
    \   unsigned char volatile __sfr P0DIR
    \                     P0DIR:
    \   000000                DS 1
-     10          #include "hal_mcu.h"
-     11          #include "hal_board.h"
-     12          #include "M160.h"
-     13          
-     14          //-------------------------------------------------------------------
-     15          // LOCAL VARIABLES
-     16          //-------------------------------------------------------------------
+      3          #include "hal_mcu.h"
+      4          #include "hal_board.h"
+      5          #include "M160.h"
+      6          
 
    \                                 In  segment XDATA_Z, align 1, keep-with-next
-     17          uint8 M160_DutyCount;
+      7          uint8 M160_DutyCount;
    \                     M160_DutyCount:
    \   000000                DS 1
    \   000001                REQUIRE __INIT_XDATA_Z
 
    \                                 In  segment XDATA_Z, align 1, keep-with-next
-     18          uint8 M160_DutyValue;
+      8          uint8 M160_DutyValue;
    \                     M160_DutyValue:
    \   000000                DS 1
    \   000001                REQUIRE __INIT_XDATA_Z
-     19          
-     20          //-------------------------------------------------------------------
-     21          // LOCAL FUNCTIONS
-     22          //-------------------------------------------------------------------
-     23          //-------------------------------------------------------------------
-     24          // @fn      timerPwm_ISR
-     25          // @brief   ISR framework for the 1k timer component
-     26          // @param   none
-     27          // @return  none
-     28          //-------------------------------------------------------------------
+      9          
 
    \                                 In  segment NEAR_CODE, align 1, keep-with-next
-     29          HAL_ISR_FUNCTION(T4_ISR, T4_VECTOR)
+     10          HAL_ISR_FUNCTION(T4_ISR, T4_VECTOR)
    \                     T4_ISR:
-     30          {
+     11          {
    \   000000   C0E0         PUSH    A
    \   000002   C0D0         PUSH    PSW
    \   000004   EA           MOV     A,R2
@@ -259,21 +240,21 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
    \   000009   C083         PUSH    DPH
    \   00000B                ; Saved register size: 5
    \   00000B                ; Auto size: 0
-     31              M160_DutyCount++;
+     12              M160_DutyCount++;
    \   00000B   90....       MOV     DPTR,#M160_DutyCount
    \   00000E   E0           MOVX    A,@DPTR
    \   00000F   04           INC     A
    \   000010   F0           MOVX    @DPTR,A
-     32              if (M160_DutyCount >= 100)
+     13              if (M160_DutyCount >= 100)
    \   000011   C3           CLR     C
    \   000012   9464         SUBB    A,#0x64
    \   000014   4002         JC      ??T4_ISR_0
-     33              {
-     34                  M160_DutyCount = 0;
+     14              {
+     15                  M160_DutyCount = 0;
    \   000016   E4           CLR     A
    \   000017   F0           MOVX    @DPTR,A
-     35              }
-     36              if (M160_DutyCount >= M160_DutyValue)
+     16              }
+     17              if (M160_DutyCount >= M160_DutyValue)
    \                     ??T4_ISR_0:
    \   000018   E0           MOVX    A,@DPTR
    \   000019   C0E0         PUSH    A
@@ -284,18 +265,18 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
    \   000022   C3           CLR     C
    \   000023   9A           SUBB    A,R2
    \   000024   4004         JC      ??T4_ISR_1
-     37              {
-     38                  HAL_DO_OFF();
+     18              {
+     19                  HAL_DO_OFF();
    \   000026   D280         SETB    0x80.0
    \   000028   8002         SJMP    ??T4_ISR_2
-     39              }
-     40              else
-     41              {
-     42                  HAL_DO_ON();
+     20              }
+     21              else
+     22              {
+     23                  HAL_DO_ON();
    \                     ??T4_ISR_1:
    \   00002A   C280         CLR     0x80.0
-     43              }
-     44          }
+     24              }
+     25          }
    \                     ??T4_ISR_2:
    \   00002C   D083         POP     DPH
    \   00002E   D082         POP     DPL
@@ -305,42 +286,34 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
    \   000035   D0E0         POP     A
    \   000037   32           RETI
    \   000038                REQUIRE _A_P0
-     45          
-     46          //-------------------------------------------------------------------
-     47          // GLOBAL FUNCTIONS
-     48          //-------------------------------------------------------------------
-     49          //-------------------------------------------------------------------
-     50          // @fn      M160_Init
-     51          // @brief    Set up timer 4 to generate an interrupt 1 kHz for PWM
-     52          // @return  none
-     53          //-------------------------------------------------------------------
+     26          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     54          void M160_Init(void)
+     27          void M160_Init(void)
    \                     M160_Init:
-     55          {
+     28          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     56              HAL_DO_OUTPUT();
+     29              HAL_DO_OUTPUT();
    \   000004   53F3FE       ANL     0xf3,#0xfe
    \   000007   43FD01       ORL     0xfd,#0x1
-     57          
-     58              // Set prescaler divider value to 128 (8KHz)
-     59              X_T4CTL |= 0x80;
+     30          
+     31              // Set prescaler divider value to 128 (8KHz)
+     32              X_T4CTL |= 0x80;
    \   00000A   9070EB       MOV     DPTR,#0x70eb
    \   00000D   E0           MOVX    A,@DPTR
    \   00000E   D2E7         SETB    0xE0 /* A   */.7
    \   000010   F0           MOVX    @DPTR,A
-     60          
-     61              X_T4CTL &= ~(0x10); // Stop timer
+     33          
+     34              X_T4CTL &= ~(0x10); // Stop timer
    \   000011   E0           MOVX    A,@DPTR
    \   000012   C2E4         CLR     0xE0 /* A   */.4
    \   000014   F0           MOVX    @DPTR,A
-     62              T4IE = 0; // Disable interrupt
+     35              T4IE = 0; // Disable interrupt
    \   000015   C2BC         CLR     0xb8.4
-     63          }
+     36          }
    \   000017                REQUIRE ?Subroutine0
    \   000017                REQUIRE _A_IEN1
    \   000017                REQUIRE P0SEL
@@ -352,66 +325,55 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
    \   000000   D083         POP     DPH
    \   000002   D082         POP     DPL
    \   000004   02....       LJMP    ?BRET
-     64          
-     65          //-------------------------------------------------------------------
-     66          // @fn          M160_On
-     67          // @brief       Turn M160 on.
-     68          // @param       uint8 duty
-     69          // @return      none
-     70          //-------------------------------------------------------------------
+     37          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     71          void M160_On(uint8 duty)
+     38          void M160_On(uint8 duty)
    \                     M160_On:
-     72          {
+     39          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     73              M160_DutyCount = 0;
+     40              M160_DutyCount = 0;
    \   000004   E4           CLR     A
    \   000005   90....       MOV     DPTR,#M160_DutyCount
    \   000008   F0           MOVX    @DPTR,A
-     74              M160_DutyValue = duty;
+     41              M160_DutyValue = duty;
    \   000009   E9           MOV     A,R1
    \   00000A   90....       MOV     DPTR,#M160_DutyValue
    \   00000D   F0           MOVX    @DPTR,A
-     75          
-     76              X_T4CTL |= 0x10; // Start timer
+     42          
+     43              X_T4CTL |= 0x10; // Start timer
    \   00000E   9070EB       MOV     DPTR,#0x70eb
    \   000011   E0           MOVX    A,@DPTR
    \   000012   D2E4         SETB    0xE0 /* A   */.4
    \   000014   F0           MOVX    @DPTR,A
-     77              T4IE = 1; // Enable interrupt
+     44              T4IE = 1; // Enable interrupt
    \   000015   D2BC         SETB    0xb8.4
-     78          }
+     45          }
    \   000017   80..         SJMP    ?Subroutine0
    \   000019                REQUIRE _A_IEN1
-     79          
-     80          //-------------------------------------------------------------------
-     81          // @fn          M160_Off
-     82          // @brief       Turn M160 off.
-     83          // @return      none
-     84          //-------------------------------------------------------------------
+     46          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     85          void M160_Off(void)
+     47          void M160_Off(void)
    \                     M160_Off:
-     86          {
+     48          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     87              X_T4CTL &= ~(0x10); // Stop timer
+     49              X_T4CTL &= ~(0x10); // Stop timer
    \   000004   9070EB       MOV     DPTR,#0x70eb
    \   000007   E0           MOVX    A,@DPTR
    \   000008   C2E4         CLR     0xE0 /* A   */.4
    \   00000A   F0           MOVX    @DPTR,A
-     88              T4IE = 0; // Disable interrupt
+     50              T4IE = 0; // Disable interrupt
    \   00000B   C2BC         CLR     0xb8.4
-     89              HAL_DO_OFF();
+     51              HAL_DO_OFF();
    \   00000D   D280         SETB    0x80.0
-     90          }
+     52          }
    \   00000F   80..         SJMP    ?Subroutine0
    \   000011                REQUIRE _A_P0
    \   000011                REQUIRE _A_IEN1
@@ -434,7 +396,6 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
    \                     ??M160_Off?relay:
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    M160_Off
-     91          
 
    Maximum stack usage in bytes:
 

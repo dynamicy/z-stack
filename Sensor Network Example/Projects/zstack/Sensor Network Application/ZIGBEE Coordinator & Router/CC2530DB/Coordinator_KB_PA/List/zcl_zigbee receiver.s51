@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  19:14:41 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  23:41:49 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -884,8 +884,8 @@ ZSendMsgProcess:
         ; Saved register size: 2
         ; Auto size: 0
 //  109     // Write receive coordinator command to UART
-//  110  //   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2); 
-//  111  //   HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);    
+//  110 //   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2);  
+//  111 //    HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);    
 //  112     osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
         ; Setup parameters for call to function osal_start_timerEx
         MOV     R4,#-0x18
@@ -1306,21 +1306,17 @@ zclZigbeeRecv_event_loop:
 //  168             break;         
 //  169         case ZDO_STATE_CHANGE:       
 //  170             ZSendMsgProcess();            
-//  171             break;         
-//  172 //        case ZDO_MATCH_DESC_RSP_SENT:       
-//  173 //            show("ZDO_MATCH_DESC_RSP_SENT");
-//  174             // Check the state of NWK
-//  175 //            break;         
-//  176           default:
-//  177             break;
-//  178         }
-//  179         osal_msg_deallocate( (uint8 *)MSGpkt ); // Release the memory
-//  180       }
-//  181       return (events ^ SYS_EVENT_MSG); // return unprocessed events
-//  182     }
-//  183   
-//  184     // The user define application events
-//  185     switch ( events )
+//  171             break;                 
+//  172         default:
+//  173             break;
+//  174         }
+//  175         osal_msg_deallocate( (uint8 *)MSGpkt ); // Release the memory
+//  176       }
+//  177       return (events ^ SYS_EVENT_MSG); // return unprocessed events
+//  178     }
+//  179   
+//  180     // The user define application events
+//  181     switch ( events )
         MOV     R0,#?V0 + 0
         LCALL   ?US_SWITCH_SPARSE
 `?<Jumptable for zclZigbeeRecv_event_loop>_0`:
@@ -1335,9 +1331,9 @@ zclZigbeeRecv_event_loop:
         DW        ??zclZigbeeRecv_event_loop_4
         DW        ??zclZigbeeRecv_event_loop_5
         CODE
-//  186     {
-//  187       case ZDO_MSG_SEND_EVT:
-//  188             ZSendMsgProcess();                
+//  182     {
+//  183       case ZDO_MSG_SEND_EVT:
+//  184             ZSendMsgProcess();                
 ??zclZigbeeRecv_event_loop_4:
         ; Setup parameters for call to function ZSendMsgProcess
         LCALL   ??ZSendMsgProcess?relay
@@ -1452,15 +1448,15 @@ zclZigbeeRecv_event_loop:
         XRL     A,?V0 + 1
         MOV     R3,A
         SJMP    ??zclZigbeeRecv_event_loop_17
-//  189             break;
-//  190       case SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT: // ZIGBEE Receiver identify timeout event
-//  191         show("SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT");
+//  185             break;
+//  186       case SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT: // ZIGBEE Receiver identify timeout event
+//  187         show("SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT");
 ??zclZigbeeRecv_event_loop_2:
         ; Setup parameters for call to function show
         MOV     R2,#(`?<Constant "SAMPLELIGHT_IDENTIFY_...">` & 0xff)
         MOV     R3,#((`?<Constant "SAMPLELIGHT_IDENTIFY_...">` >> 8) & 0xff)
         LCALL   ??show?relay
-//  192         if ( zclZigbeeRecv_IdentifyTime > 0 )
+//  188         if ( zclZigbeeRecv_IdentifyTime > 0 )
         MOV     DPTR,#zclZigbeeRecv_IdentifyTime
         MOVX    A,@DPTR
         JNZ     ??zclZigbeeRecv_event_loop_18
@@ -1468,7 +1464,7 @@ zclZigbeeRecv_event_loop:
         MOVX    A,@DPTR
 ??zclZigbeeRecv_event_loop_18:
         JZ      ??zclZigbeeRecv_event_loop_19
-//  193              zclZigbeeRecv_IdentifyTime--;
+//  189              zclZigbeeRecv_IdentifyTime--;
         MOV     DPTR,#zclZigbeeRecv_IdentifyTime
         MOVX    A,@DPTR
         ADD     A,#-0x1
@@ -1477,20 +1473,20 @@ zclZigbeeRecv_event_loop:
         MOVX    A,@DPTR
         ADDC    A,#-0x1
         MOVX    @DPTR,A
-//  194              zclZigbeeReceiver_ProcessIdentifyTimeChange();
+//  190              zclZigbeeReceiver_ProcessIdentifyTimeChange();
 ??zclZigbeeRecv_event_loop_19:
         ; Setup parameters for call to function zclZigbeeReceiver_ProcessIdentifyTimeChange
         LCALL   ??zclZigbeeReceiver_ProcessIdentifyTimeChange?r
         SJMP    ??zclZigbeeRecv_event_loop_5
-//  195         break;   
-//  196       case UART_MSG_EVT: // The UART Message event
-//  197         zclUartReceiver();
+//  191         break;   
+//  192       case UART_MSG_EVT: // The UART Message event
+//  193         zclUartReceiver();
 ??zclZigbeeRecv_event_loop_3:
         ; Setup parameters for call to function zclUartReceiver
         LCALL   ??zclUartReceiver?relay
-//  198         break;
-//  199     }    
-//  200     return 0; // Discard unknown events
+//  194         break;
+//  195     }    
+//  196     return 0; // Discard unknown events
 ??zclZigbeeRecv_event_loop_5:
         MOV     R2,#0x0
         MOV     R3,#0x0
@@ -1498,7 +1494,7 @@ zclZigbeeRecv_event_loop:
         MOV     R7,#0x4
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock3
-//  201 }
+//  197 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine0:
@@ -1621,39 +1617,39 @@ zclZigbeeRecv_event_loop:
         CFI EndBlock cfiCond8
         CFI EndBlock cfiCond9
         CFI EndBlock cfiPicker10
-//  202 
-//  203 static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys )
-//  204 {
-//  205   zAddrType_t dstAddr;
-//  206   (void)shift; // Intentionally unreferenced parameter
-//  207   
-//  208 #if defined(Coor_receiver) || defined (Router_receiver)
-//  209 
-//  210   if ( keys & HAL_KEY_SW1 ) // Init EndDevice bind reequest, and use cluster list important to binding.
-//  211   {
-//  212     dstAddr.addrMode = afAddr16Bit;
-//  213     dstAddr.addr.shortAddr = 0x0000;   // Coordinator makes the match
-//  214     ZDP_EndDeviceBindReq( &dstAddr, NLME_GetShortAddr(), ZIGBEERECV_ENDPOINT, // ZIGBEERECV_ENDPOINT = 13 is coordinator
-//  215                           ZCL_HA_PROFILE_ID, ZCLZIGBEERECV_BINDINGLIST, bindingInClusters, 0,
-//  216                           NULL, // No Outgoing clusters to bind
-//  217                           TRUE );
-//  218   }
-//  219   
-//  220   if ( keys & HAL_KEY_SW2 ) 
-//  221   {
-//  222     
-//  223   }
-//  224   
-//  225 #endif
-//  226 }
-//  227 
+//  198 
+//  199 static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys )
+//  200 {
+//  201   zAddrType_t dstAddr;
+//  202   (void)shift; // Intentionally unreferenced parameter
+//  203   
+//  204 #if defined(Coor_receiver) || defined (Router_receiver)
+//  205 
+//  206   if ( keys & HAL_KEY_SW1 ) // Init EndDevice bind reequest, and use cluster list important to binding.
+//  207   {
+//  208     dstAddr.addrMode = afAddr16Bit;
+//  209     dstAddr.addr.shortAddr = 0x0000;   // Coordinator makes the match
+//  210     ZDP_EndDeviceBindReq( &dstAddr, NLME_GetShortAddr(), ZIGBEERECV_ENDPOINT, // ZIGBEERECV_ENDPOINT = 13 is coordinator
+//  211                           ZCL_HA_PROFILE_ID, ZCLZIGBEERECV_BINDINGLIST, bindingInClusters, 0,
+//  212                           NULL, // No Outgoing clusters to bind
+//  213                           TRUE );
+//  214   }
+//  215   
+//  216   if ( keys & HAL_KEY_SW2 ) 
+//  217   {
+//  218     
+//  219   }
+//  220   
+//  221 #endif
+//  222 }
+//  223 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  228 static void zclZigbeeReceiver_ProcessIdentifyTimeChange( void )
+//  224 static void zclZigbeeReceiver_ProcessIdentifyTimeChange( void )
 zclZigbeeReceiver_ProcessIdentifyTimeChange:
         CFI Block cfiBlock11 Using cfiCommon0
         CFI Function zclZigbeeReceiver_ProcessIdentifyTimeChange
-//  229 {
+//  225 {
         FUNCALL zclZigbeeReceiver_ProcessIdentifyTimeChange, osal_start_timerEx
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1717,7 +1713,7 @@ zclZigbeeReceiver_ProcessIdentifyTimeChange:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  230   if ( zclZigbeeRecv_IdentifyTime > 0 )
+//  226   if ( zclZigbeeRecv_IdentifyTime > 0 )
         MOV     DPTR,#zclZigbeeRecv_IdentifyTime
         MOVX    A,@DPTR
         JNZ     ??zclZigbeeReceiver_ProcessIdentifyTimeChange_0
@@ -1725,8 +1721,8 @@ zclZigbeeReceiver_ProcessIdentifyTimeChange:
         MOVX    A,@DPTR
 ??zclZigbeeReceiver_ProcessIdentifyTimeChange_0:
         JZ      ??zclZigbeeReceiver_ProcessIdentifyTimeChange_1
-//  231   {
-//  232     osal_start_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT, 1000 );
+//  227   {
+//  228     osal_start_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT, 1000 );
         ; Setup parameters for call to function osal_start_timerEx
         MOV     R4,#-0x18
         MOV     R5,#0x3
@@ -1736,7 +1732,7 @@ zclZigbeeReceiver_ProcessIdentifyTimeChange:
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??osal_start_timerEx?relay
-//  233     HalLedBlink ( HAL_LED_2, 0xFF, HAL_LED_DEFAULT_DUTY_CYCLE, HAL_LED_DEFAULT_FLASH_TIME );
+//  229     HalLedBlink ( HAL_LED_2, 0xFF, HAL_LED_DEFAULT_DUTY_CYCLE, HAL_LED_DEFAULT_FLASH_TIME );
         ; Setup parameters for call to function HalLedBlink
         MOV     R4,#-0x18
         MOV     R5,#0x3
@@ -1745,31 +1741,31 @@ zclZigbeeReceiver_ProcessIdentifyTimeChange:
         MOV     R1,#0x2
         LCALL   ??HalLedBlink?relay
         SJMP    ??zclZigbeeReceiver_ProcessIdentifyTimeChange_2
-//  234   }
-//  235   else
-//  236     {
-//  237       if ( zclZigbeeRecv_OnOff )
+//  230   }
+//  231   else
+//  232     {
+//  233       if ( zclZigbeeRecv_OnOff )
 ??zclZigbeeReceiver_ProcessIdentifyTimeChange_1:
         MOV     DPTR,#zclZigbeeRecv_OnOff
         MOVX    A,@DPTR
         JZ      ??zclZigbeeReceiver_ProcessIdentifyTimeChange_3
-//  238       {
-//  239         HalLedSet ( HAL_LED_1, HAL_LED_MODE_ON );
+//  234       {
+//  235         HalLedSet ( HAL_LED_1, HAL_LED_MODE_ON );
         ; Setup parameters for call to function HalLedSet
         MOV     R2,#0x1
         MOV     R1,#0x1
         LCALL   ??HalLedSet?relay
         SJMP    ??zclZigbeeReceiver_ProcessIdentifyTimeChange_2
-//  240       }
-//  241       else
-//  242         {
-//  243           HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF );
+//  236       }
+//  237       else
+//  238         {
+//  239           HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF );
 ??zclZigbeeReceiver_ProcessIdentifyTimeChange_3:
         ; Setup parameters for call to function HalLedSet
         MOV     R2,#0x0
         MOV     R1,#0x1
         LCALL   ??HalLedSet?relay
-//  244           osal_stop_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT );
+//  240           osal_stop_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT );
         ; Setup parameters for call to function osal_stop_timerEx
         MOV     R2,#0x1
         MOV     R3,#0x0
@@ -1777,39 +1773,39 @@ zclZigbeeReceiver_ProcessIdentifyTimeChange:
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??osal_stop_timerEx?relay
-//  245         }
-//  246     }
-//  247 }
+//  241         }
+//  242     }
+//  243 }
 ??zclZigbeeReceiver_ProcessIdentifyTimeChange_2:
         LJMP    ?Subroutine2 & 0xFFFF
         CFI EndBlock cfiBlock11
-//  248 
-//  249 /*********************************************************************
-//  250  * @fn      zclZigbeeReceiver_BasicResetCB
-//  251  * @brief   Callback from the ZCL General Cluster Library
-//  252  *          to set all the Basic Cluster attributes to default values.
-//  253  */
+//  244 
+//  245 /*********************************************************************
+//  246  * @fn      zclZigbeeReceiver_BasicResetCB
+//  247  * @brief   Callback from the ZCL General Cluster Library
+//  248  *          to set all the Basic Cluster attributes to default values.
+//  249  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  254 static void zclZigbeeReceiver_BasicResetCB( void )
+//  250 static void zclZigbeeReceiver_BasicResetCB( void )
 zclZigbeeReceiver_BasicResetCB:
         CFI Block cfiBlock12 Using cfiCommon0
         CFI Function zclZigbeeReceiver_BasicResetCB
-//  255 {
+//  251 {
         ; Saved register size: 0
         ; Auto size: 0
-//  256   // Reset all attributes to default values
-//  257 }
+//  252   // Reset all attributes to default values
+//  253 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock12
-//  258 
+//  254 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  259 static void zclZigbeeReceiver_IdentifyCB( zclIdentify_t *pCmd )
+//  255 static void zclZigbeeReceiver_IdentifyCB( zclIdentify_t *pCmd )
 zclZigbeeReceiver_IdentifyCB:
         CFI Block cfiBlock13 Using cfiCommon0
         CFI Function zclZigbeeReceiver_IdentifyCB
-//  260 {
+//  256 {
         FUNCALL zclZigbeeReceiver_IdentifyCB, zclZigbeeReceiver_ProcessIdentifyTimeChange
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1829,7 +1825,7 @@ zclZigbeeReceiver_IdentifyCB:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  261   zclZigbeeRecv_IdentifyTime = pCmd->identifyTime;
+//  257   zclZigbeeRecv_IdentifyTime = pCmd->identifyTime;
         MOV     DPL,R2
         MOV     DPH,R3
         INC     DPTR
@@ -1845,34 +1841,34 @@ zclZigbeeReceiver_IdentifyCB:
         INC     DPTR
         MOV     A,R1
         MOVX    @DPTR,A
-//  262   zclZigbeeReceiver_ProcessIdentifyTimeChange();
+//  258   zclZigbeeReceiver_ProcessIdentifyTimeChange();
         ; Setup parameters for call to function zclZigbeeReceiver_ProcessIdentifyTimeChange
         LCALL   ??zclZigbeeReceiver_ProcessIdentifyTimeChange?r
-//  263 }
+//  259 }
         LJMP    ?Subroutine2 & 0xFFFF
         CFI EndBlock cfiBlock13
-//  264 
+//  260 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  265 static void zclZigbeeReceiver_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
+//  261 static void zclZigbeeReceiver_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
 zclZigbeeReceiver_IdentifyQueryRspCB:
         CFI Block cfiBlock14 Using cfiCommon0
         CFI Function zclZigbeeReceiver_IdentifyQueryRspCB
-//  266 {
+//  262 {
         ; Saved register size: 0
         ; Auto size: 0
-//  267   (void)pRsp; // Query Response (with timeout value)
-//  268 }
+//  263   (void)pRsp; // Query Response (with timeout value)
+//  264 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock14
-//  269 
+//  265 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  270 static void zclZigbeeReceiver_OnOffCB( uint8 cmd )
+//  266 static void zclZigbeeReceiver_OnOffCB( uint8 cmd )
 zclZigbeeReceiver_OnOffCB:
         CFI Block cfiBlock15 Using cfiCommon0
         CFI Function zclZigbeeReceiver_OnOffCB
-//  271 { 
+//  267 { 
         FUNCALL zclZigbeeReceiver_OnOffCB, HalLedSet
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1903,40 +1899,40 @@ zclZigbeeReceiver_OnOffCB:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  272   if ( cmd == COMMAND_ON ) // Turn on the light
+//  268   if ( cmd == COMMAND_ON ) // Turn on the light
         MOV     A,#0x1
         XRL     A,R1
         JNZ     ??zclZigbeeReceiver_OnOffCB_0
-//  273     zclZigbeeRecv_OnOff = LIGHT_ON;
+//  269     zclZigbeeRecv_OnOff = LIGHT_ON;
 ??zclZigbeeReceiver_OnOffCB_1:
         MOV     A,#0x1
 ??zclZigbeeReceiver_OnOffCB_2:
         MOV     DPTR,#zclZigbeeRecv_OnOff
         MOVX    @DPTR,A
-//  274 
-//  275   else if ( cmd == COMMAND_OFF ) // Turn off the light
-//  276     zclZigbeeRecv_OnOff = LIGHT_OFF;
-//  277 
-//  278   else // Toggle the light
-//  279   {
-//  280     if ( zclZigbeeRecv_OnOff == LIGHT_OFF )
-//  281           zclZigbeeRecv_OnOff = LIGHT_ON;
-//  282     else
-//  283           zclZigbeeRecv_OnOff = LIGHT_OFF;
-//  284   }
-//  285 
-//  286   // In this sample app, we use LED4 to simulate the Light  
-//  287   if ( zclZigbeeRecv_OnOff == LIGHT_ON )
-//  288   {
-//  289     HalLedSet( HAL_LED_2, HAL_LED_MODE_ON ); // setting the LED_1 on
+//  270 
+//  271   else if ( cmd == COMMAND_OFF ) // Turn off the light
+//  272     zclZigbeeRecv_OnOff = LIGHT_OFF;
+//  273 
+//  274   else // Toggle the light
+//  275   {
+//  276     if ( zclZigbeeRecv_OnOff == LIGHT_OFF )
+//  277           zclZigbeeRecv_OnOff = LIGHT_ON;
+//  278     else
+//  279           zclZigbeeRecv_OnOff = LIGHT_OFF;
+//  280   }
+//  281 
+//  282   // In this sample app, we use LED4 to simulate the Light  
+//  283   if ( zclZigbeeRecv_OnOff == LIGHT_ON )
+//  284   {
+//  285     HalLedSet( HAL_LED_2, HAL_LED_MODE_ON ); // setting the LED_1 on
         ; Setup parameters for call to function HalLedSet
         MOV     R2,A
         MOV     R1,#0x2
         LCALL   ??HalLedSet?relay
-//  290   }
-//  291   else
-//  292     HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF ); // setting the LED_1 off
-//  293 }
+//  286   }
+//  287   else
+//  288     HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF ); // setting the LED_1 off
+//  289 }
         LJMP    ?Subroutine2 & 0xFFFF
 ??zclZigbeeReceiver_OnOffCB_0:
         MOV     A,R1
@@ -1950,135 +1946,135 @@ zclZigbeeReceiver_OnOffCB:
         JNZ     ??zclZigbeeReceiver_OnOffCB_4
         SJMP    ??zclZigbeeReceiver_OnOffCB_1
         CFI EndBlock cfiBlock15
-//  294 
-//  295 static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg)
-//  296 {
-//  297   switch ( pInMsg->zclHdr.commandID )
-//  298   {
-//  299 #ifdef ZCL_READ
-//  300     case ZCL_CMD_READ_RSP:
-//  301       zclZigbeeReceiver_ProcessInReadRspCmd( pInMsg );
-//  302       break;
-//  303 #endif
-//  304       
-//  305 #ifdef ZCL_WRITE    
-//  306     case ZCL_CMD_WRITE_RSP:
-//  307       zclZigbeeReceiver_ProcessInWriteRspCmd( pInMsg );
-//  308       break;
-//  309 #endif
-//  310       
-//  311 #ifdef ZCL_REPORT
-//  312     case ZCL_CMD_CONFIG_REPORT: // See ZCL Test Applicaiton (zcl_testapp.c) for sample code on Attribute Reporting
-//  313       //zclSampleLight_ProcessInConfigReportCmd( pInMsg );
+//  290 
+//  291 static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg)
+//  292 {
+//  293   switch ( pInMsg->zclHdr.commandID )
+//  294   {
+//  295 #ifdef ZCL_READ
+//  296     case ZCL_CMD_READ_RSP:
+//  297       zclZigbeeReceiver_ProcessInReadRspCmd( pInMsg );
+//  298       break;
+//  299 #endif
+//  300       
+//  301 #ifdef ZCL_WRITE    
+//  302     case ZCL_CMD_WRITE_RSP:
+//  303       zclZigbeeReceiver_ProcessInWriteRspCmd( pInMsg );
+//  304       break;
+//  305 #endif
+//  306       
+//  307 #ifdef ZCL_REPORT
+//  308     case ZCL_CMD_CONFIG_REPORT: // See ZCL Test Applicaiton (zcl_testapp.c) for sample code on Attribute Reporting
+//  309       //zclSampleLight_ProcessInConfigReportCmd( pInMsg );
+//  310       break;
+//  311     
+//  312     case ZCL_CMD_CONFIG_REPORT_RSP:
+//  313       //zclSampleLight_ProcessInConfigReportRspCmd( pInMsg );
 //  314       break;
 //  315     
-//  316     case ZCL_CMD_CONFIG_REPORT_RSP:
-//  317       //zclSampleLight_ProcessInConfigReportRspCmd( pInMsg );
+//  316     case ZCL_CMD_READ_REPORT_CFG:
+//  317       //zclSampleLight_ProcessInReadReportCfgCmd( pInMsg );
 //  318       break;
 //  319     
-//  320     case ZCL_CMD_READ_REPORT_CFG:
-//  321       //zclSampleLight_ProcessInReadReportCfgCmd( pInMsg );
+//  320     case ZCL_CMD_READ_REPORT_CFG_RSP:
+//  321       //zclSampleLight_ProcessInReadReportCfgRspCmd( pInMsg );
 //  322       break;
 //  323     
-//  324     case ZCL_CMD_READ_REPORT_CFG_RSP:
-//  325       //zclSampleLight_ProcessInReadReportCfgRspCmd( pInMsg );
+//  324     case ZCL_CMD_REPORT:
+//  325       //zclSampleLight_ProcessInReportCmd( pInMsg );
 //  326       break;
-//  327     
-//  328     case ZCL_CMD_REPORT:
-//  329       //zclSampleLight_ProcessInReportCmd( pInMsg );
-//  330       break;
-//  331 #endif   
+//  327 #endif   
+//  328       
+//  329     case ZCL_CMD_DEFAULT_RSP:
+//  330       zclZigbeeReceiver_ProcessInDefaultRspCmd( pInMsg );
+//  331       break;
 //  332       
-//  333     case ZCL_CMD_DEFAULT_RSP:
-//  334       zclZigbeeReceiver_ProcessInDefaultRspCmd( pInMsg );
-//  335       break;
-//  336       
-//  337 #ifdef ZCL_DISCOVER     
-//  338     case ZCL_CMD_DISCOVER_RSP:
-//  339       zclZigbeeReceiver_ProcessInDiscRspCmd( pInMsg );
+//  333 #ifdef ZCL_DISCOVER     
+//  334     case ZCL_CMD_DISCOVER_RSP:
+//  335       zclZigbeeReceiver_ProcessInDiscRspCmd( pInMsg );
+//  336       break;
+//  337 #endif
+//  338       
+//  339     default:
 //  340       break;
-//  341 #endif
-//  342       
-//  343     default:
-//  344       break;
-//  345   }
-//  346   if ( pInMsg->attrCmd )
-//  347     osal_mem_free( pInMsg->attrCmd );
-//  348 }
-//  349 
-//  350 #ifdef ZCL_READ
-//  351 
-//  352 static uint8 zclZigbeeReceiver_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
-//  353 {
-//  354   zclReadRspCmd_t *readRspCmd;
-//  355   uint8 i;
-//  356 
-//  357   readRspCmd = (zclReadRspCmd_t *)pInMsg->attrCmd;
-//  358   for (i = 0; i < readRspCmd->numAttr; i++)
-//  359   {
-//  360     // Notify the originator of the results of the original read attributes attempt and, 
-//  361     // for each successfull request, the value of the requested attribute
-//  362   }
-//  363   return TRUE; 
-//  364 }
-//  365 #endif // ZCL_READ
-//  366 
-//  367 #ifdef ZCL_WRITE
-//  368 
-//  369 static uint8 zclZigbeeReceiver_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
-//  370 {
-//  371   zclWriteRspCmd_t *writeRspCmd;
-//  372   uint8 i;
-//  373 
-//  374   writeRspCmd = (zclWriteRspCmd_t *)pInMsg->attrCmd;
-//  375   for (i = 0; i < writeRspCmd->numAttr; i++)
-//  376   {
-//  377     // Notify the device of the results of the its original write attributes command.
-//  378   }
-//  379   return TRUE; 
-//  380 }
-//  381 #endif // ZCL_WRITE
-//  382 
-//  383 /*********************************************************************
-//  384  * @fn      zclZigbeeReceiver_ProcessInDefaultRspCmd
-//  385  * @brief   Process the "Profile" Default Response Command
-//  386  * @param   pInMsg - incoming message to process
-//  387  */
-//  388 static uint8 zclZigbeeReceiver_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
-//  389 {
-//  390   // zclDefaultRspCmd_t *defaultRspCmd = (zclDefaultRspCmd_t *)pInMsg->attrCmd; 
-//  391   // Device is notified of the Default Response command.
-//  392   (void)pInMsg;
-//  393   return TRUE; 
-//  394 }
-//  395 
-//  396 #ifdef ZCL_DISCOVER
-//  397 /*********************************************************************
-//  398  * @fn      zclZigbeeReceiver_ProcessInDiscRspCmd
-//  399  * @brief   Process the "Profile" Discover Response Command
-//  400  * @param   pInMsg - incoming message to process
-//  401  */
-//  402 static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
-//  403 {
-//  404   zclDiscoverRspCmd_t *discoverRspCmd;
-//  405   uint8 i;
-//  406   
-//  407   discoverRspCmd = (zclDiscoverRspCmd_t *)pInMsg->attrCmd;
-//  408   for ( i = 0; i < discoverRspCmd->numAttr; i++ )
-//  409   {
-//  410     // Device is notified of the result of its attribute discovery command.
-//  411   }
-//  412   return TRUE;
-//  413 }
-//  414 #endif // ZCL_DISCOVER
-//  415 
+//  341   }
+//  342   if ( pInMsg->attrCmd )
+//  343     osal_mem_free( pInMsg->attrCmd );
+//  344 }
+//  345 
+//  346 #ifdef ZCL_READ
+//  347 
+//  348 static uint8 zclZigbeeReceiver_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
+//  349 {
+//  350   zclReadRspCmd_t *readRspCmd;
+//  351   uint8 i;
+//  352 
+//  353   readRspCmd = (zclReadRspCmd_t *)pInMsg->attrCmd;
+//  354   for (i = 0; i < readRspCmd->numAttr; i++)
+//  355   {
+//  356     // Notify the originator of the results of the original read attributes attempt and, 
+//  357     // for each successfull request, the value of the requested attribute
+//  358   }
+//  359   return TRUE; 
+//  360 }
+//  361 #endif // ZCL_READ
+//  362 
+//  363 #ifdef ZCL_WRITE
+//  364 
+//  365 static uint8 zclZigbeeReceiver_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
+//  366 {
+//  367   zclWriteRspCmd_t *writeRspCmd;
+//  368   uint8 i;
+//  369 
+//  370   writeRspCmd = (zclWriteRspCmd_t *)pInMsg->attrCmd;
+//  371   for (i = 0; i < writeRspCmd->numAttr; i++)
+//  372   {
+//  373     // Notify the device of the results of the its original write attributes command.
+//  374   }
+//  375   return TRUE; 
+//  376 }
+//  377 #endif // ZCL_WRITE
+//  378 
+//  379 /*********************************************************************
+//  380  * @fn      zclZigbeeReceiver_ProcessInDefaultRspCmd
+//  381  * @brief   Process the "Profile" Default Response Command
+//  382  * @param   pInMsg - incoming message to process
+//  383  */
+//  384 static uint8 zclZigbeeReceiver_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
+//  385 {
+//  386   // zclDefaultRspCmd_t *defaultRspCmd = (zclDefaultRspCmd_t *)pInMsg->attrCmd; 
+//  387   // Device is notified of the Default Response command.
+//  388   (void)pInMsg;
+//  389   return TRUE; 
+//  390 }
+//  391 
+//  392 #ifdef ZCL_DISCOVER
+//  393 /*********************************************************************
+//  394  * @fn      zclZigbeeReceiver_ProcessInDiscRspCmd
+//  395  * @brief   Process the "Profile" Discover Response Command
+//  396  * @param   pInMsg - incoming message to process
+//  397  */
+//  398 static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
+//  399 {
+//  400   zclDiscoverRspCmd_t *discoverRspCmd;
+//  401   uint8 i;
+//  402   
+//  403   discoverRspCmd = (zclDiscoverRspCmd_t *)pInMsg->attrCmd;
+//  404   for ( i = 0; i < discoverRspCmd->numAttr; i++ )
+//  405   {
+//  406     // Device is notified of the result of its attribute discovery command.
+//  407   }
+//  408   return TRUE;
+//  409 }
+//  410 #endif // ZCL_DISCOVER
+//  411 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  416 void zclUARTMsg_CallBack(uint8 port, uint8 event)
+//  412 void zclUARTMsg_CallBack(uint8 port, uint8 event)
 zclUARTMsg_CallBack:
         CFI Block cfiBlock16 Using cfiCommon0
         CFI Function zclUARTMsg_CallBack
-//  417 {
+//  413 {
         FUNCALL zclUARTMsg_CallBack, Hal_UART_RxBufLen
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -2139,9 +2135,9 @@ zclUARTMsg_CallBack:
         CFI CFA_XSP16 add(XSP16, 10)
         ; Saved register size: 10
         ; Auto size: 0
-//  418   (void)port;
-//  419   
-//  420   if(Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT) > 0 )
+//  414   (void)port;
+//  415   
+//  416   if(Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT) > 0 )
         ; Setup parameters for call to function Hal_UART_RxBufLen
         MOV     R1,#0x0
         LCALL   ??Hal_UART_RxBufLen?relay
@@ -2150,15 +2146,15 @@ zclUARTMsg_CallBack:
         MOV     A,R3
 ??zclUARTMsg_CallBack_0:
         JZ      ??zclUARTMsg_CallBack_1
-//  421   {
-//  422       len = Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT );
+//  417   {
+//  418       len = Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT );
         ; Setup parameters for call to function Hal_UART_RxBufLen
         MOV     R1,#0x0
         LCALL   ??Hal_UART_RxBufLen?relay
         MOV     A,R2
         MOV     DPTR,#len
         MOVX    @DPTR,A
-//  423       HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, len );
+//  419       HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, len );
         ; Setup parameters for call to function HalUARTRead
         MOV     R4,A
         MOV     R5,#0x0
@@ -2166,7 +2162,7 @@ zclUARTMsg_CallBack:
         MOV     R3,#((TransmitApp_Msg >> 8) & 0xff)
         MOV     R1,#0x0
         LCALL   ??HalUARTRead?relay
-//  424       osal_set_event( zclZigbeeReceiver_TaskID, UART_MSG_EVT );
+//  420       osal_set_event( zclZigbeeReceiver_TaskID, UART_MSG_EVT );
         ; Setup parameters for call to function osal_set_event
         MOV     R2,#0x2
         MOV     R3,#0x0
@@ -2175,8 +2171,8 @@ zclUARTMsg_CallBack:
         MOV     R1,A
         LCALL   ??osal_set_event?relay
         CFI EndBlock cfiBlock16
-//  425   }
-//  426 }
+//  421   }
+//  422 }
 ??zclUARTMsg_CallBack_1:
         REQUIRE ?Subroutine3
         ; // Fall through to label ?Subroutine3
@@ -2200,14 +2196,14 @@ zclUARTMsg_CallBack:
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock17
-//  427 
+//  423 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  428 void zclUartReceiver( void )
+//  424 void zclUartReceiver( void )
 zclUartReceiver:
         CFI Block cfiBlock18 Using cfiCommon0
         CFI Function zclUartReceiver
-//  429 { 
+//  425 { 
         FUNCALL zclUartReceiver, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -2257,17 +2253,17 @@ zclUartReceiver:
         CFI CFA_XSP16 add(XSP16, 10)
         ; Saved register size: 10
         ; Auto size: 0
-//  430   show("zclUartReceiver");
+//  426   show("zclUartReceiver");
         ; Setup parameters for call to function show
         MOV     R2,#(`?<Constant "zclUartReceiver">` & 0xff)
         MOV     R3,#((`?<Constant "zclUartReceiver">` >> 8) & 0xff)
         LCALL   ??show?relay
-//  431   
-//  432   for(uint8 length = 0; length < len; length++)
+//  427   
+//  428   for(uint8 length = 0; length < len; length++)
         MOV     R6,#0x0
         SJMP    ??zclUartReceiver_0
-//  433   {
-//  434     uart_recv[length] = TransmitApp_Msg[length];
+//  429   {
+//  430     uart_recv[length] = TransmitApp_Msg[length];
 ??zclUartReceiver_1:
         MOV     DPL,R6
         MOV     R0,DPL
@@ -2287,15 +2283,15 @@ zclUartReceiver:
         MOV     DPH,A
         MOV     A,R3
         MOVX    @DPTR,A
-//  435   #if defined( LCD_SUPPORTED )
-//  436     HalLcdWriteChar(HAL_LCD_LINE_4, length, uart_recv[length]);
+//  431   #if defined( LCD_SUPPORTED )
+//  432     HalLcdWriteChar(HAL_LCD_LINE_4, length, uart_recv[length]);
         ; Setup parameters for call to function HalLcdWriteChar
         MOV     A,R6
         MOV     R2,A
         MOV     R1,#0x4
         LCALL   ??HalLcdWriteChar?relay
-//  437   #endif
-//  438   }
+//  433   #endif
+//  434   }
         INC     R6
 ??zclUartReceiver_0:
         MOV     DPTR,#len
@@ -2305,35 +2301,35 @@ zclUartReceiver:
         CLR     C
         SUBB    A,R2
         JC      ??zclUartReceiver_1
-//  439   
-//  440   // Set the End Device state
-//  441   zclZigbeeRecv_DstAddr.endPoint = 12;
+//  435   
+//  436   // Set the End Device state
+//  437   zclZigbeeRecv_DstAddr.endPoint = 12;
         MOV     A,#0xc
         MOV     DPTR,#(zclZigbeeRecv_DstAddr + 9)
         MOVX    @DPTR,A
-//  442   zclZigbeeRecv_DstAddr.addr.shortAddr = 0xFFFF;
+//  438   zclZigbeeRecv_DstAddr.addr.shortAddr = 0xFFFF;
         MOV     DPTR,#zclZigbeeRecv_DstAddr
         MOV     A,#-0x1
         MOVX    @DPTR,A
         INC     DPTR
         MOVX    @DPTR,A
-//  443   zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
+//  439   zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
         MOV     A,#0xf
         MOV     DPTR,#(zclZigbeeRecv_DstAddr + 8)
         MOVX    @DPTR,A
-//  444     
-//  445   // Transmit the UART command to End Device
-//  446   uint8 send = zcl_SendCommand( ZIGBEERECV_ENDPOINT, 
-//  447                                 &zclZigbeeRecv_DstAddr,
-//  448                                 ZCL_CLUSTER_ID_GEN_ON_OFF,
-//  449                                 COMMAND_TOGGLE,
-//  450                                 TRUE,
-//  451                                 ZCL_FRAME_CLIENT_SERVER_DIR,
-//  452                                 false,
-//  453                                 0,
-//  454                                 0,
-//  455                                 10,
-//  456                                 uart_recv );
+//  440     
+//  441   // Transmit the UART command to End Device
+//  442   uint8 send = zcl_SendCommand( ZIGBEERECV_ENDPOINT, 
+//  443                                 &zclZigbeeRecv_DstAddr,
+//  444                                 ZCL_CLUSTER_ID_GEN_ON_OFF,
+//  445                                 COMMAND_TOGGLE,
+//  446                                 TRUE,
+//  447                                 ZCL_FRAME_CLIENT_SERVER_DIR,
+//  448                                 false,
+//  449                                 0,
+//  450                                 0,
+//  451                                 10,
+//  452                                 uart_recv );
         ; Setup parameters for call to function zcl_SendCommand
         MOV     ?V0 + 0,#(uart_recv & 0xff)
         MOV     ?V0 + 1,#((uart_recv >> 8) & 0xff)
@@ -2375,7 +2371,7 @@ zclUartReceiver:
         MOV     A,#0xb
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 10)
-//  457 }
+//  453 }
         LJMP    ?Subroutine3 & 0xFFFF
         CFI EndBlock cfiBlock18
 

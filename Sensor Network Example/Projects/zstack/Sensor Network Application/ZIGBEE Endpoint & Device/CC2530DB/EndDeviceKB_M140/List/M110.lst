@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                19/Aug/2013  21:28:11 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                19/Aug/2013  23:46:14 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -188,82 +188,50 @@
 ###############################################################################
 
 D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M110.c
-      1          //-------------------------------------------------------------------
-      2          // Filename: M190.c
-      3          // Description: hal M190 library ?¯è??»é˜»(A/D)
-      4          //-------------------------------------------------------------------
-      5          //-------------------------------------------------------------------
-      6          // INCLUDES
-      7          //-------------------------------------------------------------------
-      8          /*
-      9          #include "hal_defs.h"
-     10          #include "hal_cc8051.h"
-     11          #include "hal_mcu.h"
-     12          #include "hal_board.h"
-     13          #include "hal_digio.h"
-     14          #include "hal_adc.h"
-     15          */
-     16          #include "hal_mcu.h"
+      1          #include "hal_mcu.h"
 
    \                                 In  segment SFR_AN, at 0xf3
    \   unsigned char volatile __sfr P0SEL
    \                     P0SEL:
    \   000000                DS 1
-     17          #include "hal_board.h"
-     18          #include "hal_digio.h"
-     19          #include "hal_adc.h"
-     20          #include "M110.h"
-     21          
-     22          //-------------------------------------------------------------------
-     23          // @fn      M110_Init
-     24          // @brief    Set up port M110 ad
-     25          // @return  none
-     26          //-------------------------------------------------------------------
+      2          #include "hal_board.h"
+      3          #include "hal_digio.h"
+      4          #include "hal_adc.h"
+      5          #include "M110.h"
+      6          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     27          void M110_Init(void)
+      7          void M110_Init(void)
    \                     M110_Init:
-     28          {
+      8          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-     29              // Analog input
-     30              //MCU_IO_PERIPHERAL(HAL_BOARD_IO_ADC_PORT, HAL_BOARD_IO_ADC_CH);
-     31              HAL_ADC_PERIPHERAL();
+      9              HAL_ADC_PERIPHERAL();
    \   000000   43F301       ORL     0xf3,#0x1
-     32          }
+     10          }
    \   000003   02....       LJMP    ?BRET
    \   000006                REQUIRE P0SEL
-     33          
-     34          //-------------------------------------------------------------------
-     35          // @fn      M190_GetValue
-     36          // @brief   Get this M190 module value
-     37          // @param   none
-     38          // @return  none
-     39          //-------------------------------------------------------------------
+     11          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     40          uint16 M110_GetValue(void)
+     12          uint16 M110_GetValue(void)
    \                     M110_GetValue:
-     41          {
+     13          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-     42            
-     43          //    uint16 adcValue;
-     44          //    adcValue = adcSampleSingle(ADC_REF_AVDD, ADC_12_BIT, HAL_BOARD_IO_ADC_CH);
-     45          //    return adcValue;
-     46              uint16 adcValue;
-     47              adcValue = adcSampleSingle(HAL_ADC_REF_AVDD, ADC_12_BIT, 0);
+     14              uint16 adcValue;
+     15              adcValue = adcSampleSingle(HAL_ADC_REF_AVDD, ADC_12_BIT, 0);
    \   000005                ; Setup parameters for call to function adcSampleSingle
    \   000005   7B00         MOV     R3,#0x0
    \   000007   7A30         MOV     R2,#0x30
    \   000009   7980         MOV     R1,#-0x80
    \   00000B   12....       LCALL   ??adcSampleSingle?relay
-     48              return adcValue;
+     16              return adcValue;
    \   00000E   7F02         MOV     R7,#0x2
    \   000010   02....       LJMP    ?BANKED_LEAVE_XDATA
-     49          }
+     17          }
 
    \                                 In  segment BANK_RELAYS, align 1
    \                     ??M110_Init?relay:

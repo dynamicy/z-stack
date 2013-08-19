@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  22:10:50 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               20/Aug/2013  00:07:20 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -56,7 +56,7 @@
 //                          MT_TASK -D MT_APP_FUNC -D MT_SYS_FUNC -D          /
 //                          MT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG -D             /
 //                          xPOWER_SAVING -D End_Device -D HAL_KEYPAD -D      /
-//                          M160 -D xPA2591 -lC "D:\GitHub\z-stack\Sensor     /
+//                          M190 -D xPA2591 -lC "D:\GitHub\z-stack\Sensor     /
 //                          Network Example\Projects\zstack\Sensor Network    /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -1364,16 +1364,16 @@ macMcuInit:
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock2
+        REQUIRE T2CTRL
+        REQUIRE IEN2
+        REQUIRE IP0
+        REQUIRE T2M1
         REQUIRE _A_IEN0
         REQUIRE T2M0
-        REQUIRE T2M1
-        REQUIRE IP0
-        REQUIRE IEN2
-        REQUIRE T2CTRL
-        REQUIRE _A_IEN1
-        REQUIRE RNDL
-        REQUIRE T2MSEL
         REQUIRE IP1
+        REQUIRE T2MSEL
+        REQUIRE RNDL
+        REQUIRE _A_IEN1
 //  307 
 //  308 
 //  309 /**************************************************************************************************
@@ -1455,8 +1455,8 @@ macMcuRandomWord:
         LJMP    ?BRET
         CFI EndBlock cfiBlock4
         REQUIRE ADCCON1
-        REQUIRE RNDL
         REQUIRE RNDH
+        REQUIRE RNDL
 //  354 }
 //  355 
 //  356 
@@ -1498,9 +1498,9 @@ macMcuTimerForceDelay:
         CFI EndBlock cfiBlock5
 //  375   HAL_EXIT_CRITICAL_SECTION(s);
         REQUIRE ?Subroutine5
+        REQUIRE T2M1
         REQUIRE _A_IEN0
         REQUIRE T2M0
-        REQUIRE T2M1
         REQUIRE T2MSEL
         ; // Fall through to label ?Subroutine5
 //  376 }
@@ -1555,9 +1555,9 @@ macMcuTimerCapture:
 //  398   HAL_EXIT_CRITICAL_SECTION(s);
         SJMP    ?Subroutine5
         CFI EndBlock cfiBlock7
+        REQUIRE T2M1
         REQUIRE _A_IEN0
         REQUIRE T2M0
-        REQUIRE T2M1
         REQUIRE T2MSEL
 //  399 
 //  400   return (timerCapture);
@@ -1625,10 +1625,10 @@ macMcuOverflowCount:
 //  429   ((uint8 *)&overflowCount)[UINT32_NDX0] = T2MOVF0;
         LJMP    ?Subroutine7 & 0xFFFF
         CFI EndBlock cfiBlock8
+        REQUIRE T2MOVF1
+        REQUIRE T2MOVF0
         REQUIRE _A_IEN0
         REQUIRE T2M0
-        REQUIRE T2MOVF0
-        REQUIRE T2MOVF1
         REQUIRE T2MOVF2
         REQUIRE T2MSEL
 //  430   ((uint8 *)&overflowCount)[UINT32_NDX1] = T2MOVF1;
@@ -1694,9 +1694,9 @@ macMcuOverflowCapture:
 //  458   ((uint8 *)&overflowCapture)[UINT32_NDX0] = T2MOVF0;
         LJMP    ?Subroutine7 & 0xFFFF
         CFI EndBlock cfiBlock9
-        REQUIRE _A_IEN0
-        REQUIRE T2MOVF0
         REQUIRE T2MOVF1
+        REQUIRE T2MOVF0
+        REQUIRE _A_IEN0
         REQUIRE T2MOVF2
         REQUIRE T2MSEL
 //  459   ((uint8 *)&overflowCapture)[UINT32_NDX1] = T2MOVF1;
@@ -1892,9 +1892,9 @@ macMcuOverflowSetCount:
         CFI EndBlock cfiBlock13
 //  498   HAL_EXIT_CRITICAL_SECTION(s);
         REQUIRE ?Subroutine9
-        REQUIRE _A_IEN0
-        REQUIRE T2MOVF0
         REQUIRE T2MOVF1
+        REQUIRE T2MOVF0
+        REQUIRE _A_IEN0
         REQUIRE T2MOVF2
         REQUIRE T2MSEL
         ; // Fall through to label ?Subroutine9
@@ -2066,10 +2066,10 @@ macMcuOverflowSetCompare:
         SJMP    ?Subroutine9
         CFI EndBlock cfiBlock15
         REQUIRE T2IRQM
-        REQUIRE _A_IEN0
+        REQUIRE T2MOVF1
         REQUIRE T2IRQF
         REQUIRE T2MOVF0
-        REQUIRE T2MOVF1
+        REQUIRE _A_IEN0
         REQUIRE T2MOVF2
         REQUIRE T2MSEL
 //  549 }
@@ -2553,9 +2553,9 @@ macMcuTimer2OverflowWorkaround:
         CFI EndBlock cfiBlock24
         REQUIRE T2IRQM
         REQUIRE T2IRQF
-        REQUIRE _A_IEN0
-        REQUIRE T2MOVF0
         REQUIRE T2MOVF1
+        REQUIRE T2MOVF0
+        REQUIRE _A_IEN0
         REQUIRE T2MOVF2
         REQUIRE T2MSEL
 
@@ -2711,10 +2711,10 @@ macMcuPrecisionCount:
         MOV     A,#0x2
         LJMP    ??Subroutine11_0 & 0xFFFF
         CFI EndBlock cfiBlock28
+        REQUIRE T2MOVF1
+        REQUIRE T2MOVF0
         REQUIRE _A_IEN0
         REQUIRE T2M0
-        REQUIRE T2MOVF0
-        REQUIRE T2MOVF1
         REQUIRE T2MSEL
 //  694 }
 

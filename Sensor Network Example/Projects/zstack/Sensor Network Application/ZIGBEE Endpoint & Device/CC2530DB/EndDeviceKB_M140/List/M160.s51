@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  21:28:11 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  23:46:14 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -402,15 +402,8 @@ T4_ISR              SYMBOL "T4_ISR"
 `??T4_ISR??INTVEC 99` SYMBOL "??INTVEC 99", T4_ISR
 
 // D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
-//    1 //-------------------------------------------------------------------
-//    2 // Filename: M160.c
-//    3 // Description: hal M160 PWM library
-//    4 //-------------------------------------------------------------------
-//    5 //-------------------------------------------------------------------
-//    6 // INCLUDES
-//    7 //-------------------------------------------------------------------
-//    8 #include "hal_defs.h"
-//    9 #include "ioCC2530.h"
+//    1 #include "hal_defs.h"
+//    2 #include "ioCC2530.h"
 
         ASEGN SFR_AN:DATA:NOROOT,080H
 // union <unnamed> volatile __sfr _A_P0
@@ -431,42 +424,30 @@ P0SEL:
 // unsigned char volatile __sfr P0DIR
 P0DIR:
         DS 1
-//   10 #include "hal_mcu.h"
-//   11 #include "hal_board.h"
-//   12 #include "M160.h"
-//   13 
-//   14 //-------------------------------------------------------------------
-//   15 // LOCAL VARIABLES
-//   16 //-------------------------------------------------------------------
+//    3 #include "hal_mcu.h"
+//    4 #include "hal_board.h"
+//    5 #include "M160.h"
+//    6 
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
-//   17 uint8 M160_DutyCount;
+//    7 uint8 M160_DutyCount;
 M160_DutyCount:
         DS 1
         REQUIRE __INIT_XDATA_Z
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
-//   18 uint8 M160_DutyValue;
+//    8 uint8 M160_DutyValue;
 M160_DutyValue:
         DS 1
         REQUIRE __INIT_XDATA_Z
-//   19 
-//   20 //-------------------------------------------------------------------
-//   21 // LOCAL FUNCTIONS
-//   22 //-------------------------------------------------------------------
-//   23 //-------------------------------------------------------------------
-//   24 // @fn      timerPwm_ISR
-//   25 // @brief   ISR framework for the 1k timer component
-//   26 // @param   none
-//   27 // @return  none
-//   28 //-------------------------------------------------------------------
+//    9 
 
         RSEG NEAR_CODE:CODE:NOROOT(0)
-//   29 HAL_ISR_FUNCTION(T4_ISR, T4_VECTOR)
+//   10 HAL_ISR_FUNCTION(T4_ISR, T4_VECTOR)
 T4_ISR:
         CFI Block cfiBlock0 Using cfiCommon0
         CFI Function T4_ISR
-//   30 {
+//   11 {
         PUSH    A
         CFI A Frame(CFA_SP, 3)
         CFI CFA_SP SP+-3
@@ -486,21 +467,21 @@ T4_ISR:
         CFI CFA_SP SP+-7
         ; Saved register size: 5
         ; Auto size: 0
-//   31     M160_DutyCount++;
+//   12     M160_DutyCount++;
         MOV     DPTR,#M160_DutyCount
         MOVX    A,@DPTR
         INC     A
         MOVX    @DPTR,A
-//   32     if (M160_DutyCount >= 100)
+//   13     if (M160_DutyCount >= 100)
         CLR     C
         SUBB    A,#0x64
         JC      ??T4_ISR_0
-//   33     {
-//   34         M160_DutyCount = 0;
+//   14     {
+//   15         M160_DutyCount = 0;
         CLR     A
         MOVX    @DPTR,A
-//   35     }
-//   36     if (M160_DutyCount >= M160_DutyValue)
+//   16     }
+//   17     if (M160_DutyCount >= M160_DutyValue)
 ??T4_ISR_0:
         MOVX    A,@DPTR
         PUSH    A
@@ -513,18 +494,18 @@ T4_ISR:
         CLR     C
         SUBB    A,R2
         JC      ??T4_ISR_1
-//   37     {
-//   38         HAL_DO_OFF();
+//   18     {
+//   19         HAL_DO_OFF();
         SETB    0x80.0
         SJMP    ??T4_ISR_2
-//   39     }
-//   40     else
-//   41     {
-//   42         HAL_DO_ON();
+//   20     }
+//   21     else
+//   22     {
+//   23         HAL_DO_ON();
 ??T4_ISR_1:
         CLR     0x80.0
-//   43     }
-//   44 }
+//   24     }
+//   25 }
 ??T4_ISR_2:
         POP     DPH
         CFI DPH0 SameValue
@@ -546,22 +527,14 @@ T4_ISR:
         RETI
         CFI EndBlock cfiBlock0
         REQUIRE _A_P0
-//   45 
-//   46 //-------------------------------------------------------------------
-//   47 // GLOBAL FUNCTIONS
-//   48 //-------------------------------------------------------------------
-//   49 //-------------------------------------------------------------------
-//   50 // @fn      M160_Init
-//   51 // @brief    Set up timer 4 to generate an interrupt 1 kHz for PWM
-//   52 // @return  none
-//   53 //-------------------------------------------------------------------
+//   26 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   54 void M160_Init(void)
+//   27 void M160_Init(void)
 M160_Init:
         CFI Block cfiBlock1 Using cfiCommon1
         CFI Function M160_Init
-//   55 {
+//   28 {
         PUSH    DPL
         CFI DPL0 Frame(CFA_SP, 4)
         CFI CFA_SP SP+-4
@@ -570,25 +543,25 @@ M160_Init:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//   56     HAL_DO_OUTPUT();
+//   29     HAL_DO_OUTPUT();
         ANL     0xf3,#0xfe
         ORL     0xfd,#0x1
-//   57 
-//   58     // Set prescaler divider value to 128 (8KHz)
-//   59     X_T4CTL |= 0x80;
+//   30 
+//   31     // Set prescaler divider value to 128 (8KHz)
+//   32     X_T4CTL |= 0x80;
         MOV     DPTR,#0x70eb
         MOVX    A,@DPTR
         SETB    0xE0 /* A   */.7
         MOVX    @DPTR,A
-//   60 
-//   61     X_T4CTL &= ~(0x10); // Stop timer
+//   33 
+//   34     X_T4CTL &= ~(0x10); // Stop timer
         MOVX    A,@DPTR
         CLR     0xE0 /* A   */.4
         MOVX    @DPTR,A
-//   62     T4IE = 0; // Disable interrupt
+//   35     T4IE = 0; // Disable interrupt
         CLR     0xb8.4
         CFI EndBlock cfiBlock1
-//   63 }
+//   36 }
         REQUIRE ?Subroutine0
         REQUIRE _A_IEN1
         REQUIRE P0SEL
@@ -610,20 +583,14 @@ M160_Init:
         CFI DPL0 SameValue
         LJMP    ?BRET
         CFI EndBlock cfiBlock2
-//   64 
-//   65 //-------------------------------------------------------------------
-//   66 // @fn          M160_On
-//   67 // @brief       Turn M160 on.
-//   68 // @param       uint8 duty
-//   69 // @return      none
-//   70 //-------------------------------------------------------------------
+//   37 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   71 void M160_On(uint8 duty)
+//   38 void M160_On(uint8 duty)
 M160_On:
         CFI Block cfiBlock3 Using cfiCommon1
         CFI Function M160_On
-//   72 {
+//   39 {
         PUSH    DPL
         CFI DPL0 Frame(CFA_SP, 4)
         CFI CFA_SP SP+-4
@@ -632,39 +599,34 @@ M160_On:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//   73     M160_DutyCount = 0;
+//   40     M160_DutyCount = 0;
         CLR     A
         MOV     DPTR,#M160_DutyCount
         MOVX    @DPTR,A
-//   74     M160_DutyValue = duty;
+//   41     M160_DutyValue = duty;
         MOV     A,R1
         MOV     DPTR,#M160_DutyValue
         MOVX    @DPTR,A
-//   75 
-//   76     X_T4CTL |= 0x10; // Start timer
+//   42 
+//   43     X_T4CTL |= 0x10; // Start timer
         MOV     DPTR,#0x70eb
         MOVX    A,@DPTR
         SETB    0xE0 /* A   */.4
         MOVX    @DPTR,A
-//   77     T4IE = 1; // Enable interrupt
+//   44     T4IE = 1; // Enable interrupt
         SETB    0xb8.4
-//   78 }
+//   45 }
         SJMP    ?Subroutine0
         CFI EndBlock cfiBlock3
         REQUIRE _A_IEN1
-//   79 
-//   80 //-------------------------------------------------------------------
-//   81 // @fn          M160_Off
-//   82 // @brief       Turn M160 off.
-//   83 // @return      none
-//   84 //-------------------------------------------------------------------
+//   46 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   85 void M160_Off(void)
+//   47 void M160_Off(void)
 M160_Off:
         CFI Block cfiBlock4 Using cfiCommon1
         CFI Function M160_Off
-//   86 {
+//   48 {
         PUSH    DPL
         CFI DPL0 Frame(CFA_SP, 4)
         CFI CFA_SP SP+-4
@@ -673,16 +635,16 @@ M160_Off:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//   87     X_T4CTL &= ~(0x10); // Stop timer
+//   49     X_T4CTL &= ~(0x10); // Stop timer
         MOV     DPTR,#0x70eb
         MOVX    A,@DPTR
         CLR     0xE0 /* A   */.4
         MOVX    @DPTR,A
-//   88     T4IE = 0; // Disable interrupt
+//   50     T4IE = 0; // Disable interrupt
         CLR     0xb8.4
-//   89     HAL_DO_OFF();
+//   51     HAL_DO_OFF();
         SETB    0x80.0
-//   90 }
+//   52 }
         SJMP    ?Subroutine0
         CFI EndBlock cfiBlock4
         REQUIRE _A_P0
@@ -712,7 +674,6 @@ M160_Off:
         DC24    M160_Off
 
         END
-//   91 
 // 
 // 72 bytes in segment BANKED_CODE
 // 18 bytes in segment BANK_RELAYS

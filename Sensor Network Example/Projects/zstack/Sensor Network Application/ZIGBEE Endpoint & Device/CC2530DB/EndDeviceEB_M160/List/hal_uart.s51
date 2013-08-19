@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  22:10:48 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               20/Aug/2013  00:07:19 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -54,7 +54,7 @@
 //                          " -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D      /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC   /
+//                          End_Device -D HAL_KEYPAD -D M190 -D xPA2591 -lC   /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -772,8 +772,8 @@ HalUARTInitDMA:
         CFI EndBlock cfiBlock0
         REQUIRE U0CSR
         REQUIRE U0UCR
-        REQUIRE PERCFG
         REQUIRE P0SEL
+        REQUIRE PERCFG
         REQUIRE ADCCFG
         REQUIRE P2DIR
 
@@ -908,13 +908,13 @@ HalUARTOpenDMA:
         MOV     DPTR,#(dmaCfg + 522)
         LJMP    ?Subroutine14 & 0xFFFF
         CFI EndBlock cfiBlock1
-        REQUIRE U0CSR
         REQUIRE _A_P0
-        REQUIRE U0UCR
-        REQUIRE DMAIRQ
-        REQUIRE DMAARM
+        REQUIRE U0CSR
         REQUIRE U0GCR
+        REQUIRE DMAIRQ
+        REQUIRE U0UCR
         REQUIRE U0BAUD
+        REQUIRE DMAARM
         REQUIRE P0SEL
         REQUIRE P0DIR
 
@@ -1782,12 +1782,12 @@ HalUARTPollDMA:
         LJMP    ?Subroutine15 & 0xFFFF
         CFI EndBlock cfiBlock20
         REQUIRE _A_P0
-        REQUIRE ST0
         REQUIRE _A_IEN0
+        REQUIRE ST0
         REQUIRE DMAIRQ
-        REQUIRE DMAARM
         REQUIRE DMAREQ
         REQUIRE U0BAUD
+        REQUIRE DMAARM
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine7:

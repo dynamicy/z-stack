@@ -107,8 +107,8 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
 void ZSendMsgProcess(void)
 {      
     // Write receive coordinator command to UART
- //   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2); 
- //   HalUARTWrite(HAL_UART_PORT_0, "\r\n", 3);    
+//   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2);  
+//    HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);    
     osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
 }
 
@@ -168,12 +168,8 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
             break;         
         case ZDO_STATE_CHANGE:       
             ZSendMsgProcess();            
-            break;         
-//        case ZDO_MATCH_DESC_RSP_SENT:       
-//            show("ZDO_MATCH_DESC_RSP_SENT");
-            // Check the state of NWK
-//            break;         
-          default:
+            break;                 
+        default:
             break;
         }
         osal_msg_deallocate( (uint8 *)MSGpkt ); // Release the memory

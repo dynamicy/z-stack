@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               19/Aug/2013  22:10:44 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               20/Aug/2013  00:07:15 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -54,7 +54,7 @@
 //                           -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D       /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC   /
+//                          End_Device -D HAL_KEYPAD -D M190 -D xPA2591 -lC   /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -640,8 +640,8 @@ HalAdcInit:
         CFI EndBlock cfiBlock0
 //  142   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         REQUIRE ?Subroutine1
-        REQUIRE ADCCON3
         REQUIRE ADCCON1
+        REQUIRE ADCCON3
         REQUIRE ADCCON2
         REQUIRE ADCH
         REQUIRE ADCL
@@ -936,8 +936,8 @@ HalAdcRead:
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock2
-        REQUIRE ADCCON3
         REQUIRE ADCCON1
+        REQUIRE ADCCON3
         REQUIRE ADCH
         REQUIRE ADCL
         REQUIRE ADCCFG
@@ -1013,8 +1013,8 @@ HalAdcSetReference:
 //  294   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         LJMP    ?Subroutine1 & 0xFFFF
         CFI EndBlock cfiBlock3
-        REQUIRE ADCCON3
         REQUIRE ADCCON1
+        REQUIRE ADCCON3
         REQUIRE ADCCON2
         REQUIRE ADCH
         REQUIRE ADCL

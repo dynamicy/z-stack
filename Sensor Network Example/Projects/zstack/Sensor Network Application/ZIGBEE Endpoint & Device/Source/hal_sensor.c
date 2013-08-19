@@ -101,7 +101,7 @@ void M110_SensorFunction(void)
     TransmitApp_Msg[9] = '$';     
     TransmitApp_Msg[10] = '\n';     
   
-    sleep(1);
+    sleep(3);
    
     uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
@@ -134,7 +134,7 @@ void M140_SensorFunction(void)
   TransmitApp_Msg[3] = 4 + '0';   
   TransmitApp_Msg[4] = 0 + '0';        
   TransmitApp_Msg[5] = ',';
-  TransmitApp_Msg[6] = 'B';   
+  TransmitApp_Msg[6] = 'A';   
   TransmitApp_Msg[7] = ',';  
   TransmitApp_Msg[8] = (val / 100) + '0';
   TransmitApp_Msg[9] = ((val / 10) % 10) + '0';
@@ -143,13 +143,13 @@ void M140_SensorFunction(void)
   TransmitApp_Msg[12] = '$'; 
   TransmitApp_Msg[13] = '\n'; 
   
-  sleep(1);
+  sleep(3);
     
   uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                 ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC, 
                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 14, 
                                 TransmitApp_Msg );   
- }
+}
 #endif
 
 #if defined(M160)
@@ -194,6 +194,7 @@ void M160_SensorFunction(void)
   TransmitApp_Msg[11] = '$'; 
   TransmitApp_Msg[12] = '\n';
     
+  sleep(3);  
   uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC, 
                                  TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 13, 
@@ -208,7 +209,7 @@ void M170_SensorFunction(void)
      
     M170_Init();
   
-    val = M170_GetValue();
+    val = M170_GetValue();  
     if (val > 2000)
     {
         val -= 2000;
@@ -249,7 +250,7 @@ void M170_SensorFunction(void)
 #if defined(M190)
 void M190_SensorFunction(void)
 {
-    uint16 val;
+  uint16 val;
 
     M190_Init();
     val = M190_GetValue();  
@@ -283,7 +284,7 @@ void M190_SensorFunction(void)
     TransmitApp_Msg[11] = '$'; 
     TransmitApp_Msg[12] = '\n';
 
-    sleep(1);    
+    sleep(3);    
     uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
                                  TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 13, 

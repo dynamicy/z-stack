@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                19/Aug/2013  23:46:14 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  16:29:34 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -188,155 +188,63 @@
 ###############################################################################
 
 D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
-      1          /**************************************************************************************************
-      2            Filename:       AF.c
-      3            Revised:        $Date: 2009-10-29 00:15:32 -0700 (Thu, 29 Oct 2009) $
-      4            Revision:       $Revision: 21013 $
-      5          
-      6            Description:    Application Framework - Device Description helper functions
-      7          
-      8            Copyright 2004-2009 Texas Instruments Incorporated. All rights reserved.
-      9          
-     10            Should you have any questions regarding your right to use this Software,
-     11            contact Texas Instruments Incorporated at www.TI.com.
-     12          **************************************************************************************************/
-     13          
-     14          /*********************************************************************
-     15           * INCLUDES
-     16           */
-     17          
-     18          #include "OSAL.h"
-     19          #include "nwk_globals.h"
-     20          #include "nwk_util.h"
-     21          #include "aps_groups.h"
-     22          #include "ZDProfile.h"
-     23          #include "aps_frag.h"
-     24          #include "rtg.h"
-     25          
-     26          #if defined ( MT_AF_CB_FUNC )
-     27            #include "MT_AF.h"
-     28          #endif
-     29          #if defined ( INTER_PAN )
-     30            #include "stub_aps.h"
-     31          #endif
-     32          
-     33          /* Profile */
-     34          #include "AF.h"
-     35          
-     36          /*********************************************************************
-     37           * MACROS
-     38           */
-     39          
-     40          /*********************************************************************
-     41           * @fn      afSend
-     42           *
-     43           * @brief   Helper macro for V1 API to invoke V2 API.
-     44           *
-     45           * input parameters
-     46           *
-     47           * @param  *dstAddr - Full ZB destination address: Nwk Addr + End Point.
-     48           * @param   srcEP - Origination (i.e. respond to or ack to) End Point.
-     49           * @param   cID - A valid cluster ID as specified by the Profile.
-     50           * @param   len - Number of bytes of data pointed to by next param.
-     51           * @param  *buf - A pointer to the data bytes to send.
-     52           * @param   options - Valid bit mask of AF Tx Options as defined in AF.h.
-     53           * @param  *transID - A pointer to a byte which can be modified and which will
-     54           *                    be used as the transaction sequence number of the msg.
-     55           *
-     56           * output parameters
-     57           *
-     58           * @param  *transID - Incremented by one if the return value is success.
-     59           *
-     60           * @return  afStatus_t - See previous definition of afStatus_... types.
-     61           */
-     62          #define afSend( dstAddr, srcEP, cID, len, buf, transID, options, radius ) \
-     63                  AF_DataRequest( (dstAddr), afFindEndPointDesc( (srcEP) ), \
-     64                                    (cID), (len), (buf), (transID), (options), (radius) )
-     65          
-     66          /*********************************************************************
-     67           * CONSTANTS
-     68           */
-     69          
-     70          /*********************************************************************
-     71           * TYPEDEFS
-     72           */
-     73          
-     74          /*********************************************************************
-     75           * GLOBAL VARIABLES
-     76           */
-     77          
+      1          #include "OSAL.h"
+      2          #include "nwk_globals.h"
+      3          #include "nwk_util.h"
+      4          #include "aps_groups.h"
+      5          #include "ZDProfile.h"
+      6          #include "aps_frag.h"
+      7          #include "rtg.h"
+      8          
+      9          #if defined ( MT_AF_CB_FUNC )
+     10            #include "MT_AF.h"
+     11          #endif
+     12          #if defined ( INTER_PAN )
+     13            #include "stub_aps.h"
+     14          #endif
+     15          
+     16          #include "AF.h"
+     17          #define afSend( dstAddr, srcEP, cID, len, buf, transID, options, radius ) \
+     18                  AF_DataRequest( (dstAddr), afFindEndPointDesc( (srcEP) ), \
+     19                                    (cID), (len), (buf), (transID), (options), (radius) )
+     20          
 
    \                                 In  segment XDATA_Z, align 1, keep-with-next
-     78          epList_t *epList;
+     21          epList_t *epList;
    \                     epList:
    \   000000                DS 2
    \   000002                REQUIRE __INIT_XDATA_Z
-     79          //Chris Defined
 
    \                                 In  segment XDATA_Z, align 1, keep-with-next
-     80          packet_t device_manager;
+     22          packet_t device_manager[7];   // Packet manager
    \                     device_manager:
-   \   000000                DS 32
-   \   000020                REQUIRE __INIT_XDATA_Z
-     81          
-     82          /*********************************************************************
-     83           * EXTERNAL VARIABLES
-     84           */
-     85          
-     86          /*********************************************************************
-     87           * EXTERNAL FUNCTIONS
-     88           */
-     89          
-     90          /*********************************************************************
-     91           * LOCAL VARIABLES
-     92           */
-     93          
-     94          /*********************************************************************
-     95           * LOCAL FUNCTIONS
-     96           */
-     97          
-     98          static void afBuildMSGIncoming( aps_FrameFormat_t *aff, endPointDesc_t *epDesc,
-     99                          zAddrType_t *SrcAddress, uint16 SrcPanId, NLDE_Signal_t *sig,
-    100                          byte SecurityUse, uint32 timestamp );
-    101          
-    102          static epList_t *afFindEndPointDescList( byte EndPoint );
-    103          
-    104          static pDescCB afGetDescCB( endPointDesc_t *epDesc );
-    105          
-    106          /*********************************************************************
-    107           * NETWORK LAYER CALLBACKS
-    108           */
-    109          
-    110          /*********************************************************************
-    111           * PUBLIC FUNCTIONS
-    112           */
-    113          
-    114          /*********************************************************************
-    115           * @fn      afInit
-    116           *
-    117           * @brief   Initialization function for the AF.
-    118           *
-    119           * @param   none
-    120           *
-    121           * @return  none
-    122           */
+   \   000000                DS 238
+   \   0000EE                REQUIRE __INIT_XDATA_Z
+     23          
+     24          static void afBuildMSGIncoming( aps_FrameFormat_t *aff, endPointDesc_t *epDesc,
+     25                          zAddrType_t *SrcAddress, uint16 SrcPanId, NLDE_Signal_t *sig,
+     26                          byte SecurityUse, uint32 timestamp );
+     27          
+     28          static epList_t *afFindEndPointDescList( byte EndPoint );
+     29          static pDescCB afGetDescCB( endPointDesc_t *epDesc );
+     30          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    123          void afInit( void )
+     31          void afInit( void )
    \                     afInit:
-    124          {
+     32          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    125            // Start with no endpoint defined
-    126            epList = NULL;
+     33            // Start with no endpoint defined
+     34            epList = NULL;
    \   000004   90....       MOV     DPTR,#epList
    \   000007   E4           CLR     A
    \   000008   F0           MOVX    @DPTR,A
    \   000009   A3           INC     DPTR
    \   00000A   F0           MOVX    @DPTR,A
-    127          }
+     35          }
    \   00000B                REQUIRE ?Subroutine23
    \   00000B                ; // Fall through to label ?Subroutine23
 
@@ -345,24 +253,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000000   D083         POP     DPH
    \   000002   D082         POP     DPL
    \   000004   02....       LJMP    ?BRET
-    128          
-    129          /*********************************************************************
-    130           * @fn      afRegisterExtended
-    131           *
-    132           * @brief   Register an Application's EndPoint description.
-    133           *
-    134           * @param   epDesc - pointer to the Application's endpoint descriptor.
-    135           * @param   descFn - pointer to descriptor callback function
-    136           *
-    137           * NOTE:  The memory that epDesc is pointing to must exist after this call.
-    138           *
-    139           * @return  Pointer to epList_t on success, NULL otherwise.
-    140           */
+     36          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    141          epList_t *afRegisterExtended( endPointDesc_t *epDesc, pDescCB descFn )
+     37          epList_t *afRegisterExtended( endPointDesc_t *epDesc, pDescCB descFn )
    \                     afRegisterExtended:
-    142          {
+     38          {
    \   000000   74F4         MOV     A,#-0xc
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 12
@@ -373,23 +269,23 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000008   FF           MOV     R7,A
    \   000009   8C..         MOV     ?V0 + 0,R4
    \   00000B   8D..         MOV     ?V0 + 1,R5
-    143            epList_t *ep;
-    144            epList_t *epSearch;
-    145          
-    146            ep = osal_mem_alloc( sizeof ( epList_t ) );
+     39            epList_t *ep;
+     40            epList_t *epSearch;
+     41          
+     42            ep = osal_mem_alloc( sizeof ( epList_t ) );
    \   00000D                ; Setup parameters for call to function osal_mem_alloc
    \   00000D   7A07         MOV     R2,#0x7
    \   00000F   7B00         MOV     R3,#0x0
    \   000011   12....       LCALL   ??osal_mem_alloc?relay
-    147            if ( ep )
+     43            if ( ep )
    \   000014   EA           MOV     A,R2
    \   000015   7001         JNZ     ??afRegisterExtended_0
    \   000017   EB           MOV     A,R3
    \                     ??afRegisterExtended_0:
    \   000018   6054         JZ      ??afRegisterExtended_1
-    148            {
-    149              // Fill in the new list entry
-    150              ep->epDesc = epDesc;
+     44            {
+     45              // Fill in the new list entry
+     46              ep->epDesc = epDesc;
    \   00001A   8A82         MOV     DPL,R2
    \   00001C   8B83         MOV     DPH,R3
    \   00001E   EE           MOV     A,R6
@@ -397,23 +293,23 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000020   A3           INC     DPTR
    \   000021   EF           MOV     A,R7
    \   000022   F0           MOVX    @DPTR,A
-    151          
-    152              // Default to allow Match Descriptor.
-    153              ep->flags = eEP_AllowMatch;
+     47          
+     48              // Default to allow Match Descriptor.
+     49              ep->flags = eEP_AllowMatch;
    \   000023   7401         MOV     A,#0x1
    \   000025   8A82         MOV     DPL,R2
    \   000027   8B83         MOV     DPH,R3
    \   000029   A3           INC     DPTR
    \   00002A   A3           INC     DPTR
    \   00002B   12....       LCALL   ?Subroutine0 & 0xFFFF
-    154              ep->pfnDescCB = descFn;
+     50              ep->pfnDescCB = descFn;
    \                     ??CrossCallReturnLabel_0:
    \   00002E   E5..         MOV     A,?V0 + 0
    \   000030   F0           MOVX    @DPTR,A
    \   000031   A3           INC     DPTR
    \   000032   E5..         MOV     A,?V0 + 1
    \   000034   12....       LCALL   ?Subroutine0 & 0xFFFF
-    155              ep->nextDesc = NULL;
+     51              ep->nextDesc = NULL;
    \                     ??CrossCallReturnLabel_1:
    \   000037   A3           INC     DPTR
    \   000038   A3           INC     DPTR
@@ -421,9 +317,9 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00003A   F0           MOVX    @DPTR,A
    \   00003B   A3           INC     DPTR
    \   00003C   F0           MOVX    @DPTR,A
-    156          
-    157              // Does a list exist?
-    158              if ( epList == NULL )
+     52          
+     53              // Does a list exist?
+     54              if ( epList == NULL )
    \   00003D   90....       MOV     DPTR,#epList
    \   000040   E0           MOVX    A,@DPTR
    \   000041   7002         JNZ     ??afRegisterExtended_2
@@ -432,14 +328,14 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??afRegisterExtended_2:
    \   000045   90....       MOV     DPTR,#epList
    \   000048   601F         JZ      ??afRegisterExtended_3
-    159                epList = ep;  // Make this the first entry
-    160              else
-    161              {
-    162                // Look for the end of the list
-    163                epSearch = epList;
+     55                epList = ep;  // Make this the first entry
+     56              else
+     57              {
+     58                // Look for the end of the list
+     59                epSearch = epList;
    \   00004A   12....       LCALL   ??Subroutine32_0 & 0xFFFF
-    164                while( epSearch->nextDesc != NULL )
-    165                  epSearch = epSearch->nextDesc;
+     60                while( epSearch->nextDesc != NULL )
+     61                  epSearch = epSearch->nextDesc;
    \                     ??CrossCallReturnLabel_69:
    \   00004D   E8           MOV     A,R0
    \   00004E   2405         ADD     A,#0x5
@@ -459,9 +355,9 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000062   E9           MOV     A,R1
    \                     ??afRegisterExtended_4:
    \   000063   70E8         JNZ     ??CrossCallReturnLabel_69
-    166          
-    167                // Add new entry to end of list
-    168                epSearch->nextDesc = ep;
+     62          
+     63                // Add new entry to end of list
+     64                epSearch->nextDesc = ep;
    \   000065   8C82         MOV     DPL,R4
    \   000067   8D83         MOV     DPH,R5
    \                     ??afRegisterExtended_3:
@@ -470,14 +366,14 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00006B   A3           INC     DPTR
    \   00006C   EB           MOV     A,R3
    \   00006D   F0           MOVX    @DPTR,A
-    169              }
-    170            }
-    171          
-    172            return ep;
+     65              }
+     66            }
+     67          
+     68            return ep;
    \                     ??afRegisterExtended_1:
    \   00006E                REQUIRE ?Subroutine24
    \   00006E                ; // Fall through to label ?Subroutine24
-    173          }
+     69          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine24:
@@ -515,25 +411,25 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000000   12....       LCALL   ??Subroutine28_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_81:
    \   000003   22           RET
-    174          
-    175          /*********************************************************************
-    176           * @fn      afRegister
-    177           *
-    178           * @brief   Register an Application's EndPoint description.
-    179           *
-    180           * @param   epDesc - pointer to the Application's endpoint descriptor.
-    181           *
-    182           * NOTE:  The memory that epDesc is pointing to must exist after this call.
-    183           *
-    184           * @return  afStatus_SUCCESS - Registered
-    185           *          afStatus_MEM_FAIL - not enough memory to add descriptor
-    186           *          afStatus_INVALID_PARAMETER - duplicate endpoint
-    187           */
+     70          
+     71          /*********************************************************************
+     72           * @fn      afRegister
+     73           *
+     74           * @brief   Register an Application's EndPoint description.
+     75           *
+     76           * @param   epDesc - pointer to the Application's endpoint descriptor.
+     77           *
+     78           * NOTE:  The memory that epDesc is pointing to must exist after this call.
+     79           *
+     80           * @return  afStatus_SUCCESS - Registered
+     81           *          afStatus_MEM_FAIL - not enough memory to add descriptor
+     82           *          afStatus_INVALID_PARAMETER - duplicate endpoint
+     83           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    188          afStatus_t afRegister( endPointDesc_t *epDesc )
+     84          afStatus_t afRegister( endPointDesc_t *epDesc )
    \                     afRegister:
-    189          {
+     85          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
@@ -542,10 +438,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000006   FE           MOV     R6,A
    \   000007   EB           MOV     A,R3
    \   000008   FF           MOV     R7,A
-    190            epList_t *ep;
-    191            
-    192            // Look for duplicate endpoint
-    193            if ( afFindEndPointDescList( epDesc->endPoint ) )
+     86            epList_t *ep;
+     87            
+     88            // Look for duplicate endpoint
+     89            if ( afFindEndPointDescList( epDesc->endPoint ) )
    \   000009                ; Setup parameters for call to function afFindEndPointDescList
    \   000009   8E82         MOV     DPL,R6
    \   00000B   8F83         MOV     DPH,R7
@@ -557,13 +453,13 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000015   EB           MOV     A,R3
    \                     ??afRegister_0:
    \   000016   6004         JZ      ??afRegister_1
-    194              return ( afStatus_INVALID_PARAMETER );
+     90              return ( afStatus_INVALID_PARAMETER );
    \   000018   7902         MOV     R1,#0x2
    \   00001A   8017         SJMP    ??afRegister_2
-    195            
-    196            ep = afRegisterExtended( epDesc, NULL );
-    197          
-    198            return ((ep == NULL) ? afStatus_MEM_FAIL : afStatus_SUCCESS);
+     91            
+     92            ep = afRegisterExtended( epDesc, NULL );
+     93          
+     94            return ((ep == NULL) ? afStatus_MEM_FAIL : afStatus_SUCCESS);
    \                     ??afRegister_1:
    \   00001C                ; Setup parameters for call to function afRegisterExtended
    \   00001C   7C00         MOV     R4,#0x0
@@ -584,31 +480,31 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000031   7900         MOV     R1,#0x0
    \                     ??afRegister_2:
    \   000033   02....       LJMP    ?Subroutine25 & 0xFFFF
-    199          }
+     95          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine25:
    \   000000   7F02         MOV     R7,#0x2
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
-    200          
-    201          
-    202          /*********************************************************************
-    203           * @fn          afDataConfirm
-    204           *
-    205           * @brief       This function will generate the Data Confirm back to
-    206           *              the application.
-    207           *
-    208           * @param       endPoint - confirm end point
-    209           * @param       transID - transaction ID from APSDE_DATA_REQUEST
-    210           * @param       status - status of APSDE_DATA_REQUEST
-    211           *
-    212           * @return      none
-    213           */
+     96          
+     97          
+     98          /*********************************************************************
+     99           * @fn          afDataConfirm
+    100           *
+    101           * @brief       This function will generate the Data Confirm back to
+    102           *              the application.
+    103           *
+    104           * @param       endPoint - confirm end point
+    105           * @param       transID - transaction ID from APSDE_DATA_REQUEST
+    106           * @param       status - status of APSDE_DATA_REQUEST
+    107           *
+    108           * @return      none
+    109           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    214          void afDataConfirm( uint8 endPoint, uint8 transID, ZStatus_t status )
+    110          void afDataConfirm( uint8 endPoint, uint8 transID, ZStatus_t status )
    \                     afDataConfirm:
-    215          {
+    111          {
    \   000000   74F2         MOV     A,#-0xe
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 14
@@ -616,84 +512,84 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000005   89..         MOV     ?V0 + 0,R1
    \   000007   8A..         MOV     ?V0 + 1,R2
    \   000009   8B..         MOV     ?V0 + 2,R3
-    216            endPointDesc_t *epDesc;
-    217            afDataConfirm_t *msgPtr;
-    218          
-    219            // Find the endpoint description
-    220            epDesc = afFindEndPointDesc( endPoint );
+    112            endPointDesc_t *epDesc;
+    113            afDataConfirm_t *msgPtr;
+    114          
+    115            // Find the endpoint description
+    116            epDesc = afFindEndPointDesc( endPoint );
    \   00000B                ; Setup parameters for call to function afFindEndPointDesc
    \   00000B   12....       LCALL   ??afFindEndPointDesc?relay
    \   00000E   8A..         MOV     ?V0 + 4,R2
    \   000010   8B..         MOV     ?V0 + 5,R3
    \   000012   AE..         MOV     R6,?V0 + 4
    \   000014   AF..         MOV     R7,?V0 + 5
-    221            if ( epDesc == NULL )
+    117            if ( epDesc == NULL )
    \   000016   EE           MOV     A,R6
    \   000017   7001         JNZ     ??afDataConfirm_0
    \   000019   EF           MOV     A,R7
    \                     ??afDataConfirm_0:
    \   00001A   602D         JZ      ??CrossCallReturnLabel_9
-    222              return;
-    223          
-    224            // Determine the incoming command type
-    225            msgPtr = (afDataConfirm_t *)osal_msg_allocate( sizeof(afDataConfirm_t) );
+    118              return;
+    119          
+    120            // Determine the incoming command type
+    121            msgPtr = (afDataConfirm_t *)osal_msg_allocate( sizeof(afDataConfirm_t) );
    \   00001C                ; Setup parameters for call to function osal_msg_allocate
    \   00001C   7A04         MOV     R2,#0x4
    \   00001E   7B00         MOV     R3,#0x0
    \   000020   12....       LCALL   ??osal_msg_allocate?relay
-    226            if ( msgPtr )
+    122            if ( msgPtr )
    \   000023   EA           MOV     A,R2
    \   000024   7001         JNZ     ??afDataConfirm_1
    \   000026   EB           MOV     A,R3
    \                     ??afDataConfirm_1:
    \   000027   6020         JZ      ??CrossCallReturnLabel_9
-    227            {
-    228              // Build the Data Confirm message
-    229              msgPtr->hdr.event = AF_DATA_CONFIRM_CMD;
+    123            {
+    124              // Build the Data Confirm message
+    125              msgPtr->hdr.event = AF_DATA_CONFIRM_CMD;
    \   000029   74FD         MOV     A,#-0x3
    \   00002B   8A82         MOV     DPL,R2
    \   00002D   8B83         MOV     DPH,R3
    \   00002F   F0           MOVX    @DPTR,A
-    230              msgPtr->hdr.status = status;
+    126              msgPtr->hdr.status = status;
    \   000030   A3           INC     DPTR
    \   000031   E5..         MOV     A,?V0 + 2
    \   000033   F0           MOVX    @DPTR,A
-    231              msgPtr->endpoint = endPoint;
+    127              msgPtr->endpoint = endPoint;
    \   000034   8A82         MOV     DPL,R2
    \   000036   8B83         MOV     DPH,R3
    \   000038   A3           INC     DPTR
    \   000039   A3           INC     DPTR
    \   00003A   E5..         MOV     A,?V0 + 0
    \   00003C   12....       LCALL   ?Subroutine0 & 0xFFFF
-    232              msgPtr->transID = transID;
+    128              msgPtr->transID = transID;
    \                     ??CrossCallReturnLabel_2:
    \   00003F   E5..         MOV     A,?V0 + 1
    \   000041   F0           MOVX    @DPTR,A
-    233          
-    234          #if defined ( MT_AF_CB_FUNC )
-    235              /* If MT has subscribed for this callback, don't send as a message. */
-    236              if ( AFCB_CHECK(CB_ID_AF_DATA_CNF,*(epDesc->task_id)) )
-    237              {
-    238                /* Send callback if it's subscribed */
-    239                MT_AfDataConfirm ((void *)msgPtr);
-    240                /* Release the memory. */
-    241                osal_msg_deallocate( (void *)msgPtr );
-    242              }
-    243              else
-    244          #endif
-    245              {
-    246                /* send message through task message */
-    247                osal_msg_send( *(epDesc->task_id), (byte *)msgPtr );
+    129          
+    130          #if defined ( MT_AF_CB_FUNC )
+    131              /* If MT has subscribed for this callback, don't send as a message. */
+    132              if ( AFCB_CHECK(CB_ID_AF_DATA_CNF,*(epDesc->task_id)) )
+    133              {
+    134                /* Send callback if it's subscribed */
+    135                MT_AfDataConfirm ((void *)msgPtr);
+    136                /* Release the memory. */
+    137                osal_msg_deallocate( (void *)msgPtr );
+    138              }
+    139              else
+    140          #endif
+    141              {
+    142                /* send message through task message */
+    143                osal_msg_send( *(epDesc->task_id), (byte *)msgPtr );
    \   000042                ; Setup parameters for call to function osal_msg_send
    \   000042   8E82         MOV     DPL,R6
    \   000044   8F83         MOV     DPH,R7
    \   000046   12....       LCALL   ?Subroutine5 & 0xFFFF
-    248              }
-    249            }
+    144              }
+    145            }
    \                     ??CrossCallReturnLabel_9:
    \   000049   7F06         MOV     R7,#0x6
    \   00004B   02....       LJMP    ?BANKED_LEAVE_XDATA
-    250          }
+    146          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine5:
@@ -720,25 +616,25 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??CrossCallReturnLabel_46:
    \   000003   E0           MOVX    A,@DPTR
    \   000004   22           RET
-    251          
-    252          /*********************************************************************
-    253           * @fn          afIncomingData
-    254           *
-    255           * @brief       Transfer a data PDU (ASDU) from the APS sub-layer to the AF.
-    256           *
-    257           * @param       aff  - pointer to APS frame format
-    258           * @param       SrcAddress  - Source address
-    259           * @param       sig - incoming message's link quality
-    260           * @param       SecurityUse - Security enable/disable
-    261           *
-    262           * @return      none
-    263           */
+    147          
+    148          /*********************************************************************
+    149           * @fn          afIncomingData
+    150           *
+    151           * @brief       Transfer a data PDU (ASDU) from the APS sub-layer to the AF.
+    152           *
+    153           * @param       aff  - pointer to APS frame format
+    154           * @param       SrcAddress  - Source address
+    155           * @param       sig - incoming message's link quality
+    156           * @param       SecurityUse - Security enable/disable
+    157           *
+    158           * @return      none
+    159           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    264          void afIncomingData( aps_FrameFormat_t *aff, zAddrType_t *SrcAddress, uint16 SrcPanId,
+    160          void afIncomingData( aps_FrameFormat_t *aff, zAddrType_t *SrcAddress, uint16 SrcPanId,
    \                     afIncomingData:
-    265                               NLDE_Signal_t *sig, byte SecurityUse, uint32 timestamp )
-    266          {
+    161                               NLDE_Signal_t *sig, byte SecurityUse, uint32 timestamp )
+    162          {
    \   000000   74E8         MOV     A,#-0x18
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 24
@@ -766,19 +662,19 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000029   12....       LCALL   ?XSTACK_DISP0_8
    \   00002C   78..         MOV     R0,#?V0 + 4
    \   00002E   12....       LCALL   ?L_MOV_X
-    267            endPointDesc_t *epDesc = NULL;
-    268            uint16 epProfileID = 0xFFFF;  // Invalid Profile ID
+    163            endPointDesc_t *epDesc = NULL;
+    164            uint16 epProfileID = 0xFFFF;  // Invalid Profile ID
    \   000031   75..FF       MOV     ?V0 + 14,#-0x1
    \   000034   75..FF       MOV     ?V0 + 15,#-0x1
-    269            epList_t *pList = epList;
+    165            epList_t *pList = epList;
    \   000037   90....       MOV     DPTR,#epList
    \   00003A   E0           MOVX    A,@DPTR
    \   00003B   F5..         MOV     ?V0 + 0,A
    \   00003D   A3           INC     DPTR
    \   00003E   E0           MOVX    A,@DPTR
    \   00003F   F5..         MOV     ?V0 + 1,A
-    270          #if !defined ( APS_NO_GROUPS )    
-    271            uint8 grpEp = APS_GROUPS_EP_NOT_FOUND;
+    166          #if !defined ( APS_NO_GROUPS )    
+    167            uint8 grpEp = APS_GROUPS_EP_NOT_FOUND;
    \   000041   75..FE       MOV     ?V0 + 2,#-0x2
    \   000044   8A82         MOV     DPL,R2
    \   000046   8B83         MOV     DPH,R3
@@ -786,45 +682,45 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000049   540C         ANL     A,#0xc
    \   00004B   640C         XRL     A,#0xc
    \   00004D   701A         JNZ     ??afIncomingData_0
-    272          #endif  
-    273          
-    274            if ( ((aff->FrmCtrl & APS_DELIVERYMODE_MASK) == APS_FC_DM_GROUP) )
-    275            {
-    276          #if !defined ( APS_NO_GROUPS )    
-    277              // Find the first endpoint for this group
-    278              grpEp = aps_FindGroupForEndpoint( aff->GroupID, APS_GROUPS_FIND_FIRST );
+    168          #endif  
+    169          
+    170            if ( ((aff->FrmCtrl & APS_DELIVERYMODE_MASK) == APS_FC_DM_GROUP) )
+    171            {
+    172          #if !defined ( APS_NO_GROUPS )    
+    173              // Find the first endpoint for this group
+    174              grpEp = aps_FindGroupForEndpoint( aff->GroupID, APS_GROUPS_FIND_FIRST );
    \   00004F                ; Setup parameters for call to function aps_FindGroupForEndpoint
    \   00004F   79FE         MOV     R1,#-0x2
    \   000051   12....       LCALL   ?Subroutine4 & 0xFFFF
-    279              if ( grpEp == APS_GROUPS_EP_NOT_FOUND )
+    175              if ( grpEp == APS_GROUPS_EP_NOT_FOUND )
    \                     ??CrossCallReturnLabel_7:
    \   000054   7003         JNZ     $+5
    \   000056   02....       LJMP    ??afIncomingData_1 & 0xFFFF
-    280                return;   // No endpoint found
-    281          
-    282              epDesc = afFindEndPointDesc( grpEp );
+    176                return;   // No endpoint found
+    177          
+    178              epDesc = afFindEndPointDesc( grpEp );
    \   000059                ; Setup parameters for call to function afFindEndPointDesc
    \   000059   12....       LCALL   ?Subroutine18 & 0xFFFF
-    283              if ( epDesc == NULL )
+    179              if ( epDesc == NULL )
    \                     ??CrossCallReturnLabel_39:
    \   00005C   7001         JNZ     ??afIncomingData_2
    \   00005E   EF           MOV     A,R7
    \                     ??afIncomingData_2:
    \   00005F   7003         JNZ     $+5
    \   000061   02....       LJMP    ??afIncomingData_1 & 0xFFFF
-    284                return;   // Endpoint descriptor not found
-    285          
-    286              pList = afFindEndPointDescList( epDesc->endPoint );
+    180                return;   // Endpoint descriptor not found
+    181          
+    182              pList = afFindEndPointDescList( epDesc->endPoint );
    \                     ??afIncomingData_3:
    \   000064                ; Setup parameters for call to function afFindEndPointDescList
    \   000064   12....       LCALL   ?Subroutine13 & 0xFFFF
-    287          #else
-    288              return; // Not supported
-    289          #endif    
-    290            }
+    183          #else
+    184              return; // Not supported
+    185          #endif    
+    186            }
    \                     ??CrossCallReturnLabel_27:
    \   000067   8038         SJMP    ??afIncomingData_4
-    291            else if ( aff->DstEndPoint == AF_BROADCAST_ENDPOINT )
+    187            else if ( aff->DstEndPoint == AF_BROADCAST_ENDPOINT )
    \                     ??afIncomingData_0:
    \   000069   A3           INC     DPTR
    \   00006A   A3           INC     DPTR
@@ -833,21 +729,21 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00006D   74FF         MOV     A,#-0x1
    \   00006F   69           XRL     A,R1
    \   000070   700D         JNZ     ??afIncomingData_5
-    292            {
-    293              // Set the list
-    294              if ( pList != NULL )
+    188            {
+    189              // Set the list
+    190              if ( pList != NULL )
    \   000072   E5..         MOV     A,?V0 + 0
    \   000074   7002         JNZ     ??afIncomingData_6
    \   000076   E5..         MOV     A,?V0 + 1
    \                     ??afIncomingData_6:
    \   000078   7003         JNZ     $+5
    \   00007A   02....       LJMP    ??afIncomingData_1 & 0xFFFF
-    295              {
-    296                epDesc = pList->epDesc;
+    191              {
+    192                epDesc = pList->epDesc;
    \   00007D   8017         SJMP    ??afIncomingData_7
-    297              }
-    298            }
-    299            else if ( (epDesc = afFindEndPointDesc( aff->DstEndPoint )) )
+    193              }
+    194            }
+    195            else if ( (epDesc = afFindEndPointDesc( aff->DstEndPoint )) )
    \                     ??afIncomingData_5:
    \   00007F                ; Setup parameters for call to function afFindEndPointDesc
    \   00007F   12....       LCALL   ??afFindEndPointDesc?relay
@@ -865,57 +761,57 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??afIncomingData_8:
    \   000092   600D         JZ      ??afIncomingData_4
    \   000094   80CE         SJMP    ??afIncomingData_3
-    300            {
-    301              pList = afFindEndPointDescList( epDesc->endPoint );
-    302            }
-    303          
-    304            while ( epDesc )
-    305            {
-    306              if ( pList->pfnDescCB )
-    307              {
-    308                uint16 *pID = (uint16 *)(pList->pfnDescCB(
-    309                                           AF_DESCRIPTOR_PROFILE_ID, epDesc->endPoint ));
-    310                if ( pID )
-    311                {
-    312                  epProfileID = *pID;
-    313                  osal_mem_free( pID );
-    314                }
-    315              }
-    316              else if ( epDesc->simpleDesc )
-    317              {
-    318                epProfileID = epDesc->simpleDesc->AppProfId;
-    319              }
-    320          
-    321              if ( (aff->ProfileID == epProfileID) ||
-    322                   ((epDesc->endPoint == ZDO_EP) && (aff->ProfileID == ZDO_PROFILE_ID)) )
-    323              {
-    324                {
-    325                  afBuildMSGIncoming( aff, epDesc, SrcAddress, SrcPanId, sig, SecurityUse, timestamp );
-    326                }
-    327              }
-    328          
-    329              if ( ((aff->FrmCtrl & APS_DELIVERYMODE_MASK) == APS_FC_DM_GROUP) )
-    330              {
-    331          #if !defined ( APS_NO_GROUPS )      
-    332                // Find the next endpoint for this group
-    333                grpEp = aps_FindGroupForEndpoint( aff->GroupID, grpEp );
-    334                if ( grpEp == APS_GROUPS_EP_NOT_FOUND )
-    335                  return;   // No endpoint found
-    336          
-    337                epDesc = afFindEndPointDesc( grpEp );
-    338                if ( epDesc == NULL )
-    339                  return;   // Endpoint descriptor not found
-    340          
-    341                pList = afFindEndPointDescList( epDesc->endPoint );
-    342          #else
-    343                return;
-    344          #endif      
-    345              }
-    346              else if ( aff->DstEndPoint == AF_BROADCAST_ENDPOINT )
-    347              {
-    348                pList = pList->nextDesc;
-    349                if ( pList )
-    350                  epDesc = pList->epDesc;
+    196            {
+    197              pList = afFindEndPointDescList( epDesc->endPoint );
+    198            }
+    199          
+    200            while ( epDesc )
+    201            {
+    202              if ( pList->pfnDescCB )
+    203              {
+    204                uint16 *pID = (uint16 *)(pList->pfnDescCB(
+    205                                           AF_DESCRIPTOR_PROFILE_ID, epDesc->endPoint ));
+    206                if ( pID )
+    207                {
+    208                  epProfileID = *pID;
+    209                  osal_mem_free( pID );
+    210                }
+    211              }
+    212              else if ( epDesc->simpleDesc )
+    213              {
+    214                epProfileID = epDesc->simpleDesc->AppProfId;
+    215              }
+    216          
+    217              if ( (aff->ProfileID == epProfileID) ||
+    218                   ((epDesc->endPoint == ZDO_EP) && (aff->ProfileID == ZDO_PROFILE_ID)) )
+    219              {
+    220                {
+    221                  afBuildMSGIncoming( aff, epDesc, SrcAddress, SrcPanId, sig, SecurityUse, timestamp );
+    222                }
+    223              }
+    224          
+    225              if ( ((aff->FrmCtrl & APS_DELIVERYMODE_MASK) == APS_FC_DM_GROUP) )
+    226              {
+    227          #if !defined ( APS_NO_GROUPS )      
+    228                // Find the next endpoint for this group
+    229                grpEp = aps_FindGroupForEndpoint( aff->GroupID, grpEp );
+    230                if ( grpEp == APS_GROUPS_EP_NOT_FOUND )
+    231                  return;   // No endpoint found
+    232          
+    233                epDesc = afFindEndPointDesc( grpEp );
+    234                if ( epDesc == NULL )
+    235                  return;   // Endpoint descriptor not found
+    236          
+    237                pList = afFindEndPointDescList( epDesc->endPoint );
+    238          #else
+    239                return;
+    240          #endif      
+    241              }
+    242              else if ( aff->DstEndPoint == AF_BROADCAST_ENDPOINT )
+    243              {
+    244                pList = pList->nextDesc;
+    245                if ( pList )
+    246                  epDesc = pList->epDesc;
    \                     ??afIncomingData_7:
    \   000096   85..82       MOV     DPL,?V0 + 0
    \   000099   85..83       MOV     DPH,?V0 + 1
@@ -1066,16 +962,16 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??afIncomingData_20:
    \   00017C   6003         JZ      $+5
    \   00017E   02....       LJMP    ??afIncomingData_7 & 0xFFFF
-    351                else
-    352                  epDesc = NULL;
+    247                else
+    248                  epDesc = NULL;
    \                     ??afIncomingData_1:
    \   000181                REQUIRE ?Subroutine26
    \   000181                ; // Fall through to label ?Subroutine26
-    353              }
-    354              else
-    355                epDesc = NULL;
-    356            }
-    357          }
+    249              }
+    250              else
+    251                epDesc = NULL;
+    252            }
+    253          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine26:
@@ -1175,23 +1071,23 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000000   A3           INC     DPTR
    \   000001                REQUIRE ??Subroutine32_0
    \   000001                ; // Fall through to label ??Subroutine32_0
-    358          
-    359          /*********************************************************************
-    360           * @fn          afBuildMSGIncoming
-    361           *
-    362           * @brief       Build the message for the app
-    363           *
-    364           * @param
-    365           *
-    366           * @return      pointer to next in data buffer
-    367           */
+    254          
+    255          /*********************************************************************
+    256           * @fn          afBuildMSGIncoming
+    257           *
+    258           * @brief       Build the message for the app
+    259           *
+    260           * @param
+    261           *
+    262           * @return      pointer to next in data buffer
+    263           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    368          static void afBuildMSGIncoming( aps_FrameFormat_t *aff, endPointDesc_t *epDesc,
+    264          static void afBuildMSGIncoming( aps_FrameFormat_t *aff, endPointDesc_t *epDesc,
    \                     afBuildMSGIncoming:
-    369                           zAddrType_t *SrcAddress, uint16 SrcPanId, NLDE_Signal_t *sig, 
-    370                           byte SecurityUse, uint32 timestamp )
-    371          {
+    265                           zAddrType_t *SrcAddress, uint16 SrcPanId, NLDE_Signal_t *sig, 
+    266                           byte SecurityUse, uint32 timestamp )
+    267          {
    \   000000   74E8         MOV     A,#-0x18
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 24
@@ -1219,9 +1115,9 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000029   12....       LCALL   ?XSTACK_DISP0_8
    \   00002C   78..         MOV     R0,#?V0 + 4
    \   00002E   12....       LCALL   ?L_MOV_X
-    372            afIncomingMSGPacket_t *MSGpkt;
-    373            const byte len = sizeof( afIncomingMSGPacket_t ) + aff->asduLength;
-    374            byte *asdu = aff->asdu;
+    268            afIncomingMSGPacket_t *MSGpkt;
+    269            const byte len = sizeof( afIncomingMSGPacket_t ) + aff->asduLength;
+    270            byte *asdu = aff->asdu;
    \   000031   EA           MOV     A,R2
    \   000032   240E         ADD     A,#0xe
    \   000034   F582         MOV     DPL,A
@@ -1229,7 +1125,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000037   12....       LCALL   ??Subroutine30_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_56:
    \   00003A   12....       LCALL   ?Subroutine10 & 0xFFFF
-    375            MSGpkt = (afIncomingMSGPacket_t *)osal_msg_allocate( len );
+    271            MSGpkt = (afIncomingMSGPacket_t *)osal_msg_allocate( len );
    \                     ??CrossCallReturnLabel_23:
    \   00003D   EA           MOV     A,R2
    \   00003E   2410         ADD     A,#0x10
@@ -1249,30 +1145,30 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000057   8B..         MOV     ?V0 + 13,R3
    \   000059   AE..         MOV     R6,?V0 + 12
    \   00005B   AF..         MOV     R7,?V0 + 13
-    376          
-    377            if ( MSGpkt == NULL )
+    272          
+    273            if ( MSGpkt == NULL )
    \   00005D   EE           MOV     A,R6
    \   00005E   7001         JNZ     ??afBuildMSGIncoming_0
    \   000060   EF           MOV     A,R7
    \                     ??afBuildMSGIncoming_0:
    \   000061   7003         JNZ     $+5
    \   000063   02....       LJMP    ??CrossCallReturnLabel_10 & 0xFFFF
-    378            {
-    379              return;
-    380            }
-    381          
-    382            MSGpkt->hdr.event = AF_INCOMING_MSG_CMD;
+    274            {
+    275              return;
+    276            }
+    277          
+    278            MSGpkt->hdr.event = AF_INCOMING_MSG_CMD;
    \   000066   741A         MOV     A,#0x1a
    \   000068   8E82         MOV     DPL,R6
    \   00006A   8F83         MOV     DPH,R7
    \   00006C   F0           MOVX    @DPTR,A
-    383            MSGpkt->groupId = aff->GroupID;
+    279            MSGpkt->groupId = aff->GroupID;
    \   00006D   85..82       MOV     DPL,?V0 + 0
    \   000070   85..83       MOV     DPH,?V0 + 1
    \   000073   12....       LCALL   ?Subroutine9 & 0xFFFF
    \                     ??CrossCallReturnLabel_19:
    \   000076   12....       LCALL   ??Subroutine29_0 & 0xFFFF
-    384            MSGpkt->clusterId = aff->ClusterID;
+    280            MSGpkt->clusterId = aff->ClusterID;
    \                     ??CrossCallReturnLabel_47:
    \   000079   85..82       MOV     DPL,?V0 + 0
    \   00007C   85..83       MOV     DPH,?V0 + 1
@@ -1283,7 +1179,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000084   A3           INC     DPTR
    \   000085   A3           INC     DPTR
    \   000086   12....       LCALL   ??Subroutine29_0 & 0xFFFF
-    385            afCopyAddress( &MSGpkt->srcAddr, SrcAddress );
+    281            afCopyAddress( &MSGpkt->srcAddr, SrcAddress );
    \                     ??CrossCallReturnLabel_48:
    \   000089                ; Setup parameters for call to function afCopyAddress
    \   000089   741A         MOV     A,#0x1a
@@ -1300,7 +1196,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000098   3400         ADDC    A,#0x0
    \   00009A   FB           MOV     R3,A
    \   00009B   12....       LCALL   ??afCopyAddress?relay
-    386            MSGpkt->srcAddr.endPoint = aff->SrcEndPoint;
+    282            MSGpkt->srcAddr.endPoint = aff->SrcEndPoint;
    \   00009E   85..82       MOV     DPL,?V0 + 0
    \   0000A1   85..83       MOV     DPH,?V0 + 1
    \   0000A4   A3           INC     DPTR
@@ -1314,7 +1210,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??CrossCallReturnLabel_59:
    \   0000B0   D0E0         POP     A
    \   0000B2   F0           MOVX    @DPTR,A
-    387            MSGpkt->endPoint = epDesc->endPoint;
+    283            MSGpkt->endPoint = epDesc->endPoint;
    \   0000B3   85..82       MOV     DPL,?XSP + 0
    \   0000B6   85..83       MOV     DPH,?XSP + 1
    \   0000B9   12....       LCALL   ?Subroutine6 & 0xFFFF
@@ -1326,7 +1222,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??CrossCallReturnLabel_60:
    \   0000C4   D0E0         POP     A
    \   0000C6   F0           MOVX    @DPTR,A
-    388            MSGpkt->wasBroadcast = aff->wasBroadcast;
+    284            MSGpkt->wasBroadcast = aff->wasBroadcast;
    \   0000C7   E5..         MOV     A,?V0 + 0
    \   0000C9   240C         ADD     A,#0xc
    \   0000CB   F582         MOV     DPL,A
@@ -1341,7 +1237,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??CrossCallReturnLabel_61:
    \   0000DB   D0E0         POP     A
    \   0000DD   12....       LCALL   ?Subroutine2 & 0xFFFF
-    389            MSGpkt->LinkQuality = sig->LinkQuality;
+    285            MSGpkt->LinkQuality = sig->LinkQuality;
    \                     ??CrossCallReturnLabel_3:
    \   0000E0   C0E0         PUSH    A
    \   0000E2   EE           MOV     A,R6
@@ -1350,7 +1246,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??CrossCallReturnLabel_62:
    \   0000E8   D0E0         POP     A
    \   0000EA   12....       LCALL   ?Subroutine3 & 0xFFFF
-    390            MSGpkt->correlation = sig->correlation;
+    286            MSGpkt->correlation = sig->correlation;
    \                     ??CrossCallReturnLabel_5:
    \   0000ED   E0           MOVX    A,@DPTR
    \   0000EE   C0E0         PUSH    A
@@ -1360,7 +1256,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??CrossCallReturnLabel_63:
    \   0000F6   D0E0         POP     A
    \   0000F8   12....       LCALL   ?Subroutine3 & 0xFFFF
-    391            MSGpkt->rssi = sig->rssi;
+    287            MSGpkt->rssi = sig->rssi;
    \                     ??CrossCallReturnLabel_6:
    \   0000FB   A3           INC     DPTR
    \   0000FC   E0           MOVX    A,@DPTR
@@ -1371,21 +1267,21 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??CrossCallReturnLabel_64:
    \   000105   D0E0         POP     A
    \   000107   F0           MOVX    @DPTR,A
-    392            MSGpkt->SecurityUse = SecurityUse;
+    288            MSGpkt->SecurityUse = SecurityUse;
    \   000108   EE           MOV     A,R6
    \   000109   2419         ADD     A,#0x19
    \   00010B   12....       LCALL   ?Subroutine17 & 0xFFFF
    \                     ??CrossCallReturnLabel_65:
    \   00010E   E5..         MOV     A,?V0 + 8
    \   000110   F0           MOVX    @DPTR,A
-    393            MSGpkt->timestamp = timestamp;
+    289            MSGpkt->timestamp = timestamp;
    \   000111   EE           MOV     A,R6
    \   000112   241A         ADD     A,#0x1a
    \   000114   12....       LCALL   ?Subroutine17 & 0xFFFF
    \                     ??CrossCallReturnLabel_66:
    \   000117   78..         MOV     R0,#?V0 + 4
    \   000119   12....       LCALL   ?L_MOV_TO_X
-    394            MSGpkt->macDestAddr = aff->macDestAddr;
+    290            MSGpkt->macDestAddr = aff->macDestAddr;
    \   00011C   85..82       MOV     DPL,?V0 + 0
    \   00011F   85..83       MOV     DPH,?V0 + 1
    \   000122   A3           INC     DPTR
@@ -1395,7 +1291,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000127   EE           MOV     A,R6
    \   000128   2412         ADD     A,#0x12
    \   00012A   12....       LCALL   ?Subroutine1 & 0xFFFF
-    395            MSGpkt->srcAddr.panId = SrcPanId;
+    291            MSGpkt->srcAddr.panId = SrcPanId;
    \                     ??CrossCallReturnLabel_54:
    \   00012D   741C         MOV     A,#0x1c
    \   00012F   12....       LCALL   ?XSTACK_DISP0_8
@@ -1404,7 +1300,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000135   EE           MOV     A,R6
    \   000136   2410         ADD     A,#0x10
    \   000138   12....       LCALL   ?Subroutine1 & 0xFFFF
-    396            MSGpkt->cmd.TransSeqNumber = 0;
+    292            MSGpkt->cmd.TransSeqNumber = 0;
    \                     ??CrossCallReturnLabel_55:
    \   00013B   EE           MOV     A,R6
    \   00013C   241E         ADD     A,#0x1e
@@ -1412,7 +1308,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??CrossCallReturnLabel_67:
    \   000141   E4           CLR     A
    \   000142   F0           MOVX    @DPTR,A
-    397            MSGpkt->cmd.DataLength = aff->asduLength;
+    293            MSGpkt->cmd.DataLength = aff->asduLength;
    \   000143   85..82       MOV     DPL,?V0 + 10
    \   000146   85..83       MOV     DPH,?V0 + 11
    \   000149   E0           MOVX    A,@DPTR
@@ -1427,8 +1323,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000155   A3           INC     DPTR
    \   000156   E4           CLR     A
    \   000157   F0           MOVX    @DPTR,A
-    398          
-    399            if ( MSGpkt->cmd.DataLength )
+    294          
+    295            if ( MSGpkt->cmd.DataLength )
    \   000158   EE           MOV     A,R6
    \   000159   2421         ADD     A,#0x21
    \   00015B   F8           MOV     R0,A
@@ -1444,8 +1340,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000167   E4           CLR     A
    \                     ??afBuildMSGIncoming_1:
    \   000168   602E         JZ      ??afBuildMSGIncoming_2
-    400            {
-    401              MSGpkt->cmd.Data = (byte *)(MSGpkt + 1);
+    296            {
+    297              MSGpkt->cmd.Data = (byte *)(MSGpkt + 1);
    \   00016A   EE           MOV     A,R6
    \   00016B   2423         ADD     A,#0x23
    \   00016D   08           INC     R0
@@ -1456,7 +1352,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000173   8A82         MOV     DPL,R2
    \   000175   8B83         MOV     DPH,R3
    \   000177   12....       LCALL   ??Subroutine29_0 & 0xFFFF
-    402              osal_memcpy( MSGpkt->cmd.Data, asdu, MSGpkt->cmd.DataLength );
+    298              osal_memcpy( MSGpkt->cmd.Data, asdu, MSGpkt->cmd.DataLength );
    \                     ??CrossCallReturnLabel_49:
    \   00017A                ; Setup parameters for call to function osal_memcpy
    \   00017A   85....       MOV     ?V0 + 0,?V0 + 14
@@ -1467,15 +1363,15 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000187   8A82         MOV     DPL,R2
    \   000189   8B83         MOV     DPH,R3
    \   00018B   12....       LCALL   ?Subroutine15 & 0xFFFF
-    403            }
+    299            }
    \                     ??CrossCallReturnLabel_31:
    \   00018E   12....       LCALL   ??osal_memcpy?relay
    \   000191   7403         MOV     A,#0x3
    \   000193   12....       LCALL   ?DEALLOC_XSTACK8
    \   000196   8008         SJMP    ??afBuildMSGIncoming_3
-    404            else
-    405            {
-    406              MSGpkt->cmd.Data = NULL;
+    300            else
+    301            {
+    302              MSGpkt->cmd.Data = NULL;
    \                     ??afBuildMSGIncoming_2:
    \   000198   8A82         MOV     DPL,R2
    \   00019A   8B83         MOV     DPH,R3
@@ -1483,21 +1379,21 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00019D   F0           MOVX    @DPTR,A
    \   00019E   A3           INC     DPTR
    \   00019F   F0           MOVX    @DPTR,A
-    407            }
-    408          
-    409          #if defined ( MT_AF_CB_FUNC )
-    410            // If ZDO or SAPI have registered for this endpoint, dont intercept it here
-    411            if (AFCB_CHECK(CB_ID_AF_DATA_IND, *(epDesc->task_id)))
-    412            {
-    413              MT_AfIncomingMsg( (void *)MSGpkt );
-    414              // Release the memory.
-    415              osal_msg_deallocate( (void *)MSGpkt );
-    416            }
-    417            else
-    418          #endif
-    419            {
-    420              // Send message through task message.
-    421              osal_msg_send( *(epDesc->task_id), (uint8 *)MSGpkt );
+    303            }
+    304          
+    305          #if defined ( MT_AF_CB_FUNC )
+    306            // If ZDO or SAPI have registered for this endpoint, dont intercept it here
+    307            if (AFCB_CHECK(CB_ID_AF_DATA_IND, *(epDesc->task_id)))
+    308            {
+    309              MT_AfIncomingMsg( (void *)MSGpkt );
+    310              // Release the memory.
+    311              osal_msg_deallocate( (void *)MSGpkt );
+    312            }
+    313            else
+    314          #endif
+    315            {
+    316              // Send message through task message.
+    317              osal_msg_send( *(epDesc->task_id), (uint8 *)MSGpkt );
    \                     ??afBuildMSGIncoming_3:
    \   0001A0                ; Setup parameters for call to function osal_msg_send
    \   0001A0   EE           MOV     A,R6
@@ -1507,10 +1403,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0001A4   85..82       MOV     DPL,?XSP + 0
    \   0001A7   85..83       MOV     DPH,?XSP + 1
    \   0001AA   12....       LCALL   ?Subroutine7 & 0xFFFF
-    422            }
+    318            }
    \                     ??CrossCallReturnLabel_14:
    \   0001AD   12....       LCALL   ?Subroutine5 & 0xFFFF
-    423          }
+    319          }
    \                     ??CrossCallReturnLabel_10:
    \   0001B0   02....       LJMP    ?Subroutine26 & 0xFFFF
 
@@ -1592,45 +1488,45 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000000   3400         ADDC    A,#0x0
    \   000002   F583         MOV     DPH,A
    \   000004   22           RET
-    424          
-    425          /*********************************************************************
-    426           * @fn      AF_DataRequest
-    427           *
-    428           * @brief   Common functionality for invoking APSDE_DataReq() for both
-    429           *          SendMulti and MSG-Send.
-    430           *
-    431           * input parameters
-    432           *
-    433           * @param  *dstAddr - Full ZB destination address: Nwk Addr + End Point.
-    434           * @param  *srcEP - Origination (i.e. respond to or ack to) End Point Descr.
-    435           * @param   cID - A valid cluster ID as specified by the Profile.
-    436           * @param   len - Number of bytes of data pointed to by next param.
-    437           * @param  *buf - A pointer to the data bytes to send.
-    438           * @param  *transID - A pointer to a byte which can be modified and which will
-    439           *                    be used as the transaction sequence number of the msg.
-    440           * @param   options - Valid bit mask of Tx options.
-    441           * @param   radius - Normally set to AF_DEFAULT_RADIUS.
-    442           *
-    443           * output parameters
-    444           *
-    445           * @param  *transID - Incremented by one if the return value is success.
-    446           *
-    447           * @return  afStatus_t - See previous definition of afStatus_... types.
-    448           */
+    320          
+    321          /*********************************************************************
+    322           * @fn      AF_DataRequest
+    323           *
+    324           * @brief   Common functionality for invoking APSDE_DataReq() for both
+    325           *          SendMulti and MSG-Send.
+    326           *
+    327           * input parameters
+    328           *
+    329           * @param  *dstAddr - Full ZB destination address: Nwk Addr + End Point.
+    330           * @param  *srcEP - Origination (i.e. respond to or ack to) End Point Descr.
+    331           * @param   cID - A valid cluster ID as specified by the Profile.
+    332           * @param   len - Number of bytes of data pointed to by next param.
+    333           * @param  *buf - A pointer to the data bytes to send.
+    334           * @param  *transID - A pointer to a byte which can be modified and which will
+    335           *                    be used as the transaction sequence number of the msg.
+    336           * @param   options - Valid bit mask of Tx options.
+    337           * @param   radius - Normally set to AF_DEFAULT_RADIUS.
+    338           *
+    339           * output parameters
+    340           *
+    341           * @param  *transID - Incremented by one if the return value is success.
+    342           *
+    343           * @return  afStatus_t - See previous definition of afStatus_... types.
+    344           */
 
    \                                 In  segment XDATA_I, align 1, keep-with-next
-    449          uint8 AF_DataRequestDiscoverRoute = TRUE;
+    345          uint8 AF_DataRequestDiscoverRoute = TRUE;
    \                     AF_DataRequestDiscoverRoute:
    \   000000                DS 1
    \   000001                REQUIRE `?<Initializer for AF_DataRequestDiscoverRoute>`
    \   000001                REQUIRE __INIT_XDATA_I
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    450          afStatus_t AF_DataRequest( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
+    346          afStatus_t AF_DataRequest( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
    \                     AF_DataRequest:
-    451                                     uint16 cID, uint16 len, uint8 *buf, uint8 *transID,
-    452                                     uint8 options, uint8 radius )
-    453          {
+    347                                     uint16 cID, uint16 len, uint8 *buf, uint8 *transID,
+    348                                     uint8 options, uint8 radius )
+    349          {
    \   000000   74EA         MOV     A,#-0x16
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 22
@@ -1676,35 +1572,35 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000046   12....       LCALL   ?XSTACK_DISP0_8
    \   000049   E0           MOVX    A,@DPTR
    \   00004A   F5..         MOV     ?V0 + 7,A
-    454            pDescCB pfnDescCB;
-    455            ZStatus_t stat;
-    456            APSDE_DataReq_t req;
-    457            afDataReqMTU_t mtu;
-    458          
-    459            // Verify source end point
-    460            if ( srcEP == NULL )
+    350            pDescCB pfnDescCB;
+    351            ZStatus_t stat;
+    352            APSDE_DataReq_t req;
+    353            afDataReqMTU_t mtu;
+    354          
+    355            // Verify source end point
+    356            if ( srcEP == NULL )
    \   00004C   EC           MOV     A,R4
    \   00004D   7001         JNZ     ??AF_DataRequest_0
    \   00004F   ED           MOV     A,R5
    \                     ??AF_DataRequest_0:
    \   000050   7005         JNZ     ??AF_DataRequest_1
-    461            {
-    462              return afStatus_INVALID_PARAMETER;
+    357            {
+    358              return afStatus_INVALID_PARAMETER;
    \                     ??AF_DataRequest_2:
    \   000052   7902         MOV     R1,#0x2
    \   000054   02....       LJMP    ??AF_DataRequest_3 & 0xFFFF
-    463            }
-    464          
-    465          #if !defined( REFLECTOR )
-    466            if ( dstAddr->addrMode == afAddrNotPresent )
-    467            {
-    468              return afStatus_INVALID_PARAMETER;
-    469            }
-    470          #endif
-    471          
-    472            // Validate broadcasting
-    473            if ( ( dstAddr->addrMode == afAddr16Bit     ) ||
-    474                 ( dstAddr->addrMode == afAddrBroadcast )    )
+    359            }
+    360          
+    361          #if !defined( REFLECTOR )
+    362            if ( dstAddr->addrMode == afAddrNotPresent )
+    363            {
+    364              return afStatus_INVALID_PARAMETER;
+    365            }
+    366          #endif
+    367          
+    368            // Validate broadcasting
+    369            if ( ( dstAddr->addrMode == afAddr16Bit     ) ||
+    370                 ( dstAddr->addrMode == afAddrBroadcast )    )
    \                     ??AF_DataRequest_1:
    \   000057   EE           MOV     A,R6
    \   000058   2408         ADD     A,#0x8
@@ -1722,9 +1618,9 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00006D   740F         MOV     A,#0xf
    \   00006F   6A           XRL     A,R2
    \   000070   7025         JNZ     ??AF_DataRequest_5
-    475            {
-    476              // Check for valid broadcast values
-    477              if( ADDR_NOT_BCAST != NLME_IsAddressBroadcast( dstAddr->addr.shortAddr )  )
+    371            {
+    372              // Check for valid broadcast values
+    373              if( ADDR_NOT_BCAST != NLME_IsAddressBroadcast( dstAddr->addr.shortAddr )  )
    \                     ??AF_DataRequest_4:
    \   000072                ; Setup parameters for call to function NLME_IsAddressBroadcast
    \   000072   8E82         MOV     DPL,R6
@@ -1734,19 +1630,19 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000079   12....       LCALL   ??NLME_IsAddressBroadcast?relay
    \   00007C   E9           MOV     A,R1
    \   00007D   600B         JZ      ??AF_DataRequest_6
-    478              {
-    479                // Force mode to broadcast
-    480                dstAddr->addrMode = afAddrBroadcast;
+    374              {
+    375                // Force mode to broadcast
+    376                dstAddr->addrMode = afAddrBroadcast;
    \   00007F   740F         MOV     A,#0xf
    \   000081   85..82       MOV     DPL,?V0 + 4
    \   000084   85..83       MOV     DPH,?V0 + 5
    \   000087   F0           MOVX    @DPTR,A
    \   000088   801A         SJMP    ??AF_DataRequest_7
-    481              }
-    482              else
-    483              {
-    484                // Address is not a valid broadcast type
-    485                if ( dstAddr->addrMode == afAddrBroadcast )
+    377              }
+    378              else
+    379              {
+    380                // Address is not a valid broadcast type
+    381                if ( dstAddr->addrMode == afAddrBroadcast )
    \                     ??AF_DataRequest_6:
    \   00008A   85..82       MOV     DPL,?V0 + 4
    \   00008D   85..83       MOV     DPH,?V0 + 5
@@ -1754,14 +1650,14 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000091   640F         XRL     A,#0xf
    \   000093   700F         JNZ     ??AF_DataRequest_7
    \   000095   80BB         SJMP    ??AF_DataRequest_2
-    486                {
-    487                  return afStatus_INVALID_PARAMETER;
-    488                }
-    489              }
-    490            }
-    491            else if ( dstAddr->addrMode != afAddr64Bit &&
-    492                      dstAddr->addrMode != afAddrGroup &&
-    493                      dstAddr->addrMode != afAddrNotPresent )
+    382                {
+    383                  return afStatus_INVALID_PARAMETER;
+    384                }
+    385              }
+    386            }
+    387            else if ( dstAddr->addrMode != afAddr64Bit &&
+    388                      dstAddr->addrMode != afAddrGroup &&
+    389                      dstAddr->addrMode != afAddrNotPresent )
    \                     ??AF_DataRequest_5:
    \   000097   7403         MOV     A,#0x3
    \   000099   6A           XRL     A,R2
@@ -1771,12 +1667,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00009F   6003         JZ      ??AF_DataRequest_7
    \   0000A1   EA           MOV     A,R2
    \   0000A2   70AE         JNZ     ??AF_DataRequest_2
-    494            {
-    495              return afStatus_INVALID_PARAMETER;
-    496            }
-    497            
-    498            // Set destination address
-    499            req.dstAddr.addrMode = dstAddr->addrMode;
+    390            {
+    391              return afStatus_INVALID_PARAMETER;
+    392            }
+    393            
+    394            // Set destination address
+    395            req.dstAddr.addrMode = dstAddr->addrMode;
    \                     ??AF_DataRequest_7:
    \   0000A4   E0           MOVX    A,@DPTR
    \   0000A5   C0E0         PUSH    A
@@ -1784,13 +1680,13 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0000A9   12....       LCALL   ?XSTACK_DISP0_8
    \   0000AC   D0E0         POP     A
    \   0000AE   F0           MOVX    @DPTR,A
-    500            if ( dstAddr->addrMode == afAddr64Bit )
+    396            if ( dstAddr->addrMode == afAddr64Bit )
    \   0000AF   85..82       MOV     DPL,?V0 + 4
    \   0000B2   85..83       MOV     DPH,?V0 + 5
    \   0000B5   E0           MOVX    A,@DPTR
    \   0000B6   6403         XRL     A,#0x3
    \   0000B8   7012         JNZ     ??AF_DataRequest_8
-    501              osal_cpyExtAddr( req.dstAddr.addr.extAddr, dstAddr->addr.extAddr );
+    397              osal_cpyExtAddr( req.dstAddr.addr.extAddr, dstAddr->addr.extAddr );
    \   0000BA                ; Setup parameters for call to function sAddrExtCpy
    \   0000BA   EE           MOV     A,R6
    \   0000BB   FC           MOV     R4,A
@@ -1802,8 +1698,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0000C5   AB83         MOV     R3,DPH
    \   0000C7   12....       LCALL   ??sAddrExtCpy?relay
    \   0000CA   800F         SJMP    ??CrossCallReturnLabel_50
-    502            else
-    503              req.dstAddr.addr.shortAddr = dstAddr->addr.shortAddr;
+    398            else
+    399              req.dstAddr.addr.shortAddr = dstAddr->addr.shortAddr;
    \                     ??AF_DataRequest_8:
    \   0000CC   8E82         MOV     DPL,R6
    \   0000CE   8F83         MOV     DPH,R7
@@ -1812,8 +1708,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0000D3   7402         MOV     A,#0x2
    \   0000D5   12....       LCALL   ?XSTACK_DISP0_8
    \   0000D8   12....       LCALL   ??Subroutine29_0 & 0xFFFF
-    504            
-    505            req.profileID = ZDO_PROFILE_ID;
+    400            
+    401            req.profileID = ZDO_PROFILE_ID;
    \                     ??CrossCallReturnLabel_50:
    \   0000DB   7411         MOV     A,#0x11
    \   0000DD   12....       LCALL   ?XSTACK_DISP0_8
@@ -1821,8 +1717,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0000E1   F0           MOVX    @DPTR,A
    \   0000E2   A3           INC     DPTR
    \   0000E3   F0           MOVX    @DPTR,A
-    506          
-    507            if ( (pfnDescCB = afGetDescCB( srcEP )) )
+    402          
+    403            if ( (pfnDescCB = afGetDescCB( srcEP )) )
    \   0000E4   90....       MOV     DPTR,#epList
    \   0000E7   8002         SJMP    ??AF_DataRequest_9
    \                     ??AF_DataRequest_10:
@@ -1861,23 +1757,23 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000114   ED           MOV     A,R5
    \                     ??AF_DataRequest_14:
    \   000115   6026         JZ      ??AF_DataRequest_12
-    508            {
-    509              uint16 *pID = (uint16 *)(pfnDescCB(
-    510                                           AF_DESCRIPTOR_PROFILE_ID, srcEP->endPoint ));
+    404            {
+    405              uint16 *pID = (uint16 *)(pfnDescCB(
+    406                                           AF_DESCRIPTOR_PROFILE_ID, srcEP->endPoint ));
    \   000117                ; Setup parameters for indirect call
    \   000117   85..82       MOV     DPL,?V0 + 0
    \   00011A   85..83       MOV     DPH,?V0 + 1
    \   00011D   12....       LCALL   ?Subroutine16 & 0xFFFF
    \                     ??CrossCallReturnLabel_38:
    \   000120   12....       LCALL   ?CALL_IND
-    511              if ( pID )
+    407              if ( pID )
    \   000123   EA           MOV     A,R2
    \   000124   7001         JNZ     ??AF_DataRequest_15
    \   000126   EB           MOV     A,R3
    \                     ??AF_DataRequest_15:
    \   000127   602E         JZ      ??CrossCallReturnLabel_52
-    512              {
-    513                req.profileID = *pID;
+    408              {
+    409                req.profileID = *pID;
    \   000129   8A82         MOV     DPL,R2
    \   00012B   8B83         MOV     DPH,R3
    \   00012D   12....       LCALL   ??Subroutine32_0 & 0xFFFF
@@ -1885,14 +1781,14 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000130   7411         MOV     A,#0x11
    \   000132   12....       LCALL   ?XSTACK_DISP0_8
    \   000135   12....       LCALL   ??Subroutine29_0 & 0xFFFF
-    514                osal_mem_free( pID );
+    410                osal_mem_free( pID );
    \                     ??CrossCallReturnLabel_51:
    \   000138                ; Setup parameters for call to function osal_mem_free
    \   000138   12....       LCALL   ??osal_mem_free?relay
    \   00013B   801A         SJMP    ??CrossCallReturnLabel_52
-    515              }
-    516            }
-    517            else if ( srcEP->simpleDesc )
+    411              }
+    412            }
+    413            else if ( srcEP->simpleDesc )
    \                     ??AF_DataRequest_12:
    \   00013D   85..82       MOV     DPL,?V0 + 0
    \   000140   85..83       MOV     DPH,?V0 + 1
@@ -1902,16 +1798,16 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000148   E583         MOV     A,DPH
    \                     ??AF_DataRequest_16:
    \   00014A   600B         JZ      ??CrossCallReturnLabel_52
-    518            {
-    519              req.profileID = srcEP->simpleDesc->AppProfId;
+    414            {
+    415              req.profileID = srcEP->simpleDesc->AppProfId;
    \   00014C   12....       LCALL   ??Subroutine31_0 & 0xFFFF
-    520            }
+    416            }
    \                     ??CrossCallReturnLabel_75:
    \   00014F   7411         MOV     A,#0x11
    \   000151   12....       LCALL   ?XSTACK_DISP0_8
    \   000154   12....       LCALL   ??Subroutine29_0 & 0xFFFF
-    521          
-    522            req.txOptions = 0;
+    417          
+    418            req.txOptions = 0;
    \                     ??CrossCallReturnLabel_52:
    \   000157   7417         MOV     A,#0x17
    \   000159   12....       LCALL   ?XSTACK_DISP0_8
@@ -1919,10 +1815,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00015D   F0           MOVX    @DPTR,A
    \   00015E   A3           INC     DPTR
    \   00015F   F0           MOVX    @DPTR,A
-    523          
-    524            if ( ( options & AF_ACK_REQUEST              ) &&
-    525                 ( req.dstAddr.addrMode != AddrBroadcast ) &&
-    526                 ( req.dstAddr.addrMode != AddrGroup     )    )
+    419          
+    420            if ( ( options & AF_ACK_REQUEST              ) &&
+    421                 ( req.dstAddr.addrMode != AddrBroadcast ) &&
+    422                 ( req.dstAddr.addrMode != AddrGroup     )    )
    \   000160   E5..         MOV     A,?V0 + 6
    \   000162   A2E4         MOV     C,0xE0 /* A   */.4
    \   000164   501C         JNC     ??AF_DataRequest_17
@@ -1936,8 +1832,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000172   7401         MOV     A,#0x1
    \   000174   6A           XRL     A,R2
    \   000175   600B         JZ      ??AF_DataRequest_17
-    527            {
-    528              req.txOptions |=  APS_TX_OPTIONS_ACK;
+    423            {
+    424              req.txOptions |=  APS_TX_OPTIONS_ACK;
    \   000177   7417         MOV     A,#0x17
    \   000179   12....       LCALL   ?XSTACK_DISP0_8
    \   00017C   7404         MOV     A,#0x4
@@ -1945,15 +1841,15 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00017F   A3           INC     DPTR
    \   000180   E4           CLR     A
    \   000181   F0           MOVX    @DPTR,A
-    529            }
-    530          
-    531            if ( options & AF_SKIP_ROUTING )
+    425            }
+    426          
+    427            if ( options & AF_SKIP_ROUTING )
    \                     ??AF_DataRequest_17:
    \   000182   E5..         MOV     A,?V0 + 6
    \   000184   A2E7         MOV     C,0xE0 /* A   */.7
    \   000186   500C         JNC     ??AF_DataRequest_18
-    532            {
-    533              req.txOptions |=  APS_TX_OPTIONS_SKIP_ROUTING;
+    428            {
+    429              req.txOptions |=  APS_TX_OPTIONS_SKIP_ROUTING;
    \   000188   7417         MOV     A,#0x17
    \   00018A   12....       LCALL   ?XSTACK_DISP0_8
    \   00018D   E0           MOVX    A,@DPTR
@@ -1962,15 +1858,15 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000191   A3           INC     DPTR
    \   000192   E0           MOVX    A,@DPTR
    \   000193   F0           MOVX    @DPTR,A
-    534            }
-    535          
-    536            if ( options & AF_EN_SECURITY )
+    430            }
+    431          
+    432            if ( options & AF_EN_SECURITY )
    \                     ??AF_DataRequest_18:
    \   000194   E5..         MOV     A,?V0 + 6
    \   000196   A2E6         MOV     C,0xE0 /* A   */.6
    \   000198   5015         JNC     ??AF_DataRequest_19
-    537            {
-    538              req.txOptions |= APS_TX_OPTIONS_SECURITY_ENABLE;
+    433            {
+    434              req.txOptions |= APS_TX_OPTIONS_SECURITY_ENABLE;
    \   00019A   7417         MOV     A,#0x17
    \   00019C   12....       LCALL   ?XSTACK_DISP0_8
    \   00019F   E0           MOVX    A,@DPTR
@@ -1979,37 +1875,37 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0001A3   A3           INC     DPTR
    \   0001A4   E0           MOVX    A,@DPTR
    \   0001A5   F0           MOVX    @DPTR,A
-    539              mtu.aps.secure = TRUE;
+    435              mtu.aps.secure = TRUE;
    \   0001A6   7401         MOV     A,#0x1
    \   0001A8   12....       LCALL   ?XSTACK_DISP0_8
    \   0001AB   7401         MOV     A,#0x1
    \   0001AD   8006         SJMP    ??AF_DataRequest_20
-    540            }
-    541            else
-    542            {
-    543              mtu.aps.secure = FALSE;
+    436            }
+    437            else
+    438            {
+    439              mtu.aps.secure = FALSE;
    \                     ??AF_DataRequest_19:
    \   0001AF   7401         MOV     A,#0x1
    \   0001B1   12....       LCALL   ?XSTACK_DISP0_8
    \   0001B4   E4           CLR     A
    \                     ??AF_DataRequest_20:
    \   0001B5   F0           MOVX    @DPTR,A
-    544            }
-    545          
-    546            mtu.kvp = FALSE;
+    440            }
+    441          
+    442            mtu.kvp = FALSE;
    \   0001B6   E4           CLR     A
    \   0001B7   85..82       MOV     DPL,?XSP + 0
    \   0001BA   85..83       MOV     DPH,?XSP + 1
    \   0001BD   12....       LCALL   ?Subroutine2 & 0xFFFF
-    547          
-    548            req.transID       = *transID;
+    443          
+    444            req.transID       = *transID;
    \                     ??CrossCallReturnLabel_4:
    \   0001C0   C0E0         PUSH    A
    \   0001C2   7419         MOV     A,#0x19
    \   0001C4   12....       LCALL   ?XSTACK_DISP0_8
    \   0001C7   D0E0         POP     A
    \   0001C9   F0           MOVX    @DPTR,A
-    549            req.srcEP         = srcEP->endPoint;
+    445            req.srcEP         = srcEP->endPoint;
    \   0001CA   85..82       MOV     DPL,?V0 + 0
    \   0001CD   85..83       MOV     DPH,?V0 + 1
    \   0001D0   E0           MOVX    A,@DPTR
@@ -2018,7 +1914,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0001D5   12....       LCALL   ?XSTACK_DISP0_8
    \   0001D8   D0E0         POP     A
    \   0001DA   F0           MOVX    @DPTR,A
-    550            req.dstEP         = dstAddr->endPoint;
+    446            req.dstEP         = dstAddr->endPoint;
    \   0001DB   8E82         MOV     DPL,R6
    \   0001DD   8F83         MOV     DPH,R7
    \   0001DF   A3           INC     DPTR
@@ -2036,7 +1932,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0001ED   12....       LCALL   ?XSTACK_DISP0_8
    \   0001F0   D0E0         POP     A
    \   0001F2   F0           MOVX    @DPTR,A
-    551            req.clusterID     = cID;
+    447            req.clusterID     = cID;
    \   0001F3   740F         MOV     A,#0xf
    \   0001F5   12....       LCALL   ?XSTACK_DISP0_8
    \   0001F8   E5..         MOV     A,?V0 + 10
@@ -2044,7 +1940,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0001FB   A3           INC     DPTR
    \   0001FC   E5..         MOV     A,?V0 + 11
    \   0001FE   F0           MOVX    @DPTR,A
-    552            req.asduLen       = len;
+    448            req.asduLen       = len;
    \   0001FF   7413         MOV     A,#0x13
    \   000201   12....       LCALL   ?XSTACK_DISP0_8
    \   000204   E5..         MOV     A,?V0 + 8
@@ -2052,7 +1948,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000207   A3           INC     DPTR
    \   000208   E5..         MOV     A,?V0 + 9
    \   00020A   F0           MOVX    @DPTR,A
-    553            req.asdu          = buf;
+    449            req.asdu          = buf;
    \   00020B   7415         MOV     A,#0x15
    \   00020D   12....       LCALL   ?XSTACK_DISP0_8
    \   000210   E5..         MOV     A,?V0 + 12
@@ -2060,7 +1956,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000213   A3           INC     DPTR
    \   000214   E5..         MOV     A,?V0 + 13
    \   000216   F0           MOVX    @DPTR,A
-    554            req.discoverRoute = AF_DataRequestDiscoverRoute;//(uint8)((options & AF_DISCV_ROUTE) ? 1 : 0);
+    450            req.discoverRoute = AF_DataRequestDiscoverRoute;//(uint8)((options & AF_DISCV_ROUTE) ? 1 : 0);
    \   000217   90....       MOV     DPTR,#AF_DataRequestDiscoverRoute
    \   00021A   E0           MOVX    A,@DPTR
    \   00021B   C0E0         PUSH    A
@@ -2068,29 +1964,29 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00021F   12....       LCALL   ?XSTACK_DISP0_8
    \   000222   D0E0         POP     A
    \   000224   F0           MOVX    @DPTR,A
-    555            req.radiusCounter = radius;
+    451            req.radiusCounter = radius;
    \   000225   741B         MOV     A,#0x1b
    \   000227   12....       LCALL   ?XSTACK_DISP0_8
    \   00022A   E5..         MOV     A,?V0 + 7
    \   00022C   F0           MOVX    @DPTR,A
-    556          #if defined ( INTER_PAN )
-    557            req.dstPanId      = dstAddr->panId;
-    558          
-    559            if ( StubAPS_InterPan( dstAddr->panId, dstAddr->endPoint ) )
-    560            {
-    561              if ( len > INTERP_DataReqMTU() )
-    562              {
-    563                stat = afStatus_INVALID_PARAMETER;
-    564              }
-    565              else
-    566              {
-    567                stat = INTERP_DataReq( &req );
-    568              }
-    569            }
-    570            else
-    571          #endif // INTER_PAN
-    572            {
-    573              if (len > afDataReqMTU( &mtu ) )
+    452          #if defined ( INTER_PAN )
+    453            req.dstPanId      = dstAddr->panId;
+    454          
+    455            if ( StubAPS_InterPan( dstAddr->panId, dstAddr->endPoint ) )
+    456            {
+    457              if ( len > INTERP_DataReqMTU() )
+    458              {
+    459                stat = afStatus_INVALID_PARAMETER;
+    460              }
+    461              else
+    462              {
+    463                stat = INTERP_DataReq( &req );
+    464              }
+    465            }
+    466            else
+    467          #endif // INTER_PAN
+    468            {
+    469              if (len > afDataReqMTU( &mtu ) )
    \   00022D                ; Setup parameters for call to function afDataReqMTU
    \   00022D   85..82       MOV     DPL,?XSP + 0
    \   000230   85..83       MOV     DPH,?XSP + 1
@@ -2103,8 +1999,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00023E   E4           CLR     A
    \   00023F   95..         SUBB    A,?V0 + 9
    \   000241   5022         JNC     ??AF_DataRequest_21
-    574              {
-    575                if (apsfSendFragmented)
+    470              {
+    471                if (apsfSendFragmented)
    \   000243   90....       MOV     DPTR,#apsfSendFragmented
    \   000246   E0           MOVX    A,@DPTR
    \   000247   7002         JNZ     ??AF_DataRequest_22
@@ -2112,8 +2008,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00024A   E0           MOVX    A,@DPTR
    \                     ??AF_DataRequest_22:
    \   00024B   6014         JZ      ??AF_DataRequest_23
-    576                {
-    577                  stat = (*apsfSendFragmented)( &req );
+    472                {
+    473                  stat = (*apsfSendFragmented)( &req );
    \   00024D                ; Setup parameters for indirect call
    \   00024D   7402         MOV     A,#0x2
    \   00024F   12....       LCALL   ?XSTACK_DISP0_8
@@ -2121,21 +2017,21 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000254   AB83         MOV     R3,DPH
    \   000256   90....       MOV     DPTR,#apsfSendFragmented
    \   000259   12....       LCALL   ?Subroutine7 & 0xFFFF
-    578                }
+    474                }
    \                     ??CrossCallReturnLabel_15:
    \   00025C   12....       LCALL   ?CALL_IND
    \   00025F   8010         SJMP    ??AF_DataRequest_24
-    579                else
-    580                {
-    581                  stat = afStatus_INVALID_PARAMETER;
+    475                else
+    476                {
+    477                  stat = afStatus_INVALID_PARAMETER;
    \                     ??AF_DataRequest_23:
    \   000261   7E02         MOV     R6,#0x2
    \   000263   800E         SJMP    ??AF_DataRequest_25
-    582                }
-    583              }
-    584              else
-    585              {
-    586                stat = APSDE_DataReq( &req );
+    478                }
+    479              }
+    480              else
+    481              {
+    482                stat = APSDE_DataReq( &req );
    \                     ??AF_DataRequest_21:
    \   000265                ; Setup parameters for call to function APSDE_DataReq
    \   000265   7402         MOV     A,#0x2
@@ -2146,20 +2042,20 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??AF_DataRequest_24:
    \   000271   E9           MOV     A,R1
    \   000272   FE           MOV     R6,A
-    587              }
-    588            }
-    589          
-    590            /*
-    591             * If this is an EndPoint-to-EndPoint message on the same device, it will not
-    592             * get added to the NWK databufs. So it will not go OTA and it will not get
-    593             * a MACCB_DATA_CONFIRM_CMD callback. Thus it is necessary to generate the
-    594             * AF_DATA_CONFIRM_CMD here. Note that APSDE_DataConfirm() only generates one
-    595             * message with the first in line TransSeqNumber, even on a multi message.
-    596             * Also note that a reflected msg will not have its confirmation generated
-    597             * here.
-    598             */
-    599            if ( (req.dstAddr.addrMode == Addr16Bit) &&
-    600                 (req.dstAddr.addr.shortAddr == NLME_GetShortAddr()) )
+    483              }
+    484            }
+    485          
+    486            /*
+    487             * If this is an EndPoint-to-EndPoint message on the same device, it will not
+    488             * get added to the NWK databufs. So it will not go OTA and it will not get
+    489             * a MACCB_DATA_CONFIRM_CMD callback. Thus it is necessary to generate the
+    490             * AF_DATA_CONFIRM_CMD here. Note that APSDE_DataConfirm() only generates one
+    491             * message with the first in line TransSeqNumber, even on a multi message.
+    492             * Also note that a reflected msg will not have its confirmation generated
+    493             * here.
+    494             */
+    495            if ( (req.dstAddr.addrMode == Addr16Bit) &&
+    496                 (req.dstAddr.addr.shortAddr == NLME_GetShortAddr()) )
    \                     ??AF_DataRequest_25:
    \   000273   740A         MOV     A,#0xa
    \   000275   12....       LCALL   ?XSTACK_DISP0_8
@@ -2182,8 +2078,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000293   69           XRL     A,R1
    \                     ??AF_DataRequest_27:
    \   000294   7015         JNZ     ??AF_DataRequest_26
-    601            {
-    602              afDataConfirm( srcEP->endPoint, *transID, stat );
+    497            {
+    498              afDataConfirm( srcEP->endPoint, *transID, stat );
    \   000296                ; Setup parameters for call to function afDataConfirm
    \   000296   EE           MOV     A,R6
    \   000297   FB           MOV     R3,A
@@ -2196,22 +2092,22 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0002A6   E0           MOVX    A,@DPTR
    \   0002A7   F9           MOV     R1,A
    \   0002A8   12....       LCALL   ??afDataConfirm?relay
-    603            }
-    604          
-    605            if ( stat == afStatus_SUCCESS )
+    499            }
+    500          
+    501            if ( stat == afStatus_SUCCESS )
    \                     ??AF_DataRequest_26:
    \   0002AB   EE           MOV     A,R6
    \   0002AC   7009         JNZ     ??AF_DataRequest_28
-    606            {
-    607              (*transID)++;
+    502            {
+    503              (*transID)++;
    \   0002AE   85..82       MOV     DPL,?V0 + 2
    \   0002B1   85..83       MOV     DPH,?V0 + 3
    \   0002B4   E0           MOVX    A,@DPTR
    \   0002B5   04           INC     A
    \   0002B6   F0           MOVX    @DPTR,A
-    608            }
-    609          
-    610            return (afStatus_t)stat;
+    504            }
+    505          
+    506            return (afStatus_t)stat;
    \                     ??AF_DataRequest_28:
    \   0002B7   EE           MOV     A,R6
    \   0002B8   F9           MOV     R1,A
@@ -2220,102 +2116,102 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   0002BB   12....       LCALL   ?DEALLOC_XSTACK8
    \   0002BE   7F0E         MOV     R7,#0xe
    \   0002C0   02....       LJMP    ?BANKED_LEAVE_XDATA
-    611          }
-    612          
-    613          #if defined ( ZIGBEE_SOURCE_ROUTING )
-    614          /*********************************************************************
-    615           * @fn      AF_DataRequestSrcRtg
-    616           *
-    617           * @brief   Common functionality for invoking APSDE_DataReq() for both
-    618           *          SendMulti and MSG-Send.
-    619           *
-    620           * input parameters
-    621           *
-    622           * @param  *dstAddr - Full ZB destination address: Nwk Addr + End Point.
-    623           * @param  *srcEP - Origination (i.e. respond to or ack to) End Point Descr.
-    624           * @param   cID - A valid cluster ID as specified by the Profile.
-    625           * @param   len - Number of bytes of data pointed to by next param.
-    626           * @param  *buf - A pointer to the data bytes to send.
-    627           * @param  *transID - A pointer to a byte which can be modified and which will
-    628           *                    be used as the transaction sequence number of the msg.
-    629           * @param   options - Valid bit mask of Tx options.
-    630           * @param   radius - Normally set to AF_DEFAULT_RADIUS.
-    631           * @param   relayCnt - Number of devices in the relay list
-    632           * @param   pRelayList - Pointer to the relay list
-    633           *
-    634           * output parameters
-    635           *
-    636           * @param  *transID - Incremented by one if the return value is success.
-    637           *
-    638           * @return  afStatus_t - See previous definition of afStatus_... types.
-    639           */
-    640          
-    641          afStatus_t AF_DataRequestSrcRtg( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
-    642                                     uint16 cID, uint16 len, uint8 *buf, uint8 *transID,
-    643                                     uint8 options, uint8 radius, uint8 relayCnt, uint16* pRelayList )
-    644          {
-    645            uint8 status;
-    646            
-    647            /* Add the source route to the source routing table */
-    648            status = RTG_AddSrcRtgEntry_Guaranteed( dstAddr->addr.shortAddr, relayCnt, 
-    649                                                   pRelayList );
-    650          
-    651            if( status == RTG_SUCCESS)
-    652            {
-    653              /* Call AF_DataRequest to send the data */
-    654              status = AF_DataRequest( dstAddr, srcEP, cID, len, buf, transID, options, radius );
-    655            }
-    656            else if( status == RTG_INVALID_PATH )
-    657            {
-    658              /* The source route relay count is exceeding the network limit */
-    659              status = afStatus_INVALID_PARAMETER;
-    660            }
-    661            else
-    662            {
-    663              /* The guaranteed adding entry fails due to memory failure */
-    664              status = afStatus_MEM_FAIL;
-    665            }
-    666            return status;
-    667          }
-    668          
-    669          #endif
-    670          
-    671          /*********************************************************************
-    672           * @fn      afFindEndPointDescList
-    673           *
-    674           * @brief   Find the endpoint description entry from the endpoint
-    675           *          number.
-    676           *
-    677           * @param   EndPoint - Application Endpoint to look for
-    678           *
-    679           * @return  the address to the endpoint/interface description entry
-    680           */
+    507          }
+    508          
+    509          #if defined ( ZIGBEE_SOURCE_ROUTING )
+    510          /*********************************************************************
+    511           * @fn      AF_DataRequestSrcRtg
+    512           *
+    513           * @brief   Common functionality for invoking APSDE_DataReq() for both
+    514           *          SendMulti and MSG-Send.
+    515           *
+    516           * input parameters
+    517           *
+    518           * @param  *dstAddr - Full ZB destination address: Nwk Addr + End Point.
+    519           * @param  *srcEP - Origination (i.e. respond to or ack to) End Point Descr.
+    520           * @param   cID - A valid cluster ID as specified by the Profile.
+    521           * @param   len - Number of bytes of data pointed to by next param.
+    522           * @param  *buf - A pointer to the data bytes to send.
+    523           * @param  *transID - A pointer to a byte which can be modified and which will
+    524           *                    be used as the transaction sequence number of the msg.
+    525           * @param   options - Valid bit mask of Tx options.
+    526           * @param   radius - Normally set to AF_DEFAULT_RADIUS.
+    527           * @param   relayCnt - Number of devices in the relay list
+    528           * @param   pRelayList - Pointer to the relay list
+    529           *
+    530           * output parameters
+    531           *
+    532           * @param  *transID - Incremented by one if the return value is success.
+    533           *
+    534           * @return  afStatus_t - See previous definition of afStatus_... types.
+    535           */
+    536          
+    537          afStatus_t AF_DataRequestSrcRtg( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
+    538                                     uint16 cID, uint16 len, uint8 *buf, uint8 *transID,
+    539                                     uint8 options, uint8 radius, uint8 relayCnt, uint16* pRelayList )
+    540          {
+    541            uint8 status;
+    542            
+    543            /* Add the source route to the source routing table */
+    544            status = RTG_AddSrcRtgEntry_Guaranteed( dstAddr->addr.shortAddr, relayCnt, 
+    545                                                   pRelayList );
+    546          
+    547            if( status == RTG_SUCCESS)
+    548            {
+    549              /* Call AF_DataRequest to send the data */
+    550              status = AF_DataRequest( dstAddr, srcEP, cID, len, buf, transID, options, radius );
+    551            }
+    552            else if( status == RTG_INVALID_PATH )
+    553            {
+    554              /* The source route relay count is exceeding the network limit */
+    555              status = afStatus_INVALID_PARAMETER;
+    556            }
+    557            else
+    558            {
+    559              /* The guaranteed adding entry fails due to memory failure */
+    560              status = afStatus_MEM_FAIL;
+    561            }
+    562            return status;
+    563          }
+    564          
+    565          #endif
+    566          
+    567          /*********************************************************************
+    568           * @fn      afFindEndPointDescList
+    569           *
+    570           * @brief   Find the endpoint description entry from the endpoint
+    571           *          number.
+    572           *
+    573           * @param   EndPoint - Application Endpoint to look for
+    574           *
+    575           * @return  the address to the endpoint/interface description entry
+    576           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    681          static epList_t *afFindEndPointDescList( byte EndPoint )
+    577          static epList_t *afFindEndPointDescList( byte EndPoint )
    \                     afFindEndPointDescList:
-    682          {
+    578          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    683            epList_t *epSearch;
-    684          
-    685            // Start at the beginning
-    686            epSearch = epList;
+    579            epList_t *epSearch;
+    580          
+    581            // Start at the beginning
+    582            epSearch = epList;
    \   000004   90....       MOV     DPTR,#epList
    \   000007   8009         SJMP    ??afFindEndPointDescList_0
-    687          
-    688            // Look through the list until the end
-    689            while ( epSearch )
-    690            {
-    691              // Is there a match?
-    692              if ( epSearch->epDesc->endPoint == EndPoint )
-    693              {
-    694                return ( epSearch );
-    695              }
-    696              else
-    697                epSearch = epSearch->nextDesc;  // Next entry
+    583          
+    584            // Look through the list until the end
+    585            while ( epSearch )
+    586            {
+    587              // Is there a match?
+    588              if ( epSearch->epDesc->endPoint == EndPoint )
+    589              {
+    590                return ( epSearch );
+    591              }
+    592              else
+    593                epSearch = epSearch->nextDesc;  // Next entry
    \                     ??afFindEndPointDescList_1:
    \   000009   8A82         MOV     DPL,R2
    \   00000B   8B83         MOV     DPH,R3
@@ -2339,60 +2235,60 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000022   69           XRL     A,R1
    \   000023   70E4         JNZ     ??afFindEndPointDescList_1
    \   000025   8004         SJMP    ??afFindEndPointDescList_4
-    698            }
-    699          
-    700            return ( (epList_t *)NULL );
+    594            }
+    595          
+    596            return ( (epList_t *)NULL );
    \                     ??afFindEndPointDescList_3:
    \   000027   7A00         MOV     R2,#0x0
    \   000029   7B00         MOV     R3,#0x0
    \                     ??afFindEndPointDescList_4:
    \   00002B   02....       LJMP    ?Subroutine23 & 0xFFFF
-    701          }
-    702          
-    703          /*********************************************************************
-    704           * @fn      afFindEndPointDesc
-    705           *
-    706           * @brief   Find the endpoint description entry from the endpoint
-    707           *          number.
-    708           *
-    709           * @param   EndPoint - Application Endpoint to look for
-    710           *
-    711           * @return  the address to the endpoint/interface description entry
-    712           */
+    597          }
+    598          
+    599          /*********************************************************************
+    600           * @fn      afFindEndPointDesc
+    601           *
+    602           * @brief   Find the endpoint description entry from the endpoint
+    603           *          number.
+    604           *
+    605           * @param   EndPoint - Application Endpoint to look for
+    606           *
+    607           * @return  the address to the endpoint/interface description entry
+    608           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    713          endPointDesc_t *afFindEndPointDesc( byte EndPoint )
+    609          endPointDesc_t *afFindEndPointDesc( byte EndPoint )
    \                     afFindEndPointDesc:
-    714          {
+    610          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-    715            epList_t *epSearch;
-    716          
-    717            // Look for the endpoint
-    718            epSearch = afFindEndPointDescList( EndPoint );
+    611            epList_t *epSearch;
+    612          
+    613            // Look for the endpoint
+    614            epSearch = afFindEndPointDescList( EndPoint );
    \   000005                ; Setup parameters for call to function afFindEndPointDescList
    \   000005   12....       LCALL   ?Subroutine19 & 0xFFFF
-    719          
-    720            if ( epSearch )
+    615          
+    616            if ( epSearch )
    \                     ??CrossCallReturnLabel_41:
    \   000008   7002         JNZ     ??afFindEndPointDesc_0
    \   00000A   E583         MOV     A,DPH
    \                     ??afFindEndPointDesc_0:
    \   00000C   6005         JZ      ??afFindEndPointDesc_1
-    721              return ( epSearch->epDesc );
+    617              return ( epSearch->epDesc );
    \   00000E   12....       LCALL   ?Subroutine15 & 0xFFFF
    \                     ??CrossCallReturnLabel_35:
    \   000011   8004         SJMP    ??afFindEndPointDesc_2
-    722            else
-    723              return ( (endPointDesc_t *)NULL );
+    618            else
+    619              return ( (endPointDesc_t *)NULL );
    \                     ??afFindEndPointDesc_1:
    \   000013   7A00         MOV     R2,#0x0
    \   000015   7B00         MOV     R3,#0x0
    \                     ??afFindEndPointDesc_2:
    \   000017   02....       LJMP    ?Subroutine25 & 0xFFFF
-    724          }
+    620          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine19:
@@ -2401,21 +2297,21 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000005   8B83         MOV     DPH,R3
    \   000007   E582         MOV     A,DPL
    \   000009   22           RET
-    725          
-    726          /*********************************************************************
-    727           * @fn      afFindSimpleDesc
-    728           *
-    729           * @brief   Find the Simple Descriptor from the endpoint number.
-    730           *
-    731           * @param   EP - Application Endpoint to look for.
-    732           *
-    733           * @return  Non-zero to indicate that the descriptor memory must be freed.
-    734           */
+    621          
+    622          /*********************************************************************
+    623           * @fn      afFindSimpleDesc
+    624           *
+    625           * @brief   Find the Simple Descriptor from the endpoint number.
+    626           *
+    627           * @param   EP - Application Endpoint to look for.
+    628           *
+    629           * @return  Non-zero to indicate that the descriptor memory must be freed.
+    630           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    735          byte afFindSimpleDesc( SimpleDescriptionFormat_t **ppDesc, byte EP )
+    631          byte afFindSimpleDesc( SimpleDescriptionFormat_t **ppDesc, byte EP )
    \                     afFindSimpleDesc:
-    736          {
+    632          {
    \   000000   74F4         MOV     A,#-0xc
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 12
@@ -2425,24 +2321,24 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000007   EB           MOV     A,R3
    \   000008   FF           MOV     R7,A
    \   000009   89..         MOV     ?V0 + 0,R1
-    737            epList_t *epItem = afFindEndPointDescList( EP );
+    633            epList_t *epItem = afFindEndPointDescList( EP );
    \   00000B                ; Setup parameters for call to function afFindEndPointDescList
    \   00000B   12....       LCALL   ??afFindEndPointDescList?relay
    \   00000E   8A..         MOV     ?V0 + 2,R2
    \   000010   8B..         MOV     ?V0 + 3,R3
    \   000012   AC..         MOV     R4,?V0 + 2
    \   000014   AD..         MOV     R5,?V0 + 3
-    738            byte rtrn = FALSE;
+    634            byte rtrn = FALSE;
    \   000016   7900         MOV     R1,#0x0
-    739          
-    740            if ( epItem )
+    635          
+    636            if ( epItem )
    \   000018   EC           MOV     A,R4
    \   000019   7001         JNZ     ??afFindSimpleDesc_0
    \   00001B   ED           MOV     A,R5
    \                     ??afFindSimpleDesc_0:
    \   00001C   6039         JZ      ??afFindSimpleDesc_1
-    741            {
-    742              if ( epItem->pfnDescCB )
+    637            {
+    638              if ( epItem->pfnDescCB )
    \   00001E   8C82         MOV     DPL,R4
    \   000020   8D83         MOV     DPH,R5
    \   000022   12....       LCALL   ?Subroutine14 & 0xFFFF
@@ -2452,8 +2348,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000029   E583         MOV     A,DPH
    \                     ??afFindSimpleDesc_2:
    \   00002B   6013         JZ      ??afFindSimpleDesc_3
-    743              {
-    744                *ppDesc = epItem->pfnDescCB( AF_DESCRIPTOR_SIMPLE, EP );
+    639              {
+    640                *ppDesc = epItem->pfnDescCB( AF_DESCRIPTOR_SIMPLE, EP );
    \   00002D                ; Setup parameters for indirect call
    \   00002D   AA..         MOV     R2,?V0 + 0
    \   00002F   09           INC     R1
@@ -2465,19 +2361,19 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000039   A3           INC     DPTR
    \   00003A   EB           MOV     A,R3
    \   00003B   F0           MOVX    @DPTR,A
-    745                rtrn = TRUE;
+    641                rtrn = TRUE;
    \   00003C   7901         MOV     R1,#0x1
    \   00003E   801F         SJMP    ??afFindSimpleDesc_4
-    746              }
-    747              else
-    748              {
-    749                *ppDesc = epItem->epDesc->simpleDesc;
+    642              }
+    643              else
+    644              {
+    645                *ppDesc = epItem->epDesc->simpleDesc;
    \                     ??afFindSimpleDesc_3:
    \   000040   8C82         MOV     DPL,R4
    \   000042   8D83         MOV     DPH,R5
    \   000044   12....       LCALL   ?Subroutine7 & 0xFFFF
-    750              }
-    751            }
+    646              }
+    647            }
    \                     ??CrossCallReturnLabel_16:
    \   000047   A3           INC     DPTR
    \   000048   A3           INC     DPTR
@@ -2491,9 +2387,9 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000053   A3           INC     DPTR
    \   000054   EB           MOV     A,R3
    \   000055   8007         SJMP    ??afFindSimpleDesc_5
-    752            else
-    753            {
-    754              *ppDesc = NULL;
+    648            else
+    649            {
+    650              *ppDesc = NULL;
    \                     ??afFindSimpleDesc_1:
    \   000057   8E82         MOV     DPL,R6
    \   000059   8F83         MOV     DPH,R7
@@ -2502,12 +2398,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00005D   A3           INC     DPTR
    \                     ??afFindSimpleDesc_5:
    \   00005E   F0           MOVX    @DPTR,A
-    755            }
-    756          
-    757            return rtrn;
+    651            }
+    652          
+    653            return rtrn;
    \                     ??afFindSimpleDesc_4:
    \   00005F   02....       LJMP    ?Subroutine24 & 0xFFFF
-    758          }
+    654          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine14:
@@ -2522,78 +2418,78 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000008   8A82         MOV     DPL,R2
    \   00000A   8B83         MOV     DPH,R3
    \   00000C   22           RET
-    759          
-    760          /*********************************************************************
-    761           * @fn      afGetDescCB
-    762           *
-    763           * @brief   Get the Descriptor callback function.
-    764           *
-    765           * @param   epDesc - pointer to the endpoint descriptor
-    766           *
-    767           * @return  function pointer or NULL
-    768           */
-    769          static pDescCB afGetDescCB( endPointDesc_t *epDesc )
-    770          {
-    771            epList_t *epSearch;
-    772          
-    773            // Start at the beginning
-    774            epSearch = epList;
-    775          
-    776            // Look through the list until the end
-    777            while ( epSearch )
-    778            {
-    779              // Is there a match?
-    780              if ( epSearch->epDesc == epDesc )
-    781              {
-    782                return ( epSearch->pfnDescCB );
-    783              }
-    784              else
-    785                epSearch = epSearch->nextDesc;  // Next entry
-    786            }
-    787          
-    788            return ( (pDescCB)NULL );
-    789          }
-    790          
-    791          /*********************************************************************
-    792           * @fn      afDataReqMTU
-    793           *
-    794           * @brief   Get the Data Request MTU(Max Transport Unit).
-    795           *
-    796           * @param   fields - afDataReqMTU_t
-    797           *
-    798           * @return  uint8(MTU)
-    799           */
+    655          
+    656          /*********************************************************************
+    657           * @fn      afGetDescCB
+    658           *
+    659           * @brief   Get the Descriptor callback function.
+    660           *
+    661           * @param   epDesc - pointer to the endpoint descriptor
+    662           *
+    663           * @return  function pointer or NULL
+    664           */
+    665          static pDescCB afGetDescCB( endPointDesc_t *epDesc )
+    666          {
+    667            epList_t *epSearch;
+    668          
+    669            // Start at the beginning
+    670            epSearch = epList;
+    671          
+    672            // Look through the list until the end
+    673            while ( epSearch )
+    674            {
+    675              // Is there a match?
+    676              if ( epSearch->epDesc == epDesc )
+    677              {
+    678                return ( epSearch->pfnDescCB );
+    679              }
+    680              else
+    681                epSearch = epSearch->nextDesc;  // Next entry
+    682            }
+    683          
+    684            return ( (pDescCB)NULL );
+    685          }
+    686          
+    687          /*********************************************************************
+    688           * @fn      afDataReqMTU
+    689           *
+    690           * @brief   Get the Data Request MTU(Max Transport Unit).
+    691           *
+    692           * @param   fields - afDataReqMTU_t
+    693           *
+    694           * @return  uint8(MTU)
+    695           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    800          uint8 afDataReqMTU( afDataReqMTU_t* fields )
+    696          uint8 afDataReqMTU( afDataReqMTU_t* fields )
    \                     afDataReqMTU:
-    801          {
+    697          {
    \   000000   74F7         MOV     A,#-0x9
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 9
    \   000005                ; Auto size: 0
-    802            uint8 len;
-    803            uint8 hdr;
-    804          
-    805            if ( fields->kvp == TRUE )
+    698            uint8 len;
+    699            uint8 hdr;
+    700          
+    701            if ( fields->kvp == TRUE )
    \   000005   8A82         MOV     DPL,R2
    \   000007   8B83         MOV     DPH,R3
    \   000009   E0           MOVX    A,@DPTR
    \   00000A   6401         XRL     A,#0x1
    \   00000C   7004         JNZ     ??afDataReqMTU_0
-    806            {
-    807              hdr = AF_HDR_KVP_MAX_LEN;
+    702            {
+    703              hdr = AF_HDR_KVP_MAX_LEN;
    \   00000E   7E08         MOV     R6,#0x8
    \   000010   8002         SJMP    ??afDataReqMTU_1
-    808            }
-    809            else
-    810            {
-    811              hdr = AF_HDR_V1_1_MAX_LEN;
+    704            }
+    705            else
+    706            {
+    707              hdr = AF_HDR_V1_1_MAX_LEN;
    \                     ??afDataReqMTU_0:
    \   000012   7E00         MOV     R6,#0x0
-    812            }
-    813          
-    814            len = (uint8)(APSDE_DataReqMTU(&fields->aps) - hdr);
+    708            }
+    709          
+    710            len = (uint8)(APSDE_DataReqMTU(&fields->aps) - hdr);
    \                     ??afDataReqMTU_1:
    \   000014                ; Setup parameters for call to function APSDE_DataReqMTU
    \   000014   A3           INC     DPTR
@@ -2604,111 +2500,111 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00001D   C3           CLR     C
    \   00001E   9E           SUBB    A,R6
    \   00001F   F9           MOV     R1,A
-    815          
-    816            return len;
+    711          
+    712            return len;
    \   000020                REQUIRE ?Subroutine27
    \   000020                ; // Fall through to label ?Subroutine27
-    817          }
+    713          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine27:
    \   000000   7F01         MOV     R7,#0x1
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
-    818          
-    819          /*********************************************************************
-    820           * @fn      afGetMatch
-    821           *
-    822           * @brief   Set the allow response flag.
-    823           *
-    824           * @param   ep - Application Endpoint to look for
-    825           * @param   action - true - allow response, false - no response
-    826           *
-    827           * @return  TRUE allow responses, FALSE no response
-    828           */
+    714          
+    715          /*********************************************************************
+    716           * @fn      afGetMatch
+    717           *
+    718           * @brief   Set the allow response flag.
+    719           *
+    720           * @param   ep - Application Endpoint to look for
+    721           * @param   action - true - allow response, false - no response
+    722           *
+    723           * @return  TRUE allow responses, FALSE no response
+    724           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    829          uint8 afGetMatch( uint8 ep )
+    725          uint8 afGetMatch( uint8 ep )
    \                     afGetMatch:
-    830          {
+    726          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-    831            epList_t *epSearch;
-    832          
-    833            // Look for the endpoint
-    834            epSearch = afFindEndPointDescList( ep );
+    727            epList_t *epSearch;
+    728          
+    729            // Look for the endpoint
+    730            epSearch = afFindEndPointDescList( ep );
    \   000005                ; Setup parameters for call to function afFindEndPointDescList
    \   000005   12....       LCALL   ?Subroutine19 & 0xFFFF
-    835          
-    836            if ( epSearch )
+    731          
+    732            if ( epSearch )
    \                     ??CrossCallReturnLabel_42:
    \   000008   7002         JNZ     ??afGetMatch_0
    \   00000A   E583         MOV     A,DPH
    \                     ??afGetMatch_0:
    \   00000C   600B         JZ      ??afGetMatch_1
-    837            {
-    838              if ( epSearch->flags & eEP_AllowMatch )
+    733            {
+    734              if ( epSearch->flags & eEP_AllowMatch )
    \   00000E   A3           INC     DPTR
    \   00000F   A3           INC     DPTR
    \   000010   E0           MOVX    A,@DPTR
    \   000011   A2E0         MOV     C,0xE0 /* A   */.0
    \   000013   5004         JNC     ??afGetMatch_1
-    839                return ( TRUE );
+    735                return ( TRUE );
    \   000015   7901         MOV     R1,#0x1
    \   000017   8002         SJMP    ??afGetMatch_2
-    840              else
-    841                return ( FALSE );
+    736              else
+    737                return ( FALSE );
    \                     ??afGetMatch_1:
    \   000019   7900         MOV     R1,#0x0
-    842            }
+    738            }
    \                     ??afGetMatch_2:
    \   00001B                REQUIRE ?Subroutine25
    \   00001B                ; // Fall through to label ?Subroutine25
-    843            else
-    844              return ( FALSE );
-    845          }
-    846          
-    847          /*********************************************************************
-    848           * @fn      afSetMatch
-    849           *
-    850           * @brief   Set the allow response flag.
-    851           *
-    852           * @param   ep - Application Endpoint to look for
-    853           * @param   action - true - allow response, false - no response
-    854           *
-    855           * @return  TRUE if success, FALSE if endpoint not found
-    856           */
+    739            else
+    740              return ( FALSE );
+    741          }
+    742          
+    743          /*********************************************************************
+    744           * @fn      afSetMatch
+    745           *
+    746           * @brief   Set the allow response flag.
+    747           *
+    748           * @param   ep - Application Endpoint to look for
+    749           * @param   action - true - allow response, false - no response
+    750           *
+    751           * @return  TRUE if success, FALSE if endpoint not found
+    752           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    857          uint8 afSetMatch( uint8 ep, uint8 action )
+    753          uint8 afSetMatch( uint8 ep, uint8 action )
    \                     afSetMatch:
-    858          {
+    754          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
    \   000005   EA           MOV     A,R2
    \   000006   FE           MOV     R6,A
-    859            epList_t *epSearch;
-    860          
-    861            // Look for the endpoint
-    862            epSearch = afFindEndPointDescList( ep );
+    755            epList_t *epSearch;
+    756          
+    757            // Look for the endpoint
+    758            epSearch = afFindEndPointDescList( ep );
    \   000007                ; Setup parameters for call to function afFindEndPointDescList
    \   000007   12....       LCALL   ??afFindEndPointDescList?relay
    \   00000A   8A..         MOV     ?V0 + 0,R2
    \   00000C   8B..         MOV     ?V0 + 1,R3
    \   00000E   A8..         MOV     R0,?V0 + 0
    \   000010   A9..         MOV     R1,?V0 + 1
-    863          
-    864            if ( epSearch )
+    759          
+    760            if ( epSearch )
    \   000012   E8           MOV     A,R0
    \   000013   7001         JNZ     ??afSetMatch_0
    \   000015   E9           MOV     A,R1
    \                     ??afSetMatch_0:
    \   000016   6019         JZ      ??afSetMatch_1
-    865            {
-    866              if ( action )
+    761            {
+    762              if ( action )
    \   000018   E8           MOV     A,R0
    \   000019   2402         ADD     A,#0x2
    \   00001B   F582         MOV     DPL,A
@@ -2717,129 +2613,129 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??CrossCallReturnLabel_58:
    \   000021   EE           MOV     A,R6
    \   000022   6005         JZ      ??afSetMatch_2
-    867              {
-    868                epSearch->flags |= eEP_AllowMatch;
+    763              {
+    764                epSearch->flags |= eEP_AllowMatch;
    \   000024   E0           MOVX    A,@DPTR
    \   000025   D2E0         SETB    0xE0 /* A   */.0
    \   000027   8003         SJMP    ??afSetMatch_3
-    869              }
-    870              else
-    871              {
-    872                epSearch->flags &= (eEP_AllowMatch ^ 0xFFFF);
+    765              }
+    766              else
+    767              {
+    768                epSearch->flags &= (eEP_AllowMatch ^ 0xFFFF);
    \                     ??afSetMatch_2:
    \   000029   E0           MOVX    A,@DPTR
    \   00002A   C2E0         CLR     0xE0 /* A   */.0
    \                     ??afSetMatch_3:
    \   00002C   F0           MOVX    @DPTR,A
-    873              }
-    874              return ( TRUE );
+    769              }
+    770              return ( TRUE );
    \   00002D   7901         MOV     R1,#0x1
    \   00002F   8002         SJMP    ??afSetMatch_4
-    875            }
-    876            else
-    877              return ( FALSE );
+    771            }
+    772            else
+    773              return ( FALSE );
    \                     ??afSetMatch_1:
    \   000031   7900         MOV     R1,#0x0
    \                     ??afSetMatch_4:
    \   000033   80..         SJMP    ?Subroutine25
-    878          }
-    879          
-    880          /*********************************************************************
-    881           * @fn      afNumEndPoints
-    882           *
-    883           * @brief   Returns the number of endpoints defined (including 0)
-    884           *
-    885           * @param   none
-    886           *
-    887           * @return  number of endpoints
-    888           */
+    774          }
+    775          
+    776          /*********************************************************************
+    777           * @fn      afNumEndPoints
+    778           *
+    779           * @brief   Returns the number of endpoints defined (including 0)
+    780           *
+    781           * @param   none
+    782           *
+    783           * @return  number of endpoints
+    784           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    889          byte afNumEndPoints( void )
+    785          byte afNumEndPoints( void )
    \                     afNumEndPoints:
-    890          {
+    786          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    891            epList_t *epSearch;
-    892            byte endpoints;
-    893          
-    894            // Start at the beginning
-    895            epSearch = epList;
+    787            epList_t *epSearch;
+    788            byte endpoints;
+    789          
+    790            // Start at the beginning
+    791            epSearch = epList;
    \   000004   90....       MOV     DPTR,#epList
    \   000007   12....       LCALL   ??Subroutine32_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_73:
    \   00000A   8882         MOV     DPL,R0
    \   00000C   8983         MOV     DPH,R1
-    896            endpoints = 0;
+    792            endpoints = 0;
    \   00000E   7900         MOV     R1,#0x0
    \   000010   8006         SJMP    ??CrossCallReturnLabel_30
-    897          
-    898            while ( epSearch )
-    899            {
-    900              endpoints++;
+    793          
+    794            while ( epSearch )
+    795            {
+    796              endpoints++;
    \                     ??afNumEndPoints_0:
    \   000012   09           INC     R1
-    901              epSearch = epSearch->nextDesc;
+    797              epSearch = epSearch->nextDesc;
    \   000013   A3           INC     DPTR
    \   000014   A3           INC     DPTR
    \   000015   12....       LCALL   ?Subroutine14 & 0xFFFF
-    902            }
+    798            }
    \                     ??CrossCallReturnLabel_30:
    \   000018   E582         MOV     A,DPL
    \   00001A   7002         JNZ     ??afNumEndPoints_1
    \   00001C   E583         MOV     A,DPH
    \                     ??afNumEndPoints_1:
    \   00001E   70F2         JNZ     ??afNumEndPoints_0
-    903          
-    904            return ( endpoints );
+    799          
+    800            return ( endpoints );
    \   000020   02....       LJMP    ?Subroutine23 & 0xFFFF
-    905          }
-    906          
-    907          /*********************************************************************
-    908           * @fn      afEndPoints
-    909           *
-    910           * @brief   Fills in the passed in buffer with the endpoint (numbers).
-    911           *          Use afNumEndPoints to find out how big a buffer to supply.
-    912           *
-    913           * @param   epBuf - pointer to mem used
-    914           *
-    915           * @return  void
-    916           */
+    801          }
+    802          
+    803          /*********************************************************************
+    804           * @fn      afEndPoints
+    805           *
+    806           * @brief   Fills in the passed in buffer with the endpoint (numbers).
+    807           *          Use afNumEndPoints to find out how big a buffer to supply.
+    808           *
+    809           * @param   epBuf - pointer to mem used
+    810           *
+    811           * @return  void
+    812           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    917          void afEndPoints( byte *epBuf, byte skipZDO )
+    813          void afEndPoints( byte *epBuf, byte skipZDO )
    \                     afEndPoints:
-    918          {
+    814          {
    \   000000   74F7         MOV     A,#-0x9
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 9
    \   000005                ; Auto size: 0
-    919            epList_t *epSearch;
-    920            byte endPoint;
-    921          
-    922            // Start at the beginning
-    923            epSearch = epList;
+    815            epList_t *epSearch;
+    816            byte endPoint;
+    817          
+    818            // Start at the beginning
+    819            epSearch = epList;
    \   000005   90....       MOV     DPTR,#epList
    \   000008   8022         SJMP    ??afEndPoints_0
-    924          
-    925            while ( epSearch )
-    926            {
-    927              endPoint = epSearch->epDesc->endPoint;
+    820          
+    821            while ( epSearch )
+    822            {
+    823              endPoint = epSearch->epDesc->endPoint;
    \                     ??afEndPoints_1:
    \   00000A   8C82         MOV     DPL,R4
    \   00000C   8D83         MOV     DPH,R5
    \   00000E   12....       LCALL   ?Subroutine6 & 0xFFFF
    \                     ??CrossCallReturnLabel_13:
    \   000011   FE           MOV     R6,A
-    928          
-    929              if ( !skipZDO || endPoint != 0 )
+    824          
+    825              if ( !skipZDO || endPoint != 0 )
    \   000012   E9           MOV     A,R1
    \   000013   6003         JZ      ??afEndPoints_2
    \   000015   EE           MOV     A,R6
    \   000016   600B         JZ      ??afEndPoints_3
-    930                *epBuf++ = endPoint;
+    826                *epBuf++ = endPoint;
    \                     ??afEndPoints_2:
    \   000018   EE           MOV     A,R6
    \   000019   8A82         MOV     DPL,R2
@@ -2848,8 +2744,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00001E   A3           INC     DPTR
    \   00001F   AA82         MOV     R2,DPL
    \   000021   AB83         MOV     R3,DPH
-    931          
-    932              epSearch = epSearch->nextDesc;
+    827          
+    828              epSearch = epSearch->nextDesc;
    \                     ??afEndPoints_3:
    \   000023   8C82         MOV     DPL,R4
    \   000025   8D83         MOV     DPH,R5
@@ -2864,26 +2760,26 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00002E   A3           INC     DPTR
    \   00002F   E0           MOVX    A,@DPTR
    \   000030   FD           MOV     R5,A
-    933            }
+    829            }
    \   000031   EC           MOV     A,R4
    \   000032   7001         JNZ     ??afEndPoints_4
    \   000034   ED           MOV     A,R5
    \                     ??afEndPoints_4:
    \   000035   70D3         JNZ     ??afEndPoints_1
-    934          }
+    830          }
    \   000037   02....       LJMP    ?Subroutine27 & 0xFFFF
-    935          
-    936          
+    831          
+    832          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    937          void afCopyAddress ( afAddrType_t *afAddr, zAddrType_t *zAddr )
+    833          void afCopyAddress ( afAddrType_t *afAddr, zAddrType_t *zAddr )
    \                     afCopyAddress:
-    938          {
+    834          {
    \   000000   74F7         MOV     A,#-0x9
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 9
    \   000005                ; Auto size: 0
-    939            afAddr->addrMode = (afAddrMode_t)zAddr->addrMode;
+    835            afAddr->addrMode = (afAddrMode_t)zAddr->addrMode;
    \   000005   EC           MOV     A,R4
    \   000006   2408         ADD     A,#0x8
    \   000008   F8           MOV     R0,A
@@ -2904,18 +2800,18 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   00001C   A3           INC     DPTR
    \   00001D   A3           INC     DPTR
    \   00001E   F0           MOVX    @DPTR,A
-    940            if ( zAddr->addrMode == Addr64Bit )
+    836            if ( zAddr->addrMode == Addr64Bit )
    \   00001F   8882         MOV     DPL,R0
    \   000021   8983         MOV     DPH,R1
    \   000023   E0           MOVX    A,@DPTR
    \   000024   6403         XRL     A,#0x3
    \   000026   7005         JNZ     ??afCopyAddress_0
-    941              osal_cpyExtAddr( afAddr->addr.extAddr, zAddr->addr.extAddr );
+    837              osal_cpyExtAddr( afAddr->addr.extAddr, zAddr->addr.extAddr );
    \   000028                ; Setup parameters for call to function sAddrExtCpy
    \   000028   12....       LCALL   ??sAddrExtCpy?relay
    \   00002B   800E         SJMP    ??CrossCallReturnLabel_53
-    942            else
-    943              afAddr->addr.shortAddr = zAddr->addr.shortAddr;
+    838            else
+    839              afAddr->addr.shortAddr = zAddr->addr.shortAddr;
    \                     ??afCopyAddress_0:
    \   00002D   8C82         MOV     DPL,R4
    \   00002F   8D83         MOV     DPH,R5
@@ -2924,7 +2820,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \   000034   8A82         MOV     DPL,R2
    \   000036   8B83         MOV     DPH,R3
    \   000038   12....       LCALL   ??Subroutine29_0 & 0xFFFF
-    944          }
+    840          }
    \                     ??CrossCallReturnLabel_53:
    \   00003B   02....       LJMP    ?Subroutine27 & 0xFFFF
 
@@ -3011,10 +2907,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
    \                     ??afCopyAddress?relay:
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    afCopyAddress
-    945          
-    946          /*********************************************************************
-    947          *********************************************************************/
-    948          
+    841          
+    842          /*********************************************************************
+    843          *********************************************************************/
+    844          
 
    Maximum stack usage in bytes:
 
@@ -3075,7 +2971,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
      Function/Label                                 Bytes
      --------------                                 -----
      epList                                            2
-     device_manager                                   32
+     device_manager                                  238
      afInit                                           11
      ?Subroutine23                                     7
      afRegisterExtended                              110
@@ -3149,10 +3045,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\af\AF.c
     96 bytes in segment BANK_RELAYS
      1 byte  in segment XDATA_I
      1 byte  in segment XDATA_ID
-    34 bytes in segment XDATA_Z
+   240 bytes in segment XDATA_Z
  
  2 565 bytes of CODE  memory
-    35 bytes of XDATA memory
+   241 bytes of XDATA memory
 
 Errors: none
 Warnings: none

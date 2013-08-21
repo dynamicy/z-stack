@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "ZComDef.h"
 #include "OSAL.h"
 #include "AF.h"
@@ -107,9 +108,9 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
 void ZSendMsgProcess(void)
 {      
     // Write receive coordinator command to UART
-//   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2);  
-//    HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);    
-    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
+ //   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2);  
+ //   HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);    
+    //osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
 }
 
 void zclZigbeeRecv_Init( byte task_id )
@@ -164,10 +165,11 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
             // Incoming ZCL Foundation command/response messages
             zclZigbeeReceiver_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); 
             break;          
-        case AF_DATA_CONFIRM_CMD:     
+        case AF_DATA_CONFIRM_CMD:   
+            //device_manager[0].shortAddr = MSGpkt->srcAddr.addr.shortAddr;
             break;         
         case ZDO_STATE_CHANGE:       
-            ZSendMsgProcess();            
+            //ZSendMsgProcess();            
             break;                 
         default:
             break;
@@ -190,6 +192,7 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
              zclZigbeeReceiver_ProcessIdentifyTimeChange();
         break;   
       case UART_MSG_EVT: // The UART Message event
+        //Msg incoming
         zclUartReceiver();
         break;
     }    

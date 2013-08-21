@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               20/Aug/2013  00:07:16 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  16:32:48 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -10,7 +10,7 @@
 //    Constant location  =  data_rom                                          /
 //    Dptr setup         =  1,16                                              /
 //    Source file        =  D:\GitHub\z-stack\Sensor Network                  /
-//                          Example\Components\hal\target\CC2530EB\hal_keypad /
+//                          Example\Components\hal\target\CC2530KB\hal_keypad /
 //                          .c                                                /
 //    Command line       =  -f "D:\GitHub\z-stack\Sensor Network              /
 //                          Example\Projects\zstack\Sensor Network            /
@@ -51,11 +51,11 @@
 //                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
 //                          -DZCL_PRICING) -DZCL_MESSAGE                      /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
-//                          Example\Components\hal\target\CC2530EB\hal_keypad /
+//                          Example\Components\hal\target\CC2530KB\hal_keypad /
 //                          .c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D    /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M190 -D xPA2591 -lC   /
+//                          End_Device -D HAL_KEYPAD -D M170 -D xPA2591 -lC   /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -290,7 +290,7 @@
         PUBLIC halKeypadPushed
         FUNCTION halKeypadPushed,0a1203H
         ARGFRAME XSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME XSTACK, 12, STACK
         PUBLIC halKeypadReadRegister
         FUNCTION halKeypadReadRegister,021203H
         ARGFRAME XSTACK, 0, STACK
@@ -298,13 +298,13 @@
         PUBLIC halKeypadResetCount
         PUBLIC halKeypadSensorData
         FUNCTION halKeypadSensorData,021203H
-        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         LOCFRAME XSTACK, 9, STACK
         PUBLIC halKeypadWriteRegister
         FUNCTION halKeypadWriteRegister,021203H
-        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         LOCFRAME XSTACK, 9, STACK
@@ -466,6 +466,8 @@
         CFI EndCommon cfiCommon1
         
 halMcuWaitUs        SYMBOL "halMcuWaitUs"
+halLcdDisplayUint16 SYMBOL "halLcdDisplayUint16"
+??halLcdDisplayUint16?relay SYMBOL "?relay", halLcdDisplayUint16
 ??halMcuWaitUs?relay SYMBOL "?relay", halMcuWaitUs
 halKeypadI2cAck     SYMBOL "halKeypadI2cAck"
 ??halKeypadI2cAck?relay SYMBOL "?relay", halKeypadI2cAck
@@ -497,10 +499,19 @@ halKeypadWriteRegister SYMBOL "halKeypadWriteRegister"
         ARGFRAME XSTACK, 9, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN halLcdDisplayUint16
+        FUNCTION halLcdDisplayUint16,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN ??halLcdDisplayUint16?relay
+        FUNCTION ??halLcdDisplayUint16?relay,00H
         EXTERN ??halMcuWaitUs?relay
         FUNCTION ??halMcuWaitUs?relay,00H
 
-// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530EB\hal_keypad.c
+// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_keypad.c
 //    1 //-------------------------------------------------------------------
 //    2 // Filename: hal_keypad.c
 //    3 // Description: HAL keypad control implementation file
@@ -2488,26 +2499,37 @@ halKeypadPushed:
         FUNCALL halKeypadPushed, halKeypadSensorData
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME XSTACK, 12, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadPushed, halLcdDisplayUint16
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL halKeypadPushed, halKeypadWriteRegister
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME XSTACK, 12, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        MOV     A,#-0xa
+        MOV     A,#-0xc
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
@@ -2515,13 +2537,15 @@ halKeypadPushed:
         CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
         CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
         CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
         CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 10)
-        ; Saved register size: 10
+        CFI CFA_XSP16 add(XSP16, 12)
+        ; Saved register size: 12
         ; Auto size: 0
 //  240     HAL_KEYPAD_SCL_OUT();
         LCALL   ?Subroutine5 & 0xFFFF
@@ -2531,13 +2555,20 @@ halKeypadPushed:
 //  244     uint8 ch;
 //  245     
 //  246     val = halKeypadSensorData();
-//  247 //    halLcdDisplayUint16(HAL_LCD_LINE_4,0,HAL_LCD_RADIX_HEX,val);
-//  248     switch (val)
 ??CrossCallReturnLabel_11:
         ; Setup parameters for call to function halKeypadSensorData
         LCALL   ??halKeypadSensorData?relay
         MOV     ?V0 + 0,R2
         MOV     ?V0 + 1,R3
+//  247     halLcdDisplayUint16(HAL_LCD_LINE_4,0,HAL_LCD_RADIX_HEX,val);
+        ; Setup parameters for call to function halLcdDisplayUint16
+        MOV     R4,?V0 + 0
+        MOV     R5,?V0 + 1
+        MOV     R3,#0x1
+        MOV     R2,#0x0
+        MOV     R1,#0x4
+        LCALL   ??halLcdDisplayUint16?relay
+//  248     switch (val)
         MOV     R0,#?V0 + 0
         LCALL   ?US_SWITCH_SPARSE
 `?<Jumptable for halKeypadPushed>_0`:
@@ -2743,7 +2774,7 @@ halKeypadPushed:
 ??halKeypadPushed_22:
         MOV     A,R6
         MOV     R1,A
-        MOV     R7,#0x2
+        MOV     R7,#0x4
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock57
         REQUIRE P2SEL
@@ -2763,10 +2794,12 @@ halKeypadPushed:
         CFI Block cfiCond59 Using cfiCommon0
         CFI (cfiCond59) NoFunction
         CFI (cfiCond59) Conditional ??CrossCallReturnLabel_11
-        CFI (cfiCond59) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI (cfiCond59) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI (cfiCond59) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI (cfiCond59) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond59) R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI (cfiCond59) VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI (cfiCond59) V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI (cfiCond59) V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond59) V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond59) V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
         CFI (cfiCond59) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
         CFI (cfiCond59) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
         CFI (cfiCond59) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
@@ -2774,7 +2807,7 @@ halKeypadPushed:
         CFI (cfiCond59) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
         CFI (cfiCond59) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI (cfiCond59) CFA_SP SP+0
-        CFI (cfiCond59) CFA_XSP16 add(XSP16, 10)
+        CFI (cfiCond59) CFA_XSP16 add(XSP16, 12)
         CFI Block cfiPicker60 Using cfiCommon1
         CFI (cfiPicker60) NoFunction
         CFI (cfiPicker60) Picker
@@ -2855,12 +2888,12 @@ halKeypadPushed:
 
         END
 // 
-// 642 bytes in segment BANKED_CODE
+// 655 bytes in segment BANKED_CODE
 //  66 bytes in segment BANK_RELAYS
 //   4 bytes in segment SFR_AN
 //   2 bytes in segment XDATA_Z
 // 
-// 708 bytes of CODE  memory
+// 721 bytes of CODE  memory
 //   0 bytes of DATA  memory (+ 4 bytes shared)
 //   2 bytes of XDATA memory
 //

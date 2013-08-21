@@ -3,10 +3,10 @@
 #include "OSAL_Tasks.h"
 #include "AF.h"
 #include "ZDConfig.h"
-
-/* ZCL */
 #include "zcl.h"
 #include "zcl_general.h"
+#include <string.h>
+#include <stdio.h>
 
 #if defined ( INTER_PAN )
   #include "stub_aps.h"
@@ -751,16 +751,6 @@ ZStatus_t zcl_SendWriteRequest( uint8 srcEP, afAddrType_t *dstAddr, uint16 clust
   return ( status);
 }
 
-/*********************************************************************
- * @fn      zcl_SendWriteRsp
- * @brief   Send a Write Response command
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          wrtieRspCmd - write response command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendWriteRsp( uint8 srcEP, afAddrType_t *dstAddr,
                             uint16 clusterID, zclWriteRspCmd_t *writeRspCmd,
                             uint8 direction, uint8 disableDefaultRsp, uint8 seqNum )
@@ -802,16 +792,6 @@ ZStatus_t zcl_SendWriteRsp( uint8 srcEP, afAddrType_t *dstAddr,
 #endif // ZCL_WRITE
 
 #ifdef ZCL_REPORT
-/*********************************************************************
- * @fn      zcl_SendConfigReportCmd
- * @brief   Send a Configure Reporting command
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          cfgReportCmd - configure reporting command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendConfigReportCmd( uint8 srcEP, afAddrType_t *dstAddr,
                           uint16 clusterID, zclCfgReportCmd_t *cfgReportCmd,
                           uint8 direction, uint8 disableDefaultRsp, uint8 seqNum )
@@ -1292,16 +1272,37 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
 #if defined(Coor_receiver)
   if (pkt->cmd.DataLength > 0)
   {
-    device_manager.DataLength = pkt->cmd.DataLength;
-    
     for(len = 0; len < pkt->cmd.DataLength; len++) // Send the recv_data to UART
     {
-      recv_data[len] = pkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.
-      device_manager.Data[len]= pkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.  
+        recv_data[len] = pkt->cmd.Data[len+3]; // the cmd.Data[0~2] is cluster ID.
+    }
+    
+    #define HI_UINT16(a) (((a) >> 8) & 0xFF)
+    #define LO_UINT16(a) ((a) & 0xFF)
+    
+    char entry[4];
+    uint8 hi = HI_UINT16( pkt->srcAddr.addr.shortAddr );
+    uint8 lo = LO_UINT16( pkt->srcAddr.addr.shortAddr );
+
+    entry[0] = hi/16 + 48;  /* Little Endian for the radio RAM */
+    entry[1] = hi%16 + 48;
+    entry[2] = lo/16 + 48;
+    entry[3] = lo%16 + 48;
+    for (int k=0;k<4;k++)
+    {
+      if(entry[k]>57)
+        entry[k]+=7;
     }
 
-    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);    
-    HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);
+    HalUARTWrite(MT_UART_DEFAULT_PORT, "3,", 2);//Cmd Type
+    HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    HalUARTWrite(MT_UART_DEFAULT_PORT, entry, 4);//Device ID
+    HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);//Device Data
+    HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
+    
+ //   HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);    
+    //HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);
   }
 #endif
 

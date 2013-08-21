@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               20/Aug/2013  00:07:19 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  16:32:50 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -10,7 +10,7 @@
 //    Constant location  =  data_rom                                          /
 //    Dptr setup         =  1,16                                              /
 //    Source file        =  D:\GitHub\z-stack\Sensor Network                  /
-//                          Example\Components\hal\target\CC2530EB\hal_uart.c /
+//                          Example\Components\hal\target\CC2530KB\hal_uart.c /
 //    Command line       =  -f "D:\GitHub\z-stack\Sensor Network              /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -50,11 +50,11 @@
 //                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
 //                          -DZCL_PRICING) -DZCL_MESSAGE                      /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
-//                          Example\Components\hal\target\CC2530EB\hal_uart.c /
+//                          Example\Components\hal\target\CC2530KB\hal_uart.c /
 //                          " -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D      /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M190 -D xPA2591 -lC   /
+//                          End_Device -D HAL_KEYPAD -D M170 -D xPA2591 -lC   /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -554,7 +554,7 @@ show                SYMBOL "show"
         FUNCTION ??sprintf?relay,00H
         EXTERN dmaCh1234
 
-// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530EB\hal_uart.c
+// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_uart.c
 //    1 /**************************************************************************************************
 //    2   Filename:       _hal_uart.c
 //    3   Revised:        $Date: 2009-06-12 09:16:43 -0700 (Fri, 12 Jun 2009) $
@@ -562,22 +562,45 @@ show                SYMBOL "show"
 //    5 
 //    6   Description: This file contains the interface to the H/W UART driver.
 //    7 
-//    8   Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
-//    9 
-//   10   Should you have any questions regarding your right to use this Software,
-//   11   contact Texas Instruments Incorporated at www.TI.com.
-//   12 **************************************************************************************************/
-//   13 
-//   14 /*********************************************************************
-//   15  * INCLUDES
-//   16  */
-//   17 #include <string.h>
-//   18 #include <stdio.h>
-//   19 #include "hal_defs.h"
-//   20 #include "hal_types.h"
-//   21 
-//   22 /* HAL */
-//   23 #include "hal_board_cfg.h"
+//    8 
+//    9   Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
+//   10 
+//   11   IMPORTANT: Your use of this Software is limited to those specific rights
+//   12   granted under the terms of a software license agreement between the user
+//   13   who downloaded the software, his/her employer (which must be your employer)
+//   14   and Texas Instruments Incorporated (the "License").  You may not use this
+//   15   Software unless you agree to abide by the terms of the License. The License
+//   16   limits your use, and you acknowledge, that the Software may not be modified,
+//   17   copied or distributed unless embedded on a Texas Instruments microcontroller
+//   18   or used solely and exclusively in conjunction with a Texas Instruments radio
+//   19   frequency transceiver, which is integrated into your product.  Other than for
+//   20   the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+//   21   works of, modify, distribute, perform, display or sell this Software and/or
+//   22   its documentation for any purpose.
+//   23 
+//   24   YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+//   25   PROVIDED “AS IS?WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+//   26   INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+//   27   NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+//   28   TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+//   29   NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+//   30   LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+//   31   INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+//   32   OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+//   33   OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+//   34   (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+//   35 
+//   36   Should you have any questions regarding your right to use this Software,
+//   37   contact Texas Instruments Incorporated at www.TI.com.
+//   38 **************************************************************************************************/
+//   39 
+//   40 /*********************************************************************
+//   41  * INCLUDES
+//   42  */
+//   43 
+//   44 #include <stdio.h>
+//   45 #include <string.h>
+//   46 #include "hal_board_cfg.h"
 
         ASEGN SFR_AN:DATA:NOROOT,080H
 // union <unnamed> volatile __sfr _A_P0
@@ -653,43 +676,41 @@ P0DIR:
 // unsigned char volatile __sfr P2DIR
 P2DIR:
         DS 1
-//   24 #include "hal_uart.h"
-//   25 
-//   26 /* APP */
-//   27 #if defined( Coor_receiver )
-//   28   #include "zcl_zigbee receiver.h"
-//   29 #endif
-//   30 
-//   31 /*********************************************************************
-//   32  * MACROS
-//   33  */
-//   34 
-//   35 /*********************************************************************
-//   36  * TYPEDEFS
-//   37  */
-//   38 
-//   39 /*********************************************************************
-//   40  * CONSTANTS
-//   41  */
-//   42 
-//   43 /*********************************************************************
-//   44  * GLOBAL VARIABLES
-//   45  */
-//   46 
-//   47 /*********************************************************************
-//   48  * GLOBAL FUNCTIONS
-//   49  */
-//   50 
-//   51 /*********************************************************************
-//   52  * LOCAL VARIABLES
-//   53  */
-//   54 
-//   55 /*********************************************************************
-//   56  * LOCAL FUNCTIONS
-//   57  */
-//   58 
-//   59 #if HAL_UART_DMA
-//   60 #include "_hal_uart_dma.c"
+//   47 #include "hal_defs.h"
+//   48 #include "hal_types.h"
+//   49 #include "hal_uart.h"
+//   50 #include "ZDApp.h"
+//   51 
+//   52 /*********************************************************************
+//   53  * MACROS
+//   54  */
+//   55 
+//   56 /*********************************************************************
+//   57  * TYPEDEFS
+//   58  */
+//   59 
+//   60 /*********************************************************************
+//   61  * CONSTANTS
+//   62  */
+//   63 
+//   64 /*********************************************************************
+//   65  * GLOBAL VARIABLES
+//   66  */
+//   67 
+//   68 /*********************************************************************
+//   69  * GLOBAL FUNCTIONS
+//   70  */
+//   71 
+//   72 /*********************************************************************
+//   73  * LOCAL VARIABLES
+//   74  */
+//   75 
+//   76 /*********************************************************************
+//   77  * LOCAL FUNCTIONS
+//   78  */
+//   79 
+//   80 #if HAL_UART_DMA
+//   81 #include "_hal_uart_dma.c"
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
 // static uartDMACfg_t __xdata dmaCfg
@@ -773,8 +794,8 @@ HalUARTInitDMA:
         REQUIRE U0CSR
         REQUIRE U0UCR
         REQUIRE P0SEL
-        REQUIRE PERCFG
         REQUIRE ADCCFG
+        REQUIRE PERCFG
         REQUIRE P2DIR
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
@@ -876,6 +897,7 @@ HalUARTOpenDMA:
         MOVX    A,@DPTR
         JZ      ??HalUARTOpenDMA_9
         MOV     0xc4,#0x42
+        MOV     0xc4,#0x2
         ORL     0xf3,#0x10
         CLR     0x80.5
         ORL     0xfd,#0x20
@@ -908,11 +930,11 @@ HalUARTOpenDMA:
         MOV     DPTR,#(dmaCfg + 522)
         LJMP    ?Subroutine14 & 0xFFFF
         CFI EndBlock cfiBlock1
-        REQUIRE _A_P0
         REQUIRE U0CSR
+        REQUIRE _A_P0
+        REQUIRE U0UCR
         REQUIRE U0GCR
         REQUIRE DMAIRQ
-        REQUIRE U0UCR
         REQUIRE U0BAUD
         REQUIRE DMAARM
         REQUIRE P0SEL
@@ -1782,12 +1804,12 @@ HalUARTPollDMA:
         LJMP    ?Subroutine15 & 0xFFFF
         CFI EndBlock cfiBlock20
         REQUIRE _A_P0
-        REQUIRE _A_IEN0
         REQUIRE ST0
+        REQUIRE _A_IEN0
         REQUIRE DMAIRQ
-        REQUIRE DMAREQ
         REQUIRE U0BAUD
         REQUIRE DMAARM
+        REQUIRE DMAREQ
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine7:
@@ -2606,25 +2628,31 @@ HalUARTIsrDMA:
         CFI EndBlock cfiCond68
         CFI EndBlock cfiCond69
         CFI EndBlock cfiPicker70
-//   61 #endif
-//   62 #if HAL_UART_ISR
-//   63 #include "_hal_uart_isr.c"
-//   64 #endif
-//   65 #if HAL_UART_USB
-//   66 #include "_hal_uart_usb.c"
-//   67 #endif
-//   68 
-//   69 /******************************************************************************
-//   70  * @fn      HalUARTInit
-//   71  * @brief   Initialize the UART
-//   72  *****************************************************************************/
+//   82 #endif
+//   83 #if HAL_UART_ISR
+//   84 #include "_hal_uart_isr.c"
+//   85 #endif
+//   86 #if HAL_UART_USB
+//   87 #include "_hal_uart_usb.c"
+//   88 #endif
+//   89 
+//   90 
+//   91 /******************************************************************************
+//   92  * @fn      HalUARTInit
+//   93  *
+//   94  * @brief   Initialize the UART
+//   95  *
+//   96  * @param   none
+//   97  *
+//   98  * @return  none
+//   99  *****************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   73 void HalUARTInit(void)
+//  100 void HalUARTInit(void)
 HalUARTInit:
         CFI Block cfiBlock71 Using cfiCommon0
         CFI Function HalUARTInit
-//   74 {
+//  101 {
         FUNCALL HalUARTInit, HalUARTInitDMA
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -2644,35 +2672,38 @@ HalUARTInit:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//   75 #if HAL_UART_DMA
-//   76   HalUARTInitDMA();
+//  102 #if HAL_UART_DMA
+//  103   HalUARTInitDMA();
         ; Setup parameters for call to function HalUARTInitDMA
         LCALL   ??HalUARTInitDMA?relay
-//   77 #endif
-//   78 #if HAL_UART_ISR
-//   79   HalUARTInitISR();
-//   80 #endif
-//   81 #if HAL_UART_USB
-//   82   HalUARTInitUSB();
-//   83 #endif
-//   84 }
+//  104 #endif
+//  105 #if HAL_UART_ISR
+//  106   HalUARTInitISR();
+//  107 #endif
+//  108 #if HAL_UART_USB
+//  109   HalUARTInitUSB();
+//  110 #endif
+//  111 }
         SJMP    ??Subroutine18_0
         CFI EndBlock cfiBlock71
-//   85 
-//   86 /******************************************************************************
-//   87  * @fn      HalUARTOpen
-//   88  * @brief   Open a port according tp the configuration specified by parameter.
-//   89  * @param   port   - UART port
-//   90  *          config - contains configuration information
-//   91  * @return  Status of the function call
-//   92  *****************************************************************************/
+//  112 
+//  113 /******************************************************************************
+//  114  * @fn      HalUARTOpen
+//  115  *
+//  116  * @brief   Open a port according tp the configuration specified by parameter.
+//  117  *
+//  118  * @param   port   - UART port
+//  119  *          config - contains configuration information
+//  120  *
+//  121  * @return  Status of the function call
+//  122  *****************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   93 uint8 HalUARTOpen(uint8 port, halUARTCfg_t *config)
+//  123 uint8 HalUARTOpen(uint8 port, halUARTCfg_t *config)
 HalUARTOpen:
         CFI Block cfiBlock72 Using cfiCommon0
         CFI Function HalUARTOpen
-//   94 {
+//  124 {
         FUNCALL HalUARTOpen, HalUARTOpenDMA
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -2692,35 +2723,35 @@ HalUARTOpen:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//   95   (void)port;
-//   96   (void)config;
-//   97 
-//   98 #if (HAL_UART_DMA == 1)
-//   99   if (port == HAL_UART_PORT_0)  HalUARTOpenDMA(config);
+//  125   (void)port;
+//  126   (void)config;
+//  127 
+//  128 #if (HAL_UART_DMA == 1)
+//  129   if (port == HAL_UART_PORT_0)  HalUARTOpenDMA(config);
         MOV     A,R1
         JNZ     ??HalUARTOpen_0
         ; Setup parameters for call to function HalUARTOpenDMA
         LCALL   ??HalUARTOpenDMA?relay
-//  100 #endif
-//  101 #if (HAL_UART_DMA == 2)
-//  102   if (port == HAL_UART_PORT_1)  HalUARTOpenDMA(config);
-//  103 #endif
-//  104 #if (HAL_UART_ISR == 1)
-//  105   if (port == HAL_UART_PORT_0)  HalUARTOpenISR(config);
-//  106 #endif
-//  107 #if (HAL_UART_ISR == 2)
-//  108   if (port == HAL_UART_PORT_1)  HalUARTOpenISR(config);
-//  109 #endif
-//  110 #if (HAL_UART_USB)
-//  111   HalUARTOpenUSB(config);
-//  112 #endif
-//  113   
-//  114   return HAL_UART_SUCCESS;
+//  130 #endif
+//  131 #if (HAL_UART_DMA == 2)
+//  132   if (port == HAL_UART_PORT_1)  HalUARTOpenDMA(config);
+//  133 #endif
+//  134 #if (HAL_UART_ISR == 1)
+//  135   if (port == HAL_UART_PORT_0)  HalUARTOpenISR(config);
+//  136 #endif
+//  137 #if (HAL_UART_ISR == 2)
+//  138   if (port == HAL_UART_PORT_1)  HalUARTOpenISR(config);
+//  139 #endif
+//  140 #if (HAL_UART_USB)
+//  141   HalUARTOpenUSB(config);
+//  142 #endif
+//  143   
+//  144   return HAL_UART_SUCCESS;
 ??HalUARTOpen_0:
         MOV     R1,#0x0
         SJMP    ??Subroutine18_0
         CFI EndBlock cfiBlock72
-//  115 }
+//  145 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine14:
@@ -2749,22 +2780,25 @@ HalUARTOpen:
         CFI DPL0 SameValue
         LJMP    ?BRET
         CFI EndBlock cfiBlock74
-//  116 
-//  117 /*****************************************************************************
-//  118  * @fn      HalUARTRead
-//  119  * @brief   Read a buffer from the UART
-//  120  * @param   port - USART module designation
-//  121  *          buf  - valid data buffer at least 'len' bytes in size
-//  122  *          len  - max length number of bytes to copy to 'buf'
-//  123  * @return  length of buffer that was read
-//  124  *****************************************************************************/
+//  146 
+//  147 /*****************************************************************************
+//  148  * @fn      HalUARTRead
+//  149  *
+//  150  * @brief   Read a buffer from the UART
+//  151  *
+//  152  * @param   port - USART module designation
+//  153  *          buf  - valid data buffer at least 'len' bytes in size
+//  154  *          len  - max length number of bytes to copy to 'buf'
+//  155  *
+//  156  * @return  length of buffer that was read
+//  157  *****************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  125 uint16 HalUARTRead(uint8 port, uint8 *buf, uint16 len)
+//  158 uint16 HalUARTRead(uint8 port, uint8 *buf, uint16 len)
 HalUARTRead:
         CFI Block cfiBlock75 Using cfiCommon0
         CFI Function HalUARTRead
-//  126 {
+//  159 {
         FUNCALL HalUARTRead, HalUARTReadDMA
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -2784,56 +2818,59 @@ HalUARTRead:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  127   (void)port;
-//  128   (void)buf;
-//  129   (void)len;
-//  130 
-//  131 #if (HAL_UART_DMA == 1)
-//  132   if (port == HAL_UART_PORT_0)  return HalUARTReadDMA(buf, len);
+//  160   (void)port;
+//  161   (void)buf;
+//  162   (void)len;
+//  163 
+//  164 #if (HAL_UART_DMA == 1)
+//  165   if (port == HAL_UART_PORT_0)  return HalUARTReadDMA(buf, len);
         MOV     A,R1
         JNZ     ??HalUARTRead_0
         ; Setup parameters for call to function HalUARTReadDMA
         LCALL   ??HalUARTReadDMA?relay
         SJMP    ??HalUARTRead_1
-//  133 #endif
-//  134 #if (HAL_UART_DMA == 2)
-//  135   if (port == HAL_UART_PORT_1)  return HalUARTReadDMA(buf, len);
-//  136 #endif
-//  137 #if (HAL_UART_ISR == 1)
-//  138   if (port == HAL_UART_PORT_0)  return HalUARTReadISR(buf, len);
-//  139 #endif
-//  140 #if (HAL_UART_ISR == 2)
-//  141   if (port == HAL_UART_PORT_1)  return HalUARTReadISR(buf, len);
-//  142 #endif
-//  143 
-//  144 #if HAL_UART_USB
-//  145   return HalUARTRx(buf, len);
-//  146 #else
-//  147   return 0;
+//  166 #endif
+//  167 #if (HAL_UART_DMA == 2)
+//  168   if (port == HAL_UART_PORT_1)  return HalUARTReadDMA(buf, len);
+//  169 #endif
+//  170 #if (HAL_UART_ISR == 1)
+//  171   if (port == HAL_UART_PORT_0)  return HalUARTReadISR(buf, len);
+//  172 #endif
+//  173 #if (HAL_UART_ISR == 2)
+//  174   if (port == HAL_UART_PORT_1)  return HalUARTReadISR(buf, len);
+//  175 #endif
+//  176 
+//  177 #if HAL_UART_USB
+//  178   return HalUARTRx(buf, len);
+//  179 #else
+//  180   return 0;
 ??HalUARTRead_0:
         MOV     R2,#0x0
         MOV     R3,#0x0
 ??HalUARTRead_1:
         SJMP    ??Subroutine18_0
         CFI EndBlock cfiBlock75
-//  148 #endif
-//  149 }
-//  150 
-//  151 /******************************************************************************
-//  152  * @fn      HalUARTWrite
-//  153  * @brief   Write a buffer to the UART.
-//  154  * @param   port - UART port
-//  155  *          buf  - pointer to the buffer that will be written, not freed
-//  156  *          len  - length of
-//  157  * @return  length of the buffer that was sent
-//  158  *****************************************************************************/
+//  181 #endif
+//  182 }
+//  183 
+//  184 /******************************************************************************
+//  185  * @fn      HalUARTWrite
+//  186  *
+//  187  * @brief   Write a buffer to the UART.
+//  188  *
+//  189  * @param   port - UART port
+//  190  *          buf  - pointer to the buffer that will be written, not freed
+//  191  *          len  - length of
+//  192  *
+//  193  * @return  length of the buffer that was sent
+//  194  *****************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  159 uint16 HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
+//  195 uint16 HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
 HalUARTWrite:
         CFI Block cfiBlock76 Using cfiCommon0
         CFI Function HalUARTWrite
-//  160 {
+//  196 {
         FUNCALL HalUARTWrite, HalUARTWriteDMA
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -2853,111 +2890,57 @@ HalUARTWrite:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  161   (void)port;
-//  162   (void)buf;
-//  163   (void)len;
-//  164   
-//  165   
-//  166 
-//  167 #if (HAL_UART_DMA == 1)
-//  168   if (port == HAL_UART_PORT_0)  return HalUARTWriteDMA(buf, len);
+//  197   (void)port;
+//  198   (void)buf;
+//  199   (void)len;
+//  200 
+//  201 #if (HAL_UART_DMA == 1)
+//  202   if (port == HAL_UART_PORT_0)  return HalUARTWriteDMA(buf, len);
         MOV     A,R1
         JNZ     ??HalUARTWrite_0
         ; Setup parameters for call to function HalUARTWriteDMA
         LCALL   ??HalUARTWriteDMA?relay
         SJMP    ??HalUARTWrite_1
-//  169 #endif
-//  170 #if (HAL_UART_DMA == 2)
-//  171   if (port == HAL_UART_PORT_1)  return HalUARTWriteDMA(buf, len);
-//  172 #endif
-//  173 #if (HAL_UART_ISR == 1)
-//  174   if (port == HAL_UART_PORT_0)  return HalUARTWriteISR(buf, len);
-//  175 #endif
-//  176 #if (HAL_UART_ISR == 2)
-//  177   if (port == HAL_UART_PORT_1)  return HalUARTWriteISR(buf, len);
-//  178 #endif
-//  179 
-//  180 #if HAL_UART_USB
-//  181   HalUARTTx(buf, len);
-//  182   return len;
-//  183 #else
-//  184   return 0;
+//  203 #endif
+//  204 #if (HAL_UART_DMA == 2)
+//  205   if (port == HAL_UART_PORT_1)  return HalUARTWriteDMA(buf, len);
+//  206 #endif
+//  207 #if (HAL_UART_ISR == 1)
+//  208   if (port == HAL_UART_PORT_0)  return HalUARTWriteISR(buf, len);
+//  209 #endif
+//  210 #if (HAL_UART_ISR == 2)
+//  211   if (port == HAL_UART_PORT_1)  return HalUARTWriteISR(buf, len);
+//  212 #endif
+//  213 
+//  214 #if HAL_UART_USB
+//  215   HalUARTTx(buf, len);
+//  216   return len;
+//  217 #else
+//  218   return 0;
 ??HalUARTWrite_0:
         MOV     R2,#0x0
         MOV     R3,#0x0
 ??HalUARTWrite_1:
         SJMP    ??Subroutine18_0
         CFI EndBlock cfiBlock76
-//  185 #endif
-//  186 }
-//  187 
-//  188 /******************************************************************************
-//  189  * @fn      HalUARTSuspend
-//  190  * @brief   Suspend UART hardware before entering PM mode 1, 2 or 3.
-//  191  *****************************************************************************/
+//  219 #endif
+//  220 }
+//  221 
+//  222 /*
+//  223 * @fn      show
+//  224 *
+//  225 * @brief   Write a buffer to the UART.
+//  226 *
+//  227 * @param   temp - pointer to the buffer that will be written, not freed
+//  228 *
+//  229 */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  192 void HalUARTSuspend( void )
-HalUARTSuspend:
-        CFI Block cfiBlock77 Using cfiCommon0
-        CFI Function HalUARTSuspend
-//  193 {
-        ; Saved register size: 0
-        ; Auto size: 0
-//  194 #if HAL_UART_DMA
-//  195   HalUARTSuspendDMA();
-        ANL     0x86,#0xbf
-//  196 #endif
-//  197 #if HAL_UART_ISR
-//  198   HalUARTSuspendISR();
-//  199 #endif
-//  200 }
-        LJMP    ?BRET
-        CFI EndBlock cfiBlock77
-        REQUIRE U0CSR
-//  201 
-//  202 /******************************************************************************
-//  203  * @fn      HalUARTResume
-//  204  * @brief   Resume UART hardware after exiting PM mode 1, 2 or 3.
-//  205  *****************************************************************************/
-
-        RSEG BANKED_CODE:CODE:NOROOT(0)
-//  206 void HalUARTResume( void )
-HalUARTResume:
-        CFI Block cfiBlock78 Using cfiCommon0
-        CFI Function HalUARTResume
-//  207 {
-        ; Saved register size: 0
-        ; Auto size: 0
-//  208 #if HAL_UART_DMA
-//  209   HalUARTResumeDMA();
-        ORL     0xc4,#0x80
-        ORL     0x86,#0x40
-//  210 #endif
-//  211 #if HAL_UART_ISR
-//  212   HalUARTResumeISR();
-//  213 #endif
-//  214 }
-        LJMP    ?BRET
-        CFI EndBlock cfiBlock78
-        REQUIRE U0CSR
-        REQUIRE U0UCR
-//  215 
-//  216 /*
-//  217 * @fn      show
-//  218 *
-//  219 * @brief   Write a buffer to the UART.
-//  220 *
-//  221 * @param   temp - pointer to the buffer that will be written, not freed
-//  222 *
-//  223 */
-
-        RSEG BANKED_CODE:CODE:NOROOT(0)
-//  224 void show(char *temp)
+//  230 void show(char *temp)
 show:
-        CFI Block cfiBlock79 Using cfiCommon0
+        CFI Block cfiBlock77 Using cfiCommon0
         CFI Function show
-//  225 {
+//  231 {
         FUNCALL show, memset
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -3014,9 +2997,9 @@ show:
         CFI CFA_XSP16 add(XSP16, 76)
         MOV     ?V0 + 0,R2
         MOV     ?V0 + 1,R3
-//  226     char buf[64];
-//  227    
-//  228     memset(buf, 0x0, 64);
+//  232     char buf[64];
+//  233    
+//  234     memset(buf, 0x0, 64);
         ; Setup parameters for call to function memset
         MOV     ?V0 + 2,#0x40
         MOV     ?V0 + 3,#0x0
@@ -3033,7 +3016,7 @@ show:
         MOV     A,#0x2
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 76)
-//  229     sprintf(buf, "\r%s\n", temp);
+//  235     sprintf(buf, "\r%s\n", temp);
         ; Setup parameters for call to function sprintf
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_TWO
@@ -3048,7 +3031,7 @@ show:
         MOV     A,#0x2
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 76)
-//  230     HalUARTWrite(HAL_UART_PORT_0, buf, 64);
+//  236     HalUARTWrite(HAL_UART_PORT_0, buf, 64);
         ; Setup parameters for call to function HalUARTWrite
         MOV     R4,#0x40
         MOV     R5,#0x0
@@ -3058,25 +3041,92 @@ show:
         MOV     R3,DPH
         MOV     R1,#0x0
         LCALL   ??HalUARTWrite?relay
-//  231 }
+//  237 }
         MOV     A,#0x40
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 12)
         MOV     R7,#0x4
         LJMP    ?BANKED_LEAVE_XDATA
-        CFI EndBlock cfiBlock79
-//  232 
-//  233 /***************************************************************************************************
-//  234  * @fn      HalUARTPoll
-//  235  * @brief   Poll the UART.
-//  236  *****************************************************************************/
+        CFI EndBlock cfiBlock77
+//  238 
+//  239 /******************************************************************************
+//  240  * @fn      HalUARTSuspend
+//  241  *
+//  242  * @brief   Suspend UART hardware before entering PM mode 1, 2 or 3.
+//  243  *
+//  244  * @param   None
+//  245  *
+//  246  * @return  None
+//  247  *****************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  237 void HalUARTPoll(void)
+//  248 void HalUARTSuspend( void )
+HalUARTSuspend:
+        CFI Block cfiBlock78 Using cfiCommon0
+        CFI Function HalUARTSuspend
+//  249 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//  250 #if HAL_UART_DMA
+//  251   HalUARTSuspendDMA();
+        ANL     0x86,#0xbf
+//  252 #endif
+//  253 #if HAL_UART_ISR
+//  254   HalUARTSuspendISR();
+//  255 #endif
+//  256 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock78
+        REQUIRE U0CSR
+//  257 
+//  258 /******************************************************************************
+//  259  * @fn      HalUARTResume
+//  260  *
+//  261  * @brief   Resume UART hardware after exiting PM mode 1, 2 or 3.
+//  262  *
+//  263  * @param   None
+//  264  *
+//  265  * @return  None
+//  266  *****************************************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  267 void HalUARTResume( void )
+HalUARTResume:
+        CFI Block cfiBlock79 Using cfiCommon0
+        CFI Function HalUARTResume
+//  268 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//  269 #if HAL_UART_DMA
+//  270   HalUARTResumeDMA();
+        ORL     0xc4,#0x80
+        ORL     0x86,#0x40
+//  271 #endif
+//  272 #if HAL_UART_ISR
+//  273   HalUARTResumeISR();
+//  274 #endif
+//  275 }
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock79
+        REQUIRE U0CSR
+        REQUIRE U0UCR
+//  276 
+//  277 /***************************************************************************************************
+//  278  * @fn      HalUARTPoll
+//  279  *
+//  280  * @brief   Poll the UART.
+//  281  *
+//  282  * @param   none
+//  283  *
+//  284  * @return  none
+//  285  *****************************************************************************/
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  286 void HalUARTPoll(void)
 HalUARTPoll:
         CFI Block cfiBlock80 Using cfiCommon0
         CFI Function HalUARTPoll
-//  238 {
+//  287 {
         FUNCALL HalUARTPoll, HalUARTPollDMA
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -3096,34 +3146,37 @@ HalUARTPoll:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  239 #if HAL_UART_DMA
-//  240   HalUARTPollDMA();
+//  288 #if HAL_UART_DMA
+//  289   HalUARTPollDMA();
         ; Setup parameters for call to function HalUARTPollDMA
         LCALL   ??HalUARTPollDMA?relay
-//  241 #endif
-//  242 #if HAL_UART_ISR
-//  243   HalUARTPollISR();
-//  244 #endif
-//  245 #if HAL_UART_USB
-//  246   HalUARTPollUSB();
-//  247 #endif
-//  248 }
+//  290 #endif
+//  291 #if HAL_UART_ISR
+//  292   HalUARTPollISR();
+//  293 #endif
+//  294 #if HAL_UART_USB
+//  295   HalUARTPollUSB();
+//  296 #endif
+//  297 }
         LJMP    ??Subroutine18_0 & 0xFFFF
         CFI EndBlock cfiBlock80
-//  249 
-//  250 /**************************************************************************************************
-//  251  * @fn      Hal_UART_RxBufLen()
-//  252  * @brief   Calculate Rx Buffer length - the number of bytes in the buffer.
-//  253  * @param   port - UART port
-//  254  * @return  length of current Rx Buffer
-//  255  **************************************************************************************************/
+//  298 
+//  299 /**************************************************************************************************
+//  300  * @fn      Hal_UART_RxBufLen()
+//  301  *
+//  302  * @brief   Calculate Rx Buffer length - the number of bytes in the buffer.
+//  303  *
+//  304  * @param   port - UART port
+//  305  *
+//  306  * @return  length of current Rx Buffer
+//  307  **************************************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  256 uint16 Hal_UART_RxBufLen( uint8 port )
+//  308 uint16 Hal_UART_RxBufLen( uint8 port )
 Hal_UART_RxBufLen:
         CFI Block cfiBlock81 Using cfiCommon0
         CFI Function Hal_UART_RxBufLen
-//  257 {
+//  309 {
         FUNCALL Hal_UART_RxBufLen, HalUARTRxAvailDMA
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -3143,37 +3196,37 @@ Hal_UART_RxBufLen:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  258   (void)port;
-//  259 
-//  260 #if (HAL_UART_DMA == 1)
-//  261   if (port == HAL_UART_PORT_0)  return HalUARTRxAvailDMA();
+//  310   (void)port;
+//  311 
+//  312 #if (HAL_UART_DMA == 1)
+//  313   if (port == HAL_UART_PORT_0)  return HalUARTRxAvailDMA();
         MOV     A,R1
         JNZ     ??Hal_UART_RxBufLen_0
         ; Setup parameters for call to function HalUARTRxAvailDMA
         LCALL   ??HalUARTRxAvailDMA?relay
         SJMP    ??Hal_UART_RxBufLen_1
-//  262 #endif
-//  263 #if (HAL_UART_DMA == 2)
-//  264   if (port == HAL_UART_PORT_1)  return HalUARTRxAvailDMA();
-//  265 #endif
-//  266 #if (HAL_UART_ISR == 1)
-//  267   if (port == HAL_UART_PORT_0)  return HalUARTRxAvailISR();
-//  268 #endif
-//  269 #if (HAL_UART_ISR == 2)
-//  270   if (port == HAL_UART_PORT_1)  return HalUARTRxAvailISR();
-//  271 #endif
-//  272 #if HAL_UART_USB
-//  273   return HalUARTRxAvailUSB();
-//  274 #else
-//  275   return 0;
+//  314 #endif
+//  315 #if (HAL_UART_DMA == 2)
+//  316   if (port == HAL_UART_PORT_1)  return HalUARTRxAvailDMA();
+//  317 #endif
+//  318 #if (HAL_UART_ISR == 1)
+//  319   if (port == HAL_UART_PORT_0)  return HalUARTRxAvailISR();
+//  320 #endif
+//  321 #if (HAL_UART_ISR == 2)
+//  322   if (port == HAL_UART_PORT_1)  return HalUARTRxAvailISR();
+//  323 #endif
+//  324 #if HAL_UART_USB
+//  325   return HalUARTRxAvailUSB();
+//  326 #else
+//  327   return 0;
 ??Hal_UART_RxBufLen_0:
         MOV     R2,#0x0
         MOV     R3,#0x0
 ??Hal_UART_RxBufLen_1:
         LJMP    ??Subroutine18_0 & 0xFFFF
         CFI EndBlock cfiBlock81
-//  276 #endif
-//  277 }
+//  328 #endif
+//  329 }
 
         RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
 ??HalUARTInitDMA?relay:
@@ -3242,6 +3295,12 @@ Hal_UART_RxBufLen:
         DC24    HalUARTWrite
 
         RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??show?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    show
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
 ??HalUARTSuspend?relay:
         LCALL   ?BDISPATCH
         DATA
@@ -3252,12 +3311,6 @@ Hal_UART_RxBufLen:
         LCALL   ?BDISPATCH
         DATA
         DC24    HalUARTResume
-
-        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
-??show?relay:
-        LCALL   ?BDISPATCH
-        DATA
-        DC24    show
 
         RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
 ??HalUARTPoll?relay:
@@ -3277,17 +3330,17 @@ Hal_UART_RxBufLen:
         DB "\015%s\012"
 
         END
-//  278 
-//  279 /******************************************************************************
-//  280 ******************************************************************************/
+//  330 
+//  331 /******************************************************************************
+//  332 ******************************************************************************/
 // 
-// 1 489 bytes in segment BANKED_CODE
+// 1 492 bytes in segment BANKED_CODE
 //    96 bytes in segment BANK_RELAYS
 //    15 bytes in segment SFR_AN
 //     5 bytes in segment XDATA_ROM_C
 //   526 bytes in segment XDATA_Z
 // 
-// 1 585 bytes of CODE  memory
+// 1 588 bytes of CODE  memory
 //     5 bytes of CONST memory
 //     0 bytes of DATA  memory (+ 15 bytes shared)
 //   526 bytes of XDATA memory

@@ -25,6 +25,9 @@
 #if (defined HAL_HID) && (HAL_HID == TRUE)
   #include "usb_hid.h"
 #endif
+#if defined(M170)
+  #include "M170.h"
+#endif
 #if defined(M190)
   #include "M190.h"
 #endif

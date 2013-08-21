@@ -6,5 +6,5 @@
 // Peripheral
 #define HAL_ADC_PERIPHERAL()    st( P0SEL |= BV(0); )
 
-extern void M170_Init(void);
-extern uint16 M170_GetValue(void);
+void M170_Init(void);
+uint16 M170_GetValue(void);

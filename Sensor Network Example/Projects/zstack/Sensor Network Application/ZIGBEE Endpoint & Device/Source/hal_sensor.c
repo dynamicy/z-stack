@@ -1,5 +1,3 @@
-#include <string.h>
-#include <stdio.h>
 #include "ZComDef.h"
 #include "OSAL.h"
 #include "AF.h"
@@ -8,13 +6,11 @@
 #include "ZDProfile.h"
 #include "mac_radio_defs.h"
 
-/* ZCL */
 #include "zcl.h"
 #include "zcl_general.h"
 #include "zcl_ha.h"
 #include "zcl_zigbee device.h"
 
-/* HAL */
 #include "onboard.h"
 #include "hal_lcd.h"
 #include "hal_led.h"
@@ -72,7 +68,6 @@ void sleep(uint16 sec)
 }
 
 #if defined(M110)
-
 void M110_SensorFunction(void)
 {
     uint16 val;
@@ -81,31 +76,26 @@ void M110_SensorFunction(void)
     
     val = M110_GetValue();
     
-    TransmitApp_Msg[0] = 3 + '0';   
-    TransmitApp_Msg[1] = ',';
-    TransmitApp_Msg[2] = 1 + '0';  
-    TransmitApp_Msg[3] = 1 + '0';   
-    TransmitApp_Msg[4] = 0 + '0';        
+    TransmitApp_Msg[0] = 1 + '0';  
+    TransmitApp_Msg[1] = 1 + '0';   
+    TransmitApp_Msg[2] = 0 + '0';        
+    TransmitApp_Msg[3] = ',';
+    TransmitApp_Msg[4] = 'N';     
     TransmitApp_Msg[5] = ',';
-    TransmitApp_Msg[6] = 'N';     
-    TransmitApp_Msg[7] = ',';
     if(val > 3000)
     {    
-        TransmitApp_Msg[8] = 1 + '0';
+        TransmitApp_Msg[6] = 1 + '0';
     }
     else
     {
-        TransmitApp_Msg[8] = 0 + '0';  
-    }    
-
-    TransmitApp_Msg[9] = '$';     
-    TransmitApp_Msg[10] = '\n';     
+        TransmitApp_Msg[6] = 0 + '0';  
+    }       
   
     sleep(3);
    
     uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
-                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 11, 
+                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 7, 
                                  TransmitApp_Msg );
  }
 #endif
@@ -128,26 +118,22 @@ void M140_SensorFunction(void)
     val = (val * 10) / 32;
   }
 
-  TransmitApp_Msg[0] = 3 + '0';   
-  TransmitApp_Msg[1] = ',';
-  TransmitApp_Msg[2] = 1 + '0';  
-  TransmitApp_Msg[3] = 4 + '0';   
-  TransmitApp_Msg[4] = 0 + '0';        
-  TransmitApp_Msg[5] = ',';
-  TransmitApp_Msg[6] = 'A';   
-  TransmitApp_Msg[7] = ',';  
-  TransmitApp_Msg[8] = (val / 100) + '0';
-  TransmitApp_Msg[9] = ((val / 10) % 10) + '0';
-  TransmitApp_Msg[10] = '.';
-  TransmitApp_Msg[11] = (val % 10) + '0';
-  TransmitApp_Msg[12] = '$'; 
-  TransmitApp_Msg[13] = '\n'; 
+  TransmitApp_Msg[0] = 1 + '0';  
+  TransmitApp_Msg[1] = 4 + '0';   
+  TransmitApp_Msg[2] = 0 + '0';        
+  TransmitApp_Msg[3] = ',';
+  TransmitApp_Msg[4] = 'A';   
+  TransmitApp_Msg[5] = ',';  
+  TransmitApp_Msg[6] = (val / 100) + '0';
+  TransmitApp_Msg[7] = ((val / 10) % 10) + '0';
+  TransmitApp_Msg[8] = '.';
+  TransmitApp_Msg[9] = (val % 10) + '0';
   
   sleep(3);
     
   uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                 ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC, 
-                                TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 14, 
+                                TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 10, 
                                 TransmitApp_Msg );   
 }
 #endif
@@ -180,24 +166,20 @@ void M160_SensorFunction(void)
     M160_On(duty);
   }
   
-  TransmitApp_Msg[0] = 3 + '0';   
-  TransmitApp_Msg[1] = ',';
-  TransmitApp_Msg[2] = 2 + '0';  
-  TransmitApp_Msg[3] = 8 + '0';   
-  TransmitApp_Msg[4] = 0 + '0';        
-  TransmitApp_Msg[5] = ',';
-  TransmitApp_Msg[6] = 'A';   
-  TransmitApp_Msg[7] = ',';  
-  TransmitApp_Msg[8] = (duty / 100) + '0';
-  TransmitApp_Msg[9] = ((duty / 10) % 10) + '0';
-  TransmitApp_Msg[10] = (duty % 10) + '0';
-  TransmitApp_Msg[11] = '$'; 
-  TransmitApp_Msg[12] = '\n';
+  TransmitApp_Msg[0] = 2 + '0';  
+  TransmitApp_Msg[1] = 8 + '0';   
+  TransmitApp_Msg[2] = 0 + '0';        
+  TransmitApp_Msg[3] = ',';
+  TransmitApp_Msg[4] = 'A';   
+  TransmitApp_Msg[5] = ',';  
+  TransmitApp_Msg[6] = (duty / 100) + '0';
+  TransmitApp_Msg[7] = ((duty / 10) % 10) + '0';
+  TransmitApp_Msg[8] = (duty % 10) + '0';
     
   sleep(3);  
   uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC, 
-                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 13, 
+                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 9, 
                                  TransmitApp_Msg ); 
 }
 #endif 
@@ -225,24 +207,20 @@ void M170_SensorFunction(void)
         val = 100;
     }
    
-    TransmitApp_Msg[0] = 3 + '0';   
-    TransmitApp_Msg[1] = ',';
-    TransmitApp_Msg[2] = 1 + '0';  
-    TransmitApp_Msg[3] = 7 + '0';   
-    TransmitApp_Msg[4] = 0 + '0';        
-    TransmitApp_Msg[5] = ',';
-    TransmitApp_Msg[6] = 'A';   
-    TransmitApp_Msg[7] = ',';  
-    TransmitApp_Msg[8] = (val / 100) + '0';
-    TransmitApp_Msg[9] = ((val / 10) % 10) + '0';
-    TransmitApp_Msg[10] = (val % 10) + '0';
-    TransmitApp_Msg[11] = '$'; 
-    TransmitApp_Msg[12] = '\n'; 
+    TransmitApp_Msg[0] = 1 + '0';  
+    TransmitApp_Msg[1] = 7 + '0';   
+    TransmitApp_Msg[2] = 0 + '0';        
+    TransmitApp_Msg[3] = ',';
+    TransmitApp_Msg[4] = 'A';   
+    TransmitApp_Msg[5] = ',';  
+    TransmitApp_Msg[6] = (val / 100) + '0';
+    TransmitApp_Msg[7] = ((val / 10) % 10) + '0';
+    TransmitApp_Msg[8] = (val % 10) + '0';
 
-    sleep(1);
+    sleep(3);
     uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
-                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 13, 
+                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 9, 
                                  TransmitApp_Msg );
  }
 #endif
@@ -250,7 +228,7 @@ void M170_SensorFunction(void)
 #if defined(M190)
 void M190_SensorFunction(void)
 {
-  uint16 val;
+    uint16 val;
 
     M190_Init();
     val = M190_GetValue();  
@@ -270,26 +248,22 @@ void M190_SensorFunction(void)
         val = 100;
     }
     
-    TransmitApp_Msg[0] = 3 + '0';   
-    TransmitApp_Msg[1] = ',';
-    TransmitApp_Msg[2] = 1 + '0';  
-    TransmitApp_Msg[3] = 9 + '0';   
-    TransmitApp_Msg[4] = 0 + '0';        
-    TransmitApp_Msg[5] = ',';
-    TransmitApp_Msg[6] = 'A';   
-    TransmitApp_Msg[7] = ',';  
-    TransmitApp_Msg[8] = (val / 100) + '0';
-    TransmitApp_Msg[9] = ((val / 10) % 10) + '0';
-    TransmitApp_Msg[10] = (val % 10) + '0';
-    TransmitApp_Msg[11] = '$'; 
-    TransmitApp_Msg[12] = '\n';
+    TransmitApp_Msg[0] = 1 + '0';  
+    TransmitApp_Msg[1] = 9 + '0';   
+    TransmitApp_Msg[2] = 0 + '0';        
+    TransmitApp_Msg[3] = ',';
+    TransmitApp_Msg[4] = 'A';   
+    TransmitApp_Msg[5] = ',';  
+    TransmitApp_Msg[6] = (val / 100) + '0';
+    TransmitApp_Msg[7] = ((val / 10) % 10) + '0';
+    TransmitApp_Msg[8] = (val % 10) + '0';
 
     sleep(3);    
     uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
-                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 13, 
+                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 9, 
                                  TransmitApp_Msg );
- }
+}
 #endif
  
 #if defined(M200)
@@ -297,8 +271,6 @@ void M200_SensorFunction(void)
  {
     // M200 module variable
     uint16 temp, humi;
-    uint8 hum_1,hum_2,hum_3,hum_4;
-    uint8 temp_1,temp_2,temp_3,temp_4;
     uint8 len;
       
     // initilization the device
@@ -315,39 +287,17 @@ void M200_SensorFunction(void)
     {
       temp = 999;
     }
-    hum_1 = (humi / 100) + '0';
-    TransmitApp_Msg[0] = hum_1;
-    hum_2 = ((humi / 10) % 10) + '0';
-    TransmitApp_Msg[1] = hum_2;
-    hum_3 = '.';
-    TransmitApp_Msg[2] = hum_3;
-    hum_4 = (humi % 10) + '0';
-    TransmitApp_Msg[3] = hum_4;
-    TransmitApp_Msg[4] = ' ';
-    temp_1 = (temp / 100) + '0';
-    TransmitApp_Msg[5] = temp_1;
-    temp_2 = ((temp / 10) % 10) + '0';
-    TransmitApp_Msg[6] = temp_2;
-    temp_3 = '.';
-    TransmitApp_Msg[7] = temp_3;
-    temp_4 = (temp % 10) + '0';
-    TransmitApp_Msg[8] = temp_4;
     
-    #if defined ( LCD_SUPPORTED )
-      HalLcdWriteString("Humidity=      %", HAL_LCD_LINE_1);
-      HalLcdWriteString(" Temp. =       C", HAL_LCD_LINE_2);
-      // Humi
-      HalLcdWriteChar(HAL_LCD_LINE_1, 10, hum_1);
-      HalLcdWriteChar(HAL_LCD_LINE_1, 11, hum_2);
-      HalLcdWriteChar(HAL_LCD_LINE_1, 12, hum_3);
-      HalLcdWriteChar(HAL_LCD_LINE_1, 13, hum_4);
-      // Temp
-      HalLcdWriteChar(HAL_LCD_LINE_2, 9, temp_1);
-      HalLcdWriteChar(HAL_LCD_LINE_2, 10, temp_2);
-      HalLcdWriteChar(HAL_LCD_LINE_2, 11, temp_3);
-      HalLcdWriteChar(HAL_LCD_LINE_2, 12, temp_4);
-    #endif
-
+    TransmitApp_Msg[0] = (humi / 100) + '0';
+    TransmitApp_Msg[1] = ((humi / 10) % 10) + '0';
+    TransmitApp_Msg[2] = '.';
+    TransmitApp_Msg[3] = (humi % 10) + '0';
+    TransmitApp_Msg[4] = ' ';
+    TransmitApp_Msg[5] = (temp / 100) + '0';
+    TransmitApp_Msg[6] = ((temp / 10) % 10) + '0';
+    TransmitApp_Msg[7] = '.';
+    TransmitApp_Msg[8] = (temp % 10) + '0';
+    
     len = 9;
     uint8 tmp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, ZCL_CLUSTER_ID_GEN_ON_OFF, 
                                  ZCL_CLUSTER_ID_GEN_BASIC, TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, TransmitApp_Msg );
@@ -355,33 +305,23 @@ void M200_SensorFunction(void)
 #endif
  
 #if defined(M270)
-/*********************************************************************
- * @fn          M270_SensorFunction
- * @brief       The ZIGBEE Device to receive the M200 Temp and Humi data.
- */
- void M270_SensorFunction(void)
- {
+
+void M270_SensorFunction(void)
+{
     static uint8 udo;
 
     M270_Init();
     
-     if( ch == 'A' )
-     {
+    if( ch == 'A' )
+    {
         udo = 1;
         M270_SetDO(udo);
-     }
+    }
      
-     if( ch == 'D' )
-     {
+    if( ch == 'D' )
+    {
         udo = 0;
         M270_SetDO(udo);
-     }
-    
-     #if defined ( LCD_SUPPORTED )
-        HalLcdWriteString("** M270 Test  **", HAL_LCD_LINE_1);
-        HalLcdWriteString("* RELAY DO=[0] *", HAL_LCD_LINE_2);
-        // Show the control value
-        HalLcdWriteChar(HAL_LCD_LINE_2, 12, udo + '0');
-     #endif
- }
+    }
+}
 #endif

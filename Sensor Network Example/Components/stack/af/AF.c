@@ -1,20 +1,3 @@
-/**************************************************************************************************
-  Filename:       AF.c
-  Revised:        $Date: 2009-10-29 00:15:32 -0700 (Thu, 29 Oct 2009) $
-  Revision:       $Revision: 21013 $
-
-  Description:    Application Framework - Device Description helper functions
-
-  Copyright 2004-2009 Texas Instruments Incorporated. All rights reserved.
-
-  Should you have any questions regarding your right to use this Software,
-  contact Texas Instruments Incorporated at www.TI.com.
-**************************************************************************************************/
-
-/*********************************************************************
- * INCLUDES
- */
-
 #include "OSAL.h"
 #include "nwk_globals.h"
 #include "nwk_util.h"
@@ -30,114 +13,27 @@
   #include "stub_aps.h"
 #endif
 
-/* Profile */
 #include "AF.h"
-
-/*********************************************************************
- * MACROS
- */
-
-/*********************************************************************
- * @fn      afSend
- *
- * @brief   Helper macro for V1 API to invoke V2 API.
- *
- * input parameters
- *
- * @param  *dstAddr - Full ZB destination address: Nwk Addr + End Point.
- * @param   srcEP - Origination (i.e. respond to or ack to) End Point.
- * @param   cID - A valid cluster ID as specified by the Profile.
- * @param   len - Number of bytes of data pointed to by next param.
- * @param  *buf - A pointer to the data bytes to send.
- * @param   options - Valid bit mask of AF Tx Options as defined in AF.h.
- * @param  *transID - A pointer to a byte which can be modified and which will
- *                    be used as the transaction sequence number of the msg.
- *
- * output parameters
- *
- * @param  *transID - Incremented by one if the return value is success.
- *
- * @return  afStatus_t - See previous definition of afStatus_... types.
- */
 #define afSend( dstAddr, srcEP, cID, len, buf, transID, options, radius ) \
         AF_DataRequest( (dstAddr), afFindEndPointDesc( (srcEP) ), \
                           (cID), (len), (buf), (transID), (options), (radius) )
 
-/*********************************************************************
- * CONSTANTS
- */
-
-/*********************************************************************
- * TYPEDEFS
- */
-
-/*********************************************************************
- * GLOBAL VARIABLES
- */
-
 epList_t *epList;
-//Chris Defined
-packet_t device_manager;
-
-/*********************************************************************
- * EXTERNAL VARIABLES
- */
-
-/*********************************************************************
- * EXTERNAL FUNCTIONS
- */
-
-/*********************************************************************
- * LOCAL VARIABLES
- */
-
-/*********************************************************************
- * LOCAL FUNCTIONS
- */
+packet_t device_manager[7];   // Packet manager
 
 static void afBuildMSGIncoming( aps_FrameFormat_t *aff, endPointDesc_t *epDesc,
                 zAddrType_t *SrcAddress, uint16 SrcPanId, NLDE_Signal_t *sig,
                 byte SecurityUse, uint32 timestamp );
 
 static epList_t *afFindEndPointDescList( byte EndPoint );
-
 static pDescCB afGetDescCB( endPointDesc_t *epDesc );
 
-/*********************************************************************
- * NETWORK LAYER CALLBACKS
- */
-
-/*********************************************************************
- * PUBLIC FUNCTIONS
- */
-
-/*********************************************************************
- * @fn      afInit
- *
- * @brief   Initialization function for the AF.
- *
- * @param   none
- *
- * @return  none
- */
 void afInit( void )
 {
   // Start with no endpoint defined
   epList = NULL;
 }
 
-/*********************************************************************
- * @fn      afRegisterExtended
- *
- * @brief   Register an Application's EndPoint description.
- *
- * @param   epDesc - pointer to the Application's endpoint descriptor.
- * @param   descFn - pointer to descriptor callback function
- *
- * NOTE:  The memory that epDesc is pointing to must exist after this call.
- *
- * @return  Pointer to epList_t on success, NULL otherwise.
- */
 epList_t *afRegisterExtended( endPointDesc_t *epDesc, pDescCB descFn )
 {
   epList_t *ep;

@@ -241,15 +241,13 @@ typedef struct
 //[1Byte][4Bytes][3Bytes][8Bytes] =>[16Bytes]
 typedef struct
 {
-//  char Type[8];
-//  uint32 *shortAddr;   //HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
-//  char Module[10];  
+  uint16 shortAddr;   //HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
   byte Data[30];        // receive data array  
   uint16 DataLength;    // Number of bytes in TransData
 } packet_t;
   
 extern epList_t *epList;
-extern packet_t device_manager;
+extern packet_t device_manager[7];
 
 extern void afInit( void );
 extern epList_t *afRegisterExtended( endPointDesc_t *epDesc, pDescCB descFn );
@@ -261,34 +259,6 @@ extern void afIncomingData( aps_FrameFormat_t *aff, zAddrType_t *SrcAddress, uin
 afStatus_t AF_DataRequest( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
                              uint16 cID, uint16 len, uint8 *buf, uint8 *transID,
                              uint8 options, uint8 radius );
-
-  
-/*********************************************************************
- * @fn      AF_DataRequestSrcRtg
- *
- * @brief   Common functionality for invoking APSDE_DataReq() for both
- *          SendMulti and MSG-Send.
- *
- * input parameters
- *
- * @param  *dstAddr - Full ZB destination address: Nwk Addr + End Point.
- * @param  *srcEP - Origination (i.e. respond to or ack to) End Point Descr.
- * @param   cID - A valid cluster ID as specified by the Profile.
- * @param   len - Number of bytes of data pointed to by next param.
- * @param  *buf - A pointer to the data bytes to send.
- * @param  *transID - A pointer to a byte which can be modified and which will
- *                    be used as the transaction sequence number of the msg.
- * @param   options - Valid bit mask of Tx options.
- * @param   radius - Normally set to AF_DEFAULT_RADIUS.
- * @param   relayCnt - Number of devices in the relay list
- * @param   pRelayList - Pointer to the relay list
- *
- * output parameters
- *
- * @param  *transID - Incremented by one if the return value is success.
- *
- * @return  afStatus_t - See previous definition of afStatus_... types.
- */
 
 afStatus_t AF_DataRequestSrcRtg( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
                            uint16 cID, uint16 len, uint8 *buf, uint8 *transID,

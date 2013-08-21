@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  15:47:16 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  17:04:38 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -214,38 +214,41 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
      25          #if (defined HAL_HID) && (HAL_HID == TRUE)
      26            #include "usb_hid.h"
      27          #endif
-     28          #if defined(M190)
-     29            #include "M190.h"
+     28          #if defined(M170)
+     29            #include "M170.h"
      30          #endif
-     31          #if defined(M140) || (M200) // SensorApp example include header file
-     32            #include "M140.h"
-     33            #include "M200.h"
-     34          #endif
-     35          
+     31          #if defined(M190)
+     32            #include "M190.h"
+     33          #endif
+     34          #if defined(M140) || (M200) // SensorApp example include header file
+     35            #include "M140.h"
+     36            #include "M200.h"
+     37          #endif
+     38          
 
    \                                 In  segment XDATA_Z, align 1, keep-with-next
-     36          uint8 Hal_TaskID;
+     39          uint8 Hal_TaskID;
    \                     Hal_TaskID:
    \   000000                DS 1
    \   000001                REQUIRE __INIT_XDATA_Z
-     37          
-     38          extern void HalLedUpdate( void ); /* Notes: This for internal only so it shouldn't be in hal_led.h */
-     39          
+     40          
+     41          extern void HalLedUpdate( void ); /* Notes: This for internal only so it shouldn't be in hal_led.h */
+     42          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     40          void Hal_Init( uint8 task_id )
+     43          void Hal_Init( uint8 task_id )
    \                     Hal_Init:
-     41          {
+     44          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     42            /* Register task ID */
-     43            Hal_TaskID = task_id;
+     45            /* Register task ID */
+     46            Hal_TaskID = task_id;
    \   000004   E9           MOV     A,R1
    \   000005   90....       MOV     DPTR,#Hal_TaskID
    \   000008   F0           MOVX    @DPTR,A
-     44          }
+     47          }
    \   000009                REQUIRE ?Subroutine0
    \   000009                ; // Fall through to label ?Subroutine0
 
@@ -254,124 +257,124 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
    \   000000   D083         POP     DPH
    \   000002   D082         POP     DPL
    \   000004   02....       LJMP    ?BRET
-     45          
+     48          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     46          void HalDriverInit (void)
+     49          void HalDriverInit (void)
    \                     HalDriverInit:
-     47          {
+     50          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     48            /* TIMER */
-     49          #if (defined HAL_TIMER) && (HAL_TIMER == TRUE)
-     50            HalTimerInit();
-     51          #endif
-     52          
-     53            /* ADC */
-     54          #if (defined HAL_ADC) && (HAL_ADC == TRUE)
-     55            HalAdcInit();
+     51            /* TIMER */
+     52          #if (defined HAL_TIMER) && (HAL_TIMER == TRUE)
+     53            HalTimerInit();
+     54          #endif
+     55          
+     56            /* ADC */
+     57          #if (defined HAL_ADC) && (HAL_ADC == TRUE)
+     58            HalAdcInit();
    \   000004                ; Setup parameters for call to function HalAdcInit
    \   000004   12....       LCALL   ??HalAdcInit?relay
-     56            #if defined(M170)
-     57              M170_Init();
-     58            #endif
-     59            #if defined(M190)
-     60              M190_Init();
+     59            #if defined(M170)
+     60              M170_Init();
      61            #endif
-     62          #endif
-     63          
-     64            /* DMA */
-     65          #if (defined HAL_DMA) && (HAL_DMA == TRUE)
-     66            // Must be called before the init call to any module that uses DMA.
-     67            HalDmaInit();
+     62            #if defined(M190)
+     63              M190_Init();
+     64            #endif
+     65          #endif
+     66          
+     67            /* DMA */
+     68          #if (defined HAL_DMA) && (HAL_DMA == TRUE)
+     69            // Must be called before the init call to any module that uses DMA.
+     70            HalDmaInit();
    \   000007                ; Setup parameters for call to function HalDmaInit
    \   000007   12....       LCALL   ??HalDmaInit?relay
-     68          #endif
-     69          
-     70            /* Flash */
-     71          #if (defined HAL_FLASH) && (HAL_FLASH == TRUE)
-     72            // Must be called before the init call to any module that uses Flash access or NV.
-     73            HalFlashInit();
+     71          #endif
+     72          
+     73            /* Flash */
+     74          #if (defined HAL_FLASH) && (HAL_FLASH == TRUE)
+     75            // Must be called before the init call to any module that uses Flash access or NV.
+     76            HalFlashInit();
    \   00000A                ; Setup parameters for call to function HalFlashInit
    \   00000A   12....       LCALL   ??HalFlashInit?relay
-     74          #endif
-     75          
-     76            /* AES */
-     77          #if (defined HAL_AES) && (HAL_AES == TRUE)
-     78            HalAesInit();
+     77          #endif
+     78          
+     79            /* AES */
+     80          #if (defined HAL_AES) && (HAL_AES == TRUE)
+     81            HalAesInit();
    \   00000D                ; Setup parameters for call to function HalAesInit
    \   00000D   12....       LCALL   ??HalAesInit?relay
-     79          #endif
-     80          
-     81            /* LCD */
-     82          #if (defined HAL_LCD) && (HAL_LCD == TRUE)
-     83            HalLcdInit();
+     82          #endif
+     83          
+     84            /* LCD */
+     85          #if (defined HAL_LCD) && (HAL_LCD == TRUE)
+     86            HalLcdInit();
    \   000010                ; Setup parameters for call to function HalLcdInit
    \   000010   12....       LCALL   ??HalLcdInit?relay
-     84          #endif
-     85          
-     86            /* UART */
-     87          #if (defined HAL_UART) && (HAL_UART == TRUE)
-     88            HalUARTInit();
+     87          #endif
+     88          
+     89            /* UART */
+     90          #if (defined HAL_UART) && (HAL_UART == TRUE)
+     91            HalUARTInit();
    \   000013                ; Setup parameters for call to function HalUARTInit
    \   000013   12....       LCALL   ??HalUARTInit?relay
-     89          #endif
-     90          
-     91            /* KEY */
-     92          #if (defined HAL_KEY) && (HAL_KEY == TRUE)
-     93            HalKeyInit();
+     92          #endif
+     93          
+     94            /* KEY */
+     95          #if (defined HAL_KEY) && (HAL_KEY == TRUE)
+     96            HalKeyInit();
    \   000016                ; Setup parameters for call to function HalKeyInit
    \   000016   12....       LCALL   ??HalKeyInit?relay
-     94          #endif
-     95            
-     96            /* SPI */
-     97          #if (defined HAL_SPI) && (HAL_SPI == TRUE)
-     98            HalSpiInit();
-     99          #endif
-    100          
-    101            /* HID */
-    102          #if (defined HAL_HID) && (HAL_HID == TRUE)
-    103            usbHidInit();
-    104          #endif
-    105              
-    106            /* KEYPAD */
-    107          #if (defined HAL_KEYPAD) && (HAL_KEYPAD == TRUE)
-    108            halKeypadInit();
+     97          #endif
+     98            
+     99            /* SPI */
+    100          #if (defined HAL_SPI) && (HAL_SPI == TRUE)
+    101            HalSpiInit();
+    102          #endif
+    103          
+    104            /* HID */
+    105          #if (defined HAL_HID) && (HAL_HID == TRUE)
+    106            usbHidInit();
+    107          #endif
+    108              
+    109            /* KEYPAD */
+    110          #if (defined HAL_KEYPAD) && (HAL_KEYPAD == TRUE)
+    111            halKeypadInit();
    \   000019                ; Setup parameters for call to function halKeypadInit
    \   000019   12....       LCALL   ??halKeypadInit?relay
-    109          #endif
-    110            
-    111            /* BUZZER */
-    112          #if (defined HAL_BUZZER) && (HAL_BUZZER == TRUE)
-    113            halBuzzerInit();
+    112          #endif
+    113            
+    114            /* BUZZER */
+    115          #if (defined HAL_BUZZER) && (HAL_BUZZER == TRUE)
+    116            halBuzzerInit();
    \   00001C                ; Setup parameters for call to function halBuzzerInit
    \   00001C   12....       LCALL   ??halBuzzerInit?relay
-    114          #endif
-    115            
-    116            /* I2C (M200 module) */
-    117          #if (defined HAL_I2C) && (HAL_I2C == TRUE)
-    118            #if defined(M200)
-    119              M200_Init();
-    120            #endif
-    121          #endif
-    122              
-    123            /* LED */
-    124          #if (defined HAL_LED) && (HAL_LED == TRUE)
-    125            HalLedInit();
+    117          #endif
+    118            
+    119            /* I2C (M200 module) */
+    120          #if (defined HAL_I2C) && (HAL_I2C == TRUE)
+    121            #if defined(M200)
+    122              M200_Init();
+    123            #endif
+    124          #endif
+    125              
+    126            /* LED */
+    127          #if (defined HAL_LED) && (HAL_LED == TRUE)
+    128            HalLedInit();
    \   00001F                ; Setup parameters for call to function HalLedInit
    \   00001F   12....       LCALL   ??HalLedInit?relay
-    126          #endif
-    127            
-    128          }
+    129          #endif
+    130            
+    131          }
    \   000022   80..         SJMP    ?Subroutine0
-    129          
+    132          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    130          uint16 Hal_ProcessEvent( uint8 task_id, uint16 events )
+    133          uint16 Hal_ProcessEvent( uint8 task_id, uint16 events )
    \                     Hal_ProcessEvent:
-    131          {
+    134          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
@@ -380,11 +383,11 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
    \   000006   FE           MOV     R6,A
    \   000007   EB           MOV     A,R3
    \   000008   FF           MOV     R7,A
-    132            uint8 *msgPtr;
-    133            
-    134            (void)task_id; // Intentionally unreferenced parameter
-    135          
-    136            if ( events & SYS_EVENT_MSG )
+    135            uint8 *msgPtr;
+    136            
+    137            (void)task_id; // Intentionally unreferenced parameter
+    138          
+    139            if ( events & SYS_EVENT_MSG )
    \   000009   7480         MOV     A,#-0x80
    \   00000B   5F           ANL     A,R7
    \   00000C   F9           MOV     R1,A
@@ -393,35 +396,35 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
    \   000010   E9           MOV     A,R1
    \                     ??Hal_ProcessEvent_0:
    \   000011   601B         JZ      ??Hal_ProcessEvent_1
-    137            {
-    138              msgPtr = osal_msg_receive(Hal_TaskID);
+    140            {
+    141              msgPtr = osal_msg_receive(Hal_TaskID);
    \   000013                ; Setup parameters for call to function osal_msg_receive
    \   000013   8003         SJMP    ??Hal_ProcessEvent_2
-    139              
-    140              while (msgPtr)
-    141              {
-    142                /* Do something here - for now, just deallocate the msg and move on */
-    143                
-    144                /* De-allocate(分配) */ 
-    145                osal_msg_deallocate( msgPtr );
+    142              
+    143              while (msgPtr)
+    144              {
+    145                /* Do something here - for now, just deallocate the msg and move on */
+    146                
+    147                /* De-allocate(分配) */ 
+    148                osal_msg_deallocate( msgPtr );
    \                     ??Hal_ProcessEvent_3:
    \   000015                ; Setup parameters for call to function osal_msg_deallocate
    \   000015   12....       LCALL   ??osal_msg_deallocate?relay
-    146                /* Next */
-    147                msgPtr = osal_msg_receive( Hal_TaskID );
+    149                /* Next */
+    150                msgPtr = osal_msg_receive( Hal_TaskID );
    \   000018                ; Setup parameters for call to function osal_msg_receive
    \                     ??Hal_ProcessEvent_2:
    \   000018   90....       MOV     DPTR,#Hal_TaskID
    \   00001B   E0           MOVX    A,@DPTR
    \   00001C   F9           MOV     R1,A
    \   00001D   12....       LCALL   ??osal_msg_receive?relay
-    148              }
+    151              }
    \   000020   EA           MOV     A,R2
    \   000021   7001         JNZ     ??Hal_ProcessEvent_4
    \   000023   EB           MOV     A,R3
    \                     ??Hal_ProcessEvent_4:
    \   000024   70EF         JNZ     ??Hal_ProcessEvent_3
-    149              return events ^ SYS_EVENT_MSG;
+    152              return events ^ SYS_EVENT_MSG;
    \   000026   EE           MOV     A,R6
    \   000027   FA           MOV     R2,A
    \   000028   7480         MOV     A,#-0x80
@@ -429,46 +432,46 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
    \                     ??Hal_ProcessEvent_5:
    \   00002B   FB           MOV     R3,A
    \   00002C   8035         SJMP    ??Hal_ProcessEvent_6
-    150            }
-    151          
-    152            if ( events & HAL_LED_BLINK_EVENT )
+    153            }
+    154          
+    155            if ( events & HAL_LED_BLINK_EVENT )
    \                     ??Hal_ProcessEvent_1:
    \   00002E   EE           MOV     A,R6
    \   00002F   5402         ANL     A,#0x2
    \   000031   600A         JZ      ??Hal_ProcessEvent_7
-    153            {
-    154              #if (defined (BLINK_LEDS)) && (HAL_LED == TRUE)
-    155                HalLedUpdate();
+    156            {
+    157              #if (defined (BLINK_LEDS)) && (HAL_LED == TRUE)
+    158                HalLedUpdate();
    \   000033                ; Setup parameters for call to function HalLedUpdate
    \   000033   12....       LCALL   ??HalLedUpdate?relay
-    156              #endif /* BLINK_LEDS && HAL_LED */
-    157              return events ^ HAL_LED_BLINK_EVENT;
+    159              #endif /* BLINK_LEDS && HAL_LED */
+    160              return events ^ HAL_LED_BLINK_EVENT;
    \   000036   7402         MOV     A,#0x2
    \                     ??Hal_ProcessEvent_8:
    \   000038   6E           XRL     A,R6
    \   000039   FA           MOV     R2,A
    \   00003A   EF           MOV     A,R7
    \   00003B   80EE         SJMP    ??Hal_ProcessEvent_5
-    158            }
-    159          
-    160            if (events & HAL_KEY_EVENT)
+    161            }
+    162          
+    163            if (events & HAL_KEY_EVENT)
    \                     ??Hal_ProcessEvent_7:
    \   00003D   EE           MOV     A,R6
    \   00003E   A2E0         MOV     C,0xE0 /* A   */.0
    \   000040   501D         JNC     ??Hal_ProcessEvent_9
-    161            {
-    162              #if (defined HAL_KEY) && (HAL_KEY == TRUE)
-    163              
-    164              HalKeyPoll();/* Check for keys */
+    164            {
+    165              #if (defined HAL_KEY) && (HAL_KEY == TRUE)
+    166              
+    167              HalKeyPoll();/* Check for keys */
    \   000042                ; Setup parameters for call to function HalKeyPoll
    \   000042   12....       LCALL   ??HalKeyPoll?relay
-    165              
-    166              if (!Hal_KeyIntEnable)/* if interrupt disabled, do next polling */
+    168              
+    169              if (!Hal_KeyIntEnable)/* if interrupt disabled, do next polling */
    \   000045   90....       MOV     DPTR,#Hal_KeyIntEnable
    \   000048   E0           MOVX    A,@DPTR
    \   000049   7010         JNZ     ??Hal_ProcessEvent_10
-    167              {
-    168                osal_start_timerEx( Hal_TaskID, HAL_KEY_EVENT, 100);
+    170              {
+    171                osal_start_timerEx( Hal_TaskID, HAL_KEY_EVENT, 100);
    \   00004B                ; Setup parameters for call to function osal_start_timerEx
    \   00004B   7C64         MOV     R4,#0x64
    \   00004D   7D00         MOV     R5,#0x0
@@ -478,65 +481,65 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
    \   000056   E0           MOVX    A,@DPTR
    \   000057   F9           MOV     R1,A
    \   000058   12....       LCALL   ??osal_start_timerEx?relay
-    169              }
-    170              #endif // HAL_KEY
-    171              return events ^ HAL_KEY_EVENT;
+    172              }
+    173              #endif // HAL_KEY
+    174              return events ^ HAL_KEY_EVENT;
    \                     ??Hal_ProcessEvent_10:
    \   00005B   7401         MOV     A,#0x1
    \   00005D   80D9         SJMP    ??Hal_ProcessEvent_8
-    172            }
-    173          
-    174          #ifdef POWER_SAVING
-    175            if ( events & HAL_SLEEP_TIMER_EVENT )
-    176            {
-    177              halRestoreSleepLevel();
-    178              return events ^ HAL_SLEEP_TIMER_EVENT;
-    179            }
-    180          #endif
-    181            
-    182            /* Nothing interested, discard the message */
-    183            return 0;
+    175            }
+    176          
+    177          #ifdef POWER_SAVING
+    178            if ( events & HAL_SLEEP_TIMER_EVENT )
+    179            {
+    180              halRestoreSleepLevel();
+    181              return events ^ HAL_SLEEP_TIMER_EVENT;
+    182            }
+    183          #endif
+    184            
+    185            /* Nothing interested, discard the message */
+    186            return 0;
    \                     ??Hal_ProcessEvent_9:
    \   00005F   7A00         MOV     R2,#0x0
    \   000061   7B00         MOV     R3,#0x0
    \                     ??Hal_ProcessEvent_6:
    \   000063   7F02         MOV     R7,#0x2
    \   000065   02....       LJMP    ?BANKED_LEAVE_XDATA
-    184          
-    185          }
-    186          
+    187          
+    188          }
+    189          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    187          void Hal_ProcessPoll ()
+    190          void Hal_ProcessPoll ()
    \                     Hal_ProcessPoll:
-    188          {
+    191          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    189            /* Timer Poll */
-    190          #if (defined HAL_TIMER) && (HAL_TIMER == TRUE)
-    191            HalTimerTick();  // 檢查終止的counter
-    192          #endif
-    193          
-    194            /* UART Poll */
-    195          #if (defined HAL_UART) && (HAL_UART == TRUE)
-    196            HalUARTPoll();  // Poll the UART
+    192            /* Timer Poll */
+    193          #if (defined HAL_TIMER) && (HAL_TIMER == TRUE)
+    194            HalTimerTick();  // 檢查終止的counter
+    195          #endif
+    196          
+    197            /* UART Poll */
+    198          #if (defined HAL_UART) && (HAL_UART == TRUE)
+    199            HalUARTPoll();  // Poll the UART
    \   000004                ; Setup parameters for call to function HalUARTPoll
    \   000004   12....       LCALL   ??HalUARTPoll?relay
-    197          #endif  
-    198          
-    199            /* SPI Poll */
-    200          #if (defined HAL_SPI) && (HAL_SPI == TRUE)
-    201            HalSpiPoll();  
-    202          #endif
-    203          
-    204            /* HID poll */
-    205          #if (defined HAL_HID) && (HAL_HID == TRUE)
-    206            usbHidProcessEvents();
-    207          #endif
-    208          
-    209          }
+    200          #endif  
+    201          
+    202            /* SPI Poll */
+    203          #if (defined HAL_SPI) && (HAL_SPI == TRUE)
+    204            HalSpiPoll();  
+    205          #endif
+    206          
+    207            /* HID poll */
+    208          #if (defined HAL_HID) && (HAL_HID == TRUE)
+    209            usbHidProcessEvents();
+    210          #endif
+    211          
+    212          }
    \   000007   02....       LJMP    ?Subroutine0 & 0xFFFF
 
    \                                 In  segment BANK_RELAYS, align 1

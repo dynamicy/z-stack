@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  16:32:50 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  18:45:56 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -54,7 +54,7 @@
 //                          " -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D      /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M170 -D xPA2591 -lC   /
+//                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC   /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -793,9 +793,9 @@ HalUARTInitDMA:
         CFI EndBlock cfiBlock0
         REQUIRE U0CSR
         REQUIRE U0UCR
-        REQUIRE P0SEL
-        REQUIRE ADCCFG
         REQUIRE PERCFG
+        REQUIRE ADCCFG
+        REQUIRE P0SEL
         REQUIRE P2DIR
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
@@ -897,7 +897,6 @@ HalUARTOpenDMA:
         MOVX    A,@DPTR
         JZ      ??HalUARTOpenDMA_9
         MOV     0xc4,#0x42
-        MOV     0xc4,#0x2
         ORL     0xf3,#0x10
         CLR     0x80.5
         ORL     0xfd,#0x20
@@ -930,13 +929,13 @@ HalUARTOpenDMA:
         MOV     DPTR,#(dmaCfg + 522)
         LJMP    ?Subroutine14 & 0xFFFF
         CFI EndBlock cfiBlock1
-        REQUIRE U0CSR
         REQUIRE _A_P0
-        REQUIRE U0UCR
-        REQUIRE U0GCR
-        REQUIRE DMAIRQ
-        REQUIRE U0BAUD
+        REQUIRE U0CSR
         REQUIRE DMAARM
+        REQUIRE U0GCR
+        REQUIRE U0UCR
+        REQUIRE U0BAUD
+        REQUIRE DMAIRQ
         REQUIRE P0SEL
         REQUIRE P0DIR
 
@@ -1804,12 +1803,12 @@ HalUARTPollDMA:
         LJMP    ?Subroutine15 & 0xFFFF
         CFI EndBlock cfiBlock20
         REQUIRE _A_P0
-        REQUIRE ST0
         REQUIRE _A_IEN0
-        REQUIRE DMAIRQ
-        REQUIRE U0BAUD
+        REQUIRE ST0
         REQUIRE DMAARM
         REQUIRE DMAREQ
+        REQUIRE U0BAUD
+        REQUIRE DMAIRQ
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine7:
@@ -3334,13 +3333,13 @@ Hal_UART_RxBufLen:
 //  331 /******************************************************************************
 //  332 ******************************************************************************/
 // 
-// 1 492 bytes in segment BANKED_CODE
+// 1 489 bytes in segment BANKED_CODE
 //    96 bytes in segment BANK_RELAYS
 //    15 bytes in segment SFR_AN
 //     5 bytes in segment XDATA_ROM_C
 //   526 bytes in segment XDATA_Z
 // 
-// 1 588 bytes of CODE  memory
+// 1 585 bytes of CODE  memory
 //     5 bytes of CONST memory
 //     0 bytes of DATA  memory (+ 15 bytes shared)
 //   526 bytes of XDATA memory

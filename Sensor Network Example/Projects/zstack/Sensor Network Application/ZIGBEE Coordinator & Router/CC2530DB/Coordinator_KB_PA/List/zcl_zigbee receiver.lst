@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  15:47:25 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  17:04:49 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -675,7 +675,7 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \   0000BB   8007         SJMP    ??zclZigbeeRecv_event_loop_16
     193                  break;   
     194                case UART_MSG_EVT: // The UART Message event
-    195                  //Msg incoming
+    195                  //Chris Msg incoming
     196                  zclUartReceiver();
    \                     ??zclZigbeeRecv_event_loop_4:
    \   0000BD                ; Setup parameters for call to function zclUartReceiver
@@ -1124,117 +1124,115 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-    429            show("zclUartReceiver");
-   \   000005                ; Setup parameters for call to function show
-   \   000005   7A..         MOV     R2,#(`?<Constant "zclUartReceiver">` & 0xff)
-   \   000007   7B..         MOV     R3,#((`?<Constant "zclUartReceiver">` >> 8) & 0xff)
-   \   000009   12....       LCALL   ??show?relay
+    429          //  show("zclUartReceiver");
     430            
     431            for(uint8 length = 0; length < len; length++)
-   \   00000C   7E00         MOV     R6,#0x0
-   \   00000E   8024         SJMP    ??zclUartReceiver_0
+   \   000005   7A00         MOV     R2,#0x0
+   \   000007   801F         SJMP    ??zclUartReceiver_0
     432            {
     433              uart_recv[length] = TransmitApp_Msg[length];
    \                     ??zclUartReceiver_1:
-   \   000010   8E82         MOV     DPL,R6
-   \   000012   A882         MOV     R0,DPL
-   \   000014   E8           MOV     A,R0
-   \   000015   24..         ADD     A,#(TransmitApp_Msg & 0xff)
-   \   000017   F582         MOV     DPL,A
-   \   000019   E4           CLR     A
-   \   00001A   34..         ADDC    A,#((TransmitApp_Msg >> 8) & 0xff)
-   \   00001C   F583         MOV     DPH,A
-   \   00001E   E0           MOVX    A,@DPTR
-   \   00001F   FB           MOV     R3,A
-   \   000020   E8           MOV     A,R0
-   \   000021   24..         ADD     A,#(uart_recv & 0xff)
-   \   000023   F582         MOV     DPL,A
-   \   000025   E4           CLR     A
-   \   000026   34..         ADDC    A,#((uart_recv >> 8) & 0xff)
-   \   000028   F583         MOV     DPH,A
-   \   00002A   EB           MOV     A,R3
-   \   00002B   F0           MOVX    @DPTR,A
-    434            #if defined( LCD_SUPPORTED )
-    435              HalLcdWriteChar(HAL_LCD_LINE_4, length, uart_recv[length]);
-   \   00002C                ; Setup parameters for call to function HalLcdWriteChar
-   \   00002C   EE           MOV     A,R6
-   \   00002D   FA           MOV     R2,A
-   \   00002E   7904         MOV     R1,#0x4
-   \   000030   12....       LCALL   ??HalLcdWriteChar?relay
-    436            #endif
-    437            }
-   \   000033   0E           INC     R6
+   \   000009   8A82         MOV     DPL,R2
+   \   00000B   A882         MOV     R0,DPL
+   \   00000D   E8           MOV     A,R0
+   \   00000E   24..         ADD     A,#(TransmitApp_Msg & 0xff)
+   \   000010   F582         MOV     DPL,A
+   \   000012   E4           CLR     A
+   \   000013   34..         ADDC    A,#((TransmitApp_Msg >> 8) & 0xff)
+   \   000015   F583         MOV     DPH,A
+   \   000017   E0           MOVX    A,@DPTR
+   \   000018   C0E0         PUSH    A
+   \   00001A   E8           MOV     A,R0
+   \   00001B   24..         ADD     A,#(uart_recv & 0xff)
+   \   00001D   F582         MOV     DPL,A
+   \   00001F   E4           CLR     A
+   \   000020   34..         ADDC    A,#((uart_recv >> 8) & 0xff)
+   \   000022   F583         MOV     DPH,A
+   \   000024   D0E0         POP     A
+   \   000026   F0           MOVX    @DPTR,A
+    434            }
+   \   000027   0A           INC     R2
    \                     ??zclUartReceiver_0:
-   \   000034   90....       MOV     DPTR,#len
-   \   000037   E0           MOVX    A,@DPTR
-   \   000038   FA           MOV     R2,A
-   \   000039   EE           MOV     A,R6
-   \   00003A   C3           CLR     C
-   \   00003B   9A           SUBB    A,R2
-   \   00003C   40D2         JC      ??zclUartReceiver_1
-    438            
-    439            // Set the End Device state
-    440            zclZigbeeRecv_DstAddr.endPoint = 12;
-   \   00003E   740C         MOV     A,#0xc
-   \   000040   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 9)
-   \   000043   F0           MOVX    @DPTR,A
-    441            zclZigbeeRecv_DstAddr.addr.shortAddr = 0xFFFF;
-   \   000044   90....       MOV     DPTR,#zclZigbeeRecv_DstAddr
-   \   000047   74FF         MOV     A,#-0x1
-   \   000049   F0           MOVX    @DPTR,A
-   \   00004A   A3           INC     DPTR
-   \   00004B   F0           MOVX    @DPTR,A
-    442            zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
-   \   00004C   740F         MOV     A,#0xf
-   \   00004E   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 8)
-   \   000051   F0           MOVX    @DPTR,A
-    443              
-    444            // Transmit the UART command to End Device
-    445            uint8 send = zcl_SendCommand( ZIGBEERECV_ENDPOINT, 
-    446                                          &zclZigbeeRecv_DstAddr,
-    447                                          ZCL_CLUSTER_ID_GEN_ON_OFF,
-    448                                          COMMAND_TOGGLE,
-    449                                          TRUE,
-    450                                          ZCL_FRAME_CLIENT_SERVER_DIR,
-    451                                          false,
+   \   000028   90....       MOV     DPTR,#len
+   \   00002B   E0           MOVX    A,@DPTR
+   \   00002C   FB           MOV     R3,A
+   \   00002D   EA           MOV     A,R2
+   \   00002E   C3           CLR     C
+   \   00002F   9B           SUBB    A,R3
+   \   000030   40D7         JC      ??zclUartReceiver_1
+    435          
+    436            HalUARTWrite(MT_UART_DEFAULT_PORT, uart_recv, len);    
+   \   000032                ; Setup parameters for call to function HalUARTWrite
+   \   000032   E0           MOVX    A,@DPTR
+   \   000033   FC           MOV     R4,A
+   \   000034   7D00         MOV     R5,#0x0
+   \   000036   7A..         MOV     R2,#(uart_recv & 0xff)
+   \   000038   7B..         MOV     R3,#((uart_recv >> 8) & 0xff)
+   \   00003A   7900         MOV     R1,#0x0
+   \   00003C   12....       LCALL   ??HalUARTWrite?relay
+    437            
+    438            // Set the End Device state
+    439            zclZigbeeRecv_DstAddr.endPoint = 12;
+   \   00003F   740C         MOV     A,#0xc
+   \   000041   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 9)
+   \   000044   F0           MOVX    @DPTR,A
+    440            zclZigbeeRecv_DstAddr.addr.shortAddr = 0xFFFF;
+   \   000045   90....       MOV     DPTR,#zclZigbeeRecv_DstAddr
+   \   000048   74FF         MOV     A,#-0x1
+   \   00004A   F0           MOVX    @DPTR,A
+   \   00004B   A3           INC     DPTR
+   \   00004C   F0           MOVX    @DPTR,A
+    441            zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
+   \   00004D   740F         MOV     A,#0xf
+   \   00004F   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 8)
+   \   000052   F0           MOVX    @DPTR,A
+    442              
+    443            // Transmit the UART command to End Device
+    444            uint8 send = zcl_SendCommand( ZIGBEERECV_ENDPOINT, 
+    445                                          &zclZigbeeRecv_DstAddr,
+    446                                          ZCL_CLUSTER_ID_GEN_ON_OFF,
+    447                                          COMMAND_TOGGLE,
+    448                                          TRUE,
+    449                                          ZCL_FRAME_CLIENT_SERVER_DIR,
+    450                                          false,
+    451                                          0,
     452                                          0,
-    453                                          0,
-    454                                          10,
-    455                                          uart_recv );
-   \   000052                ; Setup parameters for call to function zcl_SendCommand
-   \   000052   75....       MOV     ?V0 + 0,#(uart_recv & 0xff)
-   \   000055   75....       MOV     ?V0 + 1,#((uart_recv >> 8) & 0xff)
-   \   000058   78..         MOV     R0,#?V0 + 0
-   \   00005A   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   00005D   75..0A       MOV     ?V0 + 0,#0xa
-   \   000060   75..00       MOV     ?V0 + 1,#0x0
-   \   000063   78..         MOV     R0,#?V0 + 0
-   \   000065   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000068   75..00       MOV     ?V0 + 0,#0x0
-   \   00006B   78..         MOV     R0,#?V0 + 0
-   \   00006D   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   000070   78..         MOV     R0,#?V0 + 0
-   \   000072   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000075   78..         MOV     R0,#?V0 + 0
-   \   000077   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   00007A   78..         MOV     R0,#?V0 + 0
-   \   00007C   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   00007F   75..01       MOV     ?V0 + 0,#0x1
-   \   000082   78..         MOV     R0,#?V0 + 0
-   \   000084   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   000087   75..02       MOV     ?V0 + 0,#0x2
-   \   00008A   78..         MOV     R0,#?V0 + 0
-   \   00008C   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   00008F   7C06         MOV     R4,#0x6
-   \   000091   7D00         MOV     R5,#0x0
-   \   000093   7A..         MOV     R2,#(zclZigbeeRecv_DstAddr & 0xff)
-   \   000095   7B..         MOV     R3,#((zclZigbeeRecv_DstAddr >> 8) & 0xff)
-   \   000097   790D         MOV     R1,#0xd
-   \   000099   12....       LCALL   ??zcl_SendCommand?relay
-   \   00009C   740B         MOV     A,#0xb
-   \   00009E   12....       LCALL   ?DEALLOC_XSTACK8
-    456          }
-   \   0000A1   02....       LJMP    ?Subroutine3 & 0xFFFF
+    453                                          10,
+    454                                          uart_recv );
+   \   000053                ; Setup parameters for call to function zcl_SendCommand
+   \   000053   75....       MOV     ?V0 + 0,#(uart_recv & 0xff)
+   \   000056   75....       MOV     ?V0 + 1,#((uart_recv >> 8) & 0xff)
+   \   000059   78..         MOV     R0,#?V0 + 0
+   \   00005B   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00005E   75..0A       MOV     ?V0 + 0,#0xa
+   \   000061   75..00       MOV     ?V0 + 1,#0x0
+   \   000064   78..         MOV     R0,#?V0 + 0
+   \   000066   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000069   75..00       MOV     ?V0 + 0,#0x0
+   \   00006C   78..         MOV     R0,#?V0 + 0
+   \   00006E   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000071   78..         MOV     R0,#?V0 + 0
+   \   000073   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000076   78..         MOV     R0,#?V0 + 0
+   \   000078   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   00007B   78..         MOV     R0,#?V0 + 0
+   \   00007D   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000080   75..01       MOV     ?V0 + 0,#0x1
+   \   000083   78..         MOV     R0,#?V0 + 0
+   \   000085   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000088   75..02       MOV     ?V0 + 0,#0x2
+   \   00008B   78..         MOV     R0,#?V0 + 0
+   \   00008D   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000090   7C06         MOV     R4,#0x6
+   \   000092   7D00         MOV     R5,#0x0
+   \   000094   7A..         MOV     R2,#(zclZigbeeRecv_DstAddr & 0xff)
+   \   000096   7B..         MOV     R3,#((zclZigbeeRecv_DstAddr >> 8) & 0xff)
+   \   000098   790D         MOV     R1,#0xd
+   \   00009A   12....       LCALL   ??zcl_SendCommand?relay
+   \   00009D   740B         MOV     A,#0xb
+   \   00009F   12....       LCALL   ?DEALLOC_XSTACK8
+    455          }
+   \   0000A2   02....       LJMP    ?Subroutine3 & 0xFFFF
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zigbeeReceiver_TestEp>`:
@@ -1331,13 +1329,6 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \            5F455654
    \            00      
 
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "zclUartReceiver">`:
-   \   000000   7A636C55     DB "zclUartReceiver"
-   \            61727452
-   \            65636569
-   \            76657200
-
    Maximum stack usage in bytes:
 
      Function                       ISTACK PSTACK XSTACK
@@ -1349,8 +1340,7 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
        -> HalUARTRead                   0      0     20
        -> osal_set_event                0      0     20
      zclUartReceiver                    1      0     33
-       -> show                          0      0     20
-       -> HalLcdWriteChar               0      0     20
+       -> HalUARTWrite                  0      0     20
        -> zcl_SendCommand               0      0     42
      zclZigbeeReceiver_BasicResetCB     0      0      0
      zclZigbeeReceiver_IdentifyCB       2      0      0
@@ -1420,7 +1410,7 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
      zclZigbeeReceiver_OnOffCB                         37
      zclUARTMsg_CallBack                               50
      ?Subroutine3                                       5
-     zclUartReceiver                                  164
+     zclUartReceiver                                  165
      ?<Initializer for zigbeeReceiver_TestEp>           6
      ?<Initializer for zclZigbeeReceiver_CmdCallbac    30
      ??ZSendMsgProcess?relay                            6
@@ -1436,18 +1426,17 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
      ?<Constant "RECV_GROUP">                          11
      ?<Constant "ZCL_INCOMING_MSG">                    17
      ?<Constant "SAMPLELIGHT_IDENTIFY_...">            33
-     ?<Constant "zclUartReceiver">                     16
 
  
- 754 bytes in segment BANKED_CODE
+ 755 bytes in segment BANKED_CODE
   60 bytes in segment BANK_RELAYS
   36 bytes in segment XDATA_I
   36 bytes in segment XDATA_ID
-  77 bytes in segment XDATA_ROM_C
+  61 bytes in segment XDATA_ROM_C
  340 bytes in segment XDATA_Z
  
- 850 bytes of CODE  memory
-  77 bytes of CONST memory
+ 851 bytes of CODE  memory
+  61 bytes of CONST memory
  376 bytes of XDATA memory
 
 Errors: none

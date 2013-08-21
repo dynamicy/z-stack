@@ -192,7 +192,7 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
              zclZigbeeReceiver_ProcessIdentifyTimeChange();
         break;   
       case UART_MSG_EVT: // The UART Message event
-        //Msg incoming
+        //Chris Msg incoming
         zclUartReceiver();
         break;
     }    
@@ -426,15 +426,14 @@ void zclUARTMsg_CallBack(uint8 port, uint8 event)
 
 void zclUartReceiver( void )
 { 
-  show("zclUartReceiver");
+//  show("zclUartReceiver");
   
   for(uint8 length = 0; length < len; length++)
   {
     uart_recv[length] = TransmitApp_Msg[length];
-  #if defined( LCD_SUPPORTED )
-    HalLcdWriteChar(HAL_LCD_LINE_4, length, uart_recv[length]);
-  #endif
   }
+
+  HalUARTWrite(MT_UART_DEFAULT_PORT, uart_recv, len);    
   
   // Set the End Device state
   zclZigbeeRecv_DstAddr.endPoint = 12;

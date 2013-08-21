@@ -30,7 +30,8 @@ extern "C"
 
 // Send Message Timeout
 #define GENERICAPP_SEND_MSG_TIMEOUT     3000  // Every 3 seconds
-#define SEND_DISPLAY_TIMER              5     // every 5 min sec
+//#define SEND_DISPLAY_TIMER              5     // every 5 min sec
+#define SEND_DISPLAY_TIMER              5000     // every 5 min sec  
   
 // Application Events (OSAL)
 #define SAMPLESW_IDENTIFY_TIMEOUT_EVT   0x0001 // Events for the sample app

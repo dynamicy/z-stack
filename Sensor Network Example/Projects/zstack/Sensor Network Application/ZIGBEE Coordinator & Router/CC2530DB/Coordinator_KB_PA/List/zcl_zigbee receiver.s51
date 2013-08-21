@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  15:47:25 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  17:04:49 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -459,12 +459,12 @@ HalLedSet           SYMBOL "HalLedSet"
 osal_stop_timerEx   SYMBOL "osal_stop_timerEx"
 Hal_UART_RxBufLen   SYMBOL "Hal_UART_RxBufLen"
 HalUARTRead         SYMBOL "HalUARTRead"
-HalLcdWriteChar     SYMBOL "HalLcdWriteChar"
+HalUARTWrite        SYMBOL "HalUARTWrite"
 zcl_SendCommand     SYMBOL "zcl_SendCommand"
-??HalLcdWriteChar?relay SYMBOL "?relay", HalLcdWriteChar
 ??HalLedBlink?relay SYMBOL "?relay", HalLedBlink
 ??HalLedSet?relay   SYMBOL "?relay", HalLedSet
 ??HalUARTRead?relay SYMBOL "?relay", HalUARTRead
+??HalUARTWrite?relay SYMBOL "?relay", HalUARTWrite
 ??Hal_UART_RxBufLen?relay SYMBOL "?relay", Hal_UART_RxBufLen
 ??RegisterForKeys?relay SYMBOL "?relay", RegisterForKeys
 ??afRegister?relay  SYMBOL "?relay", afRegister
@@ -626,8 +626,8 @@ zclZigbeeRecv_event_loop SYMBOL "zclZigbeeRecv_event_loop"
         ARGFRAME XSTACK, 10, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN HalLcdWriteChar
-        FUNCTION HalLcdWriteChar,0202H
+        EXTERN HalUARTWrite
+        FUNCTION HalUARTWrite,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 10, STACK
@@ -640,14 +640,14 @@ zclZigbeeRecv_event_loop SYMBOL "zclZigbeeRecv_event_loop"
         ARGFRAME XSTACK, 21, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN ??HalLcdWriteChar?relay
-        FUNCTION ??HalLcdWriteChar?relay,00H
         EXTERN ??HalLedBlink?relay
         FUNCTION ??HalLedBlink?relay,00H
         EXTERN ??HalLedSet?relay
         FUNCTION ??HalLedSet?relay,00H
         EXTERN ??HalUARTRead?relay
         FUNCTION ??HalUARTRead?relay,00H
+        EXTERN ??HalUARTWrite?relay
+        FUNCTION ??HalUARTWrite?relay,00H
         EXTERN ??Hal_UART_RxBufLen?relay
         FUNCTION ??Hal_UART_RxBufLen?relay,00H
         EXTERN ??RegisterForKeys?relay
@@ -1391,7 +1391,7 @@ zclZigbeeRecv_event_loop:
         SJMP    ??zclZigbeeRecv_event_loop_16
 //  193         break;   
 //  194       case UART_MSG_EVT: // The UART Message event
-//  195         //Msg incoming
+//  195         //Chris Msg incoming
 //  196         zclUartReceiver();
 ??zclZigbeeRecv_event_loop_4:
         ; Setup parameters for call to function zclUartReceiver
@@ -2133,18 +2133,7 @@ zclUartReceiver:
         CFI Block cfiBlock18 Using cfiCommon0
         CFI Function zclUartReceiver
 //  428 { 
-        FUNCALL zclUartReceiver, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL zclUartReceiver, HalLcdWriteChar
+        FUNCALL zclUartReceiver, HalUARTWrite
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 10, STACK
@@ -2182,19 +2171,15 @@ zclUartReceiver:
         CFI CFA_XSP16 add(XSP16, 10)
         ; Saved register size: 10
         ; Auto size: 0
-//  429   show("zclUartReceiver");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "zclUartReceiver">` & 0xff)
-        MOV     R3,#((`?<Constant "zclUartReceiver">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  429 //  show("zclUartReceiver");
 //  430   
 //  431   for(uint8 length = 0; length < len; length++)
-        MOV     R6,#0x0
+        MOV     R2,#0x0
         SJMP    ??zclUartReceiver_0
 //  432   {
 //  433     uart_recv[length] = TransmitApp_Msg[length];
 ??zclUartReceiver_1:
-        MOV     DPL,R6
+        MOV     DPL,R2
         MOV     R0,DPL
         MOV     A,R0
         ADD     A,#(TransmitApp_Msg & 0xff)
@@ -2203,62 +2188,66 @@ zclUartReceiver:
         ADDC    A,#((TransmitApp_Msg >> 8) & 0xff)
         MOV     DPH,A
         MOVX    A,@DPTR
-        MOV     R3,A
+        PUSH    A
+        CFI CFA_SP SP+-1
         MOV     A,R0
         ADD     A,#(uart_recv & 0xff)
         MOV     DPL,A
         CLR     A
         ADDC    A,#((uart_recv >> 8) & 0xff)
         MOV     DPH,A
-        MOV     A,R3
+        POP     A
+        CFI CFA_SP SP+0
         MOVX    @DPTR,A
-//  434   #if defined( LCD_SUPPORTED )
-//  435     HalLcdWriteChar(HAL_LCD_LINE_4, length, uart_recv[length]);
-        ; Setup parameters for call to function HalLcdWriteChar
-        MOV     A,R6
-        MOV     R2,A
-        MOV     R1,#0x4
-        LCALL   ??HalLcdWriteChar?relay
-//  436   #endif
-//  437   }
-        INC     R6
+//  434   }
+        INC     R2
 ??zclUartReceiver_0:
         MOV     DPTR,#len
         MOVX    A,@DPTR
-        MOV     R2,A
-        MOV     A,R6
+        MOV     R3,A
+        MOV     A,R2
         CLR     C
-        SUBB    A,R2
+        SUBB    A,R3
         JC      ??zclUartReceiver_1
-//  438   
-//  439   // Set the End Device state
-//  440   zclZigbeeRecv_DstAddr.endPoint = 12;
+//  435 
+//  436   HalUARTWrite(MT_UART_DEFAULT_PORT, uart_recv, len);    
+        ; Setup parameters for call to function HalUARTWrite
+        MOVX    A,@DPTR
+        MOV     R4,A
+        MOV     R5,#0x0
+        MOV     R2,#(uart_recv & 0xff)
+        MOV     R3,#((uart_recv >> 8) & 0xff)
+        MOV     R1,#0x0
+        LCALL   ??HalUARTWrite?relay
+//  437   
+//  438   // Set the End Device state
+//  439   zclZigbeeRecv_DstAddr.endPoint = 12;
         MOV     A,#0xc
         MOV     DPTR,#(zclZigbeeRecv_DstAddr + 9)
         MOVX    @DPTR,A
-//  441   zclZigbeeRecv_DstAddr.addr.shortAddr = 0xFFFF;
+//  440   zclZigbeeRecv_DstAddr.addr.shortAddr = 0xFFFF;
         MOV     DPTR,#zclZigbeeRecv_DstAddr
         MOV     A,#-0x1
         MOVX    @DPTR,A
         INC     DPTR
         MOVX    @DPTR,A
-//  442   zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
+//  441   zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
         MOV     A,#0xf
         MOV     DPTR,#(zclZigbeeRecv_DstAddr + 8)
         MOVX    @DPTR,A
-//  443     
-//  444   // Transmit the UART command to End Device
-//  445   uint8 send = zcl_SendCommand( ZIGBEERECV_ENDPOINT, 
-//  446                                 &zclZigbeeRecv_DstAddr,
-//  447                                 ZCL_CLUSTER_ID_GEN_ON_OFF,
-//  448                                 COMMAND_TOGGLE,
-//  449                                 TRUE,
-//  450                                 ZCL_FRAME_CLIENT_SERVER_DIR,
-//  451                                 false,
+//  442     
+//  443   // Transmit the UART command to End Device
+//  444   uint8 send = zcl_SendCommand( ZIGBEERECV_ENDPOINT, 
+//  445                                 &zclZigbeeRecv_DstAddr,
+//  446                                 ZCL_CLUSTER_ID_GEN_ON_OFF,
+//  447                                 COMMAND_TOGGLE,
+//  448                                 TRUE,
+//  449                                 ZCL_FRAME_CLIENT_SERVER_DIR,
+//  450                                 false,
+//  451                                 0,
 //  452                                 0,
-//  453                                 0,
-//  454                                 10,
-//  455                                 uart_recv );
+//  453                                 10,
+//  454                                 uart_recv );
         ; Setup parameters for call to function zcl_SendCommand
         MOV     ?V0 + 0,#(uart_recv & 0xff)
         MOV     ?V0 + 1,#((uart_recv >> 8) & 0xff)
@@ -2300,7 +2289,7 @@ zclUartReceiver:
         MOV     A,#0xb
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 10)
-//  456 }
+//  455 }
         LJMP    ?Subroutine3 & 0xFFFF
         CFI EndBlock cfiBlock18
 
@@ -2396,22 +2385,17 @@ zclUartReceiver:
 `?<Constant "SAMPLELIGHT_IDENTIFY_...">`:
         DB "SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT"
 
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "zclUartReceiver">`:
-        DB "zclUartReceiver"
-
         END
 // 
-// 754 bytes in segment BANKED_CODE
+// 755 bytes in segment BANKED_CODE
 //  60 bytes in segment BANK_RELAYS
 //  36 bytes in segment XDATA_I
 //  36 bytes in segment XDATA_ID
-//  77 bytes in segment XDATA_ROM_C
+//  61 bytes in segment XDATA_ROM_C
 // 340 bytes in segment XDATA_Z
 // 
-// 850 bytes of CODE  memory
-//  77 bytes of CONST memory
+// 851 bytes of CODE  memory
+//  61 bytes of CONST memory
 // 376 bytes of XDATA memory
 //
 //Errors: none

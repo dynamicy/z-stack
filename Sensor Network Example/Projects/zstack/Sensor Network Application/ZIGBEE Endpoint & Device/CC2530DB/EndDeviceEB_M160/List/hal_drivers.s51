@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  16:32:48 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  18:45:52 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -54,7 +54,7 @@
 //                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D           /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M170 -D xPA2591 -lC   /
+//                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC   /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -325,7 +325,6 @@
         CFI EndCommon cfiCommon0
         
 HalAdcInit          SYMBOL "HalAdcInit"
-M170_Init           SYMBOL "M170_Init"
 HalDmaInit          SYMBOL "HalDmaInit"
 HalFlashInit        SYMBOL "HalFlashInit"
 HalAesInit          SYMBOL "HalAesInit"
@@ -351,7 +350,6 @@ HalUARTPoll         SYMBOL "HalUARTPoll"
 ??HalLedUpdate?relay SYMBOL "?relay", HalLedUpdate
 ??HalUARTInit?relay SYMBOL "?relay", HalUARTInit
 ??HalUARTPoll?relay SYMBOL "?relay", HalUARTPoll
-??M170_Init?relay   SYMBOL "?relay", M170_Init
 ??halKeypadInit?relay SYMBOL "?relay", halKeypadInit
 ??osal_msg_deallocate?relay SYMBOL "?relay", osal_msg_deallocate
 ??osal_msg_receive?relay SYMBOL "?relay", osal_msg_receive
@@ -367,13 +365,6 @@ Hal_ProcessPoll     SYMBOL "Hal_ProcessPoll"
 
         EXTERN HalAdcInit
         FUNCTION HalAdcInit,0202H
-        ARGFRAME ISTACK, 2, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN M170_Init
-        FUNCTION M170_Init,0202H
         ARGFRAME ISTACK, 2, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 0, STACK
@@ -499,8 +490,6 @@ Hal_ProcessPoll     SYMBOL "Hal_ProcessPoll"
         FUNCTION ??HalUARTInit?relay,00H
         EXTERN ??HalUARTPoll?relay
         FUNCTION ??HalUARTPoll?relay,00H
-        EXTERN ??M170_Init?relay
-        FUNCTION ??M170_Init?relay,00H
         EXTERN ??halKeypadInit?relay
         FUNCTION ??halKeypadInit?relay,00H
         EXTERN ??osal_msg_deallocate?relay
@@ -608,17 +597,6 @@ HalDriverInit:
         CFI Function HalDriverInit
 //   50 {
         FUNCALL HalDriverInit, HalAdcInit
-        LOCFRAME ISTACK, 2, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 2, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL HalDriverInit, M170_Init
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -737,8 +715,6 @@ HalDriverInit:
         LCALL   ??HalAdcInit?relay
 //   59   #if defined(M170)
 //   60     M170_Init();
-        ; Setup parameters for call to function M170_Init
-        LCALL   ??M170_Init?relay
 //   61   #endif
 //   62   #if defined(M190)
 //   63     M190_Init();
@@ -1126,11 +1102,11 @@ Hal_ProcessPoll:
 
         END
 // 
-// 166 bytes in segment BANKED_CODE
+// 163 bytes in segment BANKED_CODE
 //  24 bytes in segment BANK_RELAYS
 //   1 byte  in segment XDATA_Z
 // 
-// 190 bytes of CODE  memory
+// 187 bytes of CODE  memory
 //   1 byte  of XDATA memory
 //
 //Errors: none

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  16:32:49 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  18:45:54 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -55,7 +55,7 @@
 //                          c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D     /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M170 -D xPA2591 -lC   /
+//                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC   /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -1398,12 +1398,12 @@ halSleep:
 ??halSleep_3:
         LJMP    ??Subroutine1_0 & 0xFFFF
         CFI EndBlock cfiBlock1
-        REQUIRE IEN2
         REQUIRE _A_IEN0
         REQUIRE STLOAD
+        REQUIRE IEN2
         REQUIRE _A_IEN1
-        REQUIRE _A_IRCON
         REQUIRE SLEEPCMD
+        REQUIRE _A_IRCON
 //  393 
 //  394 /**************************************************************************************************
 //  395  * @fn          halSleepSetTimer
@@ -1547,8 +1547,8 @@ halSleepSetTimer:
 //  439 }
         REQUIRE ?Subroutine0
         REQUIRE ST0
-        REQUIRE ST1
         REQUIRE ST2
+        REQUIRE ST1
         ; // Fall through to label ?Subroutine0
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
@@ -1786,8 +1786,8 @@ HalTimerElapsed:
         LJMP    ?Subroutine0 & 0xFFFF
         CFI EndBlock cfiBlock6
         REQUIRE ST0
-        REQUIRE ST1
         REQUIRE ST2
+        REQUIRE ST1
 //  503 }
 //  504 
 //  505 /**************************************************************************************************

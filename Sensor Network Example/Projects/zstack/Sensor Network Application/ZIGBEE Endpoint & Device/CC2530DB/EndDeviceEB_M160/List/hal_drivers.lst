@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  16:32:48 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  18:45:52 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -53,7 +53,7 @@
 #                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D            #
 #                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
 #                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
-#                          End_Device -D HAL_KEYPAD -D M170 -D xPA2591 -lC    #
+#                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC    #
 #                          "D:\GitHub\z-stack\Sensor Network                  #
 #                          Example\Projects\zstack\Sensor Network             #
 #                          Application\ZIGBEE Endpoint &                      #
@@ -282,8 +282,6 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
    \   000004   12....       LCALL   ??HalAdcInit?relay
      59            #if defined(M170)
      60              M170_Init();
-   \   000007                ; Setup parameters for call to function M170_Init
-   \   000007   12....       LCALL   ??M170_Init?relay
      61            #endif
      62            #if defined(M190)
      63              M190_Init();
@@ -294,44 +292,44 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
      68          #if (defined HAL_DMA) && (HAL_DMA == TRUE)
      69            // Must be called before the init call to any module that uses DMA.
      70            HalDmaInit();
-   \   00000A                ; Setup parameters for call to function HalDmaInit
-   \   00000A   12....       LCALL   ??HalDmaInit?relay
+   \   000007                ; Setup parameters for call to function HalDmaInit
+   \   000007   12....       LCALL   ??HalDmaInit?relay
      71          #endif
      72          
      73            /* Flash */
      74          #if (defined HAL_FLASH) && (HAL_FLASH == TRUE)
      75            // Must be called before the init call to any module that uses Flash access or NV.
      76            HalFlashInit();
-   \   00000D                ; Setup parameters for call to function HalFlashInit
-   \   00000D   12....       LCALL   ??HalFlashInit?relay
+   \   00000A                ; Setup parameters for call to function HalFlashInit
+   \   00000A   12....       LCALL   ??HalFlashInit?relay
      77          #endif
      78          
      79            /* AES */
      80          #if (defined HAL_AES) && (HAL_AES == TRUE)
      81            HalAesInit();
-   \   000010                ; Setup parameters for call to function HalAesInit
-   \   000010   12....       LCALL   ??HalAesInit?relay
+   \   00000D                ; Setup parameters for call to function HalAesInit
+   \   00000D   12....       LCALL   ??HalAesInit?relay
      82          #endif
      83          
      84            /* LCD */
      85          #if (defined HAL_LCD) && (HAL_LCD == TRUE)
      86            HalLcdInit();
-   \   000013                ; Setup parameters for call to function HalLcdInit
-   \   000013   12....       LCALL   ??HalLcdInit?relay
+   \   000010                ; Setup parameters for call to function HalLcdInit
+   \   000010   12....       LCALL   ??HalLcdInit?relay
      87          #endif
      88          
      89            /* UART */
      90          #if (defined HAL_UART) && (HAL_UART == TRUE)
      91            HalUARTInit();
-   \   000016                ; Setup parameters for call to function HalUARTInit
-   \   000016   12....       LCALL   ??HalUARTInit?relay
+   \   000013                ; Setup parameters for call to function HalUARTInit
+   \   000013   12....       LCALL   ??HalUARTInit?relay
      92          #endif
      93          
      94            /* KEY */
      95          #if (defined HAL_KEY) && (HAL_KEY == TRUE)
      96            HalKeyInit();
-   \   000019                ; Setup parameters for call to function HalKeyInit
-   \   000019   12....       LCALL   ??HalKeyInit?relay
+   \   000016                ; Setup parameters for call to function HalKeyInit
+   \   000016   12....       LCALL   ??HalKeyInit?relay
      97          #endif
      98            
      99            /* SPI */
@@ -347,8 +345,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
     109            /* KEYPAD */
     110          #if (defined HAL_KEYPAD) && (HAL_KEYPAD == TRUE)
     111            halKeypadInit();
-   \   00001C                ; Setup parameters for call to function halKeypadInit
-   \   00001C   12....       LCALL   ??halKeypadInit?relay
+   \   000019                ; Setup parameters for call to function halKeypadInit
+   \   000019   12....       LCALL   ??halKeypadInit?relay
     112          #endif
     113            
     114            /* BUZZER */
@@ -366,12 +364,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
     126            /* LED */
     127          #if (defined HAL_LED) && (HAL_LED == TRUE)
     128            HalLedInit();
-   \   00001F                ; Setup parameters for call to function HalLedInit
-   \   00001F   12....       LCALL   ??HalLedInit?relay
+   \   00001C                ; Setup parameters for call to function HalLedInit
+   \   00001C   12....       LCALL   ??HalLedInit?relay
     129          #endif
     130            
     131          }
-   \   000022   80..         SJMP    ?Subroutine0
+   \   00001F   80..         SJMP    ?Subroutine0
     132          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -571,7 +569,6 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
      --------                 ------ ------ ------
      HalDriverInit                2      0      0
        -> HalAdcInit              4      0      0
-       -> M170_Init               4      0      0
        -> HalDmaInit              4      0      0
        -> HalFlashInit            4      0      0
        -> HalAesInit              4      0      0
@@ -599,7 +596,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
      Hal_TaskID                  1
      Hal_Init                    9
      ?Subroutine0                7
-     HalDriverInit              36
+     HalDriverInit              33
      Hal_ProcessEvent          104
      Hal_ProcessPoll            10
      ??Hal_Init?relay            6
@@ -608,11 +605,11 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\common\hal_drivers.c
      ??Hal_ProcessPoll?relay     6
 
  
- 166 bytes in segment BANKED_CODE
+ 163 bytes in segment BANKED_CODE
   24 bytes in segment BANK_RELAYS
    1 byte  in segment XDATA_Z
  
- 190 bytes of CODE  memory
+ 187 bytes of CODE  memory
    1 byte  of XDATA memory
 
 Errors: none

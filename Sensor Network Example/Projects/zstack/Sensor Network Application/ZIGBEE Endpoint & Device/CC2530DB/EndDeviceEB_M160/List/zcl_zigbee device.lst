@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  16:32:57 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  18:46:03 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -57,7 +57,7 @@
 #                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D            #
 #                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
 #                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
-#                          End_Device -D HAL_KEYPAD -D M170 -D xPA2591 -lC    #
+#                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC    #
 #                          "D:\GitHub\z-stack\Sensor Network                  #
 #                          Example\Projects\zstack\Sensor Network             #
 #                          Application\ZIGBEE Endpoint &                      #
@@ -846,8 +846,8 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     231            #endif
     232              zclZIGBEEDevice_SendMsg();
    \                     ??CrossCallReturnLabel_4:
-   \   0001D5                ; Setup parameters for call to function M170_SensorFunction
-   \   0001D5   12....       LCALL   ??M170_SensorFunction?relay
+   \   0001D5                ; Setup parameters for call to function M160_SensorFunction
+   \   0001D5   12....       LCALL   ??M160_SensorFunction?relay
     233              return ( events ^ SENSOR_SEND_MSG_EVT );
    \   0001D8   7402         MOV     A,#0x2
    \                     ??zclZigbeeDevice_event_loop_27:
@@ -902,8 +902,8 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine1:
-   \   000000   7C05         MOV     R4,#0x5
-   \   000002   7D00         MOV     R5,#0x0
+   \   000000   7C88         MOV     R4,#-0x78
+   \   000002   7D13         MOV     R5,#0x13
    \   000004   7A02         MOV     R2,#0x2
    \   000006                REQUIRE ??Subroutine4_0
    \   000006                ; // Fall through to label ??Subroutine4_0
@@ -1392,11 +1392,11 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     490            #endif
     491            #if defined(M160)
     492              M160_SensorFunction();
+   \   000004                ; Setup parameters for call to function M160_SensorFunction
+   \   000004   12....       LCALL   ??M160_SensorFunction?relay
     493            #endif
     494            #if defined(M170)
     495              M170_SensorFunction();
-   \   000004                ; Setup parameters for call to function M170_SensorFunction
-   \   000004   12....       LCALL   ??M170_SensorFunction?relay
     496            #endif
     497            #if defined(M190)
     498              M190_SensorFunction();
@@ -1492,7 +1492,7 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
        -> HalLcdWriteChar               0      0     64
        -> zcl_SendCommand               0      0     86
      zclZIGBEEDevice_SendMsg            2      0      0
-       -> M170_SensorFunction           4      0      0
+       -> M160_SensorFunction           4      0      0
      zclZigbeeDevice_BasicResetCB       0      0      0
      zclZigbeeDevice_IdentifyCB         2      0      0
        -> zclZigbeeDevice_ProcessIdentifyTimeChange
@@ -1522,7 +1522,7 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
        -> HalLedSet                     0      0     46
        -> osal_mem_free                 0      0     46
        -> osal_start_timerEx            0      0     46
-       -> M170_SensorFunction           0      0     46
+       -> M160_SensorFunction           0      0     46
        -> HalLcdWriteChar               0      0     46
        -> zclRS485_SendMsg              0      0     46
      zcl_ZigbeeDevice_Init              2      0      0

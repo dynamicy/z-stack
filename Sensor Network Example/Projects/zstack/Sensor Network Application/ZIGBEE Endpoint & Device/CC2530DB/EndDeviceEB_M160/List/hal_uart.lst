@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  16:32:50 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  18:45:56 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -53,7 +53,7 @@
 #                           -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D        #
 #                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
 #                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
-#                          End_Device -D HAL_KEYPAD -D M170 -D xPA2591 -lC    #
+#                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC    #
 #                          "D:\GitHub\z-stack\Sensor Network                  #
 #                          Example\Projects\zstack\Sensor Network             #
 #                          Application\ZIGBEE Endpoint &                      #
@@ -419,9 +419,9 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_uart
    \   00007C   02....       LJMP    ?Subroutine14 & 0xFFFF
    \   00007F                REQUIRE U0CSR
    \   00007F                REQUIRE U0UCR
-   \   00007F                REQUIRE P0SEL
-   \   00007F                REQUIRE ADCCFG
    \   00007F                REQUIRE PERCFG
+   \   00007F                REQUIRE ADCCFG
+   \   00007F                REQUIRE P0SEL
    \   00007F                REQUIRE P2DIR
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -514,49 +514,48 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_uart
    \   00006D   A3           INC     DPTR
    \   00006E   A3           INC     DPTR
    \   00006F   E0           MOVX    A,@DPTR
-   \   000070   6010         JZ      ??HalUARTOpenDMA_9
+   \   000070   600D         JZ      ??HalUARTOpenDMA_9
    \   000072   75C442       MOV     0xc4,#0x42
-   \   000075   75C402       MOV     0xc4,#0x2
-   \   000078   43F310       ORL     0xf3,#0x10
-   \   00007B   C285         CLR     0x80.5
-   \   00007D   43FD20       ORL     0xfd,#0x20
-   \   000080   8003         SJMP    ??HalUARTOpenDMA_10
+   \   000075   43F310       ORL     0xf3,#0x10
+   \   000078   C285         CLR     0x80.5
+   \   00007A   43FD20       ORL     0xfd,#0x20
+   \   00007D   8003         SJMP    ??HalUARTOpenDMA_10
    \                     ??HalUARTOpenDMA_9:
-   \   000082   75C402       MOV     0xc4,#0x2
+   \   00007F   75C402       MOV     0xc4,#0x2
    \                     ??HalUARTOpenDMA_10:
-   \   000085   9070C1       MOV     DPTR,#0x70c1
-   \   000088   E0           MOVX    A,@DPTR
-   \   000089   90....       MOV     DPTR,#dmaCfg
+   \   000082   9070C1       MOV     DPTR,#0x70c1
+   \   000085   E0           MOVX    A,@DPTR
+   \   000086   90....       MOV     DPTR,#dmaCfg
+   \   000089   F0           MOVX    @DPTR,A
+   \   00008A   A3           INC     DPTR
+   \   00008B   E4           CLR     A
    \   00008C   F0           MOVX    @DPTR,A
-   \   00008D   A3           INC     DPTR
-   \   00008E   E4           CLR     A
-   \   00008F   F0           MOVX    @DPTR,A
-   \   000090   53D1F7       ANL     0xd1,#0xf7
-   \   000093   75D608       MOV     0xd6,#0x8
-   \   000096                ; Setup parameters for call to function osal_memset
-   \   000096   FC           MOV     R4,A
-   \   000097   7D01         MOV     R5,#0x1
-   \   000099   74FF         MOV     A,#-0x1
-   \   00009B   65C2         XRL     A,0xc2
-   \   00009D   F9           MOV     R1,A
-   \   00009E   7A..         MOV     R2,#(dmaCfg & 0xff)
-   \   0000A0   7B..         MOV     R3,#((dmaCfg >> 8) & 0xff)
-   \   0000A2   12....       LCALL   ??osal_memset?relay
-   \   0000A5   438640       ORL     0x86,#0x40
-   \   0000A8   E4           CLR     A
-   \   0000A9   90....       MOV     DPTR,#(dmaCfg + 523)
-   \   0000AC   F0           MOVX    @DPTR,A
-   \   0000AD   90....       MOV     DPTR,#(dmaCfg + 522)
-   \   0000B0   02....       LJMP    ?Subroutine14 & 0xFFFF
-   \   0000B3                REQUIRE U0CSR
-   \   0000B3                REQUIRE _A_P0
-   \   0000B3                REQUIRE U0UCR
-   \   0000B3                REQUIRE U0GCR
-   \   0000B3                REQUIRE DMAIRQ
-   \   0000B3                REQUIRE U0BAUD
-   \   0000B3                REQUIRE DMAARM
-   \   0000B3                REQUIRE P0SEL
-   \   0000B3                REQUIRE P0DIR
+   \   00008D   53D1F7       ANL     0xd1,#0xf7
+   \   000090   75D608       MOV     0xd6,#0x8
+   \   000093                ; Setup parameters for call to function osal_memset
+   \   000093   FC           MOV     R4,A
+   \   000094   7D01         MOV     R5,#0x1
+   \   000096   74FF         MOV     A,#-0x1
+   \   000098   65C2         XRL     A,0xc2
+   \   00009A   F9           MOV     R1,A
+   \   00009B   7A..         MOV     R2,#(dmaCfg & 0xff)
+   \   00009D   7B..         MOV     R3,#((dmaCfg >> 8) & 0xff)
+   \   00009F   12....       LCALL   ??osal_memset?relay
+   \   0000A2   438640       ORL     0x86,#0x40
+   \   0000A5   E4           CLR     A
+   \   0000A6   90....       MOV     DPTR,#(dmaCfg + 523)
+   \   0000A9   F0           MOVX    @DPTR,A
+   \   0000AA   90....       MOV     DPTR,#(dmaCfg + 522)
+   \   0000AD   02....       LJMP    ?Subroutine14 & 0xFFFF
+   \   0000B0                REQUIRE _A_P0
+   \   0000B0                REQUIRE U0CSR
+   \   0000B0                REQUIRE DMAARM
+   \   0000B0                REQUIRE U0GCR
+   \   0000B0                REQUIRE U0UCR
+   \   0000B0                REQUIRE U0BAUD
+   \   0000B0                REQUIRE DMAIRQ
+   \   0000B0                REQUIRE P0SEL
+   \   0000B0                REQUIRE P0DIR
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \   static __banked_func __xdata_reentrant uint16 HalUARTReadDMA(unsigned char *, uint16)
@@ -1145,12 +1144,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_uart
    \                     ??HalUARTPollDMA_22:
    \   00018F   02....       LJMP    ?Subroutine15 & 0xFFFF
    \   000192                REQUIRE _A_P0
-   \   000192                REQUIRE ST0
    \   000192                REQUIRE _A_IEN0
-   \   000192                REQUIRE DMAIRQ
-   \   000192                REQUIRE U0BAUD
+   \   000192                REQUIRE ST0
    \   000192                REQUIRE DMAARM
    \   000192                REQUIRE DMAREQ
+   \   000192                REQUIRE U0BAUD
+   \   000192                REQUIRE DMAIRQ
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine1:
@@ -1841,7 +1840,7 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
      HalUARTInitDMA             127
      ?Subroutine14                1
      ??Subroutine18_0             7
-     HalUARTOpenDMA             179
+     HalUARTOpenDMA             176
      HalUARTReadDMA              87
      ?Subroutine15                5
      ?Subroutine5                21
@@ -1892,13 +1891,13 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
      ?<Constant "\r%s\n">         5
 
  
- 1 492 bytes in segment BANKED_CODE
+ 1 489 bytes in segment BANKED_CODE
     96 bytes in segment BANK_RELAYS
     15 bytes in segment SFR_AN
      5 bytes in segment XDATA_ROM_C
    526 bytes in segment XDATA_Z
  
- 1 588 bytes of CODE  memory
+ 1 585 bytes of CODE  memory
      5 bytes of CONST memory
      0 bytes of DATA  memory (+ 15 bytes shared)
    526 bytes of XDATA memory

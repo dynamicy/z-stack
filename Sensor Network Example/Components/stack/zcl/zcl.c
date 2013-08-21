@@ -20,6 +20,10 @@
   #include "hal_lcd.h"
 #endif
 
+#if defined(M160)
+  #include "hal_sensor.h"
+#endif 
+
 /* MT */
 #include "MT_UART.h"
 #include "MT.h"
@@ -1255,6 +1259,7 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
   
 #if defined(End_Device) || defined(Router_Device) // The End Device receive data
   byte receive[20];
+  byte temp_buf[20];  
   uint16 len;
 #endif  
 
@@ -1294,7 +1299,7 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
         entry[k]+=7;
     }
 
-    HalUARTWrite(MT_UART_DEFAULT_PORT, "3,", 2);//Cmd Type
+    HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
     HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
     HalUARTWrite(MT_UART_DEFAULT_PORT, entry, 4);//Device ID
     HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
@@ -1315,8 +1320,15 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       receive[len] = pkt->cmd.Data[len+3];
     }
     // Write receive coordinator command to UART, chrischris
-//    HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
-      
+    //HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
+    // a - k 97=>107
+    #if defined(M160)
+      if((int)receive[0] > 97 && (int)receive[0]< 107 ){
+        int var = (int)receive[0];
+        var = var + 3 - 100;
+        duty_M160 = var * 5;
+      }
+    #endif  
     return ;
   }
 #endif  

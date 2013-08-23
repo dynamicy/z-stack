@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  18:46:02 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                23/Aug/2013  21:45:12 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -53,8 +53,8 @@
 #                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D            #
 #                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
 #                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
-#                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC    #
-#                          "D:\GitHub\z-stack\Sensor Network                  #
+#                          End_Device -D HAL_KEYPAD -D xPA2591 -D MMN_UART    #
+#                          -lC "D:\GitHub\z-stack\Sensor Network              #
 #                          Example\Projects\zstack\Sensor Network             #
 #                          Application\ZIGBEE Endpoint &                      #
 #                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA        #
@@ -517,10 +517,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00001A   A3           INC     DPTR
    \   00001B   F0           MOVX    @DPTR,A
     248          }
-   \   00001C   02....       LJMP    ?Subroutine84 & 0xFFFF
+   \   00001C   02....       LJMP    ?Subroutine83 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine84:
+   \                     ?Subroutine83:
    \   000000   D083         POP     DPH
    \   000002   D082         POP     DPL
    \   000004   02....       LJMP    ?BRET
@@ -638,11 +638,11 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00005F   7A00         MOV     R2,#0x0
    \   000061   7B00         MOV     R3,#0x0
    \                     ??zcl_event_loop_7:
-   \   000063   02....       LJMP    ?Subroutine85 & 0xFFFF
+   \   000063   02....       LJMP    ?Subroutine84 & 0xFFFF
     287          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine85:
+   \                     ?Subroutine84:
    \   000000   7F04         MOV     R7,#0x4
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
     288          
@@ -676,7 +676,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     302          
     303            // Fill in the new profile list
     304            pNewItem = osal_mem_alloc( sizeof( zclLibPlugin_t ) );
-   \                     ??CrossCallReturnLabel_47:
+   \                     ??CrossCallReturnLabel_46:
    \   000015                ; Setup parameters for call to function osal_mem_alloc
    \   000015   7A08         MOV     R2,#0x8
    \   000017   7B00         MOV     R3,#0x0
@@ -758,7 +758,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     320              // Look for end of list
     321              pLoop = plugins;
    \   00006C   12....       LCALL   ?Subroutine70 & 0xFFFF
-   \                     ??CrossCallReturnLabel_209:
+   \                     ??CrossCallReturnLabel_202:
    \   00006F   8003         SJMP    ??zcl_registerPlugin_4
     322              while ( pLoop->next != NULL )
     323                pLoop = pLoop->next;
@@ -768,7 +768,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000073   EB           MOV     A,R3
    \                     ??zcl_registerPlugin_4:
    \   000074   12....       LCALL   ?Subroutine30 & 0xFFFF
-   \                     ??CrossCallReturnLabel_133:
+   \                     ??CrossCallReturnLabel_132:
    \   000077   7001         JNZ     ??zcl_registerPlugin_6
    \   000079   EB           MOV     A,R3
    \                     ??zcl_registerPlugin_6:
@@ -782,12 +782,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000080   12....       LCALL   ?Subroutine11 & 0xFFFF
     327            return ( ZSuccess );
    \                     ??CrossCallReturnLabel_14:
-   \   000083                REQUIRE ?Subroutine86
-   \   000083                ; // Fall through to label ?Subroutine86
+   \   000083                REQUIRE ?Subroutine85
+   \   000083                ; // Fall through to label ?Subroutine85
     328          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine86:
+   \                     ?Subroutine85:
    \   000000   7F06         MOV     R7,#0x6
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
 
@@ -796,13 +796,13 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000000   FD           MOV     R5,A
    \   000001   8C82         MOV     DPL,R4
    \   000003   8D83         MOV     DPH,R5
-   \   000005                REQUIRE ??Subroutine101_0
-   \   000005                ; // Fall through to label ??Subroutine101_0
+   \   000005                REQUIRE ??Subroutine99_0
+   \   000005                ; // Fall through to label ??Subroutine99_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine101_0:
+   \                     ??Subroutine99_0:
    \   000000   12....       LCALL   ?Subroutine66 & 0xFFFF
-   \                     ??CrossCallReturnLabel_206:
+   \                     ??CrossCallReturnLabel_199:
    \   000003   EA           MOV     A,R2
    \   000004   22           RET
 
@@ -818,25 +818,17 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine14:
-   \   000000   12....       LCALL   ?Subroutine79 & 0xFFFF
-   \                     ??CrossCallReturnLabel_104:
+   \   000000   12....       LCALL   ?Subroutine78 & 0xFFFF
+   \                     ??CrossCallReturnLabel_103:
    \   000003   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine79:
+   \                     ?Subroutine78:
    \   000000   F0           MOVX    @DPTR,A
    \   000001   8882         MOV     DPL,R0
    \   000003   8983         MOV     DPH,R1
    \   000005   A3           INC     DPTR
    \   000006   22           RET
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine70:
-   \   000000   E0           MOVX    A,@DPTR
-   \   000001   FC           MOV     R4,A
-   \   000002   A3           INC     DPTR
-   \   000003   E0           MOVX    A,@DPTR
-   \   000004   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine66:
@@ -846,6 +838,14 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000003   E0           MOVX    A,@DPTR
    \   000004   FB           MOV     R3,A
    \   000005   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine70:
+   \   000000   E0           MOVX    A,@DPTR
+   \   000001   FC           MOV     R4,A
+   \   000002   A3           INC     DPTR
+   \   000003   E0           MOVX    A,@DPTR
+   \   000004   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine35:
@@ -882,7 +882,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     345          
     346            pNewItem = osal_mem_alloc( sizeof( zclAttrRecsList ) ); // Fill in the new profile list
     347            if ( pNewItem == NULL )
-   \                     ??CrossCallReturnLabel_64:
+   \                     ??CrossCallReturnLabel_63:
    \   000008   7001         JNZ     ??zcl_registerAttrList_0
    \   00000A   E9           MOV     A,R1
    \                     ??zcl_registerAttrList_0:
@@ -915,7 +915,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     360            {
     361              pLoop = attrList; // Look for end of list
    \   000021   12....       LCALL   ?Subroutine70 & 0xFFFF
-   \                     ??CrossCallReturnLabel_210:
+   \                     ??CrossCallReturnLabel_203:
    \   000024   8003         SJMP    ??zcl_registerAttrList_4
     362              while ( pLoop->next != NULL )
     363                pLoop = pLoop->next;
@@ -925,7 +925,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000028   EB           MOV     A,R3
    \                     ??zcl_registerAttrList_4:
    \   000029   12....       LCALL   ?Subroutine30 & 0xFFFF
-   \                     ??CrossCallReturnLabel_134:
+   \                     ??CrossCallReturnLabel_133:
    \   00002C   7001         JNZ     ??zcl_registerAttrList_6
    \   00002E   EB           MOV     A,R3
    \                     ??zcl_registerAttrList_6:
@@ -939,7 +939,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000035   12....       LCALL   ?Subroutine11 & 0xFFFF
     367            return ( ZSuccess );
    \                     ??CrossCallReturnLabel_15:
-   \   000038   02....       LJMP    ?Subroutine85 & 0xFFFF
+   \   000038   02....       LJMP    ?Subroutine84 & 0xFFFF
     368          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -969,15 +969,15 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000004   E4           CLR     A
    \   000005   F0           MOVX    @DPTR,A
    \   000006   A3           INC     DPTR
-   \   000007   12....       LCALL   ?Subroutine79 & 0xFFFF
-   \                     ??CrossCallReturnLabel_102:
+   \   000007   12....       LCALL   ?Subroutine78 & 0xFFFF
+   \                     ??CrossCallReturnLabel_101:
    \   00000A   A3           INC     DPTR
    \   00000B   E5..         MOV     A,?V0 + 0
    \   00000D   12....       LCALL   ?Subroutine63 & 0xFFFF
-   \                     ??CrossCallReturnLabel_82:
+   \                     ??CrossCallReturnLabel_81:
    \   000010   E5..         MOV     A,?V0 + 1
    \   000012   12....       LCALL   ?Subroutine63 & 0xFFFF
-   \                     ??CrossCallReturnLabel_83:
+   \                     ??CrossCallReturnLabel_82:
    \   000015   A3           INC     DPTR
    \   000016   EE           MOV     A,R6
    \   000017   F0           MOVX    @DPTR,A
@@ -988,8 +988,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine63:
-   \   000000   12....       LCALL   ?Subroutine79 & 0xFFFF
-   \                     ??CrossCallReturnLabel_103:
+   \   000000   12....       LCALL   ?Subroutine78 & 0xFFFF
+   \                     ??CrossCallReturnLabel_102:
    \   000003   A3           INC     DPTR
    \   000004   A3           INC     DPTR
    \   000005   22           RET
@@ -1023,7 +1023,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     388            // Fill in the new profile list
     389            pNewItem = osal_mem_alloc( sizeof( zclClusterOptionList ) );
     390            if ( pNewItem == NULL )
-   \                     ??CrossCallReturnLabel_65:
+   \                     ??CrossCallReturnLabel_64:
    \   000008   7001         JNZ     ??zcl_registerClusterOptionList_0
    \   00000A   E9           MOV     A,R1
    \                     ??zcl_registerClusterOptionList_0:
@@ -1058,7 +1058,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     405              // Look for end of list
     406              pLoop = clusterOptionList;
    \   000021   12....       LCALL   ?Subroutine70 & 0xFFFF
-   \                     ??CrossCallReturnLabel_211:
+   \                     ??CrossCallReturnLabel_204:
    \   000024   8003         SJMP    ??zcl_registerClusterOptionList_4
     407              while ( pLoop->next != NULL )
     408                pLoop = pLoop->next;
@@ -1068,7 +1068,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000028   EB           MOV     A,R3
    \                     ??zcl_registerClusterOptionList_4:
    \   000029   12....       LCALL   ?Subroutine30 & 0xFFFF
-   \                     ??CrossCallReturnLabel_135:
+   \                     ??CrossCallReturnLabel_134:
    \   00002C   7001         JNZ     ??zcl_registerClusterOptionList_6
    \   00002E   EB           MOV     A,R3
    \                     ??zcl_registerClusterOptionList_6:
@@ -1084,7 +1084,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     413          
     414            return ( ZSuccess );
    \                     ??CrossCallReturnLabel_16:
-   \   000038   02....       LJMP    ?Subroutine85 & 0xFFFF
+   \   000038   02....       LJMP    ?Subroutine84 & 0xFFFF
     415          }
     416          
     417          /*********************************************************************
@@ -1112,7 +1112,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     426            
     427            return ( ZSuccess );
    \   00000C   7900         MOV     R1,#0x0
-   \   00000E   80..         SJMP    ?Subroutine84
+   \   00000E   80..         SJMP    ?Subroutine83
     428          }
     429          
     430          /*********************************************************************
@@ -1150,8 +1150,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \                     ??zcl_registerForMsg_0:
    \   000012   7900         MOV     R1,#0x0
    \                     ??zcl_registerForMsg_1:
-   \   000014                REQUIRE ?Subroutine84
-   \   000014                ; // Fall through to label ?Subroutine84
+   \   000014                REQUIRE ?Subroutine83
+   \   000014                ; // Fall through to label ?Subroutine83
     447          }
     448          
     449          /*********************************************************************
@@ -1252,11 +1252,11 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \                     ??zcl_DeviceOperational_2:
    \   00006E   7409         MOV     A,#0x9
    \   000070   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000073   02....       LJMP    ?Subroutine94 & 0xFFFF
+   \   000073   02....       LJMP    ?Subroutine93 & 0xFFFF
     482          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine94:
+   \                     ?Subroutine93:
    \   000000   7F02         MOV     R7,#0x2
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
     483          
@@ -1351,8 +1351,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000061   12....       LCALL   ?XSTACK_DISP0_8
    \   000064   AA82         MOV     R2,DPL
    \   000066   AB83         MOV     R3,DPH
-   \   000068   12....       LCALL   ?Subroutine88 & 0xFFFF
-   \                     ??CrossCallReturnLabel_116:
+   \   000068   12....       LCALL   ?Subroutine87 & 0xFFFF
+   \                     ??CrossCallReturnLabel_115:
    \   00006B   12....       LCALL   ?DEALLOC_XSTACK8
     516          
     517            epDesc = afFindEndPointDesc( srcEP );
@@ -1447,7 +1447,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   0000D3   85..82       MOV     DPL,?V0 + 10
    \   0000D6   85..83       MOV     DPH,?V0 + 11
    \   0000D9   12....       LCALL   ?Subroutine45 & 0xFFFF
-   \                     ??CrossCallReturnLabel_242:
+   \                     ??CrossCallReturnLabel_234:
    \   0000DC   8882         MOV     DPL,R0
    \   0000DE   8983         MOV     DPH,R1
    \   0000E0   E582         MOV     A,DPL
@@ -1597,7 +1597,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000196   7433         MOV     A,#0x33
    \   000198   12....       LCALL   ?XSTACK_DISP0_8
    \   00019B   12....       LCALL   ?Subroutine64 & 0xFFFF
-   \                     ??CrossCallReturnLabel_84:
+   \                     ??CrossCallReturnLabel_83:
    \   00019E   78..         MOV     R0,#?V0 + 4
    \   0001A0   12....       LCALL   ?PUSH_XSTACK_I_THREE
    \   0001A3                ; Setup parameters for call to function zclBuildHdr
@@ -1610,8 +1610,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   0001B0   12....       LCALL   ??zclBuildHdr?relay
    \   0001B3   AC..         MOV     R4,?V0 + 14
    \   0001B5   AD..         MOV     R5,?V0 + 15
-   \   0001B7   12....       LCALL   ?Subroutine88 & 0xFFFF
-   \                     ??CrossCallReturnLabel_117:
+   \   0001B7   12....       LCALL   ?Subroutine87 & 0xFFFF
+   \                     ??CrossCallReturnLabel_116:
    \   0001BA   12....       LCALL   ?DEALLOC_XSTACK8
     572          
     573              status = AF_DataRequest( &dstAddr, epDesc, clusterID, msgLen, msgBuf, 
@@ -1659,23 +1659,23 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000203   EE           MOV     A,R6
    \   000204   F9           MOV     R1,A
    \                     ??zcl_SendCommand_3:
-   \   000205                REQUIRE ?Subroutine100
-   \   000205                ; // Fall through to label ?Subroutine100
+   \   000205                REQUIRE ?Subroutine98
+   \   000205                ; // Fall through to label ?Subroutine98
     581          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine100:
+   \                     ?Subroutine98:
    \   000000   7412         MOV     A,#0x12
-   \   000002   80..         SJMP    ??Subroutine102_0
+   \   000002   80..         SJMP    ??Subroutine100_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine102_0:
+   \                     ??Subroutine100_0:
    \   000000   12....       LCALL   ?DEALLOC_XSTACK8
    \   000003   7F10         MOV     R7,#0x10
    \   000005   02....       LJMP    ?BANKED_LEAVE_XDATA
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine88:
+   \                     ?Subroutine87:
    \   000000   12....       LCALL   ??osal_memcpy?relay
    \   000003   7403         MOV     A,#0x3
    \   000005   22           RET
@@ -1693,17 +1693,17 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \                     ?Subroutine45:
    \   000000   A3           INC     DPTR
    \   000001   A3           INC     DPTR
-   \   000002                REQUIRE ??Subroutine126_0
-   \   000002                ; // Fall through to label ??Subroutine126_0
+   \   000002                REQUIRE ??Subroutine122_0
+   \   000002                ; // Fall through to label ??Subroutine122_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine126_0:
+   \                     ??Subroutine122_0:
    \   000000   A3           INC     DPTR
-   \   000001                REQUIRE ??Subroutine127_0
-   \   000001                ; // Fall through to label ??Subroutine127_0
+   \   000001                REQUIRE ??Subroutine123_0
+   \   000001                ; // Fall through to label ??Subroutine123_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine127_0:
+   \                     ??Subroutine123_0:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   F8           MOV     R0,A
    \   000002   A3           INC     DPTR
@@ -1744,7 +1744,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00000F   7416         MOV     A,#0x16
    \   000011   12....       LCALL   ?XSTACK_DISP0_8
    \   000014   12....       LCALL   ?Subroutine46 & 0xFFFF
-   \                     ??CrossCallReturnLabel_58:
+   \                     ??CrossCallReturnLabel_57:
    \   000017   12....       LCALL   ?XSTACK_DISP0_8
    \   00001A   E0           MOVX    A,@DPTR
    \   00001B   F5..         MOV     ?V0 + 9,A
@@ -1776,7 +1776,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00003F                ; Setup parameters for call to function osal_mem_alloc
    \   00003F   12....       LCALL   ?Subroutine53 & 0xFFFF
     607            if ( buf != NULL )
-   \                     ??CrossCallReturnLabel_70:
+   \                     ??CrossCallReturnLabel_69:
    \   000042   7001         JNZ     ??zcl_SendRead_0
    \   000044   EB           MOV     A,R3
    \                     ??zcl_SendRead_0:
@@ -1812,10 +1812,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000068   AB83         MOV     R3,DPH
    \   00006A   12....       LCALL   ?Subroutine38 & 0xFFFF
     615                *pBuf++ = HI_UINT16( readCmd->attrID[i] );
-   \                     ??CrossCallReturnLabel_129:
+   \                     ??CrossCallReturnLabel_128:
    \   00006D   12....       LCALL   ?Subroutine24 & 0xFFFF
     616              }
-   \                     ??CrossCallReturnLabel_138:
+   \                     ??CrossCallReturnLabel_137:
    \   000070   05..         INC     ?V0 + 10
    \                     ??zcl_SendRead_2:
    \   000072   85..82       MOV     DPL,?V0 + 4
@@ -1862,7 +1862,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   0000C4   FB           MOV     R3,A
    \   0000C5   A9..         MOV     R1,?V0 + 8
    \   0000C7   12....       LCALL   ?Subroutine74 & 0xFFFF
-   \                     ??CrossCallReturnLabel_94:
+   \                     ??CrossCallReturnLabel_93:
    \   0000CA   12....       LCALL   ?DEALLOC_XSTACK8
    \   0000CD   E9           MOV     A,R1
    \   0000CE   FE           MOV     R6,A
@@ -1880,19 +1880,19 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     623          
     624            return ( status );
    \                     ??zcl_SendRead_4:
-   \   0000DA                REQUIRE ?Subroutine96
-   \   0000DA                ; // Fall through to label ?Subroutine96
+   \   0000DA                REQUIRE ?Subroutine95
+   \   0000DA                ; // Fall through to label ?Subroutine95
     625          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine96:
+   \                     ?Subroutine95:
    \   000000   EE           MOV     A,R6
    \   000001   F9           MOV     R1,A
-   \   000002                REQUIRE ??Subroutine103_0
-   \   000002                ; // Fall through to label ??Subroutine103_0
+   \   000002                REQUIRE ??Subroutine101_0
+   \   000002                ; // Fall through to label ??Subroutine101_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine103_0:
+   \                     ??Subroutine101_0:
    \   000000   7F0E         MOV     R7,#0xe
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
 
@@ -1901,11 +1901,11 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000000   8A82         MOV     DPL,R2
    \   000002   8B83         MOV     DPH,R3
    \   000004   A3           INC     DPTR
-   \   000005                REQUIRE ??Subroutine104_0
-   \   000005                ; // Fall through to label ??Subroutine104_0
+   \   000005                REQUIRE ??Subroutine102_0
+   \   000005                ; // Fall through to label ??Subroutine102_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine104_0:
+   \                     ??Subroutine102_0:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   8882         MOV     DPL,R0
    \   000003   8983         MOV     DPH,R1
@@ -1916,7 +1916,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00000A   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine91:
+   \                     ?Subroutine90:
    \   000000   A882         MOV     R0,DPL
    \   000002   A983         MOV     R1,DPH
    \   000004   22           RET
@@ -1939,7 +1939,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine46:
    \   000000   12....       LCALL   ?Subroutine64 & 0xFFFF
-   \                     ??CrossCallReturnLabel_87:
+   \                     ??CrossCallReturnLabel_86:
    \   000003   7418         MOV     A,#0x18
    \   000005   22           RET
 
@@ -1950,7 +1950,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000003   8983         MOV     DPH,R1
    \   000005   F0           MOVX    @DPTR,A
    \   000006   A3           INC     DPTR
-   \   000007   02....       LJMP    ?Subroutine91 & 0xFFFF
+   \   000007   02....       LJMP    ?Subroutine90 & 0xFFFF
     626          
     627          /*********************************************************************
     628           * @fn      zcl_SendReadRsp
@@ -1965,12 +1965,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     637           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine95:
+   \                     ?Subroutine94:
    \   000000   EE           MOV     A,R6
    \   000001   F9           MOV     R1,A
    \   000002   7404         MOV     A,#0x4
-   \   000004                REQUIRE ??Subroutine102_0
-   \   000004                ; // Fall through to label ??Subroutine102_0
+   \   000004                REQUIRE ??Subroutine100_0
+   \   000004                ; // Fall through to label ??Subroutine100_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
     638          ZStatus_t zcl_SendReadRsp( uint8 srcEP, afAddrType_t *dstAddr,
@@ -1990,7 +1990,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \                     ??CrossCallReturnLabel_4:
    \   000012   12....       LCALL   ?XSTACK_DISP0_8
    \   000015   12....       LCALL   ?Subroutine47 & 0xFFFF
-   \                     ??CrossCallReturnLabel_60:
+   \                     ??CrossCallReturnLabel_59:
    \   000018   12....       LCALL   ?XSTACK_DISP0_8
    \   00001B   E0           MOVX    A,@DPTR
    \   00001C   F5..         MOV     ?V0 + 10,A
@@ -2022,7 +2022,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000039   12....       LCALL   ?Subroutine60 & 0xFFFF
     653              
     654              len += 2 + 1; // Attribute ID + Status
-   \                     ??CrossCallReturnLabel_78:
+   \                     ??CrossCallReturnLabel_77:
    \   00003C   0E           INC     R6
    \   00003D   0E           INC     R6
    \   00003E   0E           INC     R6
@@ -2042,10 +2042,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000049   12....       LCALL   ?Subroutine28 & 0xFFFF
     660              }
     661            }
-   \                     ??CrossCallReturnLabel_141:
+   \                     ??CrossCallReturnLabel_140:
    \   00004C   A3           INC     DPTR
    \   00004D   12....       LCALL   ?Subroutine69 & 0xFFFF
-   \                     ??CrossCallReturnLabel_156:
+   \                     ??CrossCallReturnLabel_149:
    \   000050   04           INC     A
    \   000051   2E           ADD     A,R6
    \   000052   FE           MOV     R6,A
@@ -2053,13 +2053,13 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000053   05..         INC     ?V0 + 5
    \                     ??zcl_SendReadRsp_0:
    \   000055   12....       LCALL   ?Subroutine32 & 0xFFFF
-   \                     ??CrossCallReturnLabel_39:
+   \                     ??CrossCallReturnLabel_38:
    \   000058   40DA         JC      ??zcl_SendReadRsp_1
     662          
     663            buf = osal_mem_alloc( len );
    \   00005A   12....       LCALL   ?Subroutine54 & 0xFFFF
     664            if ( buf != NULL )
-   \                     ??CrossCallReturnLabel_72:
+   \                     ??CrossCallReturnLabel_71:
    \   00005D   7001         JNZ     ??zcl_SendReadRsp_3
    \   00005F   EB           MOV     A,R3
    \                     ??zcl_SendReadRsp_3:
@@ -2090,14 +2090,14 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00007A   FB           MOV     R3,A
    \   00007B   8A82         MOV     DPL,R2
    \   00007D   8B83         MOV     DPH,R3
-   \   00007F   12....       LCALL   ?Subroutine81 & 0xFFFF
+   \   00007F   12....       LCALL   ?Subroutine80 & 0xFFFF
     675          
     676                if ( statusRec->status == ZCL_STATUS_SUCCESS )
-   \                     ??CrossCallReturnLabel_105:
+   \                     ??CrossCallReturnLabel_104:
    \   000082   8A82         MOV     DPL,R2
    \   000084   8B83         MOV     DPH,R3
    \   000086   E0           MOVX    A,@DPTR
-   \   000087   700B         JNZ     ??CrossCallReturnLabel_125
+   \   000087   700B         JNZ     ??CrossCallReturnLabel_124
     677                {
     678                  *pBuf++ = statusRec->dataType;
    \   000089   E8           MOV     A,R0
@@ -2109,14 +2109,14 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     682                  pBuf += zclGetAttrDataLength( statusRec->dataType, statusRec->data );
     683                }
     684              } // for loop
-   \                     ??CrossCallReturnLabel_54:
+   \                     ??CrossCallReturnLabel_53:
    \   00008F   2404         ADD     A,#0x4
    \   000091   12....       LCALL   ?Subroutine19 & 0xFFFF
-   \                     ??CrossCallReturnLabel_125:
+   \                     ??CrossCallReturnLabel_124:
    \   000094   05..         INC     ?V0 + 5
    \                     ??zcl_SendReadRsp_5:
    \   000096   12....       LCALL   ?Subroutine32 & 0xFFFF
-   \                     ??CrossCallReturnLabel_40:
+   \                     ??CrossCallReturnLabel_39:
    \   000099   40D3         JC      ??zcl_SendReadRsp_6
     685          
     686              status = zcl_SendCommand( srcEP, dstAddr, clusterID, ZCL_CMD_READ_RSP, FALSE, 
@@ -2149,12 +2149,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   0000D5   12....       LCALL   ?PUSH_XSTACK_I_ONE
    \   0000D8   740B         MOV     A,#0xb
    \   0000DA   12....       LCALL   ?XSTACK_DISP0_8
-   \   0000DD   12....       LCALL   ?Subroutine26 & 0xFFFF
+   \   0000DD   12....       LCALL   ?Subroutine27 & 0xFFFF
    \                     ??CrossCallReturnLabel_30:
    \   0000E0   740D         MOV     A,#0xd
    \   0000E2   12....       LCALL   ?XSTACK_DISP0_8
    \   0000E5   12....       LCALL   ?Subroutine33 & 0xFFFF
-   \                     ??CrossCallReturnLabel_43:
+   \                     ??CrossCallReturnLabel_42:
    \   0000E8   12....       LCALL   ?DEALLOC_XSTACK8
    \   0000EB   E9           MOV     A,R1
    \   0000EC   FE           MOV     R6,A
@@ -2172,7 +2172,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     692          
     693            return ( status );
    \                     ??zcl_SendReadRsp_7:
-   \   0000F8   02....       LJMP    ?Subroutine95 & 0xFFFF
+   \   0000F8   02....       LJMP    ?Subroutine94 & 0xFFFF
     694          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -2181,11 +2181,11 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000001   A3           INC     DPTR
    \   000002   A3           INC     DPTR
    \   000003   E0           MOVX    A,@DPTR
-   \   000004                REQUIRE ??Subroutine105_0
-   \   000004                ; // Fall through to label ??Subroutine105_0
+   \   000004                REQUIRE ??Subroutine103_0
+   \   000004                ; // Fall through to label ??Subroutine103_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine105_0:
+   \                     ??Subroutine103_0:
    \   000000   FA           MOV     R2,A
    \   000001   A3           INC     DPTR
    \   000002   E0           MOVX    A,@DPTR
@@ -2206,19 +2206,19 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine60:
-   \   000000   12....       LCALL   ?Subroutine76 & 0xFFFF
-   \                     ??CrossCallReturnLabel_132:
+   \   000000   12....       LCALL   ?Subroutine75 & 0xFFFF
+   \                     ??CrossCallReturnLabel_131:
    \   000003   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine76:
+   \                     ?Subroutine75:
    \   000000   A4           MUL     AB
    \   000001   F8           MOV     R0,A
    \   000002   A9F0         MOV     R1,B
-   \   000004   12....       LCALL   ?Subroutine82 & 0xFFFF
-   \                     ??CrossCallReturnLabel_108:
-   \   000007                REQUIRE ?Subroutine91
-   \   000007                ; // Fall through to label ?Subroutine91
+   \   000004   12....       LCALL   ?Subroutine81 & 0xFFFF
+   \                     ??CrossCallReturnLabel_107:
+   \   000007                REQUIRE ?Subroutine90
+   \   000007                ; // Fall through to label ?Subroutine90
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine54:
@@ -2254,18 +2254,18 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000007   85..82       MOV     DPL,?V0 + 12
    \   00000A   F583         MOV     DPH,A
    \   00000C   12....       LCALL   ?Subroutine68 & 0xFFFF
-   \                     ??CrossCallReturnLabel_90:
+   \                     ??CrossCallReturnLabel_89:
    \   00000F   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine68:
-   \   000000   12....       LCALL   ?Subroutine81 & 0xFFFF
-   \                     ??CrossCallReturnLabel_106:
+   \   000000   12....       LCALL   ?Subroutine80 & 0xFFFF
+   \                     ??CrossCallReturnLabel_105:
    \   000003   E8           MOV     A,R0
    \   000004   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine81:
+   \                     ?Subroutine80:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   8E82         MOV     DPL,R6
    \   000003   8F83         MOV     DPH,R7
@@ -2278,10 +2278,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine33:
    \   000000   12....       LCALL   ?Subroutine66 & 0xFFFF
-   \                     ??CrossCallReturnLabel_204:
+   \                     ??CrossCallReturnLabel_197:
    \   000003   A9..         MOV     R1,?V0 + 4
    \   000005   12....       LCALL   ?Subroutine74 & 0xFFFF
-   \                     ??CrossCallReturnLabel_95:
+   \                     ??CrossCallReturnLabel_94:
    \   000008   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -2308,23 +2308,23 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000009   EF           MOV     A,R7
    \   00000A   FD           MOV     R5,A
    \   00000B   12....       LCALL   ?Subroutine65 & 0xFFFF
-   \                     ??CrossCallReturnLabel_88:
+   \                     ??CrossCallReturnLabel_87:
    \   00000E   12....       LCALL   ??zclSerializeData?relay
    \   000011                ; Setup parameters for call to function zclGetAttrDataLength
    \   000011                ; Setup parameters for call to function zclGetAttrDataLength
    \   000011   12....       LCALL   ?Subroutine65 & 0xFFFF
-   \                     ??CrossCallReturnLabel_89:
+   \                     ??CrossCallReturnLabel_88:
    \   000014   12....       LCALL   ??zclGetAttrDataLength?relay
    \   000017   E9           MOV     A,R1
    \   000018   F8           MOV     R0,A
    \   000019   EE           MOV     A,R6
    \   00001A   28           ADD     A,R0
    \   00001B   FE           MOV     R6,A
-   \   00001C                REQUIRE ?Subroutine90
-   \   00001C                ; // Fall through to label ?Subroutine90
+   \   00001C                REQUIRE ?Subroutine89
+   \   00001C                ; // Fall through to label ?Subroutine89
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine90:
+   \                     ?Subroutine89:
    \   000000   EF           MOV     A,R7
    \   000001   3400         ADDC    A,#0x0
    \   000003   FF           MOV     R7,A
@@ -2365,8 +2365,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine1:
-   \   000000   12....       LCALL   ?Subroutine76 & 0xFFFF
-   \                     ??CrossCallReturnLabel_131:
+   \   000000   12....       LCALL   ?Subroutine75 & 0xFFFF
+   \                     ??CrossCallReturnLabel_130:
    \   000003   E0           MOVX    A,@DPTR
    \   000004   8E82         MOV     DPL,R6
    \   000006   8F83         MOV     DPH,R7
@@ -2378,19 +2378,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000010   8983         MOV     DPH,R1
    \   000012   A3           INC     DPTR
    \   000013   12....       LCALL   ?Subroutine68 & 0xFFFF
-   \                     ??CrossCallReturnLabel_91:
+   \                     ??CrossCallReturnLabel_90:
    \   000016   2402         ADD     A,#0x2
    \   000018   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine26:
-   \   000000   12....       LCALL   ?Subroutine70 & 0xFFFF
-   \                     ??CrossCallReturnLabel_214:
-   \   000003   FD           MOV     R5,A
-   \   000004   22           RET
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine82:
+   \                     ?Subroutine81:
    \   000000   E5..         MOV     A,?V0 + 2
    \   000002   28           ADD     A,R0
    \   000003   F582         MOV     DPL,A
@@ -2399,6 +2392,13 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000008   F583         MOV     DPH,A
    \   00000A   A3           INC     DPTR
    \   00000B   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine27:
+   \   000000   12....       LCALL   ?Subroutine70 & 0xFFFF
+   \                     ??CrossCallReturnLabel_207:
+   \   000003   FD           MOV     R5,A
+   \   000004   22           RET
     695          #endif // ZCL_READ
     696          
     697          #ifdef ZCL_WRITE
@@ -2432,7 +2432,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \                     ??CrossCallReturnLabel_5:
    \   000012   12....       LCALL   ?XSTACK_DISP0_8
    \   000015   12....       LCALL   ?Subroutine47 & 0xFFFF
-   \                     ??CrossCallReturnLabel_61:
+   \                     ??CrossCallReturnLabel_60:
    \   000018   12....       LCALL   ?XSTACK_DISP0_8
    \   00001B   E0           MOVX    A,@DPTR
    \   00001C   F5..         MOV     ?V0 + 11,A
@@ -2469,26 +2469,26 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     724              
     725              attrDataLen = zclGetAttrDataLength( statusRec->dataType, statusRec->attrData );
     726              dataLen += 2 + 1 + attrDataLen; // Attribute ID + Attribute Type + Attribute Data
-   \                     ??CrossCallReturnLabel_79:
+   \                     ??CrossCallReturnLabel_78:
    \   000044                ; Setup parameters for call to function zclGetAttrDataLength
    \   000044   12....       LCALL   ?Subroutine28 & 0xFFFF
     727            }
-   \                     ??CrossCallReturnLabel_142:
+   \                     ??CrossCallReturnLabel_141:
    \   000047   12....       LCALL   ?Subroutine69 & 0xFFFF
-   \                     ??CrossCallReturnLabel_157:
+   \                     ??CrossCallReturnLabel_150:
    \   00004A   2403         ADD     A,#0x3
    \   00004C   2E           ADD     A,R6
    \   00004D   FE           MOV     R6,A
    \   00004E   05..         INC     ?V0 + 5
    \                     ??zcl_SendWriteRequest_0:
    \   000050   12....       LCALL   ?Subroutine32 & 0xFFFF
-   \                     ??CrossCallReturnLabel_41:
+   \                     ??CrossCallReturnLabel_40:
    \   000053   40E7         JC      ??zcl_SendWriteRequest_1
     728          
     729            buf = osal_mem_alloc( dataLen );
    \   000055   12....       LCALL   ?Subroutine54 & 0xFFFF
     730            if ( buf != NULL )
-   \                     ??CrossCallReturnLabel_73:
+   \                     ??CrossCallReturnLabel_72:
    \   000058   7001         JNZ     ??zcl_SendWriteRequest_2
    \   00005A   EB           MOV     A,R3
    \                     ??zcl_SendWriteRequest_2:
@@ -2519,14 +2519,14 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     746              }
    \                     ??CrossCallReturnLabel_3:
    \   00006E   12....       LCALL   ?Subroutine39 & 0xFFFF
-   \                     ??CrossCallReturnLabel_55:
+   \                     ??CrossCallReturnLabel_54:
    \   000071   2403         ADD     A,#0x3
    \   000073   12....       LCALL   ?Subroutine19 & 0xFFFF
-   \                     ??CrossCallReturnLabel_126:
+   \                     ??CrossCallReturnLabel_125:
    \   000076   05..         INC     ?V0 + 5
    \                     ??zcl_SendWriteRequest_4:
    \   000078   12....       LCALL   ?Subroutine32 & 0xFFFF
-   \                     ??CrossCallReturnLabel_42:
+   \                     ??CrossCallReturnLabel_41:
    \   00007B   40E9         JC      ??zcl_SendWriteRequest_5
     747          
     748              status = zcl_SendCommand( srcEP, dstAddr, clusterID, cmd, FALSE, 
@@ -2560,12 +2560,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   0000B8   12....       LCALL   ?PUSH_XSTACK_I_ONE
    \   0000BB   740B         MOV     A,#0xb
    \   0000BD   12....       LCALL   ?XSTACK_DISP0_8
-   \   0000C0   12....       LCALL   ?Subroutine26 & 0xFFFF
+   \   0000C0   12....       LCALL   ?Subroutine27 & 0xFFFF
    \                     ??CrossCallReturnLabel_31:
    \   0000C3   740D         MOV     A,#0xd
    \   0000C5   12....       LCALL   ?XSTACK_DISP0_8
    \   0000C8   12....       LCALL   ?Subroutine33 & 0xFFFF
-   \                     ??CrossCallReturnLabel_44:
+   \                     ??CrossCallReturnLabel_43:
    \   0000CB   12....       LCALL   ?DEALLOC_XSTACK8
    \   0000CE   E9           MOV     A,R1
    \   0000CF   FE           MOV     R6,A
@@ -2583,7 +2583,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     754          
     755            return ( status);
    \                     ??zcl_SendWriteRequest_6:
-   \   0000DB   02....       LJMP    ?Subroutine95 & 0xFFFF
+   \   0000DB   02....       LJMP    ?Subroutine94 & 0xFFFF
     756          }
     757          
 
@@ -2607,7 +2607,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00000F   7416         MOV     A,#0x16
    \   000011   12....       LCALL   ?XSTACK_DISP0_8
    \   000014   12....       LCALL   ?Subroutine46 & 0xFFFF
-   \                     ??CrossCallReturnLabel_59:
+   \                     ??CrossCallReturnLabel_58:
    \   000017   12....       LCALL   ?XSTACK_DISP0_8
    \   00001A   E0           MOVX    A,@DPTR
    \   00001B   F5..         MOV     ?V0 + 7,A
@@ -2638,7 +2638,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00003A   FA           MOV     R2,A
    \   00003B   12....       LCALL   ?Subroutine53 & 0xFFFF
     771            if ( buf != NULL )
-   \                     ??CrossCallReturnLabel_71:
+   \                     ??CrossCallReturnLabel_70:
    \   00003E   7001         JNZ     ??zcl_SendWriteRsp_0
    \   000040   EB           MOV     A,R3
    \                     ??zcl_SendWriteRsp_0:
@@ -2671,7 +2671,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000064   A3           INC     DPTR
    \   000065   12....       LCALL   ?Subroutine38 & 0xFFFF
     778                *pBuf++ = LO_UINT16( writeRspCmd->attrList[i].attrID );
-   \                     ??CrossCallReturnLabel_130:
+   \                     ??CrossCallReturnLabel_129:
    \   000068   EA           MOV     A,R2
    \   000069   2402         ADD     A,#0x2
    \   00006B   0A           INC     R2
@@ -2681,12 +2681,12 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   000070   FB           MOV     R3,A
    \   000071   8A82         MOV     DPL,R2
    \   000073   8B83         MOV     DPH,R3
-   \   000075   12....       LCALL   ??Subroutine104_0 & 0xFFFF
+   \   000075   12....       LCALL   ??Subroutine102_0 & 0xFFFF
     779                *pBuf++ = HI_UINT16( writeRspCmd->attrList[i].attrID );
-   \                     ??CrossCallReturnLabel_137:
+   \                     ??CrossCallReturnLabel_136:
    \   000078   12....       LCALL   ?Subroutine24 & 0xFFFF
     780              }
-   \                     ??CrossCallReturnLabel_139:
+   \                     ??CrossCallReturnLabel_138:
    \   00007B   05..         INC     ?V0 + 8
    \                     ??zcl_SendWriteRsp_2:
    \   00007D   85..82       MOV     DPL,?V0 + 4
@@ -2749,7 +2749,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   0000E1   FB           MOV     R3,A
    \   0000E2   A9..         MOV     R1,?V0 + 6
    \   0000E4   12....       LCALL   ?Subroutine74 & 0xFFFF
-   \                     ??CrossCallReturnLabel_96:
+   \                     ??CrossCallReturnLabel_95:
    \   0000E7   12....       LCALL   ?DEALLOC_XSTACK8
    \   0000EA   E9           MOV     A,R1
    \   0000EB   FE           MOV     R6,A
@@ -2767,7 +2767,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
     793          
     794            return ( status );
    \                     ??zcl_SendWriteRsp_5:
-   \   0000F7   02....       LJMP    ?Subroutine96 & 0xFFFF
+   \   0000F7   02....       LJMP    ?Subroutine95 & 0xFFFF
     795          }
     796          #endif // ZCL_WRITE
     797          
@@ -3143,8 +3143,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00000B   FE           MOV     R6,A
    \   00000C   7410         MOV     A,#0x10
    \   00000E   12....       LCALL   ?XSTACK_DISP0_8
-   \   000011   12....       LCALL   ??Subroutine127_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_238:
+   \   000011   12....       LCALL   ??Subroutine123_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_230:
    \   000014   7412         MOV     A,#0x12
    \   000016   12....       LCALL   ?XSTACK_DISP0_8
    \   000019   E0           MOVX    A,@DPTR
@@ -3219,11 +3219,11 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    \   00009B   EE           MOV     A,R6
    \   00009C   F9           MOV     R1,A
    \   00009D   12....       LCALL   ?Subroutine74 & 0xFFFF
-   \                     ??CrossCallReturnLabel_97:
+   \                     ??CrossCallReturnLabel_96:
    \   0000A0   12....       LCALL   ?DEALLOC_XSTACK8
    \   0000A3   7402         MOV     A,#0x2
    \   0000A5   12....       LCALL   ?DEALLOC_XSTACK8
-   \   0000A8   02....       LJMP    ?Subroutine86 & 0xFFFF
+   \   0000A8   02....       LJMP    ?Subroutine85 & 0xFFFF
    1165          }
    1166          
    1167          #ifdef ZCL_DISCOVER
@@ -3317,12 +3317,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    1253          void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
    \                     zclProcessMessageMSG:
    1254          {
-   \   000000   74F7         MOV     A,#-0x9
-   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
-   \   000005                ; Saved register size: 9
-   \   000005                ; Auto size: 20
-   \   000005   74EC         MOV     A,#-0x14
-   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
    1255          #if defined(Coor_receiver) // The coordinator receive data
    1256            byte recv_data[30];  
    1257            uint16 len;
@@ -3330,6 +3326,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\zcl\zcl.c
    1259            
    1260          #if defined(End_Device) || defined(Router_Device) // The End Device receive data
    1261            byte receive[20];
+                        ^
+Warning[Pe550]: variable "receive" was set but never used
    1262            byte temp_buf[20];  
                         ^
 Warning[Pe177]: variable "temp_buf" was declared but never referenced
@@ -3346,17 +3344,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    1273            ZStatus_t status = ZFailure;
    1274          
    1275            if ( pkt->cmd.DataLength == 0 ) return;   // Error, ignore the message
-   \   00000A   EA           MOV     A,R2
-   \   00000B   241F         ADD     A,#0x1f
-   \   00000D   12....       LCALL   ?Subroutine75 & 0xFFFF
-   \                     ??CrossCallReturnLabel_234:
-   \   000010   12....       LCALL   ?Subroutine26 & 0xFFFF
-   \                     ??CrossCallReturnLabel_32:
-   \   000013   EC           MOV     A,R4
-   \   000014   7001         JNZ     ??zclProcessMessageMSG_0
-   \   000016   ED           MOV     A,R5
-   \                     ??zclProcessMessageMSG_0:
-   \   000017   6058         JZ      ??zclProcessMessageMSG_1
+   \   000000   02....       LJMP    ?BRET
    1276          
    1277          #if defined(Coor_receiver)
    1278            if (pkt->cmd.DataLength > 0)
@@ -3400,83 +3388,21 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    1316            if(pkt->cmd.DataLength > 0)
    1317            {
    1318              for(len = 0; len < pkt->cmd.DataLength; len++)
-   \   000019   7800         MOV     R0,#0x0
-   \   00001B   7900         MOV     R1,#0x0
    1319              {
    1320                receive[len] = pkt->cmd.Data[len+3];
-   \                     ??zclProcessMessageMSG_2:
-   \   00001D   EA           MOV     A,R2
-   \   00001E   2421         ADD     A,#0x21
-   \   000020   12....       LCALL   ??Subroutine106_0 & 0xFFFF
    1321              }
-   \                     ??CrossCallReturnLabel_145:
-   \   000023   28           ADD     A,R0
-   \   000024   FE           MOV     R6,A
-   \   000025   A3           INC     DPTR
-   \   000026   E0           MOVX    A,@DPTR
-   \   000027   39           ADDC    A,R1
-   \   000028   8E82         MOV     DPL,R6
-   \   00002A   F583         MOV     DPH,A
-   \   00002C   A3           INC     DPTR
-   \   00002D   A3           INC     DPTR
-   \   00002E   A3           INC     DPTR
-   \   00002F   E0           MOVX    A,@DPTR
-   \   000030   C0E0         PUSH    A
-   \   000032   85..82       MOV     DPL,?XSP + 0
-   \   000035   85..83       MOV     DPH,?XSP + 1
-   \   000038   E582         MOV     A,DPL
-   \   00003A   28           ADD     A,R0
-   \   00003B   F582         MOV     DPL,A
-   \   00003D   E583         MOV     A,DPH
-   \   00003F   39           ADDC    A,R1
-   \   000040   F583         MOV     DPH,A
-   \   000042   D0E0         POP     A
-   \   000044   F0           MOVX    @DPTR,A
-   \   000045   E8           MOV     A,R0
-   \   000046   2401         ADD     A,#0x1
-   \   000048   08           INC     R0
-   \   000049   E9           MOV     A,R1
-   \   00004A   3400         ADDC    A,#0x0
-   \   00004C   F9           MOV     R1,A
-   \   00004D   C3           CLR     C
-   \   00004E   E8           MOV     A,R0
-   \   00004F   9C           SUBB    A,R4
-   \   000050   E9           MOV     A,R1
-   \   000051   9D           SUBB    A,R5
-   \   000052   40C9         JC      ??zclProcessMessageMSG_2
    1322              // Write receive coordinator command to UART, chrischris
    1323              //HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
    1324              // a - k 97=>107
    1325              #if defined(M160)
    1326                if((int)receive[0] > 97 && (int)receive[0]< 107 ){
-   \   000054   85..82       MOV     DPL,?XSP + 0
-   \   000057   85..83       MOV     DPH,?XSP + 1
-   \   00005A   E0           MOVX    A,@DPTR
-   \   00005B   C3           CLR     C
-   \   00005C   9462         SUBB    A,#0x62
-   \   00005E   4011         JC      ??zclProcessMessageMSG_1
-   \   000060   E0           MOVX    A,@DPTR
-   \   000061   C3           CLR     C
-   \   000062   946B         SUBB    A,#0x6b
-   \   000064   500B         JNC     ??zclProcessMessageMSG_1
    1327                  int var = (int)receive[0];
    1328                  var = var + 3 - 100;
    1329                  duty_M160 = var * 5;
-   \   000066   75F005       MOV     B,#0x5
-   \   000069   E0           MOVX    A,@DPTR
-   \   00006A   249F         ADD     A,#-0x61
-   \   00006C   A4           MUL     AB
-   \   00006D   90....       MOV     DPTR,#duty_M160
-   \   000070   F0           MOVX    @DPTR,A
-   \                     ??zclProcessMessageMSG_1:
-   \   000071   7414         MOV     A,#0x14
-   \   000073   12....       LCALL   ?DEALLOC_XSTACK8
    1330                }
    1331              #endif  
    1332              return ;
    1333            }
-   \   000076                REQUIRE ?Subroutine97
-   \   000076                ; // Fall through to label ?Subroutine97
    1334          #endif  
    1335            
    1336            // Initialize
@@ -3634,38 +3560,6 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    1488                                     inMsg.hdr.manuCode, inMsg.hdr.transSeqNum );
    1489            }
    1490          }
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine97:
-   \   000000   7F01         MOV     R7,#0x1
-   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine106_0:
-   \   000000   F582         MOV     DPL,A
-   \   000002   EB           MOV     A,R3
-   \   000003                REQUIRE ??Subroutine107_0
-   \   000003                ; // Fall through to label ??Subroutine107_0
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine107_0:
-   \   000000   12....       LCALL   ??Subroutine125_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_236:
-   \   000003   E0           MOVX    A,@DPTR
-   \   000004   22           RET
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine75:
-   \   000000   F582         MOV     DPL,A
-   \   000002   EB           MOV     A,R3
-   \   000003                REQUIRE ??Subroutine125_0
-   \   000003                ; // Fall through to label ??Subroutine125_0
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine125_0:
-   \   000000   3400         ADDC    A,#0x0
-   \   000002   F583         MOV     DPH,A
-   \   000004   22           RET
    1491          
    1492          /*********************************************************************
    1493           * @fn      zclParseHdr
@@ -3703,8 +3597,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000019   85..83       MOV     DPH,?V0 + 1
    \   00001C   E0           MOVX    A,@DPTR
    \   00001D   54FC         ANL     A,#0xfc
-   \   00001F   12....       LCALL   ??Subroutine117_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_184:
+   \   00001F   12....       LCALL   ??Subroutine113_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_177:
    \   000022   E0           MOVX    A,@DPTR
    \   000023   FA           MOV     R2,A
    \   000024   7403         MOV     A,#0x3
@@ -3713,9 +3607,9 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000028   F8           MOV     R0,A
    \   000029   85..82       MOV     DPL,?V0 + 0
    \   00002C   85..83       MOV     DPH,?V0 + 1
-   \   00002F   12....       LCALL   ??Subroutine122_0 & 0xFFFF
+   \   00002F   12....       LCALL   ??Subroutine118_0 & 0xFFFF
    1506            hdr->fc.manuSpecific = zcl_FCManuSpecific( *pData ) ? 1 : 0;
-   \                     ??CrossCallReturnLabel_216:
+   \                     ??CrossCallReturnLabel_209:
    \   000032   74FB         MOV     A,#-0x5
    \   000034   58           ANL     A,R0
    \   000035   FA           MOV     R2,A
@@ -3787,12 +3681,12 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00009E   F0           MOVX    @DPTR,A
    \   00009F   A3           INC     DPTR
    \   0000A0   E9           MOV     A,R1
-   \   0000A1   12....       LCALL   ??Subroutine114_0 & 0xFFFF
+   \   0000A1   12....       LCALL   ??Subroutine110_0 & 0xFFFF
    1513            pData++;  // move past the frame control field
    1514          
    1515            // parse the manfacturer code
    1516            if ( hdr->fc.manuSpecific )
-   \                     ??CrossCallReturnLabel_169:
+   \                     ??CrossCallReturnLabel_162:
    \   0000A4   E8           MOV     A,R0
    \   0000A5   5404         ANL     A,#0x4
    \   0000A7   6014         JZ      ??CrossCallReturnLabel_10
@@ -3838,19 +3732,19 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   0000D6   A3           INC     DPTR
    \   0000D7   A3           INC     DPTR
    \   0000D8   A3           INC     DPTR
-   \   0000D9   12....       LCALL   ??Subroutine115_0 & 0xFFFF
+   \   0000D9   12....       LCALL   ??Subroutine111_0 & 0xFFFF
    1527          
    1528            // Should point to the frame payload
    1529            return ( pData );
-   \                     ??CrossCallReturnLabel_175:
+   \                     ??CrossCallReturnLabel_168:
    \   0000DC   AA82         MOV     R2,DPL
    \   0000DE   AB83         MOV     R3,DPH
-   \   0000E0                REQUIRE ?Subroutine85
-   \   0000E0                ; // Fall through to label ?Subroutine85
+   \   0000E0                REQUIRE ?Subroutine84
+   \   0000E0                ; // Fall through to label ?Subroutine84
    1530          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine93:
+   \                     ?Subroutine92:
    \   000000   8E82         MOV     DPL,R6
    \   000002   8F83         MOV     DPH,R7
    \   000004   22           RET
@@ -3858,69 +3752,69 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine9:
    \   000000   12....       LCALL   ?Subroutine61 & 0xFFFF
-   \                     ??CrossCallReturnLabel_80:
+   \                     ??CrossCallReturnLabel_79:
    \   000003   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine61:
    \   000000   F0           MOVX    @DPTR,A
-   \   000001   12....       LCALL   ?Subroutine83 & 0xFFFF
-   \                     ??CrossCallReturnLabel_127:
+   \   000001   12....       LCALL   ?Subroutine82 & 0xFFFF
+   \                     ??CrossCallReturnLabel_126:
    \   000004   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine114_0:
+   \                     ??Subroutine110_0:
    \   000000   12....       LCALL   ?Subroutine62 & 0xFFFF
-   \                     ??CrossCallReturnLabel_172:
+   \                     ??CrossCallReturnLabel_165:
    \   000003   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine62:
-   \   000000   12....       LCALL   ?Subroutine80 & 0xFFFF
-   \                     ??CrossCallReturnLabel_178:
+   \   000000   12....       LCALL   ?Subroutine79 & 0xFFFF
+   \                     ??CrossCallReturnLabel_171:
    \   000003   A3           INC     DPTR
    \   000004   AE82         MOV     R6,DPL
    \   000006   AF83         MOV     R7,DPH
    \   000008   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine83:
+   \                     ?Subroutine82:
    \   000000   EE           MOV     A,R6
    \   000001   2402         ADD     A,#0x2
    \   000003   0E           INC     R6
    \   000004   0E           INC     R6
-   \   000005   02....       LJMP    ?Subroutine90 & 0xFFFF
+   \   000005   02....       LJMP    ?Subroutine89 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine5:
    \   000000   A3           INC     DPTR
    \   000001   12....       LCALL   ?Subroutine62 & 0xFFFF
-   \                     ??CrossCallReturnLabel_173:
+   \                     ??CrossCallReturnLabel_166:
    \   000004   E0           MOVX    A,@DPTR
    \   000005   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine115_0:
-   \   000000   12....       LCALL   ?Subroutine80 & 0xFFFF
-   \                     ??CrossCallReturnLabel_179:
+   \                     ??Subroutine111_0:
+   \   000000   12....       LCALL   ?Subroutine79 & 0xFFFF
+   \                     ??CrossCallReturnLabel_172:
    \   000003   A3           INC     DPTR
    \   000004   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine117_0:
+   \                     ??Subroutine113_0:
    \   000000   F8           MOV     R0,A
    \   000001   A3           INC     DPTR
    \   000002   E0           MOVX    A,@DPTR
    \   000003   F9           MOV     R1,A
-   \   000004   02....       LJMP    ?Subroutine93 & 0xFFFF
+   \   000004   02....       LJMP    ?Subroutine92 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine80:
+   \                     ?Subroutine79:
    \   000000   F0           MOVX    @DPTR,A
-   \   000001   02....       LJMP    ?Subroutine93 & 0xFFFF
+   \   000001   02....       LJMP    ?Subroutine92 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine122_0:
+   \                     ??Subroutine118_0:
    \   000000   F0           MOVX    @DPTR,A
    \   000001   A3           INC     DPTR
    \   000002   E9           MOV     A,R1
@@ -3932,8 +3826,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000000   F0           MOVX    @DPTR,A
    \   000001   A3           INC     DPTR
    \   000002   E9           MOV     A,R1
-   \   000003   12....       LCALL   ?Subroutine80 & 0xFFFF
-   \                     ??CrossCallReturnLabel_181:
+   \   000003   12....       LCALL   ?Subroutine79 & 0xFFFF
+   \                     ??CrossCallReturnLabel_174:
    \   000006   E0           MOVX    A,@DPTR
    \   000007   22           RET
    1531          
@@ -3961,17 +3855,17 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00000A   5403         ANL     A,#0x3
    \   00000C   8C82         MOV     DPL,R4
    \   00000E   8D83         MOV     DPH,R5
-   \   000010   12....       LCALL   ??Subroutine108_0 & 0xFFFF
+   \   000010   12....       LCALL   ??Subroutine104_0 & 0xFFFF
    1543            *pData |= hdr->fc.manuSpecific << 2;
-   \                     ??CrossCallReturnLabel_151:
+   \                     ??CrossCallReturnLabel_144:
    \   000013   5404         ANL     A,#0x4
    \   000015   12....       LCALL   ?Subroutine16 & 0xFFFF
    1544            *pData |= hdr->fc.direction << 3;
-   \                     ??CrossCallReturnLabel_149:
+   \                     ??CrossCallReturnLabel_142:
    \   000018   5408         ANL     A,#0x8
    \   00001A   12....       LCALL   ?Subroutine16 & 0xFFFF
    1545            *pData |= hdr->fc.disableDefaultRsp << 4;
-   \                     ??CrossCallReturnLabel_150:
+   \                     ??CrossCallReturnLabel_143:
    \   00001D   5410         ANL     A,#0x10
    \   00001F   FE           MOV     R6,A
    \   000020   8C82         MOV     DPL,R4
@@ -3983,10 +3877,10 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    1547          
    1548            // Add the manfacturer code
    1549            if ( hdr->fc.manuSpecific )
-   \                     ??CrossCallReturnLabel_187:
+   \                     ??CrossCallReturnLabel_180:
    \   000029   E0           MOVX    A,@DPTR
    \   00002A   5404         ANL     A,#0x4
-   \   00002C   6017         JZ      ??CrossCallReturnLabel_57
+   \   00002C   6017         JZ      ??CrossCallReturnLabel_56
    1550            {
    1551              *pData++ = LO_UINT16( hdr->manuCode );
    \   00002E   EA           MOV     A,R2
@@ -3999,7 +3893,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000038   8983         MOV     DPH,R1
    \   00003A   12....       LCALL   ?Subroutine43 & 0xFFFF
    1552              *pData++ = HI_UINT16( hdr->manuCode );
-   \                     ??CrossCallReturnLabel_56:
+   \                     ??CrossCallReturnLabel_55:
    \   00003D   8882         MOV     DPL,R0
    \   00003F   8983         MOV     DPH,R1
    \   000041   A3           INC     DPTR
@@ -4008,7 +3902,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    1554          
    1555            // Add the Transaction Sequence Number
    1556            *pData++ = hdr->transSeqNum;
-   \                     ??CrossCallReturnLabel_57:
+   \                     ??CrossCallReturnLabel_56:
    \   000045   8A82         MOV     DPL,R2
    \   000047   8B83         MOV     DPH,R3
    \   000049   A3           INC     DPTR
@@ -4022,7 +3916,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    1557            
    1558            // Add the Cluster's command ID
    1559            *pData++ = hdr->commandID;
-   \                     ??CrossCallReturnLabel_188:
+   \                     ??CrossCallReturnLabel_181:
    \   000055   A3           INC     DPTR
    \   000056   A3           INC     DPTR
    \   000057   A3           INC     DPTR
@@ -4038,7 +3932,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    1562            return ( pData );
    \   000061   AA82         MOV     R2,DPL
    \   000063   AB83         MOV     R3,DPH
-   \   000065   02....       LJMP    ?Subroutine97 & 0xFFFF
+   \   000065   7F01         MOV     R7,#0x1
+   \   000067   02....       LJMP    ?BANKED_LEAVE_XDATA
    1563          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -4059,11 +3954,11 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000003   8D83         MOV     DPH,R5
    \   000005   E0           MOVX    A,@DPTR
    \   000006   4E           ORL     A,R6
-   \   000007                REQUIRE ??Subroutine108_0
-   \   000007                ; // Fall through to label ??Subroutine108_0
+   \   000007                REQUIRE ??Subroutine104_0
+   \   000007                ; // Fall through to label ??Subroutine104_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine108_0:
+   \                     ??Subroutine104_0:
    \   000000   F0           MOVX    @DPTR,A
    \   000001   8A82         MOV     DPL,R2
    \   000003   8B83         MOV     DPH,R3
@@ -4076,11 +3971,11 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000001   A3           INC     DPTR
    \   000002   AC82         MOV     R4,DPL
    \   000004   AD83         MOV     R5,DPH
-   \   000006                REQUIRE ?Subroutine92
-   \   000006                ; // Fall through to label ?Subroutine92
+   \   000006                REQUIRE ?Subroutine91
+   \   000006                ; // Fall through to label ?Subroutine91
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine92:
+   \                     ?Subroutine91:
    \   000000   8A82         MOV     DPL,R2
    \   000002   8B83         MOV     DPH,R3
    \   000004   22           RET
@@ -4155,12 +4050,12 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00000D   8D..         MOV     ?V0 + 1,R5
    \   00000F   7412         MOV     A,#0x12
    \   000011   12....       LCALL   ?XSTACK_DISP0_8
-   \   000014   12....       LCALL   ?Subroutine26 & 0xFFFF
+   \   000014   12....       LCALL   ?Subroutine27 & 0xFFFF
    1619            uint8 x;
    1620            zclAttrRecsList *pLoop;
    1621          
    1622            pLoop = attrList;
-   \                     ??CrossCallReturnLabel_33:
+   \                     ??CrossCallReturnLabel_32:
    \   000017   90....       MOV     DPTR,#attrList
    \   00001A   8004         SJMP    ??zclFindAttrRec_0
    1623          
@@ -4182,8 +4077,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00001C   8A82         MOV     DPL,R2
    \   00001E   8B83         MOV     DPH,R3
    \                     ??zclFindAttrRec_0:
-   \   000020   12....       LCALL   ??Subroutine101_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_136:
+   \   000020   12....       LCALL   ??Subroutine99_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_135:
    \   000023   7001         JNZ     ??zclFindAttrRec_2
    \   000025   EB           MOV     A,R3
    \                     ??zclFindAttrRec_2:
@@ -4332,8 +4227,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00000C   8882         MOV     DPL,R0
    \   00000E   8983         MOV     DPH,R1
    \                     ??zclFindClusterOption_0:
-   \   000010   12....       LCALL   ??Subroutine127_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_239:
+   \   000010   12....       LCALL   ??Subroutine123_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_231:
    \   000013   E8           MOV     A,R0
    \   000014   7001         JNZ     ??zclFindClusterOption_2
    \   000016   E9           MOV     A,R1
@@ -4413,12 +4308,12 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000078   7A00         MOV     R2,#0x0
    \   00007A   7B00         MOV     R3,#0x0
    \                     ??zclFindClusterOption_7:
-   \   00007C                REQUIRE ?Subroutine98
-   \   00007C                ; // Fall through to label ?Subroutine98
+   \   00007C                REQUIRE ?Subroutine96
+   \   00007C                ; // Fall through to label ?Subroutine96
    1674          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine98:
+   \                     ?Subroutine96:
    \   000000   7F03         MOV     R7,#0x3
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
    1675          
@@ -4473,7 +4368,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                     ??zclGetClusterOption_1:
    \   00001C   7900         MOV     R1,#0x0
    \                     ??zclGetClusterOption_2:
-   \   00001E   80..         SJMP    ?Subroutine94
+   \   00001E   80..         SJMP    ?Subroutine93
    1702          }
    1703          
    1704          /*********************************************************************
@@ -4512,33 +4407,33 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000013   7001         JNZ     ??zclSetSecurityOption_0
    \   000015   E9           MOV     A,R1
    \                     ??zclSetSecurityOption_0:
-   \   000016   6015         JZ      ??zclSetSecurityOption_1
+   \   000016   6016         JZ      ??zclSetSecurityOption_1
    1721            {
    1722              if ( enable )
    \   000018   E8           MOV     A,R0
    \   000019   2402         ADD     A,#0x2
    \   00001B   F582         MOV     DPL,A
    \   00001D   E9           MOV     A,R1
-   \   00001E   12....       LCALL   ??Subroutine125_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_232:
-   \   000021   EE           MOV     A,R6
-   \   000022   6005         JZ      ??zclSetSecurityOption_2
+   \   00001E   3400         ADDC    A,#0x0
+   \   000020   F583         MOV     DPH,A
+   \   000022   EE           MOV     A,R6
+   \   000023   6005         JZ      ??zclSetSecurityOption_2
    1723                pOption->option |= AF_EN_SECURITY;
-   \   000024   E0           MOVX    A,@DPTR
-   \   000025   D2E6         SETB    0xE0 /* A   */.6
-   \   000027   8003         SJMP    ??zclSetSecurityOption_3
+   \   000025   E0           MOVX    A,@DPTR
+   \   000026   D2E6         SETB    0xE0 /* A   */.6
+   \   000028   8003         SJMP    ??zclSetSecurityOption_3
    1724              else
    1725                pOption->option &= (AF_EN_SECURITY ^ 0xFF);
    \                     ??zclSetSecurityOption_2:
-   \   000029   E0           MOVX    A,@DPTR
-   \   00002A   C2E6         CLR     0xE0 /* A   */.6
+   \   00002A   E0           MOVX    A,@DPTR
+   \   00002B   C2E6         CLR     0xE0 /* A   */.6
    \                     ??zclSetSecurityOption_3:
-   \   00002C   F0           MOVX    @DPTR,A
+   \   00002D   F0           MOVX    @DPTR,A
    1726            }
    1727          }
    \                     ??zclSetSecurityOption_1:
-   \   00002D                REQUIRE ?Subroutine94
-   \   00002D                ; // Fall through to label ?Subroutine94
+   \   00002E                REQUIRE ?Subroutine93
+   \   00002E                ; // Fall through to label ?Subroutine93
    1728          
    1729          #ifdef ZCL_DISCOVER
    1730          /*********************************************************************
@@ -4698,8 +4593,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00007C   8E82         MOV     DPL,R6
    \   00007E   8F83         MOV     DPH,R7
    \                     ??zclSerializeData_9:
-   \   000080   12....       LCALL   ??Subroutine118_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_189:
+   \   000080   12....       LCALL   ??Subroutine114_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_182:
    \   000083   F0           MOVX    @DPTR,A
    \   000084   02....       LJMP    ??zclSerializeData_8 & 0xFFFF
    1795                 break;
@@ -4715,10 +4610,10 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    1805                *buf++ = LO_UINT16( *((uint16*)attrData) );
    \                     ??zclSerializeData_2:
    \   000087   12....       LCALL   ?Subroutine40 & 0xFFFF
-   \                     ??CrossCallReturnLabel_192:
+   \                     ??CrossCallReturnLabel_185:
    \   00008A   12....       LCALL   ?Subroutine15 & 0xFFFF
    1806                *buf++ = HI_UINT16( *((uint16*)attrData) );
-   \                     ??CrossCallReturnLabel_182:
+   \                     ??CrossCallReturnLabel_175:
    \   00008D   A3           INC     DPTR
    \   00008E   80F0         SJMP    ??zclSerializeData_9
    1807                break;
@@ -4738,7 +4633,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00009D   E5..         MOV     A,?V0 + 0
    \   00009F   12....       LCALL   ?Subroutine15 & 0xFFFF
    1814                *buf++ = BREAK_UINT32( *((uint32*)attrData), 1 );
-   \                     ??CrossCallReturnLabel_183:
+   \                     ??CrossCallReturnLabel_176:
    \   0000A2   78..         MOV     R0,#?V0 + 0
    \   0000A4   12....       LCALL   ?L_MOV_X
    \   0000A7   E5..         MOV     A,?V0 + 1
@@ -4759,7 +4654,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   0000C2   8A82         MOV     DPL,R2
    \   0000C4   8B83         MOV     DPH,R3
    \   0000C6   E5..         MOV     A,?V0 + 0
-   \   0000C8   80B9         SJMP    ??CrossCallReturnLabel_189
+   \   0000C8   80B9         SJMP    ??CrossCallReturnLabel_182
    1816                break;
    1817                
    1818              case ZCL_DATATYPE_DATA32:
@@ -4854,12 +4749,12 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    1857              default:
    1858                break;
    1859            }
-   \   000118   12....       LCALL   ?Subroutine88 & 0xFFFF
-   \                     ??CrossCallReturnLabel_118:
+   \   000118   12....       LCALL   ?Subroutine87 & 0xFFFF
+   \                     ??CrossCallReturnLabel_117:
    \   00011B   12....       LCALL   ?DEALLOC_XSTACK8
    1860          }
    \                     ??zclSerializeData_8:
-   \   00011E   02....       LJMP    ?Subroutine85 & 0xFFFF
+   \   00011E   02....       LJMP    ?Subroutine84 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine15:
@@ -4868,20 +4763,20 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000002   FA           MOV     R2,A
    \   000003   ED           MOV     A,R5
    \   000004   FB           MOV     R3,A
-   \   000005                REQUIRE ?Subroutine93
-   \   000005                ; // Fall through to label ?Subroutine93
+   \   000005                REQUIRE ?Subroutine92
+   \   000005                ; // Fall through to label ?Subroutine92
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine40:
    \   000000   8E82         MOV     DPL,R6
    \   000002   8F83         MOV     DPH,R7
-   \   000004                REQUIRE ??Subroutine118_0
-   \   000004                ; // Fall through to label ??Subroutine118_0
+   \   000004                REQUIRE ??Subroutine114_0
+   \   000004                ; // Fall through to label ??Subroutine114_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine118_0:
+   \                     ??Subroutine114_0:
    \   000000   E0           MOVX    A,@DPTR
-   \   000001   02....       LJMP    ?Subroutine92 & 0xFFFF
+   \   000001   02....       LJMP    ?Subroutine91 & 0xFFFF
    1861          #endif // ZCL_READ || ZCL_WRITE || ZCL_REPORT
    1862          
    1863          #ifdef ZCL_REPORT
@@ -5139,7 +5034,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2021            }  
    2022            return ( len );
    \                     ??zclGetDataTypeLength_8:
-   \   000080   02....       LJMP    ?Subroutine84 & 0xFFFF
+   \   000080   02....       LJMP    ?Subroutine83 & 0xFFFF
    2023          }
    2024          
    2025          /*********************************************************************
@@ -5187,7 +5082,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2044          
    2045            return ( dataLen );
    \                     ??zclGetAttrDataLength_2:
-   \   00001A   02....       LJMP    ?Subroutine84 & 0xFFFF
+   \   00001A   02....       LJMP    ?Subroutine83 & 0xFFFF
    2046          }
    2047          
    2048          /*********************************************************************
@@ -5224,13 +5119,13 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000015                ; Setup parameters for call to function zclGetAttrDataLength
    \   000015   8882         MOV     DPL,R0
    \   000017   F583         MOV     DPH,A
-   \   000019   12....       LCALL   ??Subroutine112_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_159:
+   \   000019   12....       LCALL   ??Subroutine108_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_152:
    \   00001C   8C82         MOV     DPL,R4
    \   00001E   8D83         MOV     DPH,R5
    \   000020   12....       LCALL   ?Subroutine25 & 0xFFFF
    2060            osal_memcpy( pAttrData, pAttr->attr.dataPtr, dataLen );
-   \                     ??CrossCallReturnLabel_152:
+   \                     ??CrossCallReturnLabel_145:
    \   000023                ; Setup parameters for call to function osal_memcpy
    \   000023   85..82       MOV     DPL,?V0 + 0
    \   000026   85..83       MOV     DPH,?V0 + 1
@@ -5249,39 +5144,39 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00003D   FA           MOV     R2,A
    \   00003E   EF           MOV     A,R7
    \   00003F   FB           MOV     R3,A
-   \   000040   12....       LCALL   ?Subroutine88 & 0xFFFF
-   \                     ??CrossCallReturnLabel_119:
+   \   000040   12....       LCALL   ?Subroutine87 & 0xFFFF
+   \                     ??CrossCallReturnLabel_118:
    \   000043   12....       LCALL   ?DEALLOC_XSTACK8
    2061            return ( ZCL_STATUS_SUCCESS );
    \   000046   7900         MOV     R1,#0x0
-   \   000048   02....       LJMP    ?Subroutine98 & 0xFFFF
+   \   000048   02....       LJMP    ?Subroutine96 & 0xFFFF
    2062          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine25:
    \   000000   A3           INC     DPTR
    \   000001   A3           INC     DPTR
-   \   000002                REQUIRE ??Subroutine109_0
-   \   000002                ; // Fall through to label ??Subroutine109_0
+   \   000002                REQUIRE ??Subroutine105_0
+   \   000002                ; // Fall through to label ??Subroutine105_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine109_0:
+   \                     ??Subroutine105_0:
    \   000000   A3           INC     DPTR
    \   000001   A3           INC     DPTR
-   \   000002                REQUIRE ??Subroutine110_0
-   \   000002                ; // Fall through to label ??Subroutine110_0
+   \   000002                REQUIRE ??Subroutine106_0
+   \   000002                ; // Fall through to label ??Subroutine106_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine110_0:
+   \                     ??Subroutine106_0:
    \   000000   12....       LCALL   ?Subroutine69 & 0xFFFF
-   \                     ??CrossCallReturnLabel_158:
+   \                     ??CrossCallReturnLabel_151:
    \   000003   FA           MOV     R2,A
    \   000004   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine112_0:
+   \                     ??Subroutine108_0:
    \   000000   12....       LCALL   ?Subroutine66 & 0xFFFF
-   \                     ??CrossCallReturnLabel_207:
+   \                     ??CrossCallReturnLabel_200:
    \   000003   22           RET
    2063          
    2064          #ifdef ZCL_WRITE
@@ -5331,8 +5226,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000023   6010         JZ      ??zclWriteAttrData_2
    \   000025                ; Setup parameters for indirect call
    \   000025   90....       MOV     DPTR,#zcl_ValidateAttrDataCB
-   \   000028   12....       LCALL   ??Subroutine119_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_194:
+   \   000028   12....       LCALL   ??Subroutine115_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_187:
    \   00002B   12....       LCALL   ?CALL_IND
    \   00002E   E9           MOV     A,R1
    \   00002F   7004         JNZ     ??zclWriteAttrData_2
@@ -5353,18 +5248,18 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00003F                ; Setup parameters for call to function zclGetAttrDataLength
    \   00003F   8E82         MOV     DPL,R6
    \   000041   8F83         MOV     DPH,R7
-   \   000043   12....       LCALL   ??Subroutine112_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_160:
+   \   000043   12....       LCALL   ??Subroutine108_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_153:
    \   000046   85..82       MOV     DPL,?V0 + 0
    \   000049   85..83       MOV     DPH,?V0 + 1
    \   00004C   12....       LCALL   ?Subroutine25 & 0xFFFF
    2082              osal_memcpy( pAttr->attr.dataPtr, pWriteRec->attrData, len );
-   \                     ??CrossCallReturnLabel_153:
+   \                     ??CrossCallReturnLabel_146:
    \   00004F                ; Setup parameters for call to function osal_memcpy
    \   00004F   8E82         MOV     DPL,R6
    \   000051   8F83         MOV     DPH,R7
    \   000053   12....       LCALL   ?Subroutine31 & 0xFFFF
-   \                     ??CrossCallReturnLabel_123:
+   \                     ??CrossCallReturnLabel_122:
    \   000056   12....       LCALL   ?PUSH_XSTACK_I_THREE
    \   000059   EA           MOV     A,R2
    \   00005A   FC           MOV     R4,A
@@ -5378,7 +5273,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000067   A3           INC     DPTR
    \   000068   A3           INC     DPTR
    \   000069   12....       LCALL   ?Subroutine41 & 0xFFFF
-   \                     ??CrossCallReturnLabel_113:
+   \                     ??CrossCallReturnLabel_112:
    \   00006C   12....       LCALL   ?DEALLOC_XSTACK8
    2083              return ( ZCL_STATUS_SUCCESS );
    \   00006F   7900         MOV     R1,#0x0
@@ -5393,15 +5288,15 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2086          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine89:
+   \                     ?Subroutine88:
    \   000000   75..00       MOV     ?V0 + 6,#0x0
    \   000003   78..         MOV     R0,#?V0 + 4
    \   000005   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine119_0:
+   \                     ??Subroutine115_0:
    \   000000   12....       LCALL   ?Subroutine71 & 0xFFFF
-   \                     ??CrossCallReturnLabel_199:
+   \                     ??CrossCallReturnLabel_192:
    \   000003   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -5417,14 +5312,14 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine41:
    \   000000   12....       LCALL   ?Subroutine66 & 0xFFFF
-   \                     ??CrossCallReturnLabel_205:
-   \   000003   02....       LJMP    ?Subroutine88 & 0xFFFF
+   \                     ??CrossCallReturnLabel_198:
+   \   000003   02....       LJMP    ?Subroutine87 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine31:
    \   000000   12....       LCALL   ?Subroutine64 & 0xFFFF
-   \                     ??CrossCallReturnLabel_86:
-   \   000003   02....       LJMP    ?Subroutine89 & 0xFFFF
+   \                     ??CrossCallReturnLabel_85:
+   \   000003   02....       LJMP    ?Subroutine88 & 0xFFFF
    2087          #endif // ZCL_WRITE
    2088          
    2089          #ifdef ZCL_READ
@@ -5450,7 +5345,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000005   8A82         MOV     DPL,R2
    \   000007   8B83         MOV     DPH,R3
    \   000009   12....       LCALL   ?Subroutine45 & 0xFFFF
-   \                     ??CrossCallReturnLabel_243:
+   \                     ??CrossCallReturnLabel_235:
    \   00000C   E8           MOV     A,R0
    \   00000D   FE           MOV     R6,A
    \   00000E   E9           MOV     A,R1
@@ -5459,7 +5354,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2103            readCmd = (zclReadCmd_t *)osal_mem_alloc( sizeof ( zclReadCmd_t ) + pCmd->dataLen );
    \   000010   12....       LCALL   ?Subroutine29 & 0xFFFF
    2104            if ( readCmd != NULL )
-   \                     ??CrossCallReturnLabel_37:
+   \                     ??CrossCallReturnLabel_36:
    \   000013   7001         JNZ     ??zclParseInReadCmd_0
    \   000015   EB           MOV     A,R3
    \                     ??zclParseInReadCmd_0:
@@ -5492,7 +5387,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000034   12....       LCALL   ?Subroutine70 & 0xFFFF
    2112                pBuf += 2;
    2113              }
-   \                     ??CrossCallReturnLabel_212:
+   \                     ??CrossCallReturnLabel_205:
    \   000037   F9           MOV     R1,A
    \   000038   E4           CLR     A
    \   000039   2C           ADD     A,R4
@@ -5530,7 +5425,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2114            }
    2115            return ( (void *)readCmd );
    \                     ??zclParseInReadCmd_1:
-   \   000061   02....       LJMP    ?Subroutine85 & 0xFFFF
+   \   000061   02....       LJMP    ?Subroutine84 & 0xFFFF
    2116          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -5570,8 +5465,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000004   7D00         MOV     R5,#0x0
    \   000006   AA..         MOV     R2,?V0 + 2
    \   000008   AB..         MOV     R3,?V0 + 3
-   \   00000A                REQUIRE ?Subroutine88
-   \   00000A                ; // Fall through to label ?Subroutine88
+   \   00000A                REQUIRE ?Subroutine87
+   \   00000A                ; // Fall through to label ?Subroutine87
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    2126          static void *zclParseInReadRspCmd( zclParseCmd_t *pCmd )
@@ -5589,7 +5484,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2132            uint8 numAttr = 0;
    2133            uint8 hdrLen;
    2134            uint8 dataLen = 0;
-   \                     ??CrossCallReturnLabel_45:
+   \                     ??CrossCallReturnLabel_44:
    \   000008   801B         SJMP    ??zclParseInReadRspCmd_0
    2135            uint8 attrDataLen;
    2136            uint8 dataType;
@@ -5606,7 +5501,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2145              pBuf += 2; // move pass attribute id
    2146              
    2147              status = *pBuf++;  
-   \                     ??CrossCallReturnLabel_111:
+   \                     ??CrossCallReturnLabel_110:
    \   00000D   A3           INC     DPTR
    \   00000E   AE82         MOV     R6,DPL
    \   000010   AF83         MOV     R7,DPH
@@ -5624,7 +5519,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2153                pBuf += attrDataLen; // move pass attribute data
    2154                
    2155                if ( PADDING_NEEDED( attrDataLen ) ) // add padding if needed
-   \                     ??CrossCallReturnLabel_66:
+   \                     ??CrossCallReturnLabel_65:
    \   00001B   5002         JNC     ??zclParseInReadRspCmd_2
    2156                  attrDataLen++;
    \   00001D   05..         INC     ?V0 + 8
@@ -5637,7 +5532,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2159            }
    \                     ??zclParseInReadRspCmd_0:
    \   000025   12....       LCALL   ?Subroutine20 & 0xFFFF
-   \                     ??CrossCallReturnLabel_167:
+   \                     ??CrossCallReturnLabel_160:
    \   000028   40E0         JC      ??zclParseInReadRspCmd_1
    2160           
    2161            hdrLen = sizeof( zclReadRspCmd_t ) + ( numAttr * sizeof( zclReadRspStatus_t ) ); // calculate the length of the response header
@@ -5646,7 +5541,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2162            
    2163            readRspCmd = (zclReadRspCmd_t *)osal_mem_alloc( hdrLen + dataLen );
    2164            if ( readRspCmd != NULL )
-   \                     ??CrossCallReturnLabel_62:
+   \                     ??CrossCallReturnLabel_61:
    \   000030   7001         JNZ     ??zclParseInReadRspCmd_3
    \   000032   EB           MOV     A,R3
    \                     ??zclParseInReadRspCmd_3:
@@ -5671,11 +5566,11 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2175                pBuf += 2;
    2176                
    2177                statusRec->status = *pBuf++;
-   \                     ??CrossCallReturnLabel_109:
+   \                     ??CrossCallReturnLabel_108:
    \   000042   12....       LCALL   ?Subroutine6 & 0xFFFF
    2178                if ( statusRec->status == ZCL_STATUS_SUCCESS )
-   \                     ??CrossCallReturnLabel_170:
-   \   000045   702E         JNZ     ??CrossCallReturnLabel_68
+   \                     ??CrossCallReturnLabel_163:
+   \   000045   702E         JNZ     ??CrossCallReturnLabel_67
    2179                {
    2180                  statusRec->dataType = *pBuf++;
    \   000047   E0           MOVX    A,@DPTR
@@ -5685,8 +5580,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00004F   A3           INC     DPTR
    \   000050   A3           INC     DPTR
    \   000051   A3           INC     DPTR
-   \   000052   12....       LCALL   ??Subroutine115_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_176:
+   \   000052   12....       LCALL   ??Subroutine111_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_169:
    \   000055   0E           INC     R6
    \   000056   AF83         MOV     R7,DPH
    2181          
@@ -5694,10 +5589,10 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000058                ; Setup parameters for call to function zclGetAttrDataLength
    \   000058   12....       LCALL   ?Subroutine59 & 0xFFFF
    2183                  osal_memcpy( dataPtr, pBuf, attrDataLen);
-   \                     ??CrossCallReturnLabel_121:
+   \                     ??CrossCallReturnLabel_120:
    \   00005B   12....       LCALL   ?PUSH_XSTACK_I_THREE
    \   00005E   12....       LCALL   ?Subroutine49 & 0xFFFF
-   \                     ??CrossCallReturnLabel_114:
+   \                     ??CrossCallReturnLabel_113:
    \   000061   12....       LCALL   ?DEALLOC_XSTACK8
    2184                  statusRec->data = dataPtr;
    \   000064   85..82       MOV     DPL,?V0 + 10
@@ -5717,7 +5612,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000072   12....       LCALL   ?Subroutine52 & 0xFFFF
    2191                }
    2192              }
-   \                     ??CrossCallReturnLabel_68:
+   \                     ??CrossCallReturnLabel_67:
    \   000075   05..         INC     ?V0 + 9
    \                     ??zclParseInReadRspCmd_5:
    \   000077   E5..         MOV     A,?V0 + 9
@@ -5727,12 +5622,12 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2193            }
    2194            return ( (void *)readRspCmd );
    \                     ??zclParseInReadRspCmd_4:
-   \   00007E                REQUIRE ?Subroutine99
-   \   00007E                ; // Fall through to label ?Subroutine99
+   \   00007E                REQUIRE ?Subroutine97
+   \   00007E                ; // Fall through to label ?Subroutine97
    2195          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine99:
+   \                     ?Subroutine97:
    \   000000   AA..         MOV     R2,?V0 + 0
    \   000002   AB..         MOV     R3,?V0 + 1
    \   000004   7F0C         MOV     R7,#0xc
@@ -5743,11 +5638,11 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000000   85..82       MOV     DPL,?V0 + 0
    \   000003   85..83       MOV     DPH,?V0 + 1
    \   000006   A3           INC     DPTR
-   \   000007                REQUIRE ??Subroutine113_0
-   \   000007                ; // Fall through to label ??Subroutine113_0
+   \   000007                REQUIRE ??Subroutine109_0
+   \   000007                ; // Fall through to label ??Subroutine109_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine113_0:
+   \                     ??Subroutine109_0:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   F8           MOV     R0,A
    \   000002   A3           INC     DPTR
@@ -5775,8 +5670,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000003   85..83       MOV     DPH,?V0 + 11
    \   000006   A3           INC     DPTR
    \   000007   A3           INC     DPTR
-   \   000008                REQUIRE ??Subroutine114_0
-   \   000008                ; // Fall through to label ??Subroutine114_0
+   \   000008                REQUIRE ??Subroutine110_0
+   \   000008                ; // Fall through to label ??Subroutine110_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine59:
@@ -5791,19 +5686,19 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00000A                ; Setup parameters for call to function osal_memcpy
    \   00000A   8E..         MOV     ?V0 + 4,R6
    \   00000C   8F..         MOV     ?V0 + 5,R7
-   \   00000E                REQUIRE ?Subroutine89
-   \   00000E                ; // Fall through to label ?Subroutine89
+   \   00000E                REQUIRE ?Subroutine88
+   \   00000E                ; // Fall through to label ?Subroutine88
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine57:
    \   000000   05..         INC     ?V0 + 7
-   \   000002   12....       LCALL   ?Subroutine78 & 0xFFFF
-   \                     ??CrossCallReturnLabel_101:
-   \   000005                REQUIRE ?Subroutine87
-   \   000005                ; // Fall through to label ?Subroutine87
+   \   000002   12....       LCALL   ?Subroutine77 & 0xFFFF
+   \                     ??CrossCallReturnLabel_100:
+   \   000005                REQUIRE ?Subroutine86
+   \   000005                ; // Fall through to label ?Subroutine86
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine87:
+   \                     ?Subroutine86:
    \   000000   8E82         MOV     DPL,R6
    \   000002   8F83         MOV     DPH,R7
    \   000004   E0           MOVX    A,@DPTR
@@ -5860,7 +5755,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000012   E4           CLR     A
    \   000013   3400         ADDC    A,#0x0
    \   000015   12....       LCALL   ?Subroutine72 & 0xFFFF
-   \                     ??CrossCallReturnLabel_229:
+   \                     ??CrossCallReturnLabel_227:
    \   000018   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -5872,7 +5767,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000007   F5..         MOV     ?V0 + 2,A
    \   000009   EB           MOV     A,R3
    \   00000A   12....       LCALL   ?Subroutine73 & 0xFFFF
-   \                     ??CrossCallReturnLabel_92:
+   \                     ??CrossCallReturnLabel_91:
    \   00000D   E0           MOVX    A,@DPTR
    \   00000E   FE           MOV     R6,A
    \   00000F   A3           INC     DPTR
@@ -5926,8 +5821,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine3:
-   \   000000   12....       LCALL   ?Subroutine77 & 0xFFFF
-   \                     ??CrossCallReturnLabel_99:
+   \   000000   12....       LCALL   ?Subroutine76 & 0xFFFF
+   \                     ??CrossCallReturnLabel_98:
    \   000003   A3           INC     DPTR
    \   000004   8582..       MOV     ?V0 + 10,DPL
    \   000007   8583..       MOV     ?V0 + 11,DPH
@@ -5945,17 +5840,17 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00001B   A3           INC     DPTR
    \   00001C   E9           MOV     A,R1
    \   00001D   12....       LCALL   ?Subroutine61 & 0xFFFF
-   \                     ??CrossCallReturnLabel_81:
-   \   000020   02....       LJMP    ?Subroutine87 & 0xFFFF
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine78:
-   \   000000   12....       LCALL   ?Subroutine83 & 0xFFFF
-   \                     ??CrossCallReturnLabel_128:
-   \   000003   22           RET
+   \                     ??CrossCallReturnLabel_80:
+   \   000020   02....       LJMP    ?Subroutine86 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine77:
+   \   000000   12....       LCALL   ?Subroutine82 & 0xFFFF
+   \                     ??CrossCallReturnLabel_127:
+   \   000003   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine76:
    \   000000   A4           MUL     AB
    \   000001   F8           MOV     R0,A
    \   000002   A9F0         MOV     R1,B
@@ -5979,11 +5874,11 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine72:
    \   000000   FB           MOV     R3,A
-   \   000001                REQUIRE ??Subroutine124_0
-   \   000001                ; // Fall through to label ??Subroutine124_0
+   \   000001                REQUIRE ??Subroutine121_0
+   \   000001                ; // Fall through to label ??Subroutine121_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine124_0:
+   \                     ??Subroutine121_0:
    \   000000   12....       LCALL   ??osal_mem_alloc?relay
    \   000003   8A..         MOV     ?V0 + 0,R2
    \   000005   8B..         MOV     ?V0 + 1,R3
@@ -6019,7 +5914,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2215            uint8 numAttr = 0;
    2216            uint8 hdrLen;
    2217            uint8 dataLen = 0;
-   \                     ??CrossCallReturnLabel_46:
+   \                     ??CrossCallReturnLabel_45:
    \   000008   8014         SJMP    ??zclParseInWriteCmd_0
    2218            uint8 dataType;
    2219            uint8 i;
@@ -6033,7 +5928,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2225              pBuf += 2; // move pass attribute id
    2226          
    2227              dataType = *pBuf++;
-   \                     ??CrossCallReturnLabel_112:
+   \                     ??CrossCallReturnLabel_111:
    \   00000D   F9           MOV     R1,A
    \   00000E   A3           INC     DPTR
    \   00000F   AE82         MOV     R6,DPL
@@ -6043,7 +5938,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2230              pBuf += attrDataLen; // move pass attribute data
    2231              
    2232              if ( PADDING_NEEDED( attrDataLen ) ) // add padding if needed
-   \                     ??CrossCallReturnLabel_67:
+   \                     ??CrossCallReturnLabel_66:
    \   000014   5002         JNC     ??zclParseInWriteCmd_2
    2233                attrDataLen++;
    \   000016   05..         INC     ?V0 + 8
@@ -6055,7 +5950,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2235            }
    \                     ??zclParseInWriteCmd_0:
    \   00001E   12....       LCALL   ?Subroutine20 & 0xFFFF
-   \                     ??CrossCallReturnLabel_168:
+   \                     ??CrossCallReturnLabel_161:
    \   000021   40E7         JC      ??zclParseInWriteCmd_1
    2236            
    2237            hdrLen = sizeof( zclWriteCmd_t ) + ( numAttr * sizeof( zclWriteRec_t ) ); // calculate the length of the response header
@@ -6064,7 +5959,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2238            
    2239            writeCmd = (zclWriteCmd_t *)osal_mem_alloc( hdrLen + dataLen );
    2240            if ( writeCmd != NULL )
-   \                     ??CrossCallReturnLabel_63:
+   \                     ??CrossCallReturnLabel_62:
    \   000029   7001         JNZ     ??zclParseInWriteCmd_3
    \   00002B   EB           MOV     A,R3
    \                     ??zclParseInWriteCmd_3:
@@ -6088,19 +5983,19 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2250                statusRec->attrID = BUILD_UINT16( pBuf[0], pBuf[1] );
    2251                pBuf += 2;
    2252                statusRec->dataType = *pBuf++;
-   \                     ??CrossCallReturnLabel_110:
+   \                     ??CrossCallReturnLabel_109:
    \   00003B   F9           MOV     R1,A
    \   00003C   12....       LCALL   ?Subroutine6 & 0xFFFF
    2253          
    2254                attrDataLen = zclGetAttrDataLength( statusRec->dataType, pBuf );
-   \                     ??CrossCallReturnLabel_171:
+   \                     ??CrossCallReturnLabel_164:
    \   00003F                ; Setup parameters for call to function zclGetAttrDataLength
    \   00003F   12....       LCALL   ?Subroutine59 & 0xFFFF
    2255                osal_memcpy( dataPtr, pBuf, attrDataLen);
-   \                     ??CrossCallReturnLabel_122:
+   \                     ??CrossCallReturnLabel_121:
    \   000042   12....       LCALL   ?PUSH_XSTACK_I_THREE
    \   000045   12....       LCALL   ?Subroutine49 & 0xFFFF
-   \                     ??CrossCallReturnLabel_115:
+   \                     ??CrossCallReturnLabel_114:
    \   000048   12....       LCALL   ?DEALLOC_XSTACK8
    2256                statusRec->attrData = dataPtr;
    \   00004B   85..82       MOV     DPL,?V0 + 10
@@ -6118,7 +6013,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                     ??zclParseInWriteCmd_7:
    \   000058   12....       LCALL   ?Subroutine52 & 0xFFFF
    2263              }
-   \                     ??CrossCallReturnLabel_69:
+   \                     ??CrossCallReturnLabel_68:
    \   00005B   05..         INC     ?V0 + 9
    \                     ??zclParseInWriteCmd_5:
    \   00005D   E5..         MOV     A,?V0 + 9
@@ -6129,7 +6024,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2265            
    2266            return ( (void *)writeCmd );
    \                     ??zclParseInWriteCmd_4:
-   \   000064   02....       LJMP    ?Subroutine99 & 0xFFFF
+   \   000064   02....       LJMP    ?Subroutine97 & 0xFFFF
    2267          }
    2268          
    2269          /*********************************************************************
@@ -6156,16 +6051,16 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000008   F5..         MOV     ?V0 + 2,A
    \   00000A   EB           MOV     A,R3
    \   00000B   12....       LCALL   ?Subroutine56 & 0xFFFF
-   \                     ??CrossCallReturnLabel_74:
+   \                     ??CrossCallReturnLabel_73:
    \   00000E   12....       LCALL   ?Subroutine35 & 0xFFFF
    2281            uint8 i = 0;
-   \                     ??CrossCallReturnLabel_48:
+   \                     ??CrossCallReturnLabel_47:
    \   000011   75..00       MOV     ?V0 + 4,#0x0
    2282          
    2283            writeRspCmd = (zclWriteRspCmd_t *)osal_mem_alloc( sizeof ( zclWriteRspCmd_t ) + pCmd->dataLen );
    \   000014   12....       LCALL   ?Subroutine29 & 0xFFFF
    2284            if ( writeRspCmd != NULL )
-   \                     ??CrossCallReturnLabel_38:
+   \                     ??CrossCallReturnLabel_37:
    \   000017   7001         JNZ     ??zclParseInWriteRspCmd_0
    \   000019   EB           MOV     A,R3
    \                     ??zclParseInWriteRspCmd_0:
@@ -6180,12 +6075,12 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000027   A3           INC     DPTR
    \   000028   E0           MOVX    A,@DPTR
    \                     ??zclParseInWriteRspCmd_2:
-   \   000029   703B         JNZ     ??CrossCallReturnLabel_100
+   \   000029   703B         JNZ     ??CrossCallReturnLabel_99
    2287              {
    2288                writeRspCmd->attrList[i++].status = *pBuf; // special case when all writes were successfull
    \   00002B   12....       LCALL   ?Subroutine40 & 0xFFFF
    2289              }
-   \                     ??CrossCallReturnLabel_193:
+   \                     ??CrossCallReturnLabel_186:
    \   00002E   A3           INC     DPTR
    \   00002F   F0           MOVX    @DPTR,A
    \   000030   75..01       MOV     ?V0 + 4,#0x1
@@ -6230,14 +6125,14 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000060   F0           MOVX    @DPTR,A
    \   000061   05..         INC     ?V0 + 4
    2296                  pBuf += 2;
-   \   000063   12....       LCALL   ?Subroutine78 & 0xFFFF
+   \   000063   12....       LCALL   ?Subroutine77 & 0xFFFF
    2297                }
-   \                     ??CrossCallReturnLabel_100:
+   \                     ??CrossCallReturnLabel_99:
    \   000066   85..82       MOV     DPL,?V0 + 0
    \   000069   85..83       MOV     DPH,?V0 + 1
-   \   00006C   12....       LCALL   ??Subroutine113_0 & 0xFFFF
+   \   00006C   12....       LCALL   ??Subroutine109_0 & 0xFFFF
    2298              }
-   \                     ??CrossCallReturnLabel_166:
+   \                     ??CrossCallReturnLabel_159:
    \   00006F   40C4         JC      ??zclParseInWriteRspCmd_4
    2299              writeRspCmd->numAttr = i; 
    \                     ??zclParseInWriteRspCmd_3:
@@ -6255,7 +6150,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine56:
    \   000000   12....       LCALL   ?Subroutine73 & 0xFFFF
-   \                     ??CrossCallReturnLabel_93:
+   \                     ??CrossCallReturnLabel_92:
    \   000003   22           RET
    2303          #endif // ZCL_WRITE
    2304          
@@ -6631,7 +6526,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00000C   12....       LCALL   ?Subroutine35 & 0xFFFF
    2662          
    2663            defaultRspCmd = (zclDefaultRspCmd_t *)osal_mem_alloc( sizeof ( zclDefaultRspCmd_t ) );
-   \                     ??CrossCallReturnLabel_49:
+   \                     ??CrossCallReturnLabel_48:
    \   00000F                ; Setup parameters for call to function osal_mem_alloc
    \   00000F   7A02         MOV     R2,#0x2
    \   000011   7B00         MOV     R3,#0x0
@@ -6649,23 +6544,23 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000020   E0           MOVX    A,@DPTR
    \   000021   12....       LCALL   ?Subroutine7 & 0xFFFF
    2667              defaultRspCmd->statusCode = *pBuf;
-   \                     ??CrossCallReturnLabel_177:
-   \   000024   12....       LCALL   ??Subroutine118_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_170:
+   \   000024   12....       LCALL   ??Subroutine114_0 & 0xFFFF
    2668            }
-   \                     ??CrossCallReturnLabel_190:
+   \                     ??CrossCallReturnLabel_183:
    \   000027   A3           INC     DPTR
    \   000028   F0           MOVX    @DPTR,A
    2669            return ( (void *)defaultRspCmd );
    \                     ??zclParseInDefaultRspCmd_1:
-   \   000029   02....       LJMP    ?Subroutine94 & 0xFFFF
+   \   000029   02....       LJMP    ?Subroutine93 & 0xFFFF
    2670          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine7:
    \   000000   8A82         MOV     DPL,R2
    \   000002   8B83         MOV     DPH,R3
-   \   000004                REQUIRE ??Subroutine115_0
-   \   000004                ; // Fall through to label ??Subroutine115_0
+   \   000004                REQUIRE ??Subroutine111_0
+   \   000004                ; // Fall through to label ??Subroutine111_0
    2671          
    2672          #ifdef ZCL_DISCOVER
    2673          /*********************************************************************
@@ -6734,13 +6629,6 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2736           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine55:
-   \   000000   EA           MOV     A,R2
-   \   000001   240C         ADD     A,#0xc
-   \   000003                REQUIRE ??Subroutine106_0
-   \   000003                ; // Fall through to label ??Subroutine106_0
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
    2737          static uint8 zclProcessInReadCmd( zclIncoming_t *pInMsg )
    \                     zclProcessInReadCmd:
    2738          {
@@ -6761,7 +6649,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2745            
    2746            readCmd = (zclReadCmd_t *)pInMsg->attrCmd;
    \   00000E   12....       LCALL   ?Subroutine55 & 0xFFFF
-   \                     ??CrossCallReturnLabel_146:
+   \                     ??CrossCallReturnLabel_218:
    \   000011   F5..         MOV     ?V0 + 2,A
    \   000013   A3           INC     DPTR
    \   000014   E0           MOVX    A,@DPTR
@@ -6780,9 +6668,9 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000021   04           INC     A
    \   000022   FA           MOV     R2,A
    \   000023   7B00         MOV     R3,#0x0
-   \   000025   12....       LCALL   ??Subroutine124_0 & 0xFFFF
+   \   000025   12....       LCALL   ??Subroutine121_0 & 0xFFFF
    2752            if ( readRspCmd == NULL )
-   \                     ??CrossCallReturnLabel_231:
+   \                     ??CrossCallReturnLabel_229:
    \   000028   7001         JNZ     ??zclProcessInReadCmd_0
    \   00002A   EB           MOV     A,R3
    \                     ??zclProcessInReadCmd_0:
@@ -6795,8 +6683,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                     ??zclProcessInReadCmd_1:
    \   000032   85..82       MOV     DPL,?V0 + 2
    \   000035   85..83       MOV     DPH,?V0 + 3
-   \   000038   12....       LCALL   ??Subroutine118_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_191:
+   \   000038   12....       LCALL   ??Subroutine114_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_184:
    \   00003B   F0           MOVX    @DPTR,A
    2756            for (i = 0; i < readCmd->numAttr; i++)
    \   00003C   75..00       MOV     ?V0 + 6,#0x0
@@ -6855,14 +6743,14 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00007D   E4           CLR     A
    \   00007E   33           RLC     A
    \   00007F   F9           MOV     R1,A
-   \   000080   12....       LCALL   ?Subroutine82 & 0xFFFF
-   \                     ??CrossCallReturnLabel_107:
+   \   000080   12....       LCALL   ?Subroutine81 & 0xFFFF
+   \                     ??CrossCallReturnLabel_106:
    \   000083   AA82         MOV     R2,DPL
    \   000085   AB83         MOV     R3,DPH
    \   000087   12....       LCALL   ?Subroutine44 & 0xFFFF
-   \                     ??CrossCallReturnLabel_185:
-   \   00008A   12....       LCALL   ??Subroutine121_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_217:
+   \                     ??CrossCallReturnLabel_178:
+   \   00008A   12....       LCALL   ??Subroutine117_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_210:
    \   00008D   EE           MOV     A,R6
    \   00008E   2402         ADD     A,#0x2
    \   000090   F5..         MOV     ?V0 + 10,A
@@ -6870,7 +6758,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000093   3400         ADDC    A,#0x0
    \   000095   F5..         MOV     ?V0 + 11,A
    \   000097   12....       LCALL   ?Subroutine67 & 0xFFFF
-   \                     ??CrossCallReturnLabel_226:
+   \                     ??CrossCallReturnLabel_224:
    \   00009A                ; Setup parameters for call to function zclFindAttrRec
    \   00009A   85..82       MOV     DPL,?XSP + 0
    \   00009D   85..83       MOV     DPH,?XSP + 1
@@ -6880,21 +6768,21 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   0000A8   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   0000AB   8A82         MOV     DPL,R2
    \   0000AD   8B83         MOV     DPH,R3
-   \   0000AF   12....       LCALL   ??Subroutine120_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_202:
+   \   0000AF   12....       LCALL   ??Subroutine116_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_195:
    \   0000B2   12....       LCALL   ?DEALLOC_XSTACK8
    \   0000B5   E9           MOV     A,R1
    \   0000B6   6089         JZ      ??zclProcessInReadCmd_4
    \   0000B8   7406         MOV     A,#0x6
    \   0000BA   12....       LCALL   ?XSTACK_DISP0_8
    \   0000BD   12....       LCALL   ?Subroutine44 & 0xFFFF
-   \                     ??CrossCallReturnLabel_186:
+   \                     ??CrossCallReturnLabel_179:
    \   0000C0   A3           INC     DPTR
    \   0000C1   A3           INC     DPTR
    \   0000C2   A3           INC     DPTR
    \   0000C3   A3           INC     DPTR
-   \   0000C4   12....       LCALL   ??Subroutine121_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_218:
+   \   0000C4   12....       LCALL   ??Subroutine117_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_211:
    \   0000C7   E4           CLR     A
    \   0000C8   85..82       MOV     DPL,?V0 + 10
    \   0000CB   85..83       MOV     DPH,?V0 + 11
@@ -6916,7 +6804,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2776                             true, pInMsg->hdr.transSeqNum );
    \                     ??zclProcessInReadCmd_6:
    \   0000DF   12....       LCALL   ?Subroutine67 & 0xFFFF
-   \                     ??CrossCallReturnLabel_227:
+   \                     ??CrossCallReturnLabel_225:
    \   0000E2                ; Setup parameters for call to function zcl_SendReadRsp
    \   0000E2   85..82       MOV     DPL,?V0 + 4
    \   0000E5   85..83       MOV     DPH,?V0 + 5
@@ -6943,8 +6831,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00010F   A3           INC     DPTR
    \   000110   A3           INC     DPTR
    \   000111   A3           INC     DPTR
-   \   000112   12....       LCALL   ?Subroutine26 & 0xFFFF
-   \                     ??CrossCallReturnLabel_34:
+   \   000112   12....       LCALL   ?Subroutine27 & 0xFFFF
+   \                     ??CrossCallReturnLabel_33:
    \   000115   E5..         MOV     A,?V0 + 8
    \   000117   2406         ADD     A,#0x6
    \   000119   FA           MOV     R2,A
@@ -6955,8 +6843,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000121   2414         ADD     A,#0x14
    \   000123   F582         MOV     DPL,A
    \   000125   E5..         MOV     A,?V0 + 9
-   \   000127   12....       LCALL   ??Subroutine107_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_143:
+   \   000127   12....       LCALL   ??Subroutine119_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_216:
    \   00012A   F9           MOV     R1,A
    \   00012B   12....       LCALL   ??zcl_SendReadRsp?relay
    \   00012E   7405         MOV     A,#0x5
@@ -6972,18 +6860,18 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                     ??zclProcessInReadCmd_2:
    \   00013C   7408         MOV     A,#0x8
    \   00013E   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000141   02....       LJMP    ??Subroutine103_0 & 0xFFFF
+   \   000141   02....       LJMP    ??Subroutine101_0 & 0xFFFF
    2780          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine67:
    \   000000   85..82       MOV     DPL,?V0 + 4
    \   000003   85..83       MOV     DPH,?V0 + 5
-   \   000006                REQUIRE ??Subroutine116_0
-   \   000006                ; // Fall through to label ??Subroutine116_0
+   \   000006                REQUIRE ??Subroutine112_0
+   \   000006                ; // Fall through to label ??Subroutine112_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine116_0:
+   \                     ??Subroutine112_0:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   F5..         MOV     ?V0 + 8,A
    \   000003   A3           INC     DPTR
@@ -6994,13 +6882,13 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine44:
    \   000000   E0           MOVX    A,@DPTR
-   \   000001                REQUIRE ??Subroutine117_0
-   \   000001                ; // Fall through to label ??Subroutine117_0
+   \   000001                REQUIRE ??Subroutine113_0
+   \   000001                ; // Fall through to label ??Subroutine113_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine120_0:
+   \                     ??Subroutine116_0:
    \   000000   12....       LCALL   ?Subroutine70 & 0xFFFF
-   \                     ??CrossCallReturnLabel_215:
+   \                     ??CrossCallReturnLabel_208:
    \   000003   FD           MOV     R5,A
    \   000004   85..82       MOV     DPL,?V0 + 8
    \   000007   85..83       MOV     DPH,?V0 + 9
@@ -7009,24 +6897,40 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00000C   A3           INC     DPTR
    \   00000D   A3           INC     DPTR
    \   00000E   12....       LCALL   ?Subroutine66 & 0xFFFF
-   \                     ??CrossCallReturnLabel_208:
+   \                     ??CrossCallReturnLabel_201:
    \   000011   E5..         MOV     A,?V0 + 8
    \   000013   2414         ADD     A,#0x14
    \   000015   F582         MOV     DPL,A
    \   000017   E5..         MOV     A,?V0 + 9
-   \   000019   12....       LCALL   ??Subroutine125_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_237:
-   \   00001C   E0           MOVX    A,@DPTR
-   \   00001D   F9           MOV     R1,A
-   \   00001E   12....       LCALL   ??zclFindAttrRec?relay
-   \   000021   7402         MOV     A,#0x2
-   \   000023   22           RET
+   \   000019   3400         ADDC    A,#0x0
+   \   00001B   F583         MOV     DPH,A
+   \   00001D   E0           MOVX    A,@DPTR
+   \   00001E   F9           MOV     R1,A
+   \   00001F   12....       LCALL   ??zclFindAttrRec?relay
+   \   000022   7402         MOV     A,#0x2
+   \   000024   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine121_0:
+   \                     ??Subroutine117_0:
    \   000000   E8           MOV     A,R0
-   \   000001                REQUIRE ??Subroutine122_0
-   \   000001                ; // Fall through to label ??Subroutine122_0
+   \   000001                REQUIRE ??Subroutine118_0
+   \   000001                ; // Fall through to label ??Subroutine118_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine55:
+   \   000000   EA           MOV     A,R2
+   \   000001   240C         ADD     A,#0xc
+   \   000003   F582         MOV     DPL,A
+   \   000005   EB           MOV     A,R3
+   \   000006                REQUIRE ??Subroutine119_0
+   \   000006                ; // Fall through to label ??Subroutine119_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine119_0:
+   \   000000   3400         ADDC    A,#0x0
+   \   000002   F583         MOV     DPH,A
+   \   000004   E0           MOVX    A,@DPTR
+   \   000005   22           RET
    2781          #endif // ZCL_READ
    2782          
    2783          #ifdef ZCL_WRITE
@@ -7061,13 +6965,13 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2799          
    2800            writeCmd = (zclWriteCmd_t *)pInMsg->attrCmd;
    \   000014   12....       LCALL   ?Subroutine55 & 0xFFFF
-   \                     ??CrossCallReturnLabel_147:
+   \                     ??CrossCallReturnLabel_219:
    \   000017   F8           MOV     R0,A
    \   000018   A3           INC     DPTR
    \   000019   E0           MOVX    A,@DPTR
    \   00001A   12....       LCALL   ?Subroutine13 & 0xFFFF
    2801            if ( pInMsg->hdr.commandID == ZCL_CMD_WRITE )
-   \                     ??CrossCallReturnLabel_221:
+   \                     ??CrossCallReturnLabel_214:
    \   00001D   8A82         MOV     DPL,R2
    \   00001F   8B83         MOV     DPH,R3
    \   000021   A3           INC     DPTR
@@ -7086,7 +6990,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2805                      + sizeof( zclWriteRspStatus_t ) * writeCmd->numAttr );
    \   00002D                ; Setup parameters for call to function osal_mem_alloc
    \   00002D   12....       LCALL   ?Subroutine37 & 0xFFFF
-   \                     ??CrossCallReturnLabel_195:
+   \                     ??CrossCallReturnLabel_188:
    \   000030   12....       LCALL   ?Subroutine23 & 0xFFFF
    2806              if ( writeRspCmd == NULL )
    \                     ??CrossCallReturnLabel_28:
@@ -7144,20 +7048,20 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2840                  writeRspCmd->attrList[j++].attrID = statusRec->attrID;
    2841                }
    2842              }
-   \   000051   12....       LCALL   ?Subroutine80 & 0xFFFF
-   \                     ??CrossCallReturnLabel_180:
-   \   000054   12....       LCALL   ??Subroutine127_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_240:
+   \   000051   12....       LCALL   ?Subroutine79 & 0xFFFF
+   \                     ??CrossCallReturnLabel_173:
+   \   000054   12....       LCALL   ??Subroutine123_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_232:
    \   000057   85..82       MOV     DPL,?V0 + 12
    \   00005A   85..83       MOV     DPH,?V0 + 13
-   \   00005D   12....       LCALL   ??Subroutine121_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_219:
+   \   00005D   12....       LCALL   ??Subroutine117_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_212:
    \   000060   05..         INC     ?V0 + 2
    \                     ??zclProcessInWriteCmd_6:
    \   000062   05..         INC     ?V0 + 3
    \                     ??zclProcessInWriteCmd_4:
    \   000064   12....       LCALL   ?Subroutine37 & 0xFFFF
-   \                     ??CrossCallReturnLabel_196:
+   \                     ??CrossCallReturnLabel_189:
    \   000067   E0           MOVX    A,@DPTR
    \   000068   FA           MOV     R2,A
    \   000069   E5..         MOV     A,?V0 + 3
@@ -7185,8 +7089,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00008E   AF83         MOV     R7,DPH
    \   000090   E5..         MOV     A,?V0 + 2
    \   000092   75F003       MOV     B,#0x3
-   \   000095   12....       LCALL   ?Subroutine77 & 0xFFFF
-   \                     ??CrossCallReturnLabel_98:
+   \   000095   12....       LCALL   ?Subroutine76 & 0xFFFF
+   \                     ??CrossCallReturnLabel_97:
    \   000098   E582         MOV     A,DPL
    \   00009A   2402         ADD     A,#0x2
    \   00009C   F5..         MOV     ?V0 + 12,A
@@ -7198,8 +7102,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   0000A8   8583..       MOV     ?V0 + 15,DPH
    \   0000AB   85..82       MOV     DPL,?V0 + 6
    \   0000AE   85..83       MOV     DPH,?V0 + 7
-   \   0000B1   12....       LCALL   ??Subroutine123_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_223:
+   \   0000B1   12....       LCALL   ??Subroutine120_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_221:
    \   0000B4   12....       LCALL   ?XSTACK_DISP0_8
    \   0000B7   8582..       MOV     ?V0 + 10,DPL
    \   0000BA   8583..       MOV     ?V0 + 11,DPH
@@ -7207,8 +7111,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   0000BF   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   0000C2   8E82         MOV     DPL,R6
    \   0000C4   8F83         MOV     DPH,R7
-   \   0000C6   12....       LCALL   ??Subroutine120_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_203:
+   \   0000C6   12....       LCALL   ??Subroutine116_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_196:
    \   0000C9   12....       LCALL   ?DEALLOC_XSTACK8
    \   0000CC   E9           MOV     A,R1
    \   0000CD   7003         JNZ     $+5
@@ -7277,7 +7181,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000123   85..82       MOV     DPL,?V0 + 6
    \   000126   85..83       MOV     DPH,?V0 + 7
    \   000129   12....       LCALL   ?Subroutine35 & 0xFFFF
-   \                     ??CrossCallReturnLabel_50:
+   \                     ??CrossCallReturnLabel_49:
    \   00012C                ; Setup parameters for call to function zcl_SendWriteRsp
    \   00012C   85..82       MOV     DPL,?V0 + 6
    \   00012F   85..83       MOV     DPH,?V0 + 7
@@ -7312,28 +7216,28 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00015F   7901         MOV     R1,#0x1
    \                     ??zclProcessInWriteCmd_3:
    \   000161   740A         MOV     A,#0xa
-   \   000163   02....       LJMP    ??Subroutine102_0 & 0xFFFF
+   \   000163   02....       LJMP    ??Subroutine100_0 & 0xFFFF
    2861          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine37:
    \   000000   85..82       MOV     DPL,?XSP + 0
    \   000003   85..83       MOV     DPH,?XSP + 1
-   \   000006                REQUIRE ??Subroutine119_0
-   \   000006                ; // Fall through to label ??Subroutine119_0
+   \   000006                REQUIRE ??Subroutine115_0
+   \   000006                ; // Fall through to label ??Subroutine115_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine13:
    \   000000   F9           MOV     R1,A
    \   000001   85..82       MOV     DPL,?XSP + 0
    \   000004   85..83       MOV     DPH,?XSP + 1
-   \   000007                REQUIRE ??Subroutine121_0
-   \   000007                ; // Fall through to label ??Subroutine121_0
+   \   000007                REQUIRE ??Subroutine117_0
+   \   000007                ; // Fall through to label ??Subroutine117_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine123_0:
-   \   000000   12....       LCALL   ??Subroutine116_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_228:
+   \                     ??Subroutine120_0:
+   \   000000   12....       LCALL   ??Subroutine112_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_226:
    \   000003                ; Setup parameters for call to function zclFindAttrRec
    \   000003                ; Setup parameters for call to function zclFindAttrRec
    \   000003                ; Setup parameters for call to function zclFindAttrRec
@@ -7353,7 +7257,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00000C   E4           CLR     A
    \   00000D   39           ADDC    A,R1
    \   00000E   12....       LCALL   ?Subroutine72 & 0xFFFF
-   \                     ??CrossCallReturnLabel_230:
+   \                     ??CrossCallReturnLabel_228:
    \   000011   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -7365,7 +7269,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000006   A3           INC     DPTR
    \   000007   A3           INC     DPTR
    \   000008   12....       LCALL   ?Subroutine70 & 0xFFFF
-   \                     ??CrossCallReturnLabel_213:
+   \                     ??CrossCallReturnLabel_206:
    \   00000B   FD           MOV     R5,A
    \   00000C   EE           MOV     A,R6
    \   00000D   2406         ADD     A,#0x6
@@ -7377,13 +7281,13 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000015   2414         ADD     A,#0x14
    \   000017   F582         MOV     DPL,A
    \   000019   EF           MOV     A,R7
-   \   00001A   12....       LCALL   ??Subroutine125_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_233:
-   \   00001D   E0           MOVX    A,@DPTR
-   \   00001E   F9           MOV     R1,A
-   \   00001F   12....       LCALL   ??zcl_SendWriteRsp?relay
-   \   000022   7405         MOV     A,#0x5
-   \   000024   22           RET
+   \   00001A   3400         ADDC    A,#0x0
+   \   00001C   F583         MOV     DPH,A
+   \   00001E   E0           MOVX    A,@DPTR
+   \   00001F   F9           MOV     R1,A
+   \   000020   12....       LCALL   ??zcl_SendWriteRsp?relay
+   \   000023   7405         MOV     A,#0x5
+   \   000025   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine10:
@@ -7435,23 +7339,23 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                     ?Subroutine42:
    \   000000   85..82       MOV     DPL,?V0 + 2
    \   000003   85..83       MOV     DPH,?V0 + 3
-   \   000006                REQUIRE ??Subroutine111_0
-   \   000006                ; // Fall through to label ??Subroutine111_0
+   \   000006                REQUIRE ??Subroutine107_0
+   \   000006                ; // Fall through to label ??Subroutine107_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine111_0:
+   \                     ??Subroutine107_0:
    \   000000   A3           INC     DPTR
    \   000001   A3           INC     DPTR
    \   000002   A3           INC     DPTR
-   \   000003                REQUIRE ??Subroutine112_0
-   \   000003                ; // Fall through to label ??Subroutine112_0
+   \   000003                REQUIRE ??Subroutine108_0
+   \   000003                ; // Fall through to label ??Subroutine108_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine18:
    \   000000   85..82       MOV     DPL,?V0 + 2
    \   000003   85..83       MOV     DPH,?V0 + 3
-   \   000006                REQUIRE ??Subroutine120_0
-   \   000006                ; // Fall through to label ??Subroutine120_0
+   \   000006                REQUIRE ??Subroutine116_0
+   \   000006                ; // Fall through to label ??Subroutine116_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    2897          static uint8 zclProcessInWriteUndividedCmd( zclIncoming_t *pInMsg )
@@ -7482,7 +7386,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    2911          
    2912            writeCmd = (zclWriteCmd_t *)pInMsg->attrCmd;
    \   000013   12....       LCALL   ?Subroutine55 & 0xFFFF
-   \                     ??CrossCallReturnLabel_148:
+   \                     ??CrossCallReturnLabel_220:
    \   000016   F5..         MOV     ?V0 + 6,A
    \   000018   A3           INC     DPTR
    \   000019   E0           MOVX    A,@DPTR
@@ -7542,7 +7446,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                     ??zclProcessInWriteUndividedCmd_5:
    \   000032                ; Setup parameters for call to function zclGetAttrDataLength
    \   000032   12....       LCALL   ?Subroutine42 & 0xFFFF
-   \                     ??CrossCallReturnLabel_164:
+   \                     ??CrossCallReturnLabel_157:
    \   000035   12....       LCALL   ??zclGetAttrDataLength?relay
    \   000038   E9           MOV     A,R1
    \   000039   FA           MOV     R2,A
@@ -7569,16 +7473,16 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00004F   9A           SUBB    A,R2
    \   000050   505D         JNC     ??zclProcessInWriteUndividedCmd_7
    \   000052   12....       LCALL   ?Subroutine58 & 0xFFFF
-   \                     ??CrossCallReturnLabel_76:
-   \   000055   12....       LCALL   ?Subroutine27 & 0xFFFF
-   \                     ??CrossCallReturnLabel_224:
+   \                     ??CrossCallReturnLabel_75:
+   \   000055   12....       LCALL   ?Subroutine26 & 0xFFFF
+   \                     ??CrossCallReturnLabel_222:
    \   000058   12....       LCALL   ?XSTACK_DISP0_8
    \   00005B   8582..       MOV     ?V0 + 10,DPL
    \   00005E   8583..       MOV     ?V0 + 11,DPH
    \   000061   78..         MOV     R0,#?V0 + 10
    \   000063   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   000066   12....       LCALL   ?Subroutine18 & 0xFFFF
-   \                     ??CrossCallReturnLabel_200:
+   \                     ??CrossCallReturnLabel_193:
    \   000069   12....       LCALL   ?DEALLOC_XSTACK8
    \   00006C   E9           MOV     A,R1
    \   00006D   7004         JNZ     ??zclProcessInWriteUndividedCmd_8
@@ -7618,8 +7522,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   0000A6   85..83       MOV     DPH,?V0 + 1
    \   0000A9   A3           INC     DPTR
    \   0000AA   A3           INC     DPTR
-   \   0000AB   12....       LCALL   ??Subroutine121_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_220:
+   \   0000AB   12....       LCALL   ??Subroutine117_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_213:
    \   0000AE   0F           INC     R7
    2955            } // for loop
    2956            
@@ -7711,14 +7615,14 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                     ??zclProcessInWriteUndividedCmd_15:
    \   0000F4                ; Setup parameters for call to function zclGetAttrDataLength
    \   0000F4   12....       LCALL   ?Subroutine42 & 0xFFFF
-   \                     ??CrossCallReturnLabel_165:
+   \                     ??CrossCallReturnLabel_158:
    \   0000F7   85..82       MOV     DPL,?V0 + 2
    \   0000FA   85..83       MOV     DPH,?V0 + 3
-   \   0000FD   12....       LCALL   ??Subroutine109_0 & 0xFFFF
+   \   0000FD   12....       LCALL   ??Subroutine105_0 & 0xFFFF
    3001                
    3002                // add padding if needed
    3003                if ( PADDING_NEEDED( dataLen ) )
-   \                     ??CrossCallReturnLabel_154:
+   \                     ??CrossCallReturnLabel_147:
    \   000100   A2E0         MOV     C,0xE0 /* A   */.0
    \   000102   5001         JNC     ??zclProcessInWriteUndividedCmd_16
    3004                  dataLen++;
@@ -7744,33 +7648,33 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00011F   4003         JC      $+5
    \   000121   02....       LJMP    ??zclProcessInWriteUndividedCmd_17 & 0xFFFF
    \   000124   12....       LCALL   ?Subroutine58 & 0xFFFF
-   \                     ??CrossCallReturnLabel_77:
+   \                     ??CrossCallReturnLabel_76:
    \   000127   E5..         MOV     A,?V0 + 12
    \   000129   28           ADD     A,R0
    \   00012A   F8           MOV     R0,A
    \   00012B   E5..         MOV     A,?V0 + 13
    \   00012D   39           ADDC    A,R1
    \   00012E   12....       LCALL   ?Subroutine13 & 0xFFFF
-   \                     ??CrossCallReturnLabel_222:
-   \   000131   12....       LCALL   ?Subroutine27 & 0xFFFF
-   \                     ??CrossCallReturnLabel_225:
+   \                     ??CrossCallReturnLabel_215:
+   \   000131   12....       LCALL   ?Subroutine26 & 0xFFFF
+   \                     ??CrossCallReturnLabel_223:
    \   000134   12....       LCALL   ?XSTACK_DISP0_8
    \   000137   8582..       MOV     ?V0 + 10,DPL
    \   00013A   8583..       MOV     ?V0 + 11,DPH
    \   00013D   78..         MOV     R0,#?V0 + 10
    \   00013F   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   000142   12....       LCALL   ?Subroutine18 & 0xFFFF
-   \                     ??CrossCallReturnLabel_201:
+   \                     ??CrossCallReturnLabel_194:
    \   000145   12....       LCALL   ?DEALLOC_XSTACK8
    \   000148   E9           MOV     A,R1
    \   000149   7003         JNZ     $+5
    \   00014B   02....       LJMP    ??zclProcessInWriteUndividedCmd_17 & 0xFFFF
    \   00014E   85..82       MOV     DPL,?V0 + 2
    \   000151   85..83       MOV     DPH,?V0 + 3
-   \   000154   12....       LCALL   ??Subroutine112_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_161:
+   \   000154   12....       LCALL   ??Subroutine108_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_154:
    \   000157   12....       LCALL   ?Subroutine37 & 0xFFFF
-   \                     ??CrossCallReturnLabel_197:
+   \                     ??CrossCallReturnLabel_190:
    \   00015A   EA           MOV     A,R2
    \   00015B   F0           MOVX    @DPTR,A
    \   00015C   A3           INC     DPTR
@@ -7787,7 +7691,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00016F   85..82       MOV     DPL,?XSP + 0
    \   000172   85..83       MOV     DPH,?XSP + 1
    \   000175   12....       LCALL   ?Subroutine36 & 0xFFFF
-   \                     ??CrossCallReturnLabel_52:
+   \                     ??CrossCallReturnLabel_51:
    \   000178   E5..         MOV     A,?V0 + 4
    \   00017A   F0           MOVX    @DPTR,A
    \   00017B   A3           INC     DPTR
@@ -7821,8 +7725,8 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   0001A9   8983         MOV     DPH,R1
    \   0001AB   12....       LCALL   ?Subroutine17 & 0xFFFF
    \                     ??CrossCallReturnLabel_23:
-   \   0001AE   12....       LCALL   ??Subroutine105_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_140:
+   \   0001AE   12....       LCALL   ??Subroutine103_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_139:
    \   0001B1   EA           MOV     A,R2
    \   0001B2   F0           MOVX    @DPTR,A
    \   0001B3   A3           INC     DPTR
@@ -7840,18 +7744,18 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   0001C4   F5..         MOV     ?V0 + 2,A
    \   0001C6   E5..         MOV     A,?V0 + 3
    \   0001C8   12....       LCALL   ?Subroutine56 & 0xFFFF
-   \                     ??CrossCallReturnLabel_75:
-   \   0001CB   12....       LCALL   ??Subroutine112_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_162:
+   \                     ??CrossCallReturnLabel_74:
+   \   0001CB   12....       LCALL   ??Subroutine108_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_155:
    \   0001CE   740E         MOV     A,#0xe
    \   0001D0   12....       LCALL   ?XSTACK_DISP0_8
-   \   0001D3   12....       LCALL   ??Subroutine110_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_155:
+   \   0001D3   12....       LCALL   ??Subroutine106_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_148:
    \   0001D6                ; Setup parameters for call to function osal_memcpy
    \   0001D6   85..82       MOV     DPL,?V0 + 2
    \   0001D9   85..83       MOV     DPH,?V0 + 3
    \   0001DC   12....       LCALL   ?Subroutine31 & 0xFFFF
-   \                     ??CrossCallReturnLabel_124:
+   \                     ??CrossCallReturnLabel_123:
    \   0001DF   12....       LCALL   ?PUSH_XSTACK_I_THREE
    \   0001E2   EA           MOV     A,R2
    \   0001E3   FC           MOV     R4,A
@@ -7859,7 +7763,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   0001E6   7413         MOV     A,#0x13
    \   0001E8   12....       LCALL   ?XSTACK_DISP0_8
    \   0001EB   12....       LCALL   ?Subroutine41 & 0xFFFF
-   \                     ??CrossCallReturnLabel_120:
+   \                     ??CrossCallReturnLabel_119:
    \   0001EE   12....       LCALL   ?DEALLOC_XSTACK8
    \   0001F1   0E           INC     R6
    \                     ??zclProcessInWriteUndividedCmd_18:
@@ -7884,7 +7788,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000210   85..82       MOV     DPL,?V0 + 14
    \   000213   85..83       MOV     DPH,?V0 + 15
    \   000216   12....       LCALL   ?Subroutine64 & 0xFFFF
-   \                     ??CrossCallReturnLabel_85:
+   \                     ??CrossCallReturnLabel_84:
    \   000219                ; Setup parameters for call to function zclFindAttrRec
    \   000219   740A         MOV     A,#0xa
    \   00021B   12....       LCALL   ?XSTACK_DISP0_8
@@ -7894,19 +7798,19 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000226   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   000229   85..82       MOV     DPL,?V0 + 2
    \   00022C   85..83       MOV     DPH,?V0 + 3
-   \   00022F   12....       LCALL   ?Subroutine26 & 0xFFFF
-   \                     ??CrossCallReturnLabel_35:
+   \   00022F   12....       LCALL   ?Subroutine27 & 0xFFFF
+   \                     ??CrossCallReturnLabel_34:
    \   000232   85..82       MOV     DPL,?V0 + 4
    \   000235   85..83       MOV     DPH,?V0 + 5
    \   000238   A3           INC     DPTR
-   \   000239   12....       LCALL   ??Subroutine111_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_163:
+   \   000239   12....       LCALL   ??Subroutine107_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_156:
    \   00023C   E5..         MOV     A,?V0 + 4
    \   00023E   2414         ADD     A,#0x14
    \   000240   F582         MOV     DPL,A
    \   000242   E5..         MOV     A,?V0 + 5
-   \   000244   12....       LCALL   ??Subroutine107_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_144:
+   \   000244   12....       LCALL   ??Subroutine119_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_217:
    \   000247   F9           MOV     R1,A
    \   000248   12....       LCALL   ??zclFindAttrRec?relay
    \   00024B   7402         MOV     A,#0x2
@@ -7946,7 +7850,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   00026A   85..82       MOV     DPL,?V0 + 14
    \   00026D   85..83       MOV     DPH,?V0 + 15
    \   000270   12....       LCALL   ?Subroutine35 & 0xFFFF
-   \                     ??CrossCallReturnLabel_51:
+   \                     ??CrossCallReturnLabel_50:
    \   000273                ; Setup parameters for call to function zcl_SendWriteRsp
    \   000273   85..82       MOV     DPL,?V0 + 14
    \   000276   85..83       MOV     DPH,?V0 + 15
@@ -7979,7 +7883,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    3025            return TRUE; 
    \   0002A6   7901         MOV     R1,#0x1
    \                     ??zclProcessInWriteUndividedCmd_3:
-   \   0002A8   02....       LJMP    ?Subroutine100 & 0xFFFF
+   \   0002A8   02....       LJMP    ?Subroutine98 & 0xFFFF
    3026          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -8001,11 +7905,11 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000019   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine27:
+   \                     ?Subroutine26:
    \   000000   85..82       MOV     DPL,?V0 + 14
    \   000003   85..83       MOV     DPH,?V0 + 15
-   \   000006                REQUIRE ??Subroutine123_0
-   \   000006                ; // Fall through to label ??Subroutine123_0
+   \   000006                REQUIRE ??Subroutine120_0
+   \   000006                ; // Fall through to label ??Subroutine120_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine17:
@@ -8019,7 +7923,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine36:
    \   000000   12....       LCALL   ?Subroutine71 & 0xFFFF
-   \                     ??CrossCallReturnLabel_198:
+   \                     ??CrossCallReturnLabel_191:
    \   000003   A3           INC     DPTR
    \   000004   A3           INC     DPTR
    \   000005   A3           INC     DPTR
@@ -8113,7 +8017,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    3098              return ( TRUE );
    \                     ??zclSendMsg_1:
    \   000011   7901         MOV     R1,#0x1
-   \   000013   02....       LJMP    ?Subroutine94 & 0xFFFF
+   \   000013   02....       LJMP    ?Subroutine93 & 0xFFFF
    3099            
    3100            pCmd = (zclIncomingMsg_t *)osal_msg_allocate( sizeof ( zclIncomingMsg_t ) );
    \                     ??zclSendMsg_0:
@@ -8133,7 +8037,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000023   7434         MOV     A,#0x34
    \   000025   12....       LCALL   ?Subroutine7 & 0xFFFF
    3105              pCmd->zclHdr    = pInMsg->hdr;
-   \                     ??CrossCallReturnLabel_174:
+   \                     ??CrossCallReturnLabel_167:
    \   000028   A3           INC     DPTR
    \   000029   EA           MOV     A,R2
    \   00002A   2402         ADD     A,#0x2
@@ -8147,9 +8051,9 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000036   8E82         MOV     DPL,R6
    \   000038   8F83         MOV     DPH,R7
    \   00003A   12....       LCALL   ?Subroutine36 & 0xFFFF
-   \                     ??CrossCallReturnLabel_53:
-   \   00003D   12....       LCALL   ??Subroutine126_0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_241:
+   \                     ??CrossCallReturnLabel_52:
+   \   00003D   12....       LCALL   ??Subroutine122_0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_233:
    \   000040   8A82         MOV     DPL,R2
    \   000042   8B83         MOV     DPH,R3
    \   000044   A3           INC     DPTR
@@ -8192,35 +8096,37 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
    \   000071   F9           MOV     R1,A
    \   000072   8882         MOV     DPL,R0
    \   000074   8983         MOV     DPH,R1
-   \   000076   12....       LCALL   ?Subroutine26 & 0xFFFF
-   \                     ??CrossCallReturnLabel_36:
+   \   000076   12....       LCALL   ?Subroutine27 & 0xFFFF
+   \                     ??CrossCallReturnLabel_35:
    \   000079   EA           MOV     A,R2
    \   00007A   2416         ADD     A,#0x16
-   \   00007C   12....       LCALL   ?Subroutine75 & 0xFFFF
-   \                     ??CrossCallReturnLabel_235:
-   \   00007F   EC           MOV     A,R4
-   \   000080   F0           MOVX    @DPTR,A
-   \   000081   A3           INC     DPTR
-   \   000082   ED           MOV     A,R5
-   \   000083   F0           MOVX    @DPTR,A
+   \   00007C   F582         MOV     DPL,A
+   \   00007E   EB           MOV     A,R3
+   \   00007F   3400         ADDC    A,#0x0
+   \   000081   F583         MOV     DPH,A
+   \   000083   EC           MOV     A,R4
+   \   000084   F0           MOVX    @DPTR,A
+   \   000085   A3           INC     DPTR
+   \   000086   ED           MOV     A,R5
+   \   000087   F0           MOVX    @DPTR,A
    3109              
    3110              // Application will free the attrCmd buffer
    3111              pInMsg->attrCmd = NULL;
-   \   000084   8882         MOV     DPL,R0
-   \   000086   8983         MOV     DPH,R1
-   \   000088   E4           CLR     A
-   \   000089   F0           MOVX    @DPTR,A
-   \   00008A   A3           INC     DPTR
-   \   00008B   F0           MOVX    @DPTR,A
+   \   000088   8882         MOV     DPL,R0
+   \   00008A   8983         MOV     DPH,R1
+   \   00008C   E4           CLR     A
+   \   00008D   F0           MOVX    @DPTR,A
+   \   00008E   A3           INC     DPTR
+   \   00008F   F0           MOVX    @DPTR,A
    3112              
    3113              /* send message through task message */
    3114              osal_msg_send( zcl_RegisteredMsgTaskID, (uint8 *)pCmd );
-   \   00008C                ; Setup parameters for call to function osal_msg_send
-   \   00008C   90....       MOV     DPTR,#zcl_RegisteredMsgTaskID
-   \   00008F   E0           MOVX    A,@DPTR
-   \   000090   F9           MOV     R1,A
-   \   000091   12....       LCALL   ??osal_msg_send?relay
-   \   000094   02....       LJMP    ??zclSendMsg_1 & 0xFFFF
+   \   000090                ; Setup parameters for call to function osal_msg_send
+   \   000090   90....       MOV     DPTR,#zcl_RegisteredMsgTaskID
+   \   000093   E0           MOVX    A,@DPTR
+   \   000094   F9           MOV     R1,A
+   \   000095   12....       LCALL   ??osal_msg_send?relay
+   \   000098   02....       LJMP    ??zclSendMsg_1 & 0xFFFF
    3115            }
    3116            return ( TRUE );
    3117          }
@@ -8464,7 +8370,7 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
        -> osal_mem_free                0      0     84
        -> zcl_SendWriteRsp             0      0     94
        -> osal_mem_free                0      0     84
-     zclProcessMessageMSG              1      0     41
+     zclProcessMessageMSG              0      0     12
      zclReadAttrData                   0      0     56
        -> zclGetAttrDataLength         0      0     22
        -> osal_memcpy                  0      0     28
@@ -8551,18 +8457,18 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
      zcl_TransID                                   1
      zclCmdTable                                  56
      zcl_Init                                     31
-     ?Subroutine84                                 7
+     ?Subroutine83                                 7
      zcl_event_loop                              102
-     ?Subroutine85                                 5
+     ?Subroutine84                                 5
      zcl_registerPlugin                          131
-     ?Subroutine86                                 5
+     ?Subroutine85                                 5
      ?Subroutine30                                 5
-     ??Subroutine101_0                             5
+     ??Subroutine99_0                              5
      ?Subroutine11                                 8
      ?Subroutine14                                 4
-     ?Subroutine79                                 7
-     ?Subroutine70                                 5
+     ?Subroutine78                                 7
      ?Subroutine66                                 6
+     ?Subroutine70                                 5
      ?Subroutine35                                 6
      zcl_registerAttrList                         59
      ?Subroutine50                                25
@@ -8572,93 +8478,88 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
      zcl_registerValidateAttrData                 16
      zcl_registerForMsg                           20
      zcl_DeviceOperational                       118
-     ?Subroutine94                                 5
+     ?Subroutine93                                 5
      zcl_SendCommand                             517
-     ?Subroutine100                                4
-     ??Subroutine102_0                             8
-     ?Subroutine88                                 6
+     ?Subroutine98                                 4
+     ??Subroutine100_0                             8
+     ?Subroutine87                                 6
      ?Subroutine64                                 8
      ?Subroutine45                                 2
-     ??Subroutine126_0                             1
-     ??Subroutine127_0                             6
+     ??Subroutine122_0                             1
+     ??Subroutine123_0                             6
      zcl_SendRead                                218
-     ?Subroutine96                                 2
-     ??Subroutine103_0                             5
+     ?Subroutine95                                 2
+     ??Subroutine101_0                             5
      ?Subroutine24                                 5
-     ??Subroutine104_0                            11
-     ?Subroutine91                                 5
+     ??Subroutine102_0                            11
+     ?Subroutine90                                 5
      ?Subroutine74                                 6
      ?Subroutine53                                11
      ?Subroutine46                                 6
      ?Subroutine38                                10
-     ?Subroutine95                                 4
+     ?Subroutine94                                 4
      zcl_SendReadRsp                             251
      ?Subroutine28                                 4
-     ??Subroutine105_0                            11
+     ??Subroutine103_0                            11
      ?Subroutine69                                 7
      ?Subroutine60                                 4
-     ?Subroutine76                                 7
+     ?Subroutine75                                 7
      ?Subroutine54                                21
      ?Subroutine47                                10
      ?Subroutine39                                16
      ?Subroutine68                                 5
-     ?Subroutine81                                11
+     ?Subroutine80                                11
      ?Subroutine33                                 9
      ?Subroutine32                                13
      ?Subroutine19                                28
-     ?Subroutine90                                 5
+     ?Subroutine89                                 5
      ?Subroutine65                                20
      ?Subroutine2                                 21
      ?Subroutine1                                 25
-     ?Subroutine26                                 5
-     ?Subroutine82                                12
+     ?Subroutine81                                12
+     ?Subroutine27                                 5
      zcl_SendWriteRequest                        222
      zcl_SendWriteRsp                            250
      zcl_SendDefaultRspCmd                       171
-     zclProcessMessageMSG                        118
-     ?Subroutine97                                 5
-     ??Subroutine106_0                             3
-     ??Subroutine107_0                             5
-     ?Subroutine75                                 3
-     ??Subroutine125_0                             5
+     zclProcessMessageMSG                          3
      zclParseHdr                                 224
-     ?Subroutine93                                 5
+     ?Subroutine92                                 5
      ?Subroutine9                                  4
      ?Subroutine61                                 5
-     ??Subroutine114_0                             4
+     ??Subroutine110_0                             4
      ?Subroutine62                                 9
-     ?Subroutine83                                 8
+     ?Subroutine82                                 8
      ?Subroutine5                                  6
-     ??Subroutine115_0                             5
-     ??Subroutine117_0                             7
-     ?Subroutine80                                 4
-     ??Subroutine122_0                             5
+     ??Subroutine111_0                             5
+     ??Subroutine113_0                             7
+     ?Subroutine79                                 4
+     ??Subroutine118_0                             5
      ?Subroutine12                                 8
-     zclBuildHdr                                 104
+     zclBuildHdr                                 106
      ?Subroutine43                                11
      ?Subroutine16                                 7
-     ??Subroutine108_0                             7
+     ??Subroutine104_0                             7
      ?Subroutine8                                  6
-     ?Subroutine92                                 5
+     ?Subroutine91                                 5
      zclFindAttrRec                              194
      zclFindClusterOption                        124
-     ?Subroutine98                                 5
+     ?Subroutine96                                 5
      zclGetClusterOption                          32
-     zclSetSecurityOption                         45
+     zclSetSecurityOption                         46
      zclSerializeData                            289
      ?Subroutine15                                 5
      ?Subroutine40                                 4
-     ??Subroutine118_0                             4
+     ??Subroutine114_0                             4
      zclGetDataTypeLength                        131
      zclGetAttrDataLength                         29
      zclReadAttrData                              75
      ?Subroutine25                                 2
-     ??Subroutine109_0                             2
-     ??Subroutine110_0                             5
-     ??Subroutine112_0                             4
+     ??Subroutine105_0                             2
+     ??Subroutine106_0                             5
+     ??Subroutine108_0                             4
      zclWriteAttrData                            122
-     ?Subroutine89                                 6
-     ??Subroutine119_0                             4
+     ?Subroutine88                                 6
+     ??Subroutine115_0                             4
      ?Subroutine71                                 9
      ?Subroutine41                                 6
      ?Subroutine31                                 6
@@ -8666,13 +8567,13 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
      ?Subroutine29                                25
      ?Subroutine49                                10
      zclParseInReadRspCmd                        126
-     ?Subroutine99                                 9
+     ?Subroutine97                                 9
      ?Subroutine20                                 7
-     ??Subroutine113_0                            24
+     ??Subroutine109_0                            24
      ?Subroutine6                                  8
      ?Subroutine59                                14
      ?Subroutine57                                 5
-     ?Subroutine87                                 6
+     ?Subroutine86                                 6
      ?Subroutine52                                16
      ?Subroutine51                                26
      ?Subroutine48                                25
@@ -8680,39 +8581,40 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
      ?Subroutine22                                32
      ?Subroutine4                                 23
      ?Subroutine3                                 35
-     ?Subroutine78                                 4
-     ?Subroutine77                                15
+     ?Subroutine77                                 4
+     ?Subroutine76                                15
      ?Subroutine73                                10
      ?Subroutine72                                 1
-     ??Subroutine124_0                             9
+     ??Subroutine121_0                             9
      zclParseInWriteCmd                          103
      zclParseInWriteRspCmd                       125
      ?Subroutine56                                 4
      zclParseInDefaultRspCmd                      44
      ?Subroutine7                                  4
-     ?Subroutine55                                 3
      zclProcessInReadCmd                         324
      ?Subroutine67                                 6
-     ??Subroutine116_0                             8
+     ??Subroutine112_0                             8
      ?Subroutine44                                 1
-     ??Subroutine120_0                            36
-     ??Subroutine121_0                             1
+     ??Subroutine116_0                            37
+     ??Subroutine117_0                             1
+     ?Subroutine55                                 6
+     ??Subroutine119_0                             6
      zclProcessInWriteCmd                        358
      ?Subroutine37                                 6
      ?Subroutine13                                 7
-     ??Subroutine123_0                             6
+     ??Subroutine120_0                             6
      ?Subroutine23                                18
-     ?Subroutine21                                37
+     ?Subroutine21                                38
      ?Subroutine10                                13
      ?Subroutine42                                 6
-     ??Subroutine111_0                             3
+     ??Subroutine107_0                             3
      ?Subroutine18                                 6
      zclProcessInWriteUndividedCmd               683
      ?Subroutine58                                26
-     ?Subroutine27                                 6
+     ?Subroutine26                                 6
      ?Subroutine17                                10
      ?Subroutine36                                 7
-     zclSendMsg                                  151
+     zclSendMsg                                  155
      ?<Initializer for zcl_RegisteredMsgTaskID>    1
      ??zcl_Init?relay                              6
      ??zcl_event_loop?relay                        6
@@ -8751,15 +8653,15 @@ Warning[Pe177]: variable "temp_buf" was declared but never referenced
      ??zclSendMsg?relay                            6
 
  
- 6 859 bytes in segment BANKED_CODE
+ 6 741 bytes in segment BANKED_CODE
    210 bytes in segment BANK_RELAYS
     56 bytes in segment CODE_C
      1 byte  in segment XDATA_I
      1 byte  in segment XDATA_ID
     11 bytes in segment XDATA_Z
  
- 7 126 bytes of CODE  memory
+ 7 008 bytes of CODE  memory
     12 bytes of XDATA memory
 
 Errors: none
-Warnings: 1
+Warnings: 2

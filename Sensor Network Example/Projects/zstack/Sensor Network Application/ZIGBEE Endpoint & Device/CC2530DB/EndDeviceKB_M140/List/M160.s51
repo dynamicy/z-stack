@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  18:10:05 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  19:00:39 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -403,7 +403,8 @@ T4_ISR              SYMBOL "T4_ISR"
 
 // D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
 //    1 #include "hal_defs.h"
-//    2 #include "ioCC2530.h"
+//    2 //#include "ioCC2530.h"
+//    3 #include "hal_mcu.h"
 
         ASEGN SFR_AN:DATA:NOROOT,080H
 // union <unnamed> volatile __sfr _A_P0
@@ -424,7 +425,6 @@ P0SEL:
 // unsigned char volatile __sfr P0DIR
 P0DIR:
         DS 1
-//    3 #include "hal_mcu.h"
 //    4 #include "hal_board.h"
 //    5 #include "M160.h"
 //    6 
@@ -564,8 +564,8 @@ M160_Init:
 //   36 }
         REQUIRE ?Subroutine0
         REQUIRE _A_IEN1
-        REQUIRE P0DIR
         REQUIRE P0SEL
+        REQUIRE P0DIR
         ; // Fall through to label ?Subroutine0
 
         RSEG BANKED_CODE:CODE:NOROOT(0)

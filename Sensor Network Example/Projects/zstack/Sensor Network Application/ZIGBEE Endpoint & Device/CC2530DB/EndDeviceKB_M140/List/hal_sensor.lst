@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  18:10:26 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  19:01:01 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -442,8 +442,8 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \   000068   742C         MOV     A,#0x2c
    \   00006A   90....       MOV     DPTR,#(TransmitApp_Msg + 3)
    \   00006D   F0           MOVX    @DPTR,A
-    123            TransmitApp_Msg[4] = 'A';   
-   \   00006E   7441         MOV     A,#0x41
+    123            TransmitApp_Msg[4] = 'B';   
+   \   00006E   7442         MOV     A,#0x42
    \   000070   90....       MOV     DPTR,#(TransmitApp_Msg + 4)
    \   000073   F0           MOVX    @DPTR,A
     124            TransmitApp_Msg[5] = ',';  
@@ -547,9 +547,9 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     135          #endif
     136          
     137          #if defined(M160)
-    138          void M160_SensorFunction(void)
-    139          {
-    140            uint8 duty_M160 = 50;
+    138          uint8 duty_M160 = 50;
+    139          void M160_SensorFunction(void)
+    140          {
     141          
     142            M160_Init();
     143            M160_On(duty_M160);
@@ -581,9 +581,9 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     169            TransmitApp_Msg[3] = ',';
     170            TransmitApp_Msg[4] = 'A';   
     171            TransmitApp_Msg[5] = ',';  
-    172            TransmitApp_Msg[6] = (duty / 100) + '0';
-    173            TransmitApp_Msg[7] = ((duty / 10) % 10) + '0';
-    174            TransmitApp_Msg[8] = (duty % 10) + '0';
+    172            TransmitApp_Msg[6] = (duty_M160 / 100) + '0';
+    173            TransmitApp_Msg[7] = ((duty_M160 / 10) % 10) + '0';
+    174            TransmitApp_Msg[8] = (duty_M160 % 10) + '0';
     175           
     176            uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
     177                                           ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC, 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  18:45:54 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               23/Aug/2013  21:45:05 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -58,8 +58,8 @@
 //                          ZTOOL_P1 -D MT_TASK -D MT_APP_FUNC -D             /
 //                          MT_SYS_FUNC -D MT_ZDO_FUNC -D                     /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC   /
-//                          "D:\GitHub\z-stack\Sensor Network                 /
+//                          End_Device -D HAL_KEYPAD -D xPA2591 -D MMN_UART   /
+//                          -lC "D:\GitHub\z-stack\Sensor Network             /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -208,27 +208,13 @@
         RSEG PSTACK:XDATA:NOROOT(0)
         RSEG XSTACK:XDATA:NOROOT(0)
 
-        EXTERN ?BANKED_ENTER_XDATA
-        EXTERN ?BANKED_LEAVE_XDATA
         EXTERN ?BDISPATCH
         EXTERN ?BRET
-        EXTERN ?DEALLOC_XSTACK8
-        EXTERN ?PUSH_XSTACK_I_ONE
-        EXTERN ?PUSH_XSTACK_I_TWO
-        EXTERN ?V0
-        EXTERN __INIT_XDATA_I
         EXTERN __INIT_XDATA_Z
 
-        PUBLIC ??M160_SensorFunction?relay
-        FUNCTION ??M160_SensorFunction?relay,0203H
         PUBLIC ??sleep?relay
         FUNCTION ??sleep?relay,0203H
-        PUBLIC M160_SensorFunction
-        FUNCTION M160_SensorFunction,021203H
-        ARGFRAME XSTACK, 0, STACK
-        LOCFRAME XSTACK, 21, STACK
         PUBLIC TransmitApp_Msg
-        PUBLIC duty_M160
         PUBLIC sleep
         FUNCTION sleep,080203H
         ARGFRAME XSTACK, 0, STACK
@@ -321,45 +307,8 @@
         CFI ?RET_LOW Frame(CFA_SP, 1)
         CFI EndCommon cfiCommon0
         
-M160_Init           SYMBOL "M160_Init"
-M160_On             SYMBOL "M160_On"
-zcl_SendCommand     SYMBOL "zcl_SendCommand"
-??M160_Init?relay   SYMBOL "?relay", M160_Init
-??M160_On?relay     SYMBOL "?relay", M160_On
-??zcl_SendCommand?relay SYMBOL "?relay", zcl_SendCommand
-M160_SensorFunction SYMBOL "M160_SensorFunction"
-??M160_SensorFunction?relay SYMBOL "?relay", M160_SensorFunction
 sleep               SYMBOL "sleep"
 ??sleep?relay       SYMBOL "?relay", sleep
-
-        EXTERN M160_Init
-        FUNCTION M160_Init,0202H
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN M160_On
-        FUNCTION M160_On,0202H
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN zcl_SendCommand
-        FUNCTION zcl_SendCommand,0202H
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 21, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN ??M160_Init?relay
-        FUNCTION ??M160_Init?relay,00H
-        EXTERN ??M160_On?relay
-        FUNCTION ??M160_On?relay,00H
-        EXTERN ??zcl_SendCommand?relay
-        FUNCTION ??zcl_SendCommand?relay,00H
-        EXTERN zclZigbeeDevice_DstAddr
 
 // D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Application\ZIGBEE Endpoint & Device\Source\hal_sensor.c
 //    1 #include "ZComDef.h"
@@ -490,6 +439,14 @@ sleep:
 //   68 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock0
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??sleep?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    sleep
+
+        END
 //   69 
 //   70 #if defined(M110)
 //   71 void M110_SensorFunction(void)
@@ -544,7 +501,7 @@ sleep:
 //  120   TransmitApp_Msg[1] = 4 + '0';   
 //  121   TransmitApp_Msg[2] = 0 + '0';        
 //  122   TransmitApp_Msg[3] = ',';
-//  123   TransmitApp_Msg[4] = 'A';   
+//  123   TransmitApp_Msg[4] = 'B';   
 //  124   TransmitApp_Msg[5] = ',';  
 //  125   TransmitApp_Msg[6] = (val / 100) + '0';
 //  126   TransmitApp_Msg[7] = ((val / 10) % 10) + '0';
@@ -559,80 +516,12 @@ sleep:
 //  135 #endif
 //  136 
 //  137 #if defined(M160)
-
-        RSEG XDATA_I:XDATA:NOROOT(0)
-        DATA
 //  138 uint8 duty_M160 = 50;
-duty_M160:
-        DS 1
-        REQUIRE `?<Initializer for duty_M160>`
-        REQUIRE __INIT_XDATA_I
-
-        RSEG BANKED_CODE:CODE:NOROOT(0)
 //  139 void M160_SensorFunction(void)
-M160_SensorFunction:
-        CFI Block cfiBlock1 Using cfiCommon0
-        CFI Function M160_SensorFunction
 //  140 {
-        FUNCALL M160_SensorFunction, M160_Init
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL M160_SensorFunction, M160_On
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL M160_SensorFunction, zcl_SendCommand
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 21, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 21, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        MOV     A,#-0xa
-        LCALL   ?BANKED_ENTER_XDATA
-        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 10)
-        ; Saved register size: 10
-        ; Auto size: 0
 //  141 
 //  142   M160_Init();
-        ; Setup parameters for call to function M160_Init
-        LCALL   ??M160_Init?relay
 //  143   M160_On(duty_M160);
-        ; Setup parameters for call to function M160_On
-        MOV     DPTR,#duty_M160
-        MOVX    A,@DPTR
-        MOV     R1,A
-        LCALL   ??M160_On?relay
 //  144   /*
 //  145   if (ch > 0)
 //  146   {           
@@ -656,126 +545,20 @@ M160_SensorFunction:
 //  164   }
 //  165   */
 //  166   TransmitApp_Msg[0] = 1 + '0';  
-        MOV     A,#0x31
-        MOV     DPTR,#TransmitApp_Msg
-        MOVX    @DPTR,A
 //  167   TransmitApp_Msg[1] = 6 + '0';   
-        MOV     A,#0x36
-        MOV     DPTR,#(TransmitApp_Msg + 1)
-        MOVX    @DPTR,A
 //  168   TransmitApp_Msg[2] = 0 + '0';        
-        MOV     A,#0x30
-        MOV     DPTR,#(TransmitApp_Msg + 2)
-        MOVX    @DPTR,A
 //  169   TransmitApp_Msg[3] = ',';
-        MOV     A,#0x2c
-        MOV     DPTR,#(TransmitApp_Msg + 3)
-        MOVX    @DPTR,A
 //  170   TransmitApp_Msg[4] = 'A';   
-        MOV     A,#0x41
-        MOV     DPTR,#(TransmitApp_Msg + 4)
-        MOVX    @DPTR,A
 //  171   TransmitApp_Msg[5] = ',';  
-        MOV     A,#0x2c
-        MOV     DPTR,#(TransmitApp_Msg + 5)
-        MOVX    @DPTR,A
 //  172   TransmitApp_Msg[6] = (duty_M160 / 100) + '0';
-        MOV     B,#0x64
-        MOV     DPTR,#duty_M160
-        MOVX    A,@DPTR
-        DIV     AB
-        ADD     A,#0x30
-        MOV     DPTR,#(TransmitApp_Msg + 6)
-        MOVX    @DPTR,A
 //  173   TransmitApp_Msg[7] = ((duty_M160 / 10) % 10) + '0';
-        MOV     B,#0xa
-        MOV     DPTR,#duty_M160
-        MOVX    A,@DPTR
-        DIV     AB
-        MOV     B,#0xa
-        DIV     AB
-        MOV     A,B
-        ADD     A,#0x30
-        MOV     DPTR,#(TransmitApp_Msg + 7)
-        MOVX    @DPTR,A
 //  174   TransmitApp_Msg[8] = (duty_M160 % 10) + '0';
-        MOV     DPTR,#duty_M160
-        MOVX    A,@DPTR
-        MOV     B,#0xa
-        DIV     AB
-        MOV     A,B
-        ADD     A,#0x30
-        MOV     DPTR,#(TransmitApp_Msg + 8)
-        MOVX    @DPTR,A
 //  175  
 //  176   uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
 //  177                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC, 
 //  178                                  TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 9, 
 //  179                                  TransmitApp_Msg ); 
-        ; Setup parameters for call to function zcl_SendCommand
-        MOV     ?V0 + 0,#(TransmitApp_Msg & 0xff)
-        MOV     ?V0 + 1,#((TransmitApp_Msg >> 8) & 0xff)
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 12)
-        MOV     ?V0 + 0,#0x9
-        MOV     ?V0 + 1,#0x0
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 14)
-        MOV     ?V0 + 0,#0x0
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 15)
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 17)
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 18)
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 19)
-        MOV     ?V0 + 0,#0x1
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 20)
-        MOV     ?V0 + 0,#0x0
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 21)
-        MOV     R4,#0x6
-        MOV     R5,#0x0
-        MOV     R2,#(zclZigbeeDevice_DstAddr & 0xff)
-        MOV     R3,#((zclZigbeeDevice_DstAddr >> 8) & 0xff)
-        MOV     R1,#0xc
-        LCALL   ??zcl_SendCommand?relay
-        MOV     A,#0xb
-        LCALL   ?DEALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 10)
 //  180 }
-        MOV     R7,#0x2
-        LJMP    ?BANKED_LEAVE_XDATA
-        CFI EndBlock cfiBlock1
-
-        RSEG XDATA_ID:CODE:NOROOT(0)
-        DATA
-`?<Initializer for duty_M160>`:
-        DB 50
-
-        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
-??sleep?relay:
-        LCALL   ?BDISPATCH
-        DATA
-        DC24    sleep
-
-        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
-??M160_SensorFunction?relay:
-        LCALL   ?BDISPATCH
-        DATA
-        DC24    M160_SensorFunction
-
-        END
 //  181 #endif 
 //  182 
 //  183 #if defined(M170)
@@ -916,14 +699,12 @@ M160_SensorFunction:
 //  318 }
 //  319 #endif
 // 
-// 250 bytes in segment BANKED_CODE
-//  12 bytes in segment BANK_RELAYS
-//   1 byte  in segment XDATA_I
-//   1 byte  in segment XDATA_ID
+//  64 bytes in segment BANKED_CODE
+//   6 bytes in segment BANK_RELAYS
 // 102 bytes in segment XDATA_Z
 // 
-// 263 bytes of CODE  memory
-// 103 bytes of XDATA memory
+//  70 bytes of CODE  memory
+// 102 bytes of XDATA memory
 //
 //Errors: none
 //Warnings: none

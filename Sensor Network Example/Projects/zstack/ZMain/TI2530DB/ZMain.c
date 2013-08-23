@@ -93,80 +93,80 @@ static void zmain_vdd_check( void );
 int main( void )
 { 
   // Turn off interrupts
-  show("osal_int_disable_INTS_ALL");
+  //show("osal_int_disable_INTS_ALL");
   osal_int_disable( INTS_ALL ); 
   
   // Initialization for board related stuff such as LEDs
-  show("HAL_BOARD_INIT");
+  //show("HAL_BOARD_INIT");
   HAL_BOARD_INIT();
   
   // Make sure supply voltage is high enough to run
-  show("zmain_vdd_check");
+  //show("zmain_vdd_check");
   zmain_vdd_check();
   
   // Initialize board I/O
-  show("InitBoard_OB_COLD");
+ // show("InitBoard_OB_COLD");
   InitBoard( OB_COLD );
   
   // Initialze HAL drivers
-  show("HalDriverInit");
+ // show("HalDriverInit");
   HalDriverInit(); 
   
   // Initialize NV System
-  show("osal_nv_init_NULL");
+ // show("osal_nv_init_NULL");
   osal_nv_init( NULL ); 
   
   // Initialize the MAC
-  show("ZMacInit");
+//  show("ZMacInit");
   ZMacInit(); 
   
   // Determine the extended address
-  show("zmain_ext_addr");
+ // show("zmain_ext_addr");
   zmain_ext_addr(); 
   
   // Initialize basic NV items
-  show("zgInit");
+ // show("zgInit");
   zgInit(); 
   
   // Since the AF isn't a task, call it's initialization routine
 #ifndef NONWK
-  show("afInit");
+ // show("afInit");
   afInit(); 
 #endif
   // Initialize the operating system
-  show("osal_int_system");
+ // show("osal_int_system");
   osal_init_system(); 
   
   // Allow interrupts
-  show("osal_int_enbale_INTS_ALL");
+ // show("osal_int_enbale_INTS_ALL");
   osal_int_enable( INTS_ALL );
   
   // Final board initialization
-  show("InitBoard_OB_READY");
+  //show("InitBoard_OB_READY");
   InitBoard( OB_READY ); 
   
   // Display information about this device
-  show("zmain_dev_info");
+  //show("zmain_dev_info");
   zmain_dev_info(); 
   
   // Display the device info on the LCD 
 #ifdef LCD_SUPPORTED
-  show("zmain_lcd_init");
+  //show("zmain_lcd_init");
   zmain_lcd_init(); 
 #endif
   // If WDT is used, this is a good place to enable it.
 #ifdef WDT_IN_PM1
-  show("WatchDogEnable_WDTIMX");
+  //show("WatchDogEnable_WDTIMX");
   WatchDogEnable( WDTIMX ); 
 #endif 
   
 #ifdef RS485
-  show("HalRS485Init");
+ // show("HalRS485Init");
   HalRS485Init(); // Initilization the RS485 Enable pin to low
 #endif
   
   // No Return from here
-  show("osal_start_system");
+  //show("osal_start_system");
   osal_start_system(); 
 
   return 0;  // Shouldn't get here.

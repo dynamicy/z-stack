@@ -340,7 +340,7 @@ void nwk_Status( uint16 statusCode, uint16 statusValue )
   switch ( statusCode )
   {
     case NWK_STATUS_COORD_ADDR: // The state is coordinator addr
-      show("NWK_STATUS_COORD_ADDR");
+     // show("NWK_STATUS_COORD_ADDR");
       if ( ZSTACK_ROUTER_BUILD )
       {
         #if defined (LCD_SUPPORTED) 
@@ -365,7 +365,7 @@ void nwk_Status( uint16 statusCode, uint16 statusValue )
       break;
 
     case NWK_STATUS_ROUTER_ADDR: // The state is router addr
-      show("NWK_STATUS_ROUTER_ADDR");
+    //  show("NWK_STATUS_ROUTER_ADDR");
       if ( ZSTACK_ROUTER_BUILD )
       {
         #if defined (LCD_SUPPORTED)
@@ -375,7 +375,7 @@ void nwk_Status( uint16 statusCode, uint16 statusValue )
       break;
 
     case NWK_STATUS_ORPHAN_RSP:
-      show("NWK_STATUS_ORPHAN_RSP");
+      //show("NWK_STATUS_ORPHAN_RSP");
       if ( ZSTACK_ROUTER_BUILD )
       {
         #if defined (LCD_SUPPORTED)
@@ -388,7 +388,7 @@ void nwk_Status( uint16 statusCode, uint16 statusValue )
       break;
 
     case NWK_ERROR_ASSOC_RSP:
-      show("NWK_ERROR_ASSOC_RSP");
+     // show("NWK_ERROR_ASSOC_RSP");
       if ( ZSTACK_ROUTER_BUILD )
       {
         #if defined (LCD_SUPPORTED)
@@ -399,7 +399,7 @@ void nwk_Status( uint16 statusCode, uint16 statusValue )
       break;
       
     case NWK_STATUS_ED_ADDR: // The state is end-device addr
-      show("NWK_STATUS_ED_ADDR");
+      //show("NWK_STATUS_ED_ADDR");
       if ( ZSTACK_END_DEVICE_BUILD )
       {
         #if defined (LCD_SUPPORTED)
@@ -409,7 +409,7 @@ void nwk_Status( uint16 statusCode, uint16 statusValue )
       break;
 
     case NWK_STATUS_PARENT_ADDR: // The state is parent addr
-      show("NWK_STATUS_PARENT_ADDR");
+   //  show("NWK_STATUS_PARENT_ADDR");
       #if defined (LCD_SUPPORTED)      
           HalLcdWriteStringValue( (char*)ParentStr, statusValue, 16, HAL_LCD_LINE_2 );
           #if defined (Location)
@@ -430,14 +430,14 @@ void nwk_Status( uint16 statusCode, uint16 statusValue )
       break;
 
     case NWK_STATUS_ASSOC_CNF:
-      show("NWK_STATUS_ASSOC_CNF");
+   //   show("NWK_STATUS_ASSOC_CNF");
       #if defined (LCD_SUPPORTED)
           HalLcdWriteScreen( (char*)AssocCnfStr, (char*)SuccessStr );
       #endif
       break;
 
     case NWK_ERROR_ASSOC_CNF_DENIED:
-      show("NWK_ERROR_ASSOC_CNF_DENIED");
+   //   show("NWK_ERROR_ASSOC_CNF_DENIED");
       #if defined (LCD_SUPPORTED)
           HalLcdWriteString((char*)AssocCnfFailStr, HAL_LCD_LINE_1 );
           HalLcdWriteValue( (uint32)(statusValue), 16, HAL_LCD_LINE_2 );
@@ -447,7 +447,7 @@ void nwk_Status( uint16 statusCode, uint16 statusValue )
       break;
 
     case NWK_ERROR_ENERGY_SCAN_FAILED: // The state is scan failed
-      show("NWK_ERROR_ENERGY_SCAN_FAILED");
+  //    show("NWK_ERROR_ENERGY_SCAN_FAILED");
       #if defined (LCD_SUPPORTED)
           HalLcdWriteScreen( (char*)EnergyLevelStr, (char*)ScanFailedStr );
       #endif

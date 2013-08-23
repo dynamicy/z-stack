@@ -163,7 +163,7 @@ extern uint16 HalUARTWrite ( uint8 port, uint8 *pBuffer, uint16 length );
 /*
  * Write a buff to the uart
  */
-extern void show(char *temp);
+//extern void show(char *temp);
 
 /*
  * Write a buff to the uart

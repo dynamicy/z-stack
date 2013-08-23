@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  18:45:59 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               23/Aug/2013  21:45:10 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -54,8 +54,8 @@
 //                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D           /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC   /
-//                          "D:\GitHub\z-stack\Sensor Network                 /
+//                          End_Device -D HAL_KEYPAD -D xPA2591 -D MMN_UART   /
+//                          -lC "D:\GitHub\z-stack\Sensor Network             /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -380,7 +380,6 @@ AddrMgrInit         SYMBOL "AddrMgrInit"
 osal_rand           SYMBOL "osal_rand"
 osal_memset         SYMBOL "osal_memset"
 sAddrExtCpy         SYMBOL "sAddrExtCpy"
-show                SYMBOL "show"
 HalLcdWriteStringValue SYMBOL "HalLcdWriteStringValue"
 HalLcdWriteScreen   SYMBOL "HalLcdWriteScreen"
 HalLcdWriteString   SYMBOL "HalLcdWriteString"
@@ -395,7 +394,6 @@ halMcuWaitMs        SYMBOL "halMcuWaitMs"
 ??osal_memset?relay SYMBOL "?relay", osal_memset
 ??osal_rand?relay   SYMBOL "?relay", osal_rand
 ??sAddrExtCpy?relay SYMBOL "?relay", sAddrExtCpy
-??show?relay        SYMBOL "?relay", show
 NIB_init            SYMBOL "NIB_init"
 ??NIB_init?relay    SYMBOL "?relay", NIB_init
 nwk_Status          SYMBOL "nwk_Status"
@@ -429,13 +427,6 @@ nwk_globals_init    SYMBOL "nwk_globals_init"
         ARGFRAME ISTACK, 2, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN show
-        FUNCTION show,0202H
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN HalLcdWriteStringValue
@@ -491,8 +482,6 @@ nwk_globals_init    SYMBOL "nwk_globals_init"
         FUNCTION ??osal_rand?relay,00H
         EXTERN ??sAddrExtCpy?relay
         FUNCTION ??sAddrExtCpy?relay,00H
-        EXTERN ??show?relay
-        FUNCTION ??show?relay,00H
         EXTERN ZDO_Config_Node_Descriptor
         EXTERN _NIB
         EXTERN zgBcastDeliveryTime
@@ -1362,61 +1351,6 @@ nwk_Status:
         CFI Block cfiBlock3 Using cfiCommon0
         CFI Function nwk_Status
 //  339 {
-        FUNCALL nwk_Status, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL nwk_Status, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL nwk_Status, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL nwk_Status, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL nwk_Status, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL nwk_Status, HalLcdWriteStringValue
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1428,17 +1362,6 @@ nwk_Status:
         ARGFRAME XSTACK, 13, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL nwk_Status, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL nwk_Status, HalLcdWriteStringValue
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1448,31 +1371,9 @@ nwk_Status:
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 13, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL nwk_Status, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL nwk_Status, HalLcdWriteScreen
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL nwk_Status, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 12, STACK
@@ -1506,17 +1407,6 @@ nwk_Status:
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL nwk_Status, halMcuWaitMs
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 12, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 12, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL nwk_Status, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 12, STACK
@@ -1566,38 +1456,23 @@ nwk_Status:
 `?<Jumptable for nwk_Status>_0`:
         DATA
         DW        0
-        DW        9
+        DW        5
         DW        2
         DW        ??nwk_Status_0
         DW        3
         DW        ??nwk_Status_1
         DW        4
         DW        ??nwk_Status_2
-        DW        5
-        DW        ??nwk_Status_3
-        DW        6
-        DW        ??nwk_Status_4
-        DW        7
-        DW        ??nwk_Status_5
-        DW        4097
-        DW        ??nwk_Status_6
         DW        4099
-        DW        ??nwk_Status_7
+        DW        ??nwk_Status_3
         DW        4100
-        DW        ??nwk_Status_8
-        DW        ??nwk_Status_9
+        DW        ??nwk_Status_4
+        DW        ??nwk_Status_5
         CODE
 //  341   {
 //  342     case NWK_STATUS_COORD_ADDR: // The state is coordinator addr
-//  343       show("NWK_STATUS_COORD_ADDR");
-??nwk_Status_3:
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "NWK_STATUS_COORD_ADDR">` & 0xff)
-        MOV     R3,#((`?<Constant "NWK_STATUS_COORD_ADDR">` >> 8) & 0xff)
-??nwk_Status_10:
-        LCALL   ??show?relay
+//  343      // show("NWK_STATUS_COORD_ADDR");
 //  344       if ( ZSTACK_ROUTER_BUILD )
-        LJMP    ??nwk_Status_9 & 0xFFFF
 //  345       {
 //  346         #if defined (LCD_SUPPORTED) 
 //  347             HalLcdWriteString( (char*)ZigbeeCoordStr, HAL_LCD_LINE_1 );
@@ -1621,12 +1496,7 @@ nwk_Status:
 //  365       break;
 //  366 
 //  367     case NWK_STATUS_ROUTER_ADDR: // The state is router addr
-//  368       show("NWK_STATUS_ROUTER_ADDR");
-??nwk_Status_4:
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "NWK_STATUS_ROUTER_ADDR">` & 0xff)
-        MOV     R3,#((`?<Constant "NWK_STATUS_ROUTER_ADDR">` >> 8) & 0xff)
-        SJMP    ??nwk_Status_10
+//  368     //  show("NWK_STATUS_ROUTER_ADDR");
 //  369       if ( ZSTACK_ROUTER_BUILD )
 //  370       {
 //  371         #if defined (LCD_SUPPORTED)
@@ -1636,12 +1506,7 @@ nwk_Status:
 //  375       break;
 //  376 
 //  377     case NWK_STATUS_ORPHAN_RSP:
-//  378       show("NWK_STATUS_ORPHAN_RSP");
-??nwk_Status_5:
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "NWK_STATUS_ORPHAN_RSP">` & 0xff)
-        MOV     R3,#((`?<Constant "NWK_STATUS_ORPHAN_RSP">` >> 8) & 0xff)
-        SJMP    ??nwk_Status_10
+//  378       //show("NWK_STATUS_ORPHAN_RSP");
 //  379       if ( ZSTACK_ROUTER_BUILD )
 //  380       {
 //  381         #if defined (LCD_SUPPORTED)
@@ -1654,12 +1519,7 @@ nwk_Status:
 //  388       break;
 //  389 
 //  390     case NWK_ERROR_ASSOC_RSP:
-//  391       show("NWK_ERROR_ASSOC_RSP");
-??nwk_Status_6:
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "NWK_ERROR_ASSOC_RSP">` & 0xff)
-        MOV     R3,#((`?<Constant "NWK_ERROR_ASSOC_RSP">` >> 8) & 0xff)
-        SJMP    ??nwk_Status_10
+//  391      // show("NWK_ERROR_ASSOC_RSP");
 //  392       if ( ZSTACK_ROUTER_BUILD )
 //  393       {
 //  394         #if defined (LCD_SUPPORTED)
@@ -1670,56 +1530,44 @@ nwk_Status:
 //  399       break;
 //  400       
 //  401     case NWK_STATUS_ED_ADDR: // The state is end-device addr
-//  402       show("NWK_STATUS_ED_ADDR");
-??nwk_Status_1:
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "NWK_STATUS_ED_ADDR">` & 0xff)
-        MOV     R3,#((`?<Constant "NWK_STATUS_ED_ADDR">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  402       //show("NWK_STATUS_ED_ADDR");
 //  403       if ( ZSTACK_END_DEVICE_BUILD )
 //  404       {
 //  405         #if defined (LCD_SUPPORTED)
 //  406             HalLcdWriteStringValue( (char*)EndDeviceStr, statusValue, 16, HAL_LCD_LINE_1 );
+??nwk_Status_1:
         ; Setup parameters for call to function HalLcdWriteStringValue
         MOV     ?V0 + 0,#0x1
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
         CFI CFA_XSP16 add(XSP16, 13)
         MOV     R1,#0x10
-        MOV     R4,?V0 + 2
-        MOV     R5,?V0 + 3
         MOV     R2,#(EndDeviceStr & 0xff)
         MOV     R3,#((EndDeviceStr >> 8) & 0xff)
-??nwk_Status_11:
+??nwk_Status_6:
         LCALL   ??HalLcdWriteStringValue?relay
         MOV     A,#0x1
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 12)
-        SJMP    ??nwk_Status_9
+        SJMP    ??nwk_Status_5
 //  407         #endif
 //  408       }
 //  409       break;
 //  410 
 //  411     case NWK_STATUS_PARENT_ADDR: // The state is parent addr
-//  412       show("NWK_STATUS_PARENT_ADDR");
-??nwk_Status_2:
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "NWK_STATUS_PARENT_ADDR">` & 0xff)
-        MOV     R3,#((`?<Constant "NWK_STATUS_PARENT_ADDR">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  412    //  show("NWK_STATUS_PARENT_ADDR");
 //  413       #if defined (LCD_SUPPORTED)      
 //  414           HalLcdWriteStringValue( (char*)ParentStr, statusValue, 16, HAL_LCD_LINE_2 );
+??nwk_Status_2:
         ; Setup parameters for call to function HalLcdWriteStringValue
         MOV     ?V0 + 0,#0x2
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
         CFI CFA_XSP16 add(XSP16, 13)
         MOV     R1,#0x10
-        MOV     R4,?V0 + 2
-        MOV     R5,?V0 + 3
         MOV     R2,#(ParentStr & 0xff)
         MOV     R3,#((ParentStr >> 8) & 0xff)
-        SJMP    ??nwk_Status_11
+        SJMP    ??nwk_Status_6
         CFI CFA_XSP16 add(XSP16, 12)
 //  415           #if defined (Location)
 //  416               halMcuWaitMs(300);
@@ -1739,32 +1587,24 @@ nwk_Status:
 //  430       break;
 //  431 
 //  432     case NWK_STATUS_ASSOC_CNF:
-//  433       show("NWK_STATUS_ASSOC_CNF");
-??nwk_Status_0:
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "NWK_STATUS_ASSOC_CNF">` & 0xff)
-        MOV     R3,#((`?<Constant "NWK_STATUS_ASSOC_CNF">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  433    //   show("NWK_STATUS_ASSOC_CNF");
 //  434       #if defined (LCD_SUPPORTED)
 //  435           HalLcdWriteScreen( (char*)AssocCnfStr, (char*)SuccessStr );
+??nwk_Status_0:
         ; Setup parameters for call to function HalLcdWriteScreen
         MOV     R4,#(SuccessStr & 0xff)
         MOV     R5,#((SuccessStr >> 8) & 0xff)
         MOV     R2,#(AssocCnfStr & 0xff)
         MOV     R3,#((AssocCnfStr >> 8) & 0xff)
-        SJMP    ??nwk_Status_12
+        SJMP    ??nwk_Status_7
 //  436       #endif
 //  437       break;
 //  438 
 //  439     case NWK_ERROR_ASSOC_CNF_DENIED:
-//  440       show("NWK_ERROR_ASSOC_CNF_DENIED");
-??nwk_Status_7:
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "NWK_ERROR_ASSOC_CNF_D...">` & 0xff)
-        MOV     R3,#((`?<Constant "NWK_ERROR_ASSOC_CNF_D...">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  440    //   show("NWK_ERROR_ASSOC_CNF_DENIED");
 //  441       #if defined (LCD_SUPPORTED)
 //  442           HalLcdWriteString((char*)AssocCnfFailStr, HAL_LCD_LINE_1 );
+??nwk_Status_3:
         ; Setup parameters for call to function HalLcdWriteString
         MOV     R1,#0x1
         MOV     R2,#(AssocCnfFailStr & 0xff)
@@ -1794,30 +1634,26 @@ nwk_Status:
 //  446           WatchDogEnable( WDTISH ); // Use watch dog to reset the system
         MOV     0xc9,#-0x55
         MOV     0xc9,#0x5b
-        SJMP    ??nwk_Status_9
+        SJMP    ??nwk_Status_5
 //  447       break;
 //  448 
 //  449     case NWK_ERROR_ENERGY_SCAN_FAILED: // The state is scan failed
-//  450       show("NWK_ERROR_ENERGY_SCAN_FAILED");
-??nwk_Status_8:
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "NWK_ERROR_ENERGY_SCAN...">` & 0xff)
-        MOV     R3,#((`?<Constant "NWK_ERROR_ENERGY_SCAN...">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  450   //    show("NWK_ERROR_ENERGY_SCAN_FAILED");
 //  451       #if defined (LCD_SUPPORTED)
 //  452           HalLcdWriteScreen( (char*)EnergyLevelStr, (char*)ScanFailedStr );
+??nwk_Status_4:
         ; Setup parameters for call to function HalLcdWriteScreen
         MOV     R4,#(ScanFailedStr & 0xff)
         MOV     R5,#((ScanFailedStr >> 8) & 0xff)
         MOV     R2,#(EnergyLevelStr & 0xff)
         MOV     R3,#((EnergyLevelStr >> 8) & 0xff)
-??nwk_Status_12:
+??nwk_Status_7:
         LCALL   ??HalLcdWriteScreen?relay
 //  453       #endif
 //  454       break;
 //  455   }
 //  456 }
-??nwk_Status_9:
+??nwk_Status_5:
         MOV     R7,#0x4
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock3
@@ -1861,64 +1697,19 @@ nwk_Status:
         DATA
         DC24    nwk_Status
 
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "NWK_STATUS_COORD_ADDR">`:
-        DB "NWK_STATUS_COORD_ADDR"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "NWK_STATUS_ROUTER_ADDR">`:
-        DB "NWK_STATUS_ROUTER_ADDR"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "NWK_STATUS_ORPHAN_RSP">`:
-        DB "NWK_STATUS_ORPHAN_RSP"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "NWK_ERROR_ASSOC_RSP">`:
-        DB "NWK_ERROR_ASSOC_RSP"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "NWK_STATUS_ED_ADDR">`:
-        DB "NWK_STATUS_ED_ADDR"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "NWK_STATUS_PARENT_ADDR">`:
-        DB "NWK_STATUS_PARENT_ADDR"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "NWK_STATUS_ASSOC_CNF">`:
-        DB "NWK_STATUS_ASSOC_CNF"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "NWK_ERROR_ASSOC_CNF_D...">`:
-        DB "NWK_ERROR_ASSOC_CNF_DENIED"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "NWK_ERROR_ENERGY_SCAN...">`:
-        DB "NWK_ERROR_ENERGY_SCAN_FAILED"
-
         END
 // 
-//   525 bytes in segment BANKED_CODE
+//   438 bytes in segment BANKED_CODE
 //    18 bytes in segment BANK_RELAYS
 //    56 bytes in segment CODE_C
 //     1 byte  in segment SFR_AN
 //    14 bytes in segment XDATA_I
 //    14 bytes in segment XDATA_ID
-//   384 bytes in segment XDATA_ROM_C
+//   178 bytes in segment XDATA_ROM_C
 // 1 079 bytes in segment XDATA_Z
 // 
-//   613 bytes of CODE  memory
-//   384 bytes of CONST memory
+//   526 bytes of CODE  memory
+//   178 bytes of CONST memory
 //     0 bytes of DATA  memory (+ 1 byte shared)
 // 1 093 bytes of XDATA memory
 //

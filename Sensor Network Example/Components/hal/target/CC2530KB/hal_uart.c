@@ -227,6 +227,7 @@ uint16 HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
 * @param   temp - pointer to the buffer that will be written, not freed
 *
 */
+/*
 void show(char *temp)
 {
     char buf[64];
@@ -235,7 +236,7 @@ void show(char *temp)
     sprintf(buf, "\r%s\n", temp);
     HalUARTWrite(HAL_UART_PORT_0, buf, 64);
 }
-
+*/
 /******************************************************************************
  * @fn      HalUARTSuspend
  *

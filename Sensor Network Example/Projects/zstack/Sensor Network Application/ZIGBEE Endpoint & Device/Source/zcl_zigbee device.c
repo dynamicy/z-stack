@@ -14,6 +14,9 @@
 /*********************************************************************
  * INCLUDES
  */
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "ZComDef.h"
 
 /* OSAL */
@@ -460,24 +463,50 @@ void zclRS485_CallBack(uint8 port, uint8 event)
       osal_set_event( zclZigbeeDevice_TaskID, RS485_MSG_EVT );
   }
 }
-
+#if defined( MMN_UART )
+uint8 uart_recv_str[20];
+int str_loc = 0;
+#endif
 void zclRS485_SendMsg(void)
 {
   uint8 len;
   uint8 uart_recv[20]; // Receive the UART command
+  char temp[20];
+  int null_loc;
   
   for(len = 0; len < 20; len++)
   {
-    uart_recv[len] = TransmitApp_Msg[len];
+    uart_recv[len]     = TransmitApp_Msg[len];
   #if defined( LCD_SUPPORTED )
     HalLcdWriteChar(HAL_LCD_LINE_4, len, uart_recv[len]);
   #endif
+  #if defined( MMN_UART )
+    uart_recv_str[len+str_loc] = TransmitApp_Msg[len];
+    if(TransmitApp_Msg[len]=='\0'){
+      null_loc = len;
+      str_loc += null_loc;
+      break;
+    }
+  #endif
   }
   
+  //sprintf(temp, ",%d,", (int)TransmitApp_Msg[null_loc-1]);
+  //HalUARTWrite( MT_UART_DEFAULT_PORT, temp, 20 );
+  #if defined( MMN_UART )
+  if(TransmitApp_Msg[null_loc-1]=='\r'){
   // Transmit the UART command to End Device
+    uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
+                               ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
+                                TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, str_loc-1, uart_recv_str );
+    str_loc = 0;
+    memset(uart_recv_str, 0x0, 20);
+  }
+  #else
   uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, uart_recv );
+  #endif
+    
 }
 
 void zclZIGBEEDevice_SendMsg(void)

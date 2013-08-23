@@ -120,7 +120,7 @@ void M140_SensorFunction(void)
   TransmitApp_Msg[1] = 4 + '0';   
   TransmitApp_Msg[2] = 0 + '0';        
   TransmitApp_Msg[3] = ',';
-  TransmitApp_Msg[4] = 'A';   
+  TransmitApp_Msg[4] = 'B';   
   TransmitApp_Msg[5] = ',';  
   TransmitApp_Msg[6] = (val / 100) + '0';
   TransmitApp_Msg[7] = ((val / 10) % 10) + '0';

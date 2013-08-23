@@ -36,7 +36,7 @@ extern "C"
 // Application Events (OSAL)
 #define SAMPLESW_IDENTIFY_TIMEOUT_EVT   0x0001 // Events for the sample app
 #define SENSOR_SEND_MSG_EVT             0x0002 // These are bit weighted definitions.
-#define RS485_MSG_EVT                   0x0004 // These is UART/RS485 event
+#define RS485_MSG_EVT                   0x0004 // These is UART/RS485 event , Chris Uart Evt
 #define KEYPAD_MSG_EVT                  0x0008
 
 #define GENERICAPP_CLUSTERID            1 

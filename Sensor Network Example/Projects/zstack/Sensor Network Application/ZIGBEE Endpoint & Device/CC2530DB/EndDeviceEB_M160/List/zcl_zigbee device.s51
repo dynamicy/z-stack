@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  18:46:03 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               23/Aug/2013  21:45:13 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -58,8 +58,8 @@
 //                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D           /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D M160 -D xPA2591 -lC   /
-//                          "D:\GitHub\z-stack\Sensor Network                 /
+//                          End_Device -D HAL_KEYPAD -D xPA2591 -D MMN_UART   /
+//                          -lC "D:\GitHub\z-stack\Sensor Network             /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -242,6 +242,8 @@
         FUNCTION ??zcl_ZigbeeDevice_Init?relay,0203H
         PUBLIC TransmitApp_epDesc
         PUBLIC len
+        PUBLIC str_loc
+        PUBLIC uart_recv_str
         PUBLIC zclRS485_CallBack
         FUNCTION zclRS485_CallBack,021203H
         ARGFRAME XSTACK, 0, STACK
@@ -252,11 +254,10 @@
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         LOCFRAME ISTACK, 1, STACK
-        LOCFRAME XSTACK, 43, STACK
+        LOCFRAME XSTACK, 44, STACK
         PUBLIC zclZIGBEEDevice_SendMsg
-        FUNCTION zclZIGBEEDevice_SendMsg,021203H
+        FUNCTION zclZIGBEEDevice_SendMsg,0203H
         ARGFRAME XSTACK, 0, STACK
-        LOCFRAME ISTACK, 2, STACK
         FUNCTION zclZigbeeDevice_BasicResetCB,0603H
         ARGFRAME XSTACK, 0, STACK
         PUBLIC zclZigbeeDevice_DstAddr
@@ -451,24 +452,24 @@ osal_msg_deallocate SYMBOL "osal_msg_deallocate"
 osal_msg_receive    SYMBOL "osal_msg_receive"
 osal_mem_free       SYMBOL "osal_mem_free"
 ZDO_ParseEPListRsp  SYMBOL "ZDO_ParseEPListRsp"
-M160_SensorFunction SYMBOL "M160_SensorFunction"
 HalLcdWriteChar     SYMBOL "HalLcdWriteChar"
 HalLedBlink         SYMBOL "HalLedBlink"
 osal_stop_timerEx   SYMBOL "osal_stop_timerEx"
 Hal_UART_RxBufLen   SYMBOL "Hal_UART_RxBufLen"
 HalUARTRead         SYMBOL "HalUARTRead"
 zcl_SendCommand     SYMBOL "zcl_SendCommand"
+memset              SYMBOL "memset"
 ??HalLcdWriteChar?relay SYMBOL "?relay", HalLcdWriteChar
 ??HalLedBlink?relay SYMBOL "?relay", HalLedBlink
 ??HalLedSet?relay   SYMBOL "?relay", HalLedSet
 ??HalUARTRead?relay SYMBOL "?relay", HalUARTRead
 ??Hal_UART_RxBufLen?relay SYMBOL "?relay", Hal_UART_RxBufLen
-??M160_SensorFunction?relay SYMBOL "?relay", M160_SensorFunction
 ??RegisterForKeys?relay SYMBOL "?relay", RegisterForKeys
 ??ZDO_ParseEPListRsp?relay SYMBOL "?relay", ZDO_ParseEPListRsp
 ??ZDO_RegisterForZDOMsg?relay SYMBOL "?relay", ZDO_RegisterForZDOMsg
 ??ZDP_MatchDescReq?relay SYMBOL "?relay", ZDP_MatchDescReq
 ??afRegister?relay  SYMBOL "?relay", afRegister
+??memset?relay      SYMBOL "?relay", memset
 ??osal_mem_free?relay SYMBOL "?relay", osal_mem_free
 ??osal_msg_deallocate?relay SYMBOL "?relay", osal_msg_deallocate
 ??osal_msg_receive?relay SYMBOL "?relay", osal_msg_receive
@@ -596,18 +597,11 @@ zcl_ZigbeeDevice_Init SYMBOL "zcl_ZigbeeDevice_Init"
         ARGFRAME XSTACK, 23, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN M160_SensorFunction
-        FUNCTION M160_SensorFunction,0202H
-        ARGFRAME ISTACK, 2, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 23, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         EXTERN HalLcdWriteChar
         FUNCTION HalLcdWriteChar,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 32, STACK
+        ARGFRAME XSTACK, 33, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN HalLedBlink
@@ -642,7 +636,14 @@ zcl_ZigbeeDevice_Init SYMBOL "zcl_ZigbeeDevice_Init"
         FUNCTION zcl_SendCommand,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 43, STACK
+        ARGFRAME XSTACK, 44, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN memset
+        FUNCTION memset,010202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 35, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN ??HalLcdWriteChar?relay
@@ -655,8 +656,6 @@ zcl_ZigbeeDevice_Init SYMBOL "zcl_ZigbeeDevice_Init"
         FUNCTION ??HalUARTRead?relay,00H
         EXTERN ??Hal_UART_RxBufLen?relay
         FUNCTION ??Hal_UART_RxBufLen?relay,00H
-        EXTERN ??M160_SensorFunction?relay
-        FUNCTION ??M160_SensorFunction?relay,00H
         EXTERN ??RegisterForKeys?relay
         FUNCTION ??RegisterForKeys?relay,00H
         EXTERN ??ZDO_ParseEPListRsp?relay
@@ -667,6 +666,8 @@ zcl_ZigbeeDevice_Init SYMBOL "zcl_ZigbeeDevice_Init"
         FUNCTION ??ZDP_MatchDescReq?relay,00H
         EXTERN ??afRegister?relay
         FUNCTION ??afRegister?relay,00H
+        EXTERN ??memset?relay
+        FUNCTION ??memset?relay,00H
         EXTERN ??osal_mem_free?relay
         FUNCTION ??osal_mem_free?relay,00H
         EXTERN ??osal_msg_deallocate?relay
@@ -713,200 +714,203 @@ zcl_ZigbeeDevice_Init SYMBOL "zcl_ZigbeeDevice_Init"
 //   14 /*********************************************************************
 //   15  * INCLUDES
 //   16  */
-//   17 #include "ZComDef.h"
-//   18 
-//   19 /* OSAL */
-//   20 #include "OSAL.h"
-//   21 #include "OSAL_Nv.h"
-//   22 
-//   23 /* Profile */
-//   24 #include "AF.h"
+//   17 #include <stdio.h>
+//   18 #include <string.h>
+//   19 #include <stdlib.h>
+//   20 #include "ZComDef.h"
+//   21 
+//   22 /* OSAL */
+//   23 #include "OSAL.h"
+//   24 #include "OSAL_Nv.h"
 //   25 
-//   26 /* ZDO */
-//   27 #include "ZDApp.h"
-//   28 #include "ZDObject.h"
-//   29 #include "ZDProfile.h"
-//   30 
-//   31 /* MT */
-//   32 #include "MT_UART.h"
+//   26 /* Profile */
+//   27 #include "AF.h"
+//   28 
+//   29 /* ZDO */
+//   30 #include "ZDApp.h"
+//   31 #include "ZDObject.h"
+//   32 #include "ZDProfile.h"
 //   33 
-//   34 /* ZCL */
-//   35 #include "zcl.h"
-//   36 #include "zcl_general.h"
-//   37 #include "zcl_ha.h"
-//   38 #include "zcl_zigbee device.h"
-//   39 
-//   40 /* HAL */
-//   41 #include "onboard.h"
-//   42 #include "hal_lcd.h"
-//   43 #include "hal_led.h"
-//   44 #include "hal_key.h"
-//   45 #include "hal_keypad.h"
-//   46 #include "hal_buzzer.h"
-//   47 
-//   48 /* SENSOR */
-//   49 #if defined(M110)
-//   50   #include "M110.h"
-//   51 #endif
-//   52 #if defined(M140)
-//   53   #include "M140.h"
+//   34 /* MT */
+//   35 #include "MT_UART.h"
+//   36 
+//   37 /* ZCL */
+//   38 #include "zcl.h"
+//   39 #include "zcl_general.h"
+//   40 #include "zcl_ha.h"
+//   41 #include "zcl_zigbee device.h"
+//   42 
+//   43 /* HAL */
+//   44 #include "onboard.h"
+//   45 #include "hal_lcd.h"
+//   46 #include "hal_led.h"
+//   47 #include "hal_key.h"
+//   48 #include "hal_keypad.h"
+//   49 #include "hal_buzzer.h"
+//   50 
+//   51 /* SENSOR */
+//   52 #if defined(M110)
+//   53   #include "M110.h"
 //   54 #endif
-//   55 #if defined(M160)
-//   56   #include "M160.h"
+//   55 #if defined(M140)
+//   56   #include "M140.h"
 //   57 #endif
-//   58 #if defined(M200)
-//   59   #include "M200.h"
+//   58 #if defined(M160)
+//   59   #include "M160.h"
 //   60 #endif
-//   61 #if defined(M220)
-//   62   #include "M220.h"
+//   61 #if defined(M200)
+//   62   #include "M200.h"
 //   63 #endif
-//   64 #if defined(M250)
-//   65   #include "M250.h"
+//   64 #if defined(M220)
+//   65   #include "M220.h"
 //   66 #endif
-//   67 #if defined(M320)
-//   68   #include "M320.h"
+//   67 #if defined(M250)
+//   68   #include "M250.h"
 //   69 #endif
-//   70 
-//   71 /*********************************************************************
-//   72  * MACROS
-//   73  */
+//   70 #if defined(M320)
+//   71   #include "M320.h"
+//   72 #endif
+//   73 
 //   74 /*********************************************************************
-//   75  * CONSTANTS
+//   75  * MACROS
 //   76  */
+//   77 /*********************************************************************
+//   78  * CONSTANTS
+//   79  */
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
-//   77 afAddrType_t zclZigbeeDevice_DstAddr;
+//   80 afAddrType_t zclZigbeeDevice_DstAddr;
 zclZigbeeDevice_DstAddr:
         DS 12
         REQUIRE __INIT_XDATA_Z
-//   78 
-//   79 /*********************************************************************
-//   80  * TYPEDEFS
-//   81  */
+//   81 
 //   82 /*********************************************************************
-//   83  * GLOBAL VARIABLES
+//   83  * TYPEDEFS
 //   84  */
+//   85 /*********************************************************************
+//   86  * GLOBAL VARIABLES
+//   87  */
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
-//   85 byte zclZigbeeDevice_TaskID; // Task ID variable
+//   88 byte zclZigbeeDevice_TaskID; // Task ID variable
 zclZigbeeDevice_TaskID:
         DS 1
         REQUIRE __INIT_XDATA_Z
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
-//   86 endPointDesc_t TransmitApp_epDesc;
+//   89 endPointDesc_t TransmitApp_epDesc;
 TransmitApp_epDesc:
         DS 6
         REQUIRE __INIT_XDATA_Z
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
-//   87 uint8 len; // the transmit data length
+//   90 uint8 len; // the transmit data length
 len:
         DS 1
         REQUIRE __INIT_XDATA_Z
-//   88 
-//   89 /*********************************************************************
-//   90  * GLOBAL FUNCTIONS
-//   91  */
-//   92 
-//   93 /*********************************************************************
-//   94  * LOCAL VARIABLES
-//   95  */
-//   96 #define ZCLZIGBEEDEV_BINDINGLIST       1
+//   91 
+//   92 /*********************************************************************
+//   93  * GLOBAL FUNCTIONS
+//   94  */
+//   95 
+//   96 /*********************************************************************
+//   97  * LOCAL VARIABLES
+//   98  */
+//   99 #define ZCLZIGBEEDEV_BINDINGLIST       1
 
         RSEG XDATA_I:XDATA:NOROOT(0)
         DATA
-//   97 static cId_t bindingOutClusters[ZCLZIGBEEDEV_BINDINGLIST] = {
+//  100 static cId_t bindingOutClusters[ZCLZIGBEEDEV_BINDINGLIST] = {
 bindingOutClusters:
         DS 2
         REQUIRE `?<Initializer for bindingOutClusters>`
         REQUIRE __INIT_XDATA_I
-//   98                                                               ZCL_CLUSTER_ID_GEN_ON_OFF // The binding cluster ID
-//   99                                                             };
-//  100 
-//  101 // Test Endpoint to allow SYS_APP_MSGs
+//  101                                                               ZCL_CLUSTER_ID_GEN_ON_OFF // The binding cluster ID
+//  102                                                             };
+//  103 
+//  104 // Test Endpoint to allow SYS_APP_MSGs
 
         RSEG XDATA_I:XDATA:NOROOT(0)
         DATA
-//  102 static endPointDesc_t zigbeeDevice_TestEp = {
+//  105 static endPointDesc_t zigbeeDevice_TestEp = {
 zigbeeDevice_TestEp:
         DS 6
         REQUIRE `?<Initializer for zigbeeDevice_TestEp>`
         REQUIRE __INIT_XDATA_I
-//  103                                               20,                                 // Test endpoint
-//  104                                               &zclZigbeeDevice_TaskID,
-//  105                                               (SimpleDescriptionFormat_t *)NULL,  // No Simple description for this test endpoint
-//  106                                               (afNetworkLatencyReq_t)0            // No Network Latency req
-//  107                                             };
-//  108 
-//  109 /*********************************************************************
-//  110  * LOCAL FUNCTIONS
-//  111  */
-//  112 static void zclZigbeeDevice_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg );
-//  113 static void zclZigbeeDevice_HandleKeys( byte shift, byte keys );
-//  114 static void zclZigbeeDevice_BasicResetCB( void );
-//  115 static void zclZigbeeDevice_IdentifyCB( zclIdentify_t *pCmd );
-//  116 static void zclZigbeeDevice_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp );
-//  117 static void zclZigbeeDevice_ProcessIdentifyTimeChange( void );
-//  118 
-//  119 // Functions to process ZCL Foundation incoming Command/Response messages
-//  120 static void zclZigbeeDevice_ProcessIncomingMsg( zclIncomingMsg_t *msg );
-//  121 #ifdef ZCL_READ
-//  122   static uint8 zclZigbeeDevice_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg );
-//  123 #endif
-//  124 #ifdef ZCL_WRITE
-//  125   static uint8 zclZigbeeDevice_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg );
+//  106                                               20,                                 // Test endpoint
+//  107                                               &zclZigbeeDevice_TaskID,
+//  108                                               (SimpleDescriptionFormat_t *)NULL,  // No Simple description for this test endpoint
+//  109                                               (afNetworkLatencyReq_t)0            // No Network Latency req
+//  110                                             };
+//  111 
+//  112 /*********************************************************************
+//  113  * LOCAL FUNCTIONS
+//  114  */
+//  115 static void zclZigbeeDevice_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg );
+//  116 static void zclZigbeeDevice_HandleKeys( byte shift, byte keys );
+//  117 static void zclZigbeeDevice_BasicResetCB( void );
+//  118 static void zclZigbeeDevice_IdentifyCB( zclIdentify_t *pCmd );
+//  119 static void zclZigbeeDevice_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp );
+//  120 static void zclZigbeeDevice_ProcessIdentifyTimeChange( void );
+//  121 
+//  122 // Functions to process ZCL Foundation incoming Command/Response messages
+//  123 static void zclZigbeeDevice_ProcessIncomingMsg( zclIncomingMsg_t *msg );
+//  124 #ifdef ZCL_READ
+//  125   static uint8 zclZigbeeDevice_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg );
 //  126 #endif
-//  127   static uint8 zclZigbeeDevice_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg );
-//  128 #ifdef ZCL_DISCOVER
-//  129   static uint8 zclZigbeeDevice_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg );
-//  130 #endif
-//  131 
-//  132 void zclZIGBEEDevice_SendMsg(void); // The Send ZIGBEE Message
-//  133 
-//  134 void zclRS485_CallBack(uint8 port, uint8 event); // The RS485 Message callback
-//  135 void zclRS485_SendMsg( void ); // The device receive RS485 transmit data
+//  127 #ifdef ZCL_WRITE
+//  128   static uint8 zclZigbeeDevice_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg );
+//  129 #endif
+//  130   static uint8 zclZigbeeDevice_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg );
+//  131 #ifdef ZCL_DISCOVER
+//  132   static uint8 zclZigbeeDevice_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg );
+//  133 #endif
+//  134 
+//  135 void zclZIGBEEDevice_SendMsg(void); // The Send ZIGBEE Message
 //  136 
-//  137 /*********************************************************************
-//  138  * ZCL General Profile Callback table
-//  139  */
+//  137 void zclRS485_CallBack(uint8 port, uint8 event); // The RS485 Message callback
+//  138 void zclRS485_SendMsg( void ); // The device receive RS485 transmit data
+//  139 
+//  140 /*********************************************************************
+//  141  * ZCL General Profile Callback table
+//  142  */
 
         RSEG XDATA_I:XDATA:NOROOT(0)
         DATA
-//  140 static zclGeneral_AppCallbacks_t zclZigbeeDevice_CmdCallbacks =
+//  143 static zclGeneral_AppCallbacks_t zclZigbeeDevice_CmdCallbacks =
 zclZigbeeDevice_CmdCallbacks:
         DS 30
         REQUIRE `?<Initializer for zclZigbeeDevice_CmdCallbacks`
         REQUIRE __INIT_XDATA_I
-//  141 {
-//  142   zclZigbeeDevice_BasicResetCB,       // Basic Cluster Reset command
-//  143   zclZigbeeDevice_IdentifyCB,         // Identify command
-//  144   zclZigbeeDevice_IdentifyQueryRspCB, // Identify Query Response command
-//  145   NULL,                               // On / Off cluster command - not needed.
-//  146   NULL,                               // Level Control Move to Level command
-//  147   NULL,                               // Level Control Move command
-//  148   NULL,                               // Level Control Step command
-//  149   NULL,                               // Group Response commands
-//  150   NULL,                               // Scene Store Request command
-//  151   NULL,                               // Scene Recall Request command
-//  152   NULL,                               // Scene Response commands
-//  153   NULL,                               // Alarm (Response) commands
-//  154   NULL,                               // RSSI Location commands
-//  155   NULL,                               // RSSI Location Response commands
-//  156 };
-//  157 
-//  158 
-//  159 /*********************************************************************
-//  160  * @fn          zcl_ZigbeeDevice_Init
-//  161  * @brief       Initialization function for the zclGeneral layer.
-//  162  */
+//  144 {
+//  145   zclZigbeeDevice_BasicResetCB,       // Basic Cluster Reset command
+//  146   zclZigbeeDevice_IdentifyCB,         // Identify command
+//  147   zclZigbeeDevice_IdentifyQueryRspCB, // Identify Query Response command
+//  148   NULL,                               // On / Off cluster command - not needed.
+//  149   NULL,                               // Level Control Move to Level command
+//  150   NULL,                               // Level Control Move command
+//  151   NULL,                               // Level Control Step command
+//  152   NULL,                               // Group Response commands
+//  153   NULL,                               // Scene Store Request command
+//  154   NULL,                               // Scene Recall Request command
+//  155   NULL,                               // Scene Response commands
+//  156   NULL,                               // Alarm (Response) commands
+//  157   NULL,                               // RSSI Location commands
+//  158   NULL,                               // RSSI Location Response commands
+//  159 };
+//  160 
+//  161 
+//  162 /*********************************************************************
+//  163  * @fn          zcl_ZigbeeDevice_Init
+//  164  * @brief       Initialization function for the zclGeneral layer.
+//  165  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  163 void zcl_ZigbeeDevice_Init( byte task_id )
+//  166 void zcl_ZigbeeDevice_Init( byte task_id )
 zcl_ZigbeeDevice_Init:
         CFI Block cfiBlock0 Using cfiCommon0
         CFI Function zcl_ZigbeeDevice_Init
-//  164 {
+//  167 {
         FUNCALL zcl_ZigbeeDevice_Init, zclZD_Init
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1003,62 +1007,62 @@ zcl_ZigbeeDevice_Init:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  165   zclZigbeeDevice_TaskID = task_id;
+//  168   zclZigbeeDevice_TaskID = task_id;
         MOV     A,R1
         MOV     DPTR,#zclZigbeeDevice_TaskID
         MOVX    @DPTR,A
-//  166 
-//  167   // Set destination address to indirect
-//  168   zclZigbeeDevice_DstAddr.addrMode = (afAddrMode_t)AddrNotPresent; //傳送模式-AddrNotPresent=0; AddrBroadcast=15(廣播)
+//  169 
+//  170   // Set destination address to indirect
+//  171   zclZigbeeDevice_DstAddr.addrMode = (afAddrMode_t)AddrNotPresent; //傳送模式-AddrNotPresent=0; AddrBroadcast=15(廣播)
         CLR     A
         MOV     DPTR,#(zclZigbeeDevice_DstAddr + 8)
         MOVX    @DPTR,A
-//  169   zclZigbeeDevice_DstAddr.endPoint = 0;                            //對象應用程式ID
+//  172   zclZigbeeDevice_DstAddr.endPoint = 0;                            //對象應用程式ID
         MOV     DPTR,#(zclZigbeeDevice_DstAddr + 9)
         MOVX    @DPTR,A
-//  170   zclZigbeeDevice_DstAddr.addr.shortAddr = 0;                      //廣播內定地址
+//  173   zclZigbeeDevice_DstAddr.addr.shortAddr = 0;                      //廣播內定地址
         MOV     DPTR,#zclZigbeeDevice_DstAddr
         MOVX    @DPTR,A
         INC     DPTR
         MOVX    @DPTR,A
-//  171   
-//  172   zclZD_Init( &zclZigbeeDevice_SimpleDesc ); // This App is part of the ZIGBEE Device Profile                      
+//  174   
+//  175   zclZD_Init( &zclZigbeeDevice_SimpleDesc ); // This App is part of the ZIGBEE Device Profile                      
         ; Setup parameters for call to function zclZD_Init
         MOV     R2,#(zclZigbeeDevice_SimpleDesc & 0xff)
         MOV     R3,#((zclZigbeeDevice_SimpleDesc >> 8) & 0xff)
         LCALL   ??zclZD_Init?relay
-//  173   zclGeneral_RegisterCmdCallbacks( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_CmdCallbacks ); // Register the ZCL General Cluster Library callback functions
+//  176   zclGeneral_RegisterCmdCallbacks( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_CmdCallbacks ); // Register the ZCL General Cluster Library callback functions
         ; Setup parameters for call to function zclGeneral_RegisterCmdCallbacks
         MOV     R2,#(zclZigbeeDevice_CmdCallbacks & 0xff)
         MOV     R3,#((zclZigbeeDevice_CmdCallbacks >> 8) & 0xff)
         MOV     R1,#0xc
         LCALL   ??zclGeneral_RegisterCmdCallbacks?relay
-//  174   zcl_registerAttrList( ZIGBEEDEVICE_ENDPOINT, ZIGBEEDEVICE_MAX_ATTRIBUTES, zclZigbeeDevice_Attrs ); // Register the application's attribute list 
+//  177   zcl_registerAttrList( ZIGBEEDEVICE_ENDPOINT, ZIGBEEDEVICE_MAX_ATTRIBUTES, zclZigbeeDevice_Attrs ); // Register the application's attribute list 
         ; Setup parameters for call to function zcl_registerAttrList
         MOV     R4,#(zclZigbeeDevice_Attrs & 0xff)
         MOV     R5,#((zclZigbeeDevice_Attrs >> 8) & 0xff)
         MOV     R2,#0xb
         MOV     R1,#0xc
         LCALL   ??zcl_registerAttrList?relay
-//  175   zcl_registerForMsg( zclZigbeeDevice_TaskID ); // Register the Application to receive the unprocessed Foundation command/response messages
+//  178   zcl_registerForMsg( zclZigbeeDevice_TaskID ); // Register the Application to receive the unprocessed Foundation command/response messages
         ; Setup parameters for call to function zcl_registerForMsg
         MOV     DPTR,#zclZigbeeDevice_TaskID
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??zcl_registerForMsg?relay
-//  176   RegisterForKeys( zclZigbeeDevice_TaskID ); // Register for all key events - This app will handle all key events 
+//  179   RegisterForKeys( zclZigbeeDevice_TaskID ); // Register for all key events - This app will handle all key events 
         ; Setup parameters for call to function RegisterForKeys
         MOV     DPTR,#zclZigbeeDevice_TaskID
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??RegisterForKeys?relay
-//  177   afRegister( &zigbeeDevice_TestEp ); // Register for a test endpoint
+//  180   afRegister( &zigbeeDevice_TestEp ); // Register for a test endpoint
         ; Setup parameters for call to function afRegister
         MOV     R2,#(zigbeeDevice_TestEp & 0xff)
         MOV     R3,#((zigbeeDevice_TestEp >> 8) & 0xff)
         LCALL   ??afRegister?relay
-//  178   
-//  179   ZDO_RegisterForZDOMsg( zclZigbeeDevice_TaskID, End_Device_Bind_rsp );
+//  181   
+//  182   ZDO_RegisterForZDOMsg( zclZigbeeDevice_TaskID, End_Device_Bind_rsp );
         ; Setup parameters for call to function ZDO_RegisterForZDOMsg
         MOV     R2,#0x20
         MOV     R3,#-0x80
@@ -1066,7 +1070,7 @@ zcl_ZigbeeDevice_Init:
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??ZDO_RegisterForZDOMsg?relay
-//  180   ZDO_RegisterForZDOMsg( zclZigbeeDevice_TaskID, Match_Desc_rsp );
+//  183   ZDO_RegisterForZDOMsg( zclZigbeeDevice_TaskID, Match_Desc_rsp );
         ; Setup parameters for call to function ZDO_RegisterForZDOMsg
         MOV     R2,#0x6
         MOV     R3,#-0x80
@@ -1074,21 +1078,38 @@ zcl_ZigbeeDevice_Init:
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??ZDO_RegisterForZDOMsg?relay
-//  181 }
-        LJMP    ?Subroutine3 & 0xFFFF
         CFI EndBlock cfiBlock0
-//  182 
-//  183 /*********************************************************************
-//  184  * @fn          zclZigbeeDevice_event_loop
-//  185  * @brief       Event Loop Processor for zclGeneral.
-//  186  */
+//  184 }
+        REQUIRE ?Subroutine3
+        ; // Fall through to label ?Subroutine3
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  187 uint16 zclZigbeeDevice_event_loop( uint8 task_id, uint16 events )
-zclZigbeeDevice_event_loop:
+?Subroutine3:
         CFI Block cfiBlock1 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+-5
+        CFI DPL0 Frame(CFA_SP, 4)
+        CFI DPH0 Frame(CFA_SP, 5)
+        POP     DPH
+        CFI CFA_SP SP+-4
+        CFI DPH0 SameValue
+        POP     DPL
+        CFI CFA_SP SP+-3
+        CFI DPL0 SameValue
+        LJMP    ?BRET
+        CFI EndBlock cfiBlock1
+//  185 
+//  186 /*********************************************************************
+//  187  * @fn          zclZigbeeDevice_event_loop
+//  188  * @brief       Event Loop Processor for zclGeneral.
+//  189  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  190 uint16 zclZigbeeDevice_event_loop( uint8 task_id, uint16 events )
+zclZigbeeDevice_event_loop:
+        CFI Block cfiBlock2 Using cfiCommon0
         CFI Function zclZigbeeDevice_event_loop
-//  188 {
+//  191 {
         FUNCALL zclZigbeeDevice_event_loop, zclZigbeeDevice_ProcessIdentifyTimeChange
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1243,17 +1264,6 @@ zclZigbeeDevice_event_loop:
         ARGFRAME XSTACK, 23, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL zclZigbeeDevice_event_loop, M160_SensorFunction
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 23, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 23, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL zclZigbeeDevice_event_loop, HalLcdWriteChar
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1303,10 +1313,10 @@ zclZigbeeDevice_event_loop:
         MOV     R6,A
         MOV     A,R3
         MOV     R7,A
-//  189   afIncomingMSGPacket_t *MSGpkt;
-//  190   (void)task_id;  // Intentionally unreferenced parameter
-//  191   
-//  192   if ( events & SYS_EVENT_MSG )
+//  192   afIncomingMSGPacket_t *MSGpkt;
+//  193   (void)task_id;  // Intentionally unreferenced parameter
+//  194   
+//  195   if ( events & SYS_EVENT_MSG )
         MOV     A,#-0x80
         ANL     A,R7
         MOV     R1,A
@@ -1316,49 +1326,49 @@ zclZigbeeDevice_event_loop:
 ??zclZigbeeDevice_event_loop_0:
         JZ      $+5
         LJMP    ??zclZigbeeDevice_event_loop_1 & 0xFFFF
-//  193   {
-//  194     while ( (MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( zclZigbeeDevice_TaskID )) )
-//  195     { 
-//  196       switch ( MSGpkt->hdr.event )
-//  197       {
-//  198         case ZCL_INCOMING_MSG:
-//  199           zclZigbeeDevice_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); // Incoming ZCL Foundation command/response messages         
-//  200           break;
-//  201 
-//  202         case ZDO_CB_MSG:
-//  203           zclZigbeeDevice_ProcessZDOMsgs( (zdoIncomingMsg_t *)MSGpkt );
-//  204           break;
-//  205 
-//  206         case KEY_CHANGE:
-//  207           zclZigbeeDevice_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );
-//  208           break;
-//  209 
-//  210         default:
+//  196   {
+//  197     while ( (MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( zclZigbeeDevice_TaskID )) )
+//  198     { 
+//  199       switch ( MSGpkt->hdr.event )
+//  200       {
+//  201         case ZCL_INCOMING_MSG:
+//  202           zclZigbeeDevice_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); // Incoming ZCL Foundation command/response messages         
+//  203           break;
+//  204 
+//  205         case ZDO_CB_MSG:
+//  206           zclZigbeeDevice_ProcessZDOMsgs( (zdoIncomingMsg_t *)MSGpkt );
+//  207           break;
+//  208 
+//  209         case KEY_CHANGE:
+//  210           zclZigbeeDevice_HandleKeys( ((keyChange_t *)MSGpkt)->state, ((keyChange_t *)MSGpkt)->keys );
 //  211           break;
-//  212       }
-//  213       osal_msg_deallocate( (uint8 *)MSGpkt ); // Release the memory
-//  214     }
-//  215     return (events ^ SYS_EVENT_MSG); // return unprocessed events
-//  216   }
-//  217   
-//  218   // Called to process any change to the IdentifyTime attribute.
-//  219   if ( events & SAMPLESW_IDENTIFY_TIMEOUT_EVT )
+//  212 
+//  213         default:
+//  214           break;
+//  215       }
+//  216       osal_msg_deallocate( (uint8 *)MSGpkt ); // Release the memory
+//  217     }
+//  218     return (events ^ SYS_EVENT_MSG); // return unprocessed events
+//  219   }
+//  220   
+//  221   // Called to process any change to the IdentifyTime attribute.
+//  222   if ( events & SAMPLESW_IDENTIFY_TIMEOUT_EVT )
         MOV     A,R6
         MOV     C,0xE0 /* A   */.0
         JC      $+5
         LJMP    ??zclZigbeeDevice_event_loop_2 & 0xFFFF
-//  220   {
-//  221     zclSampleSw_IdentifyTime = 10;
+//  223   {
+//  224     zclSampleSw_IdentifyTime = 10;
         MOV     DPTR,#zclSampleSw_IdentifyTime
         MOV     A,#0xa
         MOVX    @DPTR,A
         INC     DPTR
         CLR     A
         MOVX    @DPTR,A
-//  222     zclZigbeeDevice_ProcessIdentifyTimeChange();
+//  225     zclZigbeeDevice_ProcessIdentifyTimeChange();
         ; Setup parameters for call to function zclZigbeeDevice_ProcessIdentifyTimeChange
         LCALL   ??zclZigbeeDevice_ProcessIdentifyTimeChange?rel
-//  223     return ( events ^ SAMPLESW_IDENTIFY_TIMEOUT_EVT );
+//  226     return ( events ^ SAMPLESW_IDENTIFY_TIMEOUT_EVT );
         MOV     A,#0x1
 ??zclZigbeeDevice_event_loop_3:
         XRL     A,R6
@@ -1367,7 +1377,7 @@ zclZigbeeDevice_event_loop:
 ??zclZigbeeDevice_event_loop_4:
         MOV     R3,A
         LJMP    ??zclZigbeeDevice_event_loop_5 & 0xFFFF
-//  224   }
+//  227   }
 ??zclZigbeeDevice_event_loop_6:
         MOV     DPL,R2
         MOV     DPH,R3
@@ -1645,36 +1655,34 @@ zclZigbeeDevice_event_loop:
         MOV     A,#-0x80
         XRL     A,R7
         LJMP    ??zclZigbeeDevice_event_loop_4 & 0xFFFF
-//  225   
-//  226   // Send the sensor data to Coordinator
-//  227   if ( events & SENSOR_SEND_MSG_EVT )
+//  228   
+//  229   // Send the sensor data to Coordinator
+//  230   if ( events & SENSOR_SEND_MSG_EVT )
 ??zclZigbeeDevice_event_loop_2:
         ANL     A,#0x2
         JZ      ??zclZigbeeDevice_event_loop_26
-//  228   {
-//  229   #if !defined(M270)
-//  230     osal_start_timerEx( zclZigbeeDevice_TaskID, SENSOR_SEND_MSG_EVT, SEND_DISPLAY_TIMER);
+//  231   {
+//  232   #if !defined(M270)
+//  233     osal_start_timerEx( zclZigbeeDevice_TaskID, SENSOR_SEND_MSG_EVT, SEND_DISPLAY_TIMER);
         ; Setup parameters for call to function osal_start_timerEx
         LCALL   ?Subroutine1 & 0xFFFF
-//  231   #endif
-//  232     zclZIGBEEDevice_SendMsg();
+//  234   #endif
+//  235     zclZIGBEEDevice_SendMsg();
+//  236     return ( events ^ SENSOR_SEND_MSG_EVT );
 ??CrossCallReturnLabel_4:
-        ; Setup parameters for call to function M160_SensorFunction
-        LCALL   ??M160_SensorFunction?relay
-//  233     return ( events ^ SENSOR_SEND_MSG_EVT );
         MOV     A,#0x2
 ??zclZigbeeDevice_event_loop_27:
         LJMP    ??zclZigbeeDevice_event_loop_3 & 0xFFFF
-//  234   }
-//  235   
-//  236   // The KEYPAD keyin event
-//  237   if ( events & KEYPAD_MSG_EVT )
+//  237   }
+//  238   
+//  239   // The KEYPAD keyin event
+//  240   if ( events & KEYPAD_MSG_EVT )
 ??zclZigbeeDevice_event_loop_26:
         MOV     A,R6
         ANL     A,#0x8
         JZ      ??zclZigbeeDevice_event_loop_28
-//  238   {
-//  239     HalLcdWriteChar(HAL_LCD_LINE_3, 0, ch);
+//  241   {
+//  242     HalLcdWriteChar(HAL_LCD_LINE_3, 0, ch);
         ; Setup parameters for call to function HalLcdWriteChar
         MOV     DPTR,#ch
         MOVX    A,@DPTR
@@ -1682,27 +1690,27 @@ zclZigbeeDevice_event_loop:
         MOV     R2,#0x0
         MOV     R1,#0x3
         LCALL   ??HalLcdWriteChar?relay
-//  240     return ( events ^ KEYPAD_MSG_EVT );
+//  243     return ( events ^ KEYPAD_MSG_EVT );
         MOV     A,#0x8
         LJMP    ??zclZigbeeDevice_event_loop_3 & 0xFFFF
-//  241   }
-//  242   
-//  243   // The RS485 transmit data event
-//  244   if ( events & RS485_MSG_EVT )
+//  244   }
+//  245   
+//  246   // The RS485 transmit data event
+//  247   if ( events & RS485_MSG_EVT )
 ??zclZigbeeDevice_event_loop_28:
         MOV     A,R6
         ANL     A,#0x4
         JZ      ??zclZigbeeDevice_event_loop_29
-//  245   {
-//  246     zclRS485_SendMsg();
+//  248   {
+//  249     zclRS485_SendMsg();
         ; Setup parameters for call to function zclRS485_SendMsg
         LCALL   ??zclRS485_SendMsg?relay
-//  247     return ( events ^ RS485_MSG_EVT );
+//  250     return ( events ^ RS485_MSG_EVT );
         MOV     A,#0x4
         SJMP    ??zclZigbeeDevice_event_loop_27
-//  248   }
-//  249 
-//  250   return 0; // Discard unknown events
+//  251   }
+//  252 
+//  253   return 0; // Discard unknown events
 ??zclZigbeeDevice_event_loop_29:
         MOV     R2,#0x0
         MOV     R3,#0x0
@@ -1712,12 +1720,12 @@ zclZigbeeDevice_event_loop:
         CFI CFA_XSP16 add(XSP16, 14)
         MOV     R7,#0x6
         LJMP    ?BANKED_LEAVE_XDATA
-        CFI EndBlock cfiBlock1
-//  251 }
+        CFI EndBlock cfiBlock2
+//  254 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine1:
-        CFI Block cfiCond2 Using cfiCommon0
+        CFI Block cfiCond3 Using cfiCommon0
         CFI NoFunction
         CFI Conditional ??CrossCallReturnLabel_6
         CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
@@ -1736,67 +1744,48 @@ zclZigbeeDevice_event_loop:
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI CFA_SP SP+0
         CFI CFA_XSP16 add(XSP16, 23)
-        CFI Block cfiCond3 Using cfiCommon0
-        CFI (cfiCond3) NoFunction
-        CFI (cfiCond3) Conditional ??CrossCallReturnLabel_4
-        CFI (cfiCond3) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
-        CFI (cfiCond3) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
-        CFI (cfiCond3) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
-        CFI (cfiCond3) V1 load(1, XDATA, add(CFA_XSP16, literal(-11)))
-        CFI (cfiCond3) V2 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI (cfiCond3) V3 load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI (cfiCond3) V4 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI (cfiCond3) V5 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI (cfiCond3) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI (cfiCond3) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        CFI (cfiCond3) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI (cfiCond3) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI (cfiCond3) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI (cfiCond3) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI (cfiCond3) CFA_SP SP+0
-        CFI (cfiCond3) CFA_XSP16 add(XSP16, 23)
-        CFI Block cfiPicker4 Using cfiCommon1
-        CFI (cfiPicker4) NoFunction
-        CFI (cfiPicker4) Picker
+        CFI Block cfiCond4 Using cfiCommon0
+        CFI (cfiCond4) NoFunction
+        CFI (cfiCond4) Conditional ??CrossCallReturnLabel_4
+        CFI (cfiCond4) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
+        CFI (cfiCond4) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
+        CFI (cfiCond4) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI (cfiCond4) V1 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI (cfiCond4) V2 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI (cfiCond4) V3 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond4) V4 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond4) V5 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond4) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond4) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond4) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond4) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond4) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond4) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond4) CFA_SP SP+0
+        CFI (cfiCond4) CFA_XSP16 add(XSP16, 23)
+        CFI Block cfiPicker5 Using cfiCommon1
+        CFI (cfiPicker5) NoFunction
+        CFI (cfiPicker5) Picker
         MOV     R4,#-0x78
         MOV     R5,#0x13
         MOV     R2,#0x2
-        CFI EndBlock cfiCond2
         CFI EndBlock cfiCond3
-        CFI EndBlock cfiPicker4
+        CFI EndBlock cfiCond4
+        CFI EndBlock cfiPicker5
         REQUIRE ??Subroutine4_0
         ; // Fall through to label ??Subroutine4_0
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ??Subroutine4_0:
-        CFI Block cfiCond5 Using cfiCommon0
+        CFI Block cfiCond6 Using cfiCommon0
         CFI NoFunction
         CFI Conditional ??CrossCallReturnLabel_5
         CFI DPL0 Frame(CFA_SP, 4)
         CFI DPH0 Frame(CFA_SP, 5)
         CFI CFA_SP SP+-5
-        CFI Block cfiCond6 Using cfiCommon0
-        CFI (cfiCond6) NoFunction
-        CFI (cfiCond6) Conditional ??CrossCallReturnLabel_6
-        CFI (cfiCond6) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
-        CFI (cfiCond6) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
-        CFI (cfiCond6) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
-        CFI (cfiCond6) V1 load(1, XDATA, add(CFA_XSP16, literal(-11)))
-        CFI (cfiCond6) V2 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI (cfiCond6) V3 load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI (cfiCond6) V4 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI (cfiCond6) V5 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI (cfiCond6) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI (cfiCond6) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        CFI (cfiCond6) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI (cfiCond6) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI (cfiCond6) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI (cfiCond6) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI (cfiCond6) CFA_SP SP+0
-        CFI (cfiCond6) CFA_XSP16 add(XSP16, 23)
         CFI Block cfiCond7 Using cfiCommon0
         CFI (cfiCond7) NoFunction
-        CFI (cfiCond7) Conditional ??CrossCallReturnLabel_4
+        CFI (cfiCond7) Conditional ??CrossCallReturnLabel_6
         CFI (cfiCond7) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
         CFI (cfiCond7) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI (cfiCond7) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
@@ -1813,23 +1802,42 @@ zclZigbeeDevice_event_loop:
         CFI (cfiCond7) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI (cfiCond7) CFA_SP SP+0
         CFI (cfiCond7) CFA_XSP16 add(XSP16, 23)
-        CFI Block cfiPicker8 Using cfiCommon1
-        CFI (cfiPicker8) NoFunction
-        CFI (cfiPicker8) Picker
+        CFI Block cfiCond8 Using cfiCommon0
+        CFI (cfiCond8) NoFunction
+        CFI (cfiCond8) Conditional ??CrossCallReturnLabel_4
+        CFI (cfiCond8) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
+        CFI (cfiCond8) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
+        CFI (cfiCond8) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI (cfiCond8) V1 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI (cfiCond8) V2 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI (cfiCond8) V3 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond8) V4 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond8) V5 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond8) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond8) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond8) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond8) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond8) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond8) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond8) CFA_SP SP+0
+        CFI (cfiCond8) CFA_XSP16 add(XSP16, 23)
+        CFI Block cfiPicker9 Using cfiCommon1
+        CFI (cfiPicker9) NoFunction
+        CFI (cfiPicker9) Picker
         MOV     R3,#0x0
         MOV     DPTR,#zclZigbeeDevice_TaskID
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??osal_start_timerEx?relay
         RET
-        CFI EndBlock cfiCond5
         CFI EndBlock cfiCond6
         CFI EndBlock cfiCond7
-        CFI EndBlock cfiPicker8
+        CFI EndBlock cfiCond8
+        CFI EndBlock cfiPicker9
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine0:
-        CFI Block cfiCond9 Using cfiCommon0
+        CFI Block cfiCond10 Using cfiCommon0
         CFI NoFunction
         CFI Conditional ??CrossCallReturnLabel_0
         CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
@@ -1848,28 +1856,28 @@ zclZigbeeDevice_event_loop:
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI CFA_SP SP+0
         CFI CFA_XSP16 add(XSP16, 23)
-        CFI Block cfiCond10 Using cfiCommon0
-        CFI (cfiCond10) NoFunction
-        CFI (cfiCond10) Conditional ??CrossCallReturnLabel_1
-        CFI (cfiCond10) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
-        CFI (cfiCond10) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
-        CFI (cfiCond10) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
-        CFI (cfiCond10) V1 load(1, XDATA, add(CFA_XSP16, literal(-11)))
-        CFI (cfiCond10) V2 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI (cfiCond10) V3 load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI (cfiCond10) V4 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI (cfiCond10) V5 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI (cfiCond10) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI (cfiCond10) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        CFI (cfiCond10) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI (cfiCond10) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI (cfiCond10) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI (cfiCond10) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI (cfiCond10) CFA_SP SP+0
-        CFI (cfiCond10) CFA_XSP16 add(XSP16, 23)
-        CFI Block cfiPicker11 Using cfiCommon1
-        CFI (cfiPicker11) NoFunction
-        CFI (cfiPicker11) Picker
+        CFI Block cfiCond11 Using cfiCommon0
+        CFI (cfiCond11) NoFunction
+        CFI (cfiCond11) Conditional ??CrossCallReturnLabel_1
+        CFI (cfiCond11) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
+        CFI (cfiCond11) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
+        CFI (cfiCond11) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI (cfiCond11) V1 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI (cfiCond11) V2 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI (cfiCond11) V3 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond11) V4 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond11) V5 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond11) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond11) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond11) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond11) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond11) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond11) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond11) CFA_SP SP+0
+        CFI (cfiCond11) CFA_XSP16 add(XSP16, 23)
+        CFI Block cfiPicker12 Using cfiCommon1
+        CFI (cfiPicker12) NoFunction
+        CFI (cfiPicker12) Picker
         MOV     A,R2
         ADD     A,#0x16
         LCALL   ?Subroutine2 & 0xFFFF
@@ -1879,13 +1887,13 @@ zclZigbeeDevice_event_loop:
         MOV     DPH,R1
         MOV     R3,#0x0
         RET
-        CFI EndBlock cfiCond9
         CFI EndBlock cfiCond10
-        CFI EndBlock cfiPicker11
+        CFI EndBlock cfiCond11
+        CFI EndBlock cfiPicker12
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine2:
-        CFI Block cfiCond12 Using cfiCommon0
+        CFI Block cfiCond13 Using cfiCommon0
         CFI NoFunction
         CFI Conditional ??CrossCallReturnLabel_2
         CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
@@ -1904,28 +1912,9 @@ zclZigbeeDevice_event_loop:
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI CFA_SP SP+0
         CFI CFA_XSP16 add(XSP16, 23)
-        CFI Block cfiCond13 Using cfiCommon0
-        CFI (cfiCond13) NoFunction
-        CFI (cfiCond13) Conditional ??CrossCallReturnLabel_3, ??CrossCallReturnLabel_0
-        CFI (cfiCond13) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
-        CFI (cfiCond13) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
-        CFI (cfiCond13) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
-        CFI (cfiCond13) V1 load(1, XDATA, add(CFA_XSP16, literal(-11)))
-        CFI (cfiCond13) V2 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI (cfiCond13) V3 load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI (cfiCond13) V4 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI (cfiCond13) V5 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI (cfiCond13) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI (cfiCond13) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        CFI (cfiCond13) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI (cfiCond13) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI (cfiCond13) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI (cfiCond13) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI (cfiCond13) CFA_SP SP+0
-        CFI (cfiCond13) CFA_XSP16 add(XSP16, 23)
         CFI Block cfiCond14 Using cfiCommon0
         CFI (cfiCond14) NoFunction
-        CFI (cfiCond14) Conditional ??CrossCallReturnLabel_3, ??CrossCallReturnLabel_1
+        CFI (cfiCond14) Conditional ??CrossCallReturnLabel_3, ??CrossCallReturnLabel_0
         CFI (cfiCond14) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
         CFI (cfiCond14) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI (cfiCond14) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
@@ -1942,9 +1931,28 @@ zclZigbeeDevice_event_loop:
         CFI (cfiCond14) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI (cfiCond14) CFA_SP SP+0
         CFI (cfiCond14) CFA_XSP16 add(XSP16, 23)
-        CFI Block cfiPicker15 Using cfiCommon1
-        CFI (cfiPicker15) NoFunction
-        CFI (cfiPicker15) Picker
+        CFI Block cfiCond15 Using cfiCommon0
+        CFI (cfiCond15) NoFunction
+        CFI (cfiCond15) Conditional ??CrossCallReturnLabel_3, ??CrossCallReturnLabel_1
+        CFI (cfiCond15) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
+        CFI (cfiCond15) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
+        CFI (cfiCond15) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI (cfiCond15) V1 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI (cfiCond15) V2 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI (cfiCond15) V3 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond15) V4 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond15) V5 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond15) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond15) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond15) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond15) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond15) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond15) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond15) CFA_SP SP+0
+        CFI (cfiCond15) CFA_XSP16 add(XSP16, 23)
+        CFI Block cfiPicker16 Using cfiCommon1
+        CFI (cfiPicker16) NoFunction
+        CFI (cfiPicker16) Picker
         MOV     DPL,A
         MOV     A,R3
         ADDC    A,#0x0
@@ -1954,80 +1962,80 @@ zclZigbeeDevice_event_loop:
         INC     DPTR
         MOVX    A,@DPTR
         RET
-        CFI EndBlock cfiCond12
         CFI EndBlock cfiCond13
         CFI EndBlock cfiCond14
-        CFI EndBlock cfiPicker15
-//  252 
-//  253 void zclZigbeeDevice_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg )
-//  254 {
-//  255   switch ( inMsg->clusterID )
-//  256   {
-//  257     case End_Device_Bind_rsp:
-//  258       if ( ZDO_ParseBindRsp( inMsg ) == ZSuccess )
-//  259       {
-//  260         HalLedSet( HAL_LED_1, HAL_LED_MODE_ON ); // Light LED
-//  261       }
-//  262       #if defined(BLINK_LEDS)
-//  263       else
-//  264       {      
-//  265         HalLedSet ( HAL_LED_1, HAL_LED_MODE_FLASH ); // Flash LED to show failure
-//  266       }
-//  267       #endif
-//  268       break;
-//  269 
-//  270     case Match_Desc_rsp:
-//  271       {
-//  272         ZDO_ActiveEndpointRsp_t *pRsp = ZDO_ParseEPListRsp( inMsg );
-//  273         if ( pRsp )
-//  274         {
-//  275           if ( pRsp->status == ZSuccess && pRsp->cnt )
-//  276           {
-//  277             zclZigbeeDevice_DstAddr.addrMode = (afAddrMode_t)Addr16Bit;
-//  278             zclZigbeeDevice_DstAddr.addr.shortAddr = pRsp->nwkAddr;
-//  279             
-//  280             // Take the first endpoint, Can be changed to search through endpoints
-//  281             zclZigbeeDevice_DstAddr.endPoint = pRsp->epList[0];
+        CFI EndBlock cfiCond15
+        CFI EndBlock cfiPicker16
+//  255 
+//  256 void zclZigbeeDevice_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg )
+//  257 {
+//  258   switch ( inMsg->clusterID )
+//  259   {
+//  260     case End_Device_Bind_rsp:
+//  261       if ( ZDO_ParseBindRsp( inMsg ) == ZSuccess )
+//  262       {
+//  263         HalLedSet( HAL_LED_1, HAL_LED_MODE_ON ); // Light LED
+//  264       }
+//  265       #if defined(BLINK_LEDS)
+//  266       else
+//  267       {      
+//  268         HalLedSet ( HAL_LED_1, HAL_LED_MODE_FLASH ); // Flash LED to show failure
+//  269       }
+//  270       #endif
+//  271       break;
+//  272 
+//  273     case Match_Desc_rsp:
+//  274       {
+//  275         ZDO_ActiveEndpointRsp_t *pRsp = ZDO_ParseEPListRsp( inMsg );
+//  276         if ( pRsp )
+//  277         {
+//  278           if ( pRsp->status == ZSuccess && pRsp->cnt )
+//  279           {
+//  280             zclZigbeeDevice_DstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+//  281             zclZigbeeDevice_DstAddr.addr.shortAddr = pRsp->nwkAddr;
 //  282             
-//  283             HalLedSet( HAL_LED_1, HAL_LED_MODE_ON ); // Light LED
-//  284           }
-//  285           osal_mem_free( pRsp );
-//  286         }
-//  287       }
-//  288       break;
-//  289   }
-//  290 }
-//  291 
-//  292 static void zclZigbeeDevice_HandleKeys( byte shift, byte keys )
-//  293 {
-//  294   zAddrType_t dstAddr;
-//  295   (void)shift;  // Intentionally unreferenced parameter
-//  296   
-//  297   if ( keys & HAL_KEY_SW1 ) // Using timer to control send sensor data event
-//  298   { 
-//  299       osal_start_timerEx( zclZigbeeDevice_TaskID, SENSOR_SEND_MSG_EVT, SEND_DISPLAY_TIMER); // Start the OSAL timer
-//  300       osal_set_event( zclZigbeeDevice_TaskID, SENSOR_SEND_MSG_EVT ); // Action the SENSOR_SEND_MSG_EVT
-//  301   }
-//  302   
-//  303   if ( keys & HAL_KEY_SW2 ) // Atuo binding the device 
-//  304   {
-//  305     HalLedSet ( HAL_LED_2, HAL_LED_MODE_BLINK );
-//  306 
-//  307     // Initiate a Match Description Request (Service Discovery)
-//  308     dstAddr.addrMode = AddrBroadcast;
-//  309     dstAddr.addr.shortAddr = NWK_BROADCAST_SHORTADDR;
-//  310     ZDP_MatchDescReq( &dstAddr,  NWK_BROADCAST_SHORTADDR, ZCL_HA_PROFILE_ID, ZCLZIGBEEDEV_BINDINGLIST, bindingOutClusters,
-//  311                       0,  NULL, FALSE );
-//  312   }
-//  313 }
-//  314 
+//  283             // Take the first endpoint, Can be changed to search through endpoints
+//  284             zclZigbeeDevice_DstAddr.endPoint = pRsp->epList[0];
+//  285             
+//  286             HalLedSet( HAL_LED_1, HAL_LED_MODE_ON ); // Light LED
+//  287           }
+//  288           osal_mem_free( pRsp );
+//  289         }
+//  290       }
+//  291       break;
+//  292   }
+//  293 }
+//  294 
+//  295 static void zclZigbeeDevice_HandleKeys( byte shift, byte keys )
+//  296 {
+//  297   zAddrType_t dstAddr;
+//  298   (void)shift;  // Intentionally unreferenced parameter
+//  299   
+//  300   if ( keys & HAL_KEY_SW1 ) // Using timer to control send sensor data event
+//  301   { 
+//  302       osal_start_timerEx( zclZigbeeDevice_TaskID, SENSOR_SEND_MSG_EVT, SEND_DISPLAY_TIMER); // Start the OSAL timer
+//  303       osal_set_event( zclZigbeeDevice_TaskID, SENSOR_SEND_MSG_EVT ); // Action the SENSOR_SEND_MSG_EVT
+//  304   }
+//  305   
+//  306   if ( keys & HAL_KEY_SW2 ) // Atuo binding the device 
+//  307   {
+//  308     HalLedSet ( HAL_LED_2, HAL_LED_MODE_BLINK );
+//  309 
+//  310     // Initiate a Match Description Request (Service Discovery)
+//  311     dstAddr.addrMode = AddrBroadcast;
+//  312     dstAddr.addr.shortAddr = NWK_BROADCAST_SHORTADDR;
+//  313     ZDP_MatchDescReq( &dstAddr,  NWK_BROADCAST_SHORTADDR, ZCL_HA_PROFILE_ID, ZCLZIGBEEDEV_BINDINGLIST, bindingOutClusters,
+//  314                       0,  NULL, FALSE );
+//  315   }
+//  316 }
+//  317 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  315 static void zclZigbeeDevice_ProcessIdentifyTimeChange( void )
+//  318 static void zclZigbeeDevice_ProcessIdentifyTimeChange( void )
 zclZigbeeDevice_ProcessIdentifyTimeChange:
-        CFI Block cfiBlock16 Using cfiCommon0
+        CFI Block cfiBlock17 Using cfiCommon0
         CFI Function zclZigbeeDevice_ProcessIdentifyTimeChange
-//  316 {
+//  319 {
         FUNCALL zclZigbeeDevice_ProcessIdentifyTimeChange, osal_start_timerEx
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -2091,7 +2099,7 @@ zclZigbeeDevice_ProcessIdentifyTimeChange:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  317   if ( zclSampleSw_IdentifyTime > 0 )
+//  320   if ( zclSampleSw_IdentifyTime > 0 )
         MOV     DPTR,#zclSampleSw_IdentifyTime
         MOVX    A,@DPTR
         JNZ     ??zclZigbeeDevice_ProcessIdentifyTimeChange_0
@@ -2099,14 +2107,14 @@ zclZigbeeDevice_ProcessIdentifyTimeChange:
         MOVX    A,@DPTR
 ??zclZigbeeDevice_ProcessIdentifyTimeChange_0:
         JZ      ??zclZigbeeDevice_ProcessIdentifyTimeChange_1
-//  318   {
-//  319     osal_start_timerEx( zclZigbeeDevice_TaskID, SAMPLESW_IDENTIFY_TIMEOUT_EVT, 1000 );
+//  321   {
+//  322     osal_start_timerEx( zclZigbeeDevice_TaskID, SAMPLESW_IDENTIFY_TIMEOUT_EVT, 1000 );
         ; Setup parameters for call to function osal_start_timerEx
         MOV     R4,#-0x18
         MOV     R5,#0x3
         MOV     R2,#0x1
         LCALL   ??Subroutine4_0 & 0xFFFF
-//  320     HalLedBlink ( HAL_LED_1, 0xFF, HAL_LED_DEFAULT_DUTY_CYCLE, HAL_LED_DEFAULT_FLASH_TIME );
+//  323     HalLedBlink ( HAL_LED_1, 0xFF, HAL_LED_DEFAULT_DUTY_CYCLE, HAL_LED_DEFAULT_FLASH_TIME );
 ??CrossCallReturnLabel_5:
         ; Setup parameters for call to function HalLedBlink
         MOV     R4,#-0x18
@@ -2116,27 +2124,27 @@ zclZigbeeDevice_ProcessIdentifyTimeChange:
         MOV     R1,#0x1
         LCALL   ??HalLedBlink?relay
         SJMP    ??zclZigbeeDevice_ProcessIdentifyTimeChange_2
-//  321   }
-//  322   else
-//  323   {
-//  324     if ( zclSampleSw_OnOff )
+//  324   }
+//  325   else
+//  326   {
+//  327     if ( zclSampleSw_OnOff )
 ??zclZigbeeDevice_ProcessIdentifyTimeChange_1:
         MOV     DPTR,#zclSampleSw_OnOff
         MOVX    A,@DPTR
         JZ      ??zclZigbeeDevice_ProcessIdentifyTimeChange_3
-//  325       HalLedSet ( HAL_LED_1, HAL_LED_MODE_ON );
+//  328       HalLedSet ( HAL_LED_1, HAL_LED_MODE_ON );
         ; Setup parameters for call to function HalLedSet
         MOV     R2,#0x1
         SJMP    ??zclZigbeeDevice_ProcessIdentifyTimeChange_4
-//  326     else
-//  327       HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF );
+//  329     else
+//  330       HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF );
 ??zclZigbeeDevice_ProcessIdentifyTimeChange_3:
         ; Setup parameters for call to function HalLedSet
         MOV     R2,#0x0
 ??zclZigbeeDevice_ProcessIdentifyTimeChange_4:
         MOV     R1,#0x1
         LCALL   ??HalLedSet?relay
-//  328       osal_stop_timerEx( zclZigbeeDevice_TaskID, SAMPLESW_IDENTIFY_TIMEOUT_EVT );
+//  331       osal_stop_timerEx( zclZigbeeDevice_TaskID, SAMPLESW_IDENTIFY_TIMEOUT_EVT );
         ; Setup parameters for call to function osal_stop_timerEx
         MOV     R2,#0x1
         MOV     R3,#0x0
@@ -2144,32 +2152,32 @@ zclZigbeeDevice_ProcessIdentifyTimeChange:
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??osal_stop_timerEx?relay
-//  329   }
-//  330 }
+//  332   }
+//  333 }
 ??zclZigbeeDevice_ProcessIdentifyTimeChange_2:
-        SJMP    ?Subroutine3
-        CFI EndBlock cfiBlock16
-//  331 
+        LJMP    ?Subroutine3 & 0xFFFF
+        CFI EndBlock cfiBlock17
+//  334 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  332 static void zclZigbeeDevice_BasicResetCB( void )
+//  335 static void zclZigbeeDevice_BasicResetCB( void )
 zclZigbeeDevice_BasicResetCB:
-        CFI Block cfiBlock17 Using cfiCommon0
+        CFI Block cfiBlock18 Using cfiCommon0
         CFI Function zclZigbeeDevice_BasicResetCB
-//  333 {
+//  336 {
         ; Saved register size: 0
         ; Auto size: 0
-//  334 }
+//  337 }
         LJMP    ?BRET
-        CFI EndBlock cfiBlock17
-//  335 
+        CFI EndBlock cfiBlock18
+//  338 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  336 static void zclZigbeeDevice_IdentifyCB( zclIdentify_t *pCmd )
+//  339 static void zclZigbeeDevice_IdentifyCB( zclIdentify_t *pCmd )
 zclZigbeeDevice_IdentifyCB:
-        CFI Block cfiBlock18 Using cfiCommon0
+        CFI Block cfiBlock19 Using cfiCommon0
         CFI Function zclZigbeeDevice_IdentifyCB
-//  337 {
+//  340 {
         FUNCALL zclZigbeeDevice_IdentifyCB, zclZigbeeDevice_ProcessIdentifyTimeChange
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -2189,7 +2197,7 @@ zclZigbeeDevice_IdentifyCB:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  338   zclSampleSw_IdentifyTime = pCmd->identifyTime;
+//  341   zclSampleSw_IdentifyTime = pCmd->identifyTime;
         MOV     DPL,R2
         MOV     DPH,R3
         INC     DPTR
@@ -2205,156 +2213,139 @@ zclZigbeeDevice_IdentifyCB:
         INC     DPTR
         MOV     A,R1
         MOVX    @DPTR,A
-//  339   zclZigbeeDevice_ProcessIdentifyTimeChange();
+//  342   zclZigbeeDevice_ProcessIdentifyTimeChange();
         ; Setup parameters for call to function zclZigbeeDevice_ProcessIdentifyTimeChange
         LCALL   ??zclZigbeeDevice_ProcessIdentifyTimeChange?rel
-        CFI EndBlock cfiBlock18
-//  340 }
-        REQUIRE ?Subroutine3
-        ; // Fall through to label ?Subroutine3
-
-        RSEG BANKED_CODE:CODE:NOROOT(0)
-?Subroutine3:
-        CFI Block cfiBlock19 Using cfiCommon0
-        CFI NoFunction
-        CFI CFA_SP SP+-5
-        CFI DPL0 Frame(CFA_SP, 4)
-        CFI DPH0 Frame(CFA_SP, 5)
-        POP     DPH
-        CFI CFA_SP SP+-4
-        CFI DPH0 SameValue
-        POP     DPL
-        CFI CFA_SP SP+-3
-        CFI DPL0 SameValue
-        LJMP    ?BRET
+//  343 }
+        LJMP    ?Subroutine3 & 0xFFFF
         CFI EndBlock cfiBlock19
-//  341 
+//  344 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  342 static void zclZigbeeDevice_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
+//  345 static void zclZigbeeDevice_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
 zclZigbeeDevice_IdentifyQueryRspCB:
         CFI Block cfiBlock20 Using cfiCommon0
         CFI Function zclZigbeeDevice_IdentifyQueryRspCB
-//  343 {
+//  346 {
         ; Saved register size: 0
         ; Auto size: 0
-//  344   (void)pRsp; // Query Response (with timeout value)
-//  345 }
+//  347   (void)pRsp; // Query Response (with timeout value)
+//  348 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock20
-//  346 
-//  347 static void zclZigbeeDevice_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg )
-//  348 {
-//  349   switch ( pInMsg->zclHdr.commandID )
-//  350   {
-//  351     #ifdef ZCL_READ
-//  352       case ZCL_CMD_READ_RSP:
-//  353         zclZigbeeDevice_ProcessInReadRspCmd( pInMsg );
-//  354         break;
-//  355     #endif
-//  356     #ifdef ZCL_WRITE
-//  357       case ZCL_CMD_WRITE_RSP:
-//  358         zclZigbeeDevice_ProcessInWriteRspCmd( pInMsg );
-//  359         break;
-//  360     #endif
-//  361     #ifdef ZCL_REPORT // See ZCL Test Applicaiton (zcl_testapp.c) for sample code on Attribute Reporting     
-//  362       case ZCL_CMD_CONFIG_REPORT:
-//  363         //zclSampleSw_ProcessInConfigReportCmd( pInMsg );
-//  364         break;
-//  365 
-//  366       case ZCL_CMD_CONFIG_REPORT_RSP:
-//  367         //zclSampleSw_ProcessInConfigReportRspCmd( pInMsg );
-//  368         break;
-//  369 
-//  370       case ZCL_CMD_READ_REPORT_CFG:
-//  371         //zclSampleSw_ProcessInReadReportCfgCmd( pInMsg );
-//  372         break;
-//  373 
-//  374       case ZCL_CMD_READ_REPORT_CFG_RSP:
-//  375         //zclSampleSw_ProcessInReadReportCfgRspCmd( pInMsg );
-//  376         break;
-//  377 
-//  378       case ZCL_CMD_REPORT:
-//  379         //zclSampleSw_ProcessInReportCmd( pInMsg );
-//  380         break;
-//  381     #endif
-//  382       case ZCL_CMD_DEFAULT_RSP:
-//  383         zclZigbeeDevice_ProcessInDefaultRspCmd( pInMsg );
-//  384         break;
-//  385     #ifdef ZCL_DISCOVER
-//  386       case ZCL_CMD_DISCOVER_RSP:
-//  387         zclZigbeeDevice_ProcessInDiscRspCmd( pInMsg );
-//  388         break;
-//  389     #endif
-//  390       default:
+//  349 
+//  350 static void zclZigbeeDevice_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg )
+//  351 {
+//  352   switch ( pInMsg->zclHdr.commandID )
+//  353   {
+//  354     #ifdef ZCL_READ
+//  355       case ZCL_CMD_READ_RSP:
+//  356         zclZigbeeDevice_ProcessInReadRspCmd( pInMsg );
+//  357         break;
+//  358     #endif
+//  359     #ifdef ZCL_WRITE
+//  360       case ZCL_CMD_WRITE_RSP:
+//  361         zclZigbeeDevice_ProcessInWriteRspCmd( pInMsg );
+//  362         break;
+//  363     #endif
+//  364     #ifdef ZCL_REPORT // See ZCL Test Applicaiton (zcl_testapp.c) for sample code on Attribute Reporting     
+//  365       case ZCL_CMD_CONFIG_REPORT:
+//  366         //zclSampleSw_ProcessInConfigReportCmd( pInMsg );
+//  367         break;
+//  368 
+//  369       case ZCL_CMD_CONFIG_REPORT_RSP:
+//  370         //zclSampleSw_ProcessInConfigReportRspCmd( pInMsg );
+//  371         break;
+//  372 
+//  373       case ZCL_CMD_READ_REPORT_CFG:
+//  374         //zclSampleSw_ProcessInReadReportCfgCmd( pInMsg );
+//  375         break;
+//  376 
+//  377       case ZCL_CMD_READ_REPORT_CFG_RSP:
+//  378         //zclSampleSw_ProcessInReadReportCfgRspCmd( pInMsg );
+//  379         break;
+//  380 
+//  381       case ZCL_CMD_REPORT:
+//  382         //zclSampleSw_ProcessInReportCmd( pInMsg );
+//  383         break;
+//  384     #endif
+//  385       case ZCL_CMD_DEFAULT_RSP:
+//  386         zclZigbeeDevice_ProcessInDefaultRspCmd( pInMsg );
+//  387         break;
+//  388     #ifdef ZCL_DISCOVER
+//  389       case ZCL_CMD_DISCOVER_RSP:
+//  390         zclZigbeeDevice_ProcessInDiscRspCmd( pInMsg );
 //  391         break;
-//  392   }
-//  393   if ( pInMsg->attrCmd )
-//  394     osal_mem_free( pInMsg->attrCmd );
-//  395 }
-//  396 
-//  397 #ifdef ZCL_READ
-//  398 static uint8 zclZigbeeDevice_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
-//  399 {
-//  400   zclReadRspCmd_t *readRspCmd;
-//  401   uint8 i;
-//  402 
-//  403   readRspCmd = (zclReadRspCmd_t *)pInMsg->attrCmd;
-//  404   for (i = 0; i < readRspCmd->numAttr; i++)
-//  405   {
-//  406     // Notify the originator of the results of the original read attributes attempt and, 
-//  407     // for each successfull request, the value of the requested attribute
-//  408   }
-//  409   return TRUE;
-//  410 }
-//  411 #endif // ZCL_READ
-//  412 
-//  413 #ifdef ZCL_WRITE
-//  414 static uint8 zclZigbeeDevice_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
-//  415 {
-//  416   zclWriteRspCmd_t *writeRspCmd;
-//  417   uint8 i;
-//  418 
-//  419   writeRspCmd = (zclWriteRspCmd_t *)pInMsg->attrCmd;
-//  420   for (i = 0; i < writeRspCmd->numAttr; i++)
-//  421   {
-//  422     // Notify the device of the results of the its original write attributes command.
-//  423   }
-//  424   return TRUE;
-//  425 }
-//  426 #endif // ZCL_WRITE
-//  427 
-//  428 static uint8 zclZigbeeDevice_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
-//  429 {
-//  430   // zclDefaultRspCmd_t *defaultRspCmd = (zclDefaultRspCmd_t *)pInMsg->attrCmd;
-//  431   
-//  432   // Device is notified of the Default Response command.
-//  433   (void)pInMsg;
-//  434   return TRUE;
-//  435 }
-//  436 
-//  437 #ifdef ZCL_DISCOVER
-//  438 static uint8 zclZigbeeDevice_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
-//  439 {
-//  440   zclDiscoverRspCmd_t *discoverRspCmd;
-//  441   uint8 i;
-//  442 
-//  443   discoverRspCmd = (zclDiscoverRspCmd_t *)pInMsg->attrCmd;
-//  444   for ( i = 0; i < discoverRspCmd->numAttr; i++ )
-//  445   {
-//  446     // Device is notified of the result of its attribute discovery command.
-//  447   }
-//  448   return TRUE;
-//  449 }
-//  450 #endif // ZCL_DISCOVER
-//  451 
+//  392     #endif
+//  393       default:
+//  394         break;
+//  395   }
+//  396   if ( pInMsg->attrCmd )
+//  397     osal_mem_free( pInMsg->attrCmd );
+//  398 }
+//  399 
+//  400 #ifdef ZCL_READ
+//  401 static uint8 zclZigbeeDevice_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
+//  402 {
+//  403   zclReadRspCmd_t *readRspCmd;
+//  404   uint8 i;
+//  405 
+//  406   readRspCmd = (zclReadRspCmd_t *)pInMsg->attrCmd;
+//  407   for (i = 0; i < readRspCmd->numAttr; i++)
+//  408   {
+//  409     // Notify the originator of the results of the original read attributes attempt and, 
+//  410     // for each successfull request, the value of the requested attribute
+//  411   }
+//  412   return TRUE;
+//  413 }
+//  414 #endif // ZCL_READ
+//  415 
+//  416 #ifdef ZCL_WRITE
+//  417 static uint8 zclZigbeeDevice_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
+//  418 {
+//  419   zclWriteRspCmd_t *writeRspCmd;
+//  420   uint8 i;
+//  421 
+//  422   writeRspCmd = (zclWriteRspCmd_t *)pInMsg->attrCmd;
+//  423   for (i = 0; i < writeRspCmd->numAttr; i++)
+//  424   {
+//  425     // Notify the device of the results of the its original write attributes command.
+//  426   }
+//  427   return TRUE;
+//  428 }
+//  429 #endif // ZCL_WRITE
+//  430 
+//  431 static uint8 zclZigbeeDevice_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
+//  432 {
+//  433   // zclDefaultRspCmd_t *defaultRspCmd = (zclDefaultRspCmd_t *)pInMsg->attrCmd;
+//  434   
+//  435   // Device is notified of the Default Response command.
+//  436   (void)pInMsg;
+//  437   return TRUE;
+//  438 }
+//  439 
+//  440 #ifdef ZCL_DISCOVER
+//  441 static uint8 zclZigbeeDevice_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
+//  442 {
+//  443   zclDiscoverRspCmd_t *discoverRspCmd;
+//  444   uint8 i;
+//  445 
+//  446   discoverRspCmd = (zclDiscoverRspCmd_t *)pInMsg->attrCmd;
+//  447   for ( i = 0; i < discoverRspCmd->numAttr; i++ )
+//  448   {
+//  449     // Device is notified of the result of its attribute discovery command.
+//  450   }
+//  451   return TRUE;
+//  452 }
+//  453 #endif // ZCL_DISCOVER
+//  454 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  452 void zclRS485_CallBack(uint8 port, uint8 event)
+//  455 void zclRS485_CallBack(uint8 port, uint8 event)
 zclRS485_CallBack:
         CFI Block cfiBlock21 Using cfiCommon0
         CFI Function zclRS485_CallBack
-//  453 {
+//  456 {
         FUNCALL zclRS485_CallBack, Hal_UART_RxBufLen
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -2415,9 +2406,9 @@ zclRS485_CallBack:
         CFI CFA_XSP16 add(XSP16, 10)
         ; Saved register size: 10
         ; Auto size: 0
-//  454   (void)port;
-//  455   
-//  456   if(Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT) > 0 )
+//  457   (void)port;
+//  458   
+//  459   if(Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT) > 0 )
         ; Setup parameters for call to function Hal_UART_RxBufLen
         MOV     R1,#0x0
         LCALL   ??Hal_UART_RxBufLen?relay
@@ -2426,15 +2417,15 @@ zclRS485_CallBack:
         MOV     A,R3
 ??zclRS485_CallBack_0:
         JZ      ??zclRS485_CallBack_1
-//  457   {
-//  458       len = Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT );
+//  460   {
+//  461       len = Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT );
         ; Setup parameters for call to function Hal_UART_RxBufLen
         MOV     R1,#0x0
         LCALL   ??Hal_UART_RxBufLen?relay
         MOV     A,R2
         MOV     DPTR,#len
         MOVX    @DPTR,A
-//  459       HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, len );
+//  462       HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, len );
         ; Setup parameters for call to function HalUARTRead
         MOV     R4,A
         MOV     R5,#0x0
@@ -2442,7 +2433,7 @@ zclRS485_CallBack:
         MOV     R3,#((TransmitApp_Msg >> 8) & 0xff)
         MOV     R1,#0x0
         LCALL   ??HalUARTRead?relay
-//  460       osal_set_event( zclZigbeeDevice_TaskID, RS485_MSG_EVT );
+//  463       osal_set_event( zclZigbeeDevice_TaskID, RS485_MSG_EVT );
         ; Setup parameters for call to function osal_set_event
         MOV     R2,#0x4
         MOV     R3,#0x0
@@ -2450,43 +2441,67 @@ zclRS485_CallBack:
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??osal_set_event?relay
-//  461   }
-//  462 }
+//  464   }
+//  465 }
 ??zclRS485_CallBack_1:
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock21
-//  463 
+//  466 #if defined( MMN_UART )
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//  467 uint8 uart_recv_str[20];
+uart_recv_str:
+        DS 20
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+//  468 int str_loc = 0;
+str_loc:
+        DS 2
+        REQUIRE __INIT_XDATA_Z
+//  469 #endif
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  464 void zclRS485_SendMsg(void)
+//  470 void zclRS485_SendMsg(void)
 zclRS485_SendMsg:
         CFI Block cfiBlock22 Using cfiCommon0
         CFI Function zclRS485_SendMsg
-//  465 {
+//  471 {
         FUNCALL zclRS485_SendMsg, HalLcdWriteChar
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 32, STACK
+        LOCFRAME XSTACK, 33, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 32, STACK
+        ARGFRAME XSTACK, 33, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL zclRS485_SendMsg, zcl_SendCommand
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 43, STACK
+        LOCFRAME XSTACK, 44, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 43, STACK
+        ARGFRAME XSTACK, 44, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        MOV     A,#-0xc
+        FUNCALL zclRS485_SendMsg, memset
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 35, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 35, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0xd
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
@@ -2494,99 +2509,168 @@ zclRS485_SendMsg:
         CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
         CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
         CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
-        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI V4 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 12)
-        ; Saved register size: 12
+        CFI CFA_XSP16 add(XSP16, 13)
+        ; Saved register size: 13
         ; Auto size: 20
         MOV     A,#-0x14
         LCALL   ?ALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 32)
-//  466   uint8 len;
-//  467   uint8 uart_recv[20]; // Receive the UART command
-//  468   
-//  469   for(len = 0; len < 20; len++)
-        MOV     ?V0 + 2,#0x0
-//  470   {
-//  471     uart_recv[len] = TransmitApp_Msg[len];
+        CFI CFA_XSP16 add(XSP16, 33)
+//  472   uint8 len;
+//  473   uint8 uart_recv[20]; // Receive the UART command
+//  474   char temp[20];
+//  475   int null_loc;
+//  476   
+//  477   for(len = 0; len < 20; len++)
+        MOV     ?V0 + 4,#0x0
+//  478   {
+//  479     uart_recv[len]     = TransmitApp_Msg[len];
 ??zclRS485_SendMsg_0:
-        MOV     DPL,?V0 + 2
-        MOV     R0,DPL
-        MOV     A,R0
+        MOV     DPL,?V0 + 4
+        MOV     R6,DPL
+        MOV     A,R6
         ADD     A,#(TransmitApp_Msg & 0xff)
-        MOV     DPL,A
+        MOV     R0,A
         CLR     A
         ADDC    A,#((TransmitApp_Msg >> 8) & 0xff)
+        MOV     R1,A
+        MOV     ?V0 + 0,R0
+        MOV     ?V0 + 1,R1
+        MOV     DPL,R0
         MOV     DPH,A
         MOVX    A,@DPTR
         MOV     R3,A
         MOV     DPL,?XSP + 0
         MOV     DPH,?XSP + 1
         MOV     A,DPL
-        ADD     A,R0
+        ADD     A,R6
         MOV     DPL,A
         MOV     A,DPH
         ADDC    A,#0x0
         MOV     DPH,A
         MOV     A,R3
         MOVX    @DPTR,A
-//  472   #if defined( LCD_SUPPORTED )
-//  473     HalLcdWriteChar(HAL_LCD_LINE_4, len, uart_recv[len]);
+//  480   #if defined( LCD_SUPPORTED )
+//  481     HalLcdWriteChar(HAL_LCD_LINE_4, len, uart_recv[len]);
         ; Setup parameters for call to function HalLcdWriteChar
-        MOV     R2,?V0 + 2
+        MOV     R2,?V0 + 4
         MOV     R1,#0x4
         LCALL   ??HalLcdWriteChar?relay
-//  474   #endif
-//  475   }
-        INC     ?V0 + 2
-        MOV     A,?V0 + 2
+//  482   #endif
+//  483   #if defined( MMN_UART )
+//  484     uart_recv_str[len+str_loc] = TransmitApp_Msg[len];
+        MOV     DPL,?V0 + 0
+        MOV     DPH,?V0 + 1
+        MOVX    A,@DPTR
+        PUSH    A
+        CFI CFA_SP SP+-1
+        MOV     DPTR,#str_loc
+        MOVX    A,@DPTR
+        ADD     A,R6
+        MOV     R0,A
+        INC     DPTR
+        MOVX    A,@DPTR
+        ADDC    A,#0x0
+        MOV     R1,A
+        MOV     A,R0
+        ADD     A,#(uart_recv_str & 0xff)
+        MOV     DPL,A
+        MOV     A,R1
+        ADDC    A,#((uart_recv_str >> 8) & 0xff)
+        MOV     DPH,A
+        POP     A
+        CFI CFA_SP SP+0
+        MOVX    @DPTR,A
+//  485     if(TransmitApp_Msg[len]=='\0'){
+        JNZ     ??zclRS485_SendMsg_1
+//  486       null_loc = len;
+        MOV     ?V0 + 2,R6
+        MOV     ?V0 + 3,#0x0
+//  487       str_loc += null_loc;
+        MOV     DPTR,#str_loc
+        MOVX    A,@DPTR
+        ADD     A,?V0 + 2
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOVX    A,@DPTR
+        ADDC    A,#0x0
+        MOVX    @DPTR,A
+//  488       break;
+        SJMP    ??zclRS485_SendMsg_2
+//  489     }
+//  490   #endif
+//  491   }
+??zclRS485_SendMsg_1:
+        INC     ?V0 + 4
+        MOV     A,?V0 + 4
         CLR     C
         SUBB    A,#0x14
         JC      ??zclRS485_SendMsg_0
-//  476   
-//  477   // Transmit the UART command to End Device
-//  478   uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
-//  479                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
-//  480                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, uart_recv );
+//  492   
+//  493   //sprintf(temp, ",%d,", (int)TransmitApp_Msg[null_loc-1]);
+//  494   //HalUARTWrite( MT_UART_DEFAULT_PORT, temp, 20 );
+//  495   #if defined( MMN_UART )
+//  496   if(TransmitApp_Msg[null_loc-1]=='\r'){
+??zclRS485_SendMsg_2:
+        MOV     A,?V0 + 2
+        ADD     A,#((TransmitApp_Msg + 255) & 0xff)
+        MOV     DPL,A
+        MOV     A,?V0 + 3
+        ADDC    A,#(((TransmitApp_Msg - 1) >> 8) & 0xff)
+        MOV     DPH,A
+        MOVX    A,@DPTR
+        XRL     A,#0xd
+        JNZ     ??zclRS485_SendMsg_3
+//  497   // Transmit the UART command to End Device
+//  498     uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
+//  499                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
+//  500                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, str_loc-1, uart_recv_str );
         ; Setup parameters for call to function zcl_SendCommand
-        MOV     DPL,?XSP + 0
-        MOV     DPH,?XSP + 1
-        MOV     ?V0 + 0,DPL
-        MOV     ?V0 + 1,DPH
+        MOV     ?V0 + 0,#(uart_recv_str & 0xff)
+        MOV     ?V0 + 1,#((uart_recv_str >> 8) & 0xff)
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 34)
-        MOV     ?V0 + 3,#0x0
-        MOV     R0,#?V0 + 2
+        CFI CFA_XSP16 add(XSP16, 35)
+        MOV     DPTR,#str_loc
+        MOVX    A,@DPTR
+        ADD     A,#-0x1
+        MOV     ?V0 + 0,A
+        INC     DPTR
+        MOVX    A,@DPTR
+        ADDC    A,#-0x1
+        MOV     ?V0 + 1,A
+        MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 36)
+        CFI CFA_XSP16 add(XSP16, 37)
         MOV     ?V0 + 0,#0x0
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 37)
+        CFI CFA_XSP16 add(XSP16, 38)
         MOV     ?V0 + 1,#0x0
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 39)
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
         CFI CFA_XSP16 add(XSP16, 40)
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
         CFI CFA_XSP16 add(XSP16, 41)
-        MOV     ?V0 + 0,#0x1
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
         CFI CFA_XSP16 add(XSP16, 42)
-        MOV     ?V0 + 0,#0x0
+        MOV     ?V0 + 0,#0x1
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
         CFI CFA_XSP16 add(XSP16, 43)
+        MOV     ?V0 + 0,#0x0
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_ONE
+        CFI CFA_XSP16 add(XSP16, 44)
         MOV     R4,#0x6
         MOV     R5,#0x0
         MOV     R2,#(zclZigbeeDevice_DstAddr & 0xff)
@@ -2595,66 +2679,75 @@ zclRS485_SendMsg:
         LCALL   ??zcl_SendCommand?relay
         MOV     A,#0xb
         LCALL   ?DEALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 32)
-//  481 }
+        CFI CFA_XSP16 add(XSP16, 33)
+//  501     str_loc = 0;
+        MOV     DPTR,#str_loc
+        CLR     A
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOVX    @DPTR,A
+//  502     memset(uart_recv_str, 0x0, 20);
+        ; Setup parameters for call to function memset
+        MOV     ?V0 + 0,#0x14
+        MOV     R0,#?V0 + 0
+        LCALL   ?PUSH_XSTACK_I_TWO
+        CFI CFA_XSP16 add(XSP16, 35)
+        MOV     R4,#0x0
+        MOV     R5,#0x0
+        MOV     R2,#(uart_recv_str & 0xff)
+        MOV     R3,#((uart_recv_str >> 8) & 0xff)
+        LCALL   ??memset?relay
+        MOV     A,#0x2
+        LCALL   ?DEALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 33)
+//  503   }
+//  504   #else
+//  505   uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
+//  506                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
+//  507                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, uart_recv );
+//  508   #endif
+//  509     
+//  510 }
+??zclRS485_SendMsg_3:
         MOV     A,#0x14
         LCALL   ?DEALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 12)
-        MOV     R7,#0x4
+        CFI CFA_XSP16 add(XSP16, 13)
+        MOV     R7,#0x5
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock22
-//  482 
+//  511 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  483 void zclZIGBEEDevice_SendMsg(void)
+//  512 void zclZIGBEEDevice_SendMsg(void)
 zclZIGBEEDevice_SendMsg:
         CFI Block cfiBlock23 Using cfiCommon0
         CFI Function zclZIGBEEDevice_SendMsg
-//  484 {
-        FUNCALL zclZIGBEEDevice_SendMsg, M160_SensorFunction
-        LOCFRAME ISTACK, 2, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 2, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        PUSH    DPL
-        CFI DPL0 Frame(CFA_SP, 4)
-        CFI CFA_SP SP+-4
-        PUSH    DPH
-        CFI DPH0 Frame(CFA_SP, 5)
-        CFI CFA_SP SP+-5
-        ; Saved register size: 2
+//  513 {
+        ; Saved register size: 0
         ; Auto size: 0
-//  485   #if defined(M110)
-//  486     M110_SensorFunction();
-//  487   #endif
-//  488   #if defined(M140)
-//  489     M140_SensorFunction();
-//  490   #endif
-//  491   #if defined(M160)
-//  492     M160_SensorFunction();
-        ; Setup parameters for call to function M160_SensorFunction
-        LCALL   ??M160_SensorFunction?relay
-//  493   #endif
-//  494   #if defined(M170)
-//  495     M170_SensorFunction();
-//  496   #endif
-//  497   #if defined(M190)
-//  498     M190_SensorFunction();
-//  499   #endif
-//  500   #if defined(M200)
-//  501     M200_SensorFunction();
-//  502   #endif
-//  503   #if defined(M270)
-//  504     M270_SensorFunction();
-//  505   #endif
-//  506 }
-        LJMP    ?Subroutine3 & 0xFFFF
+//  514   #if defined(M110)
+//  515     M110_SensorFunction();
+//  516   #endif
+//  517   #if defined(M140)
+//  518     M140_SensorFunction();
+//  519   #endif
+//  520   #if defined(M160)
+//  521     M160_SensorFunction();
+//  522   #endif
+//  523   #if defined(M170)
+//  524     M170_SensorFunction();
+//  525   #endif
+//  526   #if defined(M190)
+//  527     M190_SensorFunction();
+//  528   #endif
+//  529   #if defined(M200)
+//  530     M200_SensorFunction();
+//  531   #endif
+//  532   #if defined(M270)
+//  533     M270_SensorFunction();
+//  534   #endif
+//  535 }
+        LJMP    ?BRET
         CFI EndBlock cfiBlock23
 
         RSEG XDATA_ID:CODE:NOROOT(0)
@@ -2733,16 +2826,16 @@ zclZIGBEEDevice_SendMsg:
         DC24    zclZIGBEEDevice_SendMsg
 
         END
-//  507 
+//  536 
 // 
-// 1 002 bytes in segment BANKED_CODE
+// 1 106 bytes in segment BANKED_CODE
 //    54 bytes in segment BANK_RELAYS
 //    38 bytes in segment XDATA_I
 //    38 bytes in segment XDATA_ID
-//    20 bytes in segment XDATA_Z
+//    42 bytes in segment XDATA_Z
 // 
-// 1 094 bytes of CODE  memory
-//    58 bytes of XDATA memory
+// 1 198 bytes of CODE  memory
+//    80 bytes of XDATA memory
 //
 //Errors: none
-//Warnings: none
+//Warnings: 1

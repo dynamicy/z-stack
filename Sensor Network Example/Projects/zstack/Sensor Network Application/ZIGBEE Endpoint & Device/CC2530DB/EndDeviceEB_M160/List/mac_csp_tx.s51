@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  18:45:57 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               23/Aug/2013  21:45:07 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -56,8 +56,9 @@
 //                          MT_TASK -D MT_APP_FUNC -D MT_SYS_FUNC -D          /
 //                          MT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG -D             /
 //                          xPOWER_SAVING -D End_Device -D HAL_KEYPAD -D      /
-//                          M160 -D xPA2591 -lC "D:\GitHub\z-stack\Sensor     /
-//                          Network Example\Projects\zstack\Sensor Network    /
+//                          xPA2591 -D MMN_UART -lC                           /
+//                          "D:\GitHub\z-stack\Sensor Network                 /
+//                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
@@ -994,8 +995,8 @@ cspReadCountSymbols:
         LJMP    ?BRET
         CFI EndBlock cfiBlock2
         REQUIRE T2M1
-        REQUIRE _A_IEN0
         REQUIRE T2M0
+        REQUIRE _A_IEN0
         REQUIRE T2MSEL
 //  305 }
 //  306 
@@ -1081,9 +1082,9 @@ cspPrepForTxProgram:
         LJMP    ??Subroutine7_0 & 0xFFFF
         CFI EndBlock cfiBlock3
         REQUIRE RFIRQF1
-        REQUIRE _A_IEN0
         REQUIRE T2CSPCFG
         REQUIRE S1CON
+        REQUIRE _A_IEN0
         REQUIRE RFST
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
@@ -1469,9 +1470,9 @@ macCspTxGoCsma:
         CFI EndBlock cfiBlock14
         REQUIRE RFST
         REQUIRE T2M1
-        REQUIRE _A_IEN0
-        REQUIRE T2M0
         REQUIRE T2IRQF
+        REQUIRE T2M0
+        REQUIRE _A_IEN0
         REQUIRE T2MSEL
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
@@ -1788,8 +1789,8 @@ macCspTxGoSlotted:
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock19
         REQUIRE T2MOVF0
-        REQUIRE _A_IEN0
         REQUIRE T2M0
+        REQUIRE _A_IEN0
         REQUIRE T2MSEL
         REQUIRE RFST
 
@@ -2193,12 +2194,12 @@ macCspTxRequestAckTimeoutCallback:
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock24
         REQUIRE RFIRQF1
-        REQUIRE _A_IEN0
         REQUIRE S1CON
+        REQUIRE _A_IEN0
         REQUIRE RFST
         REQUIRE T2M1
-        REQUIRE T2M0
         REQUIRE T2IRQF
+        REQUIRE T2M0
         REQUIRE T2MSEL
 
         RSEG BANKED_CODE:CODE:NOROOT(0)

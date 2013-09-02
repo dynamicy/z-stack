@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  19:00:39 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  23:10:03 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -188,18 +188,19 @@
 ###############################################################################
 
 D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
-      1          #include "hal_defs.h"
-      2          //#include "ioCC2530.h"
-      3          #include "hal_mcu.h"
+      1          //-------------------------------------------------------------------
+      2          // Filename: M160.c
+      3          // Description: hal M160 PWM library
+      4          //-------------------------------------------------------------------
+      5          //-------------------------------------------------------------------
+      6          // INCLUDES
+      7          //-------------------------------------------------------------------
+      8          #include "hal_defs.h"
+      9          #include "ioCC2530.h"
 
    \                                 In  segment SFR_AN, at 0x80
    \   union <unnamed> volatile __sfr _A_P0
    \                     _A_P0:
-   \   000000                DS 1
-
-   \                                 In  segment SFR_AN, at 0xb8
-   \   union <unnamed> volatile __sfr _A_IEN1
-   \                     _A_IEN1:
    \   000000                DS 1
 
    \                                 In  segment SFR_AN, at 0xf3
@@ -211,176 +212,224 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
    \   unsigned char volatile __sfr P0DIR
    \                     P0DIR:
    \   000000                DS 1
-      4          #include "hal_board.h"
-      5          #include "M160.h"
-      6          
+     10          #include "hal_mcu.h"
+     11          #include "hal_board.h"
+     12          #include "M160.h"
+     13          #include "hal_timer.h"
+     14          #include "hal_lcd.h"
+     15          
+     16          //-------------------------------------------------------------------
+     17          // LOCAL VARIABLES
+     18          //-------------------------------------------------------------------
 
    \                                 In  segment XDATA_Z, align 1, keep-with-next
-      7          uint8 M160_DutyCount;
+     19          uint8 M160_DutyCount = 0;
    \                     M160_DutyCount:
    \   000000                DS 1
    \   000001                REQUIRE __INIT_XDATA_Z
 
-   \                                 In  segment XDATA_Z, align 1, keep-with-next
-      8          uint8 M160_DutyValue;
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+     20          uint8 M160_DutyValue = 50;
    \                     M160_DutyValue:
    \   000000                DS 1
-   \   000001                REQUIRE __INIT_XDATA_Z
-      9          
-
-   \                                 In  segment NEAR_CODE, align 1, keep-with-next
-     10          HAL_ISR_FUNCTION(T4_ISR, T4_VECTOR)
-   \                     T4_ISR:
-     11          {
-   \   000000   C0E0         PUSH    A
-   \   000002   C0D0         PUSH    PSW
-   \   000004   EA           MOV     A,R2
-   \   000005   C0E0         PUSH    A
-   \   000007   C082         PUSH    DPL
-   \   000009   C083         PUSH    DPH
-   \   00000B                ; Saved register size: 5
-   \   00000B                ; Auto size: 0
-     12              M160_DutyCount++;
-   \   00000B   90....       MOV     DPTR,#M160_DutyCount
-   \   00000E   E0           MOVX    A,@DPTR
-   \   00000F   04           INC     A
-   \   000010   F0           MOVX    @DPTR,A
-     13              if (M160_DutyCount >= 100)
-   \   000011   C3           CLR     C
-   \   000012   9464         SUBB    A,#0x64
-   \   000014   4002         JC      ??T4_ISR_0
-     14              {
-     15                  M160_DutyCount = 0;
-   \   000016   E4           CLR     A
-   \   000017   F0           MOVX    @DPTR,A
-     16              }
-     17              if (M160_DutyCount >= M160_DutyValue)
-   \                     ??T4_ISR_0:
-   \   000018   E0           MOVX    A,@DPTR
-   \   000019   C0E0         PUSH    A
-   \   00001B   90....       MOV     DPTR,#M160_DutyValue
-   \   00001E   E0           MOVX    A,@DPTR
-   \   00001F   FA           MOV     R2,A
-   \   000020   D0E0         POP     A
-   \   000022   C3           CLR     C
-   \   000023   9A           SUBB    A,R2
-   \   000024   4004         JC      ??T4_ISR_1
-     18              {
-     19                  HAL_DO_OFF();
-   \   000026   D280         SETB    0x80.0
-   \   000028   8002         SJMP    ??T4_ISR_2
-     20              }
-     21              else
-     22              {
-     23                  HAL_DO_ON();
-   \                     ??T4_ISR_1:
-   \   00002A   C280         CLR     0x80.0
-     24              }
-     25          }
-   \                     ??T4_ISR_2:
-   \   00002C   D083         POP     DPH
-   \   00002E   D082         POP     DPL
-   \   000030   D0E0         POP     A
-   \   000032   FA           MOV     R2,A
-   \   000033   D0D0         POP     PSW
-   \   000035   D0E0         POP     A
-   \   000037   32           RETI
-   \   000038                REQUIRE _A_P0
-     26          
+   \   000001                REQUIRE `?<Initializer for M160_DutyValue>`
+   \   000001                REQUIRE __INIT_XDATA_I
+     21          //-------------------------------------------------------------------
+     22          // LOCAL FUNCTIONS
+     23          //-------------------------------------------------------------------
+     24          //-------------------------------------------------------------------
+     25          // @fn      timerPwm_ISR
+     26          // @brief   ISR framework for the 1k timer component
+     27          // @param   none
+     28          // @return  none
+     29          //-------------------------------------------------------------------
+     30          /*
+     31          HAL_ISR_FUNCTION(M160_ISR, T4_VECTOR)
+     32          {
+     33              M160_DutyCount++;
+     34              if (M160_DutyCount >= 100)
+     35              {
+     36                  M160_DutyCount = 0;
+     37              }
+     38              if (M160_DutyCount >= M160_DutyValue)
+     39              {
+     40                  HAL_DO_OFF();
+     41              }
+     42              else
+     43              {
+     44                  HAL_DO_ON();
+     45              }
+     46          }
+     47          */
+     48          
+     49          //-------------------------------------------------------------------
+     50          // GLOBAL FUNCTIONS
+     51          //-------------------------------------------------------------------
+     52          //-------------------------------------------------------------------
+     53          // @fn      M160_Init
+     54          // @brief    Set up timer 4 to generate an interrupt 1 kHz for PWM
+     55          // @return  none
+     56          //-------------------------------------------------------------------
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     27          void M160_Init(void)
+     57          void M160_Init(void)
    \                     M160_Init:
-     28          {
+     58          {
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+     59              HAL_DO_OUTPUT();
+   \   000005   53F3FE       ANL     0xf3,#0xfe
+   \   000008   43FD01       ORL     0xfd,#0x1
+     60          
+     61              // Set prescaler divider value to 128 (8KHz)
+     62              /*
+     63              X_T4CTL |= 0x80;
+     64          
+     65              X_T4CTL &= ~(0x10); // Stop timer
+     66              T4IE = 0; // Disable interrupt
+     67              */
+     68              uint8 status =
+     69              HalTimerConfig(HAL_TIMER_0,
+     70                             HAL_TIMER_MODE_CTC,
+     71                             HAL_TIMER_CHANNEL_SINGLE,
+     72                             HAL_TIMER_CH_MODE_OUTPUT_COMPARE,
+     73                             1,
+     74                             M160_Timer_Call_Back);
+   \   00000B                ; Setup parameters for call to function HalTimerConfig
+   \   00000B   75....       MOV     ?V0 + 0,#(??M160_Timer_Call_Back?relay & 0xff)
+   \   00000E   75....       MOV     ?V0 + 1,#((??M160_Timer_Call_Back?relay >> 8) & 0xff)
+   \   000011   78..         MOV     R0,#?V0 + 0
+   \   000013   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000016   7D01         MOV     R5,#0x1
+   \   000018   7C02         MOV     R4,#0x2
+   \   00001A   7B01         MOV     R3,#0x1
+   \   00001C   7A02         MOV     R2,#0x2
+   \   00001E   7900         MOV     R1,#0x0
+   \   000020   12....       LCALL   ??HalTimerConfig?relay
+   \   000023   7402         MOV     A,#0x2
+   \   000025   12....       LCALL   ?DEALLOC_XSTACK8
+     75              HalTimerStart(HAL_TIMER_0,100);
+   \   000028                ; Setup parameters for call to function HalTimerStart
+   \   000028   90....       MOV     DPTR,#__Constant_64
+   \   00002B   78..         MOV     R0,#?V0 + 0
+   \   00002D   12....       LCALL   ?L_MOV_X
+   \   000030   AA..         MOV     R2,?V0 + 0
+   \   000032   AB..         MOV     R3,?V0 + 1
+   \   000034   AC..         MOV     R4,?V0 + 2
+   \   000036   AD..         MOV     R5,?V0 + 3
+   \   000038   7900         MOV     R1,#0x0
+   \   00003A   12....       LCALL   ??HalTimerStart?relay
+     76          }
+   \   00003D   7F04         MOV     R7,#0x4
+   \   00003F   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   000042                REQUIRE P0DIR
+   \   000042                REQUIRE P0SEL
+     77          
+     78          //-------------------------------------------------------------------
+     79          // @fn          M160_On
+     80          // @brief       Turn M160 on.
+     81          // @param       uint8 duty
+     82          // @return      none
+     83          //-------------------------------------------------------------------
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     84          void M160_On(uint8 duty)
+   \                     M160_On:
+     85          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     29              HAL_DO_OUTPUT();
-   \   000004   53F3FE       ANL     0xf3,#0xfe
-   \   000007   43FD01       ORL     0xfd,#0x1
-     30          
-     31              // Set prescaler divider value to 128 (8KHz)
-     32              X_T4CTL |= 0x80;
-   \   00000A   9070EB       MOV     DPTR,#0x70eb
-   \   00000D   E0           MOVX    A,@DPTR
-   \   00000E   D2E7         SETB    0xE0 /* A   */.7
-   \   000010   F0           MOVX    @DPTR,A
-     33          
-     34              X_T4CTL &= ~(0x10); // Stop timer
-   \   000011   E0           MOVX    A,@DPTR
-   \   000012   C2E4         CLR     0xE0 /* A   */.4
-   \   000014   F0           MOVX    @DPTR,A
-     35              T4IE = 0; // Disable interrupt
-   \   000015   C2BC         CLR     0xb8.4
-     36          }
-   \   000017                REQUIRE ?Subroutine0
-   \   000017                REQUIRE _A_IEN1
-   \   000017                REQUIRE P0SEL
-   \   000017                REQUIRE P0DIR
-   \   000017                ; // Fall through to label ?Subroutine0
+     86              //M160_DutyCount = 0;
+     87              M160_DutyValue = duty;
+   \   000004   E9           MOV     A,R1
+   \   000005   90....       MOV     DPTR,#M160_DutyValue
+   \   000008   F0           MOVX    @DPTR,A
+     88          
+     89              //X_T4CTL |= 0x10; // Start timer
+     90              //T4IE = 1; // Enable interrupt
+     91          }
+   \   000009                REQUIRE ?Subroutine0
+   \   000009                ; // Fall through to label ?Subroutine0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine0:
    \   000000   D083         POP     DPH
    \   000002   D082         POP     DPL
    \   000004   02....       LJMP    ?BRET
-     37          
+     92          
+     93          //-------------------------------------------------------------------
+     94          // @fn          M160_Off
+     95          // @brief       Turn M160 off.
+     96          // @return      none
+     97          //-------------------------------------------------------------------
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     38          void M160_On(uint8 duty)
-   \                     M160_On:
-     39          {
-   \   000000   C082         PUSH    DPL
-   \   000002   C083         PUSH    DPH
-   \   000004                ; Saved register size: 2
-   \   000004                ; Auto size: 0
-     40              M160_DutyCount = 0;
-   \   000004   E4           CLR     A
-   \   000005   90....       MOV     DPTR,#M160_DutyCount
-   \   000008   F0           MOVX    @DPTR,A
-     41              M160_DutyValue = duty;
-   \   000009   E9           MOV     A,R1
-   \   00000A   90....       MOV     DPTR,#M160_DutyValue
-   \   00000D   F0           MOVX    @DPTR,A
-     42          
-     43              X_T4CTL |= 0x10; // Start timer
-   \   00000E   9070EB       MOV     DPTR,#0x70eb
-   \   000011   E0           MOVX    A,@DPTR
-   \   000012   D2E4         SETB    0xE0 /* A   */.4
-   \   000014   F0           MOVX    @DPTR,A
-     44              T4IE = 1; // Enable interrupt
-   \   000015   D2BC         SETB    0xb8.4
-     45          }
-   \   000017   80..         SJMP    ?Subroutine0
-   \   000019                REQUIRE _A_IEN1
-     46          
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     47          void M160_Off(void)
+     98          void M160_Off(void)
    \                     M160_Off:
-     48          {
+     99          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+    100              //X_T4CTL &= ~(0x10); // Stop timer
+    101              //T4IE = 0; // Disable interrupt
+    102              HAL_DO_OFF();
+   \   000000   D280         SETB    0x80.0
+    103          }
+   \   000002   02....       LJMP    ?BRET
+   \   000005                REQUIRE _A_P0
+    104          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    105          void M160_Timer_Call_Back(uint8 timerId, uint8 channel, uint8 channelMode){
+   \                     M160_Timer_Call_Back:
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     49              X_T4CTL &= ~(0x10); // Stop timer
-   \   000004   9070EB       MOV     DPTR,#0x70eb
+    106            M160_DutyCount++;
+   \   000004   90....       MOV     DPTR,#M160_DutyCount
    \   000007   E0           MOVX    A,@DPTR
-   \   000008   C2E4         CLR     0xE0 /* A   */.4
-   \   00000A   F0           MOVX    @DPTR,A
-     50              T4IE = 0; // Disable interrupt
-   \   00000B   C2BC         CLR     0xb8.4
-     51              HAL_DO_OFF();
-   \   00000D   D280         SETB    0x80.0
-     52          }
-   \   00000F   80..         SJMP    ?Subroutine0
-   \   000011                REQUIRE _A_P0
-   \   000011                REQUIRE _A_IEN1
+   \   000008   04           INC     A
+   \   000009   F0           MOVX    @DPTR,A
+    107            if (M160_DutyCount >= 100)
+   \   00000A   C3           CLR     C
+   \   00000B   9464         SUBB    A,#0x64
+   \   00000D   4002         JC      ??M160_Timer_Call_Back_0
+    108                M160_DutyCount = 0;
+   \   00000F   E4           CLR     A
+   \   000010   F0           MOVX    @DPTR,A
+    109            if (M160_DutyCount >= M160_DutyValue)
+   \                     ??M160_Timer_Call_Back_0:
+   \   000011   E0           MOVX    A,@DPTR
+   \   000012   C0E0         PUSH    A
+   \   000014   90....       MOV     DPTR,#M160_DutyValue
+   \   000017   E0           MOVX    A,@DPTR
+   \   000018   FA           MOV     R2,A
+   \   000019   D0E0         POP     A
+   \   00001B   C3           CLR     C
+   \   00001C   9A           SUBB    A,R2
+   \   00001D   4004         JC      ??M160_Timer_Call_Back_1
+    110                HAL_DO_OFF();
+   \   00001F   D280         SETB    0x80.0
+   \   000021   8002         SJMP    ??M160_Timer_Call_Back_2
+    111            else
+    112                HAL_DO_ON();
+   \                     ??M160_Timer_Call_Back_1:
+   \   000023   C280         CLR     0x80.0
+    113          }
+   \                     ??M160_Timer_Call_Back_2:
+   \   000025   80..         SJMP    ?Subroutine0
+   \   000027                REQUIRE _A_P0
 
-   \                                 In  segment INTVEC, offset 0x63, root
-   \                     `??T4_ISR??INTVEC 99`:
-   \   000063   02....       LJMP       (T4_ISR)
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for M160_DutyValue>`:
+   \   000000   32           DB 50
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_64:
+   \   000000   64000000     DD 100
 
    \                                 In  segment BANK_RELAYS, align 1
    \                     ??M160_Init?relay:
@@ -397,46 +446,56 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\module\M160.c
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    M160_Off
 
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M160_Timer_Call_Back?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M160_Timer_Call_Back
+
    Maximum stack usage in bytes:
 
-     Function  ISTACK PSTACK XSTACK
-     --------  ------ ------ ------
-     M160_Init     2      0      0
-     M160_Off      2      0      0
-     M160_On       2      0      0
-     T4_ISR        6      0      0
+     Function             ISTACK PSTACK XSTACK
+     --------             ------ ------ ------
+     M160_Init                0      0     14
+       -> HalTimerConfig      0      0     28
+       -> HalTimerStart       0      0     24
+     M160_Off                 0      0      0
+     M160_On                  2      0      0
+     M160_Timer_Call_Back     3      0      0
 
 
    Segment part sizes:
 
-     Function/Label      Bytes
-     --------------      -----
-     _A_P0                  1
-     _A_IEN1                1
-     P0SEL                  1
-     P0DIR                  1
-     M160_DutyCount         1
-     M160_DutyValue         1
-     T4_ISR                56
-     M160_Init             23
-     ?Subroutine0           7
-     M160_On               25
-     M160_Off              17
-     ??T4_ISR??INTVEC 99    3
-     ??M160_Init?relay      6
-     ??M160_On?relay        6
-     ??M160_Off?relay       6
+     Function/Label                    Bytes
+     --------------                    -----
+     _A_P0                                1
+     P0SEL                                1
+     P0DIR                                1
+     M160_DutyCount                       1
+     M160_DutyValue                       1
+     M160_Init                           66
+     M160_On                              9
+     ?Subroutine0                         7
+     M160_Off                             5
+     M160_Timer_Call_Back                39
+     ?<Initializer for M160_DutyValue>    1
+     __Constant_64                        4
+     ??M160_Init?relay                    6
+     ??M160_On?relay                      6
+     ??M160_Off?relay                     6
+     ??M160_Timer_Call_Back?relay         6
 
  
- 72 bytes in segment BANKED_CODE
- 18 bytes in segment BANK_RELAYS
-  3 bytes in segment INTVEC
- 56 bytes in segment NEAR_CODE
-  4 bytes in segment SFR_AN
-  2 bytes in segment XDATA_Z
+ 126 bytes in segment BANKED_CODE
+  24 bytes in segment BANK_RELAYS
+   3 bytes in segment SFR_AN
+   1 byte  in segment XDATA_I
+   1 byte  in segment XDATA_ID
+   4 bytes in segment XDATA_ROM_C
+   1 byte  in segment XDATA_Z
  
- 146 bytes of CODE  memory (+ 3 bytes shared)
-   0 bytes of DATA  memory (+ 4 bytes shared)
+ 151 bytes of CODE  memory
+   0 bytes of CONST memory (+ 4 bytes shared)
+   0 bytes of DATA  memory (+ 3 bytes shared)
    2 bytes of XDATA memory
 
 Errors: none

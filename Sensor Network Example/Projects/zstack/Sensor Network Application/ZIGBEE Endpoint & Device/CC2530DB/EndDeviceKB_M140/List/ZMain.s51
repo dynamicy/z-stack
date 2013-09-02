@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               21/Aug/2013  19:00:57 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  23:10:22 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -406,7 +406,6 @@
         CFI ?RET_LOW Frame(CFA_SP, 1)
         CFI EndCommon cfiCommon1
         
-show                SYMBOL "show"
 osal_int_disable    SYMBOL "osal_int_disable"
 InitBoard           SYMBOL "InitBoard"
 HalDriverInit       SYMBOL "HalDriverInit"
@@ -448,18 +447,10 @@ osal_rand           SYMBOL "osal_rand"
 ??osal_nv_write?relay SYMBOL "?relay", osal_nv_write
 ??osal_rand?relay   SYMBOL "?relay", osal_rand
 ??osal_start_system?relay SYMBOL "?relay", osal_start_system
-??show?relay        SYMBOL "?relay", show
 ??zgInit?relay      SYMBOL "?relay", zgInit
 main                SYMBOL "main"
 ??main?relay        SYMBOL "?relay", main
 
-        EXTERN show
-        FUNCTION show,0202H
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         EXTERN osal_int_disable
         FUNCTION osal_int_disable,0202H
         ARGFRAME ISTACK, 0, STACK
@@ -647,8 +638,6 @@ main                SYMBOL "main"
         FUNCTION ??osal_rand?relay,00H
         EXTERN ??osal_start_system?relay
         FUNCTION ??osal_start_system?relay,00H
-        EXTERN ??show?relay
-        FUNCTION ??show?relay,00H
         EXTERN ??zgInit?relay
         FUNCTION ??zgInit?relay,00H
         EXTERN aExtendedAddress
@@ -783,40 +772,7 @@ main:
         CFI Block cfiBlock0 Using cfiCommon0
         CFI Function main
 //   94 { 
-        FUNCALL main, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL main, osal_int_disable
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -838,29 +794,7 @@ main:
         ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL main, InitBoard
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -882,29 +816,7 @@ main:
         ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL main, osal_nv_init
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -926,29 +838,7 @@ main:
         ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL main, zmain_ext_addr
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -970,29 +860,7 @@ main:
         ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL main, afInit
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -1014,29 +882,7 @@ main:
         ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL main, osal_int_enable
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -1058,17 +904,6 @@ main:
         ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL main, zmain_dev_info
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1080,29 +915,7 @@ main:
         ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL main, HalLcdWriteString
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL main, show
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -1126,22 +939,14 @@ main:
         ARGFRAME DOVERLAY, 0, STATIC
         ; Auto size: 0
 //   95   // Turn off interrupts
-//   96   show("osal_int_disable_INTS_ALL");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "osal_int_disable_INTS...">` & 0xff)
-        MOV     R3,#((`?<Constant "osal_int_disable_INTS...">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//   96   //show("osal_int_disable_INTS_ALL");
 //   97   osal_int_disable( INTS_ALL ); 
         ; Setup parameters for call to function osal_int_disable
         MOV     R1,#-0x1
         LCALL   ??osal_int_disable?relay
 //   98   
 //   99   // Initialization for board related stuff such as LEDs
-//  100   show("HAL_BOARD_INIT");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "HAL_BOARD_INIT">` & 0xff)
-        MOV     R3,#((`?<Constant "HAL_BOARD_INIT">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  100   //show("HAL_BOARD_INIT");
 //  101   HAL_BOARD_INIT();
         ANL     0xbe,#0xfb
 ??main_0:
@@ -1177,42 +982,26 @@ main:
         ORL     0xfe,#0x4
 //  102   
 //  103   // Make sure supply voltage is high enough to run
-//  104   show("zmain_vdd_check");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "zmain_vdd_check">` & 0xff)
-        MOV     R3,#((`?<Constant "zmain_vdd_check">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  104   //show("zmain_vdd_check");
 //  105   zmain_vdd_check();
         ; Setup parameters for call to function zmain_vdd_check
         LCALL   ??zmain_vdd_check?relay
 //  106   
 //  107   // Initialize board I/O
-//  108   show("InitBoard_OB_COLD");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "InitBoard_OB_COLD">` & 0xff)
-        MOV     R3,#((`?<Constant "InitBoard_OB_COLD">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  108  // show("InitBoard_OB_COLD");
 //  109   InitBoard( OB_COLD );
         ; Setup parameters for call to function InitBoard
         MOV     R1,#0x0
         LCALL   ??InitBoard?relay
 //  110   
 //  111   // Initialze HAL drivers
-//  112   show("HalDriverInit");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "HalDriverInit">` & 0xff)
-        MOV     R3,#((`?<Constant "HalDriverInit">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  112  // show("HalDriverInit");
 //  113   HalDriverInit(); 
         ; Setup parameters for call to function HalDriverInit
         LCALL   ??HalDriverInit?relay
 //  114   
 //  115   // Initialize NV System
-//  116   show("osal_nv_init_NULL");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "osal_nv_init_NULL">` & 0xff)
-        MOV     R3,#((`?<Constant "osal_nv_init_NULL">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  116  // show("osal_nv_init_NULL");
 //  117   osal_nv_init( NULL ); 
         ; Setup parameters for call to function osal_nv_init
         MOV     R2,#0x0
@@ -1220,95 +1009,59 @@ main:
         LCALL   ??osal_nv_init?relay
 //  118   
 //  119   // Initialize the MAC
-//  120   show("ZMacInit");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "ZMacInit">` & 0xff)
-        MOV     R3,#((`?<Constant "ZMacInit">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  120 //  show("ZMacInit");
 //  121   ZMacInit(); 
         ; Setup parameters for call to function ZMacInit
         LCALL   ??ZMacInit?relay
 //  122   
 //  123   // Determine the extended address
-//  124   show("zmain_ext_addr");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "zmain_ext_addr">` & 0xff)
-        MOV     R3,#((`?<Constant "zmain_ext_addr">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  124  // show("zmain_ext_addr");
 //  125   zmain_ext_addr(); 
         ; Setup parameters for call to function zmain_ext_addr
         LCALL   ??zmain_ext_addr?relay
 //  126   
 //  127   // Initialize basic NV items
-//  128   show("zgInit");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "zgInit">` & 0xff)
-        MOV     R3,#((`?<Constant "zgInit">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  128  // show("zgInit");
 //  129   zgInit(); 
         ; Setup parameters for call to function zgInit
         LCALL   ??zgInit?relay
 //  130   
 //  131   // Since the AF isn't a task, call it's initialization routine
 //  132 #ifndef NONWK
-//  133   show("afInit");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "afInit">` & 0xff)
-        MOV     R3,#((`?<Constant "afInit">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  133  // show("afInit");
 //  134   afInit(); 
         ; Setup parameters for call to function afInit
         LCALL   ??afInit?relay
 //  135 #endif
 //  136   // Initialize the operating system
-//  137   show("osal_int_system");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "osal_int_system">` & 0xff)
-        MOV     R3,#((`?<Constant "osal_int_system">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  137  // show("osal_int_system");
 //  138   osal_init_system(); 
         ; Setup parameters for call to function osal_init_system
         LCALL   ??osal_init_system?relay
 //  139   
 //  140   // Allow interrupts
-//  141   show("osal_int_enbale_INTS_ALL");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "osal_int_enbale_INTS_ALL">` & 0xff)
-        MOV     R3,#((`?<Constant "osal_int_enbale_INTS_ALL">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  141  // show("osal_int_enbale_INTS_ALL");
 //  142   osal_int_enable( INTS_ALL );
         ; Setup parameters for call to function osal_int_enable
         MOV     R1,#-0x1
         LCALL   ??osal_int_enable?relay
 //  143   
 //  144   // Final board initialization
-//  145   show("InitBoard_OB_READY");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "InitBoard_OB_READY">` & 0xff)
-        MOV     R3,#((`?<Constant "InitBoard_OB_READY">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  145   //show("InitBoard_OB_READY");
 //  146   InitBoard( OB_READY ); 
         ; Setup parameters for call to function InitBoard
         MOV     R1,#0x2
         LCALL   ??InitBoard?relay
 //  147   
 //  148   // Display information about this device
-//  149   show("zmain_dev_info");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "zmain_dev_info">` & 0xff)
-        MOV     R3,#((`?<Constant "zmain_dev_info">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  149   //show("zmain_dev_info");
 //  150   zmain_dev_info(); 
         ; Setup parameters for call to function zmain_dev_info
         LCALL   ??zmain_dev_info?relay
 //  151   
 //  152   // Display the device info on the LCD 
 //  153 #ifdef LCD_SUPPORTED
-//  154   show("zmain_lcd_init");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "zmain_lcd_init">` & 0xff)
-        MOV     R3,#((`?<Constant "zmain_lcd_init">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  154   //show("zmain_lcd_init");
 //  155   zmain_lcd_init(); 
         ; Setup parameters for call to function HalLcdWriteString
         MOV     R1,#0x1
@@ -1318,21 +1071,17 @@ main:
 //  156 #endif
 //  157   // If WDT is used, this is a good place to enable it.
 //  158 #ifdef WDT_IN_PM1
-//  159   show("WatchDogEnable_WDTIMX");
+//  159   //show("WatchDogEnable_WDTIMX");
 //  160   WatchDogEnable( WDTIMX ); 
 //  161 #endif 
 //  162   
 //  163 #ifdef RS485
-//  164   show("HalRS485Init");
+//  164  // show("HalRS485Init");
 //  165   HalRS485Init(); // Initilization the RS485 Enable pin to low
 //  166 #endif
 //  167   
 //  168   // No Return from here
-//  169   show("osal_start_system");
-        ; Setup parameters for call to function show
-        MOV     R2,#(`?<Constant "osal_start_system">` & 0xff)
-        MOV     R3,#((`?<Constant "osal_start_system">` >> 8) & 0xff)
-        LCALL   ??show?relay
+//  169   //show("osal_start_system");
 //  170   osal_start_system(); 
         ; Setup parameters for call to function osal_start_system
         LCALL   ??osal_start_system?relay
@@ -1342,8 +1091,8 @@ main:
         MOV     R3,#0x0
         LJMP    ?BRET
         CFI EndBlock cfiBlock0
-        REQUIRE CLKCONSTA
         REQUIRE SLEEPSTA
+        REQUIRE CLKCONSTA
         REQUIRE SLEEPCMD
         REQUIRE CLKCONCMD
         REQUIRE P1DIR
@@ -2352,86 +2101,6 @@ zmain_dev_info:
 
         RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
         DATA
-`?<Constant "osal_int_disable_INTS...">`:
-        DB "osal_int_disable_INTS_ALL"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "HAL_BOARD_INIT">`:
-        DB "HAL_BOARD_INIT"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "zmain_vdd_check">`:
-        DB "zmain_vdd_check"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "InitBoard_OB_COLD">`:
-        DB "InitBoard_OB_COLD"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "HalDriverInit">`:
-        DB "HalDriverInit"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "osal_nv_init_NULL">`:
-        DB "osal_nv_init_NULL"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "ZMacInit">`:
-        DB "ZMacInit"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "zmain_ext_addr">`:
-        DB "zmain_ext_addr"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "zgInit">`:
-        DB "zgInit"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "afInit">`:
-        DB "afInit"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "osal_int_system">`:
-        DB "osal_int_system"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "osal_int_enbale_INTS_ALL">`:
-        DB "osal_int_enbale_INTS_ALL"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "InitBoard_OB_READY">`:
-        DB "InitBoard_OB_READY"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "zmain_dev_info">`:
-        DB "zmain_dev_info"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "zmain_lcd_init">`:
-        DB "zmain_lcd_init"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
-`?<Constant "osal_start_system">`:
-        DB "osal_start_system"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA
 `?<Constant {255, 255, 255, 255, 255, 255, 255,`:
         DB 255, 255, 255, 255, 255, 255, 255, 255
 
@@ -2480,13 +2149,13 @@ zmain_dev_info:
 //  341 /*********************************************************************
 //  342 *********************************************************************/
 // 
-// 850 bytes in segment BANKED_CODE
+// 738 bytes in segment BANKED_CODE
 //  24 bytes in segment BANK_RELAYS
 //   6 bytes in segment SFR_AN
-// 285 bytes in segment XDATA_ROM_C
+//  32 bytes in segment XDATA_ROM_C
 // 
-// 874 bytes of CODE  memory
-// 285 bytes of CONST memory
+// 762 bytes of CODE  memory
+//  32 bytes of CONST memory
 //   0 bytes of DATA  memory (+ 6 bytes shared)
 //
 //Errors: none

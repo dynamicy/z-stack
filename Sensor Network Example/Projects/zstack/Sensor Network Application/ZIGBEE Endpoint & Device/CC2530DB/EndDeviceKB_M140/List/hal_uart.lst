@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  19:01:02 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  23:10:27 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -549,10 +549,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_uart
    \   0000AD   02....       LJMP    ?Subroutine14 & 0xFFFF
    \   0000B0                REQUIRE _A_P0
    \   0000B0                REQUIRE U0CSR
-   \   0000B0                REQUIRE U0GCR
-   \   0000B0                REQUIRE U0BAUD
    \   0000B0                REQUIRE DMAARM
+   \   0000B0                REQUIRE U0BAUD
    \   0000B0                REQUIRE U0UCR
+   \   0000B0                REQUIRE U0GCR
    \   0000B0                REQUIRE DMAIRQ
    \   0000B0                REQUIRE P0SEL
    \   0000B0                REQUIRE P0DIR
@@ -1146,9 +1146,9 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_uart
    \   000192                REQUIRE _A_P0
    \   000192                REQUIRE ST0
    \   000192                REQUIRE _A_IEN0
-   \   000192                REQUIRE U0BAUD
-   \   000192                REQUIRE DMAARM
    \   000192                REQUIRE DMAREQ
+   \   000192                REQUIRE DMAARM
+   \   000192                REQUIRE U0BAUD
    \   000192                REQUIRE DMAIRQ
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -1496,204 +1496,152 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_uart
     227          * @param   temp - pointer to the buffer that will be written, not freed
     228          *
     229          */
+    230          /*
+    231          void show(char *temp)
+    232          {
+    233              char buf[64];
+    234             
+    235              memset(buf, 0x0, 64);
+    236              sprintf(buf, "\r%s\n", temp);
+    237              HalUARTWrite(HAL_UART_PORT_0, buf, 64);
+    238          }
+    239          */
+    240          /******************************************************************************
+    241           * @fn      HalUARTSuspend
+    242           *
+    243           * @brief   Suspend UART hardware before entering PM mode 1, 2 or 3.
+    244           *
+    245           * @param   None
+    246           *
+    247           * @return  None
+    248           *****************************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    230          void show(char *temp)
-   \                     show:
-    231          {
-   \   000000   74F4         MOV     A,#-0xc
-   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
-   \   000005                ; Saved register size: 12
-   \   000005                ; Auto size: 64
-   \   000005   74C0         MOV     A,#-0x40
-   \   000007   12....       LCALL   ?ALLOC_XSTACK8
-   \   00000A   8A..         MOV     ?V0 + 0,R2
-   \   00000C   8B..         MOV     ?V0 + 1,R3
-    232              char buf[64];
-    233             
-    234              memset(buf, 0x0, 64);
-   \   00000E                ; Setup parameters for call to function memset
-   \   00000E   75..40       MOV     ?V0 + 2,#0x40
-   \   000011   75..00       MOV     ?V0 + 3,#0x0
-   \   000014   78..         MOV     R0,#?V0 + 2
-   \   000016   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000019   7C00         MOV     R4,#0x0
-   \   00001B   7D00         MOV     R5,#0x0
-   \   00001D   7402         MOV     A,#0x2
-   \   00001F   12....       LCALL   ?XSTACK_DISP0_8
-   \   000022   AA82         MOV     R2,DPL
-   \   000024   AB83         MOV     R3,DPH
-   \   000026   12....       LCALL   ??memset?relay
-   \   000029   7402         MOV     A,#0x2
-   \   00002B   12....       LCALL   ?DEALLOC_XSTACK8
-    235              sprintf(buf, "\r%s\n", temp);
-   \   00002E                ; Setup parameters for call to function sprintf
-   \   00002E   78..         MOV     R0,#?V0 + 0
-   \   000030   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000033   7C..         MOV     R4,#(`?<Constant "\\r%s\\n">` & 0xff)
-   \   000035   7D..         MOV     R5,#((`?<Constant "\\r%s\\n">` >> 8) & 0xff)
-   \   000037   7402         MOV     A,#0x2
-   \   000039   12....       LCALL   ?XSTACK_DISP0_8
-   \   00003C   AA82         MOV     R2,DPL
-   \   00003E   AB83         MOV     R3,DPH
-   \   000040   12....       LCALL   ??sprintf?relay
-   \   000043   7402         MOV     A,#0x2
-   \   000045   12....       LCALL   ?DEALLOC_XSTACK8
-    236              HalUARTWrite(HAL_UART_PORT_0, buf, 64);
-                                                   ^
-Warning[Pe167]: argument of type "char *" is incompatible with parameter of
-          type "unsigned char *"
-   \   000048                ; Setup parameters for call to function HalUARTWrite
-   \   000048   7C40         MOV     R4,#0x40
-   \   00004A   7D00         MOV     R5,#0x0
-   \   00004C   85..82       MOV     DPL,?XSP + 0
-   \   00004F   85..83       MOV     DPH,?XSP + 1
-   \   000052   AA82         MOV     R2,DPL
-   \   000054   AB83         MOV     R3,DPH
-   \   000056   7900         MOV     R1,#0x0
-   \   000058   12....       LCALL   ??HalUARTWrite?relay
-    237          }
-   \   00005B   7440         MOV     A,#0x40
-   \   00005D   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000060   7F04         MOV     R7,#0x4
-   \   000062   02....       LJMP    ?BANKED_LEAVE_XDATA
-    238          
-    239          /******************************************************************************
-    240           * @fn      HalUARTSuspend
-    241           *
-    242           * @brief   Suspend UART hardware before entering PM mode 1, 2 or 3.
-    243           *
-    244           * @param   None
-    245           *
-    246           * @return  None
-    247           *****************************************************************************/
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    248          void HalUARTSuspend( void )
+    249          void HalUARTSuspend( void )
    \                     HalUARTSuspend:
-    249          {
+    250          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    250          #if HAL_UART_DMA
-    251            HalUARTSuspendDMA();
+    251          #if HAL_UART_DMA
+    252            HalUARTSuspendDMA();
    \   000000   5386BF       ANL     0x86,#0xbf
-    252          #endif
-    253          #if HAL_UART_ISR
-    254            HalUARTSuspendISR();
-    255          #endif
-    256          }
+    253          #endif
+    254          #if HAL_UART_ISR
+    255            HalUARTSuspendISR();
+    256          #endif
+    257          }
    \   000003   02....       LJMP    ?BRET
    \   000006                REQUIRE U0CSR
-    257          
-    258          /******************************************************************************
-    259           * @fn      HalUARTResume
-    260           *
-    261           * @brief   Resume UART hardware after exiting PM mode 1, 2 or 3.
-    262           *
-    263           * @param   None
-    264           *
-    265           * @return  None
-    266           *****************************************************************************/
+    258          
+    259          /******************************************************************************
+    260           * @fn      HalUARTResume
+    261           *
+    262           * @brief   Resume UART hardware after exiting PM mode 1, 2 or 3.
+    263           *
+    264           * @param   None
+    265           *
+    266           * @return  None
+    267           *****************************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    267          void HalUARTResume( void )
+    268          void HalUARTResume( void )
    \                     HalUARTResume:
-    268          {
+    269          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    269          #if HAL_UART_DMA
-    270            HalUARTResumeDMA();
+    270          #if HAL_UART_DMA
+    271            HalUARTResumeDMA();
    \   000000   43C480       ORL     0xc4,#0x80
    \   000003   438640       ORL     0x86,#0x40
-    271          #endif
-    272          #if HAL_UART_ISR
-    273            HalUARTResumeISR();
-    274          #endif
-    275          }
+    272          #endif
+    273          #if HAL_UART_ISR
+    274            HalUARTResumeISR();
+    275          #endif
+    276          }
    \   000006   02....       LJMP    ?BRET
    \   000009                REQUIRE U0CSR
    \   000009                REQUIRE U0UCR
-    276          
-    277          /***************************************************************************************************
-    278           * @fn      HalUARTPoll
-    279           *
-    280           * @brief   Poll the UART.
-    281           *
-    282           * @param   none
-    283           *
-    284           * @return  none
-    285           *****************************************************************************/
+    277          
+    278          /***************************************************************************************************
+    279           * @fn      HalUARTPoll
+    280           *
+    281           * @brief   Poll the UART.
+    282           *
+    283           * @param   none
+    284           *
+    285           * @return  none
+    286           *****************************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    286          void HalUARTPoll(void)
+    287          void HalUARTPoll(void)
    \                     HalUARTPoll:
-    287          {
+    288          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    288          #if HAL_UART_DMA
-    289            HalUARTPollDMA();
+    289          #if HAL_UART_DMA
+    290            HalUARTPollDMA();
    \   000004                ; Setup parameters for call to function HalUARTPollDMA
    \   000004   12....       LCALL   ??HalUARTPollDMA?relay
-    290          #endif
-    291          #if HAL_UART_ISR
-    292            HalUARTPollISR();
-    293          #endif
-    294          #if HAL_UART_USB
-    295            HalUARTPollUSB();
-    296          #endif
-    297          }
-   \   000007   02....       LJMP    ??Subroutine18_0 & 0xFFFF
-    298          
-    299          /**************************************************************************************************
-    300           * @fn      Hal_UART_RxBufLen()
-    301           *
-    302           * @brief   Calculate Rx Buffer length - the number of bytes in the buffer.
-    303           *
-    304           * @param   port - UART port
-    305           *
-    306           * @return  length of current Rx Buffer
-    307           **************************************************************************************************/
+    291          #endif
+    292          #if HAL_UART_ISR
+    293            HalUARTPollISR();
+    294          #endif
+    295          #if HAL_UART_USB
+    296            HalUARTPollUSB();
+    297          #endif
+    298          }
+   \   000007   80..         SJMP    ??Subroutine18_0
+    299          
+    300          /**************************************************************************************************
+    301           * @fn      Hal_UART_RxBufLen()
+    302           *
+    303           * @brief   Calculate Rx Buffer length - the number of bytes in the buffer.
+    304           *
+    305           * @param   port - UART port
+    306           *
+    307           * @return  length of current Rx Buffer
+    308           **************************************************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    308          uint16 Hal_UART_RxBufLen( uint8 port )
+    309          uint16 Hal_UART_RxBufLen( uint8 port )
    \                     Hal_UART_RxBufLen:
-    309          {
+    310          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    310            (void)port;
-    311          
-    312          #if (HAL_UART_DMA == 1)
-    313            if (port == HAL_UART_PORT_0)  return HalUARTRxAvailDMA();
+    311            (void)port;
+    312          
+    313          #if (HAL_UART_DMA == 1)
+    314            if (port == HAL_UART_PORT_0)  return HalUARTRxAvailDMA();
    \   000004   E9           MOV     A,R1
    \   000005   7005         JNZ     ??Hal_UART_RxBufLen_0
    \   000007                ; Setup parameters for call to function HalUARTRxAvailDMA
    \   000007   12....       LCALL   ??HalUARTRxAvailDMA?relay
    \   00000A   8004         SJMP    ??Hal_UART_RxBufLen_1
-    314          #endif
-    315          #if (HAL_UART_DMA == 2)
-    316            if (port == HAL_UART_PORT_1)  return HalUARTRxAvailDMA();
-    317          #endif
-    318          #if (HAL_UART_ISR == 1)
-    319            if (port == HAL_UART_PORT_0)  return HalUARTRxAvailISR();
-    320          #endif
-    321          #if (HAL_UART_ISR == 2)
-    322            if (port == HAL_UART_PORT_1)  return HalUARTRxAvailISR();
-    323          #endif
-    324          #if HAL_UART_USB
-    325            return HalUARTRxAvailUSB();
-    326          #else
-    327            return 0;
+    315          #endif
+    316          #if (HAL_UART_DMA == 2)
+    317            if (port == HAL_UART_PORT_1)  return HalUARTRxAvailDMA();
+    318          #endif
+    319          #if (HAL_UART_ISR == 1)
+    320            if (port == HAL_UART_PORT_0)  return HalUARTRxAvailISR();
+    321          #endif
+    322          #if (HAL_UART_ISR == 2)
+    323            if (port == HAL_UART_PORT_1)  return HalUARTRxAvailISR();
+    324          #endif
+    325          #if HAL_UART_USB
+    326            return HalUARTRxAvailUSB();
+    327          #else
+    328            return 0;
    \                     ??Hal_UART_RxBufLen_0:
    \   00000C   7A00         MOV     R2,#0x0
    \   00000E   7B00         MOV     R3,#0x0
    \                     ??Hal_UART_RxBufLen_1:
-   \   000010   02....       LJMP    ??Subroutine18_0 & 0xFFFF
-    328          #endif
-    329          }
+   \   000010   80..         SJMP    ??Subroutine18_0
+    329          #endif
+    330          }
 
    \                                 In  segment BANK_RELAYS, align 1
    \                     ??HalUARTInitDMA?relay:
@@ -1751,11 +1699,6 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   000003   ......       DC24    HalUARTWrite
 
    \                                 In  segment BANK_RELAYS, align 1
-   \                     ??show?relay:
-   \   000000   12....       LCALL   ?BDISPATCH
-   \   000003   ......       DC24    show
-
-   \                                 In  segment BANK_RELAYS, align 1
    \                     ??HalUARTSuspend?relay:
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    HalUARTSuspend
@@ -1774,14 +1717,9 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \                     ??Hal_UART_RxBufLen?relay:
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    Hal_UART_RxBufLen
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "\\r%s\\n">`:
-   \   000000   0D25730A     DB "\015%s\012"
-   \            00      
-    330          
-    331          /******************************************************************************
-    332          ******************************************************************************/
+    331          
+    332          /******************************************************************************
+    333          ******************************************************************************/
 
    Maximum stack usage in bytes:
 
@@ -1806,15 +1744,11 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
      HalUARTResume              0      0      0
      HalUARTRxAvailDMA          2      0     10
      HalUARTSuspend             0      0      0
-     HalUARTWrite               2      0     76
+     HalUARTWrite               2      0      0
        -> HalUARTWriteDMA       4      0      0
      HalUARTWriteDMA            1      0     16
      Hal_UART_RxBufLen          2      0      0
        -> HalUARTRxAvailDMA     4      0      0
-     show                       0      0     78
-       -> memset                0      0    156
-       -> sprintf               0      0    156
-       -> HalUARTWrite          0      0    152
 
 
    Segment part sizes:
@@ -1867,11 +1801,10 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
      HalUARTOpen                 14
      HalUARTRead                 18
      HalUARTWrite                18
-     show                       101
      HalUARTSuspend               6
      HalUARTResume                9
-     HalUARTPoll                 10
-     Hal_UART_RxBufLen           19
+     HalUARTPoll                  9
+     Hal_UART_RxBufLen           18
      ??HalUARTInitDMA?relay       6
      ??HalUARTOpenDMA?relay       6
      ??HalUARTReadDMA?relay       6
@@ -1883,24 +1816,20 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
      ??HalUARTOpen?relay          6
      ??HalUARTRead?relay          6
      ??HalUARTWrite?relay         6
-     ??show?relay                 6
      ??HalUARTSuspend?relay       6
      ??HalUARTResume?relay        6
      ??HalUARTPoll?relay          6
      ??Hal_UART_RxBufLen?relay    6
-     ?<Constant "\r%s\n">         5
 
  
- 1 489 bytes in segment BANKED_CODE
-    96 bytes in segment BANK_RELAYS
+ 1 386 bytes in segment BANKED_CODE
+    90 bytes in segment BANK_RELAYS
     15 bytes in segment SFR_AN
-     5 bytes in segment XDATA_ROM_C
    526 bytes in segment XDATA_Z
  
- 1 585 bytes of CODE  memory
-     5 bytes of CONST memory
+ 1 476 bytes of CODE  memory
      0 bytes of DATA  memory (+ 15 bytes shared)
    526 bytes of XDATA memory
 
 Errors: none
-Warnings: 1
+Warnings: none

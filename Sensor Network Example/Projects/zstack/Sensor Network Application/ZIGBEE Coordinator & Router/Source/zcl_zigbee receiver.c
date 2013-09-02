@@ -105,19 +105,110 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
   NULL,                                        // RSSI Location Response commands
 };
 
+int top = 0;
 void ZSendMsgProcess(void)
-{      
-    // Write receive coordinator command to UART
-//    HalUARTWrite(MT_UART_DEFAULORT, device_manager.DataT_P, device_manager.DataLength-2);  
-//    HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);
-    HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
-    HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
-    HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry, 4);//Device ID
-    HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
-    HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data, global_data_length);//Device Data
-    HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n  
+{       
+    switch(top)
+    {
+    case 0:
+      if(stack <= top++)
+        break;
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[0], 4);//Device ID
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[0], global_data_length[0]);//Device Data
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
+      break;      
+    case 1:
+      if(stack <= top++)
+        break;
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[1], 4);//Device ID
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[1], global_data_length[1]);//Device Data
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
+      break;
+    case 2:
+      if(stack <= top++)
+        break;
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[2], 4);//Device ID
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[2], global_data_length[2]);//Device Data
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n        
+      break;
+    case 3:    
+      if(stack <= top++)
+        break;
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[3], 4);//Device ID
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[3], global_data_length[3]);//Device Data
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n       
+      break;
+    case 4:    
+      if(stack <= top++)
+        break;
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[4], 4);//Device ID
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[4], global_data_length[4]);//Device Data
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n               
+      break;
+    case 5:  
+      if(stack <= top++)
+        break;
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[5], 4);//Device ID
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[5], global_data_length[5]);//Device Data
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n  
+      break;
+    case 6:    
+      if(stack <= top++)
+        break;
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[6], 4);//Device ID
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[6], global_data_length[6]);//Device Data
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n        
+      break;
+    case 7:  
+      if(stack <= top++)
+        break;
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[7], 4);//Device ID
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[7], global_data_length[7]);//Device Data
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n        
+      break;
+    case 8:      
+      if(stack <= top)
+      {
+        top=0;
+        break;
+      }
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[8], 4);//Device ID
+      HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+      HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[8], global_data_length[8]);//Device Data
+      HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
+      top=0;
+      break;
+    default:
+      break;
+    }
 
-    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 3000 );        
+    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
 }
 
 void zclZigbeeRecv_Init( byte task_id )

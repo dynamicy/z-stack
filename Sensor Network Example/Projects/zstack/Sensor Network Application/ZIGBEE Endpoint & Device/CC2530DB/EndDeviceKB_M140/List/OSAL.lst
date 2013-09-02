@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                21/Aug/2013  19:00:44 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  23:10:09 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -2335,77 +2335,63 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000068   02....       LJMP    ?Subroutine23 & 0xFFFF
    \   00006B                REQUIRE _A_IEN0
     637          
-    638          /*********************************************************************
-    639           * @fn      osal_msg_enqueue_max
-    640           *
-    641           * @brief
-    642           *
-    643           *    This function enqueues an OSAL message into an OSAL queue if
-    644           *    the length of the queue is less than max.
-    645           *
-    646           * @param   osal_msg_q_t *q_ptr - OSAL queue
-    647           * @param   void *msg_ptr  - OSAL message
-    648           * @param   uint8 max - maximum length of queue
-    649           *
-    650           * @return  TRUE if message was enqueued, FALSE otherwise
-    651           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    652          uint8 osal_msg_enqueue_max( osal_msg_q_t *q_ptr, void *msg_ptr, uint8 max )
+    638          uint8 osal_msg_enqueue_max( osal_msg_q_t *q_ptr, void *msg_ptr, uint8 max )
    \                     osal_msg_enqueue_max:
-    653          {
+    639          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
    \   000005   E9           MOV     A,R1
    \   000006   FE           MOV     R6,A
-    654            void *list;
-    655            uint8 ret = FALSE;
+    640            void *list;
+    641            uint8 ret = FALSE;
    \   000007   75..00       MOV     ?V0 + 0,#0x0
-    656            halIntState_t intState;
-    657          
-    658            // Hold off interrupts
-    659            HAL_ENTER_CRITICAL_SECTION(intState);
+    642            halIntState_t intState;
+    643          
+    644            // Hold off interrupts
+    645            HAL_ENTER_CRITICAL_SECTION(intState);
    \   00000A   A2AF         MOV     C,0xa8.7
    \   00000C   E4           CLR     A
    \   00000D   92E0         MOV     0xE0 /* A   */.0,C
    \   00000F   FF           MOV     R7,A
    \   000010   C2AF         CLR     0xa8.7
-    660          
-    661            // If first message in queue
-    662            if ( *q_ptr == NULL )
+    646          
+    647            // If first message in queue
+    648            if ( *q_ptr == NULL )
    \   000012   12....       LCALL   ?Subroutine10 & 0xFFFF
    \                     ??CrossCallReturnLabel_52:
    \   000015   7001         JNZ     ??osal_msg_enqueue_max_0
    \   000017   E9           MOV     A,R1
    \                     ??osal_msg_enqueue_max_0:
    \   000018   7010         JNZ     ??CrossCallReturnLabel_32
-    663            {
-    664              *q_ptr = msg_ptr;
+    649            {
+    650              *q_ptr = msg_ptr;
    \   00001A   8A82         MOV     DPL,R2
    \   00001C   8B83         MOV     DPH,R3
    \   00001E   801B         SJMP    ??osal_msg_enqueue_max_1
-    665              ret = TRUE;
-    666            }
-    667            else
-    668            {
-    669              // Find end of queue or max
-    670              list = *q_ptr;
-    671              max--;
-    672              while ( (OSAL_MSG_NEXT( list ) != NULL) && (max > 0) )
+    651              ret = TRUE;
+    652            }
+    653            else
+    654            {
+    655              // Find end of queue or max
+    656              list = *q_ptr;
+    657              max--;
+    658              while ( (OSAL_MSG_NEXT( list ) != NULL) && (max > 0) )
    \                     ??osal_msg_enqueue_max_2:
    \   000020   EE           MOV     A,R6
    \   000021   6020         JZ      ??osal_msg_enqueue_max_3
-    673              {
-    674                list = OSAL_MSG_NEXT( list );
+    659              {
+    660                list = OSAL_MSG_NEXT( list );
    \   000023   8882         MOV     DPL,R0
    \   000025   8983         MOV     DPH,R1
    \   000027   12....       LCALL   ?Subroutine11 & 0xFFFF
-    675                max--;
+    661                max--;
    \                     ??CrossCallReturnLabel_32:
    \   00002A   1E           DEC     R6
-    676              }
+    662              }
    \   00002B   12....       LCALL   ?Subroutine14 & 0xFFFF
    \                     ??CrossCallReturnLabel_49:
    \   00002E   7002         JNZ     ??osal_msg_enqueue_max_4
@@ -2413,13 +2399,13 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000031   E0           MOVX    A,@DPTR
    \                     ??osal_msg_enqueue_max_4:
    \   000032   70EC         JNZ     ??osal_msg_enqueue_max_2
-    677          
-    678              // Add message to end of queue if max not reached
-    679              if ( max != 0 )
+    663          
+    664              // Add message to end of queue if max not reached
+    665              if ( max != 0 )
    \   000034   EE           MOV     A,R6
    \   000035   600C         JZ      ??osal_msg_enqueue_max_3
-    680              {
-    681                OSAL_MSG_NEXT( list ) = msg_ptr;
+    666              {
+    667                OSAL_MSG_NEXT( list ) = msg_ptr;
    \   000037   8882         MOV     DPL,R0
    \   000039   8983         MOV     DPH,R1
    \                     ??osal_msg_enqueue_max_1:
@@ -2428,47 +2414,47 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   00003D   A3           INC     DPTR
    \   00003E   ED           MOV     A,R5
    \   00003F   F0           MOVX    @DPTR,A
-    682                ret = TRUE;
+    668                ret = TRUE;
    \   000040   75..01       MOV     ?V0 + 0,#0x1
-    683              }
-    684            }
-    685          
-    686            // Re-enable interrupts
-    687            HAL_EXIT_CRITICAL_SECTION(intState);
+    669              }
+    670            }
+    671          
+    672            // Re-enable interrupts
+    673            HAL_EXIT_CRITICAL_SECTION(intState);
    \                     ??osal_msg_enqueue_max_3:
    \   000043   EF           MOV     A,R7
    \   000044   A2E0         MOV     C,0xE0 /* A   */.0
    \   000046   92AF         MOV     0xa8.7,C
-    688          
-    689            return ret;
+    674          
+    675            return ret;
    \   000048   A9..         MOV     R1,?V0 + 0
    \   00004A   02....       LJMP    ?Subroutine26 & 0xFFFF
    \   00004D                REQUIRE _A_IEN0
-    690          }
-    691          
-    692          /*********************************************************************
-    693           * @fn      osal_set_event
-    694           *
-    695           * @brief
-    696           *
-    697           *    This function is called to set the event flags for a task.  The
-    698           *    event passed in is OR'd into the task's event variable.
-    699           *
-    700           * @param   uint8 task_id - receiving tasks ID
-    701           * @param   uint8 event_flag - what event to set
-    702           *
-    703           * @return  SUCCESS, INVALID_TASK
-    704           */
+    676          }
+    677          
+    678          /*********************************************************************
+    679           * @fn      osal_set_event
+    680           *
+    681           * @brief
+    682           *
+    683           *    This function is called to set the event flags for a task.  The
+    684           *    event passed in is OR'd into the task's event variable.
+    685           *
+    686           * @param   uint8 task_id - receiving tasks ID
+    687           * @param   uint8 event_flag - what event to set
+    688           *
+    689           * @return  SUCCESS, INVALID_TASK
+    690           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    705          uint8 osal_set_event( uint8 task_id, uint16 event_flag )
+    691          uint8 osal_set_event( uint8 task_id, uint16 event_flag )
    \                     osal_set_event:
-    706          {
+    692          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    707            if ( task_id < tasksCnt )
+    693            if ( task_id < tasksCnt )
    \   000004   90....       MOV     DPTR,#tasksCnt
    \   000007   E0           MOVX    A,@DPTR
    \   000008   FC           MOV     R4,A
@@ -2476,15 +2462,15 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   00000A   C3           CLR     C
    \   00000B   9C           SUBB    A,R4
    \   00000C   501F         JNC     ??osal_set_event_0
-    708            {
-    709              halIntState_t   intState;
-    710              HAL_ENTER_CRITICAL_SECTION(intState);    // Hold off interrupts
+    694            {
+    695              halIntState_t   intState;
+    696              HAL_ENTER_CRITICAL_SECTION(intState);    // Hold off interrupts
    \   00000E   A2AF         MOV     C,0xa8.7
    \   000010   E4           CLR     A
    \   000011   92E0         MOV     0xE0 /* A   */.0,C
    \   000013   FD           MOV     R5,A
    \   000014   C2AF         CLR     0xa8.7
-    711              tasksEvents[task_id] |= event_flag;  // Stuff the event bit(s)
+    697              tasksEvents[task_id] |= event_flag;  // Stuff the event bit(s)
    \   000016   E9           MOV     A,R1
    \   000017   C3           CLR     C
    \   000018   33           RLC     A
@@ -2500,22 +2486,22 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000024   E0           MOVX    A,@DPTR
    \   000025   39           ADDC    A,R1
    \   000026   12....       LCALL   ?Subroutine4 & 0xFFFF
-    712              HAL_EXIT_CRITICAL_SECTION(intState);     // Release interrupts
-    713              return ( SUCCESS );
+    698              HAL_EXIT_CRITICAL_SECTION(intState);     // Release interrupts
+    699              return ( SUCCESS );
    \                     ??CrossCallReturnLabel_11:
    \   000029   7900         MOV     R1,#0x0
    \   00002B   8002         SJMP    ??osal_set_event_1
-    714            }
-    715             else
-    716            {
-    717              return ( INVALID_TASK );
+    700            }
+    701             else
+    702            {
+    703              return ( INVALID_TASK );
    \                     ??osal_set_event_0:
    \   00002D   7903         MOV     R1,#0x3
-    718            }
+    704            }
    \                     ??osal_set_event_1:
    \   00002F   02....       LJMP    ?Subroutine22 & 0xFFFF
    \   000032                REQUIRE _A_IEN0
-    719          }
+    705          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine4:
@@ -2532,30 +2518,30 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   00000C   A2E0         MOV     C,0xE0 /* A   */.0
    \   00000E   92AF         MOV     0xa8.7,C
    \   000010   22           RET
-    720          
-    721          /*********************************************************************
-    722           * @fn      osal_clear_event
-    723           *
-    724           * @brief
-    725           *
-    726           *    This function is called to clear the event flags for a task.  The
-    727           *    event passed in is masked out of the task's event variable.
-    728           *
-    729           * @param   uint8 task_id - receiving tasks ID
-    730           * @param   uint8 event_flag - what event to set
-    731           *
-    732           * @return  SUCCESS, INVALID_TASK
-    733           */
+    706          
+    707          /*********************************************************************
+    708           * @fn      osal_clear_event
+    709           *
+    710           * @brief
+    711           *
+    712           *    This function is called to clear the event flags for a task.  The
+    713           *    event passed in is masked out of the task's event variable.
+    714           *
+    715           * @param   uint8 task_id - receiving tasks ID
+    716           * @param   uint8 event_flag - what event to set
+    717           *
+    718           * @return  SUCCESS, INVALID_TASK
+    719           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    734          uint8 osal_clear_event( uint8 task_id, uint16 event_flag )
+    720          uint8 osal_clear_event( uint8 task_id, uint16 event_flag )
    \                     osal_clear_event:
-    735          {
+    721          {
    \   000000   74F7         MOV     A,#-0x9
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 9
    \   000005                ; Auto size: 0
-    736            if ( task_id < tasksCnt )
+    722            if ( task_id < tasksCnt )
    \   000005   90....       MOV     DPTR,#tasksCnt
    \   000008   E0           MOVX    A,@DPTR
    \   000009   FC           MOV     R4,A
@@ -2563,15 +2549,15 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   00000B   C3           CLR     C
    \   00000C   9C           SUBB    A,R4
    \   00000D   5021         JNC     ??osal_clear_event_0
-    737            {
-    738              halIntState_t   intState;
-    739              HAL_ENTER_CRITICAL_SECTION(intState);    // Hold off interrupts
+    723            {
+    724              halIntState_t   intState;
+    725              HAL_ENTER_CRITICAL_SECTION(intState);    // Hold off interrupts
    \   00000F   A2AF         MOV     C,0xa8.7
    \   000011   E4           CLR     A
    \   000012   92E0         MOV     0xE0 /* A   */.0,C
    \   000014   FE           MOV     R6,A
    \   000015   C2AF         CLR     0xa8.7
-    740              tasksEvents[task_id] &= ~(event_flag);   // clear the event bit(s)
+    726              tasksEvents[task_id] &= ~(event_flag);   // clear the event bit(s)
    \   000017   EA           MOV     A,R2
    \   000018   F4           CPL     A
    \   000019   FC           MOV     R4,A
@@ -2587,24 +2573,24 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000024   E0           MOVX    A,@DPTR
    \   000025   5D           ANL     A,R5
    \   000026   F0           MOVX    @DPTR,A
-    741              HAL_EXIT_CRITICAL_SECTION(intState);     // Release interrupts
+    727              HAL_EXIT_CRITICAL_SECTION(intState);     // Release interrupts
    \   000027   EE           MOV     A,R6
    \   000028   A2E0         MOV     C,0xE0 /* A   */.0
    \   00002A   92AF         MOV     0xa8.7,C
-    742              return ( SUCCESS );
+    728              return ( SUCCESS );
    \   00002C   7900         MOV     R1,#0x0
    \   00002E   8002         SJMP    ??osal_clear_event_1
-    743            }
-    744             else
-    745            {
-    746              return ( INVALID_TASK );
+    729            }
+    730             else
+    731            {
+    732              return ( INVALID_TASK );
    \                     ??osal_clear_event_0:
    \   000030   7903         MOV     R1,#0x3
-    747            }
+    733            }
    \                     ??osal_clear_event_1:
    \   000032   02....       LJMP    ??Subroutine28_0 & 0xFFFF
    \   000035                REQUIRE _A_IEN0
-    748          }
+    734          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine7:
@@ -2625,228 +2611,228 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000011   F583         MOV     DPH,A
    \   000013   E0           MOVX    A,@DPTR
    \   000014   22           RET
-    749          
-    750          /*********************************************************************
-    751           * @fn      osal_isr_register
-    752           *
-    753           * @brief
-    754           *
-    755           *   This function is called to register a service routine with an
-    756           *   interrupt. When the interrupt occurs, this service routine is called.
-    757           *
-    758           * @param   uint8 interrupt_id - Interrupt number
-    759           * @param   void (*isr_ptr)( uint8* ) - function pointer to ISR
-    760           *
-    761           * @return  SUCCESS, INVALID_INTERRUPT_ID,
-    762           */
+    735          
+    736          /*********************************************************************
+    737           * @fn      osal_isr_register
+    738           *
+    739           * @brief
+    740           *
+    741           *   This function is called to register a service routine with an
+    742           *   interrupt. When the interrupt occurs, this service routine is called.
+    743           *
+    744           * @param   uint8 interrupt_id - Interrupt number
+    745           * @param   void (*isr_ptr)( uint8* ) - function pointer to ISR
+    746           *
+    747           * @return  SUCCESS, INVALID_INTERRUPT_ID,
+    748           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    763          uint8 osal_isr_register( uint8 interrupt_id, void (*isr_ptr)( uint8* ) )
+    749          uint8 osal_isr_register( uint8 interrupt_id, void (*isr_ptr)( uint8* ) )
    \                     osal_isr_register:
-    764          {
+    750          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    765            // Remove these statements when functionality is complete
-    766            (void)interrupt_id;
-    767            (void)isr_ptr;
-    768            return ( SUCCESS );
+    751            // Remove these statements when functionality is complete
+    752            (void)interrupt_id;
+    753            (void)isr_ptr;
+    754            return ( SUCCESS );
    \   000000   7900         MOV     R1,#0x0
    \   000002   02....       LJMP    ?BRET
-    769          }
-    770          
-    771          /*********************************************************************
-    772           * @fn      osal_int_enable
-    773           *
-    774           * @brief
-    775           *
-    776           *   This function is called to enable an interrupt. Once enabled,
-    777           *   occurrence of the interrupt causes the service routine associated
-    778           *   with that interrupt to be called.
-    779           *
-    780           *   If INTS_ALL is the interrupt_id, interrupts (in general) are enabled.
-    781           *   If a single interrupt is passed in, then interrupts still have
-    782           *   to be enabled with another call to INTS_ALL.
-    783           *
-    784           * @param   uint8 interrupt_id - Interrupt number
-    785           *
-    786           * @return  SUCCESS or INVALID_INTERRUPT_ID
-    787           */
+    755          }
+    756          
+    757          /*********************************************************************
+    758           * @fn      osal_int_enable
+    759           *
+    760           * @brief
+    761           *
+    762           *   This function is called to enable an interrupt. Once enabled,
+    763           *   occurrence of the interrupt causes the service routine associated
+    764           *   with that interrupt to be called.
+    765           *
+    766           *   If INTS_ALL is the interrupt_id, interrupts (in general) are enabled.
+    767           *   If a single interrupt is passed in, then interrupts still have
+    768           *   to be enabled with another call to INTS_ALL.
+    769           *
+    770           * @param   uint8 interrupt_id - Interrupt number
+    771           *
+    772           * @return  SUCCESS or INVALID_INTERRUPT_ID
+    773           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    788          uint8 osal_int_enable( uint8 interrupt_id )
+    774          uint8 osal_int_enable( uint8 interrupt_id )
    \                     osal_int_enable:
-    789          {
+    775          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    790          
-    791            if ( interrupt_id == INTS_ALL )
+    776          
+    777            if ( interrupt_id == INTS_ALL )
    \   000000   74FF         MOV     A,#-0x1
    \   000002   69           XRL     A,R1
    \   000003   7006         JNZ     ??osal_int_enable_0
-    792            {
-    793              HAL_ENABLE_INTERRUPTS();
+    778            {
+    779              HAL_ENABLE_INTERRUPTS();
    \   000005   D2AF         SETB    0xa8.7
-    794              return ( SUCCESS );
+    780              return ( SUCCESS );
    \   000007   7900         MOV     R1,#0x0
    \   000009   8002         SJMP    ??osal_int_enable_1
-    795            }
-    796            else
-    797            {
-    798              return ( INVALID_INTERRUPT_ID );
+    781            }
+    782            else
+    783            {
+    784              return ( INVALID_INTERRUPT_ID );
    \                     ??osal_int_enable_0:
    \   00000B   7907         MOV     R1,#0x7
    \                     ??osal_int_enable_1:
    \   00000D   02....       LJMP    ?BRET
    \   000010                REQUIRE _A_IEN0
-    799            }
-    800          }
-    801          
-    802          /*********************************************************************
-    803           * @fn      osal_int_disable
-    804           *
-    805           * @brief
-    806           *
-    807           *   This function is called to disable an interrupt. When a disabled
-    808           *   interrupt occurs, the service routine associated with that
-    809           *   interrupt is not called.
-    810           *
-    811           *   If INTS_ALL is the interrupt_id, interrupts (in general) are disabled.
-    812           *   If a single interrupt is passed in, then just that interrupt is disabled.
-    813           *
-    814           * @param   uint8 interrupt_id - Interrupt number
-    815           *
-    816           * @return  SUCCESS or INVALID_INTERRUPT_ID
-    817           */
+    785            }
+    786          }
+    787          
+    788          /*********************************************************************
+    789           * @fn      osal_int_disable
+    790           *
+    791           * @brief
+    792           *
+    793           *   This function is called to disable an interrupt. When a disabled
+    794           *   interrupt occurs, the service routine associated with that
+    795           *   interrupt is not called.
+    796           *
+    797           *   If INTS_ALL is the interrupt_id, interrupts (in general) are disabled.
+    798           *   If a single interrupt is passed in, then just that interrupt is disabled.
+    799           *
+    800           * @param   uint8 interrupt_id - Interrupt number
+    801           *
+    802           * @return  SUCCESS or INVALID_INTERRUPT_ID
+    803           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    818          uint8 osal_int_disable( uint8 interrupt_id )
+    804          uint8 osal_int_disable( uint8 interrupt_id )
    \                     osal_int_disable:
-    819          {
+    805          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    820          
-    821            if ( interrupt_id == INTS_ALL )
+    806          
+    807            if ( interrupt_id == INTS_ALL )
    \   000000   74FF         MOV     A,#-0x1
    \   000002   69           XRL     A,R1
    \   000003   7006         JNZ     ??osal_int_disable_0
-    822            {
-    823              HAL_DISABLE_INTERRUPTS();
+    808            {
+    809              HAL_DISABLE_INTERRUPTS();
    \   000005   C2AF         CLR     0xa8.7
-    824              return ( SUCCESS );
+    810              return ( SUCCESS );
    \   000007   7900         MOV     R1,#0x0
    \   000009   8002         SJMP    ??osal_int_disable_1
-    825            }
-    826            else
-    827            {
-    828              return ( INVALID_INTERRUPT_ID );
+    811            }
+    812            else
+    813            {
+    814              return ( INVALID_INTERRUPT_ID );
    \                     ??osal_int_disable_0:
    \   00000B   7907         MOV     R1,#0x7
    \                     ??osal_int_disable_1:
    \   00000D   02....       LJMP    ?BRET
    \   000010                REQUIRE _A_IEN0
-    829            }
-    830          }
-    831          
-    832          /*********************************************************************
-    833           * @fn      osal_init_system
-    834           *
-    835           * @brief
-    836           *
-    837           *   This function initializes the "task" system by creating the
-    838           *   tasks defined in the task table (OSAL_Tasks.h).
-    839           *
-    840           * @param   void
-    841           *
-    842           * @return  SUCCESS
-    843           */
+    815            }
+    816          }
+    817          
+    818          /*********************************************************************
+    819           * @fn      osal_init_system
+    820           *
+    821           * @brief
+    822           *
+    823           *   This function initializes the "task" system by creating the
+    824           *   tasks defined in the task table (OSAL_Tasks.h).
+    825           *
+    826           * @param   void
+    827           *
+    828           * @return  SUCCESS
+    829           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    844          uint8 osal_init_system( void )
+    830          uint8 osal_init_system( void )
    \                     osal_init_system:
-    845          {
+    831          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    846            // Initialize the Memory Allocation System
-    847            osal_mem_init();
+    832            // Initialize the Memory Allocation System
+    833            osal_mem_init();
    \   000004                ; Setup parameters for call to function osal_mem_init
    \   000004   12....       LCALL   ??osal_mem_init?relay
-    848          
-    849            // Initialize the message queue
-    850            osal_qHead = NULL;
+    834          
+    835            // Initialize the message queue
+    836            osal_qHead = NULL;
    \   000007   90....       MOV     DPTR,#osal_qHead
    \   00000A   E4           CLR     A
    \   00000B   F0           MOVX    @DPTR,A
    \   00000C   A3           INC     DPTR
    \   00000D   F0           MOVX    @DPTR,A
-    851          
-    852            // Initialize the timers
-    853            osalTimerInit();
+    837          
+    838            // Initialize the timers
+    839            osalTimerInit();
    \   00000E                ; Setup parameters for call to function osalTimerInit
    \   00000E   12....       LCALL   ??osalTimerInit?relay
-    854          
-    855            // Initialize the Power Management System
-    856            osal_pwrmgr_init();
+    840          
+    841            // Initialize the Power Management System
+    842            osal_pwrmgr_init();
    \   000011                ; Setup parameters for call to function osal_pwrmgr_init
    \   000011   12....       LCALL   ??osal_pwrmgr_init?relay
-    857          
-    858            // Initialize the system tasks.
-    859            osalInitTasks();
+    843          
+    844            // Initialize the system tasks.
+    845            osalInitTasks();
    \   000014                ; Setup parameters for call to function osalInitTasks
    \   000014   12....       LCALL   ??osalInitTasks?relay
-    860          
-    861            // Setup efficient search for the first free block of heap.
-    862            osal_mem_kick();
+    846          
+    847            // Setup efficient search for the first free block of heap.
+    848            osal_mem_kick();
    \   000017                ; Setup parameters for call to function osal_mem_kick
    \   000017   12....       LCALL   ??osal_mem_kick?relay
-    863          
-    864            return ( SUCCESS );
+    849          
+    850            return ( SUCCESS );
    \   00001A   7900         MOV     R1,#0x0
    \   00001C   02....       LJMP    ?Subroutine22 & 0xFFFF
-    865          }
-    866          
-    867          /*********************************************************************
-    868           * @fn      osal_start_system
-    869           *
-    870           * @brief
-    871           *
-    872           *   This function is the main loop function of the task system.  It
-    873           *   will look through all task events and call the task_event_processor()
-    874           *   function for the task with the event.  If there are no events (for
-    875           *   all tasks), this function puts the processor into Sleep.
-    876           *   This Function doesn't return.
-    877           *
-    878           * @param   void
-    879           *
-    880           * @return  none
-    881           */
+    851          }
+    852          
+    853          /*********************************************************************
+    854           * @fn      osal_start_system
+    855           *
+    856           * @brief
+    857           *
+    858           *   This function is the main loop function of the task system.  It
+    859           *   will look through all task events and call the task_event_processor()
+    860           *   function for the task with the event.  If there are no events (for
+    861           *   all tasks), this function puts the processor into Sleep.
+    862           *   This Function doesn't return.
+    863           *
+    864           * @param   void
+    865           *
+    866           * @return  none
+    867           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    882          void osal_start_system( void )
+    868          void osal_start_system( void )
    \                     osal_start_system:
-    883          {
+    869          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-    884          #if !defined ( ZBIT ) && !defined ( UBIT )
-    885            for(;;)  // Forever Loop
-    886          #endif
-    887            { 
-    888            #ifdef HAL_KEYPAD
-    889              ch = halKeypadPushed();
+    870          #if !defined ( ZBIT ) && !defined ( UBIT )
+    871            for(;;)  // Forever Loop
+    872          #endif
+    873            { 
+    874            #ifdef HAL_KEYPAD
+    875              ch = halKeypadPushed();
    \                     ??osal_start_system_0:
    \   000005                ; Setup parameters for call to function halKeypadPushed
    \   000005   12....       LCALL   ??halKeypadPushed?relay
    \   000008   E9           MOV     A,R1
    \   000009   90....       MOV     DPTR,#ch
    \   00000C   F0           MOVX    @DPTR,A
-    890              if(ch > 0)
+    876              if(ch > 0)
    \   00000D   600C         JZ      ??osal_start_system_1
-    891              { 
-    892              #if defined (End_Device) || defined (Router_Device)
-    893                osal_set_event( zclZigbeeDevice_TaskID , SENSOR_SEND_MSG_EVT );
+    877              { 
+    878              #if defined (End_Device) || defined (Router_Device)
+    879                osal_set_event( zclZigbeeDevice_TaskID , SENSOR_SEND_MSG_EVT );
    \   00000F                ; Setup parameters for call to function osal_set_event
    \   00000F   7A02         MOV     R2,#0x2
    \   000011   7B00         MOV     R3,#0x0
@@ -2854,34 +2840,34 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000016   E0           MOVX    A,@DPTR
    \   000017   F9           MOV     R1,A
    \   000018   12....       LCALL   ??osal_set_event?relay
-    894              #endif
-    895              #if defined(Coor_receiver)||(Router_receiver)
-    896                osal_set_event( zclZigbeeReceiver_TaskID , KEYPAD_MSG_EVT ); // Set the keypad event
-    897              #endif
-    898              }
-    899            #endif    
-    900          
-    901              uint8 idx = 0;
+    880              #endif
+    881              #if defined(Coor_receiver)||(Router_receiver)
+    882                osal_set_event( zclZigbeeReceiver_TaskID , KEYPAD_MSG_EVT ); // Set the keypad event
+    883              #endif
+    884              }
+    885            #endif    
+    886          
+    887              uint8 idx = 0;
    \                     ??osal_start_system_1:
    \   00001B   75..00       MOV     ?V0 + 0,#0x0
-    902              osalTimeUpdate();
+    888              osalTimeUpdate();
    \   00001E                ; Setup parameters for call to function osalTimeUpdate
    \   00001E   12....       LCALL   ??osalTimeUpdate?relay
-    903              Hal_ProcessPoll();  // This replaces MT_SerialPoll() and osal_check_timer().
+    889              Hal_ProcessPoll();  // This replaces MT_SerialPoll() and osal_check_timer().
    \   000021                ; Setup parameters for call to function Hal_ProcessPoll
    \   000021   12....       LCALL   ??Hal_ProcessPoll?relay
-    904              
-    905          /*********　The under is task array, check the task have happen ************/
-    906              do 
-    907              {
-    908                if (tasksEvents[idx])  // Task is highest priority that is ready.
+    890              
+    891          /*********　The under is task array, check the task have happen ************/
+    892              do 
+    893              {
+    894                if (tasksEvents[idx])  // Task is highest priority that is ready.
    \                     ??osal_start_system_2:
    \   000024   E5..         MOV     A,?V0 + 0
    \   000026   12....       LCALL   ?Subroutine7 & 0xFFFF
-    909                 {
-    910                   break;
-    911                 }
-    912              }while (++idx < tasksCnt);
+    895                 {
+    896                   break;
+    897                 }
+    898              }while (++idx < tasksCnt);
    \                     ??CrossCallReturnLabel_19:
    \   000029   7002         JNZ     ??osal_start_system_3
    \   00002B   A3           INC     DPTR
@@ -2896,8 +2882,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000038   C3           CLR     C
    \   000039   9A           SUBB    A,R2
    \   00003A   40E8         JC      ??osal_start_system_2
-    913          
-    914              if (idx < tasksCnt)
+    899          
+    900              if (idx < tasksCnt)
    \                     ??osal_start_system_4:
    \   00003C   90....       MOV     DPTR,#tasksCnt
    \   00003F   E0           MOVX    A,@DPTR
@@ -2906,17 +2892,17 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000043   C3           CLR     C
    \   000044   9A           SUBB    A,R2
    \   000045   50BE         JNC     ??osal_start_system_0
-    915              {
-    916                uint16 events;
-    917                halIntState_t intState;
-    918          
-    919                HAL_ENTER_CRITICAL_SECTION(intState); //enter critical section,執行HAL_DISABLE_INTERRUPT();
+    901              {
+    902                uint16 events;
+    903                halIntState_t intState;
+    904          
+    905                HAL_ENTER_CRITICAL_SECTION(intState); //enter critical section,執行HAL_DISABLE_INTERRUPT();
    \   000047   A2AF         MOV     C,0xa8.7
    \   000049   E4           CLR     A
    \   00004A   92E0         MOV     0xE0 /* A   */.0,C
    \   00004C   FD           MOV     R5,A
    \   00004D   C2AF         CLR     0xa8.7
-    920                  events = tasksEvents[idx]; //第idx個任務發生事件, 處理第idx的任務事件
+    906                  events = tasksEvents[idx]; //第idx個任務發生事件, 處理第idx的任務事件
    \   00004F   E5..         MOV     A,?V0 + 0
    \   000051   C3           CLR     C
    \   000052   33           RLC     A
@@ -2935,7 +2921,7 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000061   8882         MOV     DPL,R0
    \   000063   8983         MOV     DPH,R1
    \   000065   12....       LCALL   ?Subroutine9 & 0xFFFF
-    921                  tasksEvents[idx] = 0;  // Clear the Events for this task.
+    907                  tasksEvents[idx] = 0;  // Clear the Events for this task.
    \                     ??CrossCallReturnLabel_27:
    \   000068   8882         MOV     DPL,R0
    \   00006A   8983         MOV     DPH,R1
@@ -2943,14 +2929,14 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   00006D   F0           MOVX    @DPTR,A
    \   00006E   A3           INC     DPTR
    \   00006F   F0           MOVX    @DPTR,A
-    922                HAL_EXIT_CRITICAL_SECTION(intState); //exit critical section
+    908                HAL_EXIT_CRITICAL_SECTION(intState); //exit critical section
    \   000070   ED           MOV     A,R5
    \   000071   A2E0         MOV     C,0xE0 /* A   */.0
    \   000073   92AF         MOV     0xa8.7,C
-    923          
-    924          //      show("choose current event");
-    925          //      Onboard_wait(1500000);
-    926                events = (tasksArr[idx])( idx, events );
+    909          
+    910          //      show("choose current event");
+    911          //      Onboard_wait(1500000);
+    912                events = (tasksArr[idx])( idx, events );
    \   000075                ; Setup parameters for indirect call
    \   000075   A9..         MOV     R1,?V0 + 0
    \   000077   EE           MOV     A,R6
@@ -2962,17 +2948,17 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000081   12....       LCALL   ?Subroutine13 & 0xFFFF
    \                     ??CrossCallReturnLabel_36:
    \   000084   12....       LCALL   ?CALL_IND
-    927          //      char temp[16];
-    928          //      sprintf(temp, "event:%d", events);
-    929          //      show(temp);      
-    930          
-    931                HAL_ENTER_CRITICAL_SECTION(intState);
+    913          //      char temp[16];
+    914          //      sprintf(temp, "event:%d", events);
+    915          //      show(temp);      
+    916          
+    917                HAL_ENTER_CRITICAL_SECTION(intState);
    \   000087   A2AF         MOV     C,0xa8.7
    \   000089   E4           CLR     A
    \   00008A   92E0         MOV     0xE0 /* A   */.0,C
    \   00008C   FD           MOV     R5,A
    \   00008D   C2AF         CLR     0xa8.7
-    932                tasksEvents[idx] |= events;  // Add back unprocessed events to the current task.
+    918                tasksEvents[idx] |= events;  // Add back unprocessed events to the current task.
    \   00008F   90....       MOV     DPTR,#tasksEvents
    \   000092   E0           MOVX    A,@DPTR
    \   000093   2E           ADD     A,R6
@@ -2981,37 +2967,37 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000096   E0           MOVX    A,@DPTR
    \   000097   3F           ADDC    A,R7
    \   000098   12....       LCALL   ?Subroutine4 & 0xFFFF
-    933                HAL_EXIT_CRITICAL_SECTION(intState);
+    919                HAL_EXIT_CRITICAL_SECTION(intState);
    \                     ??CrossCallReturnLabel_12:
    \   00009B   02....       LJMP    ??osal_start_system_0 & 0xFFFF
    \   00009E                REQUIRE _A_IEN0
-    934              }
-    935          #if defined( POWER_SAVING )
-    936              else  // Complete pass through all task events with no activity?
-    937              {
-    938                osal_pwrmgr_powerconserve();  // Put the processor/system into sleep
-    939              }
-    940          #endif
-    941            }
-    942          }
-    943          
-    944          /*********************************************************************
-    945           * @fn      osal_buffer_uint32
-    946           *
-    947           * @brief
-    948           *
-    949           *   Buffer an uint32 value - LSB first.
-    950           *
-    951           * @param   buf - buffer
-    952           * @param   val - uint32 value
-    953           *
-    954           * @return  pointer to end of destination buffer
-    955           */
+    920              }
+    921          #if defined( POWER_SAVING )
+    922              else  // Complete pass through all task events with no activity?
+    923              {
+    924                osal_pwrmgr_powerconserve();  // Put the processor/system into sleep
+    925              }
+    926          #endif
+    927            }
+    928          }
+    929          
+    930          /*********************************************************************
+    931           * @fn      osal_buffer_uint32
+    932           *
+    933           * @brief
+    934           *
+    935           *   Buffer an uint32 value - LSB first.
+    936           *
+    937           * @param   buf - buffer
+    938           * @param   val - uint32 value
+    939           *
+    940           * @return  pointer to end of destination buffer
+    941           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    956          uint8* osal_buffer_uint32( uint8 *buf, uint32 val )
+    942          uint8* osal_buffer_uint32( uint8 *buf, uint32 val )
    \                     osal_buffer_uint32:
-    957          {
+    943          {
    \   000000   74F0         MOV     A,#-0x10
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 16
@@ -3020,13 +3006,13 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000007   12....       LCALL   ?XSTACK_DISP0_8
    \   00000A   78..         MOV     R0,#?V0 + 4
    \   00000C   12....       LCALL   ?L_MOV_X
-    958            *buf++ = BREAK_UINT32( val, 0 );
+    944            *buf++ = BREAK_UINT32( val, 0 );
    \   00000F   8A82         MOV     DPL,R2
    \   000011   8B83         MOV     DPH,R3
    \   000013   E5..         MOV     A,?V0 + 4
    \   000015   12....       LCALL   ?Subroutine18 & 0xFFFF
-    959            *buf++ = BREAK_UINT32( val, 1 );
-    960            *buf++ = BREAK_UINT32( val, 2 );
+    945            *buf++ = BREAK_UINT32( val, 1 );
+    946            *buf++ = BREAK_UINT32( val, 2 );
    \                     ??CrossCallReturnLabel_39:
    \   000018   85....       MOV     ?V0 + 0,?V0 + 4
    \   00001B   85....       MOV     ?V0 + 2,?V0 + 6
@@ -3037,13 +3023,13 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000028   E5..         MOV     A,?V0 + 0
    \   00002A   F0           MOVX    @DPTR,A
    \   00002B   A3           INC     DPTR
-    961            *buf++ = BREAK_UINT32( val, 3 );
+    947            *buf++ = BREAK_UINT32( val, 3 );
    \   00002C   7418         MOV     A,#0x18
    \   00002E                REQUIRE ?Subroutine27
    \   00002E                ; // Fall through to label ?Subroutine27
-    962          
-    963            return buf;
-    964          }
+    948          
+    949            return buf;
+    950          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine27:
@@ -3072,25 +3058,25 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000007   F0           MOVX    @DPTR,A
    \   000008   A3           INC     DPTR
    \   000009   22           RET
-    965          
-    966          /*********************************************************************
-    967           * @fn      osal_buffer_uint24
-    968           *
-    969           * @brief
-    970           *
-    971           *   Buffer an uint24 value - LSB first. Note that type uint24 is
-    972           *   typedef to uint32 in comdef.h
-    973           *
-    974           * @param   buf - buffer
-    975           * @param   val - uint24 value
-    976           *
-    977           * @return  pointer to end of destination buffer
-    978           */
+    951          
+    952          /*********************************************************************
+    953           * @fn      osal_buffer_uint24
+    954           *
+    955           * @brief
+    956           *
+    957           *   Buffer an uint24 value - LSB first. Note that type uint24 is
+    958           *   typedef to uint32 in comdef.h
+    959           *
+    960           * @param   buf - buffer
+    961           * @param   val - uint24 value
+    962           *
+    963           * @return  pointer to end of destination buffer
+    964           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    979          uint8* osal_buffer_uint24( uint8 *buf, uint24 val )
+    965          uint8* osal_buffer_uint24( uint8 *buf, uint24 val )
    \                     osal_buffer_uint24:
-    980          {
+    966          {
    \   000000   74F0         MOV     A,#-0x10
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 16
@@ -3099,20 +3085,20 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \   000007   12....       LCALL   ?XSTACK_DISP0_8
    \   00000A   78..         MOV     R0,#?V0 + 4
    \   00000C   12....       LCALL   ?L_MOV_X
-    981            *buf++ = BREAK_UINT32( val, 0 );
+    967            *buf++ = BREAK_UINT32( val, 0 );
    \   00000F   85....       MOV     ?V0 + 0,?V0 + 4
    \   000012   8A82         MOV     DPL,R2
    \   000014   8B83         MOV     DPH,R3
    \   000016   E5..         MOV     A,?V0 + 0
    \   000018   12....       LCALL   ?Subroutine18 & 0xFFFF
-    982            *buf++ = BREAK_UINT32( val, 1 );
-    983            *buf++ = BREAK_UINT32( val, 2 );
+    968            *buf++ = BREAK_UINT32( val, 1 );
+    969            *buf++ = BREAK_UINT32( val, 2 );
    \                     ??CrossCallReturnLabel_40:
    \   00001B   7410         MOV     A,#0x10
    \   00001D   80..         SJMP    ?Subroutine27
-    984          
-    985            return buf;
-    986          }
+    970          
+    971            return buf;
+    972          }
 
    \                                 In  segment BANK_RELAYS, align 1
    \                     ??osal_strlen?relay:
@@ -3291,8 +3277,8 @@ D:\GitHub\z-stack\Sensor Network Example\Components\osal\common\OSAL.c
    \                                 In  segment XDATA_ROM_C, align 1
    \                     __Constant_5f5e100:
    \   000000   00E1F505     DD 100000000
-    987          /*********************************************************************
-    988          *********************************************************************/
+    973          /*********************************************************************
+    974          *********************************************************************/
 
    Maximum stack usage in bytes:
 

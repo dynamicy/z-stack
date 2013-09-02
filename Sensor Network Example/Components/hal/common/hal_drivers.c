@@ -54,7 +54,7 @@ void HalDriverInit (void)
   /* TIMER */
 #if (defined HAL_TIMER) && (HAL_TIMER == TRUE)
   HalTimerInit(); 
-  M160_Init();
+//  M160_Init();
 #endif
 
   /* ADC */

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  22:54:29 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                03/Sep/2013  01:32:19 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -58,7 +58,7 @@
 #                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
 #                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
 #                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER   #
-#                          -D M160 -lC "D:\GitHub\z-stack\Sensor Network      #
+#                          -D MMN_UART -lC "D:\GitHub\z-stack\Sensor Network  #
 #                          Example\Projects\zstack\Sensor Network             #
 #                          Application\ZIGBEE Endpoint &                      #
 #                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA        #
@@ -420,10 +420,11 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \   00005E   F9           MOV     R1,A
    \   00005F   12....       LCALL   ??ZDO_RegisterForZDOMsg?relay
     126          }
-   \   000062   02....       LJMP    ?Subroutine3 & 0xFFFF
+   \   000062                REQUIRE ?Subroutine4
+   \   000062                ; // Fall through to label ?Subroutine4
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine3:
+   \                     ?Subroutine4:
    \   000000   D083         POP     DPH
    \   000002   D082         POP     DPL
    \   000004   02....       LJMP    ?BRET
@@ -519,8 +520,8 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \   000042   A2E0         MOV     C,0xE0 /* A   */.0
    \   000044   500F         JNC     ??zclZigbeeDevice_event_loop_7
    \   000046                ; Setup parameters for call to function osal_start_timerEx
-   \   000046   12....       LCALL   ?Subroutine1 & 0xFFFF
-   \                     ??CrossCallReturnLabel_6:
+   \   000046   12....       LCALL   ?Subroutine2 & 0xFFFF
+   \                     ??CrossCallReturnLabel_8:
    \   000049                ; Setup parameters for call to function osal_set_event
    \   000049   7A02         MOV     R2,#0x2
    \   00004B   7B00         MOV     R3,#0x0
@@ -696,8 +697,8 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \                     ??zclZigbeeDevice_event_loop_21:
    \   00015B   EA           MOV     A,R2
    \   00015C   2413         ADD     A,#0x13
-   \   00015E   12....       LCALL   ?Subroutine2 & 0xFFFF
-   \                     ??CrossCallReturnLabel_2:
+   \   00015E   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_4:
    \   000161   F583         MOV     DPH,A
    \   000163   8882         MOV     DPL,R0
    \   000165   E0           MOVX    A,@DPTR
@@ -778,78 +779,76 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     168            if ( events & SENSOR_SEND_MSG_EVT )
    \                     ??zclZigbeeDevice_event_loop_2:
    \   0001CE   5402         ANL     A,#0x2
-   \   0001D0   600B         JZ      ??zclZigbeeDevice_event_loop_26
+   \   0001D0   6008         JZ      ??zclZigbeeDevice_event_loop_26
     169            {
     170            #if !defined(M270)
     171              osal_start_timerEx( zclZigbeeDevice_TaskID, SENSOR_SEND_MSG_EVT, SEND_DISPLAY_TIMER);
    \   0001D2                ; Setup parameters for call to function osal_start_timerEx
-   \   0001D2   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \   0001D2   12....       LCALL   ?Subroutine2 & 0xFFFF
     172            #endif
     173              zclZIGBEEDevice_SendMsg();
-   \                     ??CrossCallReturnLabel_4:
-   \   0001D5                ; Setup parameters for call to function M160_SensorFunction
-   \   0001D5   12....       LCALL   ??M160_SensorFunction?relay
     174              return ( events ^ SENSOR_SEND_MSG_EVT );
-   \   0001D8   7402         MOV     A,#0x2
+   \                     ??CrossCallReturnLabel_6:
+   \   0001D5   7402         MOV     A,#0x2
    \                     ??zclZigbeeDevice_event_loop_27:
-   \   0001DA   02....       LJMP    ??zclZigbeeDevice_event_loop_3 & 0xFFFF
+   \   0001D7   02....       LJMP    ??zclZigbeeDevice_event_loop_3 & 0xFFFF
     175            }
     176            
     177            // The KEYPAD keyin event
     178            if ( events & KEYPAD_MSG_EVT )
    \                     ??zclZigbeeDevice_event_loop_26:
-   \   0001DD   EE           MOV     A,R6
-   \   0001DE   5408         ANL     A,#0x8
-   \   0001E0   6011         JZ      ??zclZigbeeDevice_event_loop_28
+   \   0001DA   EE           MOV     A,R6
+   \   0001DB   5408         ANL     A,#0x8
+   \   0001DD   6011         JZ      ??zclZigbeeDevice_event_loop_28
     179            {
     180              HalLcdWriteChar(HAL_LCD_LINE_3, 0, ch);
-   \   0001E2                ; Setup parameters for call to function HalLcdWriteChar
-   \   0001E2   90....       MOV     DPTR,#ch
-   \   0001E5   E0           MOVX    A,@DPTR
-   \   0001E6   FB           MOV     R3,A
-   \   0001E7   7A00         MOV     R2,#0x0
-   \   0001E9   7903         MOV     R1,#0x3
-   \   0001EB   12....       LCALL   ??HalLcdWriteChar?relay
+   \   0001DF                ; Setup parameters for call to function HalLcdWriteChar
+   \   0001DF   90....       MOV     DPTR,#ch
+   \   0001E2   E0           MOVX    A,@DPTR
+   \   0001E3   FB           MOV     R3,A
+   \   0001E4   7A00         MOV     R2,#0x0
+   \   0001E6   7903         MOV     R1,#0x3
+   \   0001E8   12....       LCALL   ??HalLcdWriteChar?relay
     181              return ( events ^ KEYPAD_MSG_EVT );
-   \   0001EE   7408         MOV     A,#0x8
-   \   0001F0   02....       LJMP    ??zclZigbeeDevice_event_loop_3 & 0xFFFF
+   \   0001EB   7408         MOV     A,#0x8
+   \   0001ED   02....       LJMP    ??zclZigbeeDevice_event_loop_3 & 0xFFFF
     182            }
     183            
     184            // The RS485 transmit data event
     185            if ( events & RS485_MSG_EVT )
    \                     ??zclZigbeeDevice_event_loop_28:
-   \   0001F3   EE           MOV     A,R6
-   \   0001F4   5404         ANL     A,#0x4
-   \   0001F6   6007         JZ      ??zclZigbeeDevice_event_loop_29
+   \   0001F0   EE           MOV     A,R6
+   \   0001F1   5404         ANL     A,#0x4
+   \   0001F3   6007         JZ      ??zclZigbeeDevice_event_loop_29
     186            {
     187              zclRS485_SendMsg();
-   \   0001F8                ; Setup parameters for call to function zclRS485_SendMsg
-   \   0001F8   12....       LCALL   ??zclRS485_SendMsg?relay
+   \   0001F5                ; Setup parameters for call to function zclRS485_SendMsg
+   \   0001F5   12....       LCALL   ??zclRS485_SendMsg?relay
     188              return ( events ^ RS485_MSG_EVT );
-   \   0001FB   7404         MOV     A,#0x4
-   \   0001FD   80DB         SJMP    ??zclZigbeeDevice_event_loop_27
+   \   0001F8   7404         MOV     A,#0x4
+   \   0001FA   80DB         SJMP    ??zclZigbeeDevice_event_loop_27
     189            }
     190            return 0; // Discard unknown events
    \                     ??zclZigbeeDevice_event_loop_29:
-   \   0001FF   7A00         MOV     R2,#0x0
-   \   000201   7B00         MOV     R3,#0x0
+   \   0001FC   7A00         MOV     R2,#0x0
+   \   0001FE   7B00         MOV     R3,#0x0
    \                     ??zclZigbeeDevice_event_loop_5:
-   \   000203   7409         MOV     A,#0x9
-   \   000205   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000208   7F06         MOV     R7,#0x6
-   \   00020A   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   000200   7409         MOV     A,#0x9
+   \   000202   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000205   7F06         MOV     R7,#0x6
+   \   000207   02....       LJMP    ?BANKED_LEAVE_XDATA
     191          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine1:
+   \                     ?Subroutine2:
    \   000000   7C88         MOV     R4,#-0x78
    \   000002   7D13         MOV     R5,#0x13
    \   000004   7A02         MOV     R2,#0x2
-   \   000006                REQUIRE ??Subroutine4_0
-   \   000006                ; // Fall through to label ??Subroutine4_0
+   \   000006                REQUIRE ??Subroutine6_0
+   \   000006                ; // Fall through to label ??Subroutine6_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine4_0:
+   \                     ??Subroutine6_0:
    \   000000   7B00         MOV     R3,#0x0
    \   000002   90....       MOV     DPTR,#zclZigbeeDevice_TaskID
    \   000005   E0           MOVX    A,@DPTR
@@ -861,8 +860,8 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \                     ?Subroutine0:
    \   000000   EA           MOV     A,R2
    \   000001   2416         ADD     A,#0x16
-   \   000003   12....       LCALL   ?Subroutine2 & 0xFFFF
-   \                     ??CrossCallReturnLabel_3:
+   \   000003   12....       LCALL   ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_5:
    \   000006   F9           MOV     R1,A
    \   000007   8882         MOV     DPL,R0
    \   000009   8983         MOV     DPH,R1
@@ -870,7 +869,7 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \   00000D   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine2:
+   \                     ?Subroutine3:
    \   000000   F582         MOV     DPL,A
    \   000002   EB           MOV     A,R3
    \   000003   3400         ADDC    A,#0x0
@@ -966,9 +965,9 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \   00000E   7CE8         MOV     R4,#-0x18
    \   000010   7D03         MOV     R5,#0x3
    \   000012   7A01         MOV     R2,#0x1
-   \   000014   12....       LCALL   ??Subroutine4_0 & 0xFFFF
+   \   000014   12....       LCALL   ??Subroutine6_0 & 0xFFFF
     260              HalLedBlink ( HAL_LED_1, 0xFF, HAL_LED_DEFAULT_DUTY_CYCLE, HAL_LED_DEFAULT_FLASH_TIME );
-   \                     ??CrossCallReturnLabel_5:
+   \                     ??CrossCallReturnLabel_7:
    \   000017                ; Setup parameters for call to function HalLedBlink
    \   000017   7CE8         MOV     R4,#-0x18
    \   000019   7D03         MOV     R5,#0x3
@@ -1008,7 +1007,7 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     269            }
     270          }
    \                     ??zclZigbeeDevice_ProcessIdentifyTimeChange_2:
-   \   000043   80..         SJMP    ?Subroutine3
+   \   000043   02....       LJMP    ?Subroutine4 & 0xFFFF
     271          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -1049,8 +1048,7 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \   000017                ; Setup parameters for call to function zclZigbeeDevice_ProcessIdentifyTimeChange
    \   000017   12....       LCALL   ??zclZigbeeDevice_ProcessIdentifyTimeChange?rel
     280          }
-   \   00001A                REQUIRE ?Subroutine3
-   \   00001A                ; // Fall through to label ?Subroutine3
+   \   00001A   02....       LJMP    ?Subroutine4 & 0xFFFF
     281          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
@@ -1204,141 +1202,197 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     390            }
     391          }
    \                     ??zclRS485_CallBack_1:
-   \   000032   7F02         MOV     R7,#0x2
-   \   000034   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   000032                REQUIRE ?Subroutine5
+   \   000032                ; // Fall through to label ?Subroutine5
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine5:
+   \   000000   7F02         MOV     R7,#0x2
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
     392          #if defined( MMN_UART )
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
     393          uint8 uart_recv_str[30];
+   \                     uart_recv_str:
+   \   000000                DS 30
+   \   00001E                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
     394          int str_loc = 0;
+   \                     str_loc:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
     395          #endif
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
     396          void zclRS485_SendMsg(void)
    \                     zclRS485_SendMsg:
     397          {
-   \   000000   74F4         MOV     A,#-0xc
+   \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
-   \   000005                ; Saved register size: 12
+   \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 20
    \   000005   74EC         MOV     A,#-0x14
    \   000007   12....       LCALL   ?ALLOC_XSTACK8
     398            uint8 len;
     399            uint8 uart_recv[20]; // Receive the UART command
     400            int null_loc;
-                       ^
-Warning[Pe177]: variable "null_loc" was declared but never referenced
     401            //HalUARTWrite( MT_UART_DEFAULT_PORT, "Process\n\r", 10 );
     402            for(len = 0; len < 20; len++)
-   \   00000A   75..00       MOV     ?V0 + 2,#0x0
+   \   00000A   75..00       MOV     ?V0 + 0,#0x0
     403            {
     404              uart_recv[len]     = TransmitApp_Msg[len];
    \                     ??zclRS485_SendMsg_0:
-   \   00000D   85..82       MOV     DPL,?V0 + 2
-   \   000010   A882         MOV     R0,DPL
-   \   000012   E8           MOV     A,R0
-   \   000013   24..         ADD     A,#(TransmitApp_Msg & 0xff)
-   \   000015   F582         MOV     DPL,A
-   \   000017   E4           CLR     A
-   \   000018   34..         ADDC    A,#((TransmitApp_Msg >> 8) & 0xff)
-   \   00001A   F583         MOV     DPH,A
-   \   00001C   E0           MOVX    A,@DPTR
-   \   00001D   FB           MOV     R3,A
-   \   00001E   85..82       MOV     DPL,?XSP + 0
-   \   000021   85..83       MOV     DPH,?XSP + 1
-   \   000024   E582         MOV     A,DPL
-   \   000026   28           ADD     A,R0
-   \   000027   F582         MOV     DPL,A
-   \   000029   E583         MOV     A,DPH
-   \   00002B   3400         ADDC    A,#0x0
-   \   00002D   F583         MOV     DPH,A
-   \   00002F   EB           MOV     A,R3
-   \   000030   F0           MOVX    @DPTR,A
+   \   00000D   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_2:
+   \   000010   FB           MOV     R3,A
+   \   000011   85..82       MOV     DPL,?XSP + 0
+   \   000014   85..83       MOV     DPH,?XSP + 1
+   \   000017   E582         MOV     A,DPL
+   \   000019   28           ADD     A,R0
+   \   00001A   F582         MOV     DPL,A
+   \   00001C   E583         MOV     A,DPH
+   \   00001E   3400         ADDC    A,#0x0
+   \   000020   F583         MOV     DPH,A
+   \   000022   EB           MOV     A,R3
+   \   000023   F0           MOVX    @DPTR,A
     405            #if defined( LCD_SUPPORTED )
     406              HalLcdWriteChar(HAL_LCD_LINE_4, len, uart_recv[len]);
-   \   000031                ; Setup parameters for call to function HalLcdWriteChar
-   \   000031   AA..         MOV     R2,?V0 + 2
-   \   000033   7904         MOV     R1,#0x4
-   \   000035   12....       LCALL   ??HalLcdWriteChar?relay
+   \   000024                ; Setup parameters for call to function HalLcdWriteChar
+   \   000024   AA..         MOV     R2,?V0 + 0
+   \   000026   7904         MOV     R1,#0x4
+   \   000028   12....       LCALL   ??HalLcdWriteChar?relay
     407            #endif
     408            #if defined( MMN_UART )
     409              // Do nothing
     410            #endif
     411            }
-   \   000038   05..         INC     ?V0 + 2
-   \   00003A   E5..         MOV     A,?V0 + 2
-   \   00003C   C3           CLR     C
-   \   00003D   9414         SUBB    A,#0x14
-   \   00003F   40CC         JC      ??zclRS485_SendMsg_0
+   \   00002B   05..         INC     ?V0 + 0
+   \   00002D   E5..         MOV     A,?V0 + 0
+   \   00002F   C3           CLR     C
+   \   000030   9414         SUBB    A,#0x14
+   \   000032   40D9         JC      ??zclRS485_SendMsg_0
     412            #if defined( MMN_UART )
     413            for(len = 0; len < 102; len++){
+   \   000034   75..00       MOV     ?V0 + 0,#0x0
     414              if(TransmitApp_Msg[len]=='\0'){
+   \                     ??zclRS485_SendMsg_1:
+   \   000037   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_3:
+   \   00003A   7006         JNZ     ??zclRS485_SendMsg_2
     415                null_loc = len;
+   \   00003C   E8           MOV     A,R0
+   \   00003D   FE           MOV     R6,A
+   \   00003E   7F00         MOV     R7,#0x0
     416                break;
+   \   000040   8009         SJMP    ??zclRS485_SendMsg_3
     417              }
     418            }
+   \                     ??zclRS485_SendMsg_2:
+   \   000042   05..         INC     ?V0 + 0
+   \   000044   E5..         MOV     A,?V0 + 0
+   \   000046   C3           CLR     C
+   \   000047   9466         SUBB    A,#0x66
+   \   000049   40EC         JC      ??zclRS485_SendMsg_1
     419            #endif
     420            #if defined( MMN_UART )
     421            if(TransmitApp_Msg[null_loc-1]=='\r'){
+   \                     ??zclRS485_SendMsg_3:
+   \   00004B   EE           MOV     A,R6
+   \   00004C   24..         ADD     A,#((TransmitApp_Msg + 255) & 0xff)
+   \   00004E   F582         MOV     DPL,A
+   \   000050   EF           MOV     A,R7
+   \   000051   34..         ADDC    A,#(((TransmitApp_Msg - 1) >> 8) & 0xff)
+   \   000053   F583         MOV     DPH,A
+   \   000055   E0           MOVX    A,@DPTR
+   \   000056   640D         XRL     A,#0xd
+   \   000058   706E         JNZ     ??zclRS485_SendMsg_4
     422              // Transmit the UART command to End Device
     423              uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
     424                                         ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
     425                                          TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, null_loc-1, TransmitApp_Msg );
+   \   00005A                ; Setup parameters for call to function zcl_SendCommand
+   \   00005A   75....       MOV     ?V0 + 0,#(TransmitApp_Msg & 0xff)
+   \   00005D   75....       MOV     ?V0 + 1,#((TransmitApp_Msg >> 8) & 0xff)
+   \   000060   78..         MOV     R0,#?V0 + 0
+   \   000062   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000065   74FF         MOV     A,#-0x1
+   \   000067   2E           ADD     A,R6
+   \   000068   F5..         MOV     ?V0 + 0,A
+   \   00006A   74FF         MOV     A,#-0x1
+   \   00006C   3F           ADDC    A,R7
+   \   00006D   F5..         MOV     ?V0 + 1,A
+   \   00006F   78..         MOV     R0,#?V0 + 0
+   \   000071   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000074   75..00       MOV     ?V0 + 0,#0x0
+   \   000077   78..         MOV     R0,#?V0 + 0
+   \   000079   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   00007C   75..00       MOV     ?V0 + 1,#0x0
+   \   00007F   78..         MOV     R0,#?V0 + 0
+   \   000081   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000084   78..         MOV     R0,#?V0 + 0
+   \   000086   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000089   78..         MOV     R0,#?V0 + 0
+   \   00008B   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   00008E   75..01       MOV     ?V0 + 0,#0x1
+   \   000091   78..         MOV     R0,#?V0 + 0
+   \   000093   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000096   75..00       MOV     ?V0 + 0,#0x0
+   \   000099   78..         MOV     R0,#?V0 + 0
+   \   00009B   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   00009E   7C06         MOV     R4,#0x6
+   \   0000A0   7D00         MOV     R5,#0x0
+   \   0000A2   7A..         MOV     R2,#(zclZigbeeDevice_DstAddr & 0xff)
+   \   0000A4   7B..         MOV     R3,#((zclZigbeeDevice_DstAddr >> 8) & 0xff)
+   \   0000A6   790C         MOV     R1,#0xc
+   \   0000A8   12....       LCALL   ??zcl_SendCommand?relay
+   \   0000AB   740B         MOV     A,#0xb
+   \   0000AD   12....       LCALL   ?DEALLOC_XSTACK8
     426              null_loc = 0;
     427              memset(TransmitApp_Msg, 0x0, 102);
+   \   0000B0                ; Setup parameters for call to function memset
+   \   0000B0   75..66       MOV     ?V0 + 0,#0x66
+   \   0000B3   78..         MOV     R0,#?V0 + 0
+   \   0000B5   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000B8   7C00         MOV     R4,#0x0
+   \   0000BA   7D00         MOV     R5,#0x0
+   \   0000BC   7A..         MOV     R2,#(TransmitApp_Msg & 0xff)
+   \   0000BE   7B..         MOV     R3,#((TransmitApp_Msg >> 8) & 0xff)
+   \   0000C0   12....       LCALL   ??memset?relay
+   \   0000C3   7402         MOV     A,#0x2
+   \   0000C5   12....       LCALL   ?DEALLOC_XSTACK8
     428            }
     429            #else
     430            uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
     431                                         ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
     432                                          TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, uart_recv );
-   \   000041                ; Setup parameters for call to function zcl_SendCommand
-   \   000041   85..82       MOV     DPL,?XSP + 0
-   \   000044   85..83       MOV     DPH,?XSP + 1
-   \   000047   8582..       MOV     ?V0 + 0,DPL
-   \   00004A   8583..       MOV     ?V0 + 1,DPH
-   \   00004D   78..         MOV     R0,#?V0 + 0
-   \   00004F   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000052   75..00       MOV     ?V0 + 3,#0x0
-   \   000055   78..         MOV     R0,#?V0 + 2
-   \   000057   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   00005A   75..00       MOV     ?V0 + 0,#0x0
-   \   00005D   78..         MOV     R0,#?V0 + 0
-   \   00005F   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   000062   75..00       MOV     ?V0 + 1,#0x0
-   \   000065   78..         MOV     R0,#?V0 + 0
-   \   000067   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   00006A   78..         MOV     R0,#?V0 + 0
-   \   00006C   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   00006F   78..         MOV     R0,#?V0 + 0
-   \   000071   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   000074   75..01       MOV     ?V0 + 0,#0x1
-   \   000077   78..         MOV     R0,#?V0 + 0
-   \   000079   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   00007C   75..00       MOV     ?V0 + 0,#0x0
-   \   00007F   78..         MOV     R0,#?V0 + 0
-   \   000081   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   000084   7C06         MOV     R4,#0x6
-   \   000086   7D00         MOV     R5,#0x0
-   \   000088   7A..         MOV     R2,#(zclZigbeeDevice_DstAddr & 0xff)
-   \   00008A   7B..         MOV     R3,#((zclZigbeeDevice_DstAddr >> 8) & 0xff)
-   \   00008C   790C         MOV     R1,#0xc
-   \   00008E   12....       LCALL   ??zcl_SendCommand?relay
-   \   000091   740B         MOV     A,#0xb
-   \   000093   12....       LCALL   ?DEALLOC_XSTACK8
     433            #endif
     434          }
-   \   000096   7414         MOV     A,#0x14
-   \   000098   12....       LCALL   ?DEALLOC_XSTACK8
-   \   00009B   7F04         MOV     R7,#0x4
-   \   00009D   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \                     ??zclRS485_SendMsg_4:
+   \   0000C8   7414         MOV     A,#0x14
+   \   0000CA   12....       LCALL   ?DEALLOC_XSTACK8
+   \   0000CD   02....       LJMP    ?Subroutine5 & 0xFFFF
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   85..82       MOV     DPL,?V0 + 0
+   \   000003   A882         MOV     R0,DPL
+   \   000005   E8           MOV     A,R0
+   \   000006   24..         ADD     A,#(TransmitApp_Msg & 0xff)
+   \   000008   F582         MOV     DPL,A
+   \   00000A   E4           CLR     A
+   \   00000B   34..         ADDC    A,#((TransmitApp_Msg >> 8) & 0xff)
+   \   00000D   F583         MOV     DPH,A
+   \   00000F   E0           MOVX    A,@DPTR
+   \   000010   22           RET
     435          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
     436          void zclZIGBEEDevice_SendMsg(void)
    \                     zclZIGBEEDevice_SendMsg:
     437          {
-   \   000000   C082         PUSH    DPL
-   \   000002   C083         PUSH    DPH
-   \   000004                ; Saved register size: 2
-   \   000004                ; Auto size: 0
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
     438            #if defined(M110)
     439              M110_SensorFunction();
     440            #endif
@@ -1347,8 +1401,6 @@ Warning[Pe177]: variable "null_loc" was declared but never referenced
     443            #endif
     444            #if defined(M160)
     445              M160_SensorFunction();
-   \   000004                ; Setup parameters for call to function M160_SensorFunction
-   \   000004   12....       LCALL   ??M160_SensorFunction?relay
     446            #endif
     447            #if defined(M170)
     448              M170_SensorFunction();
@@ -1363,7 +1415,7 @@ Warning[Pe177]: variable "null_loc" was declared but never referenced
     457              M270_SensorFunction();
     458            #endif
     459          }
-   \   000007   02....       LJMP    ?Subroutine3 & 0xFFFF
+   \   000000   02....       LJMP    ?BRET
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for bindingOutClusters>`:
@@ -1442,11 +1494,11 @@ Warning[Pe177]: variable "null_loc" was declared but never referenced
        -> Hal_UART_RxBufLen             0      0     20
        -> HalUARTRead                   0      0     20
        -> osal_set_event                0      0     20
-     zclRS485_SendMsg                   1      0     66
-       -> HalLcdWriteChar               0      0     64
-       -> zcl_SendCommand               0      0     86
-     zclZIGBEEDevice_SendMsg            2      0      0
-       -> M160_SensorFunction           4      0      0
+     zclRS485_SendMsg                   1      0     64
+       -> HalLcdWriteChar               0      0     60
+       -> zcl_SendCommand               0      0     82
+       -> memset                        0      0     64
+     zclZIGBEEDevice_SendMsg            0      0      0
      zclZigbeeDevice_BasicResetCB       0      0      0
      zclZigbeeDevice_IdentifyCB         2      0      0
        -> zclZigbeeDevice_ProcessIdentifyTimeChange
@@ -1476,7 +1528,6 @@ Warning[Pe177]: variable "null_loc" was declared but never referenced
        -> HalLedSet                     0      0     46
        -> osal_mem_free                 0      0     46
        -> osal_start_timerEx            0      0     46
-       -> M160_SensorFunction           0      0     46
        -> HalLcdWriteChar               0      0     46
        -> zclRS485_SendMsg              0      0     46
      zcl_ZigbeeDevice_Init              2      0      0
@@ -1502,22 +1553,26 @@ Warning[Pe177]: variable "null_loc" was declared but never referenced
      bindingOutClusters                                 2
      zigbeeDevice_TestEp                                6
      zclZigbeeDevice_CmdCallbacks                      30
-     zcl_ZigbeeDevice_Init                            101
-     ?Subroutine3                                       7
-     zclZigbeeDevice_event_loop                       525
-     ?Subroutine1                                       6
-     ??Subroutine4_0                                   11
+     zcl_ZigbeeDevice_Init                             98
+     ?Subroutine4                                       7
+     zclZigbeeDevice_event_loop                       522
+     ?Subroutine2                                       6
+     ??Subroutine6_0                                   11
      ?Subroutine0                                      14
-     ?Subroutine2                                      12
+     ?Subroutine3                                      12
      zclZigbeeDevice_ProcessIdentifyTimeChange
-                                                       69
+                                                       70
      zclZigbeeDevice_BasicResetCB                       3
-     zclZigbeeDevice_IdentifyCB                        26
+     zclZigbeeDevice_IdentifyCB                        29
      zclZigbeeDevice_IdentifyQueryRspCB
                                                         3
-     zclRS485_CallBack                                 55
-     zclRS485_SendMsg                                 160
-     zclZIGBEEDevice_SendMsg                           10
+     zclRS485_CallBack                                 50
+     ?Subroutine5                                       5
+     uart_recv_str                                     30
+     str_loc                                            2
+     zclRS485_SendMsg                                 208
+     ?Subroutine1                                      17
+     zclZIGBEEDevice_SendMsg                            3
      ?<Initializer for bindingOutClusters>              2
      ?<Initializer for zigbeeDevice_TestEp>             6
      ?<Initializer for zclZigbeeDevice_CmdCallbacks    30
@@ -1532,14 +1587,14 @@ Warning[Pe177]: variable "null_loc" was declared but never referenced
      ??zclZIGBEEDevice_SendMsg?relay                    6
 
  
- 1 002 bytes in segment BANKED_CODE
+ 1 058 bytes in segment BANKED_CODE
     54 bytes in segment BANK_RELAYS
     38 bytes in segment XDATA_I
     38 bytes in segment XDATA_ID
-    20 bytes in segment XDATA_Z
+    52 bytes in segment XDATA_Z
  
- 1 094 bytes of CODE  memory
-    58 bytes of XDATA memory
+ 1 150 bytes of CODE  memory
+    90 bytes of XDATA memory
 
 Errors: none
-Warnings: 1
+Warnings: none

@@ -93,9 +93,10 @@ typedef struct
 uint8 zcl_TaskID;
 
 // global entry
-char global_entry[4];
-byte global_recv_data[30];
-uint8 global_data_length;
+int stack = 0;
+char global_entry[9][4];
+byte global_recv_data[9][30];
+uint8 global_data_length[9];
 
 // The task Id of the Application where the unprocessed Foundation
 // Command/Response messages will be sent to.
@@ -1067,17 +1068,26 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       if(entry[k]>57)
         entry[k]+=7;
     }
-/*
-    HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
-    HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
-    HalUARTWrite(MT_UART_DEFAULT_PORT, entry, 4);//Device ID
-    HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
-    HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);//Device Data
-    HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
-*/    
-    strcpy(global_entry, entry);
-    strcpy(global_recv_data, recv_data);
-    global_data_length = pkt->cmd.DataLength-2;
+
+    // search 0-9
+    for(int search_id=0; search_id<9; search_id++)
+    {
+      //strcmp entry, if they arenot equeal
+      if(strncmp(entry,global_entry[search_id], 4) == 0)
+      {
+        strcpy(global_recv_data[search_id], recv_data);
+        global_data_length[search_id] = pkt->cmd.DataLength-2;
+        break;
+      }
+      
+      if(search_id==8)
+      {
+        strcpy(global_entry[stack], entry);
+        strcpy(global_recv_data[stack], recv_data);
+        global_data_length[stack] = pkt->cmd.DataLength-2;
+        stack++;
+      }
+    }
   }
 #endif
 

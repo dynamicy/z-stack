@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  22:55:43 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                03/Sep/2013  01:19:34 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -356,165 +356,577 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     106          };
     107          
 
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    108          void ZSendMsgProcess(void)
-   \                     ZSendMsgProcess:
-    109          {      
-   \   000000   74F7         MOV     A,#-0x9
-   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
-   \   000005                ; Saved register size: 9
-   \   000005                ; Auto size: 0
-    110              // Write receive coordinator command to UART
-    111          //    HalUARTWrite(MT_UART_DEFAULORT, device_manager.DataT_P, device_manager.DataLength-2);  
-    112          //    HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);
-    113              HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
-   \   000005                ; Setup parameters for call to function HalUARTWrite
-   \   000005   7C01         MOV     R4,#0x1
-   \   000007   7D00         MOV     R5,#0x0
-   \   000009   7A..         MOV     R2,#(`?<Constant "3">` & 0xff)
-   \   00000B   7B..         MOV     R3,#((`?<Constant "3">` >> 8) & 0xff)
-   \   00000D   12....       LCALL   ?Subroutine1 & 0xFFFF
-    114              HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
-    115              HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry, 4);//Device ID
-                                                        ^
-Warning[Pe167]: argument of type "char *" is incompatible with parameter of
-          type "unsigned char *"
-   \                     ??CrossCallReturnLabel_2:
-   \   000010                ; Setup parameters for call to function HalUARTWrite
-   \   000010   7C04         MOV     R4,#0x4
-   \   000012   7D00         MOV     R5,#0x0
-   \   000014   7A..         MOV     R2,#(global_entry & 0xff)
-   \   000016   7B..         MOV     R3,#((global_entry >> 8) & 0xff)
-   \   000018   12....       LCALL   ?Subroutine1 & 0xFFFF
-    116              HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
-    117              HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data, global_data_length);//Device Data
-   \                     ??CrossCallReturnLabel_3:
-   \   00001B                ; Setup parameters for call to function HalUARTWrite
-   \   00001B   90....       MOV     DPTR,#global_data_length
-   \   00001E   E0           MOVX    A,@DPTR
-   \   00001F   FC           MOV     R4,A
-   \   000020   7D00         MOV     R5,#0x0
-   \   000022   7A..         MOV     R2,#(global_recv_data & 0xff)
-   \   000024   7B..         MOV     R3,#((global_recv_data >> 8) & 0xff)
-   \   000026   7900         MOV     R1,#0x0
-   \   000028   12....       LCALL   ??HalUARTWrite?relay
-    118              HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n  
-   \   00002B                ; Setup parameters for call to function HalUARTWrite
-   \   00002B   7C03         MOV     R4,#0x3
-   \   00002D   7D00         MOV     R5,#0x0
-   \   00002F   7A..         MOV     R2,#(`?<Constant "$\\r\\n">` & 0xff)
-   \   000031   7B..         MOV     R3,#((`?<Constant "$\\r\\n">` >> 8) & 0xff)
-   \   000033   7900         MOV     R1,#0x0
-   \   000035   12....       LCALL   ??HalUARTWrite?relay
-    119          
-    120              osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 3000 );        
-   \   000038                ; Setup parameters for call to function osal_start_timerEx
-   \   000038   7CB8         MOV     R4,#-0x48
-   \   00003A   7D0B         MOV     R5,#0xb
-   \   00003C   7A00         MOV     R2,#0x0
-   \   00003E   7B08         MOV     R3,#0x8
-   \   000040   90....       MOV     DPTR,#zclZigbeeReceiver_TaskID
-   \   000043   E0           MOVX    A,@DPTR
-   \   000044   F9           MOV     R1,A
-   \   000045   12....       LCALL   ??osal_start_timerEx?relay
-    121          }
-   \   000048   7F01         MOV     R7,#0x1
-   \   00004A   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+    108          int top = 0;
+   \                     top:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine1:
+    109          void ZSendMsgProcess(void)
+   \                     ZSendMsgProcess:
+    110          {       
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+    111              switch(top)
+   \   000005   7A..         MOV     R2,#(`?<Constant "3">` & 0xff)
+   \   000007   7B..         MOV     R3,#((`?<Constant "3">` >> 8) & 0xff)
+   \   000009   90....       MOV     DPTR,#top
+   \   00000C   E0           MOVX    A,@DPTR
+   \   00000D   F5..         MOV     ?V0 + 2,A
+   \   00000F   A3           INC     DPTR
+   \   000010   E0           MOVX    A,@DPTR
+   \   000011   F5..         MOV     ?V0 + 3,A
+   \   000013   78..         MOV     R0,#?V0 + 2
+   \   000015   12....       LCALL   ?US_SWITCH_DENSE
+   \                     `?<Jumptable for ZSendMsgProcess>_0`:
+   \   000018   0000         DW        0
+   \   00001A   08           DB        8
+   \   00001B   ....         DW        ??ZSendMsgProcess_0
+   \   00001D   ....         DW        ??ZSendMsgProcess_1
+   \   00001F   ....         DW        ??ZSendMsgProcess_2
+   \   000021   ....         DW        ??ZSendMsgProcess_3
+   \   000023   ....         DW        ??ZSendMsgProcess_4
+   \   000025   ....         DW        ??ZSendMsgProcess_5
+   \   000027   ....         DW        ??ZSendMsgProcess_6
+   \   000029   ....         DW        ??ZSendMsgProcess_7
+   \   00002B   ....         DW        ??ZSendMsgProcess_8
+   \   00002D   ....         DW        ??ZSendMsgProcess_9
+    112              {
+    113              case 0:
+    114                if(stack <= top++)
+   \                     ??ZSendMsgProcess_1:
+   \   00002F   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_0:
+   \   000032   4003         JC      $+5
+   \   000034   02....       LJMP    ??ZSendMsgProcess_0 & 0xFFFF
+    115                  break;
+    116                HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+   \   000037                ; Setup parameters for call to function HalUARTWrite
+   \   000037   12....       LCALL   ?Subroutine3 & 0xFFFF
+    117                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    118                HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[0], 4);//Device ID
+                                                          ^
+Warning[Pe167]: argument of type "char *" is incompatible with parameter of
+          type "unsigned char *"
+   \                     ??CrossCallReturnLabel_20:
+   \   00003A   7A..         MOV     R2,#(global_entry & 0xff)
+   \   00003C   7B..         MOV     R3,#((global_entry >> 8) & 0xff)
+   \   00003E   12....       LCALL   ?Subroutine4 & 0xFFFF
+    119                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    120                HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[0], global_data_length[0]);//Device Data
+   \                     ??CrossCallReturnLabel_29:
+   \   000041                ; Setup parameters for call to function HalUARTWrite
+   \   000041   90....       MOV     DPTR,#global_data_length
+   \   000044   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_8:
+   \   000047   7A..         MOV     R2,#(global_recv_data & 0xff)
+   \   000049   7B..         MOV     R3,#((global_recv_data >> 8) & 0xff)
+   \                     ??ZSendMsgProcess_10:
+   \   00004B   12....       LCALL   ?Subroutine5 & 0xFFFF
+    121                HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
+   \                     ??CrossCallReturnLabel_42:
+   \   00004E   02....       LJMP    ??ZSendMsgProcess_0 & 0xFFFF
+    122                break;      
+    123              case 1:
+    124                if(stack <= top++)
+   \                     ??ZSendMsgProcess_2:
+   \   000051   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_1:
+   \   000054   4003         JC      $+5
+   \   000056   02....       LJMP    ??ZSendMsgProcess_0 & 0xFFFF
+    125                  break;
+    126                HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+   \   000059                ; Setup parameters for call to function HalUARTWrite
+   \   000059   12....       LCALL   ?Subroutine3 & 0xFFFF
+    127                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    128                HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[1], 4);//Device ID
+                                                          ^
+Warning[Pe167]: argument of type "char *" is incompatible with parameter of
+          type "unsigned char *"
+   \                     ??CrossCallReturnLabel_21:
+   \   00005C   7A..         MOV     R2,#((global_entry + 4) & 0xff)
+   \   00005E   7B..         MOV     R3,#(((global_entry + 4) >> 8) & 0xff)
+   \   000060   12....       LCALL   ?Subroutine4 & 0xFFFF
+    129                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    130                HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[1], global_data_length[1]);//Device Data
+   \                     ??CrossCallReturnLabel_30:
+   \   000063                ; Setup parameters for call to function HalUARTWrite
+   \   000063   90....       MOV     DPTR,#(global_data_length + 1)
+   \   000066   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_9:
+   \   000069   7A..         MOV     R2,#((global_recv_data + 30) & 0xff)
+   \   00006B   7B..         MOV     R3,#(((global_recv_data + 30) >> 8) & 0xff)
+   \   00006D   80DC         SJMP    ??ZSendMsgProcess_10
+    131                HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
+    132                break;
+    133              case 2:
+    134                if(stack <= top++)
+   \                     ??ZSendMsgProcess_3:
+   \   00006F   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_2:
+   \   000072   4003         JC      $+5
+   \   000074   02....       LJMP    ??ZSendMsgProcess_0 & 0xFFFF
+    135                  break;
+    136                HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+   \   000077                ; Setup parameters for call to function HalUARTWrite
+   \   000077   12....       LCALL   ?Subroutine3 & 0xFFFF
+    137                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    138                HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[2], 4);//Device ID
+                                                          ^
+Warning[Pe167]: argument of type "char *" is incompatible with parameter of
+          type "unsigned char *"
+   \                     ??CrossCallReturnLabel_22:
+   \   00007A   7A..         MOV     R2,#((global_entry + 8) & 0xff)
+   \   00007C   7B..         MOV     R3,#(((global_entry + 8) >> 8) & 0xff)
+   \   00007E   12....       LCALL   ?Subroutine4 & 0xFFFF
+    139                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    140                HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[2], global_data_length[2]);//Device Data
+   \                     ??CrossCallReturnLabel_31:
+   \   000081                ; Setup parameters for call to function HalUARTWrite
+   \   000081   90....       MOV     DPTR,#(global_data_length + 2)
+   \   000084   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_10:
+   \   000087   7A..         MOV     R2,#((global_recv_data + 60) & 0xff)
+   \   000089   7B..         MOV     R3,#(((global_recv_data + 60) >> 8) & 0xff)
+   \   00008B   80BE         SJMP    ??ZSendMsgProcess_10
+    141                HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n        
+    142                break;
+    143              case 3:    
+    144                if(stack <= top++)
+   \                     ??ZSendMsgProcess_4:
+   \   00008D   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_3:
+   \   000090   4003         JC      $+5
+   \   000092   02....       LJMP    ??ZSendMsgProcess_0 & 0xFFFF
+    145                  break;
+    146                HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+   \   000095                ; Setup parameters for call to function HalUARTWrite
+   \   000095   12....       LCALL   ?Subroutine3 & 0xFFFF
+    147                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    148                HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[3], 4);//Device ID
+                                                          ^
+Warning[Pe167]: argument of type "char *" is incompatible with parameter of
+          type "unsigned char *"
+   \                     ??CrossCallReturnLabel_23:
+   \   000098   7A..         MOV     R2,#((global_entry + 12) & 0xff)
+   \   00009A   7B..         MOV     R3,#(((global_entry + 12) >> 8) & 0xff)
+   \   00009C   12....       LCALL   ?Subroutine4 & 0xFFFF
+    149                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    150                HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[3], global_data_length[3]);//Device Data
+   \                     ??CrossCallReturnLabel_32:
+   \   00009F                ; Setup parameters for call to function HalUARTWrite
+   \   00009F   90....       MOV     DPTR,#(global_data_length + 3)
+   \   0000A2   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_11:
+   \   0000A5   7A..         MOV     R2,#((global_recv_data + 90) & 0xff)
+   \   0000A7   7B..         MOV     R3,#(((global_recv_data + 90) >> 8) & 0xff)
+   \   0000A9   80A0         SJMP    ??ZSendMsgProcess_10
+    151                HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n       
+    152                break;
+    153              case 4:    
+    154                if(stack <= top++)
+   \                     ??ZSendMsgProcess_5:
+   \   0000AB   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_4:
+   \   0000AE   4003         JC      $+5
+   \   0000B0   02....       LJMP    ??ZSendMsgProcess_0 & 0xFFFF
+    155                  break;
+    156                HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+   \   0000B3                ; Setup parameters for call to function HalUARTWrite
+   \   0000B3   12....       LCALL   ?Subroutine3 & 0xFFFF
+    157                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    158                HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[4], 4);//Device ID
+                                                          ^
+Warning[Pe167]: argument of type "char *" is incompatible with parameter of
+          type "unsigned char *"
+   \                     ??CrossCallReturnLabel_24:
+   \   0000B6   7A..         MOV     R2,#((global_entry + 16) & 0xff)
+   \   0000B8   7B..         MOV     R3,#(((global_entry + 16) >> 8) & 0xff)
+   \   0000BA   12....       LCALL   ?Subroutine4 & 0xFFFF
+    159                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    160                HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[4], global_data_length[4]);//Device Data
+   \                     ??CrossCallReturnLabel_33:
+   \   0000BD                ; Setup parameters for call to function HalUARTWrite
+   \   0000BD   90....       MOV     DPTR,#(global_data_length + 4)
+   \   0000C0   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_12:
+   \   0000C3   7A..         MOV     R2,#((global_recv_data + 120) & 0xff)
+   \   0000C5   7B..         MOV     R3,#(((global_recv_data + 120) >> 8) & 0xff)
+   \   0000C7   8082         SJMP    ??ZSendMsgProcess_10
+    161                HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n               
+    162                break;
+    163              case 5:  
+    164                if(stack <= top++)
+   \                     ??ZSendMsgProcess_6:
+   \   0000C9   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_5:
+   \   0000CC   4003         JC      $+5
+   \   0000CE   02....       LJMP    ??ZSendMsgProcess_0 & 0xFFFF
+    165                  break;
+    166                HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+   \   0000D1                ; Setup parameters for call to function HalUARTWrite
+   \   0000D1   12....       LCALL   ?Subroutine3 & 0xFFFF
+    167                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    168                HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[5], 4);//Device ID
+                                                          ^
+Warning[Pe167]: argument of type "char *" is incompatible with parameter of
+          type "unsigned char *"
+   \                     ??CrossCallReturnLabel_25:
+   \   0000D4   7A..         MOV     R2,#((global_entry + 20) & 0xff)
+   \   0000D6   7B..         MOV     R3,#(((global_entry + 20) >> 8) & 0xff)
+   \   0000D8   12....       LCALL   ?Subroutine4 & 0xFFFF
+    169                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    170                HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[5], global_data_length[5]);//Device Data
+   \                     ??CrossCallReturnLabel_34:
+   \   0000DB                ; Setup parameters for call to function HalUARTWrite
+   \   0000DB   90....       MOV     DPTR,#(global_data_length + 5)
+   \   0000DE   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_13:
+   \   0000E1   7A..         MOV     R2,#((global_recv_data + 150) & 0xff)
+   \   0000E3   7B..         MOV     R3,#(((global_recv_data + 150) >> 8) & 0xff)
+   \   0000E5   02....       LJMP    ??ZSendMsgProcess_10 & 0xFFFF
+    171                HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n  
+    172                break;
+    173              case 6:    
+    174                if(stack <= top++)
+   \                     ??ZSendMsgProcess_7:
+   \   0000E8   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_6:
+   \   0000EB   506C         JNC     ??ZSendMsgProcess_0
+    175                  break;
+    176                HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+   \   0000ED                ; Setup parameters for call to function HalUARTWrite
+   \   0000ED   12....       LCALL   ?Subroutine3 & 0xFFFF
+    177                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    178                HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[6], 4);//Device ID
+                                                          ^
+Warning[Pe167]: argument of type "char *" is incompatible with parameter of
+          type "unsigned char *"
+   \                     ??CrossCallReturnLabel_26:
+   \   0000F0   7A..         MOV     R2,#((global_entry + 24) & 0xff)
+   \   0000F2   7B..         MOV     R3,#(((global_entry + 24) >> 8) & 0xff)
+   \   0000F4   12....       LCALL   ?Subroutine4 & 0xFFFF
+    179                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    180                HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[6], global_data_length[6]);//Device Data
+   \                     ??CrossCallReturnLabel_35:
+   \   0000F7                ; Setup parameters for call to function HalUARTWrite
+   \   0000F7   90....       MOV     DPTR,#(global_data_length + 6)
+   \   0000FA   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_14:
+   \   0000FD   7A..         MOV     R2,#((global_recv_data + 180) & 0xff)
+   \   0000FF   7B..         MOV     R3,#(((global_recv_data + 180) >> 8) & 0xff)
+   \   000101   02....       LJMP    ??ZSendMsgProcess_10 & 0xFFFF
+    181                HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n        
+    182                break;
+    183              case 7:  
+    184                if(stack <= top++)
+   \                     ??ZSendMsgProcess_8:
+   \   000104   12....       LCALL   ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_7:
+   \   000107   5050         JNC     ??ZSendMsgProcess_0
+    185                  break;
+    186                HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+   \   000109                ; Setup parameters for call to function HalUARTWrite
+   \   000109   12....       LCALL   ?Subroutine3 & 0xFFFF
+    187                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    188                HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[7], 4);//Device ID
+                                                          ^
+Warning[Pe167]: argument of type "char *" is incompatible with parameter of
+          type "unsigned char *"
+   \                     ??CrossCallReturnLabel_27:
+   \   00010C   7A..         MOV     R2,#((global_entry + 28) & 0xff)
+   \   00010E   7B..         MOV     R3,#(((global_entry + 28) >> 8) & 0xff)
+   \   000110   12....       LCALL   ?Subroutine4 & 0xFFFF
+    189                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    190                HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[7], global_data_length[7]);//Device Data
+   \                     ??CrossCallReturnLabel_36:
+   \   000113                ; Setup parameters for call to function HalUARTWrite
+   \   000113   90....       MOV     DPTR,#(global_data_length + 7)
+   \   000116   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_15:
+   \   000119   7A..         MOV     R2,#((global_recv_data + 210) & 0xff)
+   \   00011B   7B..         MOV     R3,#(((global_recv_data + 210) >> 8) & 0xff)
+   \   00011D   02....       LJMP    ??ZSendMsgProcess_10 & 0xFFFF
+    191                HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n        
+    192                break;
+    193              case 8:      
+    194                if(stack <= top)
+   \                     ??ZSendMsgProcess_9:
+   \   000120   90....       MOV     DPTR,#stack
+   \   000123   E0           MOVX    A,@DPTR
+   \   000124   F8           MOV     R0,A
+   \   000125   A3           INC     DPTR
+   \   000126   E0           MOVX    A,@DPTR
+   \   000127   F9           MOV     R1,A
+   \   000128   7583..       MOV     DPH,#((top >> 8) & 0xff)
+   \   00012B   7582..       MOV     DPL,#(top & 0xff)
+   \   00012E   C3           CLR     C
+   \   00012F   E0           MOVX    A,@DPTR
+   \   000130   98           SUBB    A,R0
+   \   000131   A3           INC     DPTR
+   \   000132   E0           MOVX    A,@DPTR
+   \   000133   99           SUBB    A,R1
+   \   000134   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   000136   65D0         XRL     A,PSW
+   \   000138   33           RLC     A
+   \   000139   5017         JNC     ??CrossCallReturnLabel_43
+    195                {
+    196                  top=0;
+    197                  break;
+    198                }
+    199                HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+   \   00013B                ; Setup parameters for call to function HalUARTWrite
+   \   00013B   12....       LCALL   ?Subroutine3 & 0xFFFF
+    200                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    201                HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry[8], 4);//Device ID
+                                                          ^
+Warning[Pe167]: argument of type "char *" is incompatible with parameter of
+          type "unsigned char *"
+   \                     ??CrossCallReturnLabel_28:
+   \   00013E   7A..         MOV     R2,#((global_entry + 32) & 0xff)
+   \   000140   7B..         MOV     R3,#(((global_entry + 32) >> 8) & 0xff)
+   \   000142   12....       LCALL   ?Subroutine4 & 0xFFFF
+    202                HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    203                HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data[8], global_data_length[8]);//Device Data
+   \                     ??CrossCallReturnLabel_37:
+   \   000145                ; Setup parameters for call to function HalUARTWrite
+   \   000145   90....       MOV     DPTR,#(global_data_length + 8)
+   \   000148   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_16:
+   \   00014B   7A..         MOV     R2,#((global_recv_data + 240) & 0xff)
+   \   00014D   7B..         MOV     R3,#(((global_recv_data + 240) >> 8) & 0xff)
+   \   00014F   12....       LCALL   ?Subroutine5 & 0xFFFF
+    204                HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
+    205                top=0;
+   \                     ??CrossCallReturnLabel_43:
+   \   000152   90....       MOV     DPTR,#top
+   \   000155   E4           CLR     A
+   \   000156   F0           MOVX    @DPTR,A
+   \   000157   A3           INC     DPTR
+   \   000158   F0           MOVX    @DPTR,A
+    206                break;
+    207              default:
+    208                break;
+    209              }
+    210          
+    211              osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
+   \                     ??ZSendMsgProcess_0:
+   \   000159                ; Setup parameters for call to function osal_start_timerEx
+   \   000159   7CE8         MOV     R4,#-0x18
+   \   00015B   7D03         MOV     R5,#0x3
+   \   00015D   7A00         MOV     R2,#0x0
+   \   00015F   7B08         MOV     R3,#0x8
+   \   000161   90....       MOV     DPTR,#zclZigbeeReceiver_TaskID
+   \   000164   E0           MOVX    A,@DPTR
+   \   000165   F9           MOV     R1,A
+   \   000166   12....       LCALL   ??osal_start_timerEx?relay
+    212          }
+   \   000169                REQUIRE ?Subroutine8
+   \   000169                ; // Fall through to label ?Subroutine8
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine8:
+   \   000000   7F04         MOV     R7,#0x4
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine5:
    \   000000   7900         MOV     R1,#0x0
    \   000002   12....       LCALL   ??HalUARTWrite?relay
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005   7C03         MOV     R4,#0x3
+   \   000007   7D00         MOV     R5,#0x0
+   \   000009   7A..         MOV     R2,#(`?<Constant "$\\r\\n">` & 0xff)
+   \   00000B   7B..         MOV     R3,#((`?<Constant "$\\r\\n">` >> 8) & 0xff)
+   \   00000D                REQUIRE ?Subroutine9
+   \   00000D                ; // Fall through to label ?Subroutine9
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine9:
+   \   000000   7900         MOV     R1,#0x0
+   \   000002   12....       LCALL   ??HalUARTWrite?relay
+   \   000005   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine4:
+   \   000000   12....       LCALL   ?Subroutine6 & 0xFFFF
+   \                     ??CrossCallReturnLabel_40:
+   \   000003   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine6:
+   \   000000   7900         MOV     R1,#0x0
+   \   000002   12....       LCALL   ??HalUARTWrite?relay
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
+   \   000005                ; Setup parameters for call to function HalUARTWrite
    \   000005                ; Setup parameters for call to function HalUARTWrite
    \   000005                ; Setup parameters for call to function HalUARTWrite
    \   000005   7C01         MOV     R4,#0x1
    \   000007   7D00         MOV     R5,#0x0
    \   000009   7A..         MOV     R2,#(`?<Constant ",">` & 0xff)
    \   00000B   7B..         MOV     R3,#((`?<Constant ",">` >> 8) & 0xff)
-   \   00000D   7900         MOV     R1,#0x0
-   \   00000F   12....       LCALL   ??HalUARTWrite?relay
-   \   000012   22           RET
-    122          
+   \   00000D   80..         SJMP    ?Subroutine9
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    123          void zclZigbeeRecv_Init( byte task_id )
+   \                     ?Subroutine3:
+   \   000000   7C01         MOV     R4,#0x1
+   \   000002   7D00         MOV     R5,#0x0
+   \   000004   12....       LCALL   ?Subroutine6 & 0xFFFF
+   \                     ??CrossCallReturnLabel_41:
+   \   000007                ; Setup parameters for call to function HalUARTWrite
+   \   000007                ; Setup parameters for call to function HalUARTWrite
+   \   000007                ; Setup parameters for call to function HalUARTWrite
+   \   000007                ; Setup parameters for call to function HalUARTWrite
+   \   000007                ; Setup parameters for call to function HalUARTWrite
+   \   000007                ; Setup parameters for call to function HalUARTWrite
+   \   000007                ; Setup parameters for call to function HalUARTWrite
+   \   000007                ; Setup parameters for call to function HalUARTWrite
+   \   000007                ; Setup parameters for call to function HalUARTWrite
+   \   000007   7C04         MOV     R4,#0x4
+   \   000009   7D00         MOV     R5,#0x0
+   \   00000B   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   90....       MOV     DPTR,#top
+   \   000003   E0           MOVX    A,@DPTR
+   \   000004   FC           MOV     R4,A
+   \   000005   A3           INC     DPTR
+   \   000006   E0           MOVX    A,@DPTR
+   \   000007   FD           MOV     R5,A
+   \   000008   7401         MOV     A,#0x1
+   \   00000A   2C           ADD     A,R4
+   \   00000B   F8           MOV     R0,A
+   \   00000C   E4           CLR     A
+   \   00000D   3D           ADDC    A,R5
+   \   00000E   F9           MOV     R1,A
+   \   00000F   90....       MOV     DPTR,#top
+   \   000012   E8           MOV     A,R0
+   \   000013   F0           MOVX    @DPTR,A
+   \   000014   A3           INC     DPTR
+   \   000015   E9           MOV     A,R1
+   \   000016   F0           MOVX    @DPTR,A
+   \   000017   90....       MOV     DPTR,#stack
+   \   00001A   E0           MOVX    A,@DPTR
+   \   00001B   F8           MOV     R0,A
+   \   00001C   A3           INC     DPTR
+   \   00001D   E0           MOVX    A,@DPTR
+   \   00001E   F9           MOV     R1,A
+   \   00001F   C3           CLR     C
+   \   000020   EC           MOV     A,R4
+   \   000021   98           SUBB    A,R0
+   \   000022   ED           MOV     A,R5
+   \   000023   99           SUBB    A,R1
+   \   000024   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   000026   65D0         XRL     A,PSW
+   \   000028   33           RLC     A
+   \   000029   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   E0           MOVX    A,@DPTR
+   \   000001   FC           MOV     R4,A
+   \   000002   7D00         MOV     R5,#0x0
+   \   000004   22           RET
+    213          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    214          void zclZigbeeRecv_Init( byte task_id )
    \                     zclZigbeeRecv_Init:
-    124          {
+    215          {
    \   000000   74F5         MOV     A,#-0xb
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 11
    \   000005                ; Auto size: 0
-    125            zclZigbeeReceiver_TaskID = task_id;
+    216            zclZigbeeReceiver_TaskID = task_id;
    \   000005   E9           MOV     A,R1
    \   000006   90....       MOV     DPTR,#zclZigbeeReceiver_TaskID
    \   000009   F0           MOVX    @DPTR,A
-    126            
-    127            // Setup for the flash command's destination address ( Group )
-    128            zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)afAddrGroup;  // transmit mode - Group address
+    217            
+    218            // Setup for the flash command's destination address ( Group )
+    219            zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)afAddrGroup;  // transmit mode - Group address
    \   00000A   7401         MOV     A,#0x1
    \   00000C   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 8)
    \   00000F   F0           MOVX    @DPTR,A
-    129            zclZigbeeRecv_DstAddr.endPoint = ZIGBEERECV_ENDPOINT;        // end-point number:20
+    220            zclZigbeeRecv_DstAddr.endPoint = ZIGBEERECV_ENDPOINT;        // end-point number:20
    \   000010   740D         MOV     A,#0xd
    \   000012   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 9)
    \   000015   F0           MOVX    @DPTR,A
-    130            zclZigbeeRecv_DstAddr.addr.shortAddr = RECV_GROUP;           // Group short address
+    221            zclZigbeeRecv_DstAddr.addr.shortAddr = RECV_GROUP;           // Group short address
    \   000016   90....       MOV     DPTR,#zclZigbeeRecv_DstAddr
    \   000019   7410         MOV     A,#0x10
    \   00001B   F0           MOVX    @DPTR,A
    \   00001C   A3           INC     DPTR
    \   00001D   7420         MOV     A,#0x20
    \   00001F   F0           MOVX    @DPTR,A
-    131            
-    132            // This App is part of the Zigbee Device Profile
-    133            zclZD_Init( &zclZigbeeRecv_SimpleDesc ); 
+    222            
+    223            // This App is part of the Zigbee Device Profile
+    224            zclZD_Init( &zclZigbeeRecv_SimpleDesc ); 
    \   000020                ; Setup parameters for call to function zclZD_Init
    \   000020   7A..         MOV     R2,#(zclZigbeeRecv_SimpleDesc & 0xff)
    \   000022   7B..         MOV     R3,#((zclZigbeeRecv_SimpleDesc >> 8) & 0xff)
    \   000024   12....       LCALL   ??zclZD_Init?relay
-    134            
-    135            // Register the ZCL General Cluster Library callback functions
-    136            zclGeneral_RegisterCmdCallbacks( ZIGBEERECV_ENDPOINT, &zclZigbeeReceiver_CmdCallbacks ); 
+    225            
+    226            // Register the ZCL General Cluster Library callback functions
+    227            zclGeneral_RegisterCmdCallbacks( ZIGBEERECV_ENDPOINT, &zclZigbeeReceiver_CmdCallbacks ); 
    \   000027                ; Setup parameters for call to function zclGeneral_RegisterCmdCallbacks
    \   000027   7A..         MOV     R2,#(zclZigbeeReceiver_CmdCallbacks & 0xff)
    \   000029   7B..         MOV     R3,#((zclZigbeeReceiver_CmdCallbacks >> 8) & 0xff)
    \   00002B   790D         MOV     R1,#0xd
    \   00002D   12....       LCALL   ??zclGeneral_RegisterCmdCallbacks?relay
-    137            
-    138            // Register the application's attribute list
-    139            zcl_registerAttrList( ZIGBEERECV_ENDPOINT, ZIGBEERECV_MAX_ATTRIBUTES, zclZigbeeRecv_Attrs ); 
+    228            
+    229            // Register the application's attribute list
+    230            zcl_registerAttrList( ZIGBEERECV_ENDPOINT, ZIGBEERECV_MAX_ATTRIBUTES, zclZigbeeRecv_Attrs ); 
    \   000030                ; Setup parameters for call to function zcl_registerAttrList
    \   000030   7C..         MOV     R4,#(zclZigbeeRecv_Attrs & 0xff)
    \   000032   7D..         MOV     R5,#((zclZigbeeRecv_Attrs >> 8) & 0xff)
    \   000034   7A0C         MOV     R2,#0xc
    \   000036   790D         MOV     R1,#0xd
    \   000038   12....       LCALL   ??zcl_registerAttrList?relay
-    140            
-    141            // Register the Application to receive the unprocessed Foundation command/response messages
-    142            zcl_registerForMsg( zclZigbeeReceiver_TaskID ); 
+    231            
+    232            // Register the Application to receive the unprocessed Foundation command/response messages
+    233            zcl_registerForMsg( zclZigbeeReceiver_TaskID ); 
    \   00003B                ; Setup parameters for call to function zcl_registerForMsg
    \   00003B   90....       MOV     DPTR,#zclZigbeeReceiver_TaskID
    \   00003E   E0           MOVX    A,@DPTR
    \   00003F   F9           MOV     R1,A
    \   000040   12....       LCALL   ??zcl_registerForMsg?relay
-    143            
-    144            // Register for all key events - This app will handle all key events
-    145            RegisterForKeys( zclZigbeeReceiver_TaskID ); 
+    234            
+    235            // Register for all key events - This app will handle all key events
+    236            RegisterForKeys( zclZigbeeReceiver_TaskID ); 
    \   000043                ; Setup parameters for call to function RegisterForKeys
    \   000043   90....       MOV     DPTR,#zclZigbeeReceiver_TaskID
    \   000046   E0           MOVX    A,@DPTR
    \   000047   F9           MOV     R1,A
    \   000048   12....       LCALL   ??RegisterForKeys?relay
-    146            
-    147            // By default, all devices start out in Group 1 ( register grouop )
-    148            zclZigbeeRecv_Group.ID = RECV_GROUP;
+    237            
+    238            // By default, all devices start out in Group 1 ( register grouop )
+    239            zclZigbeeRecv_Group.ID = RECV_GROUP;
    \   00004B   90....       MOV     DPTR,#zclZigbeeRecv_Group
    \   00004E   7410         MOV     A,#0x10
    \   000050   F0           MOVX    @DPTR,A
    \   000051   A3           INC     DPTR
    \   000052   7420         MOV     A,#0x20
    \   000054   F0           MOVX    @DPTR,A
-    149            osal_memcpy( zclZigbeeRecv_Group.name, "RECV_GROUP", 8  );
+    240            osal_memcpy( zclZigbeeRecv_Group.name, "RECV_GROUP", 8  );
    \   000055                ; Setup parameters for call to function osal_memcpy
    \   000055   75....       MOV     ?V0 + 0,#(`?<Constant "RECV_GROUP">` & 0xff)
    \   000058   75....       MOV     ?V0 + 1,#((`?<Constant "RECV_GROUP">` >> 8) & 0xff)
@@ -528,22 +940,22 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   00006B   12....       LCALL   ??osal_memcpy?relay
    \   00006E   7403         MOV     A,#0x3
    \   000070   12....       LCALL   ?DEALLOC_XSTACK8
-    150            aps_AddGroup( ZIGBEERECV_ENDPOINT, &zclZigbeeRecv_Group ); 
+    241            aps_AddGroup( ZIGBEERECV_ENDPOINT, &zclZigbeeRecv_Group ); 
    \   000073                ; Setup parameters for call to function aps_AddGroup
    \   000073   7A..         MOV     R2,#(zclZigbeeRecv_Group & 0xff)
    \   000075   7B..         MOV     R3,#((zclZigbeeRecv_Group >> 8) & 0xff)
    \   000077   790D         MOV     R1,#0xd
    \   000079   12....       LCALL   ??aps_AddGroup?relay
-    151            
-    152            // Register for a test endpoint
-    153            afRegister( &zigbeeReceiver_TestEp ); 
+    242            
+    243            // Register for a test endpoint
+    244            afRegister( &zigbeeReceiver_TestEp ); 
    \   00007C                ; Setup parameters for call to function afRegister
    \   00007C   7A..         MOV     R2,#(zigbeeReceiver_TestEp & 0xff)
    \   00007E   7B..         MOV     R3,#((zigbeeReceiver_TestEp >> 8) & 0xff)
    \   000080   12....       LCALL   ??afRegister?relay
-    154           
-    155            // Set osal event for zclZigbeeReceiver_TaskID, chris
-    156            osal_set_event( zclZigbeeReceiver_TaskID, NWK_RETRY_DELAY);  
+    245           
+    246            // Set osal event for zclZigbeeReceiver_TaskID, chris
+    247            osal_set_event( zclZigbeeReceiver_TaskID, NWK_RETRY_DELAY);  
    \   000083                ; Setup parameters for call to function osal_set_event
    \   000083   7AE8         MOV     R2,#-0x18
    \   000085   7B03         MOV     R3,#0x3
@@ -551,25 +963,25 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   00008A   E0           MOVX    A,@DPTR
    \   00008B   F9           MOV     R1,A
    \   00008C   12....       LCALL   ??osal_set_event?relay
-    157          }
+    248          }
    \   00008F   7F03         MOV     R7,#0x3
    \   000091   02....       LJMP    ?BANKED_LEAVE_XDATA
-    158          
+    249          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    159          uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
+    250          uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
    \                     zclZigbeeRecv_event_loop:
-    160          {   
+    251          {   
    \   000000   74F4         MOV     A,#-0xc
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 12
    \   000005                ; Auto size: 0
    \   000005   8A..         MOV     ?V0 + 0,R2
    \   000007   8B..         MOV     ?V0 + 1,R3
-    161              afIncomingMSGPacket_t *MSGpkt;
-    162              (void)task_id;  // Intentionally unreferenced parameter
-    163            
-    164              if ( events & SYS_EVENT_MSG ) // SYSTEM Message event
+    252              afIncomingMSGPacket_t *MSGpkt;
+    253              (void)task_id;  // Intentionally unreferenced parameter
+    254            
+    255              if ( events & SYS_EVENT_MSG ) // SYSTEM Message event
    \   000009   7480         MOV     A,#-0x80
    \   00000B   55..         ANL     A,?V0 + 1
    \   00000D   F9           MOV     R1,A
@@ -578,30 +990,30 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   000011   E9           MOV     A,R1
    \                     ??zclZigbeeRecv_event_loop_0:
    \   000012   7027         JNZ     ??zclZigbeeRecv_event_loop_1
-    165              {
-    166                while ( (MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( zclZigbeeReceiver_TaskID )) )
-    167                {   
-    168                  switch ( MSGpkt->hdr.event )
-    169                  {       
-    170                  case ZCL_INCOMING_MSG: //0x34 : Incoming ZCL foundation message
-    171                      // Incoming ZCL Foundation command/response messages
-    172                      zclZigbeeReceiver_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); 
-    173                      break;          
-    174                  case AF_DATA_CONFIRM_CMD:   
-    175                      break;         
-    176                  case ZDO_STATE_CHANGE:       
-    177                      ZSendMsgProcess();            
-    178                      break;                 
-    179                  default:
-    180                      break;
-    181                  }
-    182                  osal_msg_deallocate( (uint8 *)MSGpkt ); // Release the memory
-    183                }
-    184                return (events ^ SYS_EVENT_MSG); // return unprocessed events
-    185              }
-    186            
-    187              // The user define application events
-    188              switch ( events )
+    256              {
+    257                while ( (MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( zclZigbeeReceiver_TaskID )) )
+    258                {   
+    259                  switch ( MSGpkt->hdr.event )
+    260                  {       
+    261                  case ZCL_INCOMING_MSG: //0x34 : Incoming ZCL foundation message
+    262                      // Incoming ZCL Foundation command/response messages
+    263                      zclZigbeeReceiver_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); 
+    264                      break;          
+    265                  case AF_DATA_CONFIRM_CMD:   
+    266                      break;         
+    267                  case ZDO_STATE_CHANGE:       
+    268                      ZSendMsgProcess();            
+    269                      break;                 
+    270                  default:
+    271                      break;
+    272                  }
+    273                  osal_msg_deallocate( (uint8 *)MSGpkt ); // Release the memory
+    274                }
+    275                return (events ^ SYS_EVENT_MSG); // return unprocessed events
+    276              }
+    277            
+    278              // The user define application events
+    279              switch ( events )
    \   000014   78..         MOV     R0,#?V0 + 0
    \   000016   12....       LCALL   ?US_SWITCH_SPARSE
    \                     `?<Jumptable for zclZigbeeRecv_event_loop>_0`:
@@ -614,9 +1026,9 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   000025   0008         DW        2048
    \   000027   ....         DW        ??zclZigbeeRecv_event_loop_4
    \   000029   ....         DW        ??zclZigbeeRecv_event_loop_5
-    189              {
-    190                case ZDO_MSG_SEND_EVT:
-    191                      ZSendMsgProcess();                
+    280              {
+    281                case ZDO_MSG_SEND_EVT:
+    282                      ZSendMsgProcess();                
    \                     ??zclZigbeeRecv_event_loop_4:
    \   00002B                ; Setup parameters for call to function ZSendMsgProcess
    \   00002B   12....       LCALL   ??ZSendMsgProcess?relay
@@ -679,8 +1091,8 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   000078   ....         DW        ??zclZigbeeRecv_event_loop_12
    \   00007A   ....         DW        ??zclZigbeeRecv_event_loop_13
    \                     ??zclZigbeeRecv_event_loop_11:
-   \   00007C   12....       LCALL   ?Subroutine0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_0:
+   \   00007C   12....       LCALL   ?Subroutine2 & 0xFFFF
+   \                     ??CrossCallReturnLabel_18:
    \   00007F   E0           MOVX    A,@DPTR
    \   000080   FA           MOV     R2,A
    \   000081   EB           MOV     A,R3
@@ -688,10 +1100,10 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   000083   9A           SUBB    A,R2
    \   000084   5010         JNC     ??zclZigbeeRecv_event_loop_13
    \   000086   0B           INC     R3
-   \   000087   80F6         SJMP    ??CrossCallReturnLabel_0
+   \   000087   80F6         SJMP    ??CrossCallReturnLabel_18
    \                     ??zclZigbeeRecv_event_loop_12:
-   \   000089   12....       LCALL   ?Subroutine0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_1:
+   \   000089   12....       LCALL   ?Subroutine2 & 0xFFFF
+   \                     ??CrossCallReturnLabel_19:
    \   00008C   8001         SJMP    ??zclZigbeeRecv_event_loop_14
    \                     ??zclZigbeeRecv_event_loop_15:
    \   00008E   0B           INC     R3
@@ -703,8 +1115,8 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   000093   9A           SUBB    A,R2
    \   000094   40F8         JC      ??zclZigbeeRecv_event_loop_15
    \                     ??zclZigbeeRecv_event_loop_13:
-   \   000096   12....       LCALL   ?Subroutine2 & 0xFFFF
-   \                     ??CrossCallReturnLabel_4:
+   \   000096   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \                     ??CrossCallReturnLabel_38:
    \   000099   FA           MOV     R2,A
    \   00009A   A3           INC     DPTR
    \   00009B   E0           MOVX    A,@DPTR
@@ -723,9 +1135,9 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   0000AC   65..         XRL     A,?V0 + 1
    \   0000AE   FB           MOV     R3,A
    \   0000AF   8022         SJMP    ??zclZigbeeRecv_event_loop_17
-    192                      break;
-    193                case SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT: // ZIGBEE Receiver identify timeout event
-    194                  if ( zclZigbeeRecv_IdentifyTime > 0 )
+    283                      break;
+    284                case SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT: // ZIGBEE Receiver identify timeout event
+    285                  if ( zclZigbeeRecv_IdentifyTime > 0 )
    \                     ??zclZigbeeRecv_event_loop_2:
    \   0000B1   90....       MOV     DPTR,#zclZigbeeRecv_IdentifyTime
    \   0000B4   E0           MOVX    A,@DPTR
@@ -734,7 +1146,7 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   0000B8   E0           MOVX    A,@DPTR
    \                     ??zclZigbeeRecv_event_loop_18:
    \   0000B9   600C         JZ      ??zclZigbeeRecv_event_loop_19
-    195                       zclZigbeeRecv_IdentifyTime--;
+    286                       zclZigbeeRecv_IdentifyTime--;
    \   0000BB   90....       MOV     DPTR,#zclZigbeeRecv_IdentifyTime
    \   0000BE   E0           MOVX    A,@DPTR
    \   0000BF   24FF         ADD     A,#-0x1
@@ -743,33 +1155,32 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   0000C3   E0           MOVX    A,@DPTR
    \   0000C4   34FF         ADDC    A,#-0x1
    \   0000C6   F0           MOVX    @DPTR,A
-    196                       zclZigbeeReceiver_ProcessIdentifyTimeChange();
+    287                       zclZigbeeReceiver_ProcessIdentifyTimeChange();
    \                     ??zclZigbeeRecv_event_loop_19:
    \   0000C7                ; Setup parameters for call to function zclZigbeeReceiver_ProcessIdentifyTimeChange
    \   0000C7   12....       LCALL   ??zclZigbeeReceiver_ProcessIdentifyTimeChange?r
    \   0000CA   8003         SJMP    ??zclZigbeeRecv_event_loop_5
-    197                  break;   
-    198                case UART_MSG_EVT: // The UART Message event
-    199                  //Chris Msg incoming
-    200                  zclUartReceiver();
+    288                  break;   
+    289                case UART_MSG_EVT: // The UART Message event
+    290                  //Chris Msg incoming
+    291                  zclUartReceiver();
    \                     ??zclZigbeeRecv_event_loop_3:
    \   0000CC                ; Setup parameters for call to function zclUartReceiver
    \   0000CC   12....       LCALL   ??zclUartReceiver?relay
-    201                  break;
-    202              }    
-    203              return 0; // Discard unknown events
+    292                  break;
+    293              }    
+    294              return 0; // Discard unknown events
    \                     ??zclZigbeeRecv_event_loop_5:
    \   0000CF   7A00         MOV     R2,#0x0
    \   0000D1   7B00         MOV     R3,#0x0
    \                     ??zclZigbeeRecv_event_loop_17:
-   \   0000D3   7F04         MOV     R7,#0x4
-   \   0000D5   02....       LJMP    ?BANKED_LEAVE_XDATA
-    204          }
+   \   0000D3   02....       LJMP    ?Subroutine8 & 0xFFFF
+    295          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine0:
-   \   000000   12....       LCALL   ?Subroutine2 & 0xFFFF
-   \                     ??CrossCallReturnLabel_5:
+   \                     ?Subroutine2:
+   \   000000   12....       LCALL   ?Subroutine7 & 0xFFFF
+   \                     ??CrossCallReturnLabel_39:
    \   000003   F8           MOV     R0,A
    \   000004   A3           INC     DPTR
    \   000005   E0           MOVX    A,@DPTR
@@ -780,7 +1191,7 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   00000D   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine2:
+   \                     ?Subroutine7:
    \   000000   EE           MOV     A,R6
    \   000001   2416         ADD     A,#0x16
    \   000003   F582         MOV     DPL,A
@@ -789,39 +1200,39 @@ Warning[Pe167]: argument of type "char *" is incompatible with parameter of
    \   000008   F583         MOV     DPH,A
    \   00000A   E0           MOVX    A,@DPTR
    \   00000B   22           RET
-    205          
-    206          static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys )
+    296          
+    297          static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys )
                              ^
 Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
           referenced
-    207          {
-    208            zAddrType_t dstAddr;
-    209            (void)shift; // Intentionally unreferenced parameter
-    210            
-    211          #if defined(Coor_receiver) || defined (Router_receiver)
-    212          
-    213            if ( keys & HAL_KEY_SW1 ) // Init EndDevice bind reequest, and use cluster list important to binding.
-    214            {
-    215              dstAddr.addrMode = afAddr16Bit;
-    216              dstAddr.addr.shortAddr = 0x0000;   // Coordinator makes the match
-    217              ZDP_EndDeviceBindReq( &dstAddr, NLME_GetShortAddr(), ZIGBEERECV_ENDPOINT, // ZIGBEERECV_ENDPOINT = 13 is coordinator
-    218                                    ZCL_HA_PROFILE_ID, ZCLZIGBEERECV_BINDINGLIST, bindingInClusters, 0,
-    219                                    NULL, // No Outgoing clusters to bind
-    220                                    TRUE );
-    221            }
-    222          #endif
-    223          }
-    224          
+    298          {
+    299            zAddrType_t dstAddr;
+    300            (void)shift; // Intentionally unreferenced parameter
+    301            
+    302          #if defined(Coor_receiver) || defined (Router_receiver)
+    303          
+    304            if ( keys & HAL_KEY_SW1 ) // Init EndDevice bind reequest, and use cluster list important to binding.
+    305            {
+    306              dstAddr.addrMode = afAddr16Bit;
+    307              dstAddr.addr.shortAddr = 0x0000;   // Coordinator makes the match
+    308              ZDP_EndDeviceBindReq( &dstAddr, NLME_GetShortAddr(), ZIGBEERECV_ENDPOINT, // ZIGBEERECV_ENDPOINT = 13 is coordinator
+    309                                    ZCL_HA_PROFILE_ID, ZCLZIGBEERECV_BINDINGLIST, bindingInClusters, 0,
+    310                                    NULL, // No Outgoing clusters to bind
+    311                                    TRUE );
+    312            }
+    313          #endif
+    314          }
+    315          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    225          static void zclZigbeeReceiver_ProcessIdentifyTimeChange( void )
+    316          static void zclZigbeeReceiver_ProcessIdentifyTimeChange( void )
    \                     zclZigbeeReceiver_ProcessIdentifyTimeChange:
-    226          {
+    317          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    227            if ( zclZigbeeRecv_IdentifyTime > 0 )
+    318            if ( zclZigbeeRecv_IdentifyTime > 0 )
    \   000004   90....       MOV     DPTR,#zclZigbeeRecv_IdentifyTime
    \   000007   E0           MOVX    A,@DPTR
    \   000008   7002         JNZ     ??zclZigbeeReceiver_ProcessIdentifyTimeChange_0
@@ -829,8 +1240,8 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   00000B   E0           MOVX    A,@DPTR
    \                     ??zclZigbeeReceiver_ProcessIdentifyTimeChange_0:
    \   00000C   601F         JZ      ??zclZigbeeReceiver_ProcessIdentifyTimeChange_1
-    228            {
-    229              osal_start_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT, 1000 );
+    319            {
+    320              osal_start_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT, 1000 );
    \   00000E                ; Setup parameters for call to function osal_start_timerEx
    \   00000E   7CE8         MOV     R4,#-0x18
    \   000010   7D03         MOV     R5,#0x3
@@ -840,7 +1251,7 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   000019   E0           MOVX    A,@DPTR
    \   00001A   F9           MOV     R1,A
    \   00001B   12....       LCALL   ??osal_start_timerEx?relay
-    230              HalLedBlink ( HAL_LED_2, 0xFF, HAL_LED_DEFAULT_DUTY_CYCLE, HAL_LED_DEFAULT_FLASH_TIME );
+    321              HalLedBlink ( HAL_LED_2, 0xFF, HAL_LED_DEFAULT_DUTY_CYCLE, HAL_LED_DEFAULT_FLASH_TIME );
    \   00001E                ; Setup parameters for call to function HalLedBlink
    \   00001E   7CE8         MOV     R4,#-0x18
    \   000020   7D03         MOV     R5,#0x3
@@ -849,31 +1260,31 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   000026   7902         MOV     R1,#0x2
    \   000028   12....       LCALL   ??HalLedBlink?relay
    \   00002B   8022         SJMP    ??zclZigbeeReceiver_ProcessIdentifyTimeChange_2
-    231            }
-    232            else
-    233              {
-    234                if ( zclZigbeeRecv_OnOff )
+    322            }
+    323            else
+    324              {
+    325                if ( zclZigbeeRecv_OnOff )
    \                     ??zclZigbeeReceiver_ProcessIdentifyTimeChange_1:
    \   00002D   90....       MOV     DPTR,#zclZigbeeRecv_OnOff
    \   000030   E0           MOVX    A,@DPTR
    \   000031   6009         JZ      ??zclZigbeeReceiver_ProcessIdentifyTimeChange_3
-    235                {
-    236                  HalLedSet ( HAL_LED_1, HAL_LED_MODE_ON );
+    326                {
+    327                  HalLedSet ( HAL_LED_1, HAL_LED_MODE_ON );
    \   000033                ; Setup parameters for call to function HalLedSet
    \   000033   7A01         MOV     R2,#0x1
    \   000035   7901         MOV     R1,#0x1
    \   000037   12....       LCALL   ??HalLedSet?relay
    \   00003A   8013         SJMP    ??zclZigbeeReceiver_ProcessIdentifyTimeChange_2
-    237                }
-    238                else
-    239                  {
-    240                    HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF );
+    328                }
+    329                else
+    330                  {
+    331                    HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF );
    \                     ??zclZigbeeReceiver_ProcessIdentifyTimeChange_3:
    \   00003C                ; Setup parameters for call to function HalLedSet
    \   00003C   7A00         MOV     R2,#0x0
    \   00003E   7901         MOV     R1,#0x1
    \   000040   12....       LCALL   ??HalLedSet?relay
-    241                    osal_stop_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT );
+    332                    osal_stop_timerEx( zclZigbeeReceiver_TaskID, SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT );
    \   000043                ; Setup parameters for call to function osal_stop_timerEx
    \   000043   7A01         MOV     R2,#0x1
    \   000045   7B00         MOV     R3,#0x0
@@ -881,40 +1292,40 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   00004A   E0           MOVX    A,@DPTR
    \   00004B   F9           MOV     R1,A
    \   00004C   12....       LCALL   ??osal_stop_timerEx?relay
-    242                  }
-    243              }
-    244          }
+    333                  }
+    334              }
+    335          }
    \                     ??zclZigbeeReceiver_ProcessIdentifyTimeChange_2:
-   \   00004F                REQUIRE ?Subroutine3
-   \   00004F                ; // Fall through to label ?Subroutine3
+   \   00004F                REQUIRE ?Subroutine10
+   \   00004F                ; // Fall through to label ?Subroutine10
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine3:
+   \                     ?Subroutine10:
    \   000000   D083         POP     DPH
    \   000002   D082         POP     DPL
    \   000004   02....       LJMP    ?BRET
-    245          
+    336          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    246          static void zclZigbeeReceiver_BasicResetCB( void )
+    337          static void zclZigbeeReceiver_BasicResetCB( void )
    \                     zclZigbeeReceiver_BasicResetCB:
-    247          {
+    338          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    248            // Reset all attributes to default values
-    249          }
+    339            // Reset all attributes to default values
+    340          }
    \   000000   02....       LJMP    ?BRET
-    250          
+    341          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    251          static void zclZigbeeReceiver_IdentifyCB( zclIdentify_t *pCmd )
+    342          static void zclZigbeeReceiver_IdentifyCB( zclIdentify_t *pCmd )
    \                     zclZigbeeReceiver_IdentifyCB:
-    252          {
+    343          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    253            zclZigbeeRecv_IdentifyTime = pCmd->identifyTime;
+    344            zclZigbeeRecv_IdentifyTime = pCmd->identifyTime;
    \   000004   8A82         MOV     DPL,R2
    \   000006   8B83         MOV     DPH,R3
    \   000008   A3           INC     DPTR
@@ -930,67 +1341,67 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   000014   A3           INC     DPTR
    \   000015   E9           MOV     A,R1
    \   000016   F0           MOVX    @DPTR,A
-    254            zclZigbeeReceiver_ProcessIdentifyTimeChange();
+    345            zclZigbeeReceiver_ProcessIdentifyTimeChange();
    \   000017                ; Setup parameters for call to function zclZigbeeReceiver_ProcessIdentifyTimeChange
    \   000017   12....       LCALL   ??zclZigbeeReceiver_ProcessIdentifyTimeChange?r
-    255          }
-   \   00001A   80..         SJMP    ?Subroutine3
-    256          
+    346          }
+   \   00001A   80..         SJMP    ?Subroutine10
+    347          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    257          static void zclZigbeeReceiver_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
+    348          static void zclZigbeeReceiver_IdentifyQueryRspCB( zclIdentifyQueryRsp_t *pRsp )
    \                     zclZigbeeReceiver_IdentifyQueryRspCB:
-    258          {
+    349          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    259            (void)pRsp; // Query Response (with timeout value)
-    260          }
+    350            (void)pRsp; // Query Response (with timeout value)
+    351          }
    \   000000   02....       LJMP    ?BRET
-    261          
+    352          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    262          static void zclZigbeeReceiver_OnOffCB( uint8 cmd )
+    353          static void zclZigbeeReceiver_OnOffCB( uint8 cmd )
    \                     zclZigbeeReceiver_OnOffCB:
-    263          { 
+    354          { 
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    264            if ( cmd == COMMAND_ON ) // Turn on the light
+    355            if ( cmd == COMMAND_ON ) // Turn on the light
    \   000004   7401         MOV     A,#0x1
    \   000006   69           XRL     A,R1
    \   000007   700E         JNZ     ??zclZigbeeReceiver_OnOffCB_0
-    265              zclZigbeeRecv_OnOff = LIGHT_ON;
+    356              zclZigbeeRecv_OnOff = LIGHT_ON;
    \                     ??zclZigbeeReceiver_OnOffCB_1:
    \   000009   7401         MOV     A,#0x1
    \                     ??zclZigbeeReceiver_OnOffCB_2:
    \   00000B   90....       MOV     DPTR,#zclZigbeeRecv_OnOff
    \   00000E   F0           MOVX    @DPTR,A
-    266          
-    267            else if ( cmd == COMMAND_OFF ) // Turn off the light
-    268              zclZigbeeRecv_OnOff = LIGHT_OFF;
-    269          
-    270            else // Toggle the light
-    271            {
-    272              if ( zclZigbeeRecv_OnOff == LIGHT_OFF )
-    273                    zclZigbeeRecv_OnOff = LIGHT_ON;
-    274              else
-    275                    zclZigbeeRecv_OnOff = LIGHT_OFF;
-    276            }
-    277          
-    278            // In this sample app, we use LED4 to simulate the Light  
-    279            if ( zclZigbeeRecv_OnOff == LIGHT_ON )
-    280            {
-    281              HalLedSet( HAL_LED_2, HAL_LED_MODE_ON ); // setting the LED_1 on
+    357          
+    358            else if ( cmd == COMMAND_OFF ) // Turn off the light
+    359              zclZigbeeRecv_OnOff = LIGHT_OFF;
+    360          
+    361            else // Toggle the light
+    362            {
+    363              if ( zclZigbeeRecv_OnOff == LIGHT_OFF )
+    364                    zclZigbeeRecv_OnOff = LIGHT_ON;
+    365              else
+    366                    zclZigbeeRecv_OnOff = LIGHT_OFF;
+    367            }
+    368          
+    369            // In this sample app, we use LED4 to simulate the Light  
+    370            if ( zclZigbeeRecv_OnOff == LIGHT_ON )
+    371            {
+    372              HalLedSet( HAL_LED_2, HAL_LED_MODE_ON ); // setting the LED_1 on
    \   00000F                ; Setup parameters for call to function HalLedSet
    \   00000F   FA           MOV     R2,A
    \   000010   7902         MOV     R1,#0x2
    \   000012   12....       LCALL   ??HalLedSet?relay
-    282            }
-    283            else
-    284              HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF ); // setting the LED_1 off
-    285          }
-   \   000015   80..         SJMP    ?Subroutine3
+    373            }
+    374            else
+    375              HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF ); // setting the LED_1 off
+    376          }
+   \   000015   80..         SJMP    ?Subroutine10
    \                     ??zclZigbeeReceiver_OnOffCB_0:
    \   000017   E9           MOV     A,R1
    \   000018   7003         JNZ     ??zclZigbeeReceiver_OnOffCB_3
@@ -1002,118 +1413,118 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   000020   E0           MOVX    A,@DPTR
    \   000021   70F7         JNZ     ??zclZigbeeReceiver_OnOffCB_4
    \   000023   80E4         SJMP    ??zclZigbeeReceiver_OnOffCB_1
-    286          
-    287          static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg)
-    288          {
-    289            switch ( pInMsg->zclHdr.commandID )
-    290            {
-    291          #ifdef ZCL_READ
-    292              case ZCL_CMD_READ_RSP:
-    293                zclZigbeeReceiver_ProcessInReadRspCmd( pInMsg );
-    294                break;
-    295          #endif
-    296                
-    297          #ifdef ZCL_WRITE    
-    298              case ZCL_CMD_WRITE_RSP:
-    299                zclZigbeeReceiver_ProcessInWriteRspCmd( pInMsg );
-    300                break;
-    301          #endif
-    302                
-    303          #ifdef ZCL_REPORT
-    304              case ZCL_CMD_CONFIG_REPORT: // See ZCL Test Applicaiton (zcl_testapp.c) for sample code on Attribute Reporting
-    305                break;
-    306              case ZCL_CMD_CONFIG_REPORT_RSP:
-    307                break;
-    308              case ZCL_CMD_READ_REPORT_CFG:
-    309                break;
-    310              case ZCL_CMD_READ_REPORT_CFG_RSP:
-    311                break;
-    312              case ZCL_CMD_REPORT:
-    313                break;
-    314          #endif   
-    315              case ZCL_CMD_DEFAULT_RSP:
-    316                zclZigbeeReceiver_ProcessInDefaultRspCmd( pInMsg );
-    317                break;
-    318          #ifdef ZCL_DISCOVER     
-    319              case ZCL_CMD_DISCOVER_RSP:
-    320                zclZigbeeReceiver_ProcessInDiscRspCmd( pInMsg );
-    321                break;
-    322          #endif
-    323                
-    324              default:
-    325                break;
-    326            }
-    327            if ( pInMsg->attrCmd )
-    328              osal_mem_free( pInMsg->attrCmd );
-    329          }
-    330          
-    331          #ifdef ZCL_READ
-    332          
-    333          static uint8 zclZigbeeReceiver_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
-    334          {
-    335            zclReadRspCmd_t *readRspCmd;
-    336            uint8 i;
-    337          
-    338            readRspCmd = (zclReadRspCmd_t *)pInMsg->attrCmd;
-    339            for (i = 0; i < readRspCmd->numAttr; i++)
-    340            {
-    341              // Notify the originator of the results of the original read attributes attempt and, 
-    342              // for each successfull request, the value of the requested attribute
-    343            }
-    344            return TRUE; 
-    345          }
-    346          #endif // ZCL_READ
-    347          
-    348          #ifdef ZCL_WRITE
-    349          
-    350          static uint8 zclZigbeeReceiver_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
-    351          {
-    352            zclWriteRspCmd_t *writeRspCmd;
-    353            uint8 i;
-    354          
-    355            writeRspCmd = (zclWriteRspCmd_t *)pInMsg->attrCmd;
-    356            for (i = 0; i < writeRspCmd->numAttr; i++)
-    357            {
-    358              // Notify the device of the results of the its original write attributes command.
-    359            }
-    360            return TRUE; 
-    361          }
-    362          #endif // ZCL_WRITE
-    363          
-    364          static uint8 zclZigbeeReceiver_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
-    365          {
-    366            // Device is notified of the Default Response command.
-    367            (void)pInMsg;
-    368            return TRUE; 
-    369          }
-    370          
-    371          #ifdef ZCL_DISCOVER
-    372          static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
-    373          {
-    374            zclDiscoverRspCmd_t *discoverRspCmd;
-    375            uint8 i;
-    376            
-    377            discoverRspCmd = (zclDiscoverRspCmd_t *)pInMsg->attrCmd;
-    378            for ( i = 0; i < discoverRspCmd->numAttr; i++ )
-    379            {
-    380              // Device is notified of the result of its attribute discovery command.
-    381            }
-    382            return TRUE;
-    383          }
-    384          #endif // ZCL_DISCOVER
-    385          
+    377          
+    378          static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg)
+    379          {
+    380            switch ( pInMsg->zclHdr.commandID )
+    381            {
+    382          #ifdef ZCL_READ
+    383              case ZCL_CMD_READ_RSP:
+    384                zclZigbeeReceiver_ProcessInReadRspCmd( pInMsg );
+    385                break;
+    386          #endif
+    387                
+    388          #ifdef ZCL_WRITE    
+    389              case ZCL_CMD_WRITE_RSP:
+    390                zclZigbeeReceiver_ProcessInWriteRspCmd( pInMsg );
+    391                break;
+    392          #endif
+    393                
+    394          #ifdef ZCL_REPORT
+    395              case ZCL_CMD_CONFIG_REPORT: // See ZCL Test Applicaiton (zcl_testapp.c) for sample code on Attribute Reporting
+    396                break;
+    397              case ZCL_CMD_CONFIG_REPORT_RSP:
+    398                break;
+    399              case ZCL_CMD_READ_REPORT_CFG:
+    400                break;
+    401              case ZCL_CMD_READ_REPORT_CFG_RSP:
+    402                break;
+    403              case ZCL_CMD_REPORT:
+    404                break;
+    405          #endif   
+    406              case ZCL_CMD_DEFAULT_RSP:
+    407                zclZigbeeReceiver_ProcessInDefaultRspCmd( pInMsg );
+    408                break;
+    409          #ifdef ZCL_DISCOVER     
+    410              case ZCL_CMD_DISCOVER_RSP:
+    411                zclZigbeeReceiver_ProcessInDiscRspCmd( pInMsg );
+    412                break;
+    413          #endif
+    414                
+    415              default:
+    416                break;
+    417            }
+    418            if ( pInMsg->attrCmd )
+    419              osal_mem_free( pInMsg->attrCmd );
+    420          }
+    421          
+    422          #ifdef ZCL_READ
+    423          
+    424          static uint8 zclZigbeeReceiver_ProcessInReadRspCmd( zclIncomingMsg_t *pInMsg )
+    425          {
+    426            zclReadRspCmd_t *readRspCmd;
+    427            uint8 i;
+    428          
+    429            readRspCmd = (zclReadRspCmd_t *)pInMsg->attrCmd;
+    430            for (i = 0; i < readRspCmd->numAttr; i++)
+    431            {
+    432              // Notify the originator of the results of the original read attributes attempt and, 
+    433              // for each successfull request, the value of the requested attribute
+    434            }
+    435            return TRUE; 
+    436          }
+    437          #endif // ZCL_READ
+    438          
+    439          #ifdef ZCL_WRITE
+    440          
+    441          static uint8 zclZigbeeReceiver_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
+    442          {
+    443            zclWriteRspCmd_t *writeRspCmd;
+    444            uint8 i;
+    445          
+    446            writeRspCmd = (zclWriteRspCmd_t *)pInMsg->attrCmd;
+    447            for (i = 0; i < writeRspCmd->numAttr; i++)
+    448            {
+    449              // Notify the device of the results of the its original write attributes command.
+    450            }
+    451            return TRUE; 
+    452          }
+    453          #endif // ZCL_WRITE
+    454          
+    455          static uint8 zclZigbeeReceiver_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
+    456          {
+    457            // Device is notified of the Default Response command.
+    458            (void)pInMsg;
+    459            return TRUE; 
+    460          }
+    461          
+    462          #ifdef ZCL_DISCOVER
+    463          static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
+    464          {
+    465            zclDiscoverRspCmd_t *discoverRspCmd;
+    466            uint8 i;
+    467            
+    468            discoverRspCmd = (zclDiscoverRspCmd_t *)pInMsg->attrCmd;
+    469            for ( i = 0; i < discoverRspCmd->numAttr; i++ )
+    470            {
+    471              // Device is notified of the result of its attribute discovery command.
+    472            }
+    473            return TRUE;
+    474          }
+    475          #endif // ZCL_DISCOVER
+    476          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    386          void zclUARTMsg_CallBack(uint8 port, uint8 event)
+    477          void zclUARTMsg_CallBack(uint8 port, uint8 event)
    \                     zclUARTMsg_CallBack:
-    387          {
+    478          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-    388            (void)port;
-    389            
-    390            if(Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT) > 0 )
+    479            (void)port;
+    480            
+    481            if(Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT) > 0 )
    \   000005                ; Setup parameters for call to function Hal_UART_RxBufLen
    \   000005   7900         MOV     R1,#0x0
    \   000007   12....       LCALL   ??Hal_UART_RxBufLen?relay
@@ -1122,15 +1533,15 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   00000D   EB           MOV     A,R3
    \                     ??zclUARTMsg_CallBack_0:
    \   00000E   6022         JZ      ??zclUARTMsg_CallBack_1
-    391            {
-    392                len = Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT );
+    482            {
+    483                len = Hal_UART_RxBufLen( MT_UART_DEFAULT_PORT );
    \   000010                ; Setup parameters for call to function Hal_UART_RxBufLen
    \   000010   7900         MOV     R1,#0x0
    \   000012   12....       LCALL   ??Hal_UART_RxBufLen?relay
    \   000015   EA           MOV     A,R2
    \   000016   90....       MOV     DPTR,#len
    \   000019   F0           MOVX    @DPTR,A
-    393                HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, len );
+    484                HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, len );
    \   00001A                ; Setup parameters for call to function HalUARTRead
    \   00001A   FC           MOV     R4,A
    \   00001B   7D00         MOV     R5,#0x0
@@ -1138,7 +1549,7 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   00001F   7B..         MOV     R3,#((TransmitApp_Msg >> 8) & 0xff)
    \   000021   7900         MOV     R1,#0x0
    \   000023   12....       LCALL   ??HalUARTRead?relay
-    394                osal_set_event( zclZigbeeReceiver_TaskID, UART_MSG_EVT );
+    485                osal_set_event( zclZigbeeReceiver_TaskID, UART_MSG_EVT );
    \   000026                ; Setup parameters for call to function osal_set_event
    \   000026   7A02         MOV     R2,#0x2
    \   000028   7B00         MOV     R3,#0x0
@@ -1146,31 +1557,31 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   00002D   E0           MOVX    A,@DPTR
    \   00002E   F9           MOV     R1,A
    \   00002F   12....       LCALL   ??osal_set_event?relay
-    395            }
-    396          }
+    486            }
+    487          }
    \                     ??zclUARTMsg_CallBack_1:
-   \   000032                REQUIRE ?Subroutine4
-   \   000032                ; // Fall through to label ?Subroutine4
+   \   000032                REQUIRE ?Subroutine11
+   \   000032                ; // Fall through to label ?Subroutine11
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine4:
+   \                     ?Subroutine11:
    \   000000   7F02         MOV     R7,#0x2
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
-    397          
+    488          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    398          void zclUartReceiver( void )
+    489          void zclUartReceiver( void )
    \                     zclUartReceiver:
-    399          { 
+    490          { 
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
-    400            for(uint8 length = 0; length < len; length++)
+    491            for(uint8 length = 0; length < len; length++)
    \   000005   7A00         MOV     R2,#0x0
    \   000007   801F         SJMP    ??zclUartReceiver_0
-    401            {
-    402              uart_recv[length] = TransmitApp_Msg[length];
+    492            {
+    493              uart_recv[length] = TransmitApp_Msg[length];
    \                     ??zclUartReceiver_1:
    \   000009   8A82         MOV     DPL,R2
    \   00000B   A882         MOV     R0,DPL
@@ -1190,7 +1601,7 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   000022   F583         MOV     DPH,A
    \   000024   D0E0         POP     A
    \   000026   F0           MOVX    @DPTR,A
-    403            }
+    494            }
    \   000027   0A           INC     R2
    \                     ??zclUartReceiver_0:
    \   000028   90....       MOV     DPTR,#len
@@ -1200,79 +1611,78 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
    \   00002E   C3           CLR     C
    \   00002F   9B           SUBB    A,R3
    \   000030   40D7         JC      ??zclUartReceiver_1
-    404          
-    405            HalUARTWrite(MT_UART_DEFAULT_PORT, uart_recv, len);    
+    495          
+    496            HalUARTWrite(MT_UART_DEFAULT_PORT, uart_recv, len);    
    \   000032                ; Setup parameters for call to function HalUARTWrite
-   \   000032   E0           MOVX    A,@DPTR
-   \   000033   FC           MOV     R4,A
-   \   000034   7D00         MOV     R5,#0x0
-   \   000036   7A..         MOV     R2,#(uart_recv & 0xff)
-   \   000038   7B..         MOV     R3,#((uart_recv >> 8) & 0xff)
-   \   00003A   7900         MOV     R1,#0x0
-   \   00003C   12....       LCALL   ??HalUARTWrite?relay
-    406            
-    407            // Set the End Device state
-    408            zclZigbeeRecv_DstAddr.endPoint = 12;
-   \   00003F   740C         MOV     A,#0xc
-   \   000041   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 9)
-   \   000044   F0           MOVX    @DPTR,A
-    409            zclZigbeeRecv_DstAddr.addr.shortAddr = 0xFFFF;
-   \   000045   90....       MOV     DPTR,#zclZigbeeRecv_DstAddr
-   \   000048   74FF         MOV     A,#-0x1
-   \   00004A   F0           MOVX    @DPTR,A
-   \   00004B   A3           INC     DPTR
-   \   00004C   F0           MOVX    @DPTR,A
-    410            zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
-   \   00004D   740F         MOV     A,#0xf
-   \   00004F   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 8)
-   \   000052   F0           MOVX    @DPTR,A
-    411              
-    412            // Transmit the UART command to End Device
-    413            uint8 send = zcl_SendCommand( ZIGBEERECV_ENDPOINT, 
-    414                                          &zclZigbeeRecv_DstAddr,
-    415                                          ZCL_CLUSTER_ID_GEN_ON_OFF,
-    416                                          COMMAND_TOGGLE,
-    417                                          TRUE,
-    418                                          ZCL_FRAME_CLIENT_SERVER_DIR,
-    419                                          false,
-    420                                          0,
-    421                                          0,
-    422                                          10,
-    423                                          uart_recv );
-   \   000053                ; Setup parameters for call to function zcl_SendCommand
-   \   000053   75....       MOV     ?V0 + 0,#(uart_recv & 0xff)
-   \   000056   75....       MOV     ?V0 + 1,#((uart_recv >> 8) & 0xff)
-   \   000059   78..         MOV     R0,#?V0 + 0
-   \   00005B   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   00005E   75..0A       MOV     ?V0 + 0,#0xa
-   \   000061   75..00       MOV     ?V0 + 1,#0x0
-   \   000064   78..         MOV     R0,#?V0 + 0
-   \   000066   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000069   75..00       MOV     ?V0 + 0,#0x0
-   \   00006C   78..         MOV     R0,#?V0 + 0
-   \   00006E   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   000071   78..         MOV     R0,#?V0 + 0
-   \   000073   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000076   78..         MOV     R0,#?V0 + 0
-   \   000078   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   00007B   78..         MOV     R0,#?V0 + 0
-   \   00007D   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   000080   75..01       MOV     ?V0 + 0,#0x1
-   \   000083   78..         MOV     R0,#?V0 + 0
-   \   000085   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   000088   75..02       MOV     ?V0 + 0,#0x2
-   \   00008B   78..         MOV     R0,#?V0 + 0
-   \   00008D   12....       LCALL   ?PUSH_XSTACK_I_ONE
-   \   000090   7C06         MOV     R4,#0x6
-   \   000092   7D00         MOV     R5,#0x0
-   \   000094   7A..         MOV     R2,#(zclZigbeeRecv_DstAddr & 0xff)
-   \   000096   7B..         MOV     R3,#((zclZigbeeRecv_DstAddr >> 8) & 0xff)
-   \   000098   790D         MOV     R1,#0xd
-   \   00009A   12....       LCALL   ??zcl_SendCommand?relay
-   \   00009D   740B         MOV     A,#0xb
-   \   00009F   12....       LCALL   ?DEALLOC_XSTACK8
-    424          }
-   \   0000A2   02....       LJMP    ?Subroutine4 & 0xFFFF
+   \   000032   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_17:
+   \   000035   7A..         MOV     R2,#(uart_recv & 0xff)
+   \   000037   7B..         MOV     R3,#((uart_recv >> 8) & 0xff)
+   \   000039   7900         MOV     R1,#0x0
+   \   00003B   12....       LCALL   ??HalUARTWrite?relay
+    497            
+    498            // Set the End Device state
+    499            zclZigbeeRecv_DstAddr.endPoint = 12;
+   \   00003E   740C         MOV     A,#0xc
+   \   000040   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 9)
+   \   000043   F0           MOVX    @DPTR,A
+    500            zclZigbeeRecv_DstAddr.addr.shortAddr = 0xFFFF;
+   \   000044   90....       MOV     DPTR,#zclZigbeeRecv_DstAddr
+   \   000047   74FF         MOV     A,#-0x1
+   \   000049   F0           MOVX    @DPTR,A
+   \   00004A   A3           INC     DPTR
+   \   00004B   F0           MOVX    @DPTR,A
+    501            zclZigbeeRecv_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
+   \   00004C   740F         MOV     A,#0xf
+   \   00004E   90....       MOV     DPTR,#(zclZigbeeRecv_DstAddr + 8)
+   \   000051   F0           MOVX    @DPTR,A
+    502              
+    503            // Transmit the UART command to End Device
+    504            uint8 send = zcl_SendCommand( ZIGBEERECV_ENDPOINT, 
+    505                                          &zclZigbeeRecv_DstAddr,
+    506                                          ZCL_CLUSTER_ID_GEN_ON_OFF,
+    507                                          COMMAND_TOGGLE,
+    508                                          TRUE,
+    509                                          ZCL_FRAME_CLIENT_SERVER_DIR,
+    510                                          false,
+    511                                          0,
+    512                                          0,
+    513                                          10,
+    514                                          uart_recv );
+   \   000052                ; Setup parameters for call to function zcl_SendCommand
+   \   000052   75....       MOV     ?V0 + 0,#(uart_recv & 0xff)
+   \   000055   75....       MOV     ?V0 + 1,#((uart_recv >> 8) & 0xff)
+   \   000058   78..         MOV     R0,#?V0 + 0
+   \   00005A   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00005D   75..0A       MOV     ?V0 + 0,#0xa
+   \   000060   75..00       MOV     ?V0 + 1,#0x0
+   \   000063   78..         MOV     R0,#?V0 + 0
+   \   000065   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000068   75..00       MOV     ?V0 + 0,#0x0
+   \   00006B   78..         MOV     R0,#?V0 + 0
+   \   00006D   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000070   78..         MOV     R0,#?V0 + 0
+   \   000072   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000075   78..         MOV     R0,#?V0 + 0
+   \   000077   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   00007A   78..         MOV     R0,#?V0 + 0
+   \   00007C   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   00007F   75..01       MOV     ?V0 + 0,#0x1
+   \   000082   78..         MOV     R0,#?V0 + 0
+   \   000084   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000087   75..02       MOV     ?V0 + 0,#0x2
+   \   00008A   78..         MOV     R0,#?V0 + 0
+   \   00008C   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   00008F   7C06         MOV     R4,#0x6
+   \   000091   7D00         MOV     R5,#0x0
+   \   000093   7A..         MOV     R2,#(zclZigbeeRecv_DstAddr & 0xff)
+   \   000095   7B..         MOV     R3,#((zclZigbeeRecv_DstAddr >> 8) & 0xff)
+   \   000097   790D         MOV     R1,#0xd
+   \   000099   12....       LCALL   ??zcl_SendCommand?relay
+   \   00009C   740B         MOV     A,#0xb
+   \   00009E   12....       LCALL   ?DEALLOC_XSTACK8
+    515          }
+   \   0000A1   02....       LJMP    ?Subroutine11 & 0xFFFF
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zigbeeReceiver_TestEp>`:
@@ -1365,14 +1775,62 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
 
      Function                       ISTACK PSTACK XSTACK
      --------                       ------ ------ ------
-     ZSendMsgProcess                    0      0     21
-       -> HalUARTWrite                  0      0     18
-       -> HalUARTWrite                  0      0     18
-       -> HalUARTWrite                  0      0     18
-       -> HalUARTWrite                  0      0     18
-       -> HalUARTWrite                  0      0     18
-       -> HalUARTWrite                  0      0     18
-       -> osal_start_timerEx            0      0     18
+     ZSendMsgProcess                    2      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> HalUARTWrite                  0      0     24
+       -> osal_start_timerEx            0      0     24
      zclUARTMsg_CallBack                0      0     10
        -> Hal_UART_RxBufLen             0      0     20
        -> Hal_UART_RxBufLen             0      0     20
@@ -1434,23 +1892,31 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
      zclZigbeeRecv_Group                               18
      zigbeeReceiver_TestEp                              6
      zclZigbeeReceiver_CmdCallbacks                    30
-     ZSendMsgProcess                                   77
-     ?Subroutine1                                      19
+     top                                                2
+     ZSendMsgProcess                                  361
+     ?Subroutine8                                       5
+     ?Subroutine5                                      13
+     ?Subroutine9                                       6
+     ?Subroutine4                                       4
+     ?Subroutine6                                      15
+     ?Subroutine3                                      12
+     ?Subroutine0                                      42
+     ?Subroutine1                                       5
      zclZigbeeRecv_Init                               148
-     zclZigbeeRecv_event_loop                         216
-     ?Subroutine0                                      14
-     ?Subroutine2                                      12
+     zclZigbeeRecv_event_loop                         214
+     ?Subroutine2                                      14
+     ?Subroutine7                                      12
      zclZigbeeReceiver_ProcessIdentifyTimeChange
                                                        79
-     ?Subroutine3                                       7
+     ?Subroutine10                                      7
      zclZigbeeReceiver_BasicResetCB                     3
      zclZigbeeReceiver_IdentifyCB                      28
      zclZigbeeReceiver_IdentifyQueryRspCB
                                                         3
      zclZigbeeReceiver_OnOffCB                         37
      zclUARTMsg_CallBack                               50
-     ?Subroutine4                                       5
-     zclUartReceiver                                  165
+     ?Subroutine11                                      5
+     zclUartReceiver                                  164
      ?<Initializer for zigbeeReceiver_TestEp>           6
      ?<Initializer for zclZigbeeReceiver_CmdCallbac    30
      ??ZSendMsgProcess?relay                            6
@@ -1469,16 +1935,16 @@ Warning[Pe177]: function "zclZigbeeReceiver_HandleKeys" was declared but never
      ?<Constant "RECV_GROUP">                          11
 
  
- 863 bytes in segment BANKED_CODE
-  60 bytes in segment BANK_RELAYS
-  36 bytes in segment XDATA_I
-  36 bytes in segment XDATA_ID
-  19 bytes in segment XDATA_ROM_C
- 340 bytes in segment XDATA_Z
+ 1 227 bytes in segment BANKED_CODE
+    60 bytes in segment BANK_RELAYS
+    36 bytes in segment XDATA_I
+    36 bytes in segment XDATA_ID
+    19 bytes in segment XDATA_ROM_C
+   342 bytes in segment XDATA_Z
  
- 959 bytes of CODE  memory
-  19 bytes of CONST memory
- 376 bytes of XDATA memory
+ 1 323 bytes of CODE  memory
+    19 bytes of CONST memory
+   378 bytes of XDATA memory
 
 Errors: none
-Warnings: 2
+Warnings: 10

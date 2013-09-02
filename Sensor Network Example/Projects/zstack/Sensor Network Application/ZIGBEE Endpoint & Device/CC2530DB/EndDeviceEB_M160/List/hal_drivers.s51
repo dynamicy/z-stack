@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  22:54:19 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               03/Sep/2013  01:32:08 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -55,8 +55,8 @@
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
 //                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER  /
-//                          -D M160 -lC "D:\GitHub\z-stack\Sensor Network     /
-//                          Example\Projects\zstack\Sensor Network            /
+//                          -D MMN_UART -lC "D:\GitHub\z-stack\Sensor         /
+//                          Network Example\Projects\zstack\Sensor Network    /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
@@ -325,7 +325,6 @@
         CFI EndCommon cfiCommon0
         
 HalTimerInit        SYMBOL "HalTimerInit"
-M160_Init           SYMBOL "M160_Init"
 HalAdcInit          SYMBOL "HalAdcInit"
 HalDmaInit          SYMBOL "HalDmaInit"
 HalFlashInit        SYMBOL "HalFlashInit"
@@ -355,7 +354,6 @@ HalUARTPoll         SYMBOL "HalUARTPoll"
 ??HalTimerTick?relay SYMBOL "?relay", HalTimerTick
 ??HalUARTInit?relay SYMBOL "?relay", HalUARTInit
 ??HalUARTPoll?relay SYMBOL "?relay", HalUARTPoll
-??M160_Init?relay   SYMBOL "?relay", M160_Init
 ??halKeypadInit?relay SYMBOL "?relay", halKeypadInit
 ??osal_msg_deallocate?relay SYMBOL "?relay", osal_msg_deallocate
 ??osal_msg_receive?relay SYMBOL "?relay", osal_msg_receive
@@ -371,13 +369,6 @@ Hal_ProcessPoll     SYMBOL "Hal_ProcessPoll"
 
         EXTERN HalTimerInit
         FUNCTION HalTimerInit,0202H
-        ARGFRAME ISTACK, 2, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN M160_Init
-        FUNCTION M160_Init,0202H
         ARGFRAME ISTACK, 2, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 0, STACK
@@ -521,8 +512,6 @@ Hal_ProcessPoll     SYMBOL "Hal_ProcessPoll"
         FUNCTION ??HalUARTInit?relay,00H
         EXTERN ??HalUARTPoll?relay
         FUNCTION ??HalUARTPoll?relay,00H
-        EXTERN ??M160_Init?relay
-        FUNCTION ??M160_Init?relay,00H
         EXTERN ??halKeypadInit?relay
         FUNCTION ??halKeypadInit?relay,00H
         EXTERN ??osal_msg_deallocate?relay
@@ -633,17 +622,6 @@ HalDriverInit:
         CFI Function HalDriverInit
 //   53 {
         FUNCALL HalDriverInit, HalTimerInit
-        LOCFRAME ISTACK, 2, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 0, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 2, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 0, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL HalDriverInit, M160_Init
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -766,9 +744,7 @@ HalDriverInit:
 //   56   HalTimerInit(); 
         ; Setup parameters for call to function HalTimerInit
         LCALL   ??HalTimerInit?relay
-//   57   M160_Init();
-        ; Setup parameters for call to function M160_Init
-        LCALL   ??M160_Init?relay
+//   57 //  M160_Init();
 //   58 #endif
 //   59 
 //   60   /* ADC */
@@ -1177,11 +1153,11 @@ Hal_ProcessPoll:
 
         END
 // 
-// 172 bytes in segment BANKED_CODE
+// 169 bytes in segment BANKED_CODE
 //  24 bytes in segment BANK_RELAYS
 //   1 byte  in segment XDATA_Z
 // 
-// 196 bytes of CODE  memory
+// 193 bytes of CODE  memory
 //   1 byte  of XDATA memory
 //
 //Errors: none

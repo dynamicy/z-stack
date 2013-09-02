@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  22:54:25 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               03/Sep/2013  01:32:14 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -55,8 +55,8 @@
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
 //                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER  /
-//                          -D M160 -lC "D:\GitHub\z-stack\Sensor Network     /
-//                          Example\Projects\zstack\Sensor Network            /
+//                          -D MMN_UART -lC "D:\GitHub\z-stack\Sensor         /
+//                          Network Example\Projects\zstack\Sensor Network    /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
@@ -1142,8 +1142,8 @@ macRxRadioPowerUpInit:
         SETB    0xE0 /* A   */.2
         LJMP    ?Subroutine21 & 0xFFFF
         CFI EndBlock cfiBlock1
-        REQUIRE S1CON
         REQUIRE _A_IEN0
+        REQUIRE S1CON
         REQUIRE RFIRQF0
 //  242 }
 //  243 
@@ -1406,10 +1406,10 @@ rxHaltCleanupFinalStep:
 ??rxHaltCleanupFinalStep_3:
         SJMP    ??Subroutine22_0
         CFI EndBlock cfiBlock4
-        REQUIRE S1CON
         REQUIRE _A_IEN0
-        REQUIRE RFIRQF0
+        REQUIRE S1CON
         REQUIRE RFST
+        REQUIRE RFIRQF0
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine2:
@@ -2790,8 +2790,8 @@ rxStartIsr:
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock19
         REQUIRE RFIRQF1
-        REQUIRE S1CON
         REQUIRE _A_IEN0
+        REQUIRE S1CON
         REQUIRE RFST
 //  772   }
 //  773   

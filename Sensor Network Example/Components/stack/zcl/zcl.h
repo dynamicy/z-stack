@@ -494,96 +494,34 @@ typedef struct
 extern uint8 zcl_TaskID;
 extern uint8 zcl_SeqNum;
 
-//
-extern char global_entry[4];
-extern byte global_recv_data[30];
-extern uint8 global_data_length;
+extern int stack;
+extern char global_entry[9][4];
+extern byte global_recv_data[9][30];
+extern uint8 global_data_length[9];
 
-/*********************************************************************
- * FUNCTION MACROS
- */
 #ifdef ZCL_WRITE
-/*
- *  Send a Write Command - ZCL_CMD_WRITE
- *  Use like:
- *      ZStatus_t zcl_SendWrite( uint8 srcEP, afAddrType_t *dstAddr, uint16 realClusterID, zclWriteCmd_t *writeCmd, uint8 direction, uint8 disableDefaultRsp, uint8 seqNum );
- */
 #define zcl_SendWrite(a,b,c,d,e,f,g) (zcl_SendWriteRequest( (a), (b), (c), (d), ZCL_CMD_WRITE, (e), (f), (g) ))
-
-/*
- *  Send a Write Undivided Command - ZCL_CMD_WRITE_UNDIVIDED
- *  Use like:
- *      ZStatus_t zcl_SendWriteUndivided( uint8 srcEP, afAddrType_t *dstAddr, uint16 realClusterID, zclWriteCmd_t *writeCmd, uint8 direction, uint8 disableDefaultRsp, uint8 seqNum );
- */
 #define zcl_SendWriteUndivided(a,b,c,d,e,f,g) (zcl_SendWriteRequest( (a), (b), (c), (d), ZCL_CMD_WRITE_UNDIVIDED, (e), (f), (g) ))
-
-/*
- *  Send a Write No Response Command - ZCL_CMD_WRITE_NO_RSP
- *  Use like:
- *      ZStatus_t zcl_SendWriteNoRsp( uint8 srcEP, afAddrType_t *dstAddr, uint16 realClusterID, zclWriteCmd_t *writeCmd, uint8 direction, uint8 disableDefaultRsp, uint8 seqNum );
- */
 #define zcl_SendWriteNoRsp(a,b,c,d,e,f,g) (zcl_SendWriteRequest( (a), (b), (c), (d), ZCL_CMD_WRITE_NO_RSP, (e), (f), (g) ))
 #endif // ZCL_WRITE
 
-/*********************************************************************
- * FUNCTIONS
- */
-
- /*
-  * Initialization for the task
-  */
 extern void zcl_Init( byte task_id );
-
-/*
- *  Event Process for the task
- */
 extern UINT16 zcl_event_loop( byte task_id, UINT16 events );
-
-/*
- *  Function for Plugins' to register for incoming messages
- */
 extern ZStatus_t zcl_registerPlugin( uint16 startLogCluster, uint16 endLogCluster,
                                      zclInHdlr_t pfnIncomingHdlr );
-
-/*
- *  Register Application's Attribute table
- */
 extern ZStatus_t zcl_registerAttrList( uint8 endpoint, uint8 numAttr, CONST zclAttrRec_t attrList[] );
-
-/*
- *  Register Application's Cluster Option table
- */
 extern ZStatus_t zcl_registerClusterOptionList( uint8 endpoint, uint8 numOption, zclOptionRec_t optionList[] );
-
-/*
- *  Register Application's attribute data validation callback routine
- */
 extern ZStatus_t zcl_registerValidateAttrData( zclValidateAttrData_t pfnValidateAttrData );
-
-/*
- *  Register the Application to receive the unprocessed Foundation command/response messages
- */
 extern uint8 zcl_registerForMsg( uint8 taskId );
-
-/*
- *  Function for Sending a Command
- */
 extern ZStatus_t zcl_SendCommand( uint8 srcEP, afAddrType_t *dstAddr,
                                   uint16 clusterID, uint8 cmd, uint8 specific, uint8 direction,
                                   uint8 disableDefaultRsp, uint16 manuCode, uint8 seqNum,
                                   uint16 cmdFormatLen, uint8 *cmdFormat );
 
 #ifdef ZCL_READ
-/*
- *  Function for Reading an Attribute
- */
 extern ZStatus_t zcl_SendRead( uint8 srcEP, afAddrType_t *dstAddr,
                                uint16 realClusterID, zclReadCmd_t *readCmd,
                                uint8 direction, uint8 disableDefaultRsp, uint8 seqNum );
-
-/*
- *  Function for sending a Read response command
- */
 extern ZStatus_t zcl_SendReadRsp( uint8 srcEP, afAddrType_t *dstAddr,
                                   uint16 realClusterID, zclReadRspCmd_t *readRspCmd,
                                   uint8 direction, uint8 disableDefaultRsp, uint8 seqNum );

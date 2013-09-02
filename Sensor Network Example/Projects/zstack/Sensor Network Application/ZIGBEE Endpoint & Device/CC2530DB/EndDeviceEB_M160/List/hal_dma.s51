@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               23/Aug/2013  21:45:03 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               28/Aug/2013  15:39:34 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -10,7 +10,7 @@
 //    Constant location  =  data_rom                                          /
 //    Dptr setup         =  1,16                                              /
 //    Source file        =  D:\GitHub\z-stack\Sensor Network                  /
-//                          Example\Components\hal\target\CC2530NB\hal_dma.c  /
+//                          Example\Components\hal\target\CC2530KB\hal_dma.c  /
 //    Command line       =  -f "D:\GitHub\z-stack\Sensor Network              /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -50,7 +50,7 @@
 //                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
 //                          -DZCL_PRICING) -DZCL_MESSAGE                      /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
-//                          Example\Components\hal\target\CC2530NB\hal_dma.c" /
+//                          Example\Components\hal\target\CC2530KB\hal_dma.c" /
 //                           -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D       /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
@@ -401,7 +401,7 @@ halDmaIsr           SYMBOL "halDmaIsr"
         EXTERN ??HalUARTIsrDMA?relay
         FUNCTION ??HalUARTIsrDMA?relay,00H
 
-// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530NB\hal_dma.c
+// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_dma.c
 //    1 /**************************************************************************************************
 //    2   Filename:       hal_dma.c
 //    3   Revised:        $Date: 2009-08-05 18:23:26 -0700 (Wed, 05 Aug 2009) $
@@ -573,11 +573,11 @@ HalDmaInit:
 //  110 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock0
+        REQUIRE DMA1CFGH
         REQUIRE DMA0CFGL
+        REQUIRE DMA0CFGH
         REQUIRE _A_IEN1
         REQUIRE DMA1CFGL
-        REQUIRE DMA1CFGH
-        REQUIRE DMA0CFGH
 //  111 
 //  112 #if (HAL_UART_DMA || \ 
 //  113    ((defined HAL_SPI) && (HAL_SPI == TRUE))  || \ 
@@ -674,8 +674,8 @@ halDmaIsr:
         MOV     R7,#0x1
         LJMP    ?INTERRUPT_LEAVE_XSP
         CFI EndBlock cfiBlock1
-        REQUIRE DMAIRQ
         REQUIRE _A_IRCON
+        REQUIRE DMAIRQ
 
         COMMON INTVEC:CODE:ROOT(0)
         ORG 67

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               23/Aug/2013  21:45:03 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               28/Aug/2013  15:39:34 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -10,7 +10,7 @@
 //    Constant location  =  data_rom                                          /
 //    Dptr setup         =  1,16                                              /
 //    Source file        =  D:\GitHub\z-stack\Sensor Network                  /
-//                          Example\Components\hal\target\CC2530NB\hal_keypad /
+//                          Example\Components\hal\target\CC2530KB\hal_keypad /
 //                          .c                                                /
 //    Command line       =  -f "D:\GitHub\z-stack\Sensor Network              /
 //                          Example\Projects\zstack\Sensor Network            /
@@ -51,7 +51,7 @@
 //                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
 //                          -DZCL_PRICING) -DZCL_MESSAGE                      /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
-//                          Example\Components\hal\target\CC2530NB\hal_keypad /
+//                          Example\Components\hal\target\CC2530KB\hal_keypad /
 //                          .c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D    /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
@@ -290,7 +290,7 @@
         PUBLIC halKeypadPushed
         FUNCTION halKeypadPushed,0a1203H
         ARGFRAME XSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME XSTACK, 12, STACK
         PUBLIC halKeypadReadRegister
         FUNCTION halKeypadReadRegister,021203H
         ARGFRAME XSTACK, 0, STACK
@@ -298,13 +298,13 @@
         PUBLIC halKeypadResetCount
         PUBLIC halKeypadSensorData
         FUNCTION halKeypadSensorData,021203H
-        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         LOCFRAME XSTACK, 9, STACK
         PUBLIC halKeypadWriteRegister
         FUNCTION halKeypadWriteRegister,021203H
-        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         LOCFRAME XSTACK, 9, STACK
@@ -466,6 +466,8 @@
         CFI EndCommon cfiCommon1
         
 halMcuWaitUs        SYMBOL "halMcuWaitUs"
+halLcdDisplayUint16 SYMBOL "halLcdDisplayUint16"
+??halLcdDisplayUint16?relay SYMBOL "?relay", halLcdDisplayUint16
 ??halMcuWaitUs?relay SYMBOL "?relay", halMcuWaitUs
 halKeypadI2cAck     SYMBOL "halKeypadI2cAck"
 ??halKeypadI2cAck?relay SYMBOL "?relay", halKeypadI2cAck
@@ -497,10 +499,19 @@ halKeypadWriteRegister SYMBOL "halKeypadWriteRegister"
         ARGFRAME XSTACK, 9, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN halLcdDisplayUint16
+        FUNCTION halLcdDisplayUint16,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN ??halLcdDisplayUint16?relay
+        FUNCTION ??halLcdDisplayUint16?relay,00H
         EXTERN ??halMcuWaitUs?relay
         FUNCTION ??halMcuWaitUs?relay,00H
 
-// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530NB\hal_keypad.c
+// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_keypad.c
 //    1 //-------------------------------------------------------------------
 //    2 // Filename: hal_keypad.c
 //    3 // Description: HAL keypad control implementation file
@@ -613,18 +624,18 @@ halKeypadI2cStart:
         SETB    0xa0.4
 //   34     HAL_KEYPAD_SDA_SET();
         SETB    0xa0.3
-//   35     halMcuWaitUs(2);
+//   35     halMcuWaitUs(4);
         ; Setup parameters for call to function halMcuWaitUs
-        MOV     R2,#0x2
+        MOV     R2,#0x4
         MOV     R3,#0x0
         LCALL   ??halMcuWaitUs?relay
 //   36     HAL_KEYPAD_SDA_CLR();
         CLR     0xa0.3
-//   37     halMcuWaitUs(2);
+//   37     halMcuWaitUs(4);
         ; Setup parameters for call to function halMcuWaitUs
         LCALL   ??Subroutine12_0 & 0xFFFF
 //   38     HAL_KEYPAD_SCL_CLR();
-//   39     halMcuWaitUs(2);
+//   39     halMcuWaitUs(4);
 //   40 }
 ??CrossCallReturnLabel_20:
         SJMP    ??Subroutine11_0
@@ -638,11 +649,11 @@ halKeypadI2cStart:
 //   46 void halKeypadI2cStop(void)
 //   47 {
 //   48     HAL_KEYPAD_SDA_CLR();
-//   49     halMcuWaitUs(2);
+//   49     halMcuWaitUs(4);
 //   50     HAL_KEYPAD_SCL_SET();
-//   51     halMcuWaitUs(2);
+//   51     halMcuWaitUs(4);
 //   52     HAL_KEYPAD_SDA_SET();
-//   53     halMcuWaitUs(2);
+//   53     halMcuWaitUs(4);
 //   54 }
 //   55 
 //   56 /*************************************************
@@ -726,17 +737,17 @@ halKeypadI2cStop:
         ; Auto size: 0
         CLR     0xa0.3
         ; Setup parameters for call to function halMcuWaitUs
-        MOV     R2,#0x2
+        MOV     R2,#0x4
         MOV     R3,#0x0
         LCALL   ??halMcuWaitUs?relay
         SETB    0xa0.4
         ; Setup parameters for call to function halMcuWaitUs
-        MOV     R2,#0x2
+        MOV     R2,#0x4
         MOV     R3,#0x0
         LCALL   ??halMcuWaitUs?relay
         SETB    0xa0.3
         ; Setup parameters for call to function halMcuWaitUs
-        MOV     R2,#0x2
+        MOV     R2,#0x4
         MOV     R3,#0x0
         LCALL   ??halMcuWaitUs?relay
         SJMP    ??Subroutine11_0
@@ -785,9 +796,9 @@ halKeypadI2cAck:
         SJMP    ?Subroutine9
         CFI EndBlock cfiBlock4
         REQUIRE _A_P2
-//   64     halMcuWaitUs(2);
+//   64     halMcuWaitUs(4);
 //   65     HAL_KEYPAD_SCL_CLR();
-//   66     halMcuWaitUs(2);
+//   66     halMcuWaitUs(4);
 //   67 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
@@ -898,7 +909,7 @@ halKeypadI2cAck:
         CFI Block cfiPicker17 Using cfiCommon1
         CFI (cfiPicker17) NoFunction
         CFI (cfiPicker17) Picker
-        MOV     R2,#0x2
+        MOV     R2,#0x4
         MOV     R3,#0x0
         LCALL   ??halMcuWaitUs?relay
         CLR     0xa0.4
@@ -907,7 +918,7 @@ halKeypadI2cAck:
         ; Setup parameters for call to function halMcuWaitUs
         ; Setup parameters for call to function halMcuWaitUs
         ; Setup parameters for call to function halMcuWaitUs
-        MOV     R2,#0x2
+        MOV     R2,#0x4
         MOV     R3,#0x0
         LCALL   ??halMcuWaitUs?relay
         RET
@@ -965,9 +976,9 @@ halKeypadI2cNack:
         SJMP    ?Subroutine9
         CFI EndBlock cfiBlock18
         REQUIRE _A_P2
-//   77     halMcuWaitUs(2);
+//   77     halMcuWaitUs(4);
 //   78     HAL_KEYPAD_SCL_CLR();
-//   79     halMcuWaitUs(2);
+//   79     halMcuWaitUs(4);
 //   80 }
 //   81 
 //   82 /**********************************************
@@ -1048,11 +1059,11 @@ halKeypadI2cWrite:
         CLR     C
         RLC     A
         MOV     R7,A
-//  102         halMcuWaitUs(2);
+//  102         halMcuWaitUs(4);
         ; Setup parameters for call to function halMcuWaitUs
         LCALL   ?Subroutine2 & 0xFFFF
 //  103         HAL_KEYPAD_SCL_CLR();
-//  104         halMcuWaitUs(2);
+//  104         halMcuWaitUs(4);
 //  105     }
 ??CrossCallReturnLabel_4:
         JNZ     ??halKeypadI2cWrite_0
@@ -1178,10 +1189,10 @@ halKeypadI2cRead:
         SETB    0xa0.3
 //  118     HAL_KEY_SDA_DIR_IN();
         LCALL   ?Subroutine6 & 0xFFFF
-//  119     halMcuWaitUs(2);
+//  119     halMcuWaitUs(4);
 ??CrossCallReturnLabel_12:
         ; Setup parameters for call to function halMcuWaitUs
-        MOV     R2,#0x2
+        MOV     R2,#0x4
         MOV     R3,#0x0
         LCALL   ??halMcuWaitUs?relay
 //  120     for (cnt = 0; cnt < 8; cnt++)
@@ -1190,9 +1201,9 @@ halKeypadI2cRead:
 //  122         HAL_KEYPAD_SCL_SET();
 ??halKeypadI2cRead_0:
         SETB    0xa0.4
-//  123         halMcuWaitUs(2);
+//  123         halMcuWaitUs(4);
         ; Setup parameters for call to function halMcuWaitUs
-        MOV     R2,#0x2
+        MOV     R2,#0x4
         MOV     R3,#0x0
         LCALL   ??halMcuWaitUs?relay
 //  124         res <<= 1;
@@ -1208,12 +1219,12 @@ halKeypadI2cRead:
         SETB    0xE0 /* A   */.0
         MOV     R7,A
 //  128         }
-//  129         halMcuWaitUs(2);
+//  129         halMcuWaitUs(4);
 ??halKeypadI2cRead_1:
         ; Setup parameters for call to function halMcuWaitUs
         LCALL   ?Subroutine2 & 0xFFFF
 //  130         HAL_KEYPAD_SCL_CLR();
-//  131         halMcuWaitUs(2);
+//  131         halMcuWaitUs(4);
 //  132     }
 ??CrossCallReturnLabel_5:
         JNZ     ??halKeypadI2cRead_0
@@ -1226,8 +1237,8 @@ halKeypadI2cRead:
         SJMP    ?Subroutine10
         CFI EndBlock cfiBlock22
         REQUIRE _A_P2
-        REQUIRE P2SEL
         REQUIRE P2INP
+        REQUIRE P2SEL
         REQUIRE P2DIR
 //  136 }
 
@@ -2433,8 +2444,8 @@ halKeypadInit:
 //  228 }
         LJMP    ??Subroutine11_0 & 0xFFFF
         CFI EndBlock cfiBlock53
-        REQUIRE P2SEL
         REQUIRE P2INP
+        REQUIRE P2SEL
         REQUIRE P2DIR
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
@@ -2488,15 +2499,37 @@ halKeypadPushed:
         FUNCALL halKeypadPushed, halKeypadSensorData
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME XSTACK, 12, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        MOV     A,#-0xa
+        FUNCALL halKeypadPushed, halLcdDisplayUint16
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL halKeypadPushed, halKeypadWriteRegister
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV     A,#-0xc
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
@@ -2504,13 +2537,15 @@ halKeypadPushed:
         CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
         CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
         CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
         CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 10)
-        ; Saved register size: 10
+        CFI CFA_XSP16 add(XSP16, 12)
+        ; Saved register size: 12
         ; Auto size: 0
 //  240     HAL_KEYPAD_SCL_OUT();
         LCALL   ?Subroutine5 & 0xFFFF
@@ -2519,16 +2554,21 @@ halKeypadPushed:
 //  243     uint16 val;
 //  244     uint8 ch;
 //  245     
-//  246     uint8 key = 0;
-//  247     
-//  248     val = halKeypadSensorData();
-//  249 //    halLcdDisplayUint16(HAL_LCD_LINE_3,0,HAL_LCD_RADIX_HEX,val);
-//  250     switch (val)
+//  246     val = halKeypadSensorData();
 ??CrossCallReturnLabel_11:
         ; Setup parameters for call to function halKeypadSensorData
         LCALL   ??halKeypadSensorData?relay
         MOV     ?V0 + 0,R2
         MOV     ?V0 + 1,R3
+//  247     halLcdDisplayUint16(HAL_LCD_LINE_4,0,HAL_LCD_RADIX_HEX,val);
+        ; Setup parameters for call to function halLcdDisplayUint16
+        MOV     R4,?V0 + 0
+        MOV     R5,?V0 + 1
+        MOV     R3,#0x1
+        MOV     R2,#0x0
+        MOV     R1,#0x4
+        LCALL   ??halLcdDisplayUint16?relay
+//  248     switch (val)
         MOV     R0,#?V0 + 0
         LCALL   ?US_SWITCH_SPARSE
 `?<Jumptable for halKeypadPushed>_0`:
@@ -2577,180 +2617,171 @@ halKeypadPushed:
         DW        ??halKeypadPushed_19
         DW        ??halKeypadPushed_20
         CODE
-//  251     {
-//  252         case 0x0404:
-//  253             //0
-//  254             ch = '0';
+//  249     {
+//  250         case 0x0404: // 0
+//  251             ch = '0';
 ??halKeypadPushed_16:
-        MOV     R1,#0x30
+        MOV     R6,#0x30
+        SJMP    ??halKeypadPushed_21
+//  252             break;
+//  253         case 0x0082: // 1
+//  254             ch = '1';
+??halKeypadPushed_0:
+        MOV     R6,#0x31
         SJMP    ??halKeypadPushed_21
 //  255             break;
-//  256         case 0x0082:
-//  257             //1
-//  258             ch = '1';
-??halKeypadPushed_0:
-        MOV     R1,#0x31
-        SJMP    ??halKeypadPushed_21
-//  259             break;
-//  260         case 0x0084:
-//  261             //2
-//  262             ch = '2';
+//  256         case 0x0084: // 2
+//  257             ch = '2';
 ??halKeypadPushed_1:
-        MOV     R1,#0x32
-//  263             key |= HAL_KEY_SW_1; // Keypad button2(Joystick up)
+        MOV     R6,#0x32
+        SJMP    ??halKeypadPushed_21
+//  258             break;
+//  259         case 0x0088: // 3
+//  260             ch = '3';
+??halKeypadPushed_2:
+        MOV     R6,#0x33
+        SJMP    ??halKeypadPushed_21
+//  261             break;
+//  262         case 0x0102: // 4
+//  263             ch = '4';
+??halKeypadPushed_5:
+        MOV     R6,#0x34
         SJMP    ??halKeypadPushed_21
 //  264             break;
-//  265         case 0x0088:
-//  266             //3
-//  267             ch = '3';
-??halKeypadPushed_2:
-        MOV     R1,#0x33
+//  265         case 0x0104: // 5
+//  266             ch = '5';
+??halKeypadPushed_6:
+        MOV     R6,#0x35
         SJMP    ??halKeypadPushed_21
-//  268             break;
-//  269         case 0x0102:
-//  270             //4
-//  271             ch = '4';
-??halKeypadPushed_5:
-        MOV     R1,#0x34
-//  272             key |= HAL_KEY_SW_4; // Keypad button4(Joystick left)
+//  267             break;
+//  268         case 0x0108: // 6
+//  269             ch = '6';
+??halKeypadPushed_7:
+        MOV     R6,#0x36
+        SJMP    ??halKeypadPushed_21
+//  270             break;
+//  271         case 0x0202: // 7
+//  272             ch = '7';
+??halKeypadPushed_10:
+        MOV     R6,#0x37
         SJMP    ??halKeypadPushed_21
 //  273             break;
-//  274         case 0x0104:
-//  275             //5
-//  276             ch = '5';
-??halKeypadPushed_6:
-        MOV     R1,#0x35
-//  277             key |= HAL_KEY_SW_5; // Keypad button5(Joystick center)
-        SJMP    ??halKeypadPushed_21
-//  278             break;
-//  279         case 0x0108:
-//  280             //6
-//  281             ch = '6';
-??halKeypadPushed_7:
-        MOV     R1,#0x36
-//  282             key |= HAL_KEY_SW_2; // Keypad button6(Joystick right)
-        SJMP    ??halKeypadPushed_21
-//  283             break;
-//  284         case 0x0202:
-//  285             //7
-//  286             ch = '7';
-??halKeypadPushed_10:
-        MOV     R1,#0x37
-        SJMP    ??halKeypadPushed_21
-//  287             break;
-//  288         case 0x0204:
-//  289             //8
-//  290             ch = '8';
+//  274         case 0x0204: // 8
+//  275             ch = '8';
 ??halKeypadPushed_11:
-        MOV     R1,#0x38
-//  291             key |= HAL_KEY_SW_3; // Keypad button8(Joystick down)
+        MOV     R6,#0x38
         SJMP    ??halKeypadPushed_21
-//  292             break;
-//  293         case 0x0208:
-//  294             //9
-//  295             ch = '9';
+//  276             break;
+//  277         case 0x0208: // 9
+//  278             ch = '9';
 ??halKeypadPushed_12:
-        MOV     R1,#0x39
+        MOV     R6,#0x39
         SJMP    ??halKeypadPushed_21
-//  296             break;
-//  297         case 0x0402:
-//  298             //*
-//  299             ch = '*';
+//  279             break;
+//  280         case 0x0402: // *
+//  281             ch = '*';
 ??halKeypadPushed_15:
-        MOV     R1,#0x2a
+        MOV     R6,#0x2a
+        SJMP    ??halKeypadPushed_21
+//  282             break;
+//  283         case 0x0408: // #
+//  284             ch = '#';
+??halKeypadPushed_17:
+        MOV     R6,#0x23
+        SJMP    ??halKeypadPushed_21
+//  285             break;
+//  286         case 0x0090: // A
+//  287             ch = 'A';
+??halKeypadPushed_3:
+        MOV     R6,#0x41
+        SJMP    ??halKeypadPushed_21
+//  288             break;
+//  289         case 0x0110: // B
+//  290             ch = 'B';
+??halKeypadPushed_8:
+        MOV     R6,#0x42
+        SJMP    ??halKeypadPushed_21
+//  291             break;
+//  292         case 0x0210: // C
+//  293             ch = 'C';
+??halKeypadPushed_13:
+        MOV     R6,#0x43
+        SJMP    ??halKeypadPushed_21
+//  294             break;
+//  295         case 0x00A0: // D
+//  296             ch = 'D';
+??halKeypadPushed_4:
+        MOV     R6,#0x44
+        SJMP    ??halKeypadPushed_21
+//  297             break;
+//  298         case 0x0120: // E
+//  299             ch = 'E';
+??halKeypadPushed_9:
+        MOV     R6,#0x45
         SJMP    ??halKeypadPushed_21
 //  300             break;
-//  301         case 0x0408:
-//  302             //#
-//  303             ch = '#';
-??halKeypadPushed_17:
-        MOV     R1,#0x23
-        SJMP    ??halKeypadPushed_21
-//  304             break;
-//  305         case 0x0090:
-//  306             //A
-//  307             ch = 'A';
-??halKeypadPushed_3:
-        MOV     R1,#0x41
-        SJMP    ??halKeypadPushed_21
-//  308             break;
-//  309         case 0x0110:
-//  310             //B
-//  311             ch = 'B';
-??halKeypadPushed_8:
-        MOV     R1,#0x42
-        SJMP    ??halKeypadPushed_21
-//  312             break;
-//  313         case 0x0210:
-//  314             //C
-//  315             ch = 'C';
-??halKeypadPushed_13:
-        MOV     R1,#0x43
-        SJMP    ??halKeypadPushed_21
-//  316             break;
-//  317         case 0x00A0:
-//  318             //D
-//  319             ch = 'D';
-??halKeypadPushed_4:
-        MOV     R1,#0x44
-        SJMP    ??halKeypadPushed_21
-//  320             break;
-//  321         case 0x0120:
-//  322             //E
-//  323             ch = 'E';
-??halKeypadPushed_9:
-        MOV     R1,#0x45
-        SJMP    ??halKeypadPushed_21
-//  324             break;
-//  325         case 0x0220:
-//  326             //F
-//  327             ch = 'F';
+//  301         case 0x0220: // F
+//  302             ch = 'F';
 ??halKeypadPushed_14:
-        MOV     R1,#0x46
+        MOV     R6,#0x46
         SJMP    ??halKeypadPushed_21
-//  328             break;
-//  329         case 0x0410:
-//  330             //U
-//  331             ch = 'U';
+//  303             break;
+//  304         case 0x0410: // U
+//  305             ch = 'U';
 ??halKeypadPushed_18:
-        MOV     R1,#0x55
+        MOV     R6,#0x55
         SJMP    ??halKeypadPushed_21
-//  332             break;
-//  333         case 0x0420:
-//  334             //N
-//  335             ch = 'N';
+//  306             break;
+//  307         case 0x0420: // N
+//  308             ch = 'N';
 ??halKeypadPushed_19:
-        MOV     R1,#0x4e
+        MOV     R6,#0x4e
         SJMP    ??halKeypadPushed_21
-//  336             break;
-//  337         default:
-//  338             ch = 0;
+//  309             break;
+//  310         default:
+//  311             ch = 0;
 ??halKeypadPushed_20:
-        MOV     R1,#0x0
-//  339             break;
-//  340     }
-//  341 //    halKeypadResetCount++;
-//  342 //    if (halKeypadResetCount > 0)
-//  343 //    {
-//  344 //        halKeypadResetCount = 0;
-//  345 //        halKeypadWriteRegister(0x00, 0x6A); //Reset
-//  346 //    }
-//  347 //    if (ch > 0)
-//  348 //    {
-//  349 //		halBuzzerOn(BUZZER_FREQ);
-//  350 //		halMcuWaitMs(20);
-//  351 //		halBuzzerOff();
-//  352 //    }
-//  353     return ch;
+        MOV     R6,#0x0
+//  312             break;
+//  313     }
+//  314     halKeypadResetCount++;
 ??halKeypadPushed_21:
-        MOV     R7,#0x2
+        MOV     DPTR,#halKeypadResetCount
+        MOVX    A,@DPTR
+        INC     A
+        MOVX    @DPTR,A
+//  315     if (halKeypadResetCount > 100)
+        CLR     C
+        SUBB    A,#0x65
+        JC      ??halKeypadPushed_22
+//  316     {
+//  317         halKeypadResetCount = 0;
+        CLR     A
+        MOVX    @DPTR,A
+//  318         halKeypadWriteRegister(0x00, 0x6A); //Reset
+        ; Setup parameters for call to function halKeypadWriteRegister
+        MOV     R2,#0x6a
+        MOV     R1,A
+        LCALL   ??halKeypadWriteRegister?relay
+//  319     }
+//  320 //    if (ch > 0)
+//  321 //    {
+//  322 //		halBuzzerOn(BUZZER_FREQ);
+//  323 //		halMcuWaitMs(20);
+//  324 //		halBuzzerOff();
+//  325 //    }
+//  326     return ch;
+??halKeypadPushed_22:
+        MOV     A,R6
+        MOV     R1,A
+        MOV     R7,#0x4
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock57
         REQUIRE P2SEL
         REQUIRE P2DIR
-//  354 
-//  355 
-//  356 }
+//  327 
+//  328 
+//  329 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine5:
@@ -2763,10 +2794,12 @@ halKeypadPushed:
         CFI Block cfiCond59 Using cfiCommon0
         CFI (cfiCond59) NoFunction
         CFI (cfiCond59) Conditional ??CrossCallReturnLabel_11
-        CFI (cfiCond59) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI (cfiCond59) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI (cfiCond59) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI (cfiCond59) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond59) R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+        CFI (cfiCond59) VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+        CFI (cfiCond59) V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI (cfiCond59) V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond59) V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond59) V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
         CFI (cfiCond59) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
         CFI (cfiCond59) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
         CFI (cfiCond59) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
@@ -2774,7 +2807,7 @@ halKeypadPushed:
         CFI (cfiCond59) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
         CFI (cfiCond59) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI (cfiCond59) CFA_SP SP+0
-        CFI (cfiCond59) CFA_XSP16 add(XSP16, 10)
+        CFI (cfiCond59) CFA_XSP16 add(XSP16, 12)
         CFI Block cfiPicker60 Using cfiCommon1
         CFI (cfiPicker60) NoFunction
         CFI (cfiPicker60) Picker
@@ -2855,12 +2888,12 @@ halKeypadPushed:
 
         END
 // 
-// 621 bytes in segment BANKED_CODE
+// 655 bytes in segment BANKED_CODE
 //  66 bytes in segment BANK_RELAYS
 //   4 bytes in segment SFR_AN
 //   2 bytes in segment XDATA_Z
 // 
-// 687 bytes of CODE  memory
+// 721 bytes of CODE  memory
 //   0 bytes of DATA  memory (+ 4 bytes shared)
 //   2 bytes of XDATA memory
 //

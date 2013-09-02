@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               23/Aug/2013  21:45:03 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               28/Aug/2013  15:39:34 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -10,7 +10,7 @@
 //    Constant location  =  data_rom                                          /
 //    Dptr setup         =  1,16                                              /
 //    Source file        =  D:\GitHub\z-stack\Sensor Network                  /
-//                          Example\Components\hal\target\CC2530NB\hal_buzzer /
+//                          Example\Components\hal\target\CC2530KB\hal_buzzer /
 //                          .c                                                /
 //    Command line       =  -f "D:\GitHub\z-stack\Sensor Network              /
 //                          Example\Projects\zstack\Sensor Network            /
@@ -51,7 +51,7 @@
 //                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
 //                          -DZCL_PRICING) -DZCL_MESSAGE                      /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
-//                          Example\Components\hal\target\CC2530NB\hal_buzzer /
+//                          Example\Components\hal\target\CC2530KB\hal_buzzer /
 //                          .c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D    /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
@@ -338,7 +338,7 @@ halBuzzerOn         SYMBOL "halBuzzerOn"
         EXTERN ??halMcuWaitUs?relay
         FUNCTION ??halMcuWaitUs?relay,00H
 
-// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530NB\hal_buzzer.c
+// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_buzzer.c
 //    1 //-------------------------------------------------------------------
 //    2 // Filename: hal_buzzer.c
 //    3 // Description: hal buzzer library
@@ -364,66 +364,67 @@ P0SEL:
 P0DIR:
         DS 1
 //   10 #include "hal_timer.h"
-//   11 #include "hal_buzzer.h"
-//   12 
-//   13 //-------------------------------------------------------------------
-//   14 // @fn      halBuzzerInit
-//   15 // @brief    Set up timer 1  to generate an interrupt freq
-//   16 // @param       uint16 freq
-//   17 // @return  none
-//   18 //-------------------------------------------------------------------
+//   11 #include "hal_keypad.h"
+//   12 #include "hal_buzzer.h"
+//   13 
+//   14 //-------------------------------------------------------------------
+//   15 // @fn      halBuzzerInit
+//   16 // @brief    Set up timer 1  to generate an interrupt freq
+//   17 // @param       uint16 freq
+//   18 // @return  none
+//   19 //-------------------------------------------------------------------
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   19 void halBuzzerInit(void)
+//   20 void halBuzzerInit(void)
 halBuzzerInit:
         CFI Block cfiBlock0 Using cfiCommon0
         CFI Function halBuzzerInit
-//   20 {  
+//   21 {  
         ; Saved register size: 0
         ; Auto size: 0
-//   21     // Set the buzzer for output
-//   22     HAL_BUZZER_OUTPUT();
+//   22     // Set the buzzer for output
+//   23     HAL_BUZZER_OUTPUT();
         ANL     0xf3,#0xfd
         ORL     0xfd,#0x2
-//   23 }
+//   24 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock0
         REQUIRE P0SEL
         REQUIRE P0DIR
-//   24 
-//   25 //-------------------------------------------------------------------
-//   26 // @fn          halBuzzerOff
-//   27 // @brief       Turn Buzzer off.
-//   28 // @return      none
-//   29 //-------------------------------------------------------------------
+//   25 
+//   26 //-------------------------------------------------------------------
+//   27 // @fn          halBuzzerOff
+//   28 // @brief       Turn Buzzer off.
+//   29 // @return      none
+//   30 //-------------------------------------------------------------------
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   30 void halBuzzerOff(void)
+//   31 void halBuzzerOff(void)
 halBuzzerOff:
         CFI Block cfiBlock1 Using cfiCommon0
         CFI Function halBuzzerOff
-//   31 {
+//   32 {
         ; Saved register size: 0
         ; Auto size: 0
-//   32     HAL_BUZZER_OFF();
+//   33     HAL_BUZZER_OFF();
         SETB    0x80.1
-//   33 }
+//   34 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock1
         REQUIRE _A_P0
-//   34 
-//   35 //-------------------------------------------------------------------
-//   36 // @fn          halBuzzer
-//   37 // @brief       Turn Buzzer on.
-//   38 // @param       uint16 freq
-//   39 //-------------------------------------------------------------------
+//   35 
+//   36 //-------------------------------------------------------------------
+//   37 // @fn          halBuzzer
+//   38 // @brief       Turn Buzzer on.
+//   39 // @param       uint16 freq
+//   40 //-------------------------------------------------------------------
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   40 void halBuzzerOn(uint16 ms)
+//   41 void halBuzzerOn(uint16 ms)
 halBuzzerOn:
         CFI Block cfiBlock2 Using cfiCommon0
         CFI Function halBuzzerOn
-//   41 {
+//   42 {
         FUNCALL halBuzzerOn, halMcuWaitUs
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -453,23 +454,23 @@ halBuzzerOn:
         ; Auto size: 0
         MOV     ?V0 + 0,R2
         MOV     ?V0 + 1,R3
-//   42     int i;
-//   43     
-//   44     for(i=0; i<ms; i++)
+//   43     int i;
+//   44     
+//   45     for(i=0; i<ms; i++)
         MOV     R6,#0x0
         MOV     R7,#0x0
         SJMP    ??halBuzzerOn_0
-//   45     {
-//   46        HAL_BUZZER_TGL();
+//   46     {
+//   47        HAL_BUZZER_TGL();
 ??halBuzzerOn_1:
         XRL     0x80,#0x2
         MOV     A,0x80
-//   47        halMcuWaitUs(200);
+//   48        halMcuWaitUs(200);
         ; Setup parameters for call to function halMcuWaitUs
         MOV     R2,#-0x38
         MOV     R3,#0x0
         LCALL   ??halMcuWaitUs?relay
-//   48     }
+//   49     }
         MOV     A,R6
         ADD     A,#0x1
         INC     R6
@@ -483,9 +484,9 @@ halBuzzerOn:
         MOV     A,R7
         SUBB    A,?V0 + 1
         JC      ??halBuzzerOn_1
-//   49     HAL_BUZZER_OFF();
+//   50     HAL_BUZZER_OFF();
         SETB    0x80.1
-//   50 }
+//   51 }
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock2

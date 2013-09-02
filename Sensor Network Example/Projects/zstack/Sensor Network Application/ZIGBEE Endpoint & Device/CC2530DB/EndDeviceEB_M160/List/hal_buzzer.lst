@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                23/Aug/2013  21:45:03 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                28/Aug/2013  15:39:34 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -10,7 +10,7 @@
 #    Constant location  =  data_rom                                           #
 #    Dptr setup         =  1,16                                               #
 #    Source file        =  D:\GitHub\z-stack\Sensor Network                   #
-#                          Example\Components\hal\target\CC2530NB\hal_buzzer. #
+#                          Example\Components\hal\target\CC2530KB\hal_buzzer. #
 #                          c                                                  #
 #    Command line       =  -f "D:\GitHub\z-stack\Sensor Network               #
 #                          Example\Projects\zstack\Sensor Network             #
@@ -50,7 +50,7 @@
 #                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
 #                          -DZCL_PRICING) -DZCL_MESSAGE                       #
 #                          "D:\GitHub\z-stack\Sensor Network                  #
-#                          Example\Components\hal\target\CC2530NB\hal_buzzer. #
+#                          Example\Components\hal\target\CC2530KB\hal_buzzer. #
 #                          c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D      #
 #                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
 #                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
@@ -190,7 +190,7 @@
 #                                                                             #
 ###############################################################################
 
-D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530NB\hal_buzzer.c
+D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_buzzer.c
       1          //-------------------------------------------------------------------
       2          // Filename: hal_buzzer.c
       3          // Description: hal buzzer library
@@ -216,81 +216,82 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530NB\hal_buzz
    \                     P0DIR:
    \   000000                DS 1
      10          #include "hal_timer.h"
-     11          #include "hal_buzzer.h"
-     12          
-     13          //-------------------------------------------------------------------
-     14          // @fn      halBuzzerInit
-     15          // @brief    Set up timer 1  to generate an interrupt freq
-     16          // @param       uint16 freq
-     17          // @return  none
-     18          //-------------------------------------------------------------------
+     11          #include "hal_keypad.h"
+     12          #include "hal_buzzer.h"
+     13          
+     14          //-------------------------------------------------------------------
+     15          // @fn      halBuzzerInit
+     16          // @brief    Set up timer 1  to generate an interrupt freq
+     17          // @param       uint16 freq
+     18          // @return  none
+     19          //-------------------------------------------------------------------
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     19          void halBuzzerInit(void)
+     20          void halBuzzerInit(void)
    \                     halBuzzerInit:
-     20          {  
+     21          {  
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-     21              // Set the buzzer for output
-     22              HAL_BUZZER_OUTPUT();
+     22              // Set the buzzer for output
+     23              HAL_BUZZER_OUTPUT();
    \   000000   53F3FD       ANL     0xf3,#0xfd
    \   000003   43FD02       ORL     0xfd,#0x2
-     23          }
+     24          }
    \   000006   02....       LJMP    ?BRET
    \   000009                REQUIRE P0SEL
    \   000009                REQUIRE P0DIR
-     24          
-     25          //-------------------------------------------------------------------
-     26          // @fn          halBuzzerOff
-     27          // @brief       Turn Buzzer off.
-     28          // @return      none
-     29          //-------------------------------------------------------------------
+     25          
+     26          //-------------------------------------------------------------------
+     27          // @fn          halBuzzerOff
+     28          // @brief       Turn Buzzer off.
+     29          // @return      none
+     30          //-------------------------------------------------------------------
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     30          void halBuzzerOff(void)
+     31          void halBuzzerOff(void)
    \                     halBuzzerOff:
-     31          {
+     32          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-     32              HAL_BUZZER_OFF();
+     33              HAL_BUZZER_OFF();
    \   000000   D281         SETB    0x80.1
-     33          }
+     34          }
    \   000002   02....       LJMP    ?BRET
    \   000005                REQUIRE _A_P0
-     34          
-     35          //-------------------------------------------------------------------
-     36          // @fn          halBuzzer
-     37          // @brief       Turn Buzzer on.
-     38          // @param       uint16 freq
-     39          //-------------------------------------------------------------------
+     35          
+     36          //-------------------------------------------------------------------
+     37          // @fn          halBuzzer
+     38          // @brief       Turn Buzzer on.
+     39          // @param       uint16 freq
+     40          //-------------------------------------------------------------------
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     40          void halBuzzerOn(uint16 ms)
+     41          void halBuzzerOn(uint16 ms)
    \                     halBuzzerOn:
-     41          {
+     42          {
    \   000000   74F6         MOV     A,#-0xa
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 10
    \   000005                ; Auto size: 0
    \   000005   8A..         MOV     ?V0 + 0,R2
    \   000007   8B..         MOV     ?V0 + 1,R3
-     42              int i;
-     43              
-     44              for(i=0; i<ms; i++)
+     43              int i;
+     44              
+     45              for(i=0; i<ms; i++)
    \   000009   7E00         MOV     R6,#0x0
    \   00000B   7F00         MOV     R7,#0x0
    \   00000D   8014         SJMP    ??halBuzzerOn_0
-     45              {
-     46                 HAL_BUZZER_TGL();
+     46              {
+     47                 HAL_BUZZER_TGL();
    \                     ??halBuzzerOn_1:
    \   00000F   638002       XRL     0x80,#0x2
    \   000012   E580         MOV     A,0x80
-     47                 halMcuWaitUs(200);
+     48                 halMcuWaitUs(200);
    \   000014                ; Setup parameters for call to function halMcuWaitUs
    \   000014   7AC8         MOV     R2,#-0x38
    \   000016   7B00         MOV     R3,#0x0
    \   000018   12....       LCALL   ??halMcuWaitUs?relay
-     48              }
+     49              }
    \   00001B   EE           MOV     A,R6
    \   00001C   2401         ADD     A,#0x1
    \   00001E   0E           INC     R6
@@ -304,9 +305,9 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530NB\hal_buzz
    \   000027   EF           MOV     A,R7
    \   000028   95..         SUBB    A,?V0 + 1
    \   00002A   40E3         JC      ??halBuzzerOn_1
-     49              HAL_BUZZER_OFF();
+     50              HAL_BUZZER_OFF();
    \   00002C   D281         SETB    0x80.1
-     50          }
+     51          }
    \   00002E   7F02         MOV     R7,#0x2
    \   000030   02....       LJMP    ?BANKED_LEAVE_XDATA
    \   000033                REQUIRE _A_P0

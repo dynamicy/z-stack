@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               23/Aug/2013  21:45:13 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               28/Aug/2013  15:39:42 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -254,7 +254,7 @@
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         LOCFRAME ISTACK, 1, STACK
-        LOCFRAME XSTACK, 44, STACK
+        LOCFRAME XSTACK, 41, STACK
         PUBLIC zclZIGBEEDevice_SendMsg
         FUNCTION zclZIGBEEDevice_SendMsg,0203H
         ARGFRAME XSTACK, 0, STACK
@@ -601,7 +601,7 @@ zcl_ZigbeeDevice_Init SYMBOL "zcl_ZigbeeDevice_Init"
         FUNCTION HalLcdWriteChar,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 33, STACK
+        ARGFRAME XSTACK, 30, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN HalLedBlink
@@ -636,14 +636,14 @@ zcl_ZigbeeDevice_Init SYMBOL "zcl_ZigbeeDevice_Init"
         FUNCTION zcl_SendCommand,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 44, STACK
+        ARGFRAME XSTACK, 41, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN memset
         FUNCTION memset,010202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 35, STACK
+        ARGFRAME XSTACK, 32, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN ??HalLcdWriteChar?relay
@@ -1080,11 +1080,11 @@ zcl_ZigbeeDevice_Init:
         LCALL   ??ZDO_RegisterForZDOMsg?relay
         CFI EndBlock cfiBlock0
 //  184 }
-        REQUIRE ?Subroutine3
-        ; // Fall through to label ?Subroutine3
+        REQUIRE ?Subroutine4
+        ; // Fall through to label ?Subroutine4
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-?Subroutine3:
+?Subroutine4:
         CFI Block cfiBlock1 Using cfiCommon0
         CFI NoFunction
         CFI CFA_SP SP+-5
@@ -1389,8 +1389,8 @@ zclZigbeeDevice_event_loop:
         MOV     C,0xE0 /* A   */.0
         JNC     ??zclZigbeeDevice_event_loop_7
         ; Setup parameters for call to function osal_start_timerEx
-        LCALL   ?Subroutine1 & 0xFFFF
-??CrossCallReturnLabel_6:
+        LCALL   ?Subroutine2 & 0xFFFF
+??CrossCallReturnLabel_8:
         ; Setup parameters for call to function osal_set_event
         MOV     R2,#0x2
         MOV     R3,#0x0
@@ -1578,8 +1578,8 @@ zclZigbeeDevice_event_loop:
 ??zclZigbeeDevice_event_loop_21:
         MOV     A,R2
         ADD     A,#0x13
-        LCALL   ?Subroutine2 & 0xFFFF
-??CrossCallReturnLabel_2:
+        LCALL   ?Subroutine3 & 0xFFFF
+??CrossCallReturnLabel_4:
         MOV     DPH,A
         MOV     DPL,R0
         MOVX    A,@DPTR
@@ -1665,11 +1665,11 @@ zclZigbeeDevice_event_loop:
 //  232   #if !defined(M270)
 //  233     osal_start_timerEx( zclZigbeeDevice_TaskID, SENSOR_SEND_MSG_EVT, SEND_DISPLAY_TIMER);
         ; Setup parameters for call to function osal_start_timerEx
-        LCALL   ?Subroutine1 & 0xFFFF
+        LCALL   ?Subroutine2 & 0xFFFF
 //  234   #endif
 //  235     zclZIGBEEDevice_SendMsg();
 //  236     return ( events ^ SENSOR_SEND_MSG_EVT );
-??CrossCallReturnLabel_4:
+??CrossCallReturnLabel_6:
         MOV     A,#0x2
 ??zclZigbeeDevice_event_loop_27:
         LJMP    ??zclZigbeeDevice_event_loop_3 & 0xFFFF
@@ -1724,10 +1724,10 @@ zclZigbeeDevice_event_loop:
 //  254 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-?Subroutine1:
+?Subroutine2:
         CFI Block cfiCond3 Using cfiCommon0
         CFI NoFunction
-        CFI Conditional ??CrossCallReturnLabel_6
+        CFI Conditional ??CrossCallReturnLabel_8
         CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
         CFI VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
@@ -1746,7 +1746,7 @@ zclZigbeeDevice_event_loop:
         CFI CFA_XSP16 add(XSP16, 23)
         CFI Block cfiCond4 Using cfiCommon0
         CFI (cfiCond4) NoFunction
-        CFI (cfiCond4) Conditional ??CrossCallReturnLabel_4
+        CFI (cfiCond4) Conditional ??CrossCallReturnLabel_6
         CFI (cfiCond4) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
         CFI (cfiCond4) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI (cfiCond4) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
@@ -1772,20 +1772,20 @@ zclZigbeeDevice_event_loop:
         CFI EndBlock cfiCond3
         CFI EndBlock cfiCond4
         CFI EndBlock cfiPicker5
-        REQUIRE ??Subroutine4_0
-        ; // Fall through to label ??Subroutine4_0
+        REQUIRE ??Subroutine6_0
+        ; // Fall through to label ??Subroutine6_0
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-??Subroutine4_0:
+??Subroutine6_0:
         CFI Block cfiCond6 Using cfiCommon0
         CFI NoFunction
-        CFI Conditional ??CrossCallReturnLabel_5
+        CFI Conditional ??CrossCallReturnLabel_7
         CFI DPL0 Frame(CFA_SP, 4)
         CFI DPH0 Frame(CFA_SP, 5)
         CFI CFA_SP SP+-5
         CFI Block cfiCond7 Using cfiCommon0
         CFI (cfiCond7) NoFunction
-        CFI (cfiCond7) Conditional ??CrossCallReturnLabel_6
+        CFI (cfiCond7) Conditional ??CrossCallReturnLabel_8
         CFI (cfiCond7) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
         CFI (cfiCond7) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI (cfiCond7) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
@@ -1804,7 +1804,7 @@ zclZigbeeDevice_event_loop:
         CFI (cfiCond7) CFA_XSP16 add(XSP16, 23)
         CFI Block cfiCond8 Using cfiCommon0
         CFI (cfiCond8) NoFunction
-        CFI (cfiCond8) Conditional ??CrossCallReturnLabel_4
+        CFI (cfiCond8) Conditional ??CrossCallReturnLabel_6
         CFI (cfiCond8) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
         CFI (cfiCond8) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI (cfiCond8) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
@@ -1880,8 +1880,8 @@ zclZigbeeDevice_event_loop:
         CFI (cfiPicker12) Picker
         MOV     A,R2
         ADD     A,#0x16
-        LCALL   ?Subroutine2 & 0xFFFF
-??CrossCallReturnLabel_3:
+        LCALL   ?Subroutine3 & 0xFFFF
+??CrossCallReturnLabel_5:
         MOV     R1,A
         MOV     DPL,R0
         MOV     DPH,R1
@@ -1892,10 +1892,10 @@ zclZigbeeDevice_event_loop:
         CFI EndBlock cfiPicker12
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-?Subroutine2:
+?Subroutine3:
         CFI Block cfiCond13 Using cfiCommon0
         CFI NoFunction
-        CFI Conditional ??CrossCallReturnLabel_2
+        CFI Conditional ??CrossCallReturnLabel_4
         CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
         CFI VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
@@ -1914,7 +1914,7 @@ zclZigbeeDevice_event_loop:
         CFI CFA_XSP16 add(XSP16, 23)
         CFI Block cfiCond14 Using cfiCommon0
         CFI (cfiCond14) NoFunction
-        CFI (cfiCond14) Conditional ??CrossCallReturnLabel_3, ??CrossCallReturnLabel_0
+        CFI (cfiCond14) Conditional ??CrossCallReturnLabel_5, ??CrossCallReturnLabel_0
         CFI (cfiCond14) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
         CFI (cfiCond14) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI (cfiCond14) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
@@ -1933,7 +1933,7 @@ zclZigbeeDevice_event_loop:
         CFI (cfiCond14) CFA_XSP16 add(XSP16, 23)
         CFI Block cfiCond15 Using cfiCommon0
         CFI (cfiCond15) NoFunction
-        CFI (cfiCond15) Conditional ??CrossCallReturnLabel_3, ??CrossCallReturnLabel_1
+        CFI (cfiCond15) Conditional ??CrossCallReturnLabel_5, ??CrossCallReturnLabel_1
         CFI (cfiCond15) R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
         CFI (cfiCond15) VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
         CFI (cfiCond15) V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
@@ -2113,9 +2113,9 @@ zclZigbeeDevice_ProcessIdentifyTimeChange:
         MOV     R4,#-0x18
         MOV     R5,#0x3
         MOV     R2,#0x1
-        LCALL   ??Subroutine4_0 & 0xFFFF
+        LCALL   ??Subroutine6_0 & 0xFFFF
 //  323     HalLedBlink ( HAL_LED_1, 0xFF, HAL_LED_DEFAULT_DUTY_CYCLE, HAL_LED_DEFAULT_FLASH_TIME );
-??CrossCallReturnLabel_5:
+??CrossCallReturnLabel_7:
         ; Setup parameters for call to function HalLedBlink
         MOV     R4,#-0x18
         MOV     R5,#0x3
@@ -2155,7 +2155,7 @@ zclZigbeeDevice_ProcessIdentifyTimeChange:
 //  332   }
 //  333 }
 ??zclZigbeeDevice_ProcessIdentifyTimeChange_2:
-        LJMP    ?Subroutine3 & 0xFFFF
+        LJMP    ?Subroutine4 & 0xFFFF
         CFI EndBlock cfiBlock17
 //  334 
 
@@ -2217,7 +2217,7 @@ zclZigbeeDevice_IdentifyCB:
         ; Setup parameters for call to function zclZigbeeDevice_ProcessIdentifyTimeChange
         LCALL   ??zclZigbeeDevice_ProcessIdentifyTimeChange?rel
 //  343 }
-        LJMP    ?Subroutine3 & 0xFFFF
+        LJMP    ?Subroutine4 & 0xFFFF
         CFI EndBlock cfiBlock19
 //  344 
 
@@ -2441,18 +2441,38 @@ zclRS485_CallBack:
         MOVX    A,@DPTR
         MOV     R1,A
         LCALL   ??osal_set_event?relay
+        CFI EndBlock cfiBlock21
 //  464   }
 //  465 }
 ??zclRS485_CallBack_1:
+        REQUIRE ?Subroutine5
+        ; // Fall through to label ?Subroutine5
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+?Subroutine5:
+        CFI Block cfiBlock22 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 10)
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
-        CFI EndBlock cfiBlock21
+        CFI EndBlock cfiBlock22
 //  466 #if defined( MMN_UART )
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
-//  467 uint8 uart_recv_str[20];
+//  467 uint8 uart_recv_str[30];
 uart_recv_str:
-        DS 20
+        DS 30
         REQUIRE __INIT_XDATA_Z
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
@@ -2465,43 +2485,43 @@ str_loc:
         RSEG BANKED_CODE:CODE:NOROOT(0)
 //  470 void zclRS485_SendMsg(void)
 zclRS485_SendMsg:
-        CFI Block cfiBlock22 Using cfiCommon0
+        CFI Block cfiBlock23 Using cfiCommon0
         CFI Function zclRS485_SendMsg
 //  471 {
         FUNCALL zclRS485_SendMsg, HalLcdWriteChar
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 33, STACK
+        LOCFRAME XSTACK, 30, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 33, STACK
+        ARGFRAME XSTACK, 30, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL zclRS485_SendMsg, zcl_SendCommand
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 44, STACK
+        LOCFRAME XSTACK, 41, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 44, STACK
+        ARGFRAME XSTACK, 41, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL zclRS485_SendMsg, memset
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 35, STACK
+        LOCFRAME XSTACK, 32, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 35, STACK
+        ARGFRAME XSTACK, 32, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        MOV     A,#-0xd
+        MOV     A,#-0xa
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
         CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
@@ -2509,48 +2529,34 @@ zclRS485_SendMsg:
         CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
         CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
         CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI V4 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-11)))
-        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-12)))
-        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-13)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
         CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 13)
-        ; Saved register size: 13
+        CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
         ; Auto size: 20
         MOV     A,#-0x14
         LCALL   ?ALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 33)
+        CFI CFA_XSP16 add(XSP16, 30)
 //  472   uint8 len;
 //  473   uint8 uart_recv[20]; // Receive the UART command
-//  474   char temp[20];
+//  474   char temp[30];
 //  475   int null_loc;
-//  476   
+//  476   //HalUARTWrite( MT_UART_DEFAULT_PORT, "Process\n\r", 10 );
 //  477   for(len = 0; len < 20; len++)
-        MOV     ?V0 + 4,#0x0
+        MOV     ?V0 + 0,#0x0
 //  478   {
 //  479     uart_recv[len]     = TransmitApp_Msg[len];
 ??zclRS485_SendMsg_0:
-        MOV     DPL,?V0 + 4
-        MOV     R6,DPL
-        MOV     A,R6
-        ADD     A,#(TransmitApp_Msg & 0xff)
-        MOV     R0,A
-        CLR     A
-        ADDC    A,#((TransmitApp_Msg >> 8) & 0xff)
-        MOV     R1,A
-        MOV     ?V0 + 0,R0
-        MOV     ?V0 + 1,R1
-        MOV     DPL,R0
-        MOV     DPH,A
-        MOVX    A,@DPTR
+        LCALL   ?Subroutine1 & 0xFFFF
+??CrossCallReturnLabel_2:
         MOV     R3,A
         MOV     DPL,?XSP + 0
         MOV     DPH,?XSP + 1
         MOV     A,DPL
-        ADD     A,R6
+        ADD     A,R0
         MOV     DPL,A
         MOV     A,DPH
         ADDC    A,#0x0
@@ -2560,117 +2566,120 @@ zclRS485_SendMsg:
 //  480   #if defined( LCD_SUPPORTED )
 //  481     HalLcdWriteChar(HAL_LCD_LINE_4, len, uart_recv[len]);
         ; Setup parameters for call to function HalLcdWriteChar
-        MOV     R2,?V0 + 4
+        MOV     R2,?V0 + 0
         MOV     R1,#0x4
         LCALL   ??HalLcdWriteChar?relay
 //  482   #endif
 //  483   #if defined( MMN_UART )
-//  484     uart_recv_str[len+str_loc] = TransmitApp_Msg[len];
-        MOV     DPL,?V0 + 0
-        MOV     DPH,?V0 + 1
-        MOVX    A,@DPTR
-        PUSH    A
-        CFI CFA_SP SP+-1
-        MOV     DPTR,#str_loc
-        MOVX    A,@DPTR
-        ADD     A,R6
-        MOV     R0,A
-        INC     DPTR
-        MOVX    A,@DPTR
-        ADDC    A,#0x0
-        MOV     R1,A
-        MOV     A,R0
-        ADD     A,#(uart_recv_str & 0xff)
-        MOV     DPL,A
-        MOV     A,R1
-        ADDC    A,#((uart_recv_str >> 8) & 0xff)
-        MOV     DPH,A
-        POP     A
-        CFI CFA_SP SP+0
-        MOVX    @DPTR,A
-//  485     if(TransmitApp_Msg[len]=='\0'){
-        JNZ     ??zclRS485_SendMsg_1
-//  486       null_loc = len;
-        MOV     ?V0 + 2,R6
-        MOV     ?V0 + 3,#0x0
-//  487       str_loc += null_loc;
-        MOV     DPTR,#str_loc
-        MOVX    A,@DPTR
-        ADD     A,?V0 + 2
-        MOVX    @DPTR,A
-        INC     DPTR
-        MOVX    A,@DPTR
-        ADDC    A,#0x0
-        MOVX    @DPTR,A
-//  488       break;
-        SJMP    ??zclRS485_SendMsg_2
-//  489     }
-//  490   #endif
-//  491   }
-??zclRS485_SendMsg_1:
-        INC     ?V0 + 4
-        MOV     A,?V0 + 4
+//  484     /*
+//  485     uart_recv_str[len] = TransmitApp_Msg[len];
+//  486     if(TransmitApp_Msg[len]=='\0'){
+//  487       null_loc = len;
+//  488       str_loc += null_loc;
+//  489       break;
+//  490     }
+//  491     else if(len==19){
+//  492       str_loc += (len+1);
+//  493       memset(TransmitApp_Msg, 0x0, 20);
+//  494       HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, 20 );
+//  495       for(int len_sec = 0; len_sec < 20; len_sec++){
+//  496         uart_recv_str[len_sec+str_loc] = TransmitApp_Msg[len_sec];
+//  497         if(TransmitApp_Msg[len_sec]=='\0'){
+//  498           null_loc = len_sec;
+//  499           str_loc += null_loc;
+//  500           break;
+//  501         }
+//  502       }
+//  503     }
+//  504     */
+//  505     
+//  506   #endif
+//  507   }
+        INC     ?V0 + 0
+        MOV     A,?V0 + 0
         CLR     C
         SUBB    A,#0x14
         JC      ??zclRS485_SendMsg_0
-//  492   
-//  493   //sprintf(temp, ",%d,", (int)TransmitApp_Msg[null_loc-1]);
-//  494   //HalUARTWrite( MT_UART_DEFAULT_PORT, temp, 20 );
-//  495   #if defined( MMN_UART )
-//  496   if(TransmitApp_Msg[null_loc-1]=='\r'){
+//  508   #if defined( MMN_UART )
+//  509   for(len = 0; len < 102; len++){
+        MOV     ?V0 + 0,#0x0
+//  510     if(TransmitApp_Msg[len]=='\0'){
+??zclRS485_SendMsg_1:
+        LCALL   ?Subroutine1 & 0xFFFF
+??CrossCallReturnLabel_3:
+        JNZ     ??zclRS485_SendMsg_2
+//  511       null_loc = len;
+        MOV     A,R0
+        MOV     R6,A
+        MOV     R7,#0x0
+//  512       break;
+        SJMP    ??zclRS485_SendMsg_3
+//  513     }
+//  514   }
 ??zclRS485_SendMsg_2:
-        MOV     A,?V0 + 2
+        INC     ?V0 + 0
+        MOV     A,?V0 + 0
+        CLR     C
+        SUBB    A,#0x66
+        JC      ??zclRS485_SendMsg_1
+//  515   #endif
+//  516   //HalUARTWrite( MT_UART_DEFAULT_PORT, "Data=", 5 );
+//  517   //HalUARTWrite( MT_UART_DEFAULT_PORT, TransmitApp_Msg, null_loc );
+//  518   //HalUARTWrite( MT_UART_DEFAULT_PORT, "\n\r", 2 );
+//  519   #if defined( MMN_UART )
+//  520   if(TransmitApp_Msg[null_loc-1]=='\r'){
+??zclRS485_SendMsg_3:
+        MOV     A,R6
         ADD     A,#((TransmitApp_Msg + 255) & 0xff)
         MOV     DPL,A
-        MOV     A,?V0 + 3
+        MOV     A,R7
         ADDC    A,#(((TransmitApp_Msg - 1) >> 8) & 0xff)
         MOV     DPH,A
         MOVX    A,@DPTR
         XRL     A,#0xd
-        JNZ     ??zclRS485_SendMsg_3
-//  497   // Transmit the UART command to End Device
-//  498     uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
-//  499                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
-//  500                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, str_loc-1, uart_recv_str );
+        JNZ     ??zclRS485_SendMsg_4
+//  521   // Transmit the UART command to End Device
+//  522     //HalUARTWrite( MT_UART_DEFAULT_PORT, "Packet\n\r", 10 );
+//  523     uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
+//  524                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
+//  525                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, null_loc-1, TransmitApp_Msg );
         ; Setup parameters for call to function zcl_SendCommand
-        MOV     ?V0 + 0,#(uart_recv_str & 0xff)
-        MOV     ?V0 + 1,#((uart_recv_str >> 8) & 0xff)
+        MOV     ?V0 + 0,#(TransmitApp_Msg & 0xff)
+        MOV     ?V0 + 1,#((TransmitApp_Msg >> 8) & 0xff)
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 35)
-        MOV     DPTR,#str_loc
-        MOVX    A,@DPTR
-        ADD     A,#-0x1
+        CFI CFA_XSP16 add(XSP16, 32)
+        MOV     A,#-0x1
+        ADD     A,R6
         MOV     ?V0 + 0,A
-        INC     DPTR
-        MOVX    A,@DPTR
-        ADDC    A,#-0x1
+        MOV     A,#-0x1
+        ADDC    A,R7
         MOV     ?V0 + 1,A
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 37)
+        CFI CFA_XSP16 add(XSP16, 34)
         MOV     ?V0 + 0,#0x0
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 38)
+        CFI CFA_XSP16 add(XSP16, 35)
         MOV     ?V0 + 1,#0x0
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 40)
+        CFI CFA_XSP16 add(XSP16, 37)
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 41)
+        CFI CFA_XSP16 add(XSP16, 38)
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 42)
+        CFI CFA_XSP16 add(XSP16, 39)
         MOV     ?V0 + 0,#0x1
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 43)
+        CFI CFA_XSP16 add(XSP16, 40)
         MOV     ?V0 + 0,#0x0
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 44)
+        CFI CFA_XSP16 add(XSP16, 41)
         MOV     R4,#0x6
         MOV     R5,#0x0
         MOV     R2,#(zclZigbeeDevice_DstAddr & 0xff)
@@ -2679,76 +2688,118 @@ zclRS485_SendMsg:
         LCALL   ??zcl_SendCommand?relay
         MOV     A,#0xb
         LCALL   ?DEALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 33)
-//  501     str_loc = 0;
-        MOV     DPTR,#str_loc
-        CLR     A
-        MOVX    @DPTR,A
-        INC     DPTR
-        MOVX    @DPTR,A
-//  502     memset(uart_recv_str, 0x0, 20);
+        CFI CFA_XSP16 add(XSP16, 30)
+//  526     null_loc = 0;
+//  527     memset(TransmitApp_Msg, 0x0, 102);
         ; Setup parameters for call to function memset
-        MOV     ?V0 + 0,#0x14
+        MOV     ?V0 + 0,#0x66
         MOV     R0,#?V0 + 0
         LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 35)
+        CFI CFA_XSP16 add(XSP16, 32)
         MOV     R4,#0x0
         MOV     R5,#0x0
-        MOV     R2,#(uart_recv_str & 0xff)
-        MOV     R3,#((uart_recv_str >> 8) & 0xff)
+        MOV     R2,#(TransmitApp_Msg & 0xff)
+        MOV     R3,#((TransmitApp_Msg >> 8) & 0xff)
         LCALL   ??memset?relay
         MOV     A,#0x2
         LCALL   ?DEALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 33)
-//  503   }
-//  504   #else
-//  505   uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
-//  506                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
-//  507                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, uart_recv );
-//  508   #endif
-//  509     
-//  510 }
-??zclRS485_SendMsg_3:
+        CFI CFA_XSP16 add(XSP16, 30)
+//  528   }
+//  529   #else
+//  530   uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
+//  531                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
+//  532                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, uart_recv );
+//  533   #endif
+//  534 }
+??zclRS485_SendMsg_4:
         MOV     A,#0x14
         LCALL   ?DEALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 13)
-        MOV     R7,#0x5
-        LJMP    ?BANKED_LEAVE_XDATA
-        CFI EndBlock cfiBlock22
-//  511 
+        CFI CFA_XSP16 add(XSP16, 10)
+        LJMP    ?Subroutine5 & 0xFFFF
+        CFI EndBlock cfiBlock23
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  512 void zclZIGBEEDevice_SendMsg(void)
+?Subroutine1:
+        CFI Block cfiCond24 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_2
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 30)
+        CFI Block cfiCond25 Using cfiCommon0
+        CFI (cfiCond25) NoFunction
+        CFI (cfiCond25) Conditional ??CrossCallReturnLabel_3
+        CFI (cfiCond25) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+        CFI (cfiCond25) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+        CFI (cfiCond25) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI (cfiCond25) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI (cfiCond25) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI (cfiCond25) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI (cfiCond25) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI (cfiCond25) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI (cfiCond25) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI (cfiCond25) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI (cfiCond25) CFA_SP SP+0
+        CFI (cfiCond25) CFA_XSP16 add(XSP16, 30)
+        CFI Block cfiPicker26 Using cfiCommon1
+        CFI (cfiPicker26) NoFunction
+        CFI (cfiPicker26) Picker
+        MOV     DPL,?V0 + 0
+        MOV     R0,DPL
+        MOV     A,R0
+        ADD     A,#(TransmitApp_Msg & 0xff)
+        MOV     DPL,A
+        CLR     A
+        ADDC    A,#((TransmitApp_Msg >> 8) & 0xff)
+        MOV     DPH,A
+        MOVX    A,@DPTR
+        RET
+        CFI EndBlock cfiCond24
+        CFI EndBlock cfiCond25
+        CFI EndBlock cfiPicker26
+//  535 
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  536 void zclZIGBEEDevice_SendMsg(void)
 zclZIGBEEDevice_SendMsg:
-        CFI Block cfiBlock23 Using cfiCommon0
+        CFI Block cfiBlock27 Using cfiCommon0
         CFI Function zclZIGBEEDevice_SendMsg
-//  513 {
+//  537 {
         ; Saved register size: 0
         ; Auto size: 0
-//  514   #if defined(M110)
-//  515     M110_SensorFunction();
-//  516   #endif
-//  517   #if defined(M140)
-//  518     M140_SensorFunction();
-//  519   #endif
-//  520   #if defined(M160)
-//  521     M160_SensorFunction();
-//  522   #endif
-//  523   #if defined(M170)
-//  524     M170_SensorFunction();
-//  525   #endif
-//  526   #if defined(M190)
-//  527     M190_SensorFunction();
-//  528   #endif
-//  529   #if defined(M200)
-//  530     M200_SensorFunction();
-//  531   #endif
-//  532   #if defined(M270)
-//  533     M270_SensorFunction();
-//  534   #endif
-//  535 }
+//  538   #if defined(M110)
+//  539     M110_SensorFunction();
+//  540   #endif
+//  541   #if defined(M140)
+//  542     M140_SensorFunction();
+//  543   #endif
+//  544   #if defined(M160)
+//  545     M160_SensorFunction();
+//  546   #endif
+//  547   #if defined(M170)
+//  548     M170_SensorFunction();
+//  549   #endif
+//  550   #if defined(M190)
+//  551     M190_SensorFunction();
+//  552   #endif
+//  553   #if defined(M200)
+//  554     M200_SensorFunction();
+//  555   #endif
+//  556   #if defined(M270)
+//  557     M270_SensorFunction();
+//  558   #endif
+//  559 }
         LJMP    ?BRET
-        CFI EndBlock cfiBlock23
+        CFI EndBlock cfiBlock27
 
         RSEG XDATA_ID:CODE:NOROOT(0)
         DATA
@@ -2826,16 +2877,16 @@ zclZIGBEEDevice_SendMsg:
         DC24    zclZIGBEEDevice_SendMsg
 
         END
-//  536 
+//  560 
 // 
-// 1 106 bytes in segment BANKED_CODE
+// 1 058 bytes in segment BANKED_CODE
 //    54 bytes in segment BANK_RELAYS
 //    38 bytes in segment XDATA_I
 //    38 bytes in segment XDATA_ID
-//    42 bytes in segment XDATA_Z
+//    52 bytes in segment XDATA_Z
 // 
-// 1 198 bytes of CODE  memory
-//    80 bytes of XDATA memory
+// 1 150 bytes of CODE  memory
+//    90 bytes of XDATA memory
 //
 //Errors: none
 //Warnings: 1

@@ -464,16 +464,16 @@ void zclRS485_CallBack(uint8 port, uint8 event)
   }
 }
 #if defined( MMN_UART )
-uint8 uart_recv_str[20];
+uint8 uart_recv_str[30];
 int str_loc = 0;
 #endif
 void zclRS485_SendMsg(void)
 {
   uint8 len;
   uint8 uart_recv[20]; // Receive the UART command
-  char temp[20];
+  char temp[30];
   int null_loc;
-  
+  //HalUARTWrite( MT_UART_DEFAULT_PORT, "Process\n\r", 10 );
   for(len = 0; len < 20; len++)
   {
     uart_recv[len]     = TransmitApp_Msg[len];
@@ -481,32 +481,56 @@ void zclRS485_SendMsg(void)
     HalLcdWriteChar(HAL_LCD_LINE_4, len, uart_recv[len]);
   #endif
   #if defined( MMN_UART )
-    uart_recv_str[len+str_loc] = TransmitApp_Msg[len];
+    /*
+    uart_recv_str[len] = TransmitApp_Msg[len];
     if(TransmitApp_Msg[len]=='\0'){
       null_loc = len;
       str_loc += null_loc;
       break;
     }
+    else if(len==19){
+      str_loc += (len+1);
+      memset(TransmitApp_Msg, 0x0, 20);
+      HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, 20 );
+      for(int len_sec = 0; len_sec < 20; len_sec++){
+        uart_recv_str[len_sec+str_loc] = TransmitApp_Msg[len_sec];
+        if(TransmitApp_Msg[len_sec]=='\0'){
+          null_loc = len_sec;
+          str_loc += null_loc;
+          break;
+        }
+      }
+    }
+    */
+    
   #endif
   }
-  
-  //sprintf(temp, ",%d,", (int)TransmitApp_Msg[null_loc-1]);
-  //HalUARTWrite( MT_UART_DEFAULT_PORT, temp, 20 );
+  #if defined( MMN_UART )
+  for(len = 0; len < 102; len++){
+    if(TransmitApp_Msg[len]=='\0'){
+      null_loc = len;
+      break;
+    }
+  }
+  #endif
+  //HalUARTWrite( MT_UART_DEFAULT_PORT, "Data=", 5 );
+  //HalUARTWrite( MT_UART_DEFAULT_PORT, TransmitApp_Msg, null_loc );
+  //HalUARTWrite( MT_UART_DEFAULT_PORT, "\n\r", 2 );
   #if defined( MMN_UART )
   if(TransmitApp_Msg[null_loc-1]=='\r'){
   // Transmit the UART command to End Device
+    //HalUARTWrite( MT_UART_DEFAULT_PORT, "Packet\n\r", 10 );
     uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
-                                TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, str_loc-1, uart_recv_str );
-    str_loc = 0;
-    memset(uart_recv_str, 0x0, 20);
+                                TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, null_loc-1, TransmitApp_Msg );
+    null_loc = 0;
+    memset(TransmitApp_Msg, 0x0, 102);
   }
   #else
   uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, len, uart_recv );
   #endif
-    
 }
 
 void zclZIGBEEDevice_SendMsg(void)

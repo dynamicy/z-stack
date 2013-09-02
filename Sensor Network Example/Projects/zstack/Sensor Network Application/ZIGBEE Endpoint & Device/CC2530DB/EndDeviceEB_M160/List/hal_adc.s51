@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               23/Aug/2013  21:45:02 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               28/Aug/2013  15:39:33 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -10,7 +10,7 @@
 //    Constant location  =  data_rom                                          /
 //    Dptr setup         =  1,16                                              /
 //    Source file        =  D:\GitHub\z-stack\Sensor Network                  /
-//                          Example\Components\hal\target\CC2530NB\hal_adc.c  /
+//                          Example\Components\hal\target\CC2530KB\hal_adc.c  /
 //    Command line       =  -f "D:\GitHub\z-stack\Sensor Network              /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -50,7 +50,7 @@
 //                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
 //                          -DZCL_PRICING) -DZCL_MESSAGE                      /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
-//                          Example\Components\hal\target\CC2530NB\hal_adc.c" /
+//                          Example\Components\hal\target\CC2530KB\hal_adc.c" /
 //                           -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D       /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
@@ -422,7 +422,7 @@ HalAdcSetReference  SYMBOL "HalAdcSetReference"
 adcSampleSingle     SYMBOL "adcSampleSingle"
 ??adcSampleSingle?relay SYMBOL "?relay", adcSampleSingle
 
-// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530NB\hal_adc.c
+// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_adc.c
 //    1 /**************************************************************************************************
 //    2   Filename:       hal_adc.c
 //    3   Revised:        $Date: 2009-12-17 13:13:47 -0800 (Thu, 17 Dec 2009) $
@@ -430,16 +430,42 @@ adcSampleSingle     SYMBOL "adcSampleSingle"
 //    5 
 //    6   Description:    This file contains the interface to the HAL ADC.
 //    7 
-//    8   Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
-//    9 
-//   10   Should you have any questions regarding your right to use this Software,
-//   11   contact Texas Instruments Incorporated at www.TI.com.
-//   12 **************************************************************************************************/
-//   13 
-//   14 /**************************************************************************************************
-//   15  *                                           INCLUDES
-//   16  **************************************************************************************************/
-//   17 #include  "hal_mcu.h"
+//    8 
+//    9   Copyright 2006-2009 Texas Instruments Incorporated. All rights reserved.
+//   10 
+//   11   IMPORTANT: Your use of this Software is limited to those specific rights
+//   12   granted under the terms of a software license agreement between the user
+//   13   who downloaded the software, his/her employer (which must be your employer)
+//   14   and Texas Instruments Incorporated (the "License").  You may not use this
+//   15   Software unless you agree to abide by the terms of the License. The License
+//   16   limits your use, and you acknowledge, that the Software may not be modified,
+//   17   copied or distributed unless embedded on a Texas Instruments microcontroller
+//   18   or used solely and exclusively in conjunction with a Texas Instruments radio
+//   19   frequency transceiver, which is integrated into your product.  Other than for
+//   20   the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+//   21   works of, modify, distribute, perform, display or sell this Software and/or
+//   22   its documentation for any purpose.
+//   23 
+//   24   YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+//   25   PROVIDED “AS IS?WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+//   26   INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+//   27   NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+//   28   TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+//   29   NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+//   30   LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+//   31   INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+//   32   OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+//   33   OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+//   34   (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+//   35 
+//   36   Should you have any questions regarding your right to use this Software,
+//   37   contact Texas Instruments Incorporated at www.TI.com.
+//   38 **************************************************************************************************/
+//   39 
+//   40 /**************************************************************************************************
+//   41  *                                           INCLUDES
+//   42  **************************************************************************************************/
+//   43 #include  "hal_mcu.h"
 
         ASEGN SFR_AN:DATA:NOROOT,088H
 // union <unnamed> volatile __sfr _A_TCON
@@ -475,97 +501,97 @@ ADCH:
 // unsigned char volatile __sfr ADCCFG
 ADCCFG:
         DS 1
-//   18 #include  "hal_defs.h"
-//   19 #include  "hal_types.h"
-//   20 #include  "hal_adc.h"
-//   21 
-//   22 #if defined(M170)  // SensorApp example include header file
-//   23   #include  "M170.h"
-//   24 #endif
-//   25 
-//   26 /**************************************************************************************************
-//   27  *                                            CONSTANTS
-//   28  **************************************************************************************************/
-//   29 #define HAL_ADC_EOC         0x80    /* End of Conversion bit */
-//   30 #define HAL_ADC_START       0x40    /* Starts Conversion */
-//   31 
-//   32 #define HAL_ADC_STSEL_EXT   0x00    /* External Trigger */
-//   33 #define HAL_ADC_STSEL_FULL  0x10    /* Full Speed, No Trigger */
-//   34 #define HAL_ADC_STSEL_T1C0  0x20    /* Timer1, Channel 0 Compare Event Trigger */
-//   35 #define HAL_ADC_STSEL_ST    0x30    /* ADCCON1.ST =1 Trigger */
-//   36 
-//   37 #define HAL_ADC_RAND_NORM   0x00    /* Normal Operation */
-//   38 #define HAL_ADC_RAND_LFSR   0x04    /* Clock LFSR */
-//   39 #define HAL_ADC_RAND_SEED   0x08    /* Seed Modulator */
-//   40 #define HAL_ADC_RAND_STOP   0x0c    /* Stop Random Generator */
-//   41 #define HAL_ADC_RAND_BITS   0x0c    /* Bits [3:2] */
-//   42 
-//   43 #define HAL_ADC_DEC_064     0x00    /* Decimate by 64 : 8-bit resolution */
-//   44 #define HAL_ADC_DEC_128     0x10    /* Decimate by 128 : 10-bit resolution */
-//   45 #define HAL_ADC_DEC_256     0x20    /* Decimate by 256 : 12-bit resolution */
-//   46 #define HAL_ADC_DEC_512     0x30    /* Decimate by 512 : 14-bit resolution */
-//   47 #define HAL_ADC_DEC_BITS    0x30    /* Bits [5:4] */
-//   48 
-//   49 #define HAL_ADC_STSEL       HAL_ADC_STSEL_ST
-//   50 #define HAL_ADC_RAND_GEN    HAL_ADC_RAND_STOP
-//   51 #define HAL_ADC_REF_VOLT    HAL_ADC_REF_AVDD
-//   52 #define HAL_ADC_DEC_RATE    HAL_ADC_DEC_064
-//   53 #define HAL_ADC_SCHN        HAL_ADC_CHN_VDD3
-//   54 #define HAL_ADC_ECHN        HAL_ADC_CHN_GND
-//   55 
-//   56 /* Vdd limit values */
+//   44 #include  "hal_defs.h"
+//   45 #include  "hal_types.h"
+//   46 #include  "hal_adc.h"
+//   47 
+//   48 #if defined(M170)  // SensorApp example include header file
+//   49   #include  "M170.h"
+//   50 #endif
+//   51 
+//   52 /**************************************************************************************************
+//   53  *                                            CONSTANTS
+//   54  **************************************************************************************************/
+//   55 #define HAL_ADC_EOC         0x80    /* End of Conversion bit */
+//   56 #define HAL_ADC_START       0x40    /* Starts Conversion */
+//   57 
+//   58 #define HAL_ADC_STSEL_EXT   0x00    /* External Trigger */
+//   59 #define HAL_ADC_STSEL_FULL  0x10    /* Full Speed, No Trigger */
+//   60 #define HAL_ADC_STSEL_T1C0  0x20    /* Timer1, Channel 0 Compare Event Trigger */
+//   61 #define HAL_ADC_STSEL_ST    0x30    /* ADCCON1.ST =1 Trigger */
+//   62 
+//   63 #define HAL_ADC_RAND_NORM   0x00    /* Normal Operation */
+//   64 #define HAL_ADC_RAND_LFSR   0x04    /* Clock LFSR */
+//   65 #define HAL_ADC_RAND_SEED   0x08    /* Seed Modulator */
+//   66 #define HAL_ADC_RAND_STOP   0x0c    /* Stop Random Generator */
+//   67 #define HAL_ADC_RAND_BITS   0x0c    /* Bits [3:2] */
+//   68 
+//   69 #define HAL_ADC_DEC_064     0x00    /* Decimate by 64 : 8-bit resolution */
+//   70 #define HAL_ADC_DEC_128     0x10    /* Decimate by 128 : 10-bit resolution */
+//   71 #define HAL_ADC_DEC_256     0x20    /* Decimate by 256 : 12-bit resolution */
+//   72 #define HAL_ADC_DEC_512     0x30    /* Decimate by 512 : 14-bit resolution */
+//   73 #define HAL_ADC_DEC_BITS    0x30    /* Bits [5:4] */
+//   74 
+//   75 #define HAL_ADC_STSEL       HAL_ADC_STSEL_ST
+//   76 #define HAL_ADC_RAND_GEN    HAL_ADC_RAND_STOP
+//   77 #define HAL_ADC_REF_VOLT    HAL_ADC_REF_AVDD
+//   78 #define HAL_ADC_DEC_RATE    HAL_ADC_DEC_064
+//   79 #define HAL_ADC_SCHN        HAL_ADC_CHN_VDD3
+//   80 #define HAL_ADC_ECHN        HAL_ADC_CHN_GND
+//   81 
+//   82 /* Vdd limit values */
 
         RSEG CODE_C:CODE:REORDER:NOROOT(0)
         DATA
-//   57 static __code const uint16 HalAdcVddLimit[] =
+//   83 static __code const uint16 HalAdcVddLimit[] =
 HalAdcVddLimit:
         DW 13980, 14854, 15728, 16601, 17475, 18349, 19223, 20097, 20970
-//   58 {
-//   59   0x369C,       /*  VDD Limit - 1.6v  */
-//   60   0x3A06,       /*  VDD Limit - 1.7v  */
-//   61   0x3D70,       /*  VDD Limit - 1.8v  */
-//   62   0x40D9,       /*  VDD Limit - 1.9v  */
-//   63   0x4443,       /*  VDD Limit - 2.0v  */
-//   64   0x47AD,       /*  VDD Limit - 2.1v  */
-//   65   0x4B17,       /*  VDD Limit - 2.2v  */
-//   66   0x4E81,       /*  VDD Limit - 2.3v  */
-//   67   0x51EA,       /*  VDD Limit - 2.4v  */
-//   68 };
-//   69 
-//   70 /**************************************************************************************************
-//   71  *                                              MACROS
-//   72  **************************************************************************************************/
-//   73 #define HAL_ADC_CLR_EOC()   asm("PUSH A"); asm("MOV A,ADCL"); asm("MOV A,ADCH"); asm("POP A");
-//   74 
-//   75 /**************************************************************************************************
-//   76  *                                            TYPEDEFS
-//   77  **************************************************************************************************/
-//   78 
-//   79 /**************************************************************************************************
-//   80  *                                         GLOBAL VARIABLES
-//   81  **************************************************************************************************/
-//   82 
-//   83 /**************************************************************************************************
-//   84  *                                          FUNCTIONS - API
-//   85  **************************************************************************************************/
-//   86 extern bool HalAdcCheckVdd (uint8 limit);
-//   87 
-//   88 /**************************************************************************************************
-//   89  * @fn      HalAdcInit
-//   90  *
-//   91  * @brief   Initialize ADC Service
-//   92  *
-//   93  * @param   None
-//   94  *
-//   95  * @return  None
-//   96  **************************************************************************************************/
+//   84 {
+//   85   0x369C,       /*  VDD Limit - 1.6v  */
+//   86   0x3A06,       /*  VDD Limit - 1.7v  */
+//   87   0x3D70,       /*  VDD Limit - 1.8v  */
+//   88   0x40D9,       /*  VDD Limit - 1.9v  */
+//   89   0x4443,       /*  VDD Limit - 2.0v  */
+//   90   0x47AD,       /*  VDD Limit - 2.1v  */
+//   91   0x4B17,       /*  VDD Limit - 2.2v  */
+//   92   0x4E81,       /*  VDD Limit - 2.3v  */
+//   93   0x51EA,       /*  VDD Limit - 2.4v  */
+//   94 };
+//   95 
+//   96 /**************************************************************************************************
+//   97  *                                              MACROS
+//   98  **************************************************************************************************/
+//   99 #define HAL_ADC_CLR_EOC()   asm("PUSH A"); asm("MOV A,ADCL"); asm("MOV A,ADCH"); asm("POP A");
+//  100 
+//  101 /**************************************************************************************************
+//  102  *                                            TYPEDEFS
+//  103  **************************************************************************************************/
+//  104 
+//  105 /**************************************************************************************************
+//  106  *                                         GLOBAL VARIABLES
+//  107  **************************************************************************************************/
+//  108 
+//  109 /**************************************************************************************************
+//  110  *                                          FUNCTIONS - API
+//  111  **************************************************************************************************/
+//  112 extern bool HalAdcCheckVdd (uint8 limit);
+//  113 
+//  114 /**************************************************************************************************
+//  115  * @fn      HalAdcInit
+//  116  *
+//  117  * @brief   Initialize ADC Service
+//  118  *
+//  119  * @param   None
+//  120  *
+//  121  * @return  None
+//  122  **************************************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//   97 void HalAdcInit (void)
+//  123 void HalAdcInit (void)
 HalAdcInit:
         CFI Block cfiBlock0 Using cfiCommon0
         CFI Function HalAdcInit
-//   98 {
+//  124 {
         PUSH    DPL
         CFI DPL0 Frame(CFA_SP, 4)
         CFI CFA_SP SP+-4
@@ -577,52 +603,52 @@ HalAdcInit:
         MOV     A,#-0x1
         LCALL   ?ALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 1)
-//   99 #if (HAL_ADC == TRUE)
-//  100   volatile uint8  tmp;
-//  101 
-//  102   ADCCON1 = HAL_ADC_STSEL | HAL_ADC_RAND_GEN | 0x03;
+//  125 #if (HAL_ADC == TRUE)
+//  126   volatile uint8  tmp;
+//  127 
+//  128   ADCCON1 = HAL_ADC_STSEL | HAL_ADC_RAND_GEN | 0x03;
         MOV     0xb4,#0x3f
-//  103   ADCCON2 = HAL_ADC_REF_VOLT | HAL_ADC_DEC_RATE | HAL_ADC_SCHN;
+//  129   ADCCON2 = HAL_ADC_REF_VOLT | HAL_ADC_DEC_RATE | HAL_ADC_SCHN;
         MOV     0xb5,#-0x71
-//  104   /*
-//  105   *  After reset, the first ADC reading of the extra conversion always reads GND level.
-//  106   *  We will do a few dummy conversions to bypass this bug.
-//  107   */
-//  108   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
+//  130   /*
+//  131   *  After reset, the first ADC reading of the extra conversion always reads GND level.
+//  132   *  We will do a few dummy conversions to bypass this bug.
+//  133   */
+//  134   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         LCALL   ?Subroutine0 & 0xFFFF
-//  109   tmp = ADCH;
-//  110   ADCCON3 = HAL_ADC_REF_VOLT | HAL_ADC_DEC_RATE | HAL_ADC_ECHN;
+//  135   tmp = ADCH;
+//  136   ADCCON3 = HAL_ADC_REF_VOLT | HAL_ADC_DEC_RATE | HAL_ADC_ECHN;
 ??CrossCallReturnLabel_0:
         MOV     0xb6,#-0x74
-//  111   while ((ADCCON1 & HAL_ADC_EOC) != HAL_ADC_EOC);   /* Wait for conversion */
+//  137   while ((ADCCON1 & HAL_ADC_EOC) != HAL_ADC_EOC);   /* Wait for conversion */
 ??HalAdcInit_0:
         MOV     A,0xb4
         MOV     C,0xE0 /* A   */.7
         JNC     ??HalAdcInit_0
-//  112   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
+//  138   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         MOV     A,0xba
         LCALL   ??Subroutine2_0 & 0xFFFF
-//  113   tmp = ADCH;
-//  114   ADCCON3 = HAL_ADC_REF_VOLT | HAL_ADC_DEC_RATE | HAL_ADC_ECHN;
+//  139   tmp = ADCH;
+//  140   ADCCON3 = HAL_ADC_REF_VOLT | HAL_ADC_DEC_RATE | HAL_ADC_ECHN;
 ??CrossCallReturnLabel_3:
         MOV     0xb6,#-0x74
-//  115   while ((ADCCON1 & HAL_ADC_EOC) != HAL_ADC_EOC);   /* Wait for conversion */
+//  141   while ((ADCCON1 & HAL_ADC_EOC) != HAL_ADC_EOC);   /* Wait for conversion */
 ??HalAdcInit_1:
         MOV     A,0xb4
         MOV     C,0xE0 /* A   */.7
         JNC     ??HalAdcInit_1
         CFI EndBlock cfiBlock0
-//  116   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
+//  142   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         REQUIRE ?Subroutine1
-        REQUIRE ADCCON2
         REQUIRE ADCCON1
+        REQUIRE ADCCON2
         REQUIRE ADCCON3
         REQUIRE ADCH
         REQUIRE ADCL
         ; // Fall through to label ?Subroutine1
-//  117   tmp = ADCH;
-//  118 #endif
-//  119 }
+//  143   tmp = ADCH;
+//  144 #endif
+//  145 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine1:
@@ -646,27 +672,27 @@ HalAdcInit:
         CFI DPL0 SameValue
         LJMP    ?BRET
         CFI EndBlock cfiBlock1
-//  120 
-//  121 /**************************************************************************************************
-//  122  * @fn      HalAdcRead
-//  123  *
-//  124  * @brief   Read the ADC based on given channel and resolution
-//  125  *
-//  126  * @param   channel - channel where ADC will be read
-//  127  * @param   resolution - the resolution of the value
-//  128  *
-//  129  * @return  16 bit value of the ADC in offset binary format.
-//  130  *
-//  131  *          Note that the ADC is "bipolar", which means the GND (0V) level is mid-scale.
-//  132  *          Note2: This function assumes that ADCCON3 contains the voltage reference.
-//  133  **************************************************************************************************/
+//  146 
+//  147 /**************************************************************************************************
+//  148  * @fn      HalAdcRead
+//  149  *
+//  150  * @brief   Read the ADC based on given channel and resolution
+//  151  *
+//  152  * @param   channel - channel where ADC will be read
+//  153  * @param   resolution - the resolution of the value
+//  154  *
+//  155  * @return  16 bit value of the ADC in offset binary format.
+//  156  *
+//  157  *          Note that the ADC is "bipolar", which means the GND (0V) level is mid-scale.
+//  158  *          Note2: This function assumes that ADCCON3 contains the voltage reference.
+//  159  **************************************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  134 uint16 HalAdcRead (uint8 channel, uint8 resolution)
+//  160 uint16 HalAdcRead (uint8 channel, uint8 resolution)
 HalAdcRead:
         CFI Block cfiBlock2 Using cfiCommon0
         CFI Function HalAdcRead
-//  135 {
+//  161 {
         MOV     A,#-0xa
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
@@ -686,65 +712,65 @@ HalAdcRead:
         MOV     A,#-0x1
         LCALL   ?ALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 11)
-//  136   int16  reading = 0;
-//  137 
-//  138 #if (HAL_ADC == TRUE)
-//  139 
-//  140   uint8   i, resbits;
-//  141   uint8   adctemp;
-//  142   volatile  uint8 tmp;
-//  143   uint8  adcChannel = 1;
+//  162   int16  reading = 0;
+//  163 
+//  164 #if (HAL_ADC == TRUE)
+//  165 
+//  166   uint8   i, resbits;
+//  167   uint8   adctemp;
+//  168   volatile  uint8 tmp;
+//  169   uint8  adcChannel = 1;
         MOV     R5,#0x1
-//  144   uint8  reference;
-//  145 
-//  146   /* store the previously set reference voltage selection */
-//  147   reference = ADCCON3 & HAL_ADC_REF_BITS;
+//  170   uint8  reference;
+//  171 
+//  172   /* store the previously set reference voltage selection */
+//  173   reference = ADCCON3 & HAL_ADC_REF_BITS;
         MOV     A,#-0x40
         ANL     A,0xb6
         MOV     R6,A
-//  148 
-//  149   /*
-//  150   * If Analog input channel is AIN0..AIN7, make sure corresponing P0 I/O pin is enabled.  The code
-//  151   * does NOT disable the pin at the end of this function.  I think it is better to leave the pin
-//  152   * enabled because the results will be more accurate.  Because of the inherent capacitance on the
-//  153   * pin, it takes time for the voltage on the pin to charge up to its steady-state level.  If
-//  154   * HalAdcRead() has to turn on the pin for every conversion, the results may show a lower voltage
-//  155   * than actuality because the pin did not have time to fully charge.
-//  156   */
-//  157   if (channel < 8)
+//  174 
+//  175   /*
+//  176   * If Analog input channel is AIN0..AIN7, make sure corresponing P0 I/O pin is enabled.  The code
+//  177   * does NOT disable the pin at the end of this function.  I think it is better to leave the pin
+//  178   * enabled because the results will be more accurate.  Because of the inherent capacitance on the
+//  179   * pin, it takes time for the voltage on the pin to charge up to its steady-state level.  If
+//  180   * HalAdcRead() has to turn on the pin for every conversion, the results may show a lower voltage
+//  181   * than actuality because the pin did not have time to fully charge.
+//  182   */
+//  183   if (channel < 8)
         MOV     A,R1
         CLR     C
         SUBB    A,#0x8
         JNC     ??HalAdcRead_0
-//  158   {
-//  159     for (i=0; i < channel; i++)
+//  184   {
+//  185     for (i=0; i < channel; i++)
         MOV     R3,#0x0
         SJMP    ??HalAdcRead_1
-//  160     {
-//  161       adcChannel <<= 1;
+//  186     {
+//  187       adcChannel <<= 1;
 ??HalAdcRead_2:
         MOV     A,R5
         CLR     C
         RLC     A
         MOV     R5,A
-//  162     }
+//  188     }
         INC     R3
 ??HalAdcRead_1:
         MOV     A,R3
         CLR     C
         SUBB    A,R1
         JC      ??HalAdcRead_2
-//  163   }
-//  164 
-//  165   /* Enable channel */
-//  166   ADCCFG |= adcChannel;
+//  189   }
+//  190 
+//  191   /* Enable channel */
+//  192   ADCCFG |= adcChannel;
 ??HalAdcRead_0:
         MOV     A,R5
         ORL     A,0xf2
         MOV     0xf2,A
-//  167 
-//  168   /* Convert resolution to decimation rate */
-//  169   switch (resolution)
+//  193 
+//  194   /* Convert resolution to decimation rate */
+//  195   switch (resolution)
         MOV     A,R2
         LCALL   ?UC_SWITCH_DENSE
 `?<Jumptable for HalAdcRead>_0`:
@@ -757,91 +783,91 @@ HalAdcRead:
         DW        ??HalAdcRead_6
         DW        ??HalAdcRead_7
         CODE
-//  170   {
-//  171     case HAL_ADC_RESOLUTION_8:
-//  172       resbits = HAL_ADC_DEC_064;
+//  196   {
+//  197     case HAL_ADC_RESOLUTION_8:
+//  198       resbits = HAL_ADC_DEC_064;
 ??HalAdcRead_4:
         MOV     R4,#0x0
         SJMP    ??HalAdcRead_3
-//  173       break;
-//  174     case HAL_ADC_RESOLUTION_10:
-//  175       resbits = HAL_ADC_DEC_128;
+//  199       break;
+//  200     case HAL_ADC_RESOLUTION_10:
+//  201       resbits = HAL_ADC_DEC_128;
 ??HalAdcRead_5:
         MOV     R4,#0x10
         SJMP    ??HalAdcRead_3
-//  176       break;
-//  177     case HAL_ADC_RESOLUTION_12:
-//  178       resbits = HAL_ADC_DEC_256;
+//  202       break;
+//  203     case HAL_ADC_RESOLUTION_12:
+//  204       resbits = HAL_ADC_DEC_256;
 ??HalAdcRead_6:
         MOV     R4,#0x20
         SJMP    ??HalAdcRead_3
-//  179       break;
-//  180     case HAL_ADC_RESOLUTION_14:
-//  181       resbits = HAL_ADC_DEC_512;
+//  205       break;
+//  206     case HAL_ADC_RESOLUTION_14:
+//  207       resbits = HAL_ADC_DEC_512;
 ??HalAdcRead_7:
         MOV     R4,#0x30
-//  182       break;
-//  183     default:
-//  184 //      resbits = HAL_ADC_DEC_512;
-//  185       break;
-//  186   }
-//  187 
-//  188   /* read ADCL,ADCH to clear EOC */
-//  189   tmp = ADCL;
+//  208       break;
+//  209     default:
+//  210 //      resbits = HAL_ADC_DEC_512;
+//  211       break;
+//  212   }
+//  213 
+//  214   /* read ADCL,ADCH to clear EOC */
+//  215   tmp = ADCL;
 ??HalAdcRead_3:
         LCALL   ?Subroutine0 & 0xFFFF
-//  190   tmp = ADCH;
-//  191 
-//  192   /* Setup Sample */
-//  193   adctemp = ADCCON3;
+//  216   tmp = ADCH;
+//  217 
+//  218   /* Setup Sample */
+//  219   adctemp = ADCCON3;
 ??CrossCallReturnLabel_1:
         MOV     A,0xb6
-//  194   adctemp &= ~(HAL_ADC_CHN_BITS | HAL_ADC_DEC_BITS | HAL_ADC_REF_BITS);
-//  195   adctemp |= channel | resbits | (reference);
-//  196 
-//  197   /* writing to this register starts the extra conversion */
-//  198   ADCCON3 = adctemp;
+//  220   adctemp &= ~(HAL_ADC_CHN_BITS | HAL_ADC_DEC_BITS | HAL_ADC_REF_BITS);
+//  221   adctemp |= channel | resbits | (reference);
+//  222 
+//  223   /* writing to this register starts the extra conversion */
+//  224   ADCCON3 = adctemp;
         MOV     A,R4
         ORL     A,R1
         ORL     A,R6
         MOV     0xb6,A
-//  199 
-//  200   /* Wait for the conversion to be done */
-//  201   while (!(ADCCON1 & HAL_ADC_EOC));
+//  225 
+//  226   /* Wait for the conversion to be done */
+//  227   while (!(ADCCON1 & HAL_ADC_EOC));
 ??HalAdcRead_8:
         MOV     A,0xb4
         MOV     C,0xE0 /* A   */.7
         JNC     ??HalAdcRead_8
-//  202 
-//  203   /* Disable channel after done conversion */
-//  204   ADCCFG &= (adcChannel ^ 0xFF);
+//  228 
+//  229   /* Disable channel after done conversion */
+//  230   ADCCFG &= (adcChannel ^ 0xFF);
         MOV     A,#-0x1
         XRL     A,R5
         ANL     A,0xf2
         MOV     0xf2,A
-//  205 
-//  206   /* Read the result */
-//  207   reading = (int16) (ADCL);
+//  231 
+//  232   /* Read the result */
+//  233   reading = (int16) (ADCL);
         MOV     R3,0xba
         MOV     DPL,R3
         MOV     R0,DPL
-//  208   reading |= (int16) (ADCH << 8);
+//  234   reading |= (int16) (ADCH << 8);
         MOV     A,0xbb
         MOV     R1,A
-//  209 
-//  210   /* Treat small negative as 0 */
-//  211   if (reading < 0)
+//  235 
+//  236   /* Treat small negative as 0 */
+//  237   if (reading < 0)
         CLR     C
         SUBB    A,#0x0
         MOV     C,0xD0 /* PSW */.2
         XRL     A,PSW
         RLC     A
         JNC     ??HalAdcRead_9
-//  212     reading = 0;
+//  238     reading = 0;
         MOV     R0,#0x0
         MOV     R1,#0x0
-//  213 
-//  214   switch (resolution)
+//  239 
+//  240   switch (resolution)
 ??HalAdcRead_9:
         MOV     A,R2
         LCALL   ?UC_SWITCH_DENSE
@@ -854,34 +880,34 @@ HalAdcRead:
         DW        ??HalAdcRead_12
         DW        ??HalAdcRead_13
         CODE
-//  215   {
-//  216     case HAL_ADC_RESOLUTION_8:
-//  217       reading >>= 8;
+//  241   {
+//  242     case HAL_ADC_RESOLUTION_8:
+//  243       reading >>= 8;
 ??HalAdcRead_11:
         MOV     ?V0 + 0,R0
         MOV     ?V0 + 1,R1
         MOV     A,#0x8
         SJMP    ??HalAdcRead_14
-//  218       break;
-//  219     case HAL_ADC_RESOLUTION_10:
-//  220       reading >>= 6;
+//  244       break;
+//  245     case HAL_ADC_RESOLUTION_10:
+//  246       reading >>= 6;
 ??HalAdcRead_12:
         MOV     ?V0 + 0,R0
         MOV     ?V0 + 1,R1
         MOV     A,#0x6
         SJMP    ??HalAdcRead_14
-//  221       break;
-//  222     case HAL_ADC_RESOLUTION_12:
-//  223       reading >>= 4;
+//  247       break;
+//  248     case HAL_ADC_RESOLUTION_12:
+//  249       reading >>= 4;
 ??HalAdcRead_13:
         MOV     ?V0 + 0,R0
         MOV     ?V0 + 1,R1
         MOV     A,#0x4
         SJMP    ??HalAdcRead_14
-//  224       break;
-//  225     case HAL_ADC_RESOLUTION_14:
-//  226     default:
-//  227       reading >>= 2;
+//  250       break;
+//  251     case HAL_ADC_RESOLUTION_14:
+//  252     default:
+//  253       reading >>= 2;
 ??HalAdcRead_10:
         MOV     ?V0 + 0,R0
         MOV     ?V0 + 1,R1
@@ -891,15 +917,15 @@ HalAdcRead:
         LCALL   ?SS_SHR
         MOV     R0,?V0 + 0
         MOV     R1,?V0 + 1
-//  228     break;
-//  229   }
-//  230 #else
-//  231   // unused arguments
-//  232   (void) channel;
-//  233   (void) resolution;
-//  234 #endif
-//  235 
-//  236   return ((uint16)reading);
+//  254     break;
+//  255   }
+//  256 #else
+//  257   // unused arguments
+//  258   (void) channel;
+//  259   (void) resolution;
+//  260 #endif
+//  261 
+//  262   return ((uint16)reading);
         MOV     A,R0
         MOV     R2,A
         MOV     A,R1
@@ -915,25 +941,25 @@ HalAdcRead:
         REQUIRE ADCH
         REQUIRE ADCL
         REQUIRE ADCCFG
-//  237 }
-//  238 
-//  239 /**************************************************************************************************
-//  240  * @fn      HalAdcSetReference
-//  241  *
-//  242  * @brief   Sets the reference voltage for the ADC and initializes the service
-//  243  *
-//  244  * @param   reference - the reference voltage to be used by the ADC
-//  245  *
-//  246  * @return  none
-//  247  *
-//  248  **************************************************************************************************/
+//  263 }
+//  264 
+//  265 /**************************************************************************************************
+//  266  * @fn      HalAdcSetReference
+//  267  *
+//  268  * @brief   Sets the reference voltage for the ADC and initializes the service
+//  269  *
+//  270  * @param   reference - the reference voltage to be used by the ADC
+//  271  *
+//  272  * @return  none
+//  273  *
+//  274  **************************************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  249 void HalAdcSetReference ( uint8 reference )
+//  275 void HalAdcSetReference ( uint8 reference )
 HalAdcSetReference:
         CFI Block cfiBlock3 Using cfiCommon0
         CFI Function HalAdcSetReference
-//  250 {
+//  276 {
         PUSH    DPL
         CFI DPL0 Frame(CFA_SP, 4)
         CFI CFA_SP SP+-4
@@ -945,56 +971,56 @@ HalAdcSetReference:
         MOV     A,#-0x1
         LCALL   ?ALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 1)
-//  251 #if (HAL_ADC == TRUE)
-//  252   volatile uint8 tmp;
-//  253 
-//  254   ADCCON1 = HAL_ADC_STSEL | HAL_ADC_RAND_GEN | 0x03;
+//  277 #if (HAL_ADC == TRUE)
+//  278   volatile uint8 tmp;
+//  279 
+//  280   ADCCON1 = HAL_ADC_STSEL | HAL_ADC_RAND_GEN | 0x03;
         MOV     0xb4,#0x3f
-//  255   ADCCON2 = (reference) | HAL_ADC_DEC_RATE | HAL_ADC_SCHN;
+//  281   ADCCON2 = (reference) | HAL_ADC_DEC_RATE | HAL_ADC_SCHN;
         MOV     A,#0xf
         ORL     A,R1
         MOV     0xb5,A
-//  256   /*
-//  257   *  After reset, the first ADC reading of the extra conversion always reads GND level.
-//  258   *  We will do a few dummy conversions to bypass this bug.
-//  259   */
-//  260   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
+//  282   /*
+//  283   *  After reset, the first ADC reading of the extra conversion always reads GND level.
+//  284   *  We will do a few dummy conversions to bypass this bug.
+//  285   */
+//  286   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         LCALL   ?Subroutine0 & 0xFFFF
-//  261   tmp = ADCH;
-//  262   ADCCON3 = (reference) | HAL_ADC_DEC_RATE | HAL_ADC_ECHN;
+//  287   tmp = ADCH;
+//  288   ADCCON3 = (reference) | HAL_ADC_DEC_RATE | HAL_ADC_ECHN;
 ??CrossCallReturnLabel_2:
         MOV     A,#0xc
         ORL     A,R1
         MOV     R2,A
         MOV     0xb6,R2
-//  263   while ((ADCCON1 & HAL_ADC_EOC) != HAL_ADC_EOC);   /* Wait for conversion */
+//  289   while ((ADCCON1 & HAL_ADC_EOC) != HAL_ADC_EOC);   /* Wait for conversion */
 ??HalAdcSetReference_0:
         MOV     A,0xb4
         MOV     C,0xE0 /* A   */.7
         JNC     ??HalAdcSetReference_0
-//  264   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
+//  290   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         MOV     A,0xba
         LCALL   ??Subroutine2_0 & 0xFFFF
-//  265   tmp = ADCH;
-//  266   ADCCON3 = (reference) | HAL_ADC_DEC_RATE | HAL_ADC_ECHN;
+//  291   tmp = ADCH;
+//  292   ADCCON3 = (reference) | HAL_ADC_DEC_RATE | HAL_ADC_ECHN;
 ??CrossCallReturnLabel_5:
         MOV     0xb6,R2
-//  267   while ((ADCCON1 & HAL_ADC_EOC) != HAL_ADC_EOC);   /* Wait for conversion */
+//  293   while ((ADCCON1 & HAL_ADC_EOC) != HAL_ADC_EOC);   /* Wait for conversion */
 ??HalAdcSetReference_1:
         MOV     A,0xb4
         MOV     C,0xE0 /* A   */.7
         JNC     ??HalAdcSetReference_1
-//  268   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
+//  294   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         LJMP    ?Subroutine1 & 0xFFFF
         CFI EndBlock cfiBlock3
-        REQUIRE ADCCON2
         REQUIRE ADCCON1
+        REQUIRE ADCCON2
         REQUIRE ADCCON3
         REQUIRE ADCH
         REQUIRE ADCL
-//  269   tmp = ADCH;
-//  270 #endif
-//  271 }
+//  295   tmp = ADCH;
+//  296 #endif
+//  297 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine0:
@@ -1114,24 +1140,24 @@ HalAdcSetReference:
         CFI EndBlock cfiCond13
         CFI EndBlock cfiCond14
         CFI EndBlock cfiPicker15
-//  272 
-//  273 /**************************************************************************************************
-//  274  * @fn      HalAdcCheckVdd
-//  275  *
-//  276  * @brief   Check the Vdd and return TRUE if it greater than or equal the limit
-//  277  *
-//  278  * @param   limit - limit that needs to be checked with the Vdd
-//  279  *
-//  280  * @return  TRUE if Vdd >= limit, FALSE otherwise
-//  281  *
-//  282  **************************************************************************************************/
+//  298 
+//  299 /**************************************************************************************************
+//  300  * @fn      HalAdcCheckVdd
+//  301  *
+//  302  * @brief   Check the Vdd and return TRUE if it greater than or equal the limit
+//  303  *
+//  304  * @param   limit - limit that needs to be checked with the Vdd
+//  305  *
+//  306  * @return  TRUE if Vdd >= limit, FALSE otherwise
+//  307  *
+//  308  **************************************************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  283 bool HalAdcCheckVdd (uint8 limit)
+//  309 bool HalAdcCheckVdd (uint8 limit)
 HalAdcCheckVdd:
         CFI Block cfiBlock16 Using cfiCommon0
         CFI Function HalAdcCheckVdd
-//  284 {
+//  310 {
         MOV     A,#-0x9
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
@@ -1147,38 +1173,38 @@ HalAdcCheckVdd:
         CFI CFA_XSP16 add(XSP16, 9)
         ; Saved register size: 9
         ; Auto size: 0
-//  285   uint16 value;
-//  286   uint8 tmpADCCON3 = ADCCON3;  // Save ADCCON3 to restore later
+//  311   uint16 value;
+//  312   uint8 tmpADCCON3 = ADCCON3;  // Save ADCCON3 to restore later
         MOV     A,0xb6
         MOV     R6,A
-//  287 
-//  288   /* Clear ADC interrupt flag */
-//  289   ADCIF = 0;
+//  313 
+//  314   /* Clear ADC interrupt flag */
+//  315   ADCIF = 0;
         CLR     0x88.5
-//  290 
-//  291   /* Setup the new value for conversion */
-//  292   ADCCON3 = (HAL_ADC_REF_125V | HAL_ADC_DEC_064 | HAL_ADC_CHN_VDD3);
+//  316 
+//  317   /* Setup the new value for conversion */
+//  318   ADCCON3 = (HAL_ADC_REF_125V | HAL_ADC_DEC_064 | HAL_ADC_CHN_VDD3);
         MOV     0xb6,#0xf
-//  293 
-//  294   /* Wait for the conversion to finish */
-//  295   while ( !ADCIF );
+//  319 
+//  320   /* Wait for the conversion to finish */
+//  321   while ( !ADCIF );
 ??HalAdcCheckVdd_0:
         MOV     C,0x88.5
         JNC     ??HalAdcCheckVdd_0
-//  296 
-//  297   /* Get the result */
-//  298   value = ADCL;
+//  322 
+//  323   /* Get the result */
+//  324   value = ADCL;
         MOV     R2,0xba
-//  299   value |= ((uint16) ADCH) << 8;
+//  325   value |= ((uint16) ADCH) << 8;
         MOV     A,0xbb
         MOV     R3,A
-//  300 
-//  301   // Restore ADCCON3
-//  302   ADCCON3 = tmpADCCON3;
+//  326 
+//  327   // Restore ADCCON3
+//  328   ADCCON3 = tmpADCCON3;
         MOV     0xb6,R6
-//  303   
-//  304   /* Check the limit and return */
-//  305   return ( value >= HalAdcVddLimit[limit] );
+//  329   
+//  330   /* Check the limit and return */
+//  331   return ( value >= HalAdcVddLimit[limit] );
         MOV     A,R1
         CLR     C
         RLC     A
@@ -1216,32 +1242,32 @@ HalAdcCheckVdd:
         REQUIRE ADCCON3
         REQUIRE ADCH
         REQUIRE ADCL
-//  306 }
-//  307 
-//  308 /**************************************************************************************************
-//  309 **************************************************************************************************/
-//  310 
-//  311 //-------------------------------------------------------------------
-//  312 // @fn  adcSampleSingle
-//  313 // @brief
-//  314 //     This function makes the adc sample the given channel at the given
-//  315 //     resolution with the given reference.
-//  316 // @param uint8 reference
-//  317 //         The reference to compare the channel to be sampled.
-//  318 //       uint8 resolution
-//  319 //         The resolution to use during the sample (8, 10, 12 or 14 bit)
-//  320 //       uint8 input
-//  321 //         The channel to be sampled.
-//  322 // @return int16
-//  323 //         The conversion result
-//  324 //-------------------------------------------------------------------
+//  332 }
+//  333 
+//  334 /**************************************************************************************************
+//  335 **************************************************************************************************/
+//  336 
+//  337 //-------------------------------------------------------------------
+//  338 // @fn  adcSampleSingle
+//  339 // @brief
+//  340 //     This function makes the adc sample the given channel at the given
+//  341 //     resolution with the given reference.
+//  342 // @param uint8 reference
+//  343 //         The reference to compare the channel to be sampled.
+//  344 //       uint8 resolution
+//  345 //         The resolution to use during the sample (8, 10, 12 or 14 bit)
+//  346 //       uint8 input
+//  347 //         The channel to be sampled.
+//  348 // @return int16
+//  349 //         The conversion result
+//  350 //-------------------------------------------------------------------
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  325 int16 adcSampleSingle(uint8 reference, uint8 resolution, uint8 channel)
+//  351 int16 adcSampleSingle(uint8 reference, uint8 resolution, uint8 channel)
 adcSampleSingle:
         CFI Block cfiBlock17 Using cfiCommon0
         CFI Function adcSampleSingle
-//  326 {
+//  352 {
         PUSH    ?V0 + 0
         CFI V0 Frame(CFA_SP, 4)
         CFI CFA_SP SP+-4
@@ -1259,44 +1285,44 @@ adcSampleSingle:
         MOV     A,R4
         ORL     A,0xf2
         MOV     0xf2,A
-//  327     int16 value;
-//  328 
-//  329     ADC_ENABLE_CHANNEL(channel);
-//  330 
-//  331     ADCIF = 0;
+//  353     int16 value;
+//  354 
+//  355     ADC_ENABLE_CHANNEL(channel);
+//  356 
+//  357     ADCIF = 0;
         CLR     0x88.5
-//  332     ADC_SINGLE_CONVERSION(reference | resolution | channel);
+//  358     ADC_SINGLE_CONVERSION(reference | resolution | channel);
         MOV     A,R2
         ORL     A,R1
         ORL     A,R3
         MOV     0xb6,A
-//  333     while (!ADCIF);
+//  359     while (!ADCIF);
 ??adcSampleSingle_0:
         MOV     C,0x88.5
         JNC     ??adcSampleSingle_0
-//  334 
-//  335     value = (ADCH << 8) &0xff00; //ADC[13:6]°ª¦ì¤¸ªº¸ê®Æ
+//  360 
+//  361     value = (ADCH << 8) &0xff00; //ADC[13:6]°ª¦ì¤¸ªº¸ê®Æ
         MOV     A,0xbb
         MOV     R3,A
-//  336     value |= ADCL;               //ADC[5:0]§C¦ì¤¸ªº¸ê®Æ
+//  362     value |= ADCL;               //ADC[5:0]§C¦ì¤¸ªº¸ê®Æ
         MOV     A,0xba
         MOV     R2,A
-//  337 
-//  338     ADC_DISABLE_CHANNEL(channel);
+//  363 
+//  364     ADC_DISABLE_CHANNEL(channel);
         MOV     A,R4
         CPL     A
         ANL     A,0xf2
         MOV     0xf2,A
-//  339     //  The variable 'value' contains 16 bits where
-//  340     //     bit 15 is a sign bit
-//  341     //     bit [14 .. 0] contain the absolute sample value
-//  342     //     Only the r upper bits are significant, where r is the resolution
-//  343     //     Resolution:
-//  344     //        12   -> [14 .. 3] (bitmask 0x7FF8)
-//  345     //        10   -> [14 .. 5] (bitmask 0x7FE0)
-//  346     //         9   -> [14 .. 6] (bitmask 0x7FC0)
-//  347     //         7   -> [14 .. 8] (bitmask 0x7F00)
-//  348     return value;
+//  365     //  The variable 'value' contains 16 bits where
+//  366     //     bit 15 is a sign bit
+//  367     //     bit [14 .. 0] contain the absolute sample value
+//  368     //     Only the r upper bits are significant, where r is the resolution
+//  369     //     Resolution:
+//  370     //        12   -> [14 .. 3] (bitmask 0x7FF8)
+//  371     //        10   -> [14 .. 5] (bitmask 0x7FE0)
+//  372     //         9   -> [14 .. 6] (bitmask 0x7FC0)
+//  373     //         7   -> [14 .. 8] (bitmask 0x7F00)
+//  374     return value;
         POP     ?V0 + 1
         CFI V1 SameValue
         CFI CFA_SP SP+-4
@@ -1310,7 +1336,7 @@ adcSampleSingle:
         REQUIRE ADCH
         REQUIRE ADCL
         REQUIRE ADCCFG
-//  349 }
+//  375 }
 
         RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
 ??HalAdcInit?relay:

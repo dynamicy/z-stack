@@ -12,7 +12,6 @@
   #include "stub_aps.h"
 #endif
 
-/* HAL */
 #include "hal_uart.h"
 #include "hal_timer.h"
 #include "hal_led.h"
@@ -28,9 +27,6 @@
 #include "MT_UART.h"
 #include "MT.h"
 
-/*********************************************************************
- * MACROS
- */
 /*** Frame Control ***/
 #define zcl_FCType( a )               ( (a) & ZCL_FRAME_CONTROL_TYPE )
 #define zcl_FCManuSpecific( a )       ( (a) & ZCL_FRAME_CONTROL_MANU_SPECIFIC )
@@ -58,13 +54,6 @@
                                         (cmd) == ZCL_CMD_DISCOVER        || \
                                         (cmd) == ZCL_CMD_DEFAULT_RSP ) // exception
 
-/*********************************************************************
- * CONSTANTS
- */
-
-/*********************************************************************
- * TYPEDEFS
- */
 typedef struct zclLibPlugin
 {
   struct zclLibPlugin *next;
@@ -100,10 +89,6 @@ typedef struct
   zclProcessInProfileCmd_t pfnProcessInProfile;
 } zclCmdItems_t;
 
-
-/*********************************************************************
- * GLOBAL VARIABLES
- */
 uint8 zcl_TaskID;
 
 // The task Id of the Application where the unprocessed Foundation
@@ -115,28 +100,13 @@ zclValidateAttrData_t zcl_ValidateAttrDataCB = NULL;
 
 // ZCL Sequence number
 uint8 zcl_SeqNum = 0x00;
-   
-/*********************************************************************
- * EXTERNAL VARIABLES
- */
 
-/*********************************************************************
- * EXTERNAL FUNCTIONS
- */
-
-/*********************************************************************
- * LOCAL VARIABLES
- */
 static zclLibPlugin_t *plugins;
 static zclAttrRecsList *attrList;
 static zclClusterOptionList *clusterOptionList;
 static uint8 zcl_TransID = 0;  // This is the unique message ID (counter)
 
-/*********************************************************************
- * LOCAL FUNCTIONS
- */
 void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt );  // Not static for ZNP build.
-
 void zclZigbeeReceiverMSG(afIncomingMSGPacket_t *msg);
 
 static uint8 *zclBuildHdr( zclFrameHdr_t *hdr, uint8 *pData );
@@ -229,15 +199,6 @@ static CONST zclCmdItems_t zclCmdTable[] =
 #endif // ZCL_DISCOVER
 };
 
-/*********************************************************************
- * PUBLIC FUNCTIONS
- *********************************************************************/
-
-/*********************************************************************
- * @fn          zcl_Init
- * @brief       Initialization function for the zcl layer.
- * @param       task_id - ZCL task id
- */
 void zcl_Init( uint8 task_id )
 {
   zcl_TaskID = task_id;
@@ -247,13 +208,6 @@ void zcl_Init( uint8 task_id )
   clusterOptionList = (zclClusterOptionList *)NULL;
 }
 
-/*********************************************************************
- * @fn          zcl_event_loop
- * @brief       Event Loop Processor for zcl.
- * @param       task_id - task id
- *              events - event bitmap
- * @return      unprocessed events
- */
 uint16 zcl_event_loop( uint8 task_id, uint16 events )
 {
   uint8 *msgPtr;
@@ -286,14 +240,6 @@ uint16 zcl_event_loop( uint8 task_id, uint16 events )
   return 0; // Discard unknown events
 }
 
-/*********************************************************************
- * @fn          zcl_registerPlugin
- * @brief       Add a Cluster Library handler
- * @param       startClusterID - starting cluster ID
- *              endClusterID - ending cluster ID
- *              pfnHdlr - function pointer to incoming message handler
- * @return      ZSuccess if OK
- */
 ZStatus_t zcl_registerPlugin( uint16 startClusterID,
           uint16 endClusterID, zclInHdlr_t pfnIncomingHdlr )
 {
@@ -327,17 +273,6 @@ ZStatus_t zcl_registerPlugin( uint16 startClusterID,
   return ( ZSuccess );
 }
 
-/*********************************************************************
- * @fn          zcl_registerAttrList
- * @brief       Register an Attribute List with ZCL Foundation
- * @param       endpoint - endpoint the attribute list belongs to
- *              numAttr - number of attributes in list
- *              newAttrList - array of Attribute records.
- *
- *              NOTE: THE ATTRIBUTE IDs (FOR A CLUSTER) MUST BE IN ASCENDING ORDER.
- *                    OTHERWISE, THE DISCOVERY RESPONSE COMMAND WILL NOT HAVE THE RIGHT ATTRIBUTE INFO
- * @return      ZSuccess if OK
- */
 ZStatus_t zcl_registerAttrList( uint8 endpoint, uint8 numAttr, CONST zclAttrRec_t newAttrList[] )
 {
   zclAttrRecsList *pNewItem;
@@ -367,19 +302,6 @@ ZStatus_t zcl_registerAttrList( uint8 endpoint, uint8 numAttr, CONST zclAttrRec_
   return ( ZSuccess );
 }
 
-/*********************************************************************
- * @fn          zcl_registerClusterOptionList
- * @brief       Register a Cluster Option List with ZCL Foundation
- * @param       endpoint - endpoint the option list belongs to
- *              numOption - number of options in list
- *              optionList - array of cluster option records.
- *                           
- *              NOTE: This API should be called to enable 'Application Link Key' security and/or
- *                    'APS ACK' for a specific Cluster. The 'Application Link Key' is discarded 
- *                    if security isn't enabled on the device. The default behavior is 'Network Key'
- *                    when security is enabled and no 'APS ACK' for the ZCL messages.
- * @return      ZSuccess if OK
- */
 ZStatus_t zcl_registerClusterOptionList( uint8 endpoint, uint8 numOption, zclOptionRec_t optionList[] )
 {
   zclClusterOptionList *pNewItem;
@@ -414,12 +336,6 @@ ZStatus_t zcl_registerClusterOptionList( uint8 endpoint, uint8 numOption, zclOpt
   return ( ZSuccess );
 }
 
-/*********************************************************************
- * @fn          zcl_registerValidateAttrData
- * @brief       Add a validation function for attribute data
- * @param       pfnValidateAttrData - function pointer to validate routine
- * @return      ZSuccess if OK
- */
 ZStatus_t zcl_registerValidateAttrData( zclValidateAttrData_t pfnValidateAttrData )
 {
   zcl_ValidateAttrDataCB = pfnValidateAttrData;
@@ -427,14 +343,6 @@ ZStatus_t zcl_registerValidateAttrData( zclValidateAttrData_t pfnValidateAttrDat
   return ( ZSuccess );
 }
 
-/*********************************************************************
- * @fn      zcl_registerForMsg
- * @brief   The ZCL is setup to send all incoming Foundation Command/Response
- *          messages that aren't processed to one task (if a task is
- *          registered).
- * @param   taskId - task Id of the Application where commands will be sent to
- * @return  TRUE if task registeration successful, FALSE otherwise
- *********************************************************************/
 uint8 zcl_registerForMsg( uint8 taskId )
 {
   // Allow only the first task
@@ -446,16 +354,6 @@ uint8 zcl_registerForMsg( uint8 taskId )
   return ( false );
 }
 
-/*********************************************************************
- * @fn      zcl_DeviceOperational
- * @brief   Used to see whether or not the device can send or respond 
- *          to application level commands.
- * @param   srcEP - source endpoint
- *          clusterID - cluster ID
- *          frameType - command type
- *          cmd - command ID
- * @return  TRUE if device is operational, FALSE otherwise
- */
 static uint8 zcl_DeviceOperational( uint8 srcEP, uint16 clusterID, 
                                     uint8 frameType, uint8 cmd, uint16 profileID )
 {
@@ -481,23 +379,6 @@ static uint8 zcl_DeviceOperational( uint8 srcEP, uint16 clusterID,
   return ( deviceEnabled == DEVICE_ENABLED ? TRUE : FALSE );
 }
 
-/*********************************************************************
- * @fn      zcl_SendCommand
- * @brief   Used to send Profile and Cluster Specific Command messages.
- *          NOTE: The calling application is responsible for incrementing the Sequence Number.                
- * @param   srcEp - source endpoint
- *          destAddr - destination address 
- *          clusterID - cluster ID
- *          cmd - command ID
- *          specific - whether the command is Cluster Specific
- *          direction - client/server direction of the command
- *          disableDefaultRsp - disable Default Response command
- *          manuCode - manufacturer code for proprietary extensions to a profile
- *          seqNumber - identification number for the transaction
- *          cmdFormatLen - length of the command to be sent
- *          cmdFormat - command to be sent
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendCommand( uint8 srcEP, afAddrType_t *destAddr,
                            uint16 clusterID, uint8 cmd, uint8 specific, uint8 direction,
                            uint8 disableDefaultRsp, uint16 manuCode, uint8 seqNum,
@@ -581,17 +462,6 @@ ZStatus_t zcl_SendCommand( uint8 srcEP, afAddrType_t *destAddr,
 }
 
 #ifdef ZCL_READ
-/*********************************************************************
- * @fn      zcl_SendRead
- * @brief   Send a Read command
- * @param   srcEP - Application's endpoint
- *          dstAddr - destination address
- *          clusterID - cluster ID
- *          readCmd - read command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendRead( uint8 srcEP, afAddrType_t *dstAddr,
                         uint16 clusterID, zclReadCmd_t *readCmd,
                         uint8 direction, uint8 disableDefaultRsp, uint8 seqNum)
@@ -624,17 +494,6 @@ ZStatus_t zcl_SendRead( uint8 srcEP, afAddrType_t *dstAddr,
   return ( status );
 }
 
-/*********************************************************************
- * @fn      zcl_SendReadRsp
- * @brief   Send a Read Response command.
- * @param   srcEP - Application's endpoint
- *          dstAddr - destination address
- *          clusterID - cluster ID
- *          readRspCmd - read response command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendReadRsp( uint8 srcEP, afAddrType_t *dstAddr,
                            uint16 clusterID, zclReadRspCmd_t *readRspCmd,
                            uint8 direction, uint8 disableDefaultRsp, uint8 seqNum )
@@ -695,17 +554,6 @@ ZStatus_t zcl_SendReadRsp( uint8 srcEP, afAddrType_t *dstAddr,
 #endif // ZCL_READ
 
 #ifdef ZCL_WRITE
-/*********************************************************************
- * @fn      sendWriteRequest
- * @brief   Send a Write command
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          writeCmd - write command to be sent
- *          cmd - ZCL_CMD_WRITE, ZCL_CMD_WRITE_UNDIVIDED or ZCL_CMD_WRITE_NO_RSP
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendWriteRequest( uint8 srcEP, afAddrType_t *dstAddr, uint16 clusterID, 
                                 zclWriteCmd_t *writeCmd, uint8 cmd, uint8 direction, 
                                 uint8 disableDefaultRsp, uint8 seqNum )
@@ -878,16 +726,6 @@ ZStatus_t zcl_SendConfigReportCmd( uint8 srcEP, afAddrType_t *dstAddr,
   return ( status );
 }
 
-/*********************************************************************
- * @fn      zcl_SendConfigReportRspCmd
- * @brief   Send a Configure Reporting Response command
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          cfgReportRspCmd - configure reporting response command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendConfigReportRspCmd( uint8 srcEP, afAddrType_t *dstAddr,
                     uint16 clusterID, zclCfgReportRspCmd_t *cfgReportRspCmd,
                     uint8 direction, uint8 disableDefaultRsp, uint8 seqNum )
@@ -930,16 +768,6 @@ ZStatus_t zcl_SendConfigReportRspCmd( uint8 srcEP, afAddrType_t *dstAddr,
   return ( status );
 }
 
-/*********************************************************************
- * @fn      zcl_SendReadReportCfgCmd
- * @brief   Send a Read Reporting Configuration command
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          readReportCfgCmd - read reporting configuration command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendReadReportCfgCmd( uint8 srcEP, afAddrType_t *dstAddr,
                   uint16 clusterID, zclReadReportCfgCmd_t *readReportCfgCmd,
                   uint8 direction, uint8 disableDefaultRsp, uint8 seqNum )
@@ -974,16 +802,6 @@ ZStatus_t zcl_SendReadReportCfgCmd( uint8 srcEP, afAddrType_t *dstAddr,
   return ( status );
 }
 
-/*********************************************************************
- * @fn      zcl_SendReadReportCfgRspCmd
- * @brief   Send a Read Reporting Configuration Response command
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          readReportCfgRspCmd - read reporting configuration response command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendReadReportCfgRspCmd( uint8 srcEP, afAddrType_t *dstAddr,
              uint16 clusterID, zclReadReportCfgRspCmd_t *readReportCfgRspCmd,
              uint8 direction, uint8 disableDefaultRsp, uint8 seqNum )
@@ -1074,16 +892,6 @@ ZStatus_t zcl_SendReadReportCfgRspCmd( uint8 srcEP, afAddrType_t *dstAddr,
   return ( status );
 }
 
-/*********************************************************************
- * @fn      zcl_SendReportCmd
- * @brief   Send a Report command
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          reportCmd - report command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendReportCmd( uint8 srcEP, afAddrType_t *dstAddr,
                              uint16 clusterID, zclReportCmd_t *reportCmd,
                              uint8 direction, uint8 disableDefaultRsp, uint8 seqNum )
@@ -1135,21 +943,7 @@ ZStatus_t zcl_SendReportCmd( uint8 srcEP, afAddrType_t *dstAddr,
   return ( status );
 }
 #endif // ZCL_REPORT
-       
-/*********************************************************************
- * @fn      zcl_SendDefaultRspCmd
- * @brief   Send a Default Response command
- *
- *          Note: The manufacturer code field should be set if this command is being sent
- *           in response to a manufacturer specific command.
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          defaultRspCmd - default response command to be sent
- *          direction - direction of the command
- *          manuCode - manufacturer code for proprietary extensions to a profile
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
+
 ZStatus_t zcl_SendDefaultRspCmd( uint8 srcEP, afAddrType_t *dstAddr, uint16 clusterID,
                                  zclDefaultRspCmd_t *defaultRspCmd, uint8 direction,
                                  uint8 disableDefaultRsp, uint16 manuCode, uint8 seqNum )
@@ -1165,16 +959,6 @@ ZStatus_t zcl_SendDefaultRspCmd( uint8 srcEP, afAddrType_t *dstAddr, uint16 clus
 }
 
 #ifdef ZCL_DISCOVER
-/*********************************************************************
- * @fn      zcl_SendDiscoverCmd
- * @brief   Send a Discover command
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          discoverCmd - discover command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendDiscoverCmd( uint8 srcEP, afAddrType_t *dstAddr,
                             uint16 clusterID, zclDiscoverCmd_t *discoverCmd,
                             uint8 direction, uint8 disableDefaultRsp, uint8 seqNum )
@@ -1203,16 +987,6 @@ ZStatus_t zcl_SendDiscoverCmd( uint8 srcEP, afAddrType_t *dstAddr,
   return ( status );
 }
 
-/*********************************************************************
- * @fn      zcl_SendDiscoverRspCmd
- * @brief   Send a Discover Response command
- * @param   dstAddr - destination address
- *          clusterID - cluster ID
- *          reportRspCmd - report response command to be sent
- *          direction - direction of the command
- *          seqNum - transaction sequence number
- * @return  ZSuccess if OK
- */
 ZStatus_t zcl_SendDiscoverRspCmd( uint8 srcEP, afAddrType_t *dstAddr,
                       uint16 clusterID, zclDiscoverRspCmd_t *discoverRspCmd,
                       uint8 direction, uint8 disableDefaultRsp, uint8 seqNum )
@@ -1254,15 +1028,8 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
 {
 #if defined(Coor_receiver) // The coordinator receive data
   byte recv_data[30];  
-  uint16 len;
 #endif
-  
-#if defined(End_Device) || defined(Router_Device) // The End Device receive data
-  byte receive[20];
-  byte temp_buf[20];  
   uint16 len;
-#endif  
-
   endPointDesc_t *epDesc;
   zclIncoming_t inMsg;
   zclLibPlugin_t *pInPlugin;
@@ -1305,9 +1072,6 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
     HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
     HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);//Device Data
     HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
-    
- //   HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);    
-    //HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);
   }
 #endif
 
@@ -1458,12 +1222,6 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
     }
     if ( pInPlugin && pInPlugin->pfnIncomingHdlr )
     { 
-      // The return value of the plugin function will be ZSuccess - Supported and need default response
-      //                                                 ZFailure - Unsupported
-      //                                                 ZCL_STATUS_CMD_HAS_RSP - Supported and do not need default rsp
-      //                                                 ZCL_STATUS_INVALID_FIELD - Supported, but the incoming msg is wrong formatted
-      //                                                 ZCL_STATUS_INVALID_VALUE - Supported, but the request not achievable by the h/w
-      //                                                 ZCL_STATUS_SOFTWARE_FAILURE - Supported but ZStack memory allocation fails
       status = pInPlugin->pfnIncomingHdlr( &inMsg );
       if ( status == ZCL_STATUS_CMD_HAS_RSP || ( interPanMsg && status == ZSuccess ) )
         return; // We're done      
@@ -1491,13 +1249,6 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
   }
 }
 
-/*********************************************************************
- * @fn      zclParseHdr
- * @brief   Parse header of the ZCL format
- * @param   hdr - place to put the frame control information
- *          pData - incoming buffer to parse
- * @return  pointer past the header
- */
 uint8 *zclParseHdr( zclFrameHdr_t *hdr, uint8 *pData )
 {
   // Clear the header
@@ -1531,13 +1282,6 @@ uint8 *zclParseHdr( zclFrameHdr_t *hdr, uint8 *pData )
   return ( pData );
 }
 
-/*********************************************************************
- * @fn      zclBuildHdr
- * @brief   Build header of the ZCL format
- * @param   hdr - outgoing header information
- *          pData - outgoing header space
- * @return  pointer past the header
- */
 static uint8 *zclBuildHdr( zclFrameHdr_t *hdr, uint8 *pData )
 {
   // Build the Frame Control byte
@@ -1564,13 +1308,6 @@ static uint8 *zclBuildHdr( zclFrameHdr_t *hdr, uint8 *pData )
   return ( pData );
 }
 
-/*********************************************************************
- * @fn      zclCalcHdrSize
- * @brief   Calculate the number of bytes needed for an outgoing
- *          ZCL header.
- * @param   hdr - outgoing header information
- * @return  returns the number of bytes needed
- */
 static uint8 zclCalcHdrSize( zclFrameHdr_t *hdr )
 {
   uint8 needed = (1 + 1 + 1); // frame control + transaction seq num + cmd ID
@@ -1582,13 +1319,6 @@ static uint8 zclCalcHdrSize( zclFrameHdr_t *hdr )
   return ( needed );
 }
 
-/*********************************************************************
- * @fn      zclFindPlugin
- * @brief   Find the right plugin for a cluster ID
- * @param   clusterID - cluster ID to look for
- *          profileID - profile ID
- * @return  pointer to plugin, NULL if not found
- */
 static zclLibPlugin_t *zclFindPlugin( uint16 clusterID, uint16 profileID )
 {
   zclLibPlugin_t *pLoop;
@@ -1608,14 +1338,6 @@ static zclLibPlugin_t *zclFindPlugin( uint16 clusterID, uint16 profileID )
   return ( (zclLibPlugin_t *)NULL );
 }
 
-/*********************************************************************
- * @fn      zclFindAttrRec
- * @brief   Find the attribute record that matchs the parameters
- * @param   endpoint - Application's endpoint
- *          clusterID - cluster ID
- *          attrId - attribute looking for
- * @return  TRUE if record found. FALSE, otherwise.
- */
 uint8 zclFindAttrRec( uint8 endpoint, uint16 clusterID, uint16 attrId, zclAttrRec_t *pAttr )
 {
   uint8 x;
@@ -1642,16 +1364,6 @@ uint8 zclFindAttrRec( uint8 endpoint, uint16 clusterID, uint16 attrId, zclAttrRe
   return ( FALSE );
 }
 
-/*********************************************************************
- * @fn      zclFindClusterOption
- *
- * @brief   Find the option record that matchs the cluster id
- *
- * @param   endpoint - Application's endpoint
- * @param   clusterID - cluster ID looking for
- *
- * @return  pointer to clutser option, NULL if not found
- */
 static zclOptionRec_t *zclFindClusterOption( uint8 endpoint, uint16 clusterID )
 {
   uint8 x;
@@ -1675,16 +1387,6 @@ static zclOptionRec_t *zclFindClusterOption( uint8 endpoint, uint16 clusterID )
   return ( NULL );
 }
 
-/*********************************************************************
- * @fn      zclGetClusterOption
- *
- * @brief   Get the option record that matchs the cluster id
- *
- * @param   endpoint - Application's endpoint
- * @param   clusterID - cluster ID looking for
- *
- * @return  clutser option, AF_TX_OPTIONS_NONE if not found
- */
 static uint8 zclGetClusterOption( uint8 endpoint, uint16 clusterID )
 {
   uint8 option;
@@ -1703,17 +1405,6 @@ static uint8 zclGetClusterOption( uint8 endpoint, uint16 clusterID )
   return ( AF_TX_OPTIONS_NONE );
 }
 
-/*********************************************************************
- * @fn      zclSetSecurityOption
- *
- * @brief   Set the security option for the cluster id
- *
- * @param   endpoint - Application's endpoint
- * @param   clusterID - cluster ID looking for
- * @param   enable - whether to enable (TRUE) or disable (FALSE) security option
- *
- * @return  none
- */
 static void zclSetSecurityOption( uint8 endpoint, uint16 clusterID, uint8 enable )
 {
   zclOptionRec_t *pOption;
@@ -1729,17 +1420,7 @@ static void zclSetSecurityOption( uint8 endpoint, uint16 clusterID, uint8 enable
 }
 
 #ifdef ZCL_DISCOVER
-/*********************************************************************
- * @fn      zclFindNextAttrRec
- *
- * @brief   Find the attribute (or next) record that matchs the parameters
- *
- * @param   endpoint - Application's endpoint
- * @param   clusterID - cluster ID
- * @param   attr - attribute looking for
- *
- * @return  pointer to attribute record, NULL if not found
- */
+
 static uint8 zclFindNextAttrRec( uint8 endpoint, uint16 clusterID,
                                  uint16 *attrId, zclAttrRec_t *pAttr )
 {
@@ -1772,14 +1453,6 @@ static uint8 zclFindNextAttrRec( uint8 endpoint, uint16 clusterID,
 #endif // ZCL_DISCOVER
 
 #if defined(ZCL_READ) || defined(ZCL_WRITE) || defined(ZCL_REPORT)
-/*********************************************************************
- * @fn      zclSerializeData
- * @brief   Builds a buffer from the attribute data to sent out over
- *          the air.
- * @param   dataType - data types defined in zcl.h
- *          attrData - pointer to the attribute data
- *          buf - where to put the serialized data
- */
 static void zclSerializeData( uint8 dataType, void *attrData, uint8 *buf )
 {
   uint8 *pStr;
@@ -1863,12 +1536,6 @@ static void zclSerializeData( uint8 dataType, void *attrData, uint8 *buf )
 #endif // ZCL_READ || ZCL_WRITE || ZCL_REPORT
 
 #ifdef ZCL_REPORT
-/*********************************************************************
- * @fn      zclAnalogDataType
- * @brief   Checks to see if Data Type is Analog
- * @param   dataType - data type
- * @return  TRUE if data type is analog
- */
 uint8 zclAnalogDataType( uint8 dataType )
 {
   uint8 analog;
@@ -1901,13 +1568,6 @@ uint8 zclAnalogDataType( uint8 dataType )
   return ( analog );
 }
 
-/*********************************************************************
- * @fn      zcl_BuildAnalogData
- * @brief   Build an analog arribute out of sequential bytes.
- * @param   dataType - type of data
- *          pData - pointer to data
- *          pBuf - where to put the data
- */
 static void zcl_BuildAnalogData( uint8 dataType, uint8 *pData, uint8 *pBuf)
 {
   switch ( dataType )
@@ -1947,14 +1607,6 @@ static void zcl_BuildAnalogData( uint8 dataType, uint8 *pData, uint8 *pBuf)
 }
 #endif // ZCL_REPORT
 
-/*********************************************************************
- * @fn      zclGetDataTypeLength
- * @brief   Return the length of the datatype in length. 
- *          NOTE: Should not be called for ZCL_DATATYPE_OCTECT_STR or 
- *                ZCL_DATATYPE_CHAR_STR data types.
- * @param   dataType - data type
- * @return  length of data
- */
 uint8 zclGetDataTypeLength( uint8 dataType )
 {
   uint8 len;

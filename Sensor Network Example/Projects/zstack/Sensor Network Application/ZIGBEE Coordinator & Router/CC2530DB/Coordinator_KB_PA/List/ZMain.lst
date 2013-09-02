@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                22/Aug/2013  14:42:52 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  17:25:54 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -315,226 +315,162 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\ZMain.c
      94          { 
    \   000000                ; Auto size: 0
      95            // Turn off interrupts
-     96            show("osal_int_disable_INTS_ALL");
-   \   000000                ; Setup parameters for call to function show
-   \   000000   7A..         MOV     R2,#(`?<Constant "osal_int_disable_INTS...">` & 0xff)
-   \   000002   7B..         MOV     R3,#((`?<Constant "osal_int_disable_INTS...">` >> 8) & 0xff)
-   \   000004   12....       LCALL   ??show?relay
+     96            //show("osal_int_disable_INTS_ALL");
      97            osal_int_disable( INTS_ALL ); 
-   \   000007                ; Setup parameters for call to function osal_int_disable
-   \   000007   79FF         MOV     R1,#-0x1
-   \   000009   12....       LCALL   ??osal_int_disable?relay
+   \   000000                ; Setup parameters for call to function osal_int_disable
+   \   000000   79FF         MOV     R1,#-0x1
+   \   000002   12....       LCALL   ??osal_int_disable?relay
      98            
      99            // Initialization for board related stuff such as LEDs
-    100            show("HAL_BOARD_INIT");
-   \   00000C                ; Setup parameters for call to function show
-   \   00000C   7A..         MOV     R2,#(`?<Constant "HAL_BOARD_INIT">` & 0xff)
-   \   00000E   7B..         MOV     R3,#((`?<Constant "HAL_BOARD_INIT">` >> 8) & 0xff)
-   \   000010   12....       LCALL   ??show?relay
+    100            //show("HAL_BOARD_INIT");
     101            HAL_BOARD_INIT();
-   \   000013   53BEFB       ANL     0xbe,#0xfb
+   \   000005   53BEFB       ANL     0xbe,#0xfb
    \                     ??main_0:
-   \   000016   E59D         MOV     A,0x9d
-   \   000018   A2E6         MOV     C,0xE0 /* A   */.6
-   \   00001A   50FA         JNC     ??main_0
-   \   00001C   00           NOP
-   \   00001D   78F8         MOV     R0,#-0x8
-   \   00001F   7901         MOV     R1,#0x1
+   \   000008   E59D         MOV     A,0x9d
+   \   00000A   A2E6         MOV     C,0xE0 /* A   */.6
+   \   00000C   50FA         JNC     ??main_0
+   \   00000E   00           NOP
+   \   00000F   78F8         MOV     R0,#-0x8
+   \   000011   7901         MOV     R1,#0x1
    \                     ??main_1:
-   \   000021   00           NOP
-   \   000022   E8           MOV     A,R0
-   \   000023   24FF         ADD     A,#-0x1
-   \   000025   18           DEC     R0
-   \   000026   E9           MOV     A,R1
-   \   000027   34FF         ADDC    A,#-0x1
-   \   000029   F9           MOV     R1,A
-   \   00002A   E8           MOV     A,R0
-   \   00002B   7001         JNZ     ??main_2
-   \   00002D   E9           MOV     A,R1
+   \   000013   00           NOP
+   \   000014   E8           MOV     A,R0
+   \   000015   24FF         ADD     A,#-0x1
+   \   000017   18           DEC     R0
+   \   000018   E9           MOV     A,R1
+   \   000019   34FF         ADDC    A,#-0x1
+   \   00001B   F9           MOV     R1,A
+   \   00001C   E8           MOV     A,R0
+   \   00001D   7001         JNZ     ??main_2
+   \   00001F   E9           MOV     A,R1
    \                     ??main_2:
-   \   00002E   70F1         JNZ     ??main_1
-   \   000030   75C680       MOV     0xc6,#-0x80
+   \   000020   70F1         JNZ     ??main_1
+   \   000022   75C680       MOV     0xc6,#-0x80
    \                     ??main_3:
-   \   000033   7480         MOV     A,#-0x80
-   \   000035   659E         XRL     A,0x9e
-   \   000037   70FA         JNZ     ??main_3
-   \   000039   43BE04       ORL     0xbe,#0x4
-   \   00003C   7408         MOV     A,#0x8
-   \   00003E   906270       MOV     DPTR,#0x6270
-   \   000041   F0           MOVX    @DPTR,A
-   \   000042   43FE01       ORL     0xfe,#0x1
-   \   000045   43FE04       ORL     0xfe,#0x4
+   \   000025   7480         MOV     A,#-0x80
+   \   000027   659E         XRL     A,0x9e
+   \   000029   70FA         JNZ     ??main_3
+   \   00002B   43BE04       ORL     0xbe,#0x4
+   \   00002E   7408         MOV     A,#0x8
+   \   000030   906270       MOV     DPTR,#0x6270
+   \   000033   F0           MOVX    @DPTR,A
+   \   000034   43FE01       ORL     0xfe,#0x1
+   \   000037   43FE04       ORL     0xfe,#0x4
     102            
     103            // Make sure supply voltage is high enough to run
-    104            show("zmain_vdd_check");
-   \   000048                ; Setup parameters for call to function show
-   \   000048   7A..         MOV     R2,#(`?<Constant "zmain_vdd_check">` & 0xff)
-   \   00004A   7B..         MOV     R3,#((`?<Constant "zmain_vdd_check">` >> 8) & 0xff)
-   \   00004C   12....       LCALL   ??show?relay
+    104            //show("zmain_vdd_check");
     105            zmain_vdd_check();
-   \   00004F                ; Setup parameters for call to function zmain_vdd_check
-   \   00004F   12....       LCALL   ??zmain_vdd_check?relay
+   \   00003A                ; Setup parameters for call to function zmain_vdd_check
+   \   00003A   12....       LCALL   ??zmain_vdd_check?relay
     106            
     107            // Initialize board I/O
-    108            show("InitBoard_OB_COLD");
-   \   000052                ; Setup parameters for call to function show
-   \   000052   7A..         MOV     R2,#(`?<Constant "InitBoard_OB_COLD">` & 0xff)
-   \   000054   7B..         MOV     R3,#((`?<Constant "InitBoard_OB_COLD">` >> 8) & 0xff)
-   \   000056   12....       LCALL   ??show?relay
+    108           // show("InitBoard_OB_COLD");
     109            InitBoard( OB_COLD );
-   \   000059                ; Setup parameters for call to function InitBoard
-   \   000059   7900         MOV     R1,#0x0
-   \   00005B   12....       LCALL   ??InitBoard?relay
+   \   00003D                ; Setup parameters for call to function InitBoard
+   \   00003D   7900         MOV     R1,#0x0
+   \   00003F   12....       LCALL   ??InitBoard?relay
     110            
     111            // Initialze HAL drivers
-    112            show("HalDriverInit");
-   \   00005E                ; Setup parameters for call to function show
-   \   00005E   7A..         MOV     R2,#(`?<Constant "HalDriverInit">` & 0xff)
-   \   000060   7B..         MOV     R3,#((`?<Constant "HalDriverInit">` >> 8) & 0xff)
-   \   000062   12....       LCALL   ??show?relay
+    112           // show("HalDriverInit");
     113            HalDriverInit(); 
-   \   000065                ; Setup parameters for call to function HalDriverInit
-   \   000065   12....       LCALL   ??HalDriverInit?relay
+   \   000042                ; Setup parameters for call to function HalDriverInit
+   \   000042   12....       LCALL   ??HalDriverInit?relay
     114            
     115            // Initialize NV System
-    116            show("osal_nv_init_NULL");
-   \   000068                ; Setup parameters for call to function show
-   \   000068   7A..         MOV     R2,#(`?<Constant "osal_nv_init_NULL">` & 0xff)
-   \   00006A   7B..         MOV     R3,#((`?<Constant "osal_nv_init_NULL">` >> 8) & 0xff)
-   \   00006C   12....       LCALL   ??show?relay
+    116           // show("osal_nv_init_NULL");
     117            osal_nv_init( NULL ); 
-   \   00006F                ; Setup parameters for call to function osal_nv_init
-   \   00006F   7A00         MOV     R2,#0x0
-   \   000071   7B00         MOV     R3,#0x0
-   \   000073   12....       LCALL   ??osal_nv_init?relay
+   \   000045                ; Setup parameters for call to function osal_nv_init
+   \   000045   7A00         MOV     R2,#0x0
+   \   000047   7B00         MOV     R3,#0x0
+   \   000049   12....       LCALL   ??osal_nv_init?relay
     118            
     119            // Initialize the MAC
-    120            show("ZMacInit");
-   \   000076                ; Setup parameters for call to function show
-   \   000076   7A..         MOV     R2,#(`?<Constant "ZMacInit">` & 0xff)
-   \   000078   7B..         MOV     R3,#((`?<Constant "ZMacInit">` >> 8) & 0xff)
-   \   00007A   12....       LCALL   ??show?relay
+    120          //  show("ZMacInit");
     121            ZMacInit(); 
-   \   00007D                ; Setup parameters for call to function ZMacInit
-   \   00007D   12....       LCALL   ??ZMacInit?relay
+   \   00004C                ; Setup parameters for call to function ZMacInit
+   \   00004C   12....       LCALL   ??ZMacInit?relay
     122            
     123            // Determine the extended address
-    124            show("zmain_ext_addr");
-   \   000080                ; Setup parameters for call to function show
-   \   000080   7A..         MOV     R2,#(`?<Constant "zmain_ext_addr">` & 0xff)
-   \   000082   7B..         MOV     R3,#((`?<Constant "zmain_ext_addr">` >> 8) & 0xff)
-   \   000084   12....       LCALL   ??show?relay
+    124           // show("zmain_ext_addr");
     125            zmain_ext_addr(); 
-   \   000087                ; Setup parameters for call to function zmain_ext_addr
-   \   000087   12....       LCALL   ??zmain_ext_addr?relay
+   \   00004F                ; Setup parameters for call to function zmain_ext_addr
+   \   00004F   12....       LCALL   ??zmain_ext_addr?relay
     126            
     127            // Initialize basic NV items
-    128            show("zgInit");
-   \   00008A                ; Setup parameters for call to function show
-   \   00008A   7A..         MOV     R2,#(`?<Constant "zgInit">` & 0xff)
-   \   00008C   7B..         MOV     R3,#((`?<Constant "zgInit">` >> 8) & 0xff)
-   \   00008E   12....       LCALL   ??show?relay
+    128           // show("zgInit");
     129            zgInit(); 
-   \   000091                ; Setup parameters for call to function zgInit
-   \   000091   12....       LCALL   ??zgInit?relay
+   \   000052                ; Setup parameters for call to function zgInit
+   \   000052   12....       LCALL   ??zgInit?relay
     130            
     131            // Since the AF isn't a task, call it's initialization routine
     132          #ifndef NONWK
-    133            show("afInit");
-   \   000094                ; Setup parameters for call to function show
-   \   000094   7A..         MOV     R2,#(`?<Constant "afInit">` & 0xff)
-   \   000096   7B..         MOV     R3,#((`?<Constant "afInit">` >> 8) & 0xff)
-   \   000098   12....       LCALL   ??show?relay
+    133           // show("afInit");
     134            afInit(); 
-   \   00009B                ; Setup parameters for call to function afInit
-   \   00009B   12....       LCALL   ??afInit?relay
+   \   000055                ; Setup parameters for call to function afInit
+   \   000055   12....       LCALL   ??afInit?relay
     135          #endif
     136            // Initialize the operating system
-    137            show("osal_int_system");
-   \   00009E                ; Setup parameters for call to function show
-   \   00009E   7A..         MOV     R2,#(`?<Constant "osal_int_system">` & 0xff)
-   \   0000A0   7B..         MOV     R3,#((`?<Constant "osal_int_system">` >> 8) & 0xff)
-   \   0000A2   12....       LCALL   ??show?relay
+    137           // show("osal_int_system");
     138            osal_init_system(); 
-   \   0000A5                ; Setup parameters for call to function osal_init_system
-   \   0000A5   12....       LCALL   ??osal_init_system?relay
+   \   000058                ; Setup parameters for call to function osal_init_system
+   \   000058   12....       LCALL   ??osal_init_system?relay
     139            
     140            // Allow interrupts
-    141            show("osal_int_enbale_INTS_ALL");
-   \   0000A8                ; Setup parameters for call to function show
-   \   0000A8   7A..         MOV     R2,#(`?<Constant "osal_int_enbale_INTS_ALL">` & 0xff)
-   \   0000AA   7B..         MOV     R3,#((`?<Constant "osal_int_enbale_INTS_ALL">` >> 8) & 0xff)
-   \   0000AC   12....       LCALL   ??show?relay
+    141           // show("osal_int_enbale_INTS_ALL");
     142            osal_int_enable( INTS_ALL );
-   \   0000AF                ; Setup parameters for call to function osal_int_enable
-   \   0000AF   79FF         MOV     R1,#-0x1
-   \   0000B1   12....       LCALL   ??osal_int_enable?relay
+   \   00005B                ; Setup parameters for call to function osal_int_enable
+   \   00005B   79FF         MOV     R1,#-0x1
+   \   00005D   12....       LCALL   ??osal_int_enable?relay
     143            
     144            // Final board initialization
-    145            show("InitBoard_OB_READY");
-   \   0000B4                ; Setup parameters for call to function show
-   \   0000B4   7A..         MOV     R2,#(`?<Constant "InitBoard_OB_READY">` & 0xff)
-   \   0000B6   7B..         MOV     R3,#((`?<Constant "InitBoard_OB_READY">` >> 8) & 0xff)
-   \   0000B8   12....       LCALL   ??show?relay
+    145            //show("InitBoard_OB_READY");
     146            InitBoard( OB_READY ); 
-   \   0000BB                ; Setup parameters for call to function InitBoard
-   \   0000BB   7902         MOV     R1,#0x2
-   \   0000BD   12....       LCALL   ??InitBoard?relay
+   \   000060                ; Setup parameters for call to function InitBoard
+   \   000060   7902         MOV     R1,#0x2
+   \   000062   12....       LCALL   ??InitBoard?relay
     147            
     148            // Display information about this device
-    149            show("zmain_dev_info");
-   \   0000C0                ; Setup parameters for call to function show
-   \   0000C0   7A..         MOV     R2,#(`?<Constant "zmain_dev_info">` & 0xff)
-   \   0000C2   7B..         MOV     R3,#((`?<Constant "zmain_dev_info">` >> 8) & 0xff)
-   \   0000C4   12....       LCALL   ??show?relay
+    149            //show("zmain_dev_info");
     150            zmain_dev_info(); 
-   \   0000C7                ; Setup parameters for call to function zmain_dev_info
-   \   0000C7   12....       LCALL   ??zmain_dev_info?relay
+   \   000065                ; Setup parameters for call to function zmain_dev_info
+   \   000065   12....       LCALL   ??zmain_dev_info?relay
     151            
     152            // Display the device info on the LCD 
     153          #ifdef LCD_SUPPORTED
-    154            show("zmain_lcd_init");
-   \   0000CA                ; Setup parameters for call to function show
-   \   0000CA   7A..         MOV     R2,#(`?<Constant "zmain_lcd_init">` & 0xff)
-   \   0000CC   7B..         MOV     R3,#((`?<Constant "zmain_lcd_init">` >> 8) & 0xff)
-   \   0000CE   12....       LCALL   ??show?relay
+    154            //show("zmain_lcd_init");
     155            zmain_lcd_init(); 
-   \   0000D1                ; Setup parameters for call to function HalLcdWriteString
-   \   0000D1   7901         MOV     R1,#0x1
-   \   0000D3   7A..         MOV     R2,#(`?<Constant "TexasInstruments">` & 0xff)
-   \   0000D5   7B..         MOV     R3,#((`?<Constant "TexasInstruments">` >> 8) & 0xff)
-   \   0000D7   12....       LCALL   ??HalLcdWriteString?relay
+   \   000068                ; Setup parameters for call to function HalLcdWriteString
+   \   000068   7901         MOV     R1,#0x1
+   \   00006A   7A..         MOV     R2,#(`?<Constant "TexasInstruments">` & 0xff)
+   \   00006C   7B..         MOV     R3,#((`?<Constant "TexasInstruments">` >> 8) & 0xff)
+   \   00006E   12....       LCALL   ??HalLcdWriteString?relay
     156          #endif
     157            // If WDT is used, this is a good place to enable it.
     158          #ifdef WDT_IN_PM1
-    159            show("WatchDogEnable_WDTIMX");
+    159            //show("WatchDogEnable_WDTIMX");
     160            WatchDogEnable( WDTIMX ); 
     161          #endif 
     162            
     163          #ifdef RS485
-    164            show("HalRS485Init");
+    164           // show("HalRS485Init");
     165            HalRS485Init(); // Initilization the RS485 Enable pin to low
     166          #endif
     167            
     168            // No Return from here
-    169            show("osal_start_system");
-   \   0000DA                ; Setup parameters for call to function show
-   \   0000DA   7A..         MOV     R2,#(`?<Constant "osal_start_system">` & 0xff)
-   \   0000DC   7B..         MOV     R3,#((`?<Constant "osal_start_system">` >> 8) & 0xff)
-   \   0000DE   12....       LCALL   ??show?relay
+    169            //show("osal_start_system");
     170            osal_start_system(); 
-   \   0000E1                ; Setup parameters for call to function osal_start_system
-   \   0000E1   12....       LCALL   ??osal_start_system?relay
+   \   000071                ; Setup parameters for call to function osal_start_system
+   \   000071   12....       LCALL   ??osal_start_system?relay
     171          
     172            return 0;  // Shouldn't get here.
-   \   0000E4   7A00         MOV     R2,#0x0
-   \   0000E6   7B00         MOV     R3,#0x0
-   \   0000E8   02....       LJMP    ?BRET
-   \   0000EB                REQUIRE SLEEPSTA
-   \   0000EB                REQUIRE CLKCONSTA
-   \   0000EB                REQUIRE SLEEPCMD
-   \   0000EB                REQUIRE CLKCONCMD
-   \   0000EB                REQUIRE P1DIR
+   \   000074   7A00         MOV     R2,#0x0
+   \   000076   7B00         MOV     R3,#0x0
+   \   000078   02....       LJMP    ?BRET
+   \   00007B                REQUIRE SLEEPSTA
+   \   00007B                REQUIRE CLKCONSTA
+   \   00007B                REQUIRE CLKCONCMD
+   \   00007B                REQUIRE SLEEPCMD
+   \   00007B                REQUIRE P1DIR
     173          } // main()
     174          
     175          /*********************************************************************
@@ -1056,123 +992,6 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\ZMain.c
    \   000003   ......       DC24    zmain_dev_info
 
    \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "osal_int_disable_INTS...">`:
-   \   000000   6F73616C     DB "osal_int_disable_INTS_ALL"
-   \            5F696E74
-   \            5F646973
-   \            61626C65
-   \            5F494E54
-   \            535F414C
-   \            4C00    
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "HAL_BOARD_INIT">`:
-   \   000000   48414C5F     DB "HAL_BOARD_INIT"
-   \            424F4152
-   \            445F494E
-   \            495400  
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "zmain_vdd_check">`:
-   \   000000   7A6D6169     DB "zmain_vdd_check"
-   \            6E5F7664
-   \            645F6368
-   \            65636B00
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "InitBoard_OB_COLD">`:
-   \   000000   496E6974     DB "InitBoard_OB_COLD"
-   \            426F6172
-   \            645F4F42
-   \            5F434F4C
-   \            4400    
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "HalDriverInit">`:
-   \   000000   48616C44     DB "HalDriverInit"
-   \            72697665
-   \            72496E69
-   \            7400    
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "osal_nv_init_NULL">`:
-   \   000000   6F73616C     DB "osal_nv_init_NULL"
-   \            5F6E765F
-   \            696E6974
-   \            5F4E554C
-   \            4C00    
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "ZMacInit">`:
-   \   000000   5A4D6163     DB "ZMacInit"
-   \            496E6974
-   \            00      
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "zmain_ext_addr">`:
-   \   000000   7A6D6169     DB "zmain_ext_addr"
-   \            6E5F6578
-   \            745F6164
-   \            647200  
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "zgInit">`:
-   \   000000   7A67496E     DB "zgInit"
-   \            697400  
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "afInit">`:
-   \   000000   6166496E     DB "afInit"
-   \            697400  
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "osal_int_system">`:
-   \   000000   6F73616C     DB "osal_int_system"
-   \            5F696E74
-   \            5F737973
-   \            74656D00
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "osal_int_enbale_INTS_ALL">`:
-   \   000000   6F73616C     DB "osal_int_enbale_INTS_ALL"
-   \            5F696E74
-   \            5F656E62
-   \            616C655F
-   \            494E5453
-   \            5F414C4C
-   \            00      
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "InitBoard_OB_READY">`:
-   \   000000   496E6974     DB "InitBoard_OB_READY"
-   \            426F6172
-   \            645F4F42
-   \            5F524541
-   \            445900  
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "zmain_dev_info">`:
-   \   000000   7A6D6169     DB "zmain_dev_info"
-   \            6E5F6465
-   \            765F696E
-   \            666F00  
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "zmain_lcd_init">`:
-   \   000000   7A6D6169     DB "zmain_lcd_init"
-   \            6E5F6C63
-   \            645F696E
-   \            697400  
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "osal_start_system">`:
-   \   000000   6F73616C     DB "osal_start_system"
-   \            5F737461
-   \            72745F73
-   \            79737465
-   \            6D00    
-
-   \                                 In  segment XDATA_ROM_C, align 1
    \                     `?<Constant {255, 255, 255, 255, 255, 255, 255,`:
    \   000000   FFFFFFFF     DB 255, 255, 255, 255, 255, 255, 255, 255
    \            FFFFFFFF
@@ -1228,36 +1047,20 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\ZMain.c
      Function               ISTACK PSTACK XSTACK
      --------               ------ ------ ------
      main                       0      0      0
-       -> show                  0      0      0
        -> osal_int_disable      0      0      0
-       -> show                  0      0      0
-       -> show                  0      0      0
        -> zmain_vdd_check       0      0      0
-       -> show                  0      0      0
        -> InitBoard             0      0      0
-       -> show                  0      0      0
        -> HalDriverInit         0      0      0
-       -> show                  0      0      0
        -> osal_nv_init          0      0      0
-       -> show                  0      0      0
        -> ZMacInit              0      0      0
-       -> show                  0      0      0
        -> zmain_ext_addr        0      0      0
-       -> show                  0      0      0
        -> zgInit                0      0      0
-       -> show                  0      0      0
        -> afInit                0      0      0
-       -> show                  0      0      0
        -> osal_init_system      0      0      0
-       -> show                  0      0      0
        -> osal_int_enable       0      0      0
-       -> show                  0      0      0
        -> InitBoard             0      0      0
-       -> show                  0      0      0
        -> zmain_dev_info        0      0      0
-       -> show                  0      0      0
        -> HalLcdWriteString     0      0      0
-       -> show                  0      0      0
        -> osal_start_system     0      0      0
      zmain_dev_info             1      0     27
        -> HalLcdWriteString     0      0     54
@@ -1290,7 +1093,7 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\ZMain.c
      SLEEPCMD                                          1
      CLKCONCMD                                         1
      P1DIR                                             1
-     main                                            235
+     main                                            123
      zmain_vdd_check                                  93
      zmain_ext_addr                                  358
      ?Subroutine0                                      1
@@ -1302,34 +1105,18 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\ZMain.c
      ??zmain_vdd_check?relay                           6
      ??zmain_ext_addr?relay                            6
      ??zmain_dev_info?relay                            6
-     ?<Constant "osal_int_disable_INTS...">           26
-     ?<Constant "HAL_BOARD_INIT">                     15
-     ?<Constant "zmain_vdd_check">                    16
-     ?<Constant "InitBoard_OB_COLD">                  18
-     ?<Constant "HalDriverInit">                      14
-     ?<Constant "osal_nv_init_NULL">                  18
-     ?<Constant "ZMacInit">                            9
-     ?<Constant "zmain_ext_addr">                     15
-     ?<Constant "zgInit">                              7
-     ?<Constant "afInit">                              7
-     ?<Constant "osal_int_system">                    16
-     ?<Constant "osal_int_enbale_INTS_ALL">           25
-     ?<Constant "InitBoard_OB_READY">                 19
-     ?<Constant "zmain_dev_info">                     15
-     ?<Constant "zmain_lcd_init">                     15
-     ?<Constant "osal_start_system">                  18
      ?<Constant {255, 255, 255, 255, 255, 255, 255,    8
      ?<Constant "IEEE: ">                              7
      ?<Constant "TexasInstruments">                   17
 
  
- 850 bytes in segment BANKED_CODE
+ 738 bytes in segment BANKED_CODE
   24 bytes in segment BANK_RELAYS
    6 bytes in segment SFR_AN
- 285 bytes in segment XDATA_ROM_C
+  32 bytes in segment XDATA_ROM_C
  
- 874 bytes of CODE  memory
- 285 bytes of CONST memory
+ 762 bytes of CODE  memory
+  32 bytes of CONST memory
    0 bytes of DATA  memory (+ 6 bytes shared)
 
 Errors: none

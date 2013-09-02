@@ -913,12 +913,10 @@ void ZDApp_ProcessOSALMsg( osal_event_hdr_t *msgPtr )
 
     case AF_DATA_CONFIRM_CMD:
       // This message is received as a confirmation of a data packet sent. The status is of ZStatus_t type 
-      // [defined in NLMEDE.h] The message fields are defined in AF.h
-//      show("ChrisChris");      
+      // [defined in NLMEDE.h] The message fields are defined in AF.h   
       afDataConfirm = (afDataConfirm_t *)msgPtr;
       sentEP = afDataConfirm->endpoint;
       sentStatus = afDataConfirm->hdr.status;
-//      show("ChrisChris");
 
       // Action taken when confirmation is received.
 #if defined ( ZIGBEE_FREQ_AGILITY )

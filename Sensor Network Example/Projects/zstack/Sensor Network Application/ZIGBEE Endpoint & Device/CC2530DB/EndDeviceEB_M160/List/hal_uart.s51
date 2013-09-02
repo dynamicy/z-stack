@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               28/Aug/2013  15:39:36 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  17:24:46 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -755,10 +755,10 @@ HalUARTInitDMA:
         CFI EndBlock cfiBlock0
         REQUIRE U0CSR
         REQUIRE U0UCR
-        REQUIRE PERCFG
         REQUIRE ADCCFG
-        REQUIRE P0SEL
+        REQUIRE PERCFG
         REQUIRE P2DIR
+        REQUIRE P0SEL
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 // static __banked_func __xdata_reentrant void HalUARTOpenDMA(halUARTCfg_t *)
@@ -893,13 +893,13 @@ HalUARTOpenDMA:
         CFI EndBlock cfiBlock1
         REQUIRE _A_P0
         REQUIRE U0CSR
-        REQUIRE U0BAUD
         REQUIRE DMAIRQ
-        REQUIRE U0GCR
-        REQUIRE DMAARM
         REQUIRE U0UCR
-        REQUIRE P0SEL
+        REQUIRE U0BAUD
+        REQUIRE DMAARM
+        REQUIRE U0GCR
         REQUIRE P0DIR
+        REQUIRE P0SEL
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 // static __banked_func __xdata_reentrant uint16 HalUARTReadDMA(unsigned char *, uint16)
@@ -1767,8 +1767,8 @@ HalUARTPollDMA:
         REQUIRE _A_P0
         REQUIRE ST0
         REQUIRE _A_IEN0
-        REQUIRE U0BAUD
         REQUIRE DMAIRQ
+        REQUIRE U0BAUD
         REQUIRE DMAARM
         REQUIRE DMAREQ
 

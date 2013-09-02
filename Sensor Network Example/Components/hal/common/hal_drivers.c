@@ -208,5 +208,4 @@ void Hal_ProcessPoll ()
 #if (defined HAL_HID) && (HAL_HID == TRUE)
   usbHidProcessEvents();
 #endif
-
 }

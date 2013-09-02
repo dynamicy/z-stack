@@ -1,46 +1,19 @@
-/**************************************************************************************************
-  Filename:       zcl_zigbee device.c
-  Revised:        $Date: 2009-03-18 15:56:27 -0700 (Wed, 18 Mar 2009) $
-  Revision:       $Revision: 19453 $
-
-  Description:    Zigbee Cluster Library - sample device application.
-**************************************************************************************************/
-
-/**************************************************************************************************
-  This device will be like an On/Off Switch device. This application is not intended to be a On/Off 
-  Switch device, but will use the device description to implement this sample code.
-**************************************************************************************************/
-
-/*********************************************************************
- * INCLUDES
- */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "ZComDef.h"
 
-/* OSAL */
 #include "OSAL.h"
 #include "OSAL_Nv.h"
-
-/* Profile */
 #include "AF.h"
-
-/* ZDO */
 #include "ZDApp.h"
 #include "ZDObject.h"
 #include "ZDProfile.h"
-
-/* MT */
 #include "MT_UART.h"
-
-/* ZCL */
 #include "zcl.h"
 #include "zcl_general.h"
 #include "zcl_ha.h"
 #include "zcl_zigbee device.h"
-
-/* HAL */
 #include "onboard.h"
 #include "hal_lcd.h"
 #include "hal_led.h"
@@ -71,31 +44,11 @@
   #include "M320.h"
 #endif
 
-/*********************************************************************
- * MACROS
- */
-/*********************************************************************
- * CONSTANTS
- */
 afAddrType_t zclZigbeeDevice_DstAddr;
-
-/*********************************************************************
- * TYPEDEFS
- */
-/*********************************************************************
- * GLOBAL VARIABLES
- */
 byte zclZigbeeDevice_TaskID; // Task ID variable
 endPointDesc_t TransmitApp_epDesc;
 uint8 len; // the transmit data length
 
-/*********************************************************************
- * GLOBAL FUNCTIONS
- */
-
-/*********************************************************************
- * LOCAL VARIABLES
- */
 #define ZCLZIGBEEDEV_BINDINGLIST       1
 static cId_t bindingOutClusters[ZCLZIGBEEDEV_BINDINGLIST] = {
                                                               ZCL_CLUSTER_ID_GEN_ON_OFF // The binding cluster ID
@@ -109,9 +62,6 @@ static endPointDesc_t zigbeeDevice_TestEp = {
                                               (afNetworkLatencyReq_t)0            // No Network Latency req
                                             };
 
-/*********************************************************************
- * LOCAL FUNCTIONS
- */
 static void zclZigbeeDevice_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg );
 static void zclZigbeeDevice_HandleKeys( byte shift, byte keys );
 static void zclZigbeeDevice_BasicResetCB( void );
@@ -137,9 +87,6 @@ void zclZIGBEEDevice_SendMsg(void); // The Send ZIGBEE Message
 void zclRS485_CallBack(uint8 port, uint8 event); // The RS485 Message callback
 void zclRS485_SendMsg( void ); // The device receive RS485 transmit data
 
-/*********************************************************************
- * ZCL General Profile Callback table
- */
 static zclGeneral_AppCallbacks_t zclZigbeeDevice_CmdCallbacks =
 {
   zclZigbeeDevice_BasicResetCB,       // Basic Cluster Reset command
@@ -158,11 +105,6 @@ static zclGeneral_AppCallbacks_t zclZigbeeDevice_CmdCallbacks =
   NULL,                               // RSSI Location Response commands
 };
 
-
-/*********************************************************************
- * @fn          zcl_ZigbeeDevice_Init
- * @brief       Initialization function for the zclGeneral layer.
- */
 void zcl_ZigbeeDevice_Init( byte task_id )
 {
   zclZigbeeDevice_TaskID = task_id;
@@ -183,10 +125,6 @@ void zcl_ZigbeeDevice_Init( byte task_id )
   ZDO_RegisterForZDOMsg( zclZigbeeDevice_TaskID, Match_Desc_rsp );
 }
 
-/*********************************************************************
- * @fn          zclZigbeeDevice_event_loop
- * @brief       Event Loop Processor for zclGeneral.
- */
 uint16 zclZigbeeDevice_event_loop( uint8 task_id, uint16 events )
 {
   afIncomingMSGPacket_t *MSGpkt;
@@ -249,7 +187,6 @@ uint16 zclZigbeeDevice_event_loop( uint8 task_id, uint16 events )
     zclRS485_SendMsg();
     return ( events ^ RS485_MSG_EVT );
   }
-
   return 0; // Discard unknown events
 }
 
@@ -363,23 +300,14 @@ static void zclZigbeeDevice_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg )
     #endif
     #ifdef ZCL_REPORT // See ZCL Test Applicaiton (zcl_testapp.c) for sample code on Attribute Reporting     
       case ZCL_CMD_CONFIG_REPORT:
-        //zclSampleSw_ProcessInConfigReportCmd( pInMsg );
         break;
-
       case ZCL_CMD_CONFIG_REPORT_RSP:
-        //zclSampleSw_ProcessInConfigReportRspCmd( pInMsg );
         break;
-
       case ZCL_CMD_READ_REPORT_CFG:
-        //zclSampleSw_ProcessInReadReportCfgCmd( pInMsg );
         break;
-
       case ZCL_CMD_READ_REPORT_CFG_RSP:
-        //zclSampleSw_ProcessInReadReportCfgRspCmd( pInMsg );
         break;
-
       case ZCL_CMD_REPORT:
-        //zclSampleSw_ProcessInReportCmd( pInMsg );
         break;
     #endif
       case ZCL_CMD_DEFAULT_RSP:
@@ -430,8 +358,6 @@ static uint8 zclZigbeeDevice_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
 
 static uint8 zclZigbeeDevice_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
 {
-  // zclDefaultRspCmd_t *defaultRspCmd = (zclDefaultRspCmd_t *)pInMsg->attrCmd;
-  
   // Device is notified of the Default Response command.
   (void)pInMsg;
   return TRUE;
@@ -471,7 +397,6 @@ void zclRS485_SendMsg(void)
 {
   uint8 len;
   uint8 uart_recv[20]; // Receive the UART command
-  char temp[30];
   int null_loc;
   //HalUARTWrite( MT_UART_DEFAULT_PORT, "Process\n\r", 10 );
   for(len = 0; len < 20; len++)
@@ -481,28 +406,7 @@ void zclRS485_SendMsg(void)
     HalLcdWriteChar(HAL_LCD_LINE_4, len, uart_recv[len]);
   #endif
   #if defined( MMN_UART )
-    /*
-    uart_recv_str[len] = TransmitApp_Msg[len];
-    if(TransmitApp_Msg[len]=='\0'){
-      null_loc = len;
-      str_loc += null_loc;
-      break;
-    }
-    else if(len==19){
-      str_loc += (len+1);
-      memset(TransmitApp_Msg, 0x0, 20);
-      HalUARTRead( MT_UART_DEFAULT_PORT, TransmitApp_Msg, 20 );
-      for(int len_sec = 0; len_sec < 20; len_sec++){
-        uart_recv_str[len_sec+str_loc] = TransmitApp_Msg[len_sec];
-        if(TransmitApp_Msg[len_sec]=='\0'){
-          null_loc = len_sec;
-          str_loc += null_loc;
-          break;
-        }
-      }
-    }
-    */
-    
+    // Do nothing
   #endif
   }
   #if defined( MMN_UART )
@@ -513,13 +417,9 @@ void zclRS485_SendMsg(void)
     }
   }
   #endif
-  //HalUARTWrite( MT_UART_DEFAULT_PORT, "Data=", 5 );
-  //HalUARTWrite( MT_UART_DEFAULT_PORT, TransmitApp_Msg, null_loc );
-  //HalUARTWrite( MT_UART_DEFAULT_PORT, "\n\r", 2 );
   #if defined( MMN_UART )
   if(TransmitApp_Msg[null_loc-1]=='\r'){
-  // Transmit the UART command to End Device
-    //HalUARTWrite( MT_UART_DEFAULT_PORT, "Packet\n\r", 10 );
+    // Transmit the UART command to End Device
     uint8 send = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT,  &zclZigbeeDevice_DstAddr, 
                                ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
                                 TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, null_loc-1, TransmitApp_Msg );
@@ -557,4 +457,3 @@ void zclZIGBEEDevice_SendMsg(void)
     M270_SensorFunction();
   #endif
 }
-

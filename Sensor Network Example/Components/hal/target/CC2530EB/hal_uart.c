@@ -185,10 +185,6 @@ uint16 HalUARTWrite(uint8 port, uint8 *buf, uint16 len)
 #endif
 }
 
-/******************************************************************************
- * @fn      HalUARTSuspend
- * @brief   Suspend UART hardware before entering PM mode 1, 2 or 3.
- *****************************************************************************/
 void HalUARTSuspend( void )
 {
 #if HAL_UART_DMA
@@ -199,10 +195,6 @@ void HalUARTSuspend( void )
 #endif
 }
 
-/******************************************************************************
- * @fn      HalUARTResume
- * @brief   Resume UART hardware after exiting PM mode 1, 2 or 3.
- *****************************************************************************/
 void HalUARTResume( void )
 {
 #if HAL_UART_DMA
@@ -213,28 +205,6 @@ void HalUARTResume( void )
 #endif
 }
 
-/*
-* @fn      show
-*
-* @brief   Write a buffer to the UART.
-*
-* @param   temp - pointer to the buffer that will be written, not freed
-*
-*/
-/*
-void show(char *temp)
-{
-    char buf[64];
-   
-    memset(buf, 0x0, 64);
-    sprintf(buf, "\r%s\n", temp);
-    HalUARTWrite(HAL_UART_PORT_0, buf, 64);
-}
-*/
-/***************************************************************************************************
- * @fn      HalUARTPoll
- * @brief   Poll the UART.
- *****************************************************************************/
 void HalUARTPoll(void)
 {
 #if HAL_UART_DMA
@@ -248,12 +218,6 @@ void HalUARTPoll(void)
 #endif
 }
 
-/**************************************************************************************************
- * @fn      Hal_UART_RxBufLen()
- * @brief   Calculate Rx Buffer length - the number of bytes in the buffer.
- * @param   port - UART port
- * @return  length of current Rx Buffer
- **************************************************************************************************/
 uint16 Hal_UART_RxBufLen( uint8 port )
 {
   (void)port;
@@ -276,6 +240,3 @@ uint16 Hal_UART_RxBufLen( uint8 port )
   return 0;
 #endif
 }
-
-/******************************************************************************
-******************************************************************************/

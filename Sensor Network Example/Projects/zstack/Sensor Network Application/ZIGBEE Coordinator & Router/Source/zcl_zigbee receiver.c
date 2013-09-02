@@ -161,12 +161,10 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
         switch ( MSGpkt->hdr.event )
         {       
         case ZCL_INCOMING_MSG: //0x34 : Incoming ZCL foundation message
-            show("ZCL_INCOMING_MSG");
             // Incoming ZCL Foundation command/response messages
             zclZigbeeReceiver_ProcessIncomingMsg( (zclIncomingMsg_t *)MSGpkt ); 
             break;          
         case AF_DATA_CONFIRM_CMD:   
-            //device_manager[0].shortAddr = MSGpkt->srcAddr.addr.shortAddr;
             break;         
         case ZDO_STATE_CHANGE:       
             //ZSendMsgProcess();            
@@ -186,7 +184,6 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
             ZSendMsgProcess();                
             break;
       case SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT: // ZIGBEE Receiver identify timeout event
-        show("SAMPLELIGHT_IDENTIFY_TIMEOUT_EVT");
         if ( zclZigbeeRecv_IdentifyTime > 0 )
              zclZigbeeRecv_IdentifyTime--;
              zclZigbeeReceiver_ProcessIdentifyTimeChange();
@@ -215,12 +212,6 @@ static void zclZigbeeReceiver_HandleKeys( byte shift, byte keys )
                           NULL, // No Outgoing clusters to bind
                           TRUE );
   }
-  
-  if ( keys & HAL_KEY_SW2 ) 
-  {
-    
-  }
-  
 #endif
 }
 
@@ -245,11 +236,6 @@ static void zclZigbeeReceiver_ProcessIdentifyTimeChange( void )
     }
 }
 
-/*********************************************************************
- * @fn      zclZigbeeReceiver_BasicResetCB
- * @brief   Callback from the ZCL General Cluster Library
- *          to set all the Basic Cluster attributes to default values.
- */
 static void zclZigbeeReceiver_BasicResetCB( void )
 {
   // Reset all attributes to default values
@@ -309,30 +295,19 @@ static void zclZigbeeReceiver_ProcessIncomingMsg( zclIncomingMsg_t *pInMsg)
       
 #ifdef ZCL_REPORT
     case ZCL_CMD_CONFIG_REPORT: // See ZCL Test Applicaiton (zcl_testapp.c) for sample code on Attribute Reporting
-      //zclSampleLight_ProcessInConfigReportCmd( pInMsg );
       break;
-    
     case ZCL_CMD_CONFIG_REPORT_RSP:
-      //zclSampleLight_ProcessInConfigReportRspCmd( pInMsg );
       break;
-    
     case ZCL_CMD_READ_REPORT_CFG:
-      //zclSampleLight_ProcessInReadReportCfgCmd( pInMsg );
       break;
-    
     case ZCL_CMD_READ_REPORT_CFG_RSP:
-      //zclSampleLight_ProcessInReadReportCfgRspCmd( pInMsg );
       break;
-    
     case ZCL_CMD_REPORT:
-      //zclSampleLight_ProcessInReportCmd( pInMsg );
       break;
 #endif   
-      
     case ZCL_CMD_DEFAULT_RSP:
       zclZigbeeReceiver_ProcessInDefaultRspCmd( pInMsg );
       break;
-      
 #ifdef ZCL_DISCOVER     
     case ZCL_CMD_DISCOVER_RSP:
       zclZigbeeReceiver_ProcessInDiscRspCmd( pInMsg );
@@ -379,25 +354,14 @@ static uint8 zclZigbeeReceiver_ProcessInWriteRspCmd( zclIncomingMsg_t *pInMsg )
 }
 #endif // ZCL_WRITE
 
-/*********************************************************************
- * @fn      zclZigbeeReceiver_ProcessInDefaultRspCmd
- * @brief   Process the "Profile" Default Response Command
- * @param   pInMsg - incoming message to process
- */
 static uint8 zclZigbeeReceiver_ProcessInDefaultRspCmd( zclIncomingMsg_t *pInMsg )
 {
-  // zclDefaultRspCmd_t *defaultRspCmd = (zclDefaultRspCmd_t *)pInMsg->attrCmd; 
   // Device is notified of the Default Response command.
   (void)pInMsg;
   return TRUE; 
 }
 
 #ifdef ZCL_DISCOVER
-/*********************************************************************
- * @fn      zclZigbeeReceiver_ProcessInDiscRspCmd
- * @brief   Process the "Profile" Discover Response Command
- * @param   pInMsg - incoming message to process
- */
 static uint8 zclZigbeeReceiver_ProcessInDiscRspCmd( zclIncomingMsg_t *pInMsg )
 {
   zclDiscoverRspCmd_t *discoverRspCmd;
@@ -426,8 +390,6 @@ void zclUARTMsg_CallBack(uint8 port, uint8 event)
 
 void zclUartReceiver( void )
 { 
-//  show("zclUartReceiver");
-  
   for(uint8 length = 0; length < len; length++)
   {
     uart_recv[length] = TransmitApp_Msg[length];

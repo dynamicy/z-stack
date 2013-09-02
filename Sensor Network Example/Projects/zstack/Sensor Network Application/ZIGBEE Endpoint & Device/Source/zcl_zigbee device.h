@@ -1,10 +1,3 @@
-/**************************************************************************************************
-  Filename:       zcl_zigbee device.h
-  Revised:        $Date: 2009-12-29 18:31:22 -0800 (Tue, 29 Dec 2009) $
-  Revision:       $Revision: 21416 $
-
-  Description:    This file contains the Zigbee Cluster Library Home Automation Sample Application.
-**************************************************************************************************/
 #ifndef ZCL_SAMPLESW_H
 #define ZCL_SAMPLESW_H
 
@@ -13,15 +6,9 @@ extern "C"
 {
 #endif
 
-/*********************************************************************
- * INCLUDES
- */
 #include "zcl.h"
 #include "hal_sensor.h"
 
-/*********************************************************************
- * CONSTANTS
- */
 #define ZIGBEEDEVICE_ENDPOINT           12
 #define ZIGBEEDEVICE_MAX_ATTRIBUTES     11
 
@@ -46,17 +33,7 @@ extern "C"
 #else
 #define TRANSMITAPP_MAX_DATA_LEN    102
 #endif  
-  
-/*********************************************************************
- * MACROS
- */
-/*********************************************************************
- * TYPEDEFS
- */
 
-/*********************************************************************
- * VARIABLES
- */
 extern SimpleDescriptionFormat_t zclZigbeeDevice_SimpleDesc;
 extern CONST zclAttrRec_t zclZigbeeDevice_Attrs[];
 extern uint8  zclSampleSw_OnOff;
@@ -65,27 +42,8 @@ extern byte TransmitApp_Msg[ TRANSMITAPP_MAX_DATA_LEN ]; // ZCL transmit msg var
 extern afAddrType_t zclZigbeeDevice_DstAddr;
 
 extern byte zclZigbeeDevice_TaskID;
-
-/*********************************************************************
- * FUNCTIONS
- */
-
- /*
-  * Initialization for the task
-  */
 extern void zcl_ZigbeeDevice_Init( byte task_id );
-
-/*
- *  Event Process for the task
- */
 extern UINT16 zclZigbeeDevice_event_loop( byte task_id, UINT16 events );
-
-/*********************************************************************
-*********************************************************************/
-
-/*
- *  Event Process for the RS485 Callback
- */
 extern void zclRS485_CallBack(uint8 port, uint8 event); // The RS485 Message callback
 
 #ifdef __cplusplus

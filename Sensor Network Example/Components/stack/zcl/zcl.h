@@ -212,10 +212,6 @@ extern "C"
 #define ZCL_CLUSTER_ID_PI( id )       ( (id) >= ZCL_CLUSTER_ID_PI_GENERIC_TUNNEL && \
                                         (id) <= ZCL_CLUSTER_ID_PI_11073_PROTOCOL_TUNNEL )
   
-/*********************************************************************
- * TYPEDEFS
- */
-
 // ZCL header - frame control field
 typedef struct
 {
@@ -495,11 +491,13 @@ typedef struct
   uint8  *pData;
 } zclParseCmd_t;
 
-/*********************************************************************
- * GLOBAL VARIABLES
- */
 extern uint8 zcl_TaskID;
 extern uint8 zcl_SeqNum;
+
+//
+extern char global_entry[4];
+extern byte global_recv_data[30];
+extern uint8 global_data_length;
 
 /*********************************************************************
  * FUNCTION MACROS
@@ -733,10 +731,6 @@ extern uint8 zclGetDataTypeLength( uint8 dataType );
  * Function to return the length of the attribute.
  */
 extern uint8 zclGetAttrDataLength( uint8  dataType, uint8 *pData);
-
-/*********************************************************************
-*********************************************************************/
-
 #ifdef __cplusplus
 }
 #endif

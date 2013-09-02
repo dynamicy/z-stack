@@ -19,7 +19,6 @@
                           (cID), (len), (buf), (transID), (options), (radius) )
 
 epList_t *epList;
-packet_t device_manager[7];   // Packet manager
 
 static void afBuildMSGIncoming( aps_FrameFormat_t *aff, endPointDesc_t *epDesc,
                 zAddrType_t *SrcAddress, uint16 SrcPanId, NLDE_Signal_t *sig,
@@ -68,19 +67,6 @@ epList_t *afRegisterExtended( endPointDesc_t *epDesc, pDescCB descFn )
   return ep;
 }
 
-/*********************************************************************
- * @fn      afRegister
- *
- * @brief   Register an Application's EndPoint description.
- *
- * @param   epDesc - pointer to the Application's endpoint descriptor.
- *
- * NOTE:  The memory that epDesc is pointing to must exist after this call.
- *
- * @return  afStatus_SUCCESS - Registered
- *          afStatus_MEM_FAIL - not enough memory to add descriptor
- *          afStatus_INVALID_PARAMETER - duplicate endpoint
- */
 afStatus_t afRegister( endPointDesc_t *epDesc )
 {
   epList_t *ep;
@@ -94,19 +80,6 @@ afStatus_t afRegister( endPointDesc_t *epDesc )
   return ((ep == NULL) ? afStatus_MEM_FAIL : afStatus_SUCCESS);
 }
 
-
-/*********************************************************************
- * @fn          afDataConfirm
- *
- * @brief       This function will generate the Data Confirm back to
- *              the application.
- *
- * @param       endPoint - confirm end point
- * @param       transID - transaction ID from APSDE_DATA_REQUEST
- * @param       status - status of APSDE_DATA_REQUEST
- *
- * @return      none
- */
 void afDataConfirm( uint8 endPoint, uint8 transID, ZStatus_t status )
 {
   endPointDesc_t *epDesc;
@@ -145,18 +118,6 @@ void afDataConfirm( uint8 endPoint, uint8 transID, ZStatus_t status )
   }
 }
 
-/*********************************************************************
- * @fn          afIncomingData
- *
- * @brief       Transfer a data PDU (ASDU) from the APS sub-layer to the AF.
- *
- * @param       aff  - pointer to APS frame format
- * @param       SrcAddress  - Source address
- * @param       sig - incoming message's link quality
- * @param       SecurityUse - Security enable/disable
- *
- * @return      none
- */
 void afIncomingData( aps_FrameFormat_t *aff, zAddrType_t *SrcAddress, uint16 SrcPanId,
                      NLDE_Signal_t *sig, byte SecurityUse, uint32 timestamp )
 {
@@ -252,15 +213,6 @@ void afIncomingData( aps_FrameFormat_t *aff, zAddrType_t *SrcAddress, uint16 Src
   }
 }
 
-/*********************************************************************
- * @fn          afBuildMSGIncoming
- *
- * @brief       Build the message for the app
- *
- * @param
- *
- * @return      pointer to next in data buffer
- */
 static void afBuildMSGIncoming( aps_FrameFormat_t *aff, endPointDesc_t *epDesc,
                  zAddrType_t *SrcAddress, uint16 SrcPanId, NLDE_Signal_t *sig, 
                  byte SecurityUse, uint32 timestamp )
@@ -318,30 +270,6 @@ static void afBuildMSGIncoming( aps_FrameFormat_t *aff, endPointDesc_t *epDesc,
   }
 }
 
-/*********************************************************************
- * @fn      AF_DataRequest
- *
- * @brief   Common functionality for invoking APSDE_DataReq() for both
- *          SendMulti and MSG-Send.
- *
- * input parameters
- *
- * @param  *dstAddr - Full ZB destination address: Nwk Addr + End Point.
- * @param  *srcEP - Origination (i.e. respond to or ack to) End Point Descr.
- * @param   cID - A valid cluster ID as specified by the Profile.
- * @param   len - Number of bytes of data pointed to by next param.
- * @param  *buf - A pointer to the data bytes to send.
- * @param  *transID - A pointer to a byte which can be modified and which will
- *                    be used as the transaction sequence number of the msg.
- * @param   options - Valid bit mask of Tx options.
- * @param   radius - Normally set to AF_DEFAULT_RADIUS.
- *
- * output parameters
- *
- * @param  *transID - Incremented by one if the return value is success.
- *
- * @return  afStatus_t - See previous definition of afStatus_... types.
- */
 uint8 AF_DataRequestDiscoverRoute = TRUE;
 afStatus_t AF_DataRequest( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
                            uint16 cID, uint16 len, uint8 *buf, uint8 *transID,
@@ -483,15 +411,6 @@ afStatus_t AF_DataRequest( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
     }
   }
 
-  /*
-   * If this is an EndPoint-to-EndPoint message on the same device, it will not
-   * get added to the NWK databufs. So it will not go OTA and it will not get
-   * a MACCB_DATA_CONFIRM_CMD callback. Thus it is necessary to generate the
-   * AF_DATA_CONFIRM_CMD here. Note that APSDE_DataConfirm() only generates one
-   * message with the first in line TransSeqNumber, even on a multi message.
-   * Also note that a reflected msg will not have its confirmation generated
-   * here.
-   */
   if ( (req.dstAddr.addrMode == Addr16Bit) &&
        (req.dstAddr.addr.shortAddr == NLME_GetShortAddr()) )
   {
@@ -507,33 +426,6 @@ afStatus_t AF_DataRequest( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
 }
 
 #if defined ( ZIGBEE_SOURCE_ROUTING )
-/*********************************************************************
- * @fn      AF_DataRequestSrcRtg
- *
- * @brief   Common functionality for invoking APSDE_DataReq() for both
- *          SendMulti and MSG-Send.
- *
- * input parameters
- *
- * @param  *dstAddr - Full ZB destination address: Nwk Addr + End Point.
- * @param  *srcEP - Origination (i.e. respond to or ack to) End Point Descr.
- * @param   cID - A valid cluster ID as specified by the Profile.
- * @param   len - Number of bytes of data pointed to by next param.
- * @param  *buf - A pointer to the data bytes to send.
- * @param  *transID - A pointer to a byte which can be modified and which will
- *                    be used as the transaction sequence number of the msg.
- * @param   options - Valid bit mask of Tx options.
- * @param   radius - Normally set to AF_DEFAULT_RADIUS.
- * @param   relayCnt - Number of devices in the relay list
- * @param   pRelayList - Pointer to the relay list
- *
- * output parameters
- *
- * @param  *transID - Incremented by one if the return value is success.
- *
- * @return  afStatus_t - See previous definition of afStatus_... types.
- */
-
 afStatus_t AF_DataRequestSrcRtg( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
                            uint16 cID, uint16 len, uint8 *buf, uint8 *transID,
                            uint8 options, uint8 radius, uint8 relayCnt, uint16* pRelayList )
@@ -564,16 +456,6 @@ afStatus_t AF_DataRequestSrcRtg( afAddrType_t *dstAddr, endPointDesc_t *srcEP,
 
 #endif
 
-/*********************************************************************
- * @fn      afFindEndPointDescList
- *
- * @brief   Find the endpoint description entry from the endpoint
- *          number.
- *
- * @param   EndPoint - Application Endpoint to look for
- *
- * @return  the address to the endpoint/interface description entry
- */
 static epList_t *afFindEndPointDescList( byte EndPoint )
 {
   epList_t *epSearch;
@@ -596,16 +478,6 @@ static epList_t *afFindEndPointDescList( byte EndPoint )
   return ( (epList_t *)NULL );
 }
 
-/*********************************************************************
- * @fn      afFindEndPointDesc
- *
- * @brief   Find the endpoint description entry from the endpoint
- *          number.
- *
- * @param   EndPoint - Application Endpoint to look for
- *
- * @return  the address to the endpoint/interface description entry
- */
 endPointDesc_t *afFindEndPointDesc( byte EndPoint )
 {
   epList_t *epSearch;
@@ -619,15 +491,6 @@ endPointDesc_t *afFindEndPointDesc( byte EndPoint )
     return ( (endPointDesc_t *)NULL );
 }
 
-/*********************************************************************
- * @fn      afFindSimpleDesc
- *
- * @brief   Find the Simple Descriptor from the endpoint number.
- *
- * @param   EP - Application Endpoint to look for.
- *
- * @return  Non-zero to indicate that the descriptor memory must be freed.
- */
 byte afFindSimpleDesc( SimpleDescriptionFormat_t **ppDesc, byte EP )
 {
   epList_t *epItem = afFindEndPointDescList( EP );
@@ -653,15 +516,6 @@ byte afFindSimpleDesc( SimpleDescriptionFormat_t **ppDesc, byte EP )
   return rtrn;
 }
 
-/*********************************************************************
- * @fn      afGetDescCB
- *
- * @brief   Get the Descriptor callback function.
- *
- * @param   epDesc - pointer to the endpoint descriptor
- *
- * @return  function pointer or NULL
- */
 static pDescCB afGetDescCB( endPointDesc_t *epDesc )
 {
   epList_t *epSearch;
@@ -684,15 +538,6 @@ static pDescCB afGetDescCB( endPointDesc_t *epDesc )
   return ( (pDescCB)NULL );
 }
 
-/*********************************************************************
- * @fn      afDataReqMTU
- *
- * @brief   Get the Data Request MTU(Max Transport Unit).
- *
- * @param   fields - afDataReqMTU_t
- *
- * @return  uint8(MTU)
- */
 uint8 afDataReqMTU( afDataReqMTU_t* fields )
 {
   uint8 len;
@@ -712,16 +557,6 @@ uint8 afDataReqMTU( afDataReqMTU_t* fields )
   return len;
 }
 
-/*********************************************************************
- * @fn      afGetMatch
- *
- * @brief   Set the allow response flag.
- *
- * @param   ep - Application Endpoint to look for
- * @param   action - true - allow response, false - no response
- *
- * @return  TRUE allow responses, FALSE no response
- */
 uint8 afGetMatch( uint8 ep )
 {
   epList_t *epSearch;
@@ -740,16 +575,6 @@ uint8 afGetMatch( uint8 ep )
     return ( FALSE );
 }
 
-/*********************************************************************
- * @fn      afSetMatch
- *
- * @brief   Set the allow response flag.
- *
- * @param   ep - Application Endpoint to look for
- * @param   action - true - allow response, false - no response
- *
- * @return  TRUE if success, FALSE if endpoint not found
- */
 uint8 afSetMatch( uint8 ep, uint8 action )
 {
   epList_t *epSearch;
@@ -773,15 +598,6 @@ uint8 afSetMatch( uint8 ep, uint8 action )
     return ( FALSE );
 }
 
-/*********************************************************************
- * @fn      afNumEndPoints
- *
- * @brief   Returns the number of endpoints defined (including 0)
- *
- * @param   none
- *
- * @return  number of endpoints
- */
 byte afNumEndPoints( void )
 {
   epList_t *epSearch;
@@ -800,16 +616,6 @@ byte afNumEndPoints( void )
   return ( endpoints );
 }
 
-/*********************************************************************
- * @fn      afEndPoints
- *
- * @brief   Fills in the passed in buffer with the endpoint (numbers).
- *          Use afNumEndPoints to find out how big a buffer to supply.
- *
- * @param   epBuf - pointer to mem used
- *
- * @return  void
- */
 void afEndPoints( byte *epBuf, byte skipZDO )
 {
   epList_t *epSearch;
@@ -838,7 +644,3 @@ void afCopyAddress ( afAddrType_t *afAddr, zAddrType_t *zAddr )
   else
     afAddr->addr.shortAddr = zAddr->addr.shortAddr;
 }
-
-/*********************************************************************
-*********************************************************************/
-

@@ -139,8 +139,8 @@ uint8 duty_M160 = 50;
 void M160_SensorFunction(void)
 {
 
-  M160_Init();
-  M160_On(duty_M160);
+  //M160_Init();
+  //M160_On(duty_M160);
   /*
   if (ch > 0)
   {           

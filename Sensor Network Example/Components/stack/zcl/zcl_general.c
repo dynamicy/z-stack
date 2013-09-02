@@ -935,17 +935,6 @@ ZStatus_t zclGeneral_SendLocationSetAbsolute( uint8 srcEP, afAddrType_t *dstAddr
                            ZCL_FRAME_CLIENT_SERVER_DIR, disableDefaultRsp, 0, seqNum, 10, buf );
 }
 
-/*********************************************************************
- * @fn      zclGeneral_SendLocationSetDevCfg
- *
- * @brief   Call to send out a Set Device Configuration Command
- *
- * @param   srcEP - Sending application's endpoint
- * @param   dstAddr - where you want the message to go
- * @param   devCfg - device configuration info
- *
- * @return  ZStatus_t
- */
 ZStatus_t zclGeneral_SendLocationSetDevCfg( uint8 srcEP, afAddrType_t *dstAddr,
                                             zclLocationDevCfg_t *devCfg,
                                             uint8 disableDefaultRsp, uint8 seqNum )
@@ -967,17 +956,6 @@ ZStatus_t zclGeneral_SendLocationSetDevCfg( uint8 srcEP, afAddrType_t *dstAddr,
                            ZCL_FRAME_CLIENT_SERVER_DIR, disableDefaultRsp, 0, seqNum, 9, buf );
 }
 
-/*********************************************************************
- * @fn      zclGeneral_SendLocationGetDevCfg
- *
- * @brief   Call to send out a Get Device Configuration Command
- *
- * @param   srcEP - Sending application's endpoint
- * @param   dstAddr - where you want the message to go
- * @param   targetAddr - device for which location parameters are being requested
- *
- * @return  ZStatus_t
- */
 ZStatus_t zclGeneral_SendLocationGetDevCfg( uint8 srcEP, afAddrType_t *dstAddr,
                        uint8 *targetAddr, uint8 disableDefaultRsp, uint8 seqNum )
 {
@@ -990,17 +968,6 @@ ZStatus_t zclGeneral_SendLocationGetDevCfg( uint8 srcEP, afAddrType_t *dstAddr,
                           ZCL_FRAME_CLIENT_SERVER_DIR, disableDefaultRsp, 0, seqNum, 8, buf );
 }
 
-/*********************************************************************
- * @fn      zclGeneral_SendLocationGetData
- *
- * @brief   Call to send out a Get Location Data Command
- *
- * @param   srcEP - Sending application's endpoint
- * @param   dstAddr - where you want the message to go
- * @param   locaData - location information and channel parameters that are requested.
- *
- * @return  ZStatus_t
- */
 ZStatus_t zclGeneral_SendLocationGetData( uint8 srcEP, afAddrType_t *dstAddr,
                                           zclLocationGetData_t *locData,
                                           uint8 disableDefaultRsp, uint8 seqNum )
@@ -1029,17 +996,6 @@ ZStatus_t zclGeneral_SendLocationGetData( uint8 srcEP, afAddrType_t *dstAddr,
                           ZCL_FRAME_CLIENT_SERVER_DIR, disableDefaultRsp, 0, seqNum, len, buf );
 }
 
-/*********************************************************************
- * @fn      zclGeneral_SendLocationDevCfgResponse
- *
- * @brief   Call to send out a Device Configuration Response Command
- *
- * @param   srcEP - Sending application's endpoint
- * @param   dstAddr - where you want the message to go
- * @param   devCfg - device's location parameters that are requested
- *
- * @return  ZStatus_t
- */
 ZStatus_t zclGeneral_SendLocationDevCfgResponse( uint8 srcEP, afAddrType_t *dstAddr,
                                                  zclLocationDevCfgRsp_t *devCfg,
                                                  uint8 disableDefaultRsp, uint8 seqNum )

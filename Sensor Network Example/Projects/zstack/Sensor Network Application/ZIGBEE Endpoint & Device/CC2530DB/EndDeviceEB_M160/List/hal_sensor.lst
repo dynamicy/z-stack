@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  17:24:45 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  22:54:21 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -57,8 +57,9 @@
 #                          ZTOOL_P1 -D MT_TASK -D MT_APP_FUNC -D MT_SYS_FUNC  #
 #                          -D MT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG -D           #
 #                          xPOWER_SAVING -D End_Device -D HAL_KEYPAD -D       #
-#                          xPA2591 -D MMN_UART -lC "D:\GitHub\z-stack\Sensor  #
-#                          Network Example\Projects\zstack\Sensor Network     #
+#                          xPA2591 -D HAL_TIMER -D M160 -lC                   #
+#                          "D:\GitHub\z-stack\Sensor Network                  #
+#                          Example\Projects\zstack\Sensor Network             #
 #                          Application\ZIGBEE Endpoint &                      #
 #                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA        #
 #                          "D:\GitHub\z-stack\Sensor Network                  #
@@ -318,11 +319,6 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
    \   00003B   70DC         JNZ     ??sleep_0
      68          }
    \   00003D   02....       LJMP    ?BRET
-
-   \                                 In  segment BANK_RELAYS, align 1
-   \                     ??sleep?relay:
-   \   000000   12....       LCALL   ?BDISPATCH
-   \   000003   ......       DC24    sleep
      69          
      70          #if defined(M110)
      71          void M110_SensorFunction(void)
@@ -392,12 +388,25 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     135          #endif
     136          
     137          #if defined(M160)
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
     138          uint8 duty_M160 = 50;
+   \                     duty_M160:
+   \   000000                DS 1
+   \   000001                REQUIRE `?<Initializer for duty_M160>`
+   \   000001                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     139          void M160_SensorFunction(void)
+   \                     M160_SensorFunction:
     140          {
+   \   000000   74F6         MOV     A,#-0xa
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
     141          
-    142            M160_Init();
-    143            M160_On(duty_M160);
+    142            //M160_Init();
+    143            //M160_On(duty_M160);
     144            /*
     145            if (ch > 0)
     146            {           
@@ -421,20 +430,111 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
     164            }
     165            */
     166            TransmitApp_Msg[0] = 1 + '0';  
+   \   000005   7431         MOV     A,#0x31
+   \   000007   90....       MOV     DPTR,#TransmitApp_Msg
+   \   00000A   F0           MOVX    @DPTR,A
     167            TransmitApp_Msg[1] = 6 + '0';   
+   \   00000B   7436         MOV     A,#0x36
+   \   00000D   90....       MOV     DPTR,#(TransmitApp_Msg + 1)
+   \   000010   F0           MOVX    @DPTR,A
     168            TransmitApp_Msg[2] = 0 + '0';        
+   \   000011   7430         MOV     A,#0x30
+   \   000013   90....       MOV     DPTR,#(TransmitApp_Msg + 2)
+   \   000016   F0           MOVX    @DPTR,A
     169            TransmitApp_Msg[3] = ',';
+   \   000017   742C         MOV     A,#0x2c
+   \   000019   90....       MOV     DPTR,#(TransmitApp_Msg + 3)
+   \   00001C   F0           MOVX    @DPTR,A
     170            TransmitApp_Msg[4] = 'A';   
+   \   00001D   7441         MOV     A,#0x41
+   \   00001F   90....       MOV     DPTR,#(TransmitApp_Msg + 4)
+   \   000022   F0           MOVX    @DPTR,A
     171            TransmitApp_Msg[5] = ',';  
+   \   000023   742C         MOV     A,#0x2c
+   \   000025   90....       MOV     DPTR,#(TransmitApp_Msg + 5)
+   \   000028   F0           MOVX    @DPTR,A
     172            TransmitApp_Msg[6] = (duty_M160 / 100) + '0';
+   \   000029   75F064       MOV     B,#0x64
+   \   00002C   90....       MOV     DPTR,#duty_M160
+   \   00002F   E0           MOVX    A,@DPTR
+   \   000030   84           DIV     AB
+   \   000031   2430         ADD     A,#0x30
+   \   000033   90....       MOV     DPTR,#(TransmitApp_Msg + 6)
+   \   000036   F0           MOVX    @DPTR,A
     173            TransmitApp_Msg[7] = ((duty_M160 / 10) % 10) + '0';
+   \   000037   75F00A       MOV     B,#0xa
+   \   00003A   90....       MOV     DPTR,#duty_M160
+   \   00003D   E0           MOVX    A,@DPTR
+   \   00003E   84           DIV     AB
+   \   00003F   75F00A       MOV     B,#0xa
+   \   000042   84           DIV     AB
+   \   000043   E5F0         MOV     A,B
+   \   000045   2430         ADD     A,#0x30
+   \   000047   90....       MOV     DPTR,#(TransmitApp_Msg + 7)
+   \   00004A   F0           MOVX    @DPTR,A
     174            TransmitApp_Msg[8] = (duty_M160 % 10) + '0';
+   \   00004B   90....       MOV     DPTR,#duty_M160
+   \   00004E   E0           MOVX    A,@DPTR
+   \   00004F   75F00A       MOV     B,#0xa
+   \   000052   84           DIV     AB
+   \   000053   E5F0         MOV     A,B
+   \   000055   2430         ADD     A,#0x30
+   \   000057   90....       MOV     DPTR,#(TransmitApp_Msg + 8)
+   \   00005A   F0           MOVX    @DPTR,A
     175           
     176            uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
     177                                           ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC, 
     178                                           TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 9, 
     179                                           TransmitApp_Msg ); 
+   \   00005B                ; Setup parameters for call to function zcl_SendCommand
+   \   00005B   75....       MOV     ?V0 + 0,#(TransmitApp_Msg & 0xff)
+   \   00005E   75....       MOV     ?V0 + 1,#((TransmitApp_Msg >> 8) & 0xff)
+   \   000061   78..         MOV     R0,#?V0 + 0
+   \   000063   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000066   75..09       MOV     ?V0 + 0,#0x9
+   \   000069   75..00       MOV     ?V0 + 1,#0x0
+   \   00006C   78..         MOV     R0,#?V0 + 0
+   \   00006E   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000071   75..00       MOV     ?V0 + 0,#0x0
+   \   000074   78..         MOV     R0,#?V0 + 0
+   \   000076   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000079   78..         MOV     R0,#?V0 + 0
+   \   00007B   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00007E   78..         MOV     R0,#?V0 + 0
+   \   000080   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000083   78..         MOV     R0,#?V0 + 0
+   \   000085   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000088   75..01       MOV     ?V0 + 0,#0x1
+   \   00008B   78..         MOV     R0,#?V0 + 0
+   \   00008D   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000090   75..00       MOV     ?V0 + 0,#0x0
+   \   000093   78..         MOV     R0,#?V0 + 0
+   \   000095   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000098   7C06         MOV     R4,#0x6
+   \   00009A   7D00         MOV     R5,#0x0
+   \   00009C   7A..         MOV     R2,#(zclZigbeeDevice_DstAddr & 0xff)
+   \   00009E   7B..         MOV     R3,#((zclZigbeeDevice_DstAddr >> 8) & 0xff)
+   \   0000A0   790C         MOV     R1,#0xc
+   \   0000A2   12....       LCALL   ??zcl_SendCommand?relay
+   \   0000A5   740B         MOV     A,#0xb
+   \   0000A7   12....       LCALL   ?DEALLOC_XSTACK8
     180          }
+   \   0000AA   7F02         MOV     R7,#0x2
+   \   0000AC   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for duty_M160>`:
+   \   000000   32           DB 50
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??sleep?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    sleep
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??M160_SensorFunction?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    M160_SensorFunction
     181          #endif 
     182          
     183          #if defined(M170)
@@ -577,26 +677,34 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Applicat
 
    Maximum stack usage in bytes:
 
-     Function ISTACK PSTACK XSTACK
-     -------- ------ ------ ------
-     sleep        0      0      0
+     Function             ISTACK PSTACK XSTACK
+     --------             ------ ------ ------
+     M160_SensorFunction      0      0     21
+       -> zcl_SendCommand     0      0     42
+     sleep                    0      0      0
 
 
    Segment part sizes:
 
-     Function/Label  Bytes
-     --------------  -----
-     TransmitApp_Msg  102
-     sleep             64
-     ??sleep?relay      6
+     Function/Label               Bytes
+     --------------               -----
+     TransmitApp_Msg               102
+     sleep                          64
+     duty_M160                       1
+     M160_SensorFunction           175
+     ?<Initializer for duty_M160>    1
+     ??sleep?relay                   6
+     ??M160_SensorFunction?relay     6
 
  
-  64 bytes in segment BANKED_CODE
-   6 bytes in segment BANK_RELAYS
+ 239 bytes in segment BANKED_CODE
+  12 bytes in segment BANK_RELAYS
+   1 byte  in segment XDATA_I
+   1 byte  in segment XDATA_ID
  102 bytes in segment XDATA_Z
  
-  70 bytes of CODE  memory
- 102 bytes of XDATA memory
+ 252 bytes of CODE  memory
+ 103 bytes of XDATA memory
 
 Errors: none
 Warnings: none

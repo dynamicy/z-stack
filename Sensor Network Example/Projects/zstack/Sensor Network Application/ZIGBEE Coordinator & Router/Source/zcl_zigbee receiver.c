@@ -108,9 +108,16 @@ static zclGeneral_AppCallbacks_t zclZigbeeReceiver_CmdCallbacks =
 void ZSendMsgProcess(void)
 {      
     // Write receive coordinator command to UART
- //   HalUARTWrite(MT_UART_DEFAULT_PORT, device_manager.Data, device_manager.DataLength-2);  
- //   HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);    
-    //osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 1000 );        
+//    HalUARTWrite(MT_UART_DEFAULORT, device_manager.DataT_P, device_manager.DataLength-2);  
+//    HalUARTWrite(MT_UART_DEFAULT_PORT, "\r\n", 3);
+    HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
+    HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
+    HalUARTWrite(MT_UART_DEFAULT_PORT, global_entry, 4);//Device ID
+    HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
+    HalUARTWrite(MT_UART_DEFAULT_PORT, global_recv_data, global_data_length);//Device Data
+    HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n  
+
+    osal_start_timerEx( zclZigbeeReceiver_TaskID, ZDO_MSG_SEND_EVT, 3000 );        
 }
 
 void zclZigbeeRecv_Init( byte task_id )
@@ -167,7 +174,7 @@ uint16 zclZigbeeRecv_event_loop( uint8 task_id, uint16 events )
         case AF_DATA_CONFIRM_CMD:   
             break;         
         case ZDO_STATE_CHANGE:       
-            //ZSendMsgProcess();            
+            ZSendMsgProcess();            
             break;                 
         default:
             break;

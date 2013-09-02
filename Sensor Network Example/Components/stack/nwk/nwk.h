@@ -1,42 +1,3 @@
-/**************************************************************************************************
-  Filename:       nwk.h
-  Revised:        $Date: 2009-12-04 08:04:20 -0800 (Fri, 04 Dec 2009) $
-  Revision:       $Revision: 21276 $
-
-  Description:    Network layer logic component interface.
-
-
-  Copyright 2004-2007 Texas Instruments Incorporated. All rights reserved.
-
-  IMPORTANT: Your use of this Software is limited to those specific rights
-  granted under the terms of a software license agreement between the user
-  who downloaded the software, his/her employer (which must be your employer)
-  and Texas Instruments Incorporated (the "License").  You may not use this
-  Software unless you agree to abide by the terms of the License. The License
-  limits your use, and you acknowledge, that the Software may not be modified,
-  copied or distributed unless embedded on a Texas Instruments microcontroller
-  or used solely and exclusively in conjunction with a Texas Instruments radio
-  frequency transceiver, which is integrated into your product.  Other than for
-  the foregoing purpose, you may not use, reproduce, copy, prepare derivative
-  works of, modify, distribute, perform, display or sell this Software and/or
-  its documentation for any purpose.
-
-  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
-  PROVIDED “AS IS?WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, 
-  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE, 
-  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
-  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
-  NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
-  LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
-  INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
-  OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
-  OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
-  (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
-
-  Should you have any questions regarding your right to use this Software,
-  contact Texas Instruments Incorporated at www.TI.com. 
-**************************************************************************************************/
-
 #ifndef NWK_H
 #define NWK_H
 
@@ -44,24 +5,11 @@
 extern "C" {
 #endif
 
-/*********************************************************************
- * INCLUDES
- */
-
 #include "ZComDef.h"
 #include "ZMAC.h"
 #include "nwk_bufs.h"
 #include "NLMEDE.h"
 #include "ssp.h"
-
-/*********************************************************************
- * MACROS
- */
-
-
-/*********************************************************************
- * CONSTANTS
- */
 
 //NWK event identifiers
 #define MAC_SCAN_REQ          0x01
@@ -101,12 +49,9 @@ extern "C" {
 #define NWK_TASK_ID              0
 #define ASSOC_CAPABILITY_INFO    0
 #define ASSOC_SECURITY_EN        0
-
 #define DEF_DEST_EP              2
 #define DEVICE_APPLICATION       0
-
 #define MAC_ADDR_LEN             8
-
 #define NWK_TXOPTIONS_ACK        0x01
 #define NWK_TXOPTIONS_INDIRECT   0x04
 
@@ -153,7 +98,6 @@ extern "C" {
 #define INVALID_NODE_ADDR                           0xFFFE
 #define INVALID_PAN_ID                              0xFFFE
 
-   
 // Link cost constants  
 #define DEF_LINK_COST              1   // Default link cost
 #define MAX_LINK_COST              7   // max link cost
@@ -179,18 +123,12 @@ extern "C" {
 #define CB_ID_APP_SERVICE_CNF           0x0a
 #define CB_ID_APP_SERVICE_IND           0x0b
 #define CB_ID_APP_START_CNF             0x0c
-
 #define NUM_PING_ROUTE_ADDRS            12
 #define PING_ROUTE_ADDRS_INDEX          8
-
 #define NWK_GetNodeDepth()              (_NIB.nodeDepth)
 #define NWK_GetTreeDepth()              (0)
-  
 #define BEACON_MAX_DEPTH                0x0F
-  
-/*********************************************************************
- * TYPEDEFS
- */
+
 typedef enum
 {
   NWK_INIT,
@@ -213,7 +151,6 @@ typedef enum
   MACCMDBUF_DISASSOC_REQ
 } nwkMacCmds_t;
 
-
 typedef struct
 {
   byte  SequenceNum;
@@ -225,21 +162,17 @@ typedef struct
 
   //neighborEntry_t *       pNeighborTable;
   byte  dummyNeighborTable;     // to make everything a byte!!
-
   byte  BroadcastDeliveryTime;
   byte  ReportConstantCost;
   byte  RouteDiscRetries;
 
   //rtgEntry_t *                pRoutingTable;
   byte  dummyRoutingTable;      // to make everything a byte!!
-
   byte  SecureAllFrames;
   byte  SecurityLevel;
   byte  SymLink;
   byte  CapabilityInfo;
-
   uint16 TransactionPersistenceTime;
-
   byte   nwkProtocolVersion;
 
   // non-standard attributes
@@ -275,11 +208,9 @@ typedef struct
   // Zigbee Pro extensions
   uint8      nwkAddrAlloc;
   uint8      nwkUniqueAddr;
-  uint8      nwkLinkStatusPeriod;   // The time in seconds betwee link status
-                                    // command frames
-  uint8      nwkRouterAgeLimit;     // The number of missed link status 
-                                    // command frames before resetting the 
-                                    // link cost to zero
+  uint8      nwkLinkStatusPeriod;   // The time in seconds betwee link status command frames
+  uint8      nwkRouterAgeLimit;     // The number of missed link status command frames before 
+                                    // resetting the link cost to zero
   uint8      nwkUseMultiCast;
   // ZigBee Pro extentions: MTO routing
   uint8      nwkIsConcentrator;             // If set, then the device is concentrator
@@ -301,72 +232,25 @@ typedef struct
   void   *next;
 } nwkPanId_t;
 
-/*********************************************************************
- * GLOBAL VARIABLES
- */
 extern nwkIB_t _NIB;
 extern byte NWK_TaskID;
 extern networkDesc_t *NwkDescList;
 extern byte nwkExpectingMsgs;
 extern byte nwk_beaconPayload[ZMAC_MAX_BEACON_PAYLOAD_LEN];
 extern byte nwk_beaconPayloadSize;
-
-/*********************************************************************
- * FUNCTIONS
- */
-
- /*
- * NWK Task Initialization
- */
 extern void nwk_init( byte task_id );
-
- /*
- * Calls mac_data_req then handles the buffering
- */
 extern ZStatus_t nwk_data_req_send( nwkDB_t* db );
-
- /*
- * NWK Event Loop
- */
 extern UINT16 nwk_event_loop( byte task_id, UINT16 events );
-
- /*
- * Process incoming command packet
- */
-//extern void CommandPktProcessing( NLDE_FrameFormat_t *ff );
-
-/*
-* Start a coordinator
-*/
 extern ZStatus_t nwk_start_coord( void );
-
-/*
- * Free any network discovery data
- */
 extern void nwk_desc_list_free( void );
 networkDesc_t *nwk_getNetworkDesc( uint8 *ExtendedPANID, uint16 PanId, byte Channel );
 extern void nwk_BeaconFromNative(byte* buff, byte size, beaconPayload_t* beacon);
 extern void nwk_BeaconToNative(beaconPayload_t* beacon, byte* buff, byte size);
-
-/*
- * Set NWK task's state
- */
 extern void nwk_setStateIdle( uint8 idle );
-
-/* 
- * Returns TRUE if NWK state is idle, FALSE otherwise.
- */
 extern uint8 nwk_stateIdle( void );
-
-/*********************************************************************
- * Functionality - not to be called directly.
- */
 extern void nwk_ScanJoiningOrphan( ZMacScanCnf_t *param );
 extern void nwk_ScanPANChanSelect( ZMacScanCnf_t *param );
 extern void nwk_ScanPANChanVerify( ZMacScanCnf_t *param );
-
-/*********************************************************************
-*********************************************************************/
 #ifdef __cplusplus
 }
 #endif

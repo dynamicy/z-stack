@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  17:24:50 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  22:54:26 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -54,8 +54,8 @@
 //                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D           /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D xPA2591 -D MMN_UART   /
-//                          -lC "D:\GitHub\z-stack\Sensor Network             /
+//                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER  /
+//                          -D M160 -lC "D:\GitHub\z-stack\Sensor Network     /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -1471,70 +1471,65 @@ nwk_Status:
         CODE
 //  341   {
 //  342     case NWK_STATUS_COORD_ADDR: // The state is coordinator addr
-//  343      // show("NWK_STATUS_COORD_ADDR");
-//  344       if ( ZSTACK_ROUTER_BUILD )
-//  345       {
-//  346         #if defined (LCD_SUPPORTED) 
-//  347             HalLcdWriteString( (char*)ZigbeeCoordStr, HAL_LCD_LINE_1 );
-//  348             HalLcdWriteStringValue( (char*)NetworkIDStr, statusValue, 16, HAL_LCD_LINE_2 );
-//  349             #if defined (Location) // The location initilization display state
-//  350                 halMcuWaitMs(300);
-//  351                 HalLcd_HW_Clear();
-//  352                 #if defined (CoordinatorKB)
-//  353                     HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_1);
-//  354                     HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_2);
-//  355                 #endif
-//  356                 #if defined (CoordinatorEB)
-//  357                     HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_1);
-//  358                     HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_2);
-//  359                     HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_3);
-//  360                     HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_4);
-//  361                 #endif
-//  362             #endif
-//  363         #endif
-//  364       }
-//  365       break;
-//  366 
-//  367     case NWK_STATUS_ROUTER_ADDR: // The state is router addr
-//  368     //  show("NWK_STATUS_ROUTER_ADDR");
-//  369       if ( ZSTACK_ROUTER_BUILD )
-//  370       {
-//  371         #if defined (LCD_SUPPORTED)
-//  372             HalLcdWriteStringValue( (char*)RouterStr, statusValue, 16, HAL_LCD_LINE_1 ); 
-//  373         #endif
-//  374       }
-//  375       break;
-//  376 
-//  377     case NWK_STATUS_ORPHAN_RSP:
-//  378       //show("NWK_STATUS_ORPHAN_RSP");
-//  379       if ( ZSTACK_ROUTER_BUILD )
-//  380       {
-//  381         #if defined (LCD_SUPPORTED)
-//  382         if ( statusValue == ZSuccess )
-//  383             HalLcdWriteScreen( (char*)OrphanRspStr, (char*)SentStr );
-//  384         else
-//  385             HalLcdWriteScreen( (char*)OrphanRspStr, (char*)FailedStr );
-//  386         #endif
-//  387       }
-//  388       break;
-//  389 
-//  390     case NWK_ERROR_ASSOC_RSP:
-//  391      // show("NWK_ERROR_ASSOC_RSP");
-//  392       if ( ZSTACK_ROUTER_BUILD )
-//  393       {
-//  394         #if defined (LCD_SUPPORTED)
-//  395             HalLcdWriteString( (char*)AssocRspFailStr, HAL_LCD_LINE_1 );
-//  396             HalLcdWriteValue( (uint32)(statusValue), 16, HAL_LCD_LINE_2 );
-//  397         #endif
-//  398       }
-//  399       break;
-//  400       
-//  401     case NWK_STATUS_ED_ADDR: // The state is end-device addr
-//  402       //show("NWK_STATUS_ED_ADDR");
-//  403       if ( ZSTACK_END_DEVICE_BUILD )
-//  404       {
-//  405         #if defined (LCD_SUPPORTED)
-//  406             HalLcdWriteStringValue( (char*)EndDeviceStr, statusValue, 16, HAL_LCD_LINE_1 );
+//  343       if ( ZSTACK_ROUTER_BUILD )
+//  344       {
+//  345         #if defined (LCD_SUPPORTED) 
+//  346             HalLcdWriteString( (char*)ZigbeeCoordStr, HAL_LCD_LINE_1 );
+//  347             HalLcdWriteStringValue( (char*)NetworkIDStr, statusValue, 16, HAL_LCD_LINE_2 );
+//  348             #if defined (Location) // The location initilization display state
+//  349                 halMcuWaitMs(300);
+//  350                 HalLcd_HW_Clear();
+//  351                 #if defined (CoordinatorKB)
+//  352                     HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_1);
+//  353                     HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_2);
+//  354                 #endif
+//  355                 #if defined (CoordinatorEB)
+//  356                     HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_1);
+//  357                     HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_2);
+//  358                     HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_3);
+//  359                     HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_4);
+//  360                 #endif
+//  361             #endif
+//  362         #endif
+//  363       }
+//  364       break;
+//  365 
+//  366     case NWK_STATUS_ROUTER_ADDR: // The state is router addr
+//  367       if ( ZSTACK_ROUTER_BUILD )
+//  368       {
+//  369         #if defined (LCD_SUPPORTED)
+//  370             HalLcdWriteStringValue( (char*)RouterStr, statusValue, 16, HAL_LCD_LINE_1 ); 
+//  371         #endif
+//  372       }
+//  373       break;
+//  374 
+//  375     case NWK_STATUS_ORPHAN_RSP:
+//  376       if ( ZSTACK_ROUTER_BUILD )
+//  377       {
+//  378         #if defined (LCD_SUPPORTED)
+//  379         if ( statusValue == ZSuccess )
+//  380             HalLcdWriteScreen( (char*)OrphanRspStr, (char*)SentStr );
+//  381         else
+//  382             HalLcdWriteScreen( (char*)OrphanRspStr, (char*)FailedStr );
+//  383         #endif
+//  384       }
+//  385       break;
+//  386 
+//  387     case NWK_ERROR_ASSOC_RSP:
+//  388       if ( ZSTACK_ROUTER_BUILD )
+//  389       {
+//  390         #if defined (LCD_SUPPORTED)
+//  391             HalLcdWriteString( (char*)AssocRspFailStr, HAL_LCD_LINE_1 );
+//  392             HalLcdWriteValue( (uint32)(statusValue), 16, HAL_LCD_LINE_2 );
+//  393         #endif
+//  394       }
+//  395       break;
+//  396       
+//  397     case NWK_STATUS_ED_ADDR: // The state is end-device addr
+//  398       if ( ZSTACK_END_DEVICE_BUILD )
+//  399       {
+//  400         #if defined (LCD_SUPPORTED)
+//  401             HalLcdWriteStringValue( (char*)EndDeviceStr, statusValue, 16, HAL_LCD_LINE_1 );
 ??nwk_Status_1:
         ; Setup parameters for call to function HalLcdWriteStringValue
         MOV     ?V0 + 0,#0x1
@@ -1550,14 +1545,13 @@ nwk_Status:
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 12)
         SJMP    ??nwk_Status_5
-//  407         #endif
-//  408       }
-//  409       break;
-//  410 
-//  411     case NWK_STATUS_PARENT_ADDR: // The state is parent addr
-//  412    //  show("NWK_STATUS_PARENT_ADDR");
-//  413       #if defined (LCD_SUPPORTED)      
-//  414           HalLcdWriteStringValue( (char*)ParentStr, statusValue, 16, HAL_LCD_LINE_2 );
+//  402         #endif
+//  403       }
+//  404       break;
+//  405 
+//  406     case NWK_STATUS_PARENT_ADDR: // The state is parent addr
+//  407       #if defined (LCD_SUPPORTED)      
+//  408           HalLcdWriteStringValue( (char*)ParentStr, statusValue, 16, HAL_LCD_LINE_2 );
 ??nwk_Status_2:
         ; Setup parameters for call to function HalLcdWriteStringValue
         MOV     ?V0 + 0,#0x2
@@ -1569,27 +1563,26 @@ nwk_Status:
         MOV     R3,#((ParentStr >> 8) & 0xff)
         SJMP    ??nwk_Status_6
         CFI CFA_XSP16 add(XSP16, 12)
-//  415           #if defined (Location)
-//  416               halMcuWaitMs(300);
-//  417               HalLcd_HW_Clear();
-//  418               #if defined (RouterKB)
-//  419                   HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_1);
-//  420                   HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_2);
+//  409           #if defined (Location)
+//  410               halMcuWaitMs(300);
+//  411               HalLcd_HW_Clear();
+//  412               #if defined (RouterKB)
+//  413                   HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_1);
+//  414                   HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_2);
+//  415               #endif
+//  416               #if defined (RouterEB)
+//  417                   HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_1);
+//  418                   HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_2);
+//  419                   HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_3);
+//  420                   HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_4);
 //  421               #endif
-//  422               #if defined (RouterEB)
-//  423                   HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_1);
-//  424                   HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_2);
-//  425                   HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_3);
-//  426                   HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_4);
-//  427               #endif
-//  428           #endif 
-//  429       #endif
-//  430       break;
-//  431 
-//  432     case NWK_STATUS_ASSOC_CNF:
-//  433    //   show("NWK_STATUS_ASSOC_CNF");
-//  434       #if defined (LCD_SUPPORTED)
-//  435           HalLcdWriteScreen( (char*)AssocCnfStr, (char*)SuccessStr );
+//  422           #endif 
+//  423       #endif
+//  424       break;
+//  425 
+//  426     case NWK_STATUS_ASSOC_CNF:
+//  427       #if defined (LCD_SUPPORTED)
+//  428           HalLcdWriteScreen( (char*)AssocCnfStr, (char*)SuccessStr );
 ??nwk_Status_0:
         ; Setup parameters for call to function HalLcdWriteScreen
         MOV     R4,#(SuccessStr & 0xff)
@@ -1597,20 +1590,19 @@ nwk_Status:
         MOV     R2,#(AssocCnfStr & 0xff)
         MOV     R3,#((AssocCnfStr >> 8) & 0xff)
         SJMP    ??nwk_Status_7
-//  436       #endif
-//  437       break;
-//  438 
-//  439     case NWK_ERROR_ASSOC_CNF_DENIED:
-//  440    //   show("NWK_ERROR_ASSOC_CNF_DENIED");
-//  441       #if defined (LCD_SUPPORTED)
-//  442           HalLcdWriteString((char*)AssocCnfFailStr, HAL_LCD_LINE_1 );
+//  429       #endif
+//  430       break;
+//  431 
+//  432     case NWK_ERROR_ASSOC_CNF_DENIED:
+//  433       #if defined (LCD_SUPPORTED)
+//  434           HalLcdWriteString((char*)AssocCnfFailStr, HAL_LCD_LINE_1 );
 ??nwk_Status_3:
         ; Setup parameters for call to function HalLcdWriteString
         MOV     R1,#0x1
         MOV     R2,#(AssocCnfFailStr & 0xff)
         MOV     R3,#((AssocCnfFailStr >> 8) & 0xff)
         LCALL   ??HalLcdWriteString?relay
-//  443           HalLcdWriteValue( (uint32)(statusValue), 16, HAL_LCD_LINE_2 );
+//  435           HalLcdWriteValue( (uint32)(statusValue), 16, HAL_LCD_LINE_2 );
         ; Setup parameters for call to function HalLcdWriteValue
         MOV     ?V0 + 0,#0x2
         MOV     R0,#?V0 + 0
@@ -1625,22 +1617,21 @@ nwk_Status:
         MOV     A,#0x1
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 12)
-//  444       #endif
-//  445           halMcuWaitMs(5000); // delay 5 seconds
+//  436       #endif
+//  437           halMcuWaitMs(5000); // delay 5 seconds
         ; Setup parameters for call to function halMcuWaitMs
         MOV     R2,#-0x78
         MOV     R3,#0x13
         LCALL   ??halMcuWaitMs?relay
-//  446           WatchDogEnable( WDTISH ); // Use watch dog to reset the system
+//  438           WatchDogEnable( WDTISH ); // Use watch dog to reset the system
         MOV     0xc9,#-0x55
         MOV     0xc9,#0x5b
         SJMP    ??nwk_Status_5
-//  447       break;
-//  448 
-//  449     case NWK_ERROR_ENERGY_SCAN_FAILED: // The state is scan failed
-//  450   //    show("NWK_ERROR_ENERGY_SCAN_FAILED");
-//  451       #if defined (LCD_SUPPORTED)
-//  452           HalLcdWriteScreen( (char*)EnergyLevelStr, (char*)ScanFailedStr );
+//  439       break;
+//  440 
+//  441     case NWK_ERROR_ENERGY_SCAN_FAILED: // The state is scan failed
+//  442       #if defined (LCD_SUPPORTED)
+//  443           HalLcdWriteScreen( (char*)EnergyLevelStr, (char*)ScanFailedStr );
 ??nwk_Status_4:
         ; Setup parameters for call to function HalLcdWriteScreen
         MOV     R4,#(ScanFailedStr & 0xff)
@@ -1649,10 +1640,10 @@ nwk_Status:
         MOV     R3,#((EnergyLevelStr >> 8) & 0xff)
 ??nwk_Status_7:
         LCALL   ??HalLcdWriteScreen?relay
-//  453       #endif
-//  454       break;
-//  455   }
-//  456 }
+//  444       #endif
+//  445       break;
+//  446   }
+//  447 }
 ??nwk_Status_5:
         MOV     R7,#0x4
         LJMP    ?BANKED_LEAVE_XDATA

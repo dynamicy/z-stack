@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  17:24:42 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  22:54:18 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -10,7 +10,7 @@
 //    Constant location  =  data_rom                                          /
 //    Dptr setup         =  1,16                                              /
 //    Source file        =  D:\GitHub\z-stack\Sensor Network                  /
-//                          Example\Components\hal\target\CC2530KB\hal_adc.c  /
+//                          Example\Components\hal\target\CC2530EB\hal_adc.c  /
 //    Command line       =  -f "D:\GitHub\z-stack\Sensor Network              /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
@@ -50,12 +50,12 @@
 //                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING          /
 //                          -DZCL_PRICING) -DZCL_MESSAGE                      /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
-//                          Example\Components\hal\target\CC2530KB\hal_adc.c" /
+//                          Example\Components\hal\target\CC2530EB\hal_adc.c" /
 //                           -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D       /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D xPA2591 -D MMN_UART   /
-//                          -lC "D:\GitHub\z-stack\Sensor Network             /
+//                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER  /
+//                          -D M160 -lC "D:\GitHub\z-stack\Sensor Network     /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -422,7 +422,7 @@ HalAdcSetReference  SYMBOL "HalAdcSetReference"
 adcSampleSingle     SYMBOL "adcSampleSingle"
 ??adcSampleSingle?relay SYMBOL "?relay", adcSampleSingle
 
-// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_adc.c
+// D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530EB\hal_adc.c
 //    1 /**************************************************************************************************
 //    2   Filename:       hal_adc.c
 //    3   Revised:        $Date: 2009-12-17 13:13:47 -0800 (Thu, 17 Dec 2009) $
@@ -640,11 +640,11 @@ HalAdcInit:
         CFI EndBlock cfiBlock0
 //  142   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         REQUIRE ?Subroutine1
-        REQUIRE ADCCON2
         REQUIRE ADCCON1
         REQUIRE ADCCON3
-        REQUIRE ADCH
+        REQUIRE ADCCON2
         REQUIRE ADCL
+        REQUIRE ADCH
         ; // Fall through to label ?Subroutine1
 //  143   tmp = ADCH;
 //  144 #endif
@@ -938,8 +938,8 @@ HalAdcRead:
         CFI EndBlock cfiBlock2
         REQUIRE ADCCON1
         REQUIRE ADCCON3
-        REQUIRE ADCH
         REQUIRE ADCL
+        REQUIRE ADCH
         REQUIRE ADCCFG
 //  263 }
 //  264 
@@ -1013,11 +1013,11 @@ HalAdcSetReference:
 //  294   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         LJMP    ?Subroutine1 & 0xFFFF
         CFI EndBlock cfiBlock3
-        REQUIRE ADCCON2
         REQUIRE ADCCON1
         REQUIRE ADCCON3
-        REQUIRE ADCH
+        REQUIRE ADCCON2
         REQUIRE ADCL
+        REQUIRE ADCH
 //  295   tmp = ADCH;
 //  296 #endif
 //  297 }
@@ -1240,8 +1240,8 @@ HalAdcCheckVdd:
         CFI EndBlock cfiBlock16
         REQUIRE _A_TCON
         REQUIRE ADCCON3
-        REQUIRE ADCH
         REQUIRE ADCL
+        REQUIRE ADCH
 //  332 }
 //  333 
 //  334 /**************************************************************************************************
@@ -1333,8 +1333,8 @@ adcSampleSingle:
         CFI EndBlock cfiBlock17
         REQUIRE _A_TCON
         REQUIRE ADCCON3
-        REQUIRE ADCH
         REQUIRE ADCL
+        REQUIRE ADCH
         REQUIRE ADCCFG
 //  375 }
 

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  17:24:43 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  22:54:19 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -10,7 +10,7 @@
 #    Constant location  =  data_rom                                           #
 #    Dptr setup         =  1,16                                               #
 #    Source file        =  D:\GitHub\z-stack\Sensor Network                   #
-#                          Example\Components\hal\target\CC2530KB\hal_dma.c   #
+#                          Example\Components\hal\target\CC2530EB\hal_dma.c   #
 #    Command line       =  -f "D:\GitHub\z-stack\Sensor Network               #
 #                          Example\Projects\zstack\Sensor Network             #
 #                          Application\ZIGBEE Endpoint &                      #
@@ -49,12 +49,12 @@
 #                          -DZCL_LOAD_CONTROL -DZCL_SIMPLE_METERING           #
 #                          -DZCL_PRICING) -DZCL_MESSAGE                       #
 #                          "D:\GitHub\z-stack\Sensor Network                  #
-#                          Example\Components\hal\target\CC2530KB\hal_dma.c"  #
+#                          Example\Components\hal\target\CC2530EB\hal_dma.c"  #
 #                          -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D         #
 #                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D       #
 #                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D            #
-#                          End_Device -D HAL_KEYPAD -D xPA2591 -D MMN_UART    #
-#                          -lC "D:\GitHub\z-stack\Sensor Network              #
+#                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER   #
+#                          -D M160 -lC "D:\GitHub\z-stack\Sensor Network      #
 #                          Example\Projects\zstack\Sensor Network             #
 #                          Application\ZIGBEE Endpoint &                      #
 #                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA        #
@@ -187,7 +187,7 @@
 #                                                                             #
 ###############################################################################
 
-D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_dma.c
+D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530EB\hal_dma.c
       1          /**************************************************************************************************
       2            Filename:       hal_dma.c
       3            Revised:        $Date: 2009-08-05 18:23:26 -0700 (Wed, 05 Aug 2009) $
@@ -356,11 +356,11 @@ D:\GitHub\z-stack\Sensor Network Example\Components\hal\target\CC2530KB\hal_dma.
     109          #endif
     110          }
    \   000010   02....       LJMP    ?BRET
-   \   000013                REQUIRE _A_IEN1
-   \   000013                REQUIRE DMA1CFGL
-   \   000013                REQUIRE DMA1CFGH
    \   000013                REQUIRE DMA0CFGL
    \   000013                REQUIRE DMA0CFGH
+   \   000013                REQUIRE DMA1CFGL
+   \   000013                REQUIRE _A_IEN1
+   \   000013                REQUIRE DMA1CFGH
     111          
     112          #if (HAL_UART_DMA || \
     113             ((defined HAL_SPI) && (HAL_SPI == TRUE))  || \

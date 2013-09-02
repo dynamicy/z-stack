@@ -25,6 +25,9 @@
 #if (defined HAL_HID) && (HAL_HID == TRUE)
   #include "usb_hid.h"
 #endif
+#if defined(M160)
+  #include "M160.h"
+#endif
 #if defined(M170)
   #include "M170.h"
 #endif
@@ -50,7 +53,8 @@ void HalDriverInit (void)
 {
   /* TIMER */
 #if (defined HAL_TIMER) && (HAL_TIMER == TRUE)
-  HalTimerInit();
+  HalTimerInit(); 
+  M160_Init();
 #endif
 
   /* ADC */

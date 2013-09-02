@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  17:26:02 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  22:55:39 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -1024,34 +1024,33 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\nwk\nwk_globals.c
    \   00003A   ....         DW        ??nwk_Status_8
     341            {
     342              case NWK_STATUS_COORD_ADDR: // The state is coordinator addr
-    343               // show("NWK_STATUS_COORD_ADDR");
-    344                if ( ZSTACK_ROUTER_BUILD )
-    345                {
-    346                  #if defined (LCD_SUPPORTED) 
-    347                      HalLcdWriteString( (char*)ZigbeeCoordStr, HAL_LCD_LINE_1 );
+    343                if ( ZSTACK_ROUTER_BUILD )
+    344                {
+    345                  #if defined (LCD_SUPPORTED) 
+    346                      HalLcdWriteString( (char*)ZigbeeCoordStr, HAL_LCD_LINE_1 );
    \                     ??nwk_Status_2:
    \   00003C                ; Setup parameters for call to function HalLcdWriteString
    \   00003C   7901         MOV     R1,#0x1
    \   00003E   7A..         MOV     R2,#(ZigbeeCoordStr & 0xff)
    \   000040   7B..         MOV     R3,#((ZigbeeCoordStr >> 8) & 0xff)
    \   000042   12....       LCALL   ?Subroutine0 & 0xFFFF
-    348                      HalLcdWriteStringValue( (char*)NetworkIDStr, statusValue, 16, HAL_LCD_LINE_2 );
-    349                      #if defined (Location) // The location initilization display state
-    350                          halMcuWaitMs(300);
-    351                          HalLcd_HW_Clear();
-    352                          #if defined (CoordinatorKB)
-    353                              HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_1);
-    354                              HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_2);
-    355                          #endif
-    356                          #if defined (CoordinatorEB)
-    357                              HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_1);
-    358                              HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_2);
-    359                              HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_3);
-    360                              HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_4);
-    361                          #endif
-    362                      #endif
-    363                  #endif
-    364                }
+    347                      HalLcdWriteStringValue( (char*)NetworkIDStr, statusValue, 16, HAL_LCD_LINE_2 );
+    348                      #if defined (Location) // The location initilization display state
+    349                          halMcuWaitMs(300);
+    350                          HalLcd_HW_Clear();
+    351                          #if defined (CoordinatorKB)
+    352                              HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_1);
+    353                              HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_2);
+    354                          #endif
+    355                          #if defined (CoordinatorEB)
+    356                              HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_1);
+    357                              HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_2);
+    358                              HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_3);
+    359                              HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_4);
+    360                          #endif
+    361                      #endif
+    362                  #endif
+    363                }
    \                     ??CrossCallReturnLabel_0:
    \   000045   12....       LCALL   ?PUSH_XSTACK_I_ONE
    \   000048   7910         MOV     R1,#0x10
@@ -1067,14 +1066,13 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\nwk\nwk_globals.c
    \   000055   7401         MOV     A,#0x1
    \   000057   12....       LCALL   ?DEALLOC_XSTACK8
    \   00005A   02....       LJMP    ??nwk_Status_8 & 0xFFFF
-    365                break;
-    366          
-    367              case NWK_STATUS_ROUTER_ADDR: // The state is router addr
-    368              //  show("NWK_STATUS_ROUTER_ADDR");
-    369                if ( ZSTACK_ROUTER_BUILD )
-    370                {
-    371                  #if defined (LCD_SUPPORTED)
-    372                      HalLcdWriteStringValue( (char*)RouterStr, statusValue, 16, HAL_LCD_LINE_1 ); 
+    364                break;
+    365          
+    366              case NWK_STATUS_ROUTER_ADDR: // The state is router addr
+    367                if ( ZSTACK_ROUTER_BUILD )
+    368                {
+    369                  #if defined (LCD_SUPPORTED)
+    370                      HalLcdWriteStringValue( (char*)RouterStr, statusValue, 16, HAL_LCD_LINE_1 ); 
    \                     ??nwk_Status_3:
    \   00005D                ; Setup parameters for call to function HalLcdWriteStringValue
    \   00005D   75..01       MOV     ?V0 + 0,#0x1
@@ -1084,16 +1082,15 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\nwk\nwk_globals.c
    \   000067   7A..         MOV     R2,#(RouterStr & 0xff)
    \   000069   7B..         MOV     R3,#((RouterStr >> 8) & 0xff)
    \   00006B   80E5         SJMP    ??nwk_Status_9
-    373                  #endif
-    374                }
-    375                break;
-    376          
-    377              case NWK_STATUS_ORPHAN_RSP:
-    378                //show("NWK_STATUS_ORPHAN_RSP");
-    379                if ( ZSTACK_ROUTER_BUILD )
-    380                {
-    381                  #if defined (LCD_SUPPORTED)
-    382                  if ( statusValue == ZSuccess )
+    371                  #endif
+    372                }
+    373                break;
+    374          
+    375              case NWK_STATUS_ORPHAN_RSP:
+    376                if ( ZSTACK_ROUTER_BUILD )
+    377                {
+    378                  #if defined (LCD_SUPPORTED)
+    379                  if ( statusValue == ZSuccess )
    \                     ??nwk_Status_4:
    \   00006D   7A..         MOV     R2,#(OrphanRspStr & 0xff)
    \   00006F   7B..         MOV     R3,#((OrphanRspStr >> 8) & 0xff)
@@ -1102,37 +1099,36 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\nwk\nwk_globals.c
    \   000074   EF           MOV     A,R7
    \                     ??nwk_Status_11:
    \   000075   7006         JNZ     ??nwk_Status_12
-    383                      HalLcdWriteScreen( (char*)OrphanRspStr, (char*)SentStr );
+    380                      HalLcdWriteScreen( (char*)OrphanRspStr, (char*)SentStr );
    \   000077                ; Setup parameters for call to function HalLcdWriteScreen
    \   000077   7C..         MOV     R4,#(SentStr & 0xff)
    \   000079   7D..         MOV     R5,#((SentStr >> 8) & 0xff)
    \   00007B   8070         SJMP    ??nwk_Status_13
-    384                  else
-    385                      HalLcdWriteScreen( (char*)OrphanRspStr, (char*)FailedStr );
+    381                  else
+    382                      HalLcdWriteScreen( (char*)OrphanRspStr, (char*)FailedStr );
    \                     ??nwk_Status_12:
    \   00007D                ; Setup parameters for call to function HalLcdWriteScreen
    \   00007D   7C..         MOV     R4,#(FailedStr & 0xff)
    \   00007F   7D..         MOV     R5,#((FailedStr >> 8) & 0xff)
    \   000081   806A         SJMP    ??nwk_Status_13
-    386                  #endif
-    387                }
-    388                break;
-    389          
-    390              case NWK_ERROR_ASSOC_RSP:
-    391               // show("NWK_ERROR_ASSOC_RSP");
-    392                if ( ZSTACK_ROUTER_BUILD )
-    393                {
-    394                  #if defined (LCD_SUPPORTED)
-    395                      HalLcdWriteString( (char*)AssocRspFailStr, HAL_LCD_LINE_1 );
+    383                  #endif
+    384                }
+    385                break;
+    386          
+    387              case NWK_ERROR_ASSOC_RSP:
+    388                if ( ZSTACK_ROUTER_BUILD )
+    389                {
+    390                  #if defined (LCD_SUPPORTED)
+    391                      HalLcdWriteString( (char*)AssocRspFailStr, HAL_LCD_LINE_1 );
    \                     ??nwk_Status_5:
    \   000083                ; Setup parameters for call to function HalLcdWriteString
    \   000083   7901         MOV     R1,#0x1
    \   000085   7A..         MOV     R2,#(AssocRspFailStr & 0xff)
    \   000087   7B..         MOV     R3,#((AssocRspFailStr >> 8) & 0xff)
    \   000089   12....       LCALL   ?Subroutine0 & 0xFFFF
-    396                      HalLcdWriteValue( (uint32)(statusValue), 16, HAL_LCD_LINE_2 );
-    397                  #endif
-    398                }
+    392                      HalLcdWriteValue( (uint32)(statusValue), 16, HAL_LCD_LINE_2 );
+    393                  #endif
+    394                }
    \                     ??CrossCallReturnLabel_1:
    \   00008C   12....       LCALL   ?PUSH_XSTACK_I_ONE
    \   00008F   7910         MOV     R1,#0x10
@@ -1142,22 +1138,20 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\nwk\nwk_globals.c
    \   000097   7D00         MOV     R5,#0x0
    \   000099   12....       LCALL   ??HalLcdWriteValue?relay
    \   00009C   80B7         SJMP    ??nwk_Status_10
-    399                break;
-    400                
-    401              case NWK_STATUS_ED_ADDR: // The state is end-device addr
-    402                //show("NWK_STATUS_ED_ADDR");
-    403                if ( ZSTACK_END_DEVICE_BUILD )
-    404                {
-    405                  #if defined (LCD_SUPPORTED)
-    406                      HalLcdWriteStringValue( (char*)EndDeviceStr, statusValue, 16, HAL_LCD_LINE_1 );
-    407                  #endif
-    408                }
-    409                break;
-    410          
-    411              case NWK_STATUS_PARENT_ADDR: // The state is parent addr
-    412             //  show("NWK_STATUS_PARENT_ADDR");
-    413                #if defined (LCD_SUPPORTED)      
-    414                    HalLcdWriteStringValue( (char*)ParentStr, statusValue, 16, HAL_LCD_LINE_2 );
+    395                break;
+    396                
+    397              case NWK_STATUS_ED_ADDR: // The state is end-device addr
+    398                if ( ZSTACK_END_DEVICE_BUILD )
+    399                {
+    400                  #if defined (LCD_SUPPORTED)
+    401                      HalLcdWriteStringValue( (char*)EndDeviceStr, statusValue, 16, HAL_LCD_LINE_1 );
+    402                  #endif
+    403                }
+    404                break;
+    405          
+    406              case NWK_STATUS_PARENT_ADDR: // The state is parent addr
+    407                #if defined (LCD_SUPPORTED)      
+    408                    HalLcdWriteStringValue( (char*)ParentStr, statusValue, 16, HAL_LCD_LINE_2 );
    \                     ??nwk_Status_1:
    \   00009E                ; Setup parameters for call to function HalLcdWriteStringValue
    \   00009E   75..02       MOV     ?V0 + 0,#0x2
@@ -1167,27 +1161,26 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\nwk\nwk_globals.c
    \   0000A8   7A..         MOV     R2,#(ParentStr & 0xff)
    \   0000AA   7B..         MOV     R3,#((ParentStr >> 8) & 0xff)
    \   0000AC   80A4         SJMP    ??nwk_Status_9
-    415                    #if defined (Location)
-    416                        halMcuWaitMs(300);
-    417                        HalLcd_HW_Clear();
-    418                        #if defined (RouterKB)
-    419                            HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_1);
-    420                            HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_2);
+    409                    #if defined (Location)
+    410                        halMcuWaitMs(300);
+    411                        HalLcd_HW_Clear();
+    412                        #if defined (RouterKB)
+    413                            HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_1);
+    414                            HalLcdWriteString("[  ,   ][  ,   ]", HAL_LCD_LINE_2);
+    415                        #endif
+    416                        #if defined (RouterEB)
+    417                            HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_1);
+    418                            HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_2);
+    419                            HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_3);
+    420                            HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_4);
     421                        #endif
-    422                        #if defined (RouterEB)
-    423                            HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_1);
-    424                            HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_2);
-    425                            HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_3);
-    426                            HalLcdWriteString("ID:     ,[     ]", HAL_LCD_LINE_4);
-    427                        #endif
-    428                    #endif 
-    429                #endif
-    430                break;
-    431          
-    432              case NWK_STATUS_ASSOC_CNF:
-    433             //   show("NWK_STATUS_ASSOC_CNF");
-    434                #if defined (LCD_SUPPORTED)
-    435                    HalLcdWriteScreen( (char*)AssocCnfStr, (char*)SuccessStr );
+    422                    #endif 
+    423                #endif
+    424                break;
+    425          
+    426              case NWK_STATUS_ASSOC_CNF:
+    427                #if defined (LCD_SUPPORTED)
+    428                    HalLcdWriteScreen( (char*)AssocCnfStr, (char*)SuccessStr );
    \                     ??nwk_Status_0:
    \   0000AE                ; Setup parameters for call to function HalLcdWriteScreen
    \   0000AE   7C..         MOV     R4,#(SuccessStr & 0xff)
@@ -1195,20 +1188,19 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\nwk\nwk_globals.c
    \   0000B2   7A..         MOV     R2,#(AssocCnfStr & 0xff)
    \   0000B4   7B..         MOV     R3,#((AssocCnfStr >> 8) & 0xff)
    \   0000B6   8035         SJMP    ??nwk_Status_13
-    436                #endif
-    437                break;
-    438          
-    439              case NWK_ERROR_ASSOC_CNF_DENIED:
-    440             //   show("NWK_ERROR_ASSOC_CNF_DENIED");
-    441                #if defined (LCD_SUPPORTED)
-    442                    HalLcdWriteString((char*)AssocCnfFailStr, HAL_LCD_LINE_1 );
+    429                #endif
+    430                break;
+    431          
+    432              case NWK_ERROR_ASSOC_CNF_DENIED:
+    433                #if defined (LCD_SUPPORTED)
+    434                    HalLcdWriteString((char*)AssocCnfFailStr, HAL_LCD_LINE_1 );
    \                     ??nwk_Status_6:
    \   0000B8                ; Setup parameters for call to function HalLcdWriteString
    \   0000B8   7901         MOV     R1,#0x1
    \   0000BA   7A..         MOV     R2,#(AssocCnfFailStr & 0xff)
    \   0000BC   7B..         MOV     R3,#((AssocCnfFailStr >> 8) & 0xff)
    \   0000BE   12....       LCALL   ?Subroutine0 & 0xFFFF
-    443                    HalLcdWriteValue( (uint32)(statusValue), 16, HAL_LCD_LINE_2 );
+    435                    HalLcdWriteValue( (uint32)(statusValue), 16, HAL_LCD_LINE_2 );
    \                     ??CrossCallReturnLabel_2:
    \   0000C1   12....       LCALL   ?PUSH_XSTACK_I_ONE
    \   0000C4   7910         MOV     R1,#0x10
@@ -1219,22 +1211,21 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\nwk\nwk_globals.c
    \   0000CE   12....       LCALL   ??HalLcdWriteValue?relay
    \   0000D1   7401         MOV     A,#0x1
    \   0000D3   12....       LCALL   ?DEALLOC_XSTACK8
-    444                #endif
-    445                    halMcuWaitMs(5000); // delay 5 seconds
+    436                #endif
+    437                    halMcuWaitMs(5000); // delay 5 seconds
    \   0000D6                ; Setup parameters for call to function halMcuWaitMs
    \   0000D6   7A88         MOV     R2,#-0x78
    \   0000D8   7B13         MOV     R3,#0x13
    \   0000DA   12....       LCALL   ??halMcuWaitMs?relay
-    446                    WatchDogEnable( WDTISH ); // Use watch dog to reset the system
+    438                    WatchDogEnable( WDTISH ); // Use watch dog to reset the system
    \   0000DD   75C9AB       MOV     0xc9,#-0x55
    \   0000E0   75C95B       MOV     0xc9,#0x5b
    \   0000E3   800B         SJMP    ??nwk_Status_8
-    447                break;
-    448          
-    449              case NWK_ERROR_ENERGY_SCAN_FAILED: // The state is scan failed
-    450            //    show("NWK_ERROR_ENERGY_SCAN_FAILED");
-    451                #if defined (LCD_SUPPORTED)
-    452                    HalLcdWriteScreen( (char*)EnergyLevelStr, (char*)ScanFailedStr );
+    439                break;
+    440          
+    441              case NWK_ERROR_ENERGY_SCAN_FAILED: // The state is scan failed
+    442                #if defined (LCD_SUPPORTED)
+    443                    HalLcdWriteScreen( (char*)EnergyLevelStr, (char*)ScanFailedStr );
    \                     ??nwk_Status_7:
    \   0000E5                ; Setup parameters for call to function HalLcdWriteScreen
    \   0000E5   7C..         MOV     R4,#(ScanFailedStr & 0xff)
@@ -1243,10 +1234,10 @@ D:\GitHub\z-stack\Sensor Network Example\Components\stack\nwk\nwk_globals.c
    \   0000EB   7B..         MOV     R3,#((EnergyLevelStr >> 8) & 0xff)
    \                     ??nwk_Status_13:
    \   0000ED   12....       LCALL   ??HalLcdWriteScreen?relay
-    453                #endif
-    454                break;
-    455            }
-    456          }
+    444                #endif
+    445                break;
+    446            }
+    447          }
    \                     ??nwk_Status_8:
    \   0000F0   7F08         MOV     R7,#0x8
    \   0000F2   02....       LJMP    ?BANKED_LEAVE_XDATA

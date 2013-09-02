@@ -635,20 +635,6 @@ void osal_msg_extract( osal_msg_q_t *q_ptr, void *msg_ptr, void *prev_ptr )
   HAL_EXIT_CRITICAL_SECTION(intState);
 }
 
-/*********************************************************************
- * @fn      osal_msg_enqueue_max
- *
- * @brief
- *
- *    This function enqueues an OSAL message into an OSAL queue if
- *    the length of the queue is less than max.
- *
- * @param   osal_msg_q_t *q_ptr - OSAL queue
- * @param   void *msg_ptr  - OSAL message
- * @param   uint8 max - maximum length of queue
- *
- * @return  TRUE if message was enqueued, FALSE otherwise
- */
 uint8 osal_msg_enqueue_max( osal_msg_q_t *q_ptr, void *msg_ptr, uint8 max )
 {
   void *list;

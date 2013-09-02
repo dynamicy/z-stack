@@ -39,3 +39,7 @@ void M160_On(uint8 duty);
  * Turn off the M160 module
  **************************************************/
 void M160_Off(void);
+
+
+
+void M160_Timer_Call_Back(uint8 timerId, uint8 channel, uint8 channelMode);

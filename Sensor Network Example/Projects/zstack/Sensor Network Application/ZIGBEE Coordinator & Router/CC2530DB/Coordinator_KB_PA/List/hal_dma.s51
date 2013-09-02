@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  17:25:55 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  22:55:32 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -573,9 +573,9 @@ HalDmaInit:
         LJMP    ?BRET
         CFI EndBlock cfiBlock0
         REQUIRE DMA1CFGL
-        REQUIRE DMA0CFGH
         REQUIRE DMA1CFGH
         REQUIRE DMA0CFGL
+        REQUIRE DMA0CFGH
         REQUIRE _A_IEN1
 //  111 
 //  112 #if (HAL_UART_DMA || \ 
@@ -673,8 +673,8 @@ halDmaIsr:
         MOV     R7,#0x1
         LJMP    ?INTERRUPT_LEAVE_XSP
         CFI EndBlock cfiBlock1
-        REQUIRE DMAIRQ
         REQUIRE _A_IRCON
+        REQUIRE DMAIRQ
 
         COMMON INTVEC:CODE:ROOT(0)
         ORG 67

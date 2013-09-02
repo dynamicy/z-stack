@@ -21,6 +21,7 @@
 
 #if defined(M160)
   #include "hal_sensor.h"
+  #include "M160.h"
 #endif 
 
 /* MT */
@@ -91,6 +92,11 @@ typedef struct
 
 uint8 zcl_TaskID;
 
+// global entry
+char global_entry[4];
+byte global_recv_data[30];
+uint8 global_data_length;
+
 // The task Id of the Application where the unprocessed Foundation
 // Command/Response messages will be sent to.
 uint8 zcl_RegisteredMsgTaskID = TASK_NO_TASK;
@@ -149,9 +155,6 @@ static void *zclParseInDefaultRspCmd( zclParseCmd_t *pCmd );
 
 static uint8 zclSendMsg( zclIncoming_t *pInMsg );
 
-/*********************************************************************
- * Parse Profile Command Function Table
- */
 static CONST zclCmdItems_t zclCmdTable[] =
 {
 #ifdef ZCL_READ
@@ -332,7 +335,6 @@ ZStatus_t zcl_registerClusterOptionList( uint8 endpoint, uint8 numOption, zclOpt
     // Put new item at end of list
     pLoop->next = pNewItem;
   }
-
   return ( ZSuccess );
 }
 
@@ -359,7 +361,6 @@ static uint8 zcl_DeviceOperational( uint8 srcEP, uint16 clusterID,
 {
   zclAttrRec_t attrRec;
   uint8 deviceEnabled = DEVICE_ENABLED; // default value
-  
   (void)profileID;  // Intentionally unreferenced parameter
   
   // If the device is Disabled (DeviceEnabled attribute is set to Disabled), it 
@@ -1029,6 +1030,7 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
 #if defined(Coor_receiver) // The coordinator receive data
   byte recv_data[30];  
 #endif
+  byte receive[20]; 
   uint16 len;
   endPointDesc_t *epDesc;
   zclIncoming_t inMsg;
@@ -1065,13 +1067,17 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       if(entry[k]>57)
         entry[k]+=7;
     }
-
+/*
     HalUARTWrite(MT_UART_DEFAULT_PORT, "3", 1);//Cmd Type
     HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma   
     HalUARTWrite(MT_UART_DEFAULT_PORT, entry, 4);//Device ID
     HalUARTWrite(MT_UART_DEFAULT_PORT, ",", 1);//Comma
     HalUARTWrite(MT_UART_DEFAULT_PORT, recv_data, pkt->cmd.DataLength-2);//Device Data
     HalUARTWrite(MT_UART_DEFAULT_PORT, "$\r\n", 3);//$\n
+*/    
+    strcpy(global_entry, entry);
+    strcpy(global_recv_data, recv_data);
+    global_data_length = pkt->cmd.DataLength-2;
   }
 #endif
 
@@ -1089,10 +1095,12 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
     // This part is addressing the level of the pwn(M160),
     // and there are 11 levels which is from 97(a) to 107
     #if defined(M160)
-      if((int)receive[0] > 97 && (int)receive[0]< 107 ){
+      if((int)receive[0] >= 97 && (int)receive[0] <= 107 )
+      {
         int var = (int)receive[0];
         var = var + 3 - 100;
-        duty_M160 = var * 5;
+        duty_M160 = var * 10;
+        M160_On(duty_M160);
       }
     #endif  
     return ;
@@ -1118,8 +1126,8 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
     return;   // Error, ignore the message
   
   if ((epDesc->simpleDesc == NULL) ||
-      (zcl_DeviceOperational(pkt->endPoint, pkt->clusterId, inMsg.hdr.fc.type, inMsg.hdr.commandID,
-                                   epDesc->simpleDesc->AppProfId) == FALSE))
+      (zcl_DeviceOperational(pkt->endPoint, pkt->clusterId, inMsg.hdr.fc.type, 
+        inMsg.hdr.commandID, epDesc->simpleDesc->AppProfId) == FALSE))
   {
     return; // Error, ignore the message
   }
@@ -1360,7 +1368,6 @@ uint8 zclFindAttrRec( uint8 endpoint, uint16 clusterID, uint16 attrId, zclAttrRe
     }
     pLoop = pLoop->next;
   }
-
   return ( FALSE );
 }
 
@@ -1383,7 +1390,6 @@ static zclOptionRec_t *zclFindClusterOption( uint8 endpoint, uint16 clusterID )
     }
     pLoop = pLoop->next;
   }
-
   return ( NULL );
 }
 

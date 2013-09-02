@@ -1320,8 +1320,10 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       receive[len] = pkt->cmd.Data[len+3];
     }
     // Write receive coordinator command to UART, chrischris
-    //HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
+    // HalUARTWrite(MT_UART_DEFAULT_PORT, receive, pkt->cmd.DataLength-2);
     // a - k 97=>107
+    // This part is addressing the level of the pwn(M160),
+    // and there are 11 levels which is from 97(a) to 107
     #if defined(M160)
       if((int)receive[0] > 97 && (int)receive[0]< 107 ){
         int var = (int)receive[0];

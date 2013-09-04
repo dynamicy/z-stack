@@ -94,6 +94,7 @@ uint8 zcl_TaskID;
 
 // global entry
 int stack = 0;
+int global_flag[9]={0};
 char global_entry[9][4];
 byte global_recv_data[9][30];
 uint8 global_data_length[9];
@@ -1077,6 +1078,7 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
       {
         strcpy(global_recv_data[search_id], recv_data);
         global_data_length[search_id] = pkt->cmd.DataLength-2;
+        global_flag[search_id]=1;
         break;
       }
       
@@ -1085,6 +1087,7 @@ void zclProcessMessageMSG( afIncomingMSGPacket_t *pkt )
         strcpy(global_entry[stack], entry);
         strcpy(global_recv_data[stack], recv_data);
         global_data_length[stack] = pkt->cmd.DataLength-2;
+        global_flag[stack]=1;
         stack++;
       }
     }

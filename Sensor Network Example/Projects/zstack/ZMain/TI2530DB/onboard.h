@@ -114,10 +114,6 @@ extern uint8 aExtendedAddress[8];
 #define WDCLP1     0xA0  // Clear pattern 1
 #define WDCLP2     0x50  // Clear pattern 2
 
-/*********************************************************************
- * MACROS
- */
-
 // DB peripheral VDD control
 #ifdef CC2430DB
   #define INIT_DBIO() { P1DIR |= GPIO_2; P1_2 = 0; }

@@ -495,6 +495,7 @@ extern uint8 zcl_TaskID;
 extern uint8 zcl_SeqNum;
 
 extern int stack;
+extern int global_flag[9];
 extern char global_entry[9][4];
 extern byte global_recv_data[9][30];
 extern uint8 global_data_length[9];

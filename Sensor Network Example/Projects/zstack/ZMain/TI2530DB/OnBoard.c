@@ -276,15 +276,6 @@ void OnBoard_KeyCallback ( uint8 keys, uint8 state )
   }
 }
 
-/*********************************************************************
- * @fn      OnBoard_stack_used
- *
- * @brief   Runs through the stack looking for touched memory.
- *
- * @param   none
- *
- * @return  Maximum number of bytes used by the stack.
- *********************************************************************/
 uint16 OnBoard_stack_used(void)
 {
   uint8 const *ptr;

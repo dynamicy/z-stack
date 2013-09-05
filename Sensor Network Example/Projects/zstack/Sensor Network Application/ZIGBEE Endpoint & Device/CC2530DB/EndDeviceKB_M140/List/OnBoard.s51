@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               02/Sep/2013  23:10:12 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               05/Sep/2013  13:12:54 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -838,8 +838,8 @@ InitBoard:
         MOV     R7,#0x1
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock0
-        REQUIRE _A_IEN0
         REQUIRE SLEEPSTA
+        REQUIRE _A_IEN0
 //  141 
 //  142 /*********************************************************************
 //  143  * @fn      ChkReset()
@@ -1126,22 +1126,13 @@ OnBoard_KeyCallback:
         SJMP    ?Subroutine0
         CFI EndBlock cfiBlock3
 //  278 
-//  279 /*********************************************************************
-//  280  * @fn      OnBoard_stack_used
-//  281  *
-//  282  * @brief   Runs through the stack looking for touched memory.
-//  283  *
-//  284  * @param   none
-//  285  *
-//  286  * @return  Maximum number of bytes used by the stack.
-//  287  *********************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  288 uint16 OnBoard_stack_used(void)
+//  279 uint16 OnBoard_stack_used(void)
 OnBoard_stack_used:
         CFI Block cfiBlock4 Using cfiCommon0
         CFI Function OnBoard_stack_used
-//  289 {
+//  280 {
         PUSH    DPL
         CFI DPL0 Frame(CFA_SP, 4)
         CFI CFA_SP SP+-4
@@ -1150,29 +1141,29 @@ OnBoard_stack_used:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  290   uint8 const *ptr;
-//  291   uint8 cnt = 0;
+//  281   uint8 const *ptr;
+//  282   uint8 cnt = 0;
         MOV     R2,#0x0
-//  292 
-//  293   for (ptr = XSTACK_END; ptr > XSTACK_BEG; ptr--)
+//  283 
+//  284   for (ptr = XSTACK_END; ptr > XSTACK_BEG; ptr--)
         MOV     DPL,#((SFE(XSTACK) + 255) & 0xff)
         MOV     DPH,#(((SFE(XSTACK) - 1) >> 8) & 0xff)
         SJMP    ??OnBoard_stack_used_0
-//  294   {
-//  295     if (STACK_INIT_VALUE == *ptr)
-//  296     {
-//  297       if (++cnt >= MIN_RAM_INIT)
-//  298       {
-//  299         ptr += MIN_RAM_INIT;
-//  300         break;
-//  301       }
-//  302     }
-//  303     else
-//  304     {
-//  305       cnt = 0;
+//  285   {
+//  286     if (STACK_INIT_VALUE == *ptr)
+//  287     {
+//  288       if (++cnt >= MIN_RAM_INIT)
+//  289       {
+//  290         ptr += MIN_RAM_INIT;
+//  291         break;
+//  292       }
+//  293     }
+//  294     else
+//  295     {
+//  296       cnt = 0;
 ??OnBoard_stack_used_1:
         MOV     R2,#0x0
-//  306     }
+//  297     }
 ??OnBoard_stack_used_2:
         MOV     A,DPL
         ADD     A,#-0x1
@@ -1201,9 +1192,9 @@ OnBoard_stack_used:
         MOV     A,DPH
         ADDC    A,#0x0
         MOV     DPH,A
-//  307   }
-//  308 
-//  309   return (uint16)(XSTACK_END - ptr + 1);
+//  298   }
+//  299 
+//  300   return (uint16)(XSTACK_END - ptr + 1);
 ??OnBoard_stack_used_3:
         MOV     A,#((SFE(XSTACK) + 255) & 0xff)
         CLR     C
@@ -1221,7 +1212,7 @@ OnBoard_stack_used:
         CFI EndBlock cfiBlock4
         REQUIRE ?Subroutine0
         ; // Fall through to label ?Subroutine0
-//  310 }
+//  301 }
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
 ?Subroutine0:
@@ -1238,26 +1229,26 @@ OnBoard_stack_used:
         CFI DPL0 SameValue
         LJMP    ?BRET
         CFI EndBlock cfiBlock5
-//  311 
-//  312 /*********************************************************************
-//  313  * @fn      _itoa
-//  314  *
-//  315  * @brief   convert a 16bit number to ASCII
-//  316  *
-//  317  * @param   num -
-//  318  *          buf -
-//  319  *          radix -
-//  320  *
-//  321  * @return  void
-//  322  *
-//  323  *********************************************************************/
+//  302 
+//  303 /*********************************************************************
+//  304  * @fn      _itoa
+//  305  *
+//  306  * @brief   convert a 16bit number to ASCII
+//  307  *
+//  308  * @param   num -
+//  309  *          buf -
+//  310  *          radix -
+//  311  *
+//  312  * @return  void
+//  313  *
+//  314  *********************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  324 void _itoa(uint16 num, uint8 *buf, uint8 radix)
+//  315 void _itoa(uint16 num, uint8 *buf, uint8 radix)
 _itoa:
         CFI Block cfiBlock6 Using cfiCommon0
         CFI Function _itoa
-//  325 {
+//  316 {
         MOV     A,#-0x10
         LCALL   ?BANKED_ENTER_XDATA
         CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
@@ -1289,20 +1280,20 @@ _itoa:
         MOV     R7,A
         MOV     ?V0 + 0,R4
         MOV     ?V0 + 1,R5
-//  326   char c,i;
-//  327   uint8 *p, rst[5];
-//  328 
-//  329   p = rst;
+//  317   char c,i;
+//  318   uint8 *p, rst[5];
+//  319 
+//  320   p = rst;
         MOV     DPL,?XSP + 0
         MOV     DPH,?XSP + 1
         MOV     R4,DPL
         MOV     R5,DPH
-//  330   for ( i=0; i<5; i++,p++ )
+//  321   for ( i=0; i<5; i++,p++ )
         MOV     ?V0 + 4,#0x0
         MOV     DPL,R1
         MOV     ?V0 + 2,DPL
-//  331   {
-//  332     c = num % radix;  // Isolate a digit
+//  322   {
+//  323     c = num % radix;  // Isolate a digit
 ??_itoa_0:
         MOV     A,R6
         MOV     R0,A
@@ -1312,7 +1303,7 @@ _itoa:
         MOV     R3,#0x0
         LCALL   ?US_DIV_MOD
         MOV     A,R2
-//  333     *p = c + (( c < 10 ) ? '0' : '7');  // Convert to Ascii
+//  324     *p = c + (( c < 10 ) ? '0' : '7');  // Convert to Ascii
         SUBB    A,#0xa
         JNC     ??_itoa_1
         MOV     R0,#0x30
@@ -1325,7 +1316,7 @@ _itoa:
         MOV     DPL,R4
         MOV     DPH,R5
         MOVX    @DPTR,A
-//  334     num /= radix;
+//  325     num /= radix;
         MOV     A,R6
         MOV     R0,A
         MOV     A,R7
@@ -1337,14 +1328,14 @@ _itoa:
         MOV     ?V0 + 7,R1
         MOV     R6,?V0 + 6
         MOV     R7,?V0 + 7
-//  335     if ( !num )
+//  326     if ( !num )
         MOV     A,R6
         JNZ     ??_itoa_3
         MOV     A,R7
 ??_itoa_3:
         JZ      ??_itoa_4
-//  336       break;
-//  337   }
+//  327       break;
+//  328   }
         INC     ?V0 + 4
         INC     DPTR
         MOV     R4,DPL
@@ -1352,11 +1343,11 @@ _itoa:
         MOV     A,?V0 + 4
         SUBB    A,#0x5
         JC      ??_itoa_0
-//  338 
-//  339   for ( c=0 ; c<=i; c++ )
+//  329 
+//  330   for ( c=0 ; c<=i; c++ )
 ??_itoa_4:
         MOV     R2,#0x0
-//  340     *buf++ = *p--;  // Reverse character order
+//  331     *buf++ = *p--;  // Reverse character order
 ??_itoa_5:
         MOV     DPL,R4
         MOV     DPH,R5
@@ -1378,35 +1369,35 @@ _itoa:
         CLR     C
         SUBB    A,R2
         JNC     ??_itoa_5
-//  341 
-//  342   *buf = '\0';
+//  332 
+//  333   *buf = '\0';
         CLR     A
         MOVX    @DPTR,A
-//  343 }
+//  334 }
         MOV     A,#0x5
         LCALL   ?DEALLOC_XSTACK8
         CFI CFA_XSP16 add(XSP16, 16)
         MOV     R7,#0x8
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock6
-//  344 
-//  345 /*********************************************************************
-//  346  * @fn        Onboard_rand
-//  347  *
-//  348  * @brief    Random number generator
-//  349  *
-//  350  * @param   none
-//  351  *
-//  352  * @return  uint16 - new random number
-//  353  *
-//  354  *********************************************************************/
+//  335 
+//  336 /*********************************************************************
+//  337  * @fn        Onboard_rand
+//  338  *
+//  339  * @brief    Random number generator
+//  340  *
+//  341  * @param   none
+//  342  *
+//  343  * @return  uint16 - new random number
+//  344  *
+//  345  *********************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  355 uint16 Onboard_rand( void )
+//  346 uint16 Onboard_rand( void )
 Onboard_rand:
         CFI Block cfiBlock7 Using cfiCommon0
         CFI Function Onboard_rand
-//  356 {
+//  347 {
         FUNCALL Onboard_rand, macMcuRandomWord
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1426,43 +1417,43 @@ Onboard_rand:
         CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//  357   return ( MAC_RADIO_RANDOM_WORD() );
+//  348   return ( MAC_RADIO_RANDOM_WORD() );
         ; Setup parameters for call to function macMcuRandomWord
         LCALL   ??macMcuRandomWord?relay
         LJMP    ?Subroutine0 & 0xFFFF
         CFI EndBlock cfiBlock7
-//  358 }
-//  359 
-//  360 /*********************************************************************
-//  361  * @fn        Onboard_wait
-//  362  *
-//  363  * @brief    Delay wait
-//  364  *
-//  365  * @param   uint16 - time to wait
-//  366  *
-//  367  * @return  none
-//  368  *
-//  369  *********************************************************************/
+//  349 }
+//  350 
+//  351 /*********************************************************************
+//  352  * @fn        Onboard_wait
+//  353  *
+//  354  * @brief    Delay wait
+//  355  *
+//  356  * @param   uint16 - time to wait
+//  357  *
+//  358  * @return  none
+//  359  *
+//  360  *********************************************************************/
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  370 void Onboard_wait( uint16 timeout )
+//  361 void Onboard_wait( uint16 timeout )
 Onboard_wait:
         CFI Block cfiBlock8 Using cfiCommon0
         CFI Function Onboard_wait
-//  371 {
+//  362 {
         ; Saved register size: 0
         ; Auto size: 0
         SJMP    ??Onboard_wait_0
-//  372   while (timeout--)
-//  373   {
-//  374     asm("NOP");
+//  363   while (timeout--)
+//  364   {
+//  365     asm("NOP");
 ??Onboard_wait_1:
         NOP
-//  375     asm("NOP");
+//  366     asm("NOP");
         NOP
-//  376     asm("NOP");
+//  367     asm("NOP");
         NOP
-//  377   }
+//  368   }
 ??Onboard_wait_0:
         MOV     A,R2
         MOV     R0,A
@@ -1479,91 +1470,91 @@ Onboard_wait:
         MOV     A,R1
 ??Onboard_wait_2:
         JNZ     ??Onboard_wait_1
-//  378 }
+//  369 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock8
-//  379 
-//  380 /*********************************************************************
-//  381  *                    EXTERNAL I/O FUNCTIONS
-//  382  *
-//  383  * User defined functions to control external devices. Add your code
-//  384  * to the following functions to control devices wired to DB outputs.
-//  385  *
-//  386  *********************************************************************/
-//  387 
+//  370 
+//  371 /*********************************************************************
+//  372  *                    EXTERNAL I/O FUNCTIONS
+//  373  *
+//  374  * User defined functions to control external devices. Add your code
+//  375  * to the following functions to control devices wired to DB outputs.
+//  376  *
+//  377  *********************************************************************/
+//  378 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  388 void BigLight_On( void )
+//  379 void BigLight_On( void )
 BigLight_On:
         CFI Block cfiBlock9 Using cfiCommon0
         CFI Function BigLight_On
-//  389 {
+//  380 {
         ; Saved register size: 0
         ; Auto size: 0
-//  390   // Put code here to turn on an external light
-//  391 }
+//  381   // Put code here to turn on an external light
+//  382 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock9
-//  392 
+//  383 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  393 void BigLight_Off( void )
+//  384 void BigLight_Off( void )
 BigLight_Off:
         CFI Block cfiBlock10 Using cfiCommon0
         CFI Function BigLight_Off
-//  394 {
+//  385 {
         ; Saved register size: 0
         ; Auto size: 0
-//  395   // Put code here to turn off an external light
-//  396 }
+//  386   // Put code here to turn off an external light
+//  387 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock10
-//  397 
+//  388 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  398 void BuzzerControl( uint8 on )
+//  389 void BuzzerControl( uint8 on )
 BuzzerControl:
         CFI Block cfiBlock11 Using cfiCommon0
         CFI Function BuzzerControl
-//  399 { 
+//  390 { 
         ; Saved register size: 0
         ; Auto size: 0
-//  400   // Put code here to turn a buzzer on/off
-//  401   (void)on;
-//  402 }
+//  391   // Put code here to turn a buzzer on/off
+//  392   (void)on;
+//  393 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock11
-//  403 
+//  394 
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  404 void Dimmer( uint8 lvl )
+//  395 void Dimmer( uint8 lvl )
 Dimmer:
         CFI Block cfiBlock12 Using cfiCommon0
         CFI Function Dimmer
-//  405 {
+//  396 {
         ; Saved register size: 0
         ; Auto size: 0
-//  406   // Put code here to control a dimmer
-//  407   (void)lvl;
-//  408 }
+//  397   // Put code here to control a dimmer
+//  398   (void)lvl;
+//  399 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock12
-//  409 
-//  410 // No dip switches on this board
+//  400 
+//  401 // No dip switches on this board
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  411 uint8 GetUserDipSw( void )
+//  402 uint8 GetUserDipSw( void )
 GetUserDipSw:
         CFI Block cfiBlock13 Using cfiCommon0
         CFI Function GetUserDipSw
-//  412 {
+//  403 {
         ; Saved register size: 0
         ; Auto size: 0
-//  413   return 0;
+//  404   return 0;
         MOV     R1,#0x0
         LJMP    ?BRET
         CFI EndBlock cfiBlock13
-//  414 }
+//  405 }
 
         RSEG XDATA_ID:CODE:NOROOT(0)
         DATA
@@ -1651,9 +1642,9 @@ GetUserDipSw:
         RSEG XSTACK:DATA:REORDER:NOROOT(0)
 
         END
-//  415 
-//  416 /*********************************************************************
-//  417 *********************************************************************/
+//  406 
+//  407 /*********************************************************************
+//  408 *********************************************************************/
 // 
 // 509 bytes in segment BANKED_CODE
 //  78 bytes in segment BANK_RELAYS

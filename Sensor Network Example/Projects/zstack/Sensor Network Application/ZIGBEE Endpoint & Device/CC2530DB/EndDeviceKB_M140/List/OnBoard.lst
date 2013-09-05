@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V7.51A/W32 for 8051                02/Sep/2013  23:10:12 #
+# IAR C/C++ Compiler V7.51A/W32 for 8051                05/Sep/2013  13:12:54 #
 # Copyright 2004-2009 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -428,8 +428,8 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \                     ??InitBoard_1:
    \   000068   7F01         MOV     R7,#0x1
    \   00006A   02....       LJMP    ?BANKED_LEAVE_XDATA
-   \   00006D                REQUIRE _A_IEN0
    \   00006D                REQUIRE SLEEPSTA
+   \   00006D                REQUIRE _A_IEN0
     141          
     142          /*********************************************************************
     143           * @fn      ChkReset()
@@ -660,47 +660,38 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
     277          }
    \   00000E   80..         SJMP    ?Subroutine0
     278          
-    279          /*********************************************************************
-    280           * @fn      OnBoard_stack_used
-    281           *
-    282           * @brief   Runs through the stack looking for touched memory.
-    283           *
-    284           * @param   none
-    285           *
-    286           * @return  Maximum number of bytes used by the stack.
-    287           *********************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    288          uint16 OnBoard_stack_used(void)
+    279          uint16 OnBoard_stack_used(void)
    \                     OnBoard_stack_used:
-    289          {
+    280          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    290            uint8 const *ptr;
-    291            uint8 cnt = 0;
+    281            uint8 const *ptr;
+    282            uint8 cnt = 0;
    \   000004   7A00         MOV     R2,#0x0
-    292          
-    293            for (ptr = XSTACK_END; ptr > XSTACK_BEG; ptr--)
+    283          
+    284            for (ptr = XSTACK_END; ptr > XSTACK_BEG; ptr--)
    \   000006   7582..       MOV     DPL,#((SFE(XSTACK) + 255) & 0xff)
    \   000009   7583..       MOV     DPH,#(((SFE(XSTACK) - 1) >> 8) & 0xff)
    \   00000C   800E         SJMP    ??OnBoard_stack_used_0
-    294            {
-    295              if (STACK_INIT_VALUE == *ptr)
-    296              {
-    297                if (++cnt >= MIN_RAM_INIT)
-    298                {
-    299                  ptr += MIN_RAM_INIT;
-    300                  break;
-    301                }
-    302              }
-    303              else
-    304              {
-    305                cnt = 0;
+    285            {
+    286              if (STACK_INIT_VALUE == *ptr)
+    287              {
+    288                if (++cnt >= MIN_RAM_INIT)
+    289                {
+    290                  ptr += MIN_RAM_INIT;
+    291                  break;
+    292                }
+    293              }
+    294              else
+    295              {
+    296                cnt = 0;
    \                     ??OnBoard_stack_used_1:
    \   00000E   7A00         MOV     R2,#0x0
-    306              }
+    297              }
    \                     ??OnBoard_stack_used_2:
    \   000010   E582         MOV     A,DPL
    \   000012   24FF         ADD     A,#-0x1
@@ -729,9 +720,9 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \   000039   E583         MOV     A,DPH
    \   00003B   3400         ADDC    A,#0x0
    \   00003D   F583         MOV     DPH,A
-    307            }
-    308          
-    309            return (uint16)(XSTACK_END - ptr + 1);
+    298            }
+    299          
+    300            return (uint16)(XSTACK_END - ptr + 1);
    \                     ??OnBoard_stack_used_3:
    \   00003F   74..         MOV     A,#((SFE(XSTACK) + 255) & 0xff)
    \   000041   C3           CLR     C
@@ -748,25 +739,25 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \   000050   FB           MOV     R3,A
    \   000051                REQUIRE ?Subroutine0
    \   000051                ; // Fall through to label ?Subroutine0
-    310          }
-    311          
-    312          /*********************************************************************
-    313           * @fn      _itoa
-    314           *
-    315           * @brief   convert a 16bit number to ASCII
-    316           *
-    317           * @param   num -
-    318           *          buf -
-    319           *          radix -
-    320           *
-    321           * @return  void
-    322           *
-    323           *********************************************************************/
+    301          }
+    302          
+    303          /*********************************************************************
+    304           * @fn      _itoa
+    305           *
+    306           * @brief   convert a 16bit number to ASCII
+    307           *
+    308           * @param   num -
+    309           *          buf -
+    310           *          radix -
+    311           *
+    312           * @return  void
+    313           *
+    314           *********************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    324          void _itoa(uint16 num, uint8 *buf, uint8 radix)
+    315          void _itoa(uint16 num, uint8 *buf, uint8 radix)
    \                     _itoa:
-    325          {
+    316          {
    \   000000   74F0         MOV     A,#-0x10
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 16
@@ -779,20 +770,20 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \   00000D   FF           MOV     R7,A
    \   00000E   8C..         MOV     ?V0 + 0,R4
    \   000010   8D..         MOV     ?V0 + 1,R5
-    326            char c,i;
-    327            uint8 *p, rst[5];
-    328          
-    329            p = rst;
+    317            char c,i;
+    318            uint8 *p, rst[5];
+    319          
+    320            p = rst;
    \   000012   85..82       MOV     DPL,?XSP + 0
    \   000015   85..83       MOV     DPH,?XSP + 1
    \   000018   AC82         MOV     R4,DPL
    \   00001A   AD83         MOV     R5,DPH
-    330            for ( i=0; i<5; i++,p++ )
+    321            for ( i=0; i<5; i++,p++ )
    \   00001C   75..00       MOV     ?V0 + 4,#0x0
    \   00001F   8982         MOV     DPL,R1
    \   000021   8582..       MOV     ?V0 + 2,DPL
-    331            {
-    332              c = num % radix;  // Isolate a digit
+    322            {
+    323              c = num % radix;  // Isolate a digit
    \                     ??_itoa_0:
    \   000024   EE           MOV     A,R6
    \   000025   F8           MOV     R0,A
@@ -802,7 +793,7 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \   00002A   7B00         MOV     R3,#0x0
    \   00002C   12....       LCALL   ?US_DIV_MOD
    \   00002F   EA           MOV     A,R2
-    333              *p = c + (( c < 10 ) ? '0' : '7');  // Convert to Ascii
+    324              *p = c + (( c < 10 ) ? '0' : '7');  // Convert to Ascii
    \   000030   940A         SUBB    A,#0xa
    \   000032   5004         JNC     ??_itoa_1
    \   000034   7830         MOV     R0,#0x30
@@ -815,7 +806,7 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \   00003C   8C82         MOV     DPL,R4
    \   00003E   8D83         MOV     DPH,R5
    \   000040   F0           MOVX    @DPTR,A
-    334              num /= radix;
+    325              num /= radix;
    \   000041   EE           MOV     A,R6
    \   000042   F8           MOV     R0,A
    \   000043   EF           MOV     A,R7
@@ -827,14 +818,14 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \   00004E   89..         MOV     ?V0 + 7,R1
    \   000050   AE..         MOV     R6,?V0 + 6
    \   000052   AF..         MOV     R7,?V0 + 7
-    335              if ( !num )
+    326              if ( !num )
    \   000054   EE           MOV     A,R6
    \   000055   7001         JNZ     ??_itoa_3
    \   000057   EF           MOV     A,R7
    \                     ??_itoa_3:
    \   000058   600D         JZ      ??_itoa_4
-    336                break;
-    337            }
+    327                break;
+    328            }
    \   00005A   05..         INC     ?V0 + 4
    \   00005C   A3           INC     DPTR
    \   00005D   AC82         MOV     R4,DPL
@@ -842,11 +833,11 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \   000061   E5..         MOV     A,?V0 + 4
    \   000063   9405         SUBB    A,#0x5
    \   000065   40BD         JC      ??_itoa_0
-    338          
-    339            for ( c=0 ; c<=i; c++ )
+    329          
+    330            for ( c=0 ; c<=i; c++ )
    \                     ??_itoa_4:
    \   000067   7A00         MOV     R2,#0x0
-    340              *buf++ = *p--;  // Reverse character order
+    331              *buf++ = *p--;  // Reverse character order
    \                     ??_itoa_5:
    \   000069   8C82         MOV     DPL,R4
    \   00006B   8D83         MOV     DPH,R5
@@ -868,69 +859,69 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \   000087   C3           CLR     C
    \   000088   9A           SUBB    A,R2
    \   000089   50DE         JNC     ??_itoa_5
-    341          
-    342            *buf = '\0';
+    332          
+    333            *buf = '\0';
    \   00008B   E4           CLR     A
    \   00008C   F0           MOVX    @DPTR,A
-    343          }
+    334          }
    \   00008D   7405         MOV     A,#0x5
    \   00008F   12....       LCALL   ?DEALLOC_XSTACK8
    \   000092   7F08         MOV     R7,#0x8
    \   000094   02....       LJMP    ?BANKED_LEAVE_XDATA
-    344          
-    345          /*********************************************************************
-    346           * @fn        Onboard_rand
-    347           *
-    348           * @brief    Random number generator
-    349           *
-    350           * @param   none
-    351           *
-    352           * @return  uint16 - new random number
-    353           *
-    354           *********************************************************************/
+    335          
+    336          /*********************************************************************
+    337           * @fn        Onboard_rand
+    338           *
+    339           * @brief    Random number generator
+    340           *
+    341           * @param   none
+    342           *
+    343           * @return  uint16 - new random number
+    344           *
+    345           *********************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    355          uint16 Onboard_rand( void )
+    346          uint16 Onboard_rand( void )
    \                     Onboard_rand:
-    356          {
+    347          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    357            return ( MAC_RADIO_RANDOM_WORD() );
+    348            return ( MAC_RADIO_RANDOM_WORD() );
    \   000004                ; Setup parameters for call to function macMcuRandomWord
    \   000004   12....       LCALL   ??macMcuRandomWord?relay
    \   000007   02....       LJMP    ?Subroutine0 & 0xFFFF
-    358          }
-    359          
-    360          /*********************************************************************
-    361           * @fn        Onboard_wait
-    362           *
-    363           * @brief    Delay wait
-    364           *
-    365           * @param   uint16 - time to wait
-    366           *
-    367           * @return  none
-    368           *
-    369           *********************************************************************/
+    349          }
+    350          
+    351          /*********************************************************************
+    352           * @fn        Onboard_wait
+    353           *
+    354           * @brief    Delay wait
+    355           *
+    356           * @param   uint16 - time to wait
+    357           *
+    358           * @return  none
+    359           *
+    360           *********************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    370          void Onboard_wait( uint16 timeout )
+    361          void Onboard_wait( uint16 timeout )
    \                     Onboard_wait:
-    371          {
+    362          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
    \   000000   8003         SJMP    ??Onboard_wait_0
-    372            while (timeout--)
-    373            {
-    374              asm("NOP");
+    363            while (timeout--)
+    364            {
+    365              asm("NOP");
    \                     ??Onboard_wait_1:
    \   000002   00           NOP
-    375              asm("NOP");
+    366              asm("NOP");
    \   000003   00           NOP
-    376              asm("NOP");
+    367              asm("NOP");
    \   000004   00           NOP
-    377            }
+    368            }
    \                     ??Onboard_wait_0:
    \   000005   EA           MOV     A,R2
    \   000006   F8           MOV     R0,A
@@ -947,75 +938,75 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \   000014   E9           MOV     A,R1
    \                     ??Onboard_wait_2:
    \   000015   70EB         JNZ     ??Onboard_wait_1
-    378          }
+    369          }
    \   000017   02....       LJMP    ?BRET
-    379          
-    380          /*********************************************************************
-    381           *                    EXTERNAL I/O FUNCTIONS
-    382           *
-    383           * User defined functions to control external devices. Add your code
-    384           * to the following functions to control devices wired to DB outputs.
-    385           *
-    386           *********************************************************************/
-    387          
+    370          
+    371          /*********************************************************************
+    372           *                    EXTERNAL I/O FUNCTIONS
+    373           *
+    374           * User defined functions to control external devices. Add your code
+    375           * to the following functions to control devices wired to DB outputs.
+    376           *
+    377           *********************************************************************/
+    378          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    388          void BigLight_On( void )
+    379          void BigLight_On( void )
    \                     BigLight_On:
-    389          {
+    380          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    390            // Put code here to turn on an external light
-    391          }
+    381            // Put code here to turn on an external light
+    382          }
    \   000000   02....       LJMP    ?BRET
-    392          
+    383          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    393          void BigLight_Off( void )
+    384          void BigLight_Off( void )
    \                     BigLight_Off:
-    394          {
+    385          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    395            // Put code here to turn off an external light
-    396          }
+    386            // Put code here to turn off an external light
+    387          }
    \   000000   02....       LJMP    ?BRET
-    397          
+    388          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    398          void BuzzerControl( uint8 on )
+    389          void BuzzerControl( uint8 on )
    \                     BuzzerControl:
-    399          { 
+    390          { 
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    400            // Put code here to turn a buzzer on/off
-    401            (void)on;
-    402          }
+    391            // Put code here to turn a buzzer on/off
+    392            (void)on;
+    393          }
    \   000000   02....       LJMP    ?BRET
-    403          
+    394          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    404          void Dimmer( uint8 lvl )
+    395          void Dimmer( uint8 lvl )
    \                     Dimmer:
-    405          {
+    396          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    406            // Put code here to control a dimmer
-    407            (void)lvl;
-    408          }
+    397            // Put code here to control a dimmer
+    398            (void)lvl;
+    399          }
    \   000000   02....       LJMP    ?BRET
-    409          
-    410          // No dip switches on this board
+    400          
+    401          // No dip switches on this board
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    411          uint8 GetUserDipSw( void )
+    402          uint8 GetUserDipSw( void )
    \                     GetUserDipSw:
-    412          {
+    403          {
    \   000000                ; Saved register size: 0
    \   000000                ; Auto size: 0
-    413            return 0;
+    404            return 0;
    \   000000   7900         MOV     R1,#0x0
    \   000002   02....       LJMP    ?BRET
-    414          }
+    405          }
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for registeredKeysTaskID>`:
@@ -1085,9 +1076,9 @@ D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\ZMain\TI2530DB\OnBoard.
    \                     ??GetUserDipSw?relay:
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    GetUserDipSw
-    415          
-    416          /*********************************************************************
-    417          *********************************************************************/
+    406          
+    407          /*********************************************************************
+    408          *********************************************************************/
 
    Maximum stack usage in bytes:
 

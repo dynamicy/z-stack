@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               03/Sep/2013  01:32:08 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               05/Sep/2013  13:21:50 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -55,8 +55,8 @@
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
 //                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER  /
-//                          -D MMN_UART -lC "D:\GitHub\z-stack\Sensor         /
-//                          Network Example\Projects\zstack\Sensor Network    /
+//                          -D M190 -lC "D:\GitHub\z-stack\Sensor Network     /
+//                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
 //                          "D:\GitHub\z-stack\Sensor Network                 /
@@ -641,10 +641,10 @@ HalAdcInit:
 //  142   tmp = ADCL;     /* read ADCL,ADCH to clear EOC */
         REQUIRE ?Subroutine1
         REQUIRE ADCCON2
-        REQUIRE ADCCON1
         REQUIRE ADCCON3
-        REQUIRE ADCL
+        REQUIRE ADCCON1
         REQUIRE ADCH
+        REQUIRE ADCL
         ; // Fall through to label ?Subroutine1
 //  143   tmp = ADCH;
 //  144 #endif
@@ -936,10 +936,10 @@ HalAdcRead:
         MOV     R7,#0x2
         LJMP    ?BANKED_LEAVE_XDATA
         CFI EndBlock cfiBlock2
-        REQUIRE ADCCON1
         REQUIRE ADCCON3
-        REQUIRE ADCL
+        REQUIRE ADCCON1
         REQUIRE ADCH
+        REQUIRE ADCL
         REQUIRE ADCCFG
 //  263 }
 //  264 
@@ -1014,10 +1014,10 @@ HalAdcSetReference:
         LJMP    ?Subroutine1 & 0xFFFF
         CFI EndBlock cfiBlock3
         REQUIRE ADCCON2
-        REQUIRE ADCCON1
         REQUIRE ADCCON3
-        REQUIRE ADCL
+        REQUIRE ADCCON1
         REQUIRE ADCH
+        REQUIRE ADCL
 //  295   tmp = ADCH;
 //  296 #endif
 //  297 }
@@ -1240,8 +1240,8 @@ HalAdcCheckVdd:
         CFI EndBlock cfiBlock16
         REQUIRE _A_TCON
         REQUIRE ADCCON3
-        REQUIRE ADCL
         REQUIRE ADCH
+        REQUIRE ADCL
 //  332 }
 //  333 
 //  334 /**************************************************************************************************
@@ -1333,8 +1333,8 @@ adcSampleSingle:
         CFI EndBlock cfiBlock17
         REQUIRE _A_TCON
         REQUIRE ADCCON3
-        REQUIRE ADCL
         REQUIRE ADCH
+        REQUIRE ADCL
         REQUIRE ADCCFG
 //  375 }
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               05/Sep/2013  13:21:53 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               06/Sep/2013  11:20:50 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -58,8 +58,9 @@
 //                          ZTOOL_P1 -D MT_TASK -D MT_APP_FUNC -D             /
 //                          MT_SYS_FUNC -D MT_ZDO_FUNC -D                     /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER  /
-//                          -D M190 -lC "D:\GitHub\z-stack\Sensor Network     /
+//                          End_Device -D HAL_KEYPAD -D xPA2591 -D            /
+//                          HAL_TIMER=TRUE -D MMN_UART -lC                    /
+//                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -208,25 +209,12 @@
         RSEG PSTACK:XDATA:NOROOT(0)
         RSEG XSTACK:XDATA:NOROOT(0)
 
-        EXTERN ?BANKED_ENTER_XDATA
-        EXTERN ?BANKED_LEAVE_XDATA
         EXTERN ?BDISPATCH
         EXTERN ?BRET
-        EXTERN ?DEALLOC_XSTACK8
-        EXTERN ?PUSH_XSTACK_I_ONE
-        EXTERN ?PUSH_XSTACK_I_TWO
-        EXTERN ?US_DIV_MOD
-        EXTERN ?V0
         EXTERN __INIT_XDATA_Z
 
-        PUBLIC ??M190_SensorFunction?relay
-        FUNCTION ??M190_SensorFunction?relay,0203H
         PUBLIC ??sleep?relay
         FUNCTION ??sleep?relay,0203H
-        PUBLIC M190_SensorFunction
-        FUNCTION M190_SensorFunction,021203H
-        ARGFRAME XSTACK, 0, STACK
-        LOCFRAME XSTACK, 21, STACK
         PUBLIC TransmitApp_Msg
         PUBLIC sleep
         FUNCTION sleep,080203H
@@ -320,112 +308,8 @@
         CFI ?RET_LOW Frame(CFA_SP, 1)
         CFI EndCommon cfiCommon0
         
-        
-        CFI Common cfiCommon1 Using cfiNames0
-        CFI CodeAlign 1
-        CFI DataAlign -1
-        CFI ReturnAddress ?RET CODE
-        CFI CFA_DOVERLAY Used
-        CFI CFA_IOVERLAY Used
-        CFI CFA_SP SP+-2
-        CFI CFA_PSP16 PSP16+0
-        CFI CFA_XSP16 XSP16+0
-        CFI `PSW.CY` SameValue
-        CFI `B.BR0` SameValue
-        CFI `B.BR1` SameValue
-        CFI `B.BR2` SameValue
-        CFI `B.BR3` SameValue
-        CFI `B.BR4` SameValue
-        CFI `B.BR5` SameValue
-        CFI `B.BR6` SameValue
-        CFI `B.BR7` SameValue
-        CFI `VB.BR8` SameValue
-        CFI `VB.BR9` SameValue
-        CFI `VB.BR10` SameValue
-        CFI `VB.BR11` SameValue
-        CFI `VB.BR12` SameValue
-        CFI `VB.BR13` SameValue
-        CFI `VB.BR14` SameValue
-        CFI `VB.BR15` SameValue
-        CFI VB SameValue
-        CFI B SameValue
-        CFI A SameValue
-        CFI PSW SameValue
-        CFI DPL0 SameValue
-        CFI DPH0 SameValue
-        CFI R0 SameValue
-        CFI R1 SameValue
-        CFI R2 SameValue
-        CFI R3 SameValue
-        CFI R4 SameValue
-        CFI R5 SameValue
-        CFI R6 SameValue
-        CFI R7 SameValue
-        CFI V0 SameValue
-        CFI V1 SameValue
-        CFI V2 SameValue
-        CFI V3 SameValue
-        CFI V4 SameValue
-        CFI V5 SameValue
-        CFI V6 SameValue
-        CFI V7 SameValue
-        CFI V8 SameValue
-        CFI V9 SameValue
-        CFI V10 SameValue
-        CFI V11 SameValue
-        CFI V12 SameValue
-        CFI V13 SameValue
-        CFI V14 SameValue
-        CFI V15 SameValue
-        CFI PSPH Undefined
-        CFI PSPL Undefined
-        CFI XSPH Undefined
-        CFI XSPL Undefined
-        CFI ?RET Concat
-        CFI ?BRET_EXT SameValue
-        CFI ?RET_HIGH Frame(CFA_SP, 2)
-        CFI ?RET_LOW Frame(CFA_SP, 1)
-        CFI EndCommon cfiCommon1
-        
-M190_Init           SYMBOL "M190_Init"
-M190_GetValue       SYMBOL "M190_GetValue"
-zcl_SendCommand     SYMBOL "zcl_SendCommand"
-??M190_GetValue?relay SYMBOL "?relay", M190_GetValue
-??M190_Init?relay   SYMBOL "?relay", M190_Init
-??zcl_SendCommand?relay SYMBOL "?relay", zcl_SendCommand
-M190_SensorFunction SYMBOL "M190_SensorFunction"
-??M190_SensorFunction?relay SYMBOL "?relay", M190_SensorFunction
 sleep               SYMBOL "sleep"
 ??sleep?relay       SYMBOL "?relay", sleep
-
-        EXTERN M190_Init
-        FUNCTION M190_Init,0202H
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN M190_GetValue
-        FUNCTION M190_GetValue,0202H
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN zcl_SendCommand
-        FUNCTION zcl_SendCommand,0202H
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 21, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN ??M190_GetValue?relay
-        FUNCTION ??M190_GetValue?relay,00H
-        EXTERN ??M190_Init?relay
-        FUNCTION ??M190_Init?relay,00H
-        EXTERN ??zcl_SendCommand?relay
-        FUNCTION ??zcl_SendCommand?relay,00H
-        EXTERN zclZigbeeDevice_DstAddr
 
 // D:\GitHub\z-stack\Sensor Network Example\Projects\zstack\Sensor Network Application\ZIGBEE Endpoint & Device\Source\hal_sensor.c
 //    1 #include "ZComDef.h"
@@ -556,6 +440,14 @@ sleep:
 //   68 }
         LJMP    ?BRET
         CFI EndBlock cfiBlock0
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+??sleep?relay:
+        LCALL   ?BDISPATCH
+        DATA
+        DC24    sleep
+
+        END
 //   69 
 //   70 #if defined(M110)
 //   71 void M110_SensorFunction(void)
@@ -715,359 +607,108 @@ sleep:
 //  225 #endif
 //  226  
 //  227 #if defined(M190)
-
-        RSEG BANKED_CODE:CODE:NOROOT(0)
 //  228 void M190_SensorFunction(void)
-M190_SensorFunction:
-        CFI Block cfiBlock1 Using cfiCommon0
-        CFI Function M190_SensorFunction
 //  229 {
-        FUNCALL M190_SensorFunction, M190_Init
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL M190_SensorFunction, M190_GetValue
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 10, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 10, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL M190_SensorFunction, zcl_SendCommand
-        LOCFRAME ISTACK, 0, STACK
-        LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 21, STACK
-        LOCFRAME IOVERLAY, 0, STATIC
-        LOCFRAME DOVERLAY, 0, STATIC
-        ARGFRAME ISTACK, 0, STACK
-        ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 21, STACK
-        ARGFRAME IOVERLAY, 0, STATIC
-        ARGFRAME DOVERLAY, 0, STATIC
-        MOV     A,#-0xa
-        LCALL   ?BANKED_ENTER_XDATA
-        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 10)
-        ; Saved register size: 10
-        ; Auto size: 0
 //  230     uint16 val;
 //  231 
 //  232     M190_Init();
-        ; Setup parameters for call to function M190_Init
-        LCALL   ??M190_Init?relay
 //  233     val = M190_GetValue();  
-        ; Setup parameters for call to function M190_GetValue
-        LCALL   ??M190_GetValue?relay
-        MOV     ?V0 + 0,R2
-        MOV     ?V0 + 1,R3
-        MOV     R4,?V0 + 0
-        MOV     R5,?V0 + 1
 //  234 
 //  235     if (val > 2000)
-        CLR     C
-        MOV     A,R4
-        SUBB    A,#-0x2f
-        MOV     A,R5
-        SUBB    A,#0x7
-        JC      ??M190_SensorFunction_0
 //  236     {
 //  237         val -= 2000;
-        MOV     A,R4
-        ADD     A,#0x30
-        MOV     R4,A
-        MOV     A,R5
-        ADDC    A,#-0x8
-        MOV     R5,A
-        SJMP    ??M190_SensorFunction_1
 //  238     }
 //  239     else
 //  240     {
 //  241         val = 0;
-??M190_SensorFunction_0:
-        MOV     R4,#0x0
-        MOV     R5,#0x0
 //  242     }
 //  243     val /= 120;
-??M190_SensorFunction_1:
-        MOV     A,R4
-        MOV     R0,A
-        MOV     A,R5
-        MOV     R1,A
-        MOV     R2,#0x78
-        MOV     R3,#0x0
-        LCALL   ?US_DIV_MOD
-        MOV     ?V0 + 0,R0
-        MOV     ?V0 + 1,R1
-        MOV     R4,?V0 + 0
-        MOV     R5,?V0 + 1
 //  244             
 //  245     if (val > 100)
-        MOV     A,R4
-        SUBB    A,#0x65
-        MOV     A,R5
-        SUBB    A,#0x0
-        JC      ??M190_SensorFunction_2
 //  246     {
 //  247         val = 100;
-        MOV     R4,#0x64
-        MOV     R5,#0x0
 //  248     }
 //  249     
 //  250     TransmitApp_Msg[0] = 1 + '0';  
-??M190_SensorFunction_2:
-        MOV     A,#0x31
-        MOV     DPTR,#TransmitApp_Msg
-        MOVX    @DPTR,A
 //  251     TransmitApp_Msg[1] = 9 + '0';   
-        MOV     A,#0x39
-        MOV     DPTR,#(TransmitApp_Msg + 1)
-        MOVX    @DPTR,A
 //  252     TransmitApp_Msg[2] = 0 + '0';        
-        MOV     A,#0x30
-        MOV     DPTR,#(TransmitApp_Msg + 2)
-        MOVX    @DPTR,A
 //  253     TransmitApp_Msg[3] = ',';
-        MOV     A,#0x2c
-        MOV     DPTR,#(TransmitApp_Msg + 3)
-        MOVX    @DPTR,A
 //  254     TransmitApp_Msg[4] = 'A';   
-        MOV     A,#0x41
-        MOV     DPTR,#(TransmitApp_Msg + 4)
-        MOVX    @DPTR,A
 //  255     TransmitApp_Msg[5] = ',';  
-        MOV     A,#0x2c
-        MOV     DPTR,#(TransmitApp_Msg + 5)
-        MOVX    @DPTR,A
 //  256     TransmitApp_Msg[6] = (val / 100) + '0';
-        MOV     A,R4
-        MOV     R0,A
-        MOV     A,R5
-        MOV     R1,A
-        MOV     R2,#0x64
-        MOV     R3,#0x0
-        LCALL   ?US_DIV_MOD
-        MOV     A,R0
-        ADD     A,#0x30
-        MOV     DPTR,#(TransmitApp_Msg + 6)
-        LCALL   ?Subroutine0 & 0xFFFF
 //  257     TransmitApp_Msg[7] = ((val / 10) % 10) + '0';
-??CrossCallReturnLabel_0:
-        LCALL   ?US_DIV_MOD
-        MOV     R2,#0xa
-        MOV     R3,#0x0
-        LCALL   ?US_DIV_MOD
-        MOV     A,R2
-        ADD     A,#0x30
-        MOV     DPTR,#(TransmitApp_Msg + 7)
-        LCALL   ?Subroutine0 & 0xFFFF
 //  258     TransmitApp_Msg[8] = (val % 10) + '0';
-??CrossCallReturnLabel_1:
-        LCALL   ?US_DIV_MOD
-        MOV     A,R2
-        ADD     A,#0x30
-        MOV     DPTR,#(TransmitApp_Msg + 8)
-        MOVX    @DPTR,A
 //  259     TransmitApp_Msg[9] = ',';  
-        MOV     A,#0x2c
-        MOV     DPTR,#(TransmitApp_Msg + 9)
-        MOVX    @DPTR,A
-//  260     
-//  261     uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
-//  262                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
-//  263                                  TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 10, 
-//  264                                  TransmitApp_Msg );
-        ; Setup parameters for call to function zcl_SendCommand
-        MOV     ?V0 + 0,#(TransmitApp_Msg & 0xff)
-        MOV     ?V0 + 1,#((TransmitApp_Msg >> 8) & 0xff)
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 12)
-        MOV     ?V0 + 0,#0xa
-        MOV     ?V0 + 1,#0x0
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 14)
-        MOV     ?V0 + 0,#0x0
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 15)
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_TWO
-        CFI CFA_XSP16 add(XSP16, 17)
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 18)
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 19)
-        MOV     ?V0 + 0,#0x1
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 20)
-        MOV     ?V0 + 0,#0x0
-        MOV     R0,#?V0 + 0
-        LCALL   ?PUSH_XSTACK_I_ONE
-        CFI CFA_XSP16 add(XSP16, 21)
-        MOV     R4,#0x6
-        MOV     R5,#0x0
-        MOV     R2,#(zclZigbeeDevice_DstAddr & 0xff)
-        MOV     R3,#((zclZigbeeDevice_DstAddr >> 8) & 0xff)
-        MOV     R1,#0xc
-        LCALL   ??zcl_SendCommand?relay
-        MOV     A,#0xb
-        LCALL   ?DEALLOC_XSTACK8
-        CFI CFA_XSP16 add(XSP16, 10)
-//  265 }
-        MOV     R7,#0x2
-        LJMP    ?BANKED_LEAVE_XDATA
-        CFI EndBlock cfiBlock1
-
-        RSEG BANKED_CODE:CODE:NOROOT(0)
-?Subroutine0:
-        CFI Block cfiCond2 Using cfiCommon0
-        CFI NoFunction
-        CFI Conditional ??CrossCallReturnLabel_0
-        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI CFA_SP SP+0
-        CFI CFA_XSP16 add(XSP16, 10)
-        CFI Block cfiCond3 Using cfiCommon0
-        CFI (cfiCond3) NoFunction
-        CFI (cfiCond3) Conditional ??CrossCallReturnLabel_1
-        CFI (cfiCond3) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-        CFI (cfiCond3) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
-        CFI (cfiCond3) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-        CFI (cfiCond3) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-        CFI (cfiCond3) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-        CFI (cfiCond3) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-        CFI (cfiCond3) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-        CFI (cfiCond3) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-        CFI (cfiCond3) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
-        CFI (cfiCond3) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
-        CFI (cfiCond3) CFA_SP SP+0
-        CFI (cfiCond3) CFA_XSP16 add(XSP16, 10)
-        CFI Block cfiPicker4 Using cfiCommon1
-        CFI (cfiPicker4) NoFunction
-        CFI (cfiPicker4) Picker
-        MOVX    @DPTR,A
-        MOV     A,R4
-        MOV     R0,A
-        MOV     A,R5
-        MOV     R1,A
-        MOV     R2,#0xa
-        MOV     R3,#0x0
-        RET
-        CFI EndBlock cfiCond2
-        CFI EndBlock cfiCond3
-        CFI EndBlock cfiPicker4
-
-        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
-??sleep?relay:
-        LCALL   ?BDISPATCH
-        DATA
-        DC24    sleep
-
-        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
-??M190_SensorFunction?relay:
-        LCALL   ?BDISPATCH
-        DATA
-        DC24    M190_SensorFunction
-
-        END
-//  266 #endif
-//  267  
-//  268 #if defined(M200)
-//  269 void M200_SensorFunction(void)
-//  270  {
-//  271     // M200 module variable
-//  272     uint16 temp, humi;
-//  273       
-//  274     // initilization the device
-//  275     M200_Init();
-//  276   
-//  277     M200_GetValue();
-//  278     temp = (uint16)(((((float)M200_Temp) *0.01) - 40.0) *10.0);
-//  279     humi = (uint16)(((((float)M200_Humi) *0.0405) - (((float)M200_Humi)*((float)M200_Humi) *0.0000028) - 4.0) *10.0);
-//  280     if (humi > 999)
-//  281     {
-//  282       humi = 999;
-//  283     }
-//  284     if (temp > 999)
-//  285     {
-//  286       temp = 999;
-//  287     }
-//  288     
-//  289     TransmitApp_Msg[0] = (humi / 100) + '0';
-//  290     TransmitApp_Msg[1] = ((humi / 10) % 10) + '0';
-//  291     TransmitApp_Msg[2] = '.';
-//  292     TransmitApp_Msg[3] = (humi % 10) + '0';
-//  293     TransmitApp_Msg[4] = ' ';
-//  294     TransmitApp_Msg[5] = (temp / 100) + '0';
-//  295     TransmitApp_Msg[6] = ((temp / 10) % 10) + '0';
-//  296     TransmitApp_Msg[7] = '.';
-//  297     TransmitApp_Msg[8] = (temp % 10) + '0';
-//  298     
-//  299     uint8 tmp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, ZCL_CLUSTER_ID_GEN_ON_OFF, 
-//  300                                  ZCL_CLUSTER_ID_GEN_BASIC, TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 9, TransmitApp_Msg );
-//  301  }
-//  302 #endif
-//  303  
-//  304 #if defined(M270)
-//  305 
-//  306 void M270_SensorFunction(void)
-//  307 {
-//  308     static uint8 udo;
-//  309 
-//  310     M270_Init();
-//  311     
-//  312     if( ch == 'A' )
-//  313     {
-//  314         udo = 1;
-//  315         M270_SetDO(udo);
-//  316     }
-//  317      
-//  318     if( ch == 'D' )
-//  319     {
-//  320         udo = 0;
-//  321         M270_SetDO(udo);
-//  322     }
-//  323 }
-//  324 #endif
+//  260     uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
+//  261                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
+//  262                                  TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 10, 
+//  263                                  TransmitApp_Msg );
+//  264 }
+//  265 #endif
+//  266  
+//  267 #if defined(M200)
+//  268 void M200_SensorFunction(void)
+//  269  {
+//  270     // M200 module variable
+//  271     uint16 temp, humi;
+//  272       
+//  273     // initilization the device
+//  274     M200_Init();
+//  275   
+//  276     M200_GetValue();
+//  277     temp = (uint16)(((((float)M200_Temp) *0.01) - 40.0) *10.0);
+//  278     humi = (uint16)(((((float)M200_Humi) *0.0405) - (((float)M200_Humi)*((float)M200_Humi) *0.0000028) - 4.0) *10.0);
+//  279     if (humi > 999)
+//  280     {
+//  281       humi = 999;
+//  282     }
+//  283     if (temp > 999)
+//  284     {
+//  285       temp = 999;
+//  286     }
+//  287     
+//  288     TransmitApp_Msg[0] = (humi / 100) + '0';
+//  289     TransmitApp_Msg[1] = ((humi / 10) % 10) + '0';
+//  290     TransmitApp_Msg[2] = '.';
+//  291     TransmitApp_Msg[3] = (humi % 10) + '0';
+//  292     TransmitApp_Msg[4] = ' ';
+//  293     TransmitApp_Msg[5] = (temp / 100) + '0';
+//  294     TransmitApp_Msg[6] = ((temp / 10) % 10) + '0';
+//  295     TransmitApp_Msg[7] = '.';
+//  296     TransmitApp_Msg[8] = (temp % 10) + '0';
+//  297     
+//  298     uint8 tmp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, ZCL_CLUSTER_ID_GEN_ON_OFF, 
+//  299                                  ZCL_CLUSTER_ID_GEN_BASIC, TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 9, TransmitApp_Msg );
+//  300  }
+//  301 #endif
+//  302  
+//  303 #if defined(M270)
+//  304 
+//  305 void M270_SensorFunction(void)
+//  306 {
+//  307     static uint8 udo;
+//  308 
+//  309     M270_Init();
+//  310     
+//  311     if( ch == 'A' )
+//  312     {
+//  313         udo = 1;
+//  314         M270_SetDO(udo);
+//  315     }
+//  316      
+//  317     if( ch == 'D' )
+//  318     {
+//  319         udo = 0;
+//  320         M270_SetDO(udo);
+//  321     }
+//  322 }
+//  323 #endif
 // 
-// 322 bytes in segment BANKED_CODE
-//  12 bytes in segment BANK_RELAYS
+//  64 bytes in segment BANKED_CODE
+//   6 bytes in segment BANK_RELAYS
 // 102 bytes in segment XDATA_Z
 // 
-// 334 bytes of CODE  memory
+//  70 bytes of CODE  memory
 // 102 bytes of XDATA memory
 //
 //Errors: none

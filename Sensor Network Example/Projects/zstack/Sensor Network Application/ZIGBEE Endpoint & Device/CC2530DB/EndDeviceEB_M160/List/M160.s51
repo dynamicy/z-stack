@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               05/Sep/2013  13:21:32 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               06/Sep/2013  11:20:31 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -54,8 +54,9 @@
 //                          NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D           /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER  /
-//                          -D M190 -lC "D:\GitHub\z-stack\Sensor Network     /
+//                          End_Device -D HAL_KEYPAD -D xPA2591 -D            /
+//                          HAL_TIMER=TRUE -D MMN_UART -lC                    /
+//                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -659,14 +660,16 @@ M160_Timer_Call_Back:
         CLR     C
         SUBB    A,R2
         JC      ??M160_Timer_Call_Back_1
-//  110       HAL_DO_OFF();
-        SETB    0x80.0
-        SJMP    ??M160_Timer_Call_Back_2
-//  111   else
-//  112       HAL_DO_ON();
-??M160_Timer_Call_Back_1:
+//  110       HAL_DO_ON();
         CLR     0x80.0
-//  113 }
+        SJMP    ??M160_Timer_Call_Back_2
+//  111       //HAL_DO_OFF();
+//  112   else
+//  113       //HAL_DO_ON();
+//  114       HAL_DO_OFF();
+??M160_Timer_Call_Back_1:
+        SETB    0x80.0
+//  115 }
 ??M160_Timer_Call_Back_2:
         SJMP    ?Subroutine0
         CFI EndBlock cfiBlock4

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                            /
-// IAR C/C++ Compiler V7.51A/W32 for 8051               05/Sep/2013  13:21:51 /
+// IAR C/C++ Compiler V7.51A/W32 for 8051               06/Sep/2013  11:20:49 /
 // Copyright 2004-2009 IAR Systems AB.                                        /
 //                                                                            /
 //    Core               =  plain                                             /
@@ -55,8 +55,9 @@
 //                          .c" -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D    /
 //                          MT_APP_FUNC -D MT_SYS_FUNC -D MT_ZDO_FUNC -D      /
 //                          LCD_SUPPORTED=DEBUG -D xPOWER_SAVING -D           /
-//                          End_Device -D HAL_KEYPAD -D xPA2591 -D HAL_TIMER  /
-//                          -D M190 -lC "D:\GitHub\z-stack\Sensor Network     /
+//                          End_Device -D HAL_KEYPAD -D xPA2591 -D            /
+//                          HAL_TIMER=TRUE -D MMN_UART -lC                    /
+//                          "D:\GitHub\z-stack\Sensor Network                 /
 //                          Example\Projects\zstack\Sensor Network            /
 //                          Application\ZIGBEE Endpoint &                     /
 //                          Device\CC2530DB\EndDeviceEB_M160\List\" -lA       /
@@ -1237,8 +1238,8 @@ halKeypadI2cRead:
         SJMP    ?Subroutine10
         CFI EndBlock cfiBlock22
         REQUIRE _A_P2
-        REQUIRE P2SEL
         REQUIRE P2INP
+        REQUIRE P2SEL
         REQUIRE P2DIR
 //  136 }
 
@@ -2444,8 +2445,8 @@ halKeypadInit:
 //  228 }
         LJMP    ??Subroutine11_0 & 0xFFFF
         CFI EndBlock cfiBlock53
-        REQUIRE P2SEL
         REQUIRE P2INP
+        REQUIRE P2SEL
         REQUIRE P2DIR
 
         RSEG BANKED_CODE:CODE:NOROOT(0)

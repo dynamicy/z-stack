@@ -257,7 +257,6 @@ void M190_SensorFunction(void)
     TransmitApp_Msg[7] = ((val / 10) % 10) + '0';
     TransmitApp_Msg[8] = (val % 10) + '0';
     TransmitApp_Msg[9] = ',';  
-    
     uint8 temp = zcl_SendCommand( ZIGBEEDEVICE_ENDPOINT, &zclZigbeeDevice_DstAddr, 
                                  ZCL_CLUSTER_ID_GEN_ON_OFF, ZCL_CLUSTER_ID_GEN_BASIC,
                                  TRUE, ZCL_FRAME_CLIENT_SERVER_DIR, false, 0, 0, 10, 

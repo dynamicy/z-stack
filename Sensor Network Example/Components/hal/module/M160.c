@@ -107,7 +107,9 @@ void M160_Timer_Call_Back(uint8 timerId, uint8 channel, uint8 channelMode){
   if (M160_DutyCount >= 100)
       M160_DutyCount = 0;
   if (M160_DutyCount >= M160_DutyValue)
-      HAL_DO_OFF();
-  else
       HAL_DO_ON();
+      //HAL_DO_OFF();
+  else
+      //HAL_DO_ON();
+      HAL_DO_OFF();
 }
